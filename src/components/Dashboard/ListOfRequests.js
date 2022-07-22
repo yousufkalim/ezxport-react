@@ -15,10 +15,38 @@ function createData(name, calories, fat, carbs, protein, protein2) {
 }
 const rows = [
   createData('Application title', ' 07 / 03 / 2022', '300 €', 23, '–', 'Sent'),
-  createData('Application title', 237, 9.0, 37, 4.3, 4.4),
-  createData('Application title', 262, 16.0, 24, 6.0, 4.0),
-  createData('Application title', 305, 3.7, 67, 4.3, 67),
-  createData('Application title', 356, 16.0, 49, 3.9, 57),
+  createData(
+    'Application title',
+    ' 07 / 03 / 2022',
+    '300 €',
+    23,
+    'Veritas, Veritas 2',
+    'Receipt being processed'
+  ),
+  createData(
+    'Application title',
+    ' 07 / 03 / 2022',
+    '300 €',
+    23,
+    'Veritas, Veritas 2',
+    'Missing documents'
+  ),
+  createData(
+    'Application title',
+    ' 07 / 03 / 2022',
+    '300 €',
+    23,
+    'Veritas, Veritas 2',
+    'Contract to be signed'
+  ),
+  createData(
+    'Application title',
+    ' 07 / 03 / 2022',
+    '300 €',
+    23,
+    'Veritas, Veritas 2',
+    'File validated'
+  ),
 ];
 
 const ListOfRequests = () => {
@@ -40,22 +68,46 @@ const ListOfRequests = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Request
                     </TableCell>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Date
                     </TableCell>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Certificate cost
                     </TableCell>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Nb codes
                     </TableCell>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Service providers
                     </TableCell>
-                    <TableCell align="left" className="country">
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: '#EAECF0' }}
+                    >
                       Statutes
                     </TableCell>
                   </TableRow>
@@ -69,21 +121,21 @@ const ListOfRequests = () => {
                       <TableCell component="th" scope="row">
                         {row.name}
                         <br />
-                        <p className="country"> Country</p>
+                        <p className="country2"> Country</p>
                       </TableCell>
-                      <TableCell align="left" className="country">
+                      <TableCell align="left" className="country2">
                         {row.calories}
                       </TableCell>
-                      <TableCell align="left" className="country">
+                      <TableCell align="left" className="country2">
                         {row.fat}
                       </TableCell>
-                      <TableCell align="left" className="country">
+                      <TableCell align="left" className="country2">
                         {row.carbs}
                       </TableCell>
-                      <TableCell align="left" className="country">
+                      <TableCell align="left" className="country2">
                         {row.protein}
                       </TableCell>
-                      <TableCell align="left" className="country">
+                      <TableCell align="left" className="country2 clrClass">
                         {row.protein2}
                       </TableCell>
                     </TableRow>

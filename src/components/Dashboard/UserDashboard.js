@@ -16,8 +16,8 @@ const UserDashboard = () => {
         <div className="userDashboar_center_div">
           <div className="dashboard_left_side">
             {/* dashbord logo  */}
-            <div className="dash_logo">
-              <img src={DashLogo} alt="" className="dashboar_logo" />
+            <div className="dashoard_logo">
+              <img src={DashLogo} alt="" className="dashboard_logo" />
             </div>
             {/* dashbord menu  */}
             <LeftSide
