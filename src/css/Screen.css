@@ -1,0 +1,176 @@
+.login_mainDiv {
+  text-align: center;
+}
+.login_h2 {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 2% 0;
+}
+label {
+  display: block;
+  text-align: left;
+  font-weight: 500;
+  font-size: 14px;
+  color: #344054;
+}
+.login_mainDiv {
+  position: relative;
+  width: 90%;
+  margin: auto;
+}
+.backArrow {
+  text-align: left;
+  display: block;
+  cursor: pointer;
+}
+.loginCenterDiv {
+  width: 25%;
+  margin: 5% auto;
+}
+.login_icon_div {
+  margin: 0 0 10% 0;
+}
+.input_email {
+  width: 100%;
+  padding: 3% 2%;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  margin: 2% 0;
+}
+.input_field {
+  position: relative;
+  margin: 0 0 5% 0;
+}
+.input_field2 {
+  position: relative;
+}
+.quizIcon {
+  position: absolute;
+  right: 2%;
+  top: 38%;
+}
+.forgot_p {
+  color: #6941c6;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+  padding: 3% 0 6% 0;
+  margin-left: auto;
+  display: block;
+  text-decoration: none;
+}
+.logingbtn,
+.regBtn {
+  display: block;
+  background-color: #6941c6;
+  border: none;
+  color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4% 0 0 0;
+  text-decoration: none;
+}
+.regBtn2 {
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-bottom: 5px !important;
+}
+.regBtn {
+  background: none;
+  color: #6941c6;
+}
+@media screen and (max-width: 880px) {
+  .loginCenterDiv {
+    width: 70%;
+    margin: 5% auto;
+  }
+}
+/* forget password  */
+.forget_p {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 2% 0;
+}
+
+/* Registration form  */
+.registration_div {
+  width: 90%;
+  margin: auto;
+  margin: 3% auto;
+}
+.user_info {
+  text-align: left;
+  padding: 2% 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.regist_input_div {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 1% 0;
+}
+.regist_col1 {
+  width: 48%;
+}
+.reg_input {
+  width: 100%;
+  padding: 3% 2%;
+  margin: 2% 0;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+}
+.city_inputs {
+  width: 70%;
+}
+.city_inputs2 {
+  width: 100%;
+}
+.reg_input2 {
+  width: 80%;
+  padding: 7% 2%;
+  margin: 5% 0;
+  display: block;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+}
+.reg_input3 {
+  width: 100%;
+  padding: 4.8% 2%;
+  margin: 4.3% 0;
+  display: block;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+}
+.regist_col2 {
+  width: 48%;
+  display: flex;
+}
+.register_fm {
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px 18px;
+  width: 412px;
+  margin: 3% 0;
+}
+@media screen and (max-width: 580px) {
+  .regist_input_div {
+    flex-direction: column;
+  }
+  .regist_col1 {
+    width: 100%;
+  }
+  .regist_col2 {
+    width: 100%;
+  }
+}

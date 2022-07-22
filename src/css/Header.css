@@ -1,4 +1,5 @@
 /* Header Component Style */
-h1 {
-  color: red;
+.header {
+  text-align: center;
+  margin-top: 4%;
 }

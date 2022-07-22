@@ -1,14 +1,15 @@
 // Init
-import React from "react";
+import React from 'react';
 
 // Importing Components
-import Header from "../components/Header";
+
+import Login from '../components/Screen/Login';
 
 // Home Component
 export default function Home() {
   return (
     <div>
-      <Header />
+      <Login />
     </div>
   );
 }
