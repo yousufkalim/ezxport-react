@@ -1,11 +1,15 @@
 // Init
-import React from "react";
+import React from 'react';
+import '../css/Header.css';
+import EzxportIcon from '../assets/EzxportIcon.svg';
 
 // Component
 export default function Header() {
   return (
-    <div>
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <div className="header">
+        <img src={EzxportIcon} alt="" className="header_center_div" />
+      </div>
+    </>
   );
 }
