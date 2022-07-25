@@ -14,14 +14,13 @@ function createData(name, calories, fat, carbs, protein, protein2) {
   return { name, calories, fat, carbs, protein, protein2 };
 }
 const rows = [
-  createData('Application title', ' 07 / 03 / 2022', '300 €', 23, '–', 'Sent'),
   createData(
     'Application title',
     ' 07 / 03 / 2022',
     '300 €',
     23,
     'Veritas, Veritas 2',
-    'Receipt being processed'
+    'File validated'
   ),
   createData(
     'Application title',
@@ -29,7 +28,7 @@ const rows = [
     '300 €',
     23,
     'Veritas, Veritas 2',
-    'Missing documents'
+    'File validated'
   ),
   createData(
     'Application title',
@@ -37,7 +36,15 @@ const rows = [
     '300 €',
     23,
     'Veritas, Veritas 2',
-    'Contract to be signed'
+    'File validated'
+  ),
+  createData(
+    'Application title',
+    ' 07 / 03 / 2022',
+    '300 €',
+    23,
+    'Veritas, Veritas 2',
+    'File validated'
   ),
   createData(
     'Application title',
@@ -135,8 +142,8 @@ const ListOfRequests = () => {
                       <TableCell align="left" className="country2">
                         {row.protein}
                       </TableCell>
-                      <TableCell align="left" className="country2 clrClass">
-                        {row.protein2}
+                      <TableCell align="left">
+                        <p className="clrClass">{row.protein2}</p>
                       </TableCell>
                     </TableRow>
                   ))}

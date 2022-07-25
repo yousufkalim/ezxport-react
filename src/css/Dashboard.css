@@ -8,9 +8,11 @@
   color: #fff;
   position: relative;
   padding: 2% 2%;
+  left: 0;
 }
 .dashboard_logo {
-  padding: 0 0 5% 0;
+  /* padding: 0 0 5% 0; */
+  padding: 8px 12px;
 }
 .dashboard_right_side {
   width: 80%;
@@ -29,7 +31,8 @@
 .dashboard_li {
   width: 100%;
   list-style: none;
-  padding: 5% 0;
+  /* padding: 5% 0; */
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   font-size: 16px;
@@ -37,7 +40,13 @@
   cursor: pointer;
   text-decoration: none;
 }
-.desh_user {
+.activeLi {
+  background: #7f56d9;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.deshboard_user {
   list-style: none;
   padding: 5% 0 5px 0;
   font-size: 14px;
@@ -92,5 +101,53 @@
   color: #667085 !important;
 }
 .clrClass {
-  color: red !important;
+  color: #027a48 !important;
+  background: #ecfdf3;
+  border-radius: 16px;
+  padding: 2px 4px !important;
+  display: inline-block !important;
+}
+.hambrgr_icon {
+  display: none !important;
+}
+.dashboard_left_side2 {
+  display: none;
+  background-color: #6941c6;
+
+  color: #fff;
+  position: relative;
+  padding: 2% 2%;
+  left: 0;
+}
+
+@media screen and (max-width: 780px) {
+  .hambrgr_icon {
+    display: block !important;
+    margin: 2% 2%;
+    color: #6941c6;
+  }
+  .cros_icon {
+    float: right;
+  }
+  .dashboard_left_side2 {
+    position: fixed;
+    display: block;
+    width: 250px;
+    height: 100%;
+  }
+  .dashboard_left_side {
+    display: none;
+  }
+  .list_h1 {
+    font-size: 17px;
+  }
+  .list_reqst_btn {
+    font-size: 14px;
+  }
+  .dashboard_li {
+    font-size: 14px;
+  }
+  .dashboard_logo {
+    width: 60%;
+  }
 }

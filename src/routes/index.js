@@ -9,20 +9,23 @@ import ResetPassword from '../components/Screen/ResetPassword';
 import ChangePassword from '../components/Screen/ChangePassword';
 import ChangeSuccessfully from '../components/Screen/ChangeSuccessfully';
 import Registration from '../components/Screen/Registration';
-import Dashboard from '../containers/Dashboard';
+import UserLayouts from '../Layouts/UserLayouts';
 
 const index = () => {
   return (
-    <Switch>
-      <Route exact path="/" component={Login} />
-      <Route exact path="/forgetpassword" component={ForgetPassword} />
-      <Route exact path="/resetpassword" component={ResetPassword} />
-      <Route exact path="/changepassword" component={ChangePassword} />
-      <Route exact path="/changesuccessfully" component={ChangeSuccessfully} />
-      <Route exact path="/registration" component={Registration} />
-      {/* dashbourd  */}
-      <Route exact path="/dashboard" component={Dashboard} />
-    </Switch>
+    <>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/forgetpassword" component={ForgetPassword} />
+        <Route exact path="/resetpassword" component={ResetPassword} />
+        <Route exact path="/changepassword" component={ChangePassword} />
+        <Route exact path="/changesuccessfully" component={ChangeSuccessfully} />
+        <Route exact path="/registration" component={Registration} />
+        {/* dashbourd  */}
+
+        <Route path="/User/Dashboard" component={UserLayouts} />
+      </Switch>
+    </>
   );
 };
 
