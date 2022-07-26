@@ -1,11 +1,9 @@
-import React from 'react';
-import '../../css/Screen.css';
-import ForgetLogo from '../../assets/ForgetLogo.svg';
-import Quiz from '../../assets/Quiz.png';
-import Header from '../Header';
-import { NavLink, useHistory } from 'react-router-dom';
-import BackArrow from '../../assets/BackArrow.svg';
-
+import React from "react";
+import ForgetLogo from "../../assets/ForgetLogo.svg";
+import Quiz from "../../assets/Quiz.png";
+import Header from "../Header";
+import { NavLink, useHistory } from "react-router-dom";
+import BackArrow from "../../assets/BackArrow.svg";
 const ResetPassword = () => {
   const history = useHistory();
 
@@ -18,7 +16,7 @@ const ResetPassword = () => {
           alt=""
           className="backArrow"
           onClick={() => {
-            history.push('/forgetpassword');
+            history.push("/forgetpassword");
           }}
         />
         <div className="loginCenterDiv">
@@ -26,7 +24,7 @@ const ResetPassword = () => {
 
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
-            <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: '5px' }} />
+            <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: "5px" }} />
             <br />
             <h2 className="login_h2">Forgot your password ?</h2>
             <p className="forget_p">Please enter your email address to reset your password</p>
