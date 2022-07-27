@@ -1,6 +1,6 @@
 import React from "react";
-import ChangedPIcon from "../../assets/ChangedPIcon.svg";
-import Header from "../Header";
+import ChangedPIcon from "../assets/ChangedPIcon.svg";
+import Header from "../components/Header";
 import { useHistory } from "react-router";
 
 const ChangeSuccessfully = ({ setResetPassword }) => {

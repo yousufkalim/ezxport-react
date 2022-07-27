@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import SearchField from '../../Components/SearchField';
+import SearchField from "../../components/SearchField";
 // table
 
 // import SearchIcon from '@mui/icons-material/Search';
-import TabMenu from '../../Components/TabMenu';
-import Button from '../../Components/Button';
+import TabMenu from "../../components/TabMenu";
+import Button from "../../components/Button";
 
 const AddressBook = () => {
   return (

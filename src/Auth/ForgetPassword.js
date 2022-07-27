@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import "../../css/Screen.css";
-import ForgetLogo from "../../assets/ForgetLogo.svg";
-import Quiz from "../../assets/Quiz.png";
-import Header from "../Header";
+import ForgetLogo from "../assets/ForgetLogo.svg";
+import Quiz from "../assets/Quiz.png";
+import Header from "../components/Header";
 import { NavLink, useHistory } from "react-router-dom";
-import BackArrow from "../../assets/BackArrow.svg";
-import API from "../../api";
+import BackArrow from "../assets/BackArrow.svg";
+import API from "../api";
 import { toast } from "react-toastify";
-import { className } from "postcss-selector-parser";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("dojac63370@aregods.com");

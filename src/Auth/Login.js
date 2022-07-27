@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "../../css/Screen.css";
-import LoginIcon from "../../assets/LoginIcon.svg";
-import Quiz from "../../assets/Quiz.png";
+import LoginIcon from "../assets/LoginIcon.svg";
+import Quiz from "../assets/Quiz.png";
 import { NavLink } from "react-router-dom";
-import Header from "../Header";
-import API from "../../api/index";
+import Header from "../components/Header";
+import API from "../api/index";
 import { useHistory } from "react-router";
 import { toast } from "react-toastify";
 

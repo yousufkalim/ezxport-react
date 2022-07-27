@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import ChangeSuccessfully from "./ChangeSuccessfully";
 import { toast } from "react-toastify";
-import API from "../../api";
-
+import API from "../api";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
-import Header from "../Components/Header";
+import Header from "../components/Header";
 // import InputField from "../Components/InputField";
 // import { NavLink } from "react-router-dom";
 

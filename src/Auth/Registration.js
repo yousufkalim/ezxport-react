@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Header from "../Header";
+import Header from "../components/Header";
 import { NavLink, useHistory } from "react-router-dom";
-import BackArrow from "../../assets/BackArrow.svg";
-import API from "../../api";
+import BackArrow from "../assets/BackArrow.svg";
+import API from "../api";
 import { toast } from "react-toastify";
 
 const Registration = () => {

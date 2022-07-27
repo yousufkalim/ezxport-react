@@ -1,9 +1,9 @@
 import React from "react";
-import ForgetLogo from "../../assets/ForgetLogo.svg";
-import Quiz from "../../assets/Quiz.png";
-import Header from "../Header";
+import ForgetLogo from "../assets/ForgetLogo.svg";
+import Quiz from "../assets/Quiz.png";
+import Header from "../components/Header";
 import { NavLink, useHistory } from "react-router-dom";
-import BackArrow from "../../assets/BackArrow.svg";
+import BackArrow from "../assets/BackArrow.svg";
 const ResetPassword = () => {
   const history = useHistory();
 
