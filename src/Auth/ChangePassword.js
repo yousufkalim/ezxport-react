@@ -16,7 +16,10 @@ const ChangePassword = ({ Token, setResetPassword }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const handleChangePassword = async () => {
-    await API("put", `/auth/new-password/${Token}`, { newPassword: password, confirmPassword: confirmPassword })
+    await API("put", `/auth/new-password/${Token}`, {
+      newPassword: password,
+      confirmPassword: confirmPassword,
+    })
       .then((res) => {
         if (res.data.success) {
           toast.success(res.data.message);

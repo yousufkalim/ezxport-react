@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import '../css/Dashboard.css';
-import DashLogo from '../assets/DashLogo.svg';
+import React, { useState } from "react";
+import "../css/Dashboard.css";
+import DashLogo from "../assets/DashLogo.svg";
 import Drawer from "../components/Drawer";
-import { UserRoutes } from '../routes/routes';
-import { Switch, Route } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
+import { UserRoutes } from "../routes/routes";
+import { Switch, Route } from "react-router-dom";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const UserLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -32,7 +32,11 @@ const UserLayouts = () => {
                   <img src={DashLogo} alt="" className="dashboard_logo" />
                 </div>
                 {/* dashbord menu  */}
-                <Drawer handleActiveUploadButton={handleActiveUploadButton} activeUploadButton={activeUploadButton} />
+                <Drawer
+                  Route={UserRoutes}
+                  handleActiveUploadButton={handleActiveUploadButton}
+                  activeUploadButton={activeUploadButton}
+                />
               </div>
             </>
           ) : (
@@ -43,7 +47,11 @@ const UserLayouts = () => {
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
                 {/* dashbord menu  */}
-                <Drawer handleActiveUploadButton={handleActiveUploadButton} activeUploadButton={activeUploadButton} />
+                <Drawer
+                  Route={UserRoutes}
+                  handleActiveUploadButton={handleActiveUploadButton}
+                  activeUploadButton={activeUploadButton}
+                />
               </div>
             </>
           )}
