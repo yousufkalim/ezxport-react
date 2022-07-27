@@ -1,16 +1,18 @@
 /* Importing all CSS files */
-@import url('./Header.css');
-@import url('./Screen.css');
+/* @import url('./Header.css'); */
+@import url("./Component/Header.css");
+@import url("./Dashboard.css");
+@import url("./Screen.css");
 
 /* Defaults */
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif !important;
 }
 
 /* Primary Variables */
 :root {
-  --primary: 'green';
+  --primary: "green";
 }

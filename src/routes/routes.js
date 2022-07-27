@@ -1,30 +1,18 @@
 import React from 'react';
 // import { Route, Switch, Redirect } from 'react-router-dom';
-import ListOfRequests from '../components/Dashboard/ListOfRequests';
-import Providers from '../components/Dashboard/Providers';
-import AddressBook from '../components/Dashboard/AddressBook';
-import Documents from '../components/Dashboard/Documents';
+import ListOfRequests from '../Dashboard/UserDashboard/ListOfRequests';
+import Providers from '../Dashboard/UserDashboard/Providers';
+import AddressBook from '../Dashboard/UserDashboard/AddressBook';
+import Documents from '../Dashboard/UserDashboard/Documents';
+import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
+import Application from '../Dashboard/UserDashboard/Application';
 // icons of screen
 import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
 import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
 import { ReactComponent as Logo3 } from '../assets/LILogo3.svg';
 import { ReactComponent as Logo4 } from '../assets/LILogo4.svg';
+import { ReactComponent as Logo5 } from '../assets/LILogo5.svg';
 
-// const RightSlide = () => {
-//   return (
-//     <>
-//       <div className="dashboard_right_side">
-//         <Switch>
-//           <Route path="/User/Dashboard/ListOfRequests" render={() => <ListOfRequests />} />
-//           <Route path="/User/Dashboard/Providers" render={() => <Providers />} />
-//           <Route path="/User/Dashboard/AddressBook" render={() => <AddressBook />} />
-//           <Route path="/User/Dashboard/Documents" render={() => <Documents />} />
-//           <Redirect from="*" to="/User/Dashboard/ListOfRequests" />
-//         </Switch>
-//       </div>
-//     </>
-//   );
-// };
 export const UserRoutes = [
   {
     path: '/User/Dashboard/ListOfRequests',
@@ -49,6 +37,18 @@ export const UserRoutes = [
     name: 'Documents',
     icon: <Logo4 />,
     component: Documents,
+  },
+  {
+    path: '/User/Dashboard/AskQuestion',
+    name: 'AskQuestion',
+    icon: <Logo5 />,
+    component: AskQuestion,
+  },
+  {
+    path: '/User/Dashboard/Application',
+    name: 'Application',
+    // icon: <Logo5 />,
+    component: Application,
   },
 ];
 

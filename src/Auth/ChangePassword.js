@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import ForgetLogo from "../../assets/ForgetLogo.svg";
-import Quiz from "../../assets/Quiz.png";
-import Header from "../Header";
-import { NavLink } from "react-router-dom";
 import ChangeSuccessfully from "./ChangeSuccessfully";
 import { toast } from "react-toastify";
 import API from "../../api";
-// import useHistory from "react-router-dom";
+
+import ForgetLogo from "../assets/ForgetLogo.svg";
+import Quiz from "../assets/Quiz.png";
+import Header from "../Components/Header";
+// import InputField from "../Components/InputField";
+// import { NavLink } from "react-router-dom";
 
 const ChangePassword = ({ Token, setResetPassword }) => {
   // const history = useHistory(null);

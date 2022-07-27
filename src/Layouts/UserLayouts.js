@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Dashboard.css';
 import DashLogo from '../assets/DashLogo.svg';
-import LeftSide from '../components/Dashboard/LeftSide';
+import Drawer from '../Components/Drawer';
 import { UserRoutes } from '../routes/routes';
 import { Switch, Route } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -32,7 +32,7 @@ const UserLayouts = () => {
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
                 {/* dashbord menu  */}
-                <LeftSide
+                <Drawer
                   handleActiveUploadButton={handleActiveUploadButton}
                   activeUploadButton={activeUploadButton}
                 />
@@ -46,7 +46,7 @@ const UserLayouts = () => {
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
                 {/* dashbord menu  */}
-                <LeftSide
+                <Drawer
                   handleActiveUploadButton={handleActiveUploadButton}
                   activeUploadButton={activeUploadButton}
                 />

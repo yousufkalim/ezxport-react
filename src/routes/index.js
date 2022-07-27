@@ -1,22 +1,21 @@
 // Init
-import Login from "../components/Screen/Login";
 import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router";
 import API from "../api";
 
 // Routes
-import ForgetPassword from "../components/Screen/ForgetPassword";
-import ResetPassword from "../components/Screen/ResetPassword";
-import ChangePassword from "../components/Screen/ChangePassword";
-import ChangeSuccessfully from "../components/Screen/ChangeSuccessfully";
-import Registration from "../components/Screen/Registration";
-import UserLayouts from "../Layouts/UserLayouts";
 import { toast } from "react-toastify";
+import Login from "../Auth/Login";
+import ForgetPassword from "../Auth/ForgetPassword";
+import ResetPassword from "../Auth/ResetPassword";
+import ChangePassword from "../Auth/ChangePassword";
+import ChangeSuccessfully from "..//Auth/ChangeSuccessfully";
+import Registration from "../Auth/Registration";
+import UserLayouts from "../Layouts/UserLayouts";
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get("reset");
 const Token = queryParams.get("token");
-
 const Index = () => {
   const history = useHistory(null);
   const [resetPassword, setResetPassword] = useState(false);
