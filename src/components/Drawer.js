@@ -7,54 +7,29 @@ import LILogo4 from '../assets/LILogo4.svg';
 import LILogo5 from '../assets/LILogo5.svg';
 import LILogo6 from '../assets/LILogo6.svg';
 import LILogo7 from '../assets/LILogo7.svg';
-const Drawer = ({ handleActiveUploadButton, activeUploadButton }) => {
+
+const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   return (
     <>
       <div className="dash_menu">
         <ul className="dashboard_ul">
-          <NavLink
-            exact
-            activeClassName="activeColor"
-            to="/User/Dashboard/ListOfRequests"
-            className={`${activeUploadButton === 1 && 'activeLi'} dashboard_li `}
-            onClick={() => handleActiveUploadButton(1)}
-          >
-            <img src={LILogo1} alt="" className="li_img" />
-            Follow-up of requests
-          </NavLink>
-
-          <NavLink
-            exact
-            activeClassName="activeColor"
-            to="/User/Dashboard/Providers"
-            className={`${activeUploadButton === 2 && 'activeLi'} dashboard_li `}
-            onClick={() => handleActiveUploadButton(2)}
-          >
-            <img src={LILogo2} alt="" className="li_img" />
-            Service providers
-          </NavLink>
-
-          <NavLink
-            exact
-            activeClassName="activeColor"
-            to="/User/Dashboard/AddressBook"
-            className={`${activeUploadButton === 3 && 'activeLi'} dashboard_li `}
-            onClick={() => handleActiveUploadButton(3)}
-          >
-            <img src={LILogo3} alt="" className="li_img" />
-            Address Book
-          </NavLink>
-
-          <NavLink
-            exact
-            activeClassName="activeColor"
-            to="/User/Dashboard/Documents"
-            className={`${activeUploadButton === 4 && 'activeLi'} dashboard_li `}
-            onClick={() => handleActiveUploadButton(4)}
-          >
-            <img src={LILogo4} alt="" className="li_img" />
-            Documents
-          </NavLink>
+          {Route.map((item, index) => {
+            console.log(index);
+            return (
+              <>
+                <NavLink
+                  exact
+                  activeClassName="activeColor"
+                  to={item.path}
+                  className={`${activeUploadButton === index && 'activeLi'} dashboard_li `}
+                  onClick={() => handleActiveUploadButton(index)}
+                >
+                  <img src={item.icon} alt="" className="li_img" />
+                  {item.name}
+                </NavLink>
+              </>
+            );
+          })}
         </ul>
       </div>
       {/* dashbord menu 2 */}

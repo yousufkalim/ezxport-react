@@ -6,6 +6,10 @@ import AddressBook from '../Dashboard/UserDashboard/AddressBook';
 import Documents from '../Dashboard/UserDashboard/Documents';
 import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
 import Application from '../Dashboard/UserDashboard/Application';
+import Country from '../Dashboard/AdimDashboard/Country';
+import ServiceProviders from '../Dashboard/AdimDashboard/ServiceProviders';
+import Users from '../Dashboard/AdimDashboard/Users';
+import Requests from '../Dashboard/AdimDashboard/Requests';
 // icons of screen
 import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
 import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
@@ -22,13 +26,13 @@ export const UserRoutes = [
   },
   {
     path: '/User/Dashboard/Providers',
-    name: 'Providers',
+    name: 'Service providers',
     icon: <Logo2 />,
     component: Providers,
   },
   {
     path: '/User/Dashboard/AddressBook',
-    name: 'AddressBook',
+    name: 'Address Book',
     icon: <Logo3 />,
     component: AddressBook,
   },
@@ -38,18 +42,42 @@ export const UserRoutes = [
     icon: <Logo4 />,
     component: Documents,
   },
-  {
-    path: '/User/Dashboard/AskQuestion',
-    name: 'AskQuestion',
-    icon: <Logo5 />,
-    component: AskQuestion,
-  },
-  {
-    path: '/User/Dashboard/Application',
-    name: 'Application',
-    // icon: <Logo5 />,
-    component: Application,
-  },
+  // {
+  //   path: '/User/Dashboard/AskQuestion',
+  //   name: ' Ask a question',
+  //   icon: <Logo5 />,
+  //   component: AskQuestion,
+  // },
+  // {
+  //   path: '/User/Dashboard/Application',
+  //   name: 'Application',
+  //   component: Application,
+  // },
 ];
 
-export const AdminRoutes = [];
+export const AdminRoutes = [
+  {
+    path: '/admin/Dashboard/Country',
+    name: 'Country',
+    icon: <Logo1 />,
+    component: Country,
+  },
+  {
+    path: '/admin/Dashboard/Service',
+    name: 'Service providers',
+    icon: <Logo2 />,
+    component: ServiceProviders,
+  },
+  {
+    path: '/admin/Dashboard/Users',
+    name: 'Users',
+    icon: <Logo3 />,
+    component: Users,
+  },
+  {
+    path: '/admin/Dashboard/Requests',
+    name: 'Requests',
+    icon: <Logo4 />,
+    component: Requests,
+  },
+];
