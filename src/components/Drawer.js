@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LILogo1 from '../../assets/LILogo1.svg';
-import LILogo2 from '../../assets/LILogo2.svg';
-import LILogo3 from '../../assets/LILogo3.svg';
-import LILogo4 from '../../assets/LILogo4.svg';
-import LILogo5 from '../../assets/LILogo5.svg';
-import LILogo6 from '../../assets/LILogo6.svg';
-import LILogo7 from '../../assets/LILogo7.svg';
-const LeftSide = ({ handleActiveUploadButton, activeUploadButton }) => {
+import LILogo1 from '../assets/LILogo1.svg';
+import LILogo2 from '../assets/LILogo2.svg';
+import LILogo3 from '../assets/LILogo3.svg';
+import LILogo4 from '../assets/LILogo4.svg';
+import LILogo5 from '../assets/LILogo5.svg';
+import LILogo6 from '../assets/LILogo6.svg';
+import LILogo7 from '../assets/LILogo7.svg';
+const Drawer = ({ handleActiveUploadButton, activeUploadButton }) => {
   return (
     <>
       <div className="dash_menu">
@@ -60,11 +60,21 @@ const LeftSide = ({ handleActiveUploadButton, activeUploadButton }) => {
       {/* dashbord menu 2 */}
       <div className="dash_menu2">
         <ul className="dashboard_ul">
-          <NavLink to="#" className="dashboard_li">
+          <NavLink
+            exact
+            to="/User/Dashboard/AskQuestion"
+            className={`${activeUploadButton === 5 && 'activeLi'} dashboard_li `}
+            onClick={() => handleActiveUploadButton(5)}
+          >
             <img src={LILogo5} alt="" className="li_img" />
             Ask a question
           </NavLink>
-          <NavLink to="#" className="dashboard_li">
+          <NavLink
+            exact
+            to="#"
+            className={`${activeUploadButton === 6 && 'activeLi'} dashboard_li `}
+            onClick={() => handleActiveUploadButton(6)}
+          >
             <img src={LILogo6} alt="" className="li_img" />
             Account
           </NavLink>
@@ -80,8 +90,12 @@ const LeftSide = ({ handleActiveUploadButton, activeUploadButton }) => {
           </div>
         </ul>
       </div>
+
+      {/* <div className="content" style={{ backgroundColor: 'white', color: 'black' }}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis, iure.
+      </div> */}
     </>
   );
 };
 
-export default LeftSide;
+export default Drawer;

@@ -3,12 +3,12 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 // Routes
-import Login from '../components/Screen/Login';
-import ForgetPassword from '../components/Screen/ForgetPassword';
-import ResetPassword from '../components/Screen/ResetPassword';
-import ChangePassword from '../components/Screen/ChangePassword';
-import ChangeSuccessfully from '../components/Screen/ChangeSuccessfully';
-import Registration from '../components/Screen/Registration';
+import Login from '../Auth/Login';
+import ForgetPassword from '../Auth/ForgetPassword';
+import ResetPassword from '../Auth/ResetPassword';
+import ChangePassword from '../Auth/ChangePassword';
+import ChangeSuccessfully from '..//Auth/ChangeSuccessfully';
+import Registration from '../Auth/Registration';
 import UserLayouts from '../Layouts/UserLayouts';
 
 const index = () => {

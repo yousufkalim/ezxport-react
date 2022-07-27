@@ -1,6 +1,5 @@
 import React from 'react';
-import '../../css/Dashboard.css';
-import { NavLink } from 'react-router-dom';
+import SearchIcon from '../../assets/SearchIcon.svg';
 // table
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,64 +8,33 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import DotedIcon from '../../assets/DotedIcon.svg';
 
-function createData(name, calories, fat, carbs, protein, protein2) {
-  return { name, calories, fat, carbs, protein, protein2 };
+function createData(name, calories, fat, carbs) {
+  return { name, calories, fat, carbs };
 }
 const rows = [
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
+  createData('AP plus', 'Darrell Steward', 'Côte d’Ivoire, Cameroun, Gabon', DotedIcon),
+  createData('Bureau Veritas', 'Wade Warren', 'Gabon', DotedIcon),
+  createData('AP plus', 'Darrell Steward', 'Côte d’Ivoire, Cameroun, Gabon', DotedIcon),
+  createData('AP plus', 'Darrell Steward', 'Côte d’Ivoire, Cameroun, Gabon', DotedIcon),
 ];
 
-const ListOfRequests = () => {
+const Providers = () => {
   return (
     <>
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div">
-            <h1 className="list_h1">List of requests</h1>
-            <NavLink className="list_reqst_btn" to="#">
-              Create a request
-            </NavLink>
+            <h1 className="list_h1">Service providers</h1>
+            <div className="searching">
+              <input type="text" className="search_input" placeholder="To Research" />
+              <img src={SearchIcon} alt="" className="search_icon" />
+              {/* <NavLink className="list_reqst_btn2" to="#">
+                Ajouter un acheteur
+              </NavLink> */}
+            </div>
           </div>
           {/* list table   */}
           <div className="list_table">
@@ -80,42 +48,28 @@ const ListOfRequests = () => {
                       className="country"
                       style={{ backgrounColor: '#EAECF0' }}
                     >
-                      Request
+                      Prestataires
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
                       style={{ backgrounColor: '#EAECF0' }}
                     >
-                      Date
+                      Contact
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
                       style={{ backgrounColor: '#EAECF0' }}
                     >
-                      Certificate cost
+                      Pays associés
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
                       style={{ backgrounColor: '#EAECF0' }}
                     >
-                      Nb codes
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Service providers
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Statutes
+                      .
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -127,23 +81,17 @@ const ListOfRequests = () => {
                     >
                       <TableCell component="th" scope="row">
                         {row.name}
-                        <br />
-                        <p className="country2"> Country</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
                         {row.calories}
+                        <br />
+                        <p className="country2"> tim.jennings@example.com</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
                         {row.fat}
                       </TableCell>
-                      <TableCell align="left" className="country2">
-                        {row.carbs}
-                      </TableCell>
-                      <TableCell align="left" className="country2">
-                        {row.protein}
-                      </TableCell>
-                      <TableCell align="left">
-                        <p className="clrClass">{row.protein2}</p>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                        <img src={row.carbs} alt="" />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -157,5 +105,4 @@ const ListOfRequests = () => {
     </>
   );
 };
-
-export default ListOfRequests;
+export default Providers;

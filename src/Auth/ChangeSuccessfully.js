@@ -1,7 +1,6 @@
 import React from 'react';
-import '../../css/Screen.css';
-import ChangedPIcon from '../../assets/ChangedPIcon.svg';
-import Header from '../Header';
+import ChangedPIcon from '../assets/ChangedPIcon.svg';
+import Header from '../Components/Header';
 import { NavLink } from 'react-router-dom';
 
 const ChangeSuccessfully = () => {
