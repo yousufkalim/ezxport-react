@@ -1,5 +1,8 @@
 /* Importing all CSS files */
-@import url('./Header.css');
+/* @import url('./Header.css'); */
+@import url('./Component/Header.css');
+@import url('./Dashboard.css');
+@import url('./Screen.css');
 
 /* Defaults */
 * {

@@ -1,8 +1,7 @@
 import React from 'react';
-import '../../css/Screen.css';
-import Header from '../Header';
+import Header from '../Components/Header';
 import { NavLink, useHistory } from 'react-router-dom';
-import BackArrow from '../../assets/BackArrow.svg';
+import BackArrow from '../assets/BackArrow.svg';
 
 const Registration = () => {
   const history = useHistory();

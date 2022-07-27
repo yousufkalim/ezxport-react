@@ -1,7 +1,7 @@
 import React from 'react';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-const Applicaation = () => {
+const Application = () => {
   return (
     <>
       <div className="list_main_div">
@@ -21,4 +21,4 @@ const Applicaation = () => {
   );
 };
 
-export default Applicaation;
+export default Application;

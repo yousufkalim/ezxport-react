@@ -1,14 +1,12 @@
 import React from 'react';
-import '../../css/Screen.css';
-import ForgetLogo from '../../assets/ForgetLogo.svg';
-import Quiz from '../../assets/Quiz.png';
-import Header from '../Header';
+import ForgetLogo from '../assets/ForgetLogo.svg';
+import Quiz from '../assets/Quiz.png';
+import Header from '../Components/Header';
 import { NavLink, useHistory } from 'react-router-dom';
-import BackArrow from '../../assets/BackArrow.svg';
+import BackArrow from '../assets/BackArrow.svg';
 
-const ResetPassword = () => {
+const ForgetPassword = () => {
   const history = useHistory();
-
   return (
     <>
       <Header />
@@ -18,12 +16,10 @@ const ResetPassword = () => {
           alt=""
           className="backArrow"
           onClick={() => {
-            history.push('/forgetpassword');
+            history.push('/');
           }}
         />
         <div className="loginCenterDiv">
-          {/* HEADING  */}
-
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
             <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: '5px' }} />
@@ -40,8 +36,10 @@ const ResetPassword = () => {
             </div>
           </div>
           {/* login button  */}
-          <button className="regBtn regBtn2">Request made successfully</button>
-          <NavLink to="/changepassword" className="logingbtn">
+          <NavLink to="/resetpassword" className="logingbtn">
+            Reset Password
+          </NavLink>
+          <NavLink to="#" className="regBtn">
             resend again
           </NavLink>
         </div>
@@ -49,4 +47,5 @@ const ResetPassword = () => {
     </>
   );
 };
-export default ResetPassword;
+
+export default ForgetPassword;

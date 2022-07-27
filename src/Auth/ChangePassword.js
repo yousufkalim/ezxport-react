@@ -1,8 +1,8 @@
 import React from 'react';
-import '../../css/Screen.css';
-import ForgetLogo from '../../assets/ForgetLogo.svg';
-import Quiz from '../../assets/Quiz.png';
-import Header from '../Header';
+import ForgetLogo from '../assets/ForgetLogo.svg';
+import Quiz from '../assets/Quiz.png';
+import Header from '../Components/Header';
+import InputField from '../Components/InputField';
 import { NavLink } from 'react-router-dom';
 
 const ChangePassword = () => {
@@ -23,23 +23,25 @@ const ChangePassword = () => {
           <div className="email_inputs_div">
             <label htmlFor="">New Password</label>
             <div className="input_field">
-              <input className="input_email" type="password" placeholder="New Password" required />
-              <img src={Quiz} alt="" className="quizIcon" />
+              <InputField
+                placeholder="New Password"
+                Quiz={Quiz}
+                type="password"
+                className="input_email"
+              />
             </div>
           </div>
           {/*C PASSWORD  */}
           <div className="email_inputs_div">
             <label htmlFor="">Confirm password</label>
-            <div className="input_field2">
-              <input
-                className="input_email"
-                type="password"
-                placeholder="Confirm password"
-                required
-              />
-              <img src={Quiz} alt="" className="quizIcon" />
-            </div>
+            <InputField
+              placeholder="Confirm password"
+              Quiz={Quiz}
+              type="password"
+              className="input_email"
+            />
           </div>
+
           {/* login button  */}
           <NavLink to="/changesuccessfully" className="logingbtn">
             change the password

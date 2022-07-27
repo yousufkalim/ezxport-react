@@ -1,11 +1,11 @@
 import React from 'react';
 // import { Route, Switch, Redirect } from 'react-router-dom';
-import ListOfRequests from '../components/Dashboard/ListOfRequests';
-import Providers from '../components/Dashboard/Providers';
-import AddressBook from '../components/Dashboard/AddressBook';
-import Documents from '../components/Dashboard/Documents';
-import AskQuestion from '../components/Dashboard/AskQuestion';
-import Applicaation from '../components/Dashboard/Applicaation';
+import ListOfRequests from '../Dashboard/UserDashboard/ListOfRequests';
+import Providers from '../Dashboard/UserDashboard/Providers';
+import AddressBook from '../Dashboard/UserDashboard/AddressBook';
+import Documents from '../Dashboard/UserDashboard/Documents';
+import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
+import Application from '../Dashboard/UserDashboard/Application';
 // icons of screen
 import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
 import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
@@ -45,10 +45,10 @@ export const UserRoutes = [
     component: AskQuestion,
   },
   {
-    path: '/User/Dashboard/Applicaation',
-    name: 'Applicaation',
+    path: '/User/Dashboard/Application',
+    name: 'Application',
     // icon: <Logo5 />,
-    component: Applicaation,
+    component: Application,
   },
 ];
 

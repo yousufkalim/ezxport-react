@@ -241,6 +241,11 @@
   width: 100%;
   padding: 10px;
 }
+.content {
+  position: absolute;
+  top: 0;
+  border: 1px solid black;
+}
 @media screen and (max-width: 780px) {
   .hambrgr_icon {
     display: block !important;

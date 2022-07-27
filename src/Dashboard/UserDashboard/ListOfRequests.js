@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../css/Dashboard.css';
 import { NavLink } from 'react-router-dom';
 // table
 import Table from '@mui/material/Table';
@@ -127,7 +126,7 @@ const ListOfRequests = () => {
                     >
                       <TableCell component="th" scope="row">
                         <NavLink
-                          to="/User/Dashboard/Applicaation"
+                          to="/User/Dashboard/Application"
                           style={{ color: 'black', textDecoration: 'none' }}
                         >
                           {row.name}

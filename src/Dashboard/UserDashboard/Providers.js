@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../css/Dashboard.css';
 import SearchIcon from '../../assets/SearchIcon.svg';
 // table
 import Table from '@mui/material/Table';

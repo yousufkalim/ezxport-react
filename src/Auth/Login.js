@@ -1,9 +1,8 @@
 import React from 'react';
-import '../../css/Screen.css';
-import LoginIcon from '../../assets/LoginIcon.svg';
-import Quiz from '../../assets/Quiz.png';
+import LoginIcon from '../assets/LoginIcon.svg';
+import Quiz from '../assets/Quiz.png';
 import { NavLink } from 'react-router-dom';
-import Header from '../Header';
+import Header from '../Components/Header';
 
 const Login = () => {
   return (

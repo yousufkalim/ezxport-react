@@ -1,6 +1,5 @@
 // Init
 import React from 'react';
-import '../css/Header.css';
 import EzxportIcon from '../assets/EzxportIcon.svg';
 
 // Component
