@@ -2,7 +2,7 @@ import React from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
 import Header from "../components/Header";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 const ResetPassword = () => {
   const history = useHistory();
@@ -39,9 +39,9 @@ const ResetPassword = () => {
           </div>
           {/* login button  */}
           <button className="regBtn regBtn2">Request made successfully</button>
-          <NavLink to="/changepassword" className="logingbtn">
+          <Link to="/changepassword" className="logingbtn">
             resend again
-          </NavLink>
+          </Link>
         </div>
       </div>
     </>

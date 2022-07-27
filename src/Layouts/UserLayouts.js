@@ -29,13 +29,10 @@ const UserLayouts = () => {
                   }}
                 />
                 <div className="dashoard_logo">
-                  <img src={DashLogo} alt="" className="dashboard_logo " />
+                  <img src={DashLogo} alt="" className="dashboard_logo" />
                 </div>
                 {/* dashbord menu  */}
-                <Drawer
-                  handleActiveUploadButton={handleActiveUploadButton}
-                  activeUploadButton={activeUploadButton}
-                />
+                <Drawer handleActiveUploadButton={handleActiveUploadButton} activeUploadButton={activeUploadButton} />
               </div>
             </>
           ) : (
@@ -46,10 +43,7 @@ const UserLayouts = () => {
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
                 {/* dashbord menu  */}
-                <Drawer
-                  handleActiveUploadButton={handleActiveUploadButton}
-                  activeUploadButton={activeUploadButton}
-                />
+                <Drawer handleActiveUploadButton={handleActiveUploadButton} activeUploadButton={activeUploadButton} />
               </div>
             </>
           )}

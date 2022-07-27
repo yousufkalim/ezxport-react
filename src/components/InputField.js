@@ -6,15 +6,19 @@ const InputField = (props) => {
     <>
       <div className="input_field2">
         <input
+          name={props.name}
+          value={props.value}
           className={props.className}
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}
         />
-        <img src={props.Quiz} alt="" className="quizIcon" />
+        <img src={props.icon} alt="" className="quizIcon" />
       </div>
     </>
   );
 };
 
 export default InputField;
+
+

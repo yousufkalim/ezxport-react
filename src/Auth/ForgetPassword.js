@@ -6,6 +6,8 @@ import { NavLink, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("dojac63370@aregods.com");
@@ -47,33 +49,24 @@ const ForgetPassword = () => {
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
             <label htmlFor="">E-mail address</label>
-            <div className="input_field">
-              <input
-                className="input_email"
-                type="email"
-                placeholder="mail@mail.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <img src={Quiz} alt="" className="quizIcon" />
-            </div>
+            <InputField
+              className="input_email"
+              type="email"
+              placeholder="mail@mail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           {/* login button  */}
           {!flag ? (
-            <button className="logingbtn" onClick={handleResetPassword}>
-              Reset Password
-            </button>
+            <Button className="logingbtn" onClick={handleResetPassword} text="Reset Password" />
           ) : (
             <p className="regBtn" style={{ cursor: "default !important" }}>
               {" "}
               Request made successfully
             </p>
           )}
-
-          <button className={flag ? "logingbtn" : "regBtn"} onClick={handleResetPassword}>
-            resend again
-          </button>
+          <Button className={flag ? "logingbtn" : "regBtn"} onClick={handleResetPassword} text="resend again" />
         </div>
       </div>
     </>

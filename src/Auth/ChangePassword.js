@@ -5,6 +5,8 @@ import API from "../api";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
 import Header from "../components/Header";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
 // import InputField from "../Components/InputField";
 // import { NavLink } from "react-router-dom";
 
@@ -43,37 +45,29 @@ const ChangePassword = ({ Token, setResetPassword }) => {
               {/* PASSWORD */}
               <div className="email_inputs_div">
                 <label htmlFor="">New Password</label>
-                <div className="input_field">
-                  <input
-                    className="input_email"
-                    type="password"
-                    placeholder="New Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                  <img src={Quiz} alt="" className="quizIcon" />
-                </div>
+                <InputField
+                  className="input_email"
+                  type="password"
+                  placeholder="New Password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
               {/*C PASSWORD  */}
               <div className="email_inputs_div">
                 <label htmlFor="">Confirm password</label>
-                <div className="input_field2">
-                  <input
-                    className="input_email"
-                    type="password"
-                    placeholder="Confirm password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                  />
-                  <img src={Quiz} alt="" className="quizIcon" />
-                </div>
+                <InputField
+                  className="input_email"
+                  type="password"
+                  placeholder="Confirm password"
+                  required
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
               </div>
               {/* login button  */}
-              <button className="logingbtn" onClick={handleChangePassword}>
-                change the password
-              </button>
+              <Button className="logingbtn" onClick={handleChangePassword} text="Change the password" />
             </div>
           </div>
         </>
