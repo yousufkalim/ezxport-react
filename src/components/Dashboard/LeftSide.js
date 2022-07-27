@@ -60,11 +60,21 @@ const LeftSide = ({ handleActiveUploadButton, activeUploadButton }) => {
       {/* dashbord menu 2 */}
       <div className="dash_menu2">
         <ul className="dashboard_ul">
-          <NavLink to="#" className="dashboard_li">
+          <NavLink
+            exact
+            to="/User/Dashboard/AskQuestion"
+            className={`${activeUploadButton === 5 && 'activeLi'} dashboard_li `}
+            onClick={() => handleActiveUploadButton(5)}
+          >
             <img src={LILogo5} alt="" className="li_img" />
             Ask a question
           </NavLink>
-          <NavLink to="#" className="dashboard_li">
+          <NavLink
+            exact
+            to="#"
+            className={`${activeUploadButton === 6 && 'activeLi'} dashboard_li `}
+            onClick={() => handleActiveUploadButton(6)}
+          >
             <img src={LILogo6} alt="" className="li_img" />
             Account
           </NavLink>

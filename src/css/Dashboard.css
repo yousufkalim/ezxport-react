@@ -1,3 +1,13 @@
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: inherit !important;
+  border: none !important;
+  border: 1px solid #d0d5dd !important;
+  background-color: #eaecf0 !important;
+}
+.css-1aquho2-MuiTabs-indicator {
+  background: none !important;
+}
+
 .userDashboar_center_div {
   display: flex;
   min-height: 100vh;
@@ -93,6 +103,7 @@
 .list_table {
   margin: 2% 0;
 }
+
 .country {
   color: #667085 !important;
   background-color: #eaecf0;
@@ -119,7 +130,117 @@
   padding: 2% 2%;
   left: 0;
 }
-
+.searching {
+  position: relative;
+  display: flex;
+}
+.list_reqst_btn2 {
+  width: 90%;
+  margin: 0 0 0px 37px;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  padding: 2% 2%;
+  font-size: 16px;
+  text-align: center;
+}
+.search_input {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  padding: 10px 30px;
+}
+.search_icon {
+  position: absolute;
+  left: 6px;
+  top: 25%;
+}
+.tab_btn1 {
+  border: 1px solid #d0d5dd !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  text-transform: capitalize !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.tab_btn2 {
+  border: 1px solid #d0d5dd !important;
+  text-transform: capitalize !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+.tab_btn3 {
+  border: 1px solid #d0d5dd !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+  text-transform: capitalize !important;
+  font-size: 14px !important;
+}
+.table_li {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+.table_li2 {
+  padding-left: 10%;
+  color: #667085 !important;
+  padding-top: 8px;
+}
+.table_li3 {
+  padding-left: 20%;
+  font-size: 14px !important;
+  color: #667085 !important;
+  padding-top: 8px;
+}
+.table_li4 {
+  padding-left: 30%;
+  font-size: 14px !important;
+  color: #667085 !important;
+  padding-top: 8px;
+}
+.dropdown_li {
+  display: none !important;
+}
+.dropdown_mene {
+  padding-left: 10% !important;
+}
+.dropdown_mene2 {
+  padding-left: 20% !important;
+}
+.rightArrow {
+  padding-right: 40% !important;
+}
+.rightArrow2 {
+  padding-right: 40% !important;
+  /* padding-right: 25% !important; */
+}
+.downlaod_img_main {
+  padding-right: 3%;
+}
+.question_form {
+  width: 50%;
+  margin: 5% auto;
+}
+.question_label {
+  padding: 1% 0;
+  font-family: 500;
+}
+.quiz_btn {
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  padding: 10px;
+}
 @media screen and (max-width: 780px) {
   .hambrgr_icon {
     display: block !important;

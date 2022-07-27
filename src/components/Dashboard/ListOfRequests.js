@@ -126,7 +126,13 @@ const ListOfRequests = () => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {row.name}
+                        <NavLink
+                          to="/User/Dashboard/Applicaation"
+                          style={{ color: 'black', textDecoration: 'none' }}
+                        >
+                          {row.name}
+                        </NavLink>
+
                         <br />
                         <p className="country2"> Country</p>
                       </TableCell>
