@@ -4,6 +4,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
+import Button from "../components/Button";
 
 const Registration = () => {
   const [form, setForm] = useState({
@@ -233,9 +234,7 @@ const Registration = () => {
             </div>
           </div>
           {/* ///  */}
-          <button className="register_fm" onClick={handleSubmit}>
-            Register
-          </button>
+          <Button className="register_fm" onClick={handleSubmit} text="Register" />
         </div>
       </div>
     </>

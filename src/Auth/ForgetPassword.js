@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
 import Header from "../components/Header";
-import { NavLink, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
@@ -62,7 +62,6 @@ const ForgetPassword = () => {
             <Button className="logingbtn" onClick={handleResetPassword} text="Reset Password" />
           ) : (
             <p className="regBtn" style={{ cursor: "default !important" }}>
-              {" "}
               Request made successfully
             </p>
           )}

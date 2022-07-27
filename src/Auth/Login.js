@@ -30,6 +30,9 @@ const Login = () => {
         if (res.data.user.role === "user") {
           toast.success("Logged In Successfully");
           history.push("/User/Dashboard/ListOfRequests");
+        } else {
+          toast.success("Logged In Successfully");
+          history.push("/admin/Dashboard/Country");
         }
       })
       .catch((err) => {
