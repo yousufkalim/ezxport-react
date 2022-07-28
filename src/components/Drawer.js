@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import LILogo1 from '../assets/LILogo1.svg';
-import LILogo2 from '../assets/LILogo2.svg';
-import LILogo3 from '../assets/LILogo3.svg';
-import LILogo4 from '../assets/LILogo4.svg';
+// import LILogo1 from '../assets/LILogo1.svg';
+// import LILogo2 from '../assets/LILogo2.svg';
+// import LILogo3 from '../assets/LILogo3.svg';
+// import LILogo4 from '../assets/LILogo4.svg';
 import LILogo5 from '../assets/LILogo5.svg';
 import LILogo6 from '../assets/LILogo6.svg';
 import LILogo7 from '../assets/LILogo7.svg';

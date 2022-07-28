@@ -4,6 +4,7 @@
 @import url('./Dashboard.css');
 @import url('./Screen.css');
 @import url('./AdminDashboard.css');
+@import url('./Models.css');
 
 /* Defaults */
 * {

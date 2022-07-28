@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Route, Switch, Redirect } from 'react-router-dom';
-import ListOfRequests from '../Dashboard/UserDashboard/ListOfRequests';
+import FollowUp from '../Dashboard/UserDashboard/FollowUp';
 import Providers from '../Dashboard/UserDashboard/Providers';
 import AddressBook from '../Dashboard/UserDashboard/AddressBook';
 import Documents from '../Dashboard/UserDashboard/Documents';
@@ -19,10 +19,10 @@ import { ReactComponent as Logo5 } from '../assets/LILogo5.svg';
 
 export const UserRoutes = [
   {
-    path: '/User/Dashboard/ListOfRequests',
+    path: '/User/Dashboard/FollowUp',
     name: 'Follow-up of requests',
     icon: <Logo1 />,
-    component: ListOfRequests,
+    component: FollowUp,
   },
   {
     path: '/User/Dashboard/Providers',

@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import LoginIcon from "../assets/LoginIcon.svg";
-import Quiz from "../assets/Quiz.png";
-import { NavLink } from "react-router-dom";
-import Header from "../components/Header";
-import API from "../api/index";
-import { useHistory } from "react-router";
-import { toast } from "react-toastify";
+import React, { useState } from 'react';
+import LoginIcon from '../assets/LoginIcon.svg';
+import Quiz from '../assets/Quiz.png';
+import { NavLink } from 'react-router-dom';
+import Header from '../components/Header';
+import API from '../api/index';
+import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const history = useHistory(null);
-  const [email, setEmail] = useState("dojac63370@aregods.com");
-  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState('dojac63370@aregods.com');
+  const [password, setPassword] = useState('12345678');
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -18,16 +18,16 @@ const Login = () => {
     setPassword(e.target.value);
   };
   const handleLoggin = async () => {
-    await API("post", "/auth/login", {
+    await API('post', '/auth/login', {
       email: email,
       password: password,
     })
       .then((res) => {
-        localStorage.setItem("userData", JSON.stringify(res.data.user));
-        localStorage.setItem("token", res.data.token);
-        if (res.data.user.role === "user") {
-          toast.success("Logged In Successfully");
-          history.push("/User/Dashboard/ListOfRequests");
+        localStorage.setItem('userData', JSON.stringify(res.data.user));
+        localStorage.setItem('token', res.data.token);
+        if (res.data.user.role === 'user') {
+          toast.success('Logged In Successfully');
+          history.push('/User/Dashboard/FollowUp');
         }
       })
       .catch((err) => {
