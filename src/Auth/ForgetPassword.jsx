@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
 import Header from "../components/Header";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
@@ -26,19 +26,19 @@ const ForgetPassword = () => {
         setFlag(false);
       });
   };
-  const handleBackArrow = () => history.push("/");
   return (
     <>
       <Header />
       <div className="login_mainDiv">
-        <div className="backArrow_div">
+        <Link className="backArrow_div" 
+          to="/"
+          >
         <img
           src={BackArrow}
           alt="back"
           className="backArrow"
-          onClick={handleBackArrow}
           />
-          </div>
+          </Link>
         <div className="loginCenterDiv">
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">

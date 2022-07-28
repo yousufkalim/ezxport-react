@@ -24,7 +24,7 @@ const ChangeSuccessfully = ({ setResetPassword }) => {
           </div>
 
           {/* login button  */}
-          <button onClick={handleToLogin} className="logingbtn">
+          <button onClick={handleToLogin} className="logingbtn" type="button">
             To log in
           </button>
         </div>
