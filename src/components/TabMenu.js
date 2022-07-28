@@ -99,7 +99,7 @@ const rows = [
   ),
 ];
 
-const TabMenu = () => {
+const TabMenu = (props) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -107,7 +107,7 @@ const TabMenu = () => {
   };
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
             <Tab className="tab_btn1" label="Acheteurs" {...a11yProps(0)} />
@@ -124,56 +124,18 @@ const TabMenu = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Nom société
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Pays
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse email
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Téléphone
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      .
-                    </TableCell>
+                    {props.title.map((item) => {
+                      return (
+                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                          {item.heading}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow
-                      key={row.Société}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
+                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -187,13 +149,13 @@ const TabMenu = () => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
-                        <img src={row.DotedIcon} alt="" />
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                        <img src={DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
                   ))}
@@ -213,56 +175,18 @@ const TabMenu = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Nom société
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Pays
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse email
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Téléphone
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      .
-                    </TableCell>
+                    {props.title.map((item) => {
+                      return (
+                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                          {item.heading}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow
-                      key={row.Société}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
+                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -276,12 +200,12 @@ const TabMenu = () => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
@@ -302,56 +226,18 @@ const TabMenu = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Nom société
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Pays
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse email
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Téléphone
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      Adresse
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
-                    >
-                      .
-                    </TableCell>
+                    {props.title.map((item) => {
+                      return (
+                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                          {item.heading}
+                        </TableCell>
+                      );
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow
-                      key={row.Société}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    >
+                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -365,12 +251,12 @@ const TabMenu = () => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>

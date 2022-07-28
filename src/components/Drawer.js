@@ -7,9 +7,9 @@ import LILogo7 from "../assets/LILogo7.svg";
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("userData")));
   const handleLoggout = () => {
-    // localStorage.removeItem("token");
-    // localStorage.removeItem("userData");
-    // window.location="/";
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData");
+    window.location = "/";
   };
 
   return (

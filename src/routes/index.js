@@ -1,23 +1,21 @@
 // Init
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import API from '../api';
+import API from "../api";
 
 // Routes
-import { toast } from 'react-toastify';
-import Login from '../Auth/Login';
-import ForgetPassword from '../Auth/ForgetPassword';
-import ResetPassword from '../Auth/ResetPassword';
-import ChangePassword from '../Auth/ChangePassword';
-import ChangeSuccessfully from '..//Auth/ChangeSuccessfully';
-import Registration from '../Auth/Registration';
-import UserLayouts from '../Layouts/UserLayouts';
-import AdminLayouts from '../Layouts/AdminLayouts';
+import { toast } from "react-toastify";
+import Login from "../Auth/Login";
+import ForgetPassword from "../Auth/ForgetPassword";
+import ChangePassword from "../Auth/ChangePassword";
+import Registration from "../Auth/Registration";
+import UserLayouts from "../Layouts/UserLayouts";
+import AdminLayouts from "../Layouts/AdminLayouts";
 const queryParams = new URLSearchParams(window.location.search);
-const Reset = queryParams.get('reset');
-const Token = queryParams.get('token');
-const Index = () => {
+const Reset = queryParams.get("reset");
+const Token = queryParams.get("token");
+const Index = ({ role }) => {
   const history = useHistory(null);
   const [resetPassword, setResetPassword] = useState(false);
   useEffect(() => {
@@ -51,13 +49,28 @@ const Index = () => {
           </>
         ) : (
           <>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/forgetpassword" component={ForgetPassword} />
-            <Route exact path="/registration" component={Registration} />
-            {/* dashbourd  */}
-
-            <Route path="/User/Dashboard" component={UserLayouts} />
-            <Route path="/Admin/Dashboard" component={AdminLayouts} />
+            {/* Auth routes */}
+            {role === "user" ? (
+              <>
+                <Route path="/User/Dashboard" component={UserLayouts} />
+                <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
+              </>
+            ) : role === "admin" ? (
+              <>
+                <Route path="/Admin/Dashboard" component={AdminLayouts} />
+                <Redirect from="/" to="/Admin/Dashboard/Country" />
+              </>
+            ) : (
+              !role && (
+                <>
+                  {/* unAuth routes */}
+                  <Redirect from="/" to="/" />
+                  <Route exact path="/" component={Login} />
+                  <Route exact path="/forgetpassword" component={ForgetPassword} />
+                  <Route exact path="/registration" component={Registration} />
+                </>
+              )
+            )}
           </>
         )}
       </Switch>
