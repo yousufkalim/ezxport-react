@@ -12,7 +12,6 @@ import Button from "../components/Button";
 const ForgetPassword = () => {
   const [email, setEmail] = useState("dojac63370@aregods.com");
   const [flag, setFlag] = useState(false);
-  const history = useHistory();
   const handleResetPassword = async () => {
     await API("put", `/auth/forgot/${email}`)
       .then((res) => {
