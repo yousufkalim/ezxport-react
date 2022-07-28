@@ -19,7 +19,7 @@ import { ReactComponent as Logo5 } from '../assets/LILogo5.svg';
 
 export const UserRoutes = [
   {
-    path: '/User/Dashboard/FollowUp',
+    path: '/User/Dashboard/ListOfRequests',
     name: 'Follow-up of requests',
     icon: <Logo1 />,
     component: FollowUp,
@@ -42,17 +42,17 @@ export const UserRoutes = [
     icon: <Logo4 />,
     component: Documents,
   },
-  // {
-  //   path: '/User/Dashboard/AskQuestion',
-  //   name: ' Ask a question',
-  //   icon: <Logo5 />,
-  //   component: AskQuestion,
-  // },
-  // {
-  //   path: '/User/Dashboard/Application',
-  //   name: 'Application',
-  //   component: Application,
-  // },
+  {
+    path: '/User/Dashboard/AskQuestion',
+    name: ' Ask a question',
+    icon: <Logo5 />,
+    component: AskQuestion,
+  },
+  {
+    path: '/User/Dashboard/Application',
+    name: 'Application',
+    component: Application,
+  },
 ];
 
 export const AdminRoutes = [
