@@ -4,7 +4,7 @@ import Quiz from "../assets/Quiz.png";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import API from "../api/index";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputField from "../components/InputField";
 import Button from "../components/Button";

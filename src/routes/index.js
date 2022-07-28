@@ -1,7 +1,7 @@
 // Init
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router-dom";
 import API from '../api';
 
 // Routes

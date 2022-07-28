@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
