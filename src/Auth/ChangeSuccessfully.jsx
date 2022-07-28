@@ -1,7 +1,7 @@
 import React from "react";
 import ChangedPIcon from "../assets/ChangedPIcon.svg";
 import Header from "../components/Header";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 const ChangeSuccessfully = ({ setResetPassword }) => {
   const history = useHistory(null);
@@ -24,7 +24,7 @@ const ChangeSuccessfully = ({ setResetPassword }) => {
           </div>
 
           {/* login button  */}
-          <button onClick={handleToLogin} className="logingbtn">
+          <button onClick={handleToLogin} className="logingbtn" type="button">
             To log in
           </button>
         </div>

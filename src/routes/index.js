@@ -1,7 +1,7 @@
 // Init
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import { useHistory } from "react-router-dom";
 import API from '../api';
 
 // Routes
@@ -28,14 +28,13 @@ const Index = () => {
     }
   }, []);
   const handleVerifyToken = async (Token) => {
-    await API('get', `/auth/verify-token/${Token}`)
+    await API("get", `/auth/verify-token/${Token}`)
       .then((res) => {
         setResetPassword(res.data.success);
-        history.push('/changepassword');
+        history.push("/changepassword");
       })
       .catch((err) => {
-        console.log(err);
-        history.push('/');
+        history.push("/");
         toast.error(err.response.data.message);
       });
   };
@@ -54,8 +53,6 @@ const Index = () => {
           <>
             <Route exact path="/" component={Login} />
             <Route exact path="/forgetpassword" component={ForgetPassword} />
-            {/* <Route exact path="/resetpassword" component={ResetPassword} /> */}
-            {/* <Route exact path="/changesuccessfully" component={ChangeSuccessfully} /> */}
             <Route exact path="/registration" component={Registration} />
             {/* dashbourd  */}
 

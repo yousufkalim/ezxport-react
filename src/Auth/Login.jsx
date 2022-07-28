@@ -4,7 +4,7 @@ import Quiz from "../assets/Quiz.png";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import API from "../api/index";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
@@ -30,6 +30,9 @@ const Login = () => {
         if (res.data.user.role === "user") {
           toast.success("Logged In Successfully");
           history.push("/User/Dashboard/ListOfRequests");
+        } else {
+          toast.success("Logged In Successfully");
+          history.push("/admin/Dashboard/Country");
         }
       })
       .catch((err) => {
@@ -48,7 +51,7 @@ const Login = () => {
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="">E-mail address</label>
+            <label htmlFor="E-mail address">E-mail address</label>
             <InputField
               className="input_email"
               type="email"
@@ -60,7 +63,7 @@ const Login = () => {
           </div>
           {/* PASSWORD  */}
           <div className="email_inputs_div">
-            <label htmlFor="">Password</label>
+            <label htmlFor="Password">Password</label>
             <InputField
               className="input_email"
               type="password"
