@@ -55,7 +55,7 @@ const ForgetPassword = () => {
               placeholder="mail@mail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              incon={Quiz}
+              icon={Quiz}
             />
           </div>
           {/* login button  */}

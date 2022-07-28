@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/Header";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
@@ -40,7 +40,7 @@ const Registration = () => {
       typeOfSociety: form.typeOfSociety,
       VatNumber: form.vatNumber,
     })
-      .then((res) => {
+      .then(() => {
         toast.success("User created successfully");
         history.push("/");
       })
@@ -52,14 +52,13 @@ const Registration = () => {
     <>
       <Header />
       <div className="login_mainDiv">
+        <Link to="/">
         <img
           src={BackArrow}
-          alt=""
+          alt="back"
           className="backArrow"
-          onClick={() => {
-            history.push("/");
-          }}
-        />
+          />
+          </Link>
 
         <div className="registration_div">
           {/* first input fields  */}
