@@ -7,6 +7,14 @@ import Modal from '../../components/Modal';
 // import SearchIcon from '@mui/icons-material/Search';
 import TabMenu from '../../components/TabMenu';
 import Button from '../../components/Button';
+const title = [
+  { heading: 'Nom société' },
+  { heading: 'Pays' },
+  { heading: 'Adresse email' },
+  { heading: 'Téléphone' },
+  { heading: 'Adresse' },
+  { heading: '' },
+];
 
 const AddressBook = () => {
   const [open, setOpen] = React.useState(false);
@@ -35,7 +43,7 @@ const AddressBook = () => {
           </div>
           {/* list table   */}
           <div className="list_table">
-            <TabMenu />
+            <TabMenu title={title} />
           </div>
         </div>
       </div>

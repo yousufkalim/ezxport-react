@@ -11,41 +11,41 @@ import ServiceProviders from '../Dashboard/AdimDashboard/ServiceProviders';
 import Users from '../Dashboard/AdimDashboard/Users';
 import Requests from '../Dashboard/AdimDashboard/Requests';
 // icons of screen
-import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
-import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
-import { ReactComponent as Logo3 } from '../assets/LILogo3.svg';
-import { ReactComponent as Logo4 } from '../assets/LILogo4.svg';
-import { ReactComponent as Logo5 } from '../assets/LILogo5.svg';
+import Logo1 from '../assets/LILogo1.svg';
+import Logo2 from '../assets/LILogo2.svg';
+import Logo3 from '../assets/LILogo3.svg';
+import Logo4 from '../assets/LILogo4.svg';
+import Logo5 from '../assets/LILogo5.svg';
 
 export const UserRoutes = [
   {
     path: '/User/Dashboard/ListOfRequests',
     name: 'Follow-up of requests',
-    icon: <Logo1 />,
-    component: FollowUp,
+    icon: Logo1,
+    component: ListOfRequests,
   },
   {
     path: '/User/Dashboard/Providers',
     name: 'Service providers',
-    icon: <Logo2 />,
+    icon: Logo2,
     component: Providers,
   },
   {
     path: '/User/Dashboard/AddressBook',
     name: 'Address Book',
-    icon: <Logo3 />,
+    icon: Logo3,
     component: AddressBook,
   },
   {
     path: '/User/Dashboard/Documents',
     name: 'Documents',
-    icon: <Logo4 />,
+    icon: Logo4,
     component: Documents,
   },
   {
     path: '/User/Dashboard/AskQuestion',
     name: ' Ask a question',
-    icon: <Logo5 />,
+    icon: Logo5,
     component: AskQuestion,
   },
   {
@@ -57,27 +57,27 @@ export const UserRoutes = [
 
 export const AdminRoutes = [
   {
-    path: '/admin/Dashboard/Country',
+    path: '/Admin/Dashboard/Country',
     name: 'Country',
-    icon: <Logo1 />,
+    icon: Logo1,
     component: Country,
   },
   {
-    path: '/admin/Dashboard/Service',
+    path: '/Admin/Dashboard/Service',
     name: 'Service providers',
-    icon: <Logo2 />,
+    icon: Logo2,
     component: ServiceProviders,
   },
   {
-    path: '/admin/Dashboard/Users',
+    path: '/Admin/Dashboard/Users',
     name: 'Users',
-    icon: <Logo3 />,
+    icon: Logo3,
     component: Users,
   },
   {
-    path: '/admin/Dashboard/Requests',
+    path: '/Admin/Dashboard/Requests',
     name: 'Requests',
-    icon: <Logo4 />,
+    icon: Logo4,
     component: Requests,
   },
 ];

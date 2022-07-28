@@ -28,11 +28,9 @@ const Login = () => {
         localStorage.setItem('userData', JSON.stringify(res.data.user));
         localStorage.setItem('token', res.data.token);
         if (res.data.user.role === 'user') {
-          toast.success('Logged In Successfully');
-          history.push('/User/Dashboard/ListOfRequests');
+          window.location = '/User/Dashboard/ListOfRequests';
         } else {
-          toast.success('Logged In Successfully');
-          history.push('/admin/Dashboard/Country');
+          window.location = '/admin/Dashboard/Country';
         }
       })
       .catch((err) => {
