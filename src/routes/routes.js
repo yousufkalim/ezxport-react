@@ -19,40 +19,40 @@ import { ReactComponent as Logo5 } from '../assets/LILogo5.svg';
 
 export const UserRoutes = [
   {
-    path: '/User/Dashboard/ListOfRequests',
-    name: 'Follow-up of requests',
+    path: "/User/Dashboard/ListOfRequests",
+    name: "Follow-up of requests",
     icon: <Logo1 />,
     component: ListOfRequests,
   },
   {
-    path: '/User/Dashboard/Providers',
-    name: 'Service providers',
+    path: "/User/Dashboard/Providers",
+    name: "Service providers",
     icon: <Logo2 />,
     component: Providers,
   },
   {
-    path: '/User/Dashboard/AddressBook',
-    name: 'Address Book',
+    path: "/User/Dashboard/AddressBook",
+    name: "Address Book",
     icon: <Logo3 />,
     component: AddressBook,
   },
   {
-    path: '/User/Dashboard/Documents',
-    name: 'Documents',
+    path: "/User/Dashboard/Documents",
+    name: "Documents",
     icon: <Logo4 />,
     component: Documents,
   },
-  // {
-  //   path: '/User/Dashboard/AskQuestion',
-  //   name: ' Ask a question',
-  //   icon: <Logo5 />,
-  //   component: AskQuestion,
-  // },
-  // {
-  //   path: '/User/Dashboard/Application',
-  //   name: 'Application',
-  //   component: Application,
-  // },
+  {
+    path: "/User/Dashboard/AskQuestion",
+    name: " Ask a question",
+    icon: <Logo5 />,
+    component: AskQuestion,
+  },
+  {
+    path: "/User/Dashboard/Application",
+    name: "Application",
+    component: Application,
+  },
 ];
 
 export const AdminRoutes = [

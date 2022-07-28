@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import LoginIcon from "../assets/LoginIcon.svg";
 import Quiz from "../assets/Quiz.png";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import API from "../api/index";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import InputField from "../components/InputField";
+import Button from "../components/Button";
 
 const Login = () => {
   const history = useHistory(null);
@@ -28,6 +30,9 @@ const Login = () => {
         if (res.data.user.role === "user") {
           toast.success("Logged In Successfully");
           history.push("/User/Dashboard/ListOfRequests");
+        } else {
+          toast.success("Logged In Successfully");
+          history.push("/admin/Dashboard/Country");
         }
       })
       .catch((err) => {
@@ -40,52 +45,41 @@ const Login = () => {
       <div className="login_mainDiv">
         <div className="loginCenterDiv">
           {/* HEADING  */}
-
-          {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
             <img src={LoginIcon} alt="" className="login_icons" />
             <h2 className="login_h2">Login</h2>
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="">E-mail address</label>
-            <div className="input_field">
-              <input
-                className="input_email"
-                type="email"
-                placeholder="mail@mail.com"
-                required
-                onChange={handleEmail}
-                value={email}
-              />
-              <img src={Quiz} alt="" className="quizIcon" />
-            </div>
+            <label htmlFor="E-mail address">E-mail address</label>
+            <InputField
+              className="input_email"
+              type="email"
+              placeholder="mail@mail.com"
+              onChange={handleEmail}
+              value={email}
+              icon={Quiz}
+            />
           </div>
           {/* PASSWORD  */}
           <div className="email_inputs_div">
-            <label htmlFor="">Password</label>
-            <div className="input_field2">
-              <input
-                className="input_email"
-                type="password"
-                placeholder="Password"
-                required
-                onChange={handlePassword}
-                value={password}
-              />
-              <img src={Quiz} alt="" className="quizIcon" />
-            </div>
-            <NavLink to="/forgetpassword" className="forgot_p">
+            <label htmlFor="Password">Password</label>
+            <InputField
+              className="input_email"
+              type="password"
+              placeholder="Password"
+              onChange={handlePassword}
+              value={password}
+              icon={Quiz}
+            />
+            <Link to="/forgetpassword" className="forgot_p">
               Forgot your password ?
-            </NavLink>
+            </Link>
           </div>
-          {/* login button  */}
-          <button className="logingbtn" onClick={handleLoggin}>
-            To log in
-          </button>
-          <NavLink to="/registration" className="regBtn">
+          <Button className="logingbtn" onClick={handleLoggin} text="To log in" />
+          <Link to="/registration" className="regBtn">
             Register
-          </NavLink>
+          </Link>
         </div>
       </div>
     </>
