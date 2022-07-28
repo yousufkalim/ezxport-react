@@ -1,0 +1,56 @@
+.UserTable {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.UserTable_right_div {
+  display: flex;
+}
+
+.pagination_div {
+  border: 1px solid #e5e5e5 !important;
+  padding: 1% 0;
+}
+.pagination {
+  margin: auto;
+  display: block;
+  text-align: center;
+  width: 30%;
+}
+.pagination_btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  padding: 2px 0px;
+  min-width: 10%;
+  margin: 0 1%;
+  color: #344054;
+  font-weight: 500;
+  cursor: pointer;
+}
+.table_head {
+  font-size: 12px !important;
+  padding: 1% 0 1% 1% !important;
+}
+.table_cell {
+  font-size: 14px !important;
+  padding: 1.5% 0 1.5% 1% !important;
+  min-width: 80px !important;
+}
+.export_btn {
+  background: none;
+  display: flex;
+  justify-items: center;
+  /* justify-content: center; */
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  width: 200px;
+  padding: 2% 5%;
+  margin-left: 2%;
+}

@@ -4,7 +4,7 @@ const Button = (props) => {
   return (
     <>
       <button className={props.className} onClick={props.onClick}>
-        {props.text}
+        <img src={props.Imgsrc} alt="" /> {props.text}
       </button>
     </>
   );
