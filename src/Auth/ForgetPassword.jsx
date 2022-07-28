@@ -26,18 +26,19 @@ const ForgetPassword = () => {
         setFlag(false);
       });
   };
+  const handleBackArrow = () => history.push("/");
   return (
     <>
       <Header />
       <div className="login_mainDiv">
+        <div className="backArrow_div">
         <img
           src={BackArrow}
-          alt=""
+          alt="back"
           className="backArrow"
-          onClick={() => {
-            history.push("/");
-          }}
-        />
+          onClick={handleBackArrow}
+          />
+          </div>
         <div className="loginCenterDiv">
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
@@ -48,13 +49,14 @@ const ForgetPassword = () => {
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="">E-mail address</label>
+            <label htmlFor="E-mail address">E-mail address</label>
             <InputField
               className="input_email"
               type="email"
               placeholder="mail@mail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              incon={Quiz}
             />
           </div>
           {/* login button  */}

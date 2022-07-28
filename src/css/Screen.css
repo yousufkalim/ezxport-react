@@ -1,6 +1,9 @@
 .login_mainDiv {
   text-align: center;
 }
+.backArrow_div{
+  width: 2%;
+}
 .login_h2 {
   font-size: 20px;
   font-weight: 600;
