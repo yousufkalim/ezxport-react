@@ -76,7 +76,7 @@
   color: #e9d7fe;
   font-size: 14px;
 }
-/* ListOfRequests  */
+/* FollowUp  */
 .list_second_div {
   width: 95%;
   margin: 2% auto;
@@ -149,6 +149,7 @@
   padding: 2% 2%;
   font-size: 16px;
   text-align: center;
+  cursor: pointer;
 }
 .search_input {
   width: 100%;
