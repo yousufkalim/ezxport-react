@@ -1,0 +1,55 @@
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding-right: 32px;
+  padding: 0;
+}
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  border: none !important;
+}
+
+.buyer_main {
+  width: 95%;
+  margin: auto;
+  padding: 3% 0;
+}
+.luyer_input_field {
+  margin: 5% 0 !important;
+  display: block;
+}
+.buyer_heading {
+  display: flex;
+  justify-content: space-between;
+}
+.buyer_h2 {
+  font-size: 18px;
+  color: #141b29;
+  font-weight: 500;
+}
+.second_input_field {
+  display: flex;
+  justify-content: space-between;
+}
+.input_fields {
+  width: 48%;
+}
+.buyer_label {
+  display: block;
+  padding-bottom: 5px;
+}
+.buyer_input {
+  border: none !important;
+  width: 100%;
+  padding: 10px !important;
+  border: 1px solid #d0d5dd !important;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05) !important;
+  border-radius: 8px !important;
+}
+.luyer_button {
+  width: 100%;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  padding: 2%;
+  cursor: pointer;
+}

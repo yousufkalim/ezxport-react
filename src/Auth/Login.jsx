@@ -4,14 +4,12 @@ import Quiz from '../assets/Quiz.png';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import API from '../api/index';
-import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import InputField from '../components/InputField';
 import Button from '../components/Button';
 
 const Login = () => {
-  const history = useHistory(null);
-  const [email, setEmail] = useState('dojac63370@aregods.com');
+  const [email, setEmail] = useState('ts@admin.com');
   const [password, setPassword] = useState('12345678');
   const handleEmail = (e) => {
     setEmail(e.target.value);
