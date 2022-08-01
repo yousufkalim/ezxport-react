@@ -22,44 +22,46 @@ import AdminLogo3 from '../assets/AdminLogo3.svg';
 
 export const UserRoutes = [
   {
-    path: '/User/Dashboard/ListOfRequests',
-    name: 'Follow-up of requests',
+    path: "/User/Dashboard/ListOfRequests",
+    name: "Follow-up of requests",
     icon: Logo1,
     component: FollowUp,
   },
   {
-    path: '/User/Dashboard/Providers',
-    name: 'Service providers',
+    path: "/User/Dashboard/Providers",
+    name: "Service providers",
     icon: Logo2,
     component: Providers,
   },
   {
-    path: '/User/Dashboard/AddressBook',
-    name: 'Address Book',
+    path: "/User/Dashboard/AddressBook",
+    name: "Address Book",
     icon: Logo3,
     component: AddressBook,
   },
   {
-    path: '/User/Dashboard/Documents',
-    name: 'Documents',
+    path: "/User/Dashboard/Documents",
+    name: "Documents",
     icon: Logo4,
     component: Documents,
   },
+  // Routes cannot be add after this should be added before this comment
   {
-    path: '/User/Dashboard/AskQuestion',
-    name: ' Ask a question',
+    path: "/User/Dashboard/AskQuestion",
+    name: " Ask a question",
     icon: Logo5,
     component: AskQuestion,
   },
   {
-    path: '/User/Dashboard/Application',
-    name: 'Application',
+    path: "/User/Dashboard/Application",
+    name: "Application",
     component: Application,
   },
 ];
 
 export const AdminRoutes = [
   {
+
     path: '/Admin/Dashboard/Country',
     name: 'Country',
     icon: AdminLogo1,
@@ -83,4 +85,5 @@ export const AdminRoutes = [
     icon: AdminLogo3,
     component: Requests,
   },
+  // Routes cannot be add after this should be added before this comment
 ];

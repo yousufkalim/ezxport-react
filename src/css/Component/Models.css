@@ -21,6 +21,8 @@
 }
 .buyer_h2 {
   font-size: 18px;
+  color: #141b29;
+  font-weight: 500;
 }
 .second_input_field {
   display: flex;
