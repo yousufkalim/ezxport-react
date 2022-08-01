@@ -5,8 +5,13 @@
 @import url('./Dashboard.css');
 @import url('./Screen.css');
 @import url('./AdminDashboard.css');
+
 @import url('./Component/Models.css');
 @import url('./Modal/Bom-Popup.css');
+
+
+@import url('./NomPays.css');
+
 
 /* Defaults */
 * {

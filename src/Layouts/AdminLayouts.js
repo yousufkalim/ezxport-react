@@ -6,6 +6,7 @@ import { AdminRoutes } from '../routes/routes';
 import { Switch, Route } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import NomPays from '../Dashboard/AdminDashboard/NomPays';
 
 const AdminLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -67,6 +68,7 @@ const AdminLayouts = () => {
               {AdminRoutes.map((item) => {
                 return <Route path={item.path} render={() => <item.component />} />;
               })}
+              <Route path="/Admin/Dashboard/NomPays" component={NomPays} />
             </Switch>
           </div>
         </div>
