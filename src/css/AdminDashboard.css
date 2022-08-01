@@ -54,3 +54,28 @@
   padding: 2% 5%;
   margin-left: 2%;
 }
+.AddSlice_senter {
+  margin: 3% 0;
+}
+.AddSlice_inputs_div {
+  display: flex;
+  justify-content: space-between;
+  padding: 1% 0;
+}
+.AddSlice_title {
+  font-size: 16px;
+}
+.AddSlice_input_fields {
+  width: 32%;
+}
+.AddSlice_button {
+  width: 100%;
+  border: none;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  padding: 1%;
+}

@@ -124,7 +124,6 @@ const rows2 = [
 ];
 
 const AdminTabMenu = () => {
- 
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

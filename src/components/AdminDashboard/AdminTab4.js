@@ -1,6 +1,18 @@
 import React from 'react';
 import CalculationCoefficient from './CalculationCoefficient';
 import CalculationRange from './CalculationRange';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import EditIcon from '../../assets/EditIcon.svg';
+
+function createData(name, calories, fat, carbs, protein, protein2) {
+  return { name, calories, fat, carbs, protein, protein2 };
+}
+const rows = [
+  createData('500 €', '999 €', '300 €', '22'),
+  createData('500 €', '999 €', '300 €', '22'),
+  createData('500 €', '999 €', '300 €', '22'),
+];
 
 const AdminTab4 = () => {
   const [currentRadioValue, setCurrentValue] = React.useState('on');
@@ -14,7 +26,7 @@ const AdminTab4 = () => {
         style={{
           display: 'flex',
           alignItems: 'center',
-          padding: '0',
+          padding: '2% 0',
         }}
       >
         <input
@@ -53,7 +65,9 @@ const AdminTab4 = () => {
         </label>
       </div>
       {currentRadioValue === 'on' && <CalculationCoefficient />}
-      {currentRadioValue === 'off' && <CalculationRange />}
+      {currentRadioValue === 'off' && (
+        <CalculationRange rows={rows} img={DownArrow} DltIcon={DeleteIcon} editIcon={EditIcon} />
+      )}
     </>
   );
 };

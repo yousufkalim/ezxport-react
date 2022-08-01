@@ -2,6 +2,7 @@ import React from 'react';
 import SearchField from '../../components/SearchField';
 import Button from '../../components/Button';
 import AdminTabMenu from './AdminTabMenu';
+import BackArrow from '../../assets/BackArrow.svg';
 
 const AdminNomPays = () => {
   return (
@@ -10,10 +11,13 @@ const AdminNomPays = () => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div">
-            <h1 className="list_h1">NomPays</h1>
+            <h1 className="list_h1">
+              <img src={BackArrow} alt="" />
+              &nbsp; NomPays
+            </h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button text="Ajouter un acheteur" className="list_reqst_btn2" />
+              <Button text="Edit" className="list_reqst_btn2" />
             </div>
           </div>
           {/* list table   */}
