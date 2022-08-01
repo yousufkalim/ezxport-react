@@ -66,9 +66,9 @@ const AdminLayouts = () => {
             />
             <Switch>
               {AdminRoutes.map((item) => {
-                return <Route path={item.path} render={() => <item.component />} />;
+                return <Route exact path={item.path} render={() => <item.component />} />;
               })}
-              <Route path="/Admin/Dashboard/NomPays" component={NomPays} />
+              <Route exact path="/Admin/Dashboard/Country/NomPays/:id" component={NomPays} />
             </Switch>
           </div>
         </div>

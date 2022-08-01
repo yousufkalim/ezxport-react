@@ -1,16 +1,16 @@
-import React from 'react';
-
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import AdminTab1 from './AdminTab1';
-import AdminTab2 from './AdminTab2';
-import AdminTab3 from './AdminTab3';
-import AdminTab4 from './AdminTab4';
-
+import React, { useState, useEffect } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
+import AdminTab1 from "./AdminTab1";
+import AdminTab2 from "./AdminTab2";
+import AdminTab3 from "./AdminTab3";
+import AdminTab4 from "./AdminTab4";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import { useParams } from "react-router-dom";
+import API from "../../api/index";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,100 +40,41 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-//   arry
-const rows = [
-  {
-    createData: 'AP more',
-  },
-  {
-    createData: 'Bureau Veritas ',
-  },
-  {
-    createData: 'Cotecna ',
-  },
-  {
-    createData: 'Intertek ',
-  },
-  {
-    createData: 'SGS ',
-  },
-  {
-    createData: 'TÜV Rheinland ',
-  },
-];
-const rows2 = [
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Subject to inspection',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Not subject',
-  },
-  {
-    createData: 'Document',
-    createData2: 'More or less long text',
-    code: '8510860',
-    lname: 'Long name',
-    status: 'Not subject',
-  },
-];
 
 const AdminTabMenu = () => {
- 
-  const [value, setValue] = React.useState(0);
-
+  const params = useParams();
+  const { id } = params;
+  const [value, setValue] = useState(0);
+  const [vendor, setVendor] = useState();
+  const [document, setDocument] = useState();
+  const [boms, setBoms] = useState();
+  const [calculation, setCalculation] = useState();
+  useEffect(() => {
+    handleCountryData();
+  }, []);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+  };
+  const handleCountryData = async () => {
+    await API("get", `/countries/${id}`)
+      .then((res) => {
+        console.log("----->RES", res);
+        setVendor(res.data.country.vendors);
+        setDocument(res.data.country.documents);
+        setBoms(res.data.country.boms);
+        setCalculation(res.data.country.calculation);
+      })
+      .catch((err) => {
+        console.log("---->ERR", err);
+      });
   };
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
             <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
@@ -146,30 +87,24 @@ const AdminTabMenu = () => {
 
         <TabPanel value={value} index={0}>
           <div className="list_table">
-            <AdminTab1 rows={rows} text="Service providers" text2="Pays associés" img={DownArrow} />
+            <AdminTab1 vendor={vendor} />
           </div>
         </TabPanel>
         {/* table 2 */}
         <TabPanel value={value} index={1}>
           <div className="list_table">
-            <AdminTab2 rows={rows2} text="Documents" text2="Help Information" img={DownArrow} />
+            <AdminTab2 rows={document} img={DownArrow} />
           </div>
         </TabPanel>
         {/* table 3 */}
         <TabPanel value={value} index={2}>
           <div className="list_table">
-            <AdminTab3
-              rows={rows2}
-              text="BOMs code "
-              text2="Last name "
-              text3="Status"
-              img={DownArrow}
-            />
+            <AdminTab3 rows={boms} />
           </div>
         </TabPanel>
         {/* table 4 */}
         <TabPanel value={value} index={3}>
-          <AdminTab4 />
+          <AdminTab4 calculation={calculation} />
         </TabPanel>
       </Box>
     </>
