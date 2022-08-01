@@ -1,107 +1,59 @@
-import React from 'react';
-import UserTable from '../../components/AdminDashboard/UserTable';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-
-const rows = [
-  {
-    fname: 'First name',
-    lname: 'Last name',
-    Email: 'E-mail address',
-    number: '+33 04 93 83 83 20',
-    adress: '89 chaussée de rouvroy',
-    postal: '75000',
-    cntry: 'Paris',
-    enterprise: 'NomEntreprise',
-    typs: 'Type',
-    vatNumber: '6748933483904',
-  },
-  {
-    fname: 'First name',
-    lname: 'Last name',
-    Email: 'E-mail address',
-    number: '+33 04 93 83 83 20',
-    adress: '89 chaussée de rouvroy',
-    postal: '75000',
-    cntry: 'Paris',
-    enterprise: 'NomEntreprise',
-    typs: 'Type',
-    vatNumber: '6748933483904',
-  },
-  {
-    fname: 'First name',
-    lname: 'Last name',
-    Email: 'E-mail address',
-    number: '+33 04 93 83 83 20',
-    adress: '89 chaussée de rouvroy',
-    postal: '75000',
-    cntry: 'Paris',
-    enterprise: 'NomEntreprise',
-    typs: 'Type',
-    vatNumber: '6748933483904',
-  },
-  {
-    fname: 'First name',
-    lname: 'Last name',
-    Email: 'E-mail address',
-    number: '+33 04 93 83 83 20',
-    adress: '89 chaussée de rouvroy',
-    postal: '75000',
-    cntry: 'Paris',
-    enterprise: 'NomEntreprise',
-    typs: 'Type',
-    vatNumber: '6748933483904',
-  },
-  {
-    fname: 'First name',
-    lname: 'Last name',
-    Email: 'E-mail address',
-    number: '+33 04 93 83 83 20',
-    adress: '89 chaussée de rouvroy',
-    postal: '75000',
-    cntry: 'Paris',
-    enterprise: 'NomEntreprise',
-    typs: 'Type',
-    vatNumber: '6748933483904',
-  },
-];
+import React, { useEffect, useState } from "react";
+import UserTable from "../../components/AdminDashboard/UserTable";
+import API from "../../api/index";
 
 const HeadTitle = [
   {
-    list: 'First name',
+    list: "First name",
   },
   {
-    list: 'Last name',
+    list: "Last name",
   },
   {
-    list: 'E-mail address',
+    list: "E-mail address",
   },
   {
-    list: 'Tééphone',
+    list: "Tééphone",
   },
   {
-    list: 'Adresse',
+    list: "Adresse",
   },
   {
-    list: 'Code postal',
+    list: "Code postal",
   },
   {
-    list: 'Ville',
+    list: "Ville",
   },
   {
-    list: 'Nom entreprise',
+    list: "Nom entreprise",
   },
   {
-    list: 'Type société',
+    list: "Type société",
   },
   {
-    list: 'Numéro de TVA',
+    list: "Numéro de TVA",
   },
 ];
 
 const Users = () => {
+  const [allUsers, setAllUsers] = useState([]);
+  useEffect(() => {
+    HandleAllUser();
+  }, []);
+
+  const HandleAllUser = async () => {
+    await API("get", "/users/")
+      .then((res) => {
+        console.log(res);
+        setAllUsers(res.data.users);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <>
-      <UserTable headTitle={HeadTitle} title="Users" rows={rows} img={DownArrow} />
+      <UserTable headTitle={HeadTitle} title="Users" rows={allUsers} />
     </>
   );
 };

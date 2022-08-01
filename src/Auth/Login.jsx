@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import LoginIcon from '../assets/LoginIcon.svg';
 import Quiz from '../assets/Quiz.png';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../components/Common/Header';
 import API from '../api/index';
 import { toast } from 'react-toastify';
-import InputField from '../components/InputField';
-import Button from '../components/Button';
+import InputField from '../components/Common/InputField';
+import Button from '../components/Common/Button';
 
 const Login = () => {
   const [email, setEmail] = useState('ts@admin.com');
@@ -18,16 +18,18 @@ const Login = () => {
     setPassword(e.target.value);
   };
   const handleLoggin = async () => {
-    await API('post', '/auth/login', {
+    await API('post', '/admin/login', {
       email: email,
       password: password,
     })
       .then((res) => {
-        localStorage.setItem('userData', JSON.stringify(res.data.user));
+        if (res?.data?.user?.role === 'user') {
+          localStorage.setItem('userData', JSON.stringify(res.data.user));
         localStorage.setItem('token', res.data.token);
-        if (res.data.user.role === 'user') {
           window.location = '/User/Dashboard/ListOfRequests';
-        } else {
+        } else if(res?.data?.admin?.role === 'admin'){
+          localStorage.setItem('userData', JSON.stringify(res.data.admin));
+        localStorage.setItem('token', res.data.token);
           window.location = '/admin/Dashboard/Country';
         }
       })
