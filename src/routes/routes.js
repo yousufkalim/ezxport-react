@@ -6,16 +6,19 @@ import AddressBook from '../Dashboard/UserDashboard/AddressBook';
 import Documents from '../Dashboard/UserDashboard/Documents';
 import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
 import Application from '../Dashboard/UserDashboard/Application';
-import Country from '../Dashboard/AdimDashboard/Country';
-import ServiceProviders from '../Dashboard/AdimDashboard/ServiceProviders';
-import Users from '../Dashboard/AdimDashboard/Users';
-import Requests from '../Dashboard/AdimDashboard/Requests';
+import Country from '../Dashboard/AdminDashboard/Country';
+import ServiceProviders from '../Dashboard/AdminDashboard/ServiceProviders';
+import Users from '../Dashboard/AdminDashboard/Users';
+import Requests from '../Dashboard/AdminDashboard/Requests';
 // icons of screen
 import Logo1 from '../assets/LILogo1.svg';
 import Logo2 from '../assets/LILogo2.svg';
 import Logo3 from '../assets/LILogo3.svg';
 import Logo4 from '../assets/LILogo4.svg';
 import Logo5 from '../assets/LILogo5.svg';
+import AdminLogo1 from '../assets/AdminLogo1.svg';
+import AdminLogo2 from '../assets/AdminLogo2.svg';
+import AdminLogo3 from '../assets/AdminLogo3.svg';
 
 export const UserRoutes = [
   {
@@ -58,27 +61,28 @@ export const UserRoutes = [
 
 export const AdminRoutes = [
   {
-    path: "/Admin/Dashboard/Country",
-    name: "Country",
-    icon: Logo1,
+
+    path: '/Admin/Dashboard/Country',
+    name: 'Country',
+    icon: AdminLogo1,
     component: Country,
   },
   {
-    path: "/Admin/Dashboard/Service",
-    name: "Service providers",
-    icon: Logo2,
+    path: '/Admin/Dashboard/Service',
+    name: 'Service providers',
+    icon: AdminLogo2,
     component: ServiceProviders,
   },
   {
-    path: "/Admin/Dashboard/Users",
-    name: "Users",
-    icon: Logo3,
+    path: '/Admin/Dashboard/Users',
+    name: 'Users',
+    icon: AdminLogo2,
     component: Users,
   },
   {
-    path: "/Admin/Dashboard/Requests",
-    name: "Requests",
-    icon: Logo4,
+    path: '/Admin/Dashboard/Requests',
+    name: 'Requests',
+    icon: AdminLogo3,
     component: Requests,
   },
   // Routes cannot be add after this should be added before this comment

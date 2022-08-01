@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 import Button from "../Common/Button";
 import SearchField from "../Common/SearchField";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import PlusIcon from '../../assets/PlusIcon.svg';
-import PaginationPage from './Pagination';
-import { useHistory } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import PlusIcon from "../../assets/PlusIcon.svg";
+import PaginationPage from "./Pagination";
+import { useHistory } from "react-router-dom";
 
 const AdminCountry = (props) => {
   const history = useHistory();
@@ -25,11 +26,7 @@ const AdminCountry = (props) => {
               <SearchField placeholder="Searching" />
               <Button
                 className="list_reqst_btn2"
-                text={`${
-                  history.location.pathname != '/admin/Dashboard/Country'
-                    ? 'Add a service provider'
-                    : 'Add a country'
-                }`}
+                text={`${history.location.pathname != "/Admin/Dashboard/Country" ? "Add a service provider" : "Add a country"}`}
                 Imgsrc={PlusIcon}
               />
             </div>
@@ -40,11 +37,11 @@ const AdminCountry = (props) => {
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       {props.text} <img src={props.img} alt="" />
                     </TableCell>
-                    {history.location.pathname == '/admin/Dashboard/Service' && (
-                      <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                    {history.location.pathname == "/Admin/Dashboard/Service" && (
+                      <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                         {props.text2}
                         &nbsp;
                         <img src={props.img} alt="" />
@@ -58,19 +55,13 @@ const AdminCountry = (props) => {
                       key={row.createData}
                       // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
                     >
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
-                      >
-                        {row.createData}
+                      <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
+                        <NavLink exact to="/Admin/Dashboard/NomPays" style={{ textDecoration: "none", color: "black" }}>
+                          {row.createData}
+                        </NavLink>
                       </TableCell>
-                      {history.location.pathname != '/admin/Dashboard/Country' && (
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
-                        >
+                      {history.location.pathname != "/Admin/Dashboard/Country" && (
+                        <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
                           {row.createData}
                         </TableCell>
                       )}
