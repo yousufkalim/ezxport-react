@@ -13,7 +13,7 @@ const AdminNomPays = () => {
             <h1 className="list_h1">NomPays</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button text="Ajouter un acheteur" className="list_reqst_btn2" />
+              <Button text="Edit" className="list_reqst_btn2" />
             </div>
           </div>
           {/* list table   */}

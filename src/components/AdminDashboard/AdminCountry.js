@@ -24,11 +24,7 @@ const AdminCountry = (props) => {
             <h1 className="list_h1">{props.title}</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button
-                className="list_reqst_btn2"
-                text={`${history.location.pathname != "/Admin/Dashboard/Country" ? "Add a service provider" : "Add a country"}`}
-                Imgsrc={PlusIcon}
-              />
+              <Button className="list_reqst_btn2" text={"Add a service provider"} Imgsrc={PlusIcon} />
             </div>
           </div>
           {/* list table   */}
@@ -60,11 +56,10 @@ const AdminCountry = (props) => {
                           {row.createData}
                         </NavLink>
                       </TableCell>
-                      {history.location.pathname != "/Admin/Dashboard/Country" && (
-                        <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
-                          {row.createData}
-                        </TableCell>
-                      )}
+
+                      <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
+                        {row.createData}
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

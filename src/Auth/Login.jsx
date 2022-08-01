@@ -18,18 +18,21 @@ const Login = () => {
     setPassword(e.target.value);
   };
   const handleLoggin = async () => {
-    await API('post', '/admin/login', {
+    await API('post', '/auth/login', {
       email: email,
       password: password,
     })
       .then((res) => {
-        if (res?.data?.user?.role === 'user') {
+        if (res?.data?.role === 'user') {
           localStorage.setItem('userData', JSON.stringify(res.data.user));
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('role', JSON.stringify(res.data.role));
           window.location = '/User/Dashboard/ListOfRequests';
-        } else if(res?.data?.admin?.role === 'admin'){
+        } else if(res?.data?.role === 'admin'){
           localStorage.setItem('userData', JSON.stringify(res.data.admin));
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('role', JSON.stringify(res.data.role));
+
           window.location = '/admin/Dashboard/Country';
         }
       })

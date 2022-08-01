@@ -8,9 +8,9 @@ import "./css/index.css";
 function App() {
   const [role, setRole] = useState("");
   useEffect(() => {
-    const UserData = JSON.parse(localStorage.getItem("userData"));
-    if (UserData) {
-      setRole(UserData.role);
+    const Role = JSON.parse(localStorage.getItem("role"));
+    if (Role) {
+      setRole(Role);
     }
   }, [role]);
 
