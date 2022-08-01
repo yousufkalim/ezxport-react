@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../Button';
-import SearchField from '../SearchField';
+import Button from "../Common/Button";
+import SearchField from "../Common/SearchField";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import ExportIcon from '../../assets/ExportIcon.svg';
 import PaginationPage from './Pagination';
 import { useHistory } from 'react-router-dom';
+import icon from "../../assets/TitleDownArrow.svg";
 
 const UserTable = (props) => {
   const history = useHistory();
@@ -37,18 +38,19 @@ const UserTable = (props) => {
                       <TableCell
                         className="table_head"
                         sx={{
-                          color: '#667085',
-                          backgroundColor: '#F9FAFB;',
+                          color: "#667085",
+                          backgroundColor: "#F9FAFB;",
                         }}
                       >
                         {item.list}
                         &nbsp;
-                        <img src={props.img} alt="" />
+                        <img src={icon} alt="" />
                       </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                  {console.log("ROWS", props.rows)}
                   {props.rows.map((row) => (
                     <TableRow
                       key={row.name}
@@ -57,89 +59,88 @@ const UserTable = (props) => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.fname}
+                        {row.first_name}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.lname}
+                        {row.last_name}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.Email}
+                        {row.email}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.number}
+                        {row.phone_number}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.adress}
+                        {row.address}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.postal}
+                        {row.zip_code}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.cntry}
+                        {row.city}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.enterprise}
+                        {row.company.name}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.typs}
+                        {row.company.type}
                       </TableCell>
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                         className="table_cell"
                       >
-                        {row.vatNumber}
+                        {row.company.vat}
                       </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
               </Table>
             </TableContainer>
-
             <PaginationPage />
           </div>
         </div>

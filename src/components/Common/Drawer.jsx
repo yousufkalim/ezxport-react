@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import LILogo5 from '../assets/LILogo5.svg';
-import LILogo6 from '../assets/LILogo6.svg';
-import LILogo7 from '../assets/LILogo7.svg';
+import LILogo5 from '../../assets/LILogo5.svg';
+import LILogo6 from '../../assets/LILogo6.svg';
+import LILogo7 from '../../assets/LILogo7.svg';
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));

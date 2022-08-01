@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import SearchField from '../../components/SearchField';
-import Modal from '../../components/Modal';
+import SearchField from "../../components/Common/SearchField";
+import Modal from "../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -9,8 +9,8 @@ import Icon from "../../assets/Quiz.png";
 // table
 
 // import SearchIcon from '@mui/icons-material/Search';
-import TabMenu from "../../components/TabMenu";
-import Button from "../../components/Button";
+import TabMenu from "../../components/Common/TabMenu";
+import Button from "../../components/Common/Button";
 const title = [
   { heading: "Nom société" },
   { heading: "Pays" },
@@ -21,8 +21,8 @@ const title = [
 ];
 
 const AddressBook = () => {
-  const [open, setOpen] = React.useState(false);
-  const [dropdown, setDropdown] = React.useState("default");
+  const [open, setOpen] = useState(false);
+  const [dropdown, setDropdown] = useState("default");
 
   const handleClickOpen = () => {
     setOpen(true);

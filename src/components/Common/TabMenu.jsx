@@ -11,7 +11,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import DotedIcon from '../assets/DotedIcon.svg';
+import DotedIcon from '../../assets/DotedIcon.svg';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
-import Header from "../components/Header";
+import Header from "../components/Common/Header";
 import { Link } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
-import InputField from "../components/InputField";
-import Button from "../components/Button";
+import InputField from "../components/Common/InputField";
+import Button from "../components/Common/Button";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("dojac63370@aregods.com");

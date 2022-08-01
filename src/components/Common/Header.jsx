@@ -1,6 +1,6 @@
 // Init
 import React from 'react';
-import EzxportIcon from '../assets/EzxportIcon.svg';
+import EzxportIcon from '../../assets/EzxportIcon.svg';
 
 // Component
 export default function Header() {

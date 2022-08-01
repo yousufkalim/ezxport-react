@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
+import Header from "../components/Common/Header";
 import { Link, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
 import { toast } from "react-toastify";
-import Button from "../components/Button";
+import Button from "../components/Common/Button";
 
 const Registration = () => {
   const [form, setForm] = useState({
@@ -27,18 +27,20 @@ const Registration = () => {
   };
   const handleSubmit = async () => {
     await API("post", "/users/create", {
-      firstName: form.firstName,
-      lastName: form.lastName,
+      first_name: form.firstName,
+      last_name: form.lastName,
       email: form.email,
       password: form.password,
       confirm_password: form.confirmPassword,
-      phone: form.phone,
-      fullAddress: form.fullAddress,
-      town: form.town,
-      postelCode: form.postelCode,
-      companyInformation_lastName: form.companyLastName,
-      typeOfSociety: form.typeOfSociety,
-      VatNumber: form.vatNumber,
+      phone_number: form.phone,
+      address: form.fullAddress,
+      city: form.town,
+      zip_code: form.postelCode,
+      company:{
+        name:form.companyLastName,
+        type:form.typeOfSociety,
+        vat:form.vatNumber,
+      }
     })
       .then(() => {
         toast.success("User created successfully");
