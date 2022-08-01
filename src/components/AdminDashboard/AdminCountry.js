@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Button from '../Button';
 import SearchField from '../SearchField';
 import Table from '@mui/material/Table';
@@ -26,7 +27,7 @@ const AdminCountry = (props) => {
               <Button
                 className="list_reqst_btn2"
                 text={`${
-                  history.location.pathname != '/admin/Dashboard/Country'
+                  history.location.pathname != '/Admin/Dashboard/Country'
                     ? 'Add a service provider'
                     : 'Add a country'
                 }`}
@@ -43,7 +44,7 @@ const AdminCountry = (props) => {
                     <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                       {props.text} <img src={props.img} alt="" />
                     </TableCell>
-                    {history.location.pathname == '/admin/Dashboard/Service' && (
+                    {history.location.pathname == '/Admin/Dashboard/Service' && (
                       <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                         {props.text2}
                         &nbsp;
@@ -63,9 +64,15 @@ const AdminCountry = (props) => {
                         scope="row"
                         sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
                       >
-                        {row.createData}
+                        <NavLink
+                          exact
+                          to="/Admin/Dashboard/NomPays"
+                          style={{ textDecoration: 'none', color: 'black' }}
+                        >
+                          {row.createData}
+                        </NavLink>
                       </TableCell>
-                      {history.location.pathname != '/admin/Dashboard/Country' && (
+                      {history.location.pathname != '/Admin/Dashboard/Country' && (
                         <TableCell
                           component="th"
                           scope="row"
