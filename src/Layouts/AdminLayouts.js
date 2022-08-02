@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/Dashboard.css';
 import DashLogo from '../assets/DashLogo.svg';
-import Drawer from '../components/Drawer';
+import Drawer from "../components/Common/Drawer";
 import { AdminRoutes } from '../routes/routes';
 import { Switch, Route } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -66,9 +66,9 @@ const AdminLayouts = () => {
             />
             <Switch>
               {AdminRoutes.map((item) => {
-                return <Route path={item.path} render={() => <item.component />} />;
+                return <Route exact path={item.path} render={() => <item.component />} />;
               })}
-              <Route path="/Admin/Dashboard/NomPays" component={NomPays} />
+              <Route exact path="/Admin/Dashboard/Country/NomPays/:id" component={NomPays} />
             </Switch>
           </div>
         </div>

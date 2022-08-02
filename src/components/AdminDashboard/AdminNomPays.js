@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchField from '../../components/SearchField';
-import Button from '../../components/Button';
+import SearchField from "../../components/Common/SearchField";
+import Button from "../../components/Common/Button";
 import AdminTabMenu from './AdminTabMenu';
 import BackArrow from '../../assets/BackArrow.svg';
 

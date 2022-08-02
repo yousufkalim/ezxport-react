@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import LILogo5 from '../assets/LILogo5.svg';
-import LILogo6 from '../assets/LILogo6.svg';
-import LILogo7 from '../assets/LILogo7.svg';
+import LILogo5 from '../../assets/LILogo5.svg';
+import LILogo6 from '../../assets/LILogo6.svg';
+import LILogo7 from '../../assets/LILogo7.svg';
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
+  const [role, setRole] = useState(JSON.parse(localStorage.getItem('role')));
   const handleLoggout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData");
+    localStorage.removeItem("role");
     window.location = "/";
   };
 
@@ -17,7 +19,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
       <div className="dash_menu">
         <ul className="dashboard_ul">
           {Route.map((item, index) => {
-            if (index < Route.length - 2 && user.role === 'user') {
+            if (index < Route.length - 2 && role === 'user') {
               return (
                 <>
                   <Link
@@ -32,7 +34,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                   </Link>
                 </>
               );
-            } else if (user.role === 'admin') {
+            } else if ( role === 'admin') {
               return (
                 <>
                   <Link
@@ -54,7 +56,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
       {/* dashbord menu 2 */}
       <div className="dash_menu2">
         <ul className="dashboard_ul">
-          {user.role === 'user' ? (
+          { role === 'user' ? (
             <>
               <Link
                 exact

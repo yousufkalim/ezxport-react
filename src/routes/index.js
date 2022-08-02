@@ -51,15 +51,14 @@ const Index = ({ role }) => {
         ) : (
           <>
             {/* Auth routes */}
-            {role === 'user' ? (
+            {role === "user" ? (
               <>
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
               </>
-            ) : role === 'admin' ? (
+            ) : role === "admin" ? (
               <>
                 <Route path="/Admin/Dashboard" component={AdminLayouts} />
-
                 <Redirect from="/" to="/Admin/Dashboard/Country" />
               </>
             ) : (

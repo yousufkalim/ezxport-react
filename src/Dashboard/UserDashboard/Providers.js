@@ -1,6 +1,6 @@
 import React from 'react';
 import SearchIcon from '../../assets/SearchIcon.svg';
-import TableComponent from "../../components/TableComponent";
+import TableComponent from "../../components/Common/TableComponent";
 import DotedIcon from "../../assets/DotedIcon.svg";
 
 const Data = [
