@@ -9,8 +9,10 @@ import InputField from '../components/Common/InputField';
 import Button from '../components/Common/Button';
 
 const Login = () => {
-  const [email, setEmail] = useState('ts@admin.com');
-  const [password, setPassword] = useState('12345678');
+  // ts@admin.com
+  // 12345678
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
