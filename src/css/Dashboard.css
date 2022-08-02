@@ -279,4 +279,13 @@
   .dashboard_logo {
     width: 60%;
   }
+  .dashboard_right_side {
+    width: 100%;
+  }
+  .pagination {
+    width: 63%;
+  }
+  .pagination_btn {
+    padding: 2px 22px;
+  }
 }

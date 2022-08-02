@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
-import AdminTab1 from "./AdminTab1";
-import AdminTab2 from "./AdminTab2";
-import AdminTab3 from "./AdminTab3";
-import AdminTab4 from "./AdminTab4";
-import DownArrow from "../../assets/TitleDownArrow.svg";
-import { useParams } from "react-router-dom";
-import API from "../../api/index";
+import React, { useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import AdminTab1 from './AdminTab1';
+import AdminTab2 from './AdminTab2';
+import AdminTab3 from './AdminTab3';
+import AdminTab4 from './AdminTab4';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import { useParams } from 'react-router-dom';
+import API from '../../api/index';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,7 +40,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -59,22 +59,22 @@ const AdminTabMenu = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
-    await API("get", `/countries/${id}`)
+    await API('get', `/countries/${id}`)
       .then((res) => {
-        console.log("----->RES", res);
+        console.log('----->RES', res);
         setVendor(res.data.country.vendors);
         setDocument(res.data.country.documents);
         setBoms(res.data.country.boms);
         setCalculation(res.data.country.calculation);
       })
       .catch((err) => {
-        console.log("---->ERR", err);
+        console.log('---->ERR', err);
       });
   };
 
   return (
     <>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: '100%' }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
             <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
