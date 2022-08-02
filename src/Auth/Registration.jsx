@@ -26,7 +26,7 @@ const Registration = () => {
     setForm({ ...form, [name]: value });
   };
   const handleSubmit = async () => {
-    await API("post", "/users/create", {
+    await API("post", "/users/", {
       first_name: form.firstName,
       last_name: form.lastName,
       email: form.email,
@@ -35,7 +35,7 @@ const Registration = () => {
       phone_number: form.phone,
       address: form.fullAddress,
       city: form.town,
-      zip_code: form.postelCode,
+      zipcode: form.postelCode,
       company:{
         name:form.companyLastName,
         type:form.typeOfSociety,
