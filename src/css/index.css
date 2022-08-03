@@ -5,12 +5,16 @@
 @import url('./Dashboard.css');
 @import url('./Screen.css');
 @import url('./AdminDashboard.css');
+@import url('./ServiceProvider.css');
 
 @import url('./Component/Models.css');
 @import url('./Modal/Bom-Popup.css');
+@import url('./Modal/AddCountryModal.css');
+@import url('./Modal/AddServiceProvider.css');
 
 
 @import url('./NomPays.css');
+@import url('./UserDetails.css');
 
 
 /* Defaults */
