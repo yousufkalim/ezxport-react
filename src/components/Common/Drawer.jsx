@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Link } from 'react-router-dom';
 import LILogo5 from '../../assets/LILogo5.svg';
 import LILogo6 from '../../assets/LILogo6.svg';
@@ -83,9 +83,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
 
           <div className="userDetail">
             <div className="user_Pro">
-              <Link to="#" className="deshboard_user">
-                {user.firstName} {user.lastName}
-              </Link>
+                {user.name}
               <img
                 src={LILogo7}
                 alt=""
