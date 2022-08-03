@@ -53,87 +53,40 @@ const UserTable = (props) => {
                   {console.log("ROWS", props.rows)}
                   {props.rows.map((row) => (
                     <TableRow
+                      onClick={() => {
+                        history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
+                      }}
                       key={row.name}
-                      // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
+                      sx={{ cursor: "pointer", border: "1px solid #E5E5E5;" }}
                     >
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.first_name}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.last_name}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.email}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.phone_number}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.address}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.zip_code}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.city}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.company.name}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.company.type}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
-                        className="table_cell"
-                      >
+                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
                         {row.company.vat}
                       </TableCell>
                     </TableRow>
