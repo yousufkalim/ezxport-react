@@ -122,7 +122,7 @@ const AddressBook = () => {
           <button className="luyer_button">Confirmer</button>
         </div>
       </Modal>
-      {/* BOM's Modal */}
+      {/* BOM's Modal donot remove */}
       {/* <Modal open={open} setOpen={setOpen} title="Actualiser les nomenclatures" handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
