@@ -40,7 +40,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -59,24 +59,22 @@ const AdminTabMenu = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
-    await API('get', `/countries/${id}`)
+    await API("get", `/countries/${id}`)
       .then((res) => {
-        console.log('----->RES', res);
         setVendor(res.data.country.vendors);
         setDocument(res.data.country.documents);
         setBoms(res.data.country.boms);
         setCalculation(res.data.country.calculation);
       })
       .catch((err) => {
-        console.log('---->ERR', err);
+        console.log("---->ERR", err);
       });
   };
-
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Box>
-          <Tabs value={value} onChange={handleChange}>
+          <Tabs value={value} onChange={handleChange} className="tab_menu">
             <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
             <Tab className="admin_tab_btn" label="Documents" {...a11yProps(1)} />
             <Tab className="admin_tab_btn" label="BOMs" {...a11yProps(2)} />
