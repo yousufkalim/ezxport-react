@@ -44,7 +44,6 @@ const Users = () => {
   const HandleAllUser = async () => {
     await API("get", "/users/")
       .then((res) => {
-        console.log(res);
         setAllUsers(res.data.users);
       })
       .catch((err) => {

@@ -6,12 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { NavLink } from 'react-router-dom';
+import Paper from "@mui/material/Paper";
 import DownArrow from "../../assets/TitleDownArrow.svg";
 
 const AdminTab1 = (props) => {
-  console.log("---->vendor", props);
   return (
     <>
       <TableContainer component={Paper}>
@@ -28,9 +26,7 @@ const AdminTab1 = (props) => {
               return (
                 <TableRow key={item.name}>
                   <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
-                    {/* <NavLink exact to="/Admin/Dashboard/NomPays" style={{ textDecoration: "none", color: "black" }}> */}
                     {item.name}
-                    {/* </NavLink> */}
                   </TableCell>
                 </TableRow>
               );

@@ -12,6 +12,7 @@ const InputField = (props) => {
           type={props.type}
           placeholder={props.placeholder}
           onChange={props.onChange}
+          disabled={props.disabled}
         />
         <img src={props.icon} alt="" className="quizIcon" />
       </div>

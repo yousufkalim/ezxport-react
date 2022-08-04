@@ -136,6 +136,12 @@
   width: 50%;
   height: 40px;
 }
+.searching2 {
+  display: flex;
+justify-content: flex-end;
+  width: 50%;
+  height: 40px;
+}
 .list_reqst_btn2 {
   width: 90%;
   margin: 0 0 0px 37px;
