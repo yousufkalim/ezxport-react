@@ -4,11 +4,6 @@ import Modal from "../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import FilePicker from "../../components/Common/FilePicker";
-import Icon from "../../assets/Quiz.png";
-// table
-
-// import SearchIcon from '@mui/icons-material/Search';
 import TabMenu from "../../components/Common/TabMenu";
 import Button from "../../components/Common/Button";
 const title = [
@@ -122,22 +117,6 @@ const AddressBook = () => {
           <button className="luyer_button">Confirmer</button>
         </div>
       </Modal>
-      {/* BOM's Modal donot remove */}
-      {/* <Modal open={open} setOpen={setOpen} title="Actualiser les nomenclatures" handleClose={handleClose} Closebtn={true}>
-        <div className="buyer_socond">
-          <div className="luyer_input_field">
-            <label htmlFor="" className="bom_popup_label">
-              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
-            </label>
-            <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
-          </div>
-          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
-            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
-          </label>
-          <FilePicker />
-          <Button text="Actualiser" className="bom_downloadFile_btn" />
-        </div>
-      </Modal> */}
     </>
   );
 };

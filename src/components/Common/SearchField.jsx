@@ -6,7 +6,7 @@ const SearchField = (props) => {
     <>
       <input
         type="text"
-        className="search_input"
+        className={props.className || "search_input"}
         placeholder={props.placeholder}
         onChange={props.onChange}
       />

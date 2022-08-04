@@ -139,7 +139,21 @@
 .searching2 {
   display: flex;
 justify-content: flex-end;
+position: relative;
   width: 50%;
+  height: 40px;
+}
+.searching_div_country {
+  position: relative;
+  display: flex;
+  width: 30%;
+  height: 40px;
+}
+.searching_div_country2 {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
   height: 40px;
 }
 .list_reqst_btn2 {
@@ -157,6 +171,30 @@ justify-content: flex-end;
   text-align: center;
   cursor: pointer;
 }
+.Edit_btn {
+  width: 6rem;
+  background-color: #7f56d9;
+  color: #fff;
+  font-size: 16px;
+  border: 1px solid #7f56d9;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+margin-left: 1em;
+
+}
+.update_Boms_btn {
+  width: 9rem;
+  background-color: #7f56d9;
+  color: #fff;
+  font-size: 16px;
+  border: 1px solid #7f56d9;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+margin-left: 1em;
+
+}
 .search_input {
   width: 100%;
   height: 100%;
@@ -166,6 +204,17 @@ justify-content: flex-end;
   border-radius: 8px;
   padding: 10px 30px;
 }
+.Country_search_input {
+  width: 80%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  padding: 10px 30px;
+  outline: none !important;
+}
+
 .search_icon {
   position: absolute;
   left: 6px;

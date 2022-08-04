@@ -15,6 +15,11 @@ import AdminTab4 from "./AdminTab4";
 import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
+import FilePicker from "../../components/Common/FilePicker";
+import Icon from "../../assets/Quiz.png";
+import Modal from "../../components/Common/Modal";
+import TextFieldSelect from "../Common/TextFieldSelect";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -54,18 +59,19 @@ const AdminNomPays = () => {
   const [value, setValue] = useState(0);
   const [vendor, setVendor] = useState();
   const [document, setDocument] = useState();
+  const [open, setOpen] = useState(false);
+  const [openCalculationModal, setOpenCalculationModal] = useState(false);
   const [boms, setBoms] = useState();
   const [calculation, setCalculation] = useState();
   useEffect(() => {
     handleCountryData();
-  }, []);
+  }, [openCalculationModal]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
     await API("get", `/countries/${id}`)
       .then((res) => {
-        console.log("----->RES", res);
         setVendor(res.data.country.vendors);
         setDocument(res.data.country.documents);
         setBoms(res.data.country.boms);
@@ -75,6 +81,9 @@ const AdminNomPays = () => {
         console.log("---->ERR", err);
       });
   };
+  const handleClose = () => setOpen(false);
+  const handleCalculationClose = () => setOpenCalculationModal(false);
+
   return (
     <>
       <div className="list_main_div">
@@ -87,10 +96,32 @@ const AdminNomPays = () => {
               </Link>
               &nbsp; NomPays
             </h1>
-            <div className="searching">
-              <SearchField placeholder="Searching" />
-              <Button text="Edit" className="list_reqst_btn2" />
-            </div>
+            {value === 0 ? (
+              <div className="searching_div_country">
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                <Button text="Modifier" className="Edit_btn" />
+              </div>
+            ) : value === 1 ? (
+              <div className="searching_div_country">
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                <Button text="Modifier" className="Edit_btn" />
+              </div>
+            ) : value === 2 ? (
+              <div className="searching_div_country2">
+                <div style={{ display: "flex", width: "60%" }}>
+                  <SearchField placeholder="Searching" className="Country_search_input" />
+                  <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
+                </div>
+                <Button text="Modifier" className="Edit_btn" />
+              </div>
+            ) : value === 3 ? (
+              <div className="searching_div_country">
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                <Button text="Modifier" className="Edit_btn" onClick={() => setOpenCalculationModal(true)} />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
           {/* list table   */}
           <div className="list_table">
@@ -124,12 +155,33 @@ const AdminNomPays = () => {
               </TabPanel>
               {/* table 4 */}
               <TabPanel value={value} index={3}>
-                <AdminTab4 calculation={calculation} />
+                <AdminTab4
+                  calculation={calculation}
+                  openCalculationModal={openCalculationModal}
+                  setOpenCalculationModal={setOpenCalculationModal}
+                  handleCalculationClose={handleCalculationClose}
+                  countryId={id}
+                />
               </TabPanel>
             </Box>
           </div>
         </div>
       </div>
+      <Modal open={open} setOpen={setOpen} title="Actualiser les nomenclatures" handleClose={handleClose} Closebtn={true}>
+        <div className="buyer_socond">
+          <div className="luyer_input_field">
+            <label htmlFor="" className="bom_popup_label">
+              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+            </label>
+            <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
+          </div>
+          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
+            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+          </label>
+          <FilePicker />
+          <Button text="Actualiser" className="bom_downloadFile_btn" />
+        </div>
+      </Modal>
     </>
   );
 };

@@ -1,33 +1,44 @@
-import React, { useState } from 'react';
-import CalculationCoefficient from './CalculationCoefficient';
-import CalculationRange from './CalculationRange';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import DeleteIcon from '../../assets/DeleteIcon.svg';
-import EditIcon from '../../assets/EditIcon.svg';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-
+import React, { useState } from "react";
+import CalculationRange from "./CalculationRange";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import TextFieldSelect from "../Common/TextFieldSelect";
+import Modal from "../Common/Modal";
+import Button from "../Common/Button";
+import API from "../../api/index";
 function createData(name, calories, fat, carbs, protein, protein2) {
   return { name, calories, fat, carbs, protein, protein2 };
 }
 const rows = [
-  createData('500 €', '999 €', '300 €', '22'),
-  createData('500 €', '999 €', '300 €', '22'),
-  createData('500 €', '999 €', '300 €', '22'),
+  createData("500 €", "999 €", "300 €", "22"),
+  createData("500 €", "999 €", "300 €", "22"),
+  createData("500 €", "999 €", "300 €", "22"),
 ];
 const AdminTab4 = (props) => {
-  console.log('TAB 4', props);
-  const [currentRadioValue, setCurrentValue] = useState('on');
-  const [dropdown, setDropdown] = useState('default');
+  const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
+  const [thresholdCurrency, setThresholdCurrency] = useState(props?.calculation?.min_threshold?.currency);
+  const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
+  const [maxCostCurrency, setMaxCostCurrency] = useState(props?.calculation?.max_cost?.currency);
+  const [MinThreshold, setMinThreshold] = useState(props?.calculation?.min_threshold?.value);
+  const [coefficient, setCoefficient] = useState(props?.calculation?.coefficient);
+  const [minCost, setMinCost] = useState(props?.calculation?.min_cost?.value);
+  const [maxCost, setMaxCost] = useState(props?.calculation?.max_cost?.value);
 
-  const handleRadioChange = (value) => {
-    setCurrentValue(value);
-  };
-
-  const handleChange = (event) => {
-    setDropdown(event.target.value);
+  const handleCoefficientChange = async () => {
+    await API("put", `/calculations/${props?.calculation?._id}`, {
+      country: props.countryId,
+      type: "coefficient",
+      min_threshold: { currency: thresholdCurrency, value: MinThreshold },
+      coefficient: coefficient,
+      min_cost: { currency: minCostCurrency, value: minCost },
+      max_cost: { currency: maxCostCurrency, value: maxCost },
+    })
+      .then((res) => {
+        console.log("qwertyuifghj", res);
+      })
+      .catch((err) => {
+        console.log("errrrr", err);
+      });
   };
 
   return (
@@ -43,8 +54,8 @@ const AdminTab4 = (props) => {
           name="radio-item-1"
           value="on"
           type="radio"
-          onChange={(e) => setCurrentValue(e.target.value)}
-          defaultChecked={currentRadioValue === "on"}
+          onChange={(e) => setCurrentRadioValue("coefficient")}
+          defaultChecked={currentRadioValue === "coefficient"}
         />
         <label
           htmlFor="radio-item-1"
@@ -62,8 +73,8 @@ const AdminTab4 = (props) => {
           name="radio-item-1"
           value="off"
           type="radio"
-          onChange={(e) => setCurrentValue(e.target.value)}
-          defaultChecked={currentRadioValue === "off"}
+          onChange={(e) => setCurrentRadioValue("range")}
+          defaultChecked={currentRadioValue === "range"}
         />
         <label
           style={{
@@ -74,9 +85,9 @@ const AdminTab4 = (props) => {
           Calculation by range
         </label>
       </div>
-      {/* {currentRadioValue === 'on' && <CalculationCoefficient />} */}
-      {currentRadioValue === "off" && <CalculationRange rows={rows} img={DownArrow} DltIcon={DeleteIcon} editIcon={EditIcon} />}
-      {currentRadioValue === "on" && (
+
+      {currentRadioValue === "range" && <CalculationRange rows={rows} id={props?.calculation?._id} />}
+      {currentRadioValue === "coefficient" && (
         <>
           <div className="Coefficient_main">
             <div className="Coefficient_input_div">
@@ -85,13 +96,10 @@ const AdminTab4 = (props) => {
                   <label htmlFor="" className="buyer_label">
                     Minimum threshold
                   </label>
-                  <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange} className="buyer_input">
-                    <MenuItem value="default"> {"$" + props?.calculation?.min_threshold?.value}</MenuItem>
-                    <MenuItem value={10}>3,000</MenuItem>
-                    <MenuItem value={20}>3,000</MenuItem>
-                    <MenuItem value={30}>3,000</MenuItem>
-                  </Select>
-                  <span className="rightText"> {props?.calculation?.min_threshold?.currency}</span>
+                  <TextFieldSelect
+                    value={thresholdCurrency === "USD" ? "$ " + MinThreshold : "€ " + MinThreshold}
+                    disabled={true}
+                  />
                 </FormControl>
               </div>
               <div className="luyer_input_field">
@@ -102,14 +110,13 @@ const AdminTab4 = (props) => {
                   <TextField
                     id="outlined-basic"
                     variant="outlined"
-                    value={props?.calculation?.coefficient}
+                    value={coefficient}
                     sx={{
                       ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
                         height: "1rem !important",
                       },
                     }}
                   />
-                  {/* <span className="rightText">{props.calculation.min_threshold.currency}</span> */}
                 </FormControl>
               </div>
               <div className="luyer_input_field">
@@ -117,13 +124,7 @@ const AdminTab4 = (props) => {
                   <label htmlFor="" className="buyer_label">
                     minimum cost
                   </label>
-                  <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange} className="buyer_input">
-                    <MenuItem value="default">{"$" + props.calculation?.min_cost?.value}</MenuItem>
-                    <MenuItem value={10}>3,000</MenuItem>
-                    <MenuItem value={20}>3,000</MenuItem>
-                    <MenuItem value={30}>3,000</MenuItem>
-                  </Select>
-                  <span className="rightText">{props.calculation?.min_cost?.currency}</span>
+                  <TextFieldSelect value={minCostCurrency === "USD" ? "$ " + minCost : "€ " + minCost} disabled={true} />
                 </FormControl>
               </div>
               <div className="luyer_input_field">
@@ -131,20 +132,88 @@ const AdminTab4 = (props) => {
                   <label htmlFor="" className="buyer_label">
                     Coût maximum
                   </label>
-                  <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange} className="buyer_input">
-                    <MenuItem value="default">{"$" + props?.calculation?.max_cost?.value}</MenuItem>
-                    <MenuItem value={10}>3,000</MenuItem>
-                    <MenuItem value={20}>3,000</MenuItem>
-                    <MenuItem value={30}>3,000</MenuItem>
-                  </Select>
-                  <span className="rightText">{props.calculation?.max_cost?.currency}</span>
+                  <TextFieldSelect value={maxCostCurrency === "USD" ? "$ " + maxCost : "€ " + maxCost} disabled={true} />
                 </FormControl>
               </div>
             </div>
           </div>
         </>
       )}
-      {/* {currentRadioValue === "off" && <CalculationRange />} */}
+
+      <Modal
+        open={props.openCalculationModal}
+        setOpen={props.setOpenCalculationModal}
+        title="Mise à jour Calcul par coefficient"
+        handleClose={props.handleCalculationClose}
+        Closebtn={true}
+      >
+        <div className="Coefficient_input_div">
+          <div className="luyer_input_field">
+            <FormControl fullWidth>
+              <label htmlFor="" className="buyer_label">
+                Minimum threshold
+              </label>
+
+              <TextFieldSelect
+                value={MinThreshold}
+                onChange={(e) => setMinThreshold(e.target.value)}
+                onOptionChange={(e) => {
+                  setThresholdCurrency(e.target.value);
+                }}
+              />
+            </FormControl>
+          </div>
+          <div className="luyer_input_field">
+            <FormControl fullWidth>
+              <label htmlFor="" className="buyer_label">
+                Coefficient
+              </label>
+              <TextField
+                onChange={(e) => setCoefficient(e.target.value)}
+                id="outlined-basic"
+                variant="outlined"
+                value={coefficient}
+                sx={{
+                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
+                    height: "1rem !important",
+                  },
+                }}
+              />
+            </FormControl>
+          </div>
+          <div className="luyer_input_field">
+            <FormControl fullWidth>
+              <label htmlFor="" className="buyer_label">
+                minimum cost
+              </label>
+
+              <TextFieldSelect
+                value={minCost}
+                onChange={(e) => setMinCost(e.target.value)}
+                onOptionChange={(e) => {
+                  setMinCostCurrency(e.target.value);
+                }}
+              />
+            </FormControl>
+          </div>
+          <div className="luyer_input_field">
+            <FormControl fullWidth>
+              <label htmlFor="" className="buyer_label">
+                Coût maximum
+              </label>
+
+              <TextFieldSelect
+                value={maxCost}
+                onChange={(e) => setMaxCost(e.target.value)}
+                onOptionChange={(e) => {
+                  setMaxCostCurrency(e.target.value);
+                }}
+              />
+            </FormControl>
+          </div>
+          <Button text="Modifier" className="bom_downloadFile_btn" onClick={handleCoefficientChange} />
+        </div>
+      </Modal>
     </>
   );
 };
