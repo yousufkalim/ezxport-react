@@ -15,7 +15,7 @@ const rows = [
   createData("500 €", "999 €", "300 €", "22"),
 ];
 const AdminTab4 = (props) => {
-  const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
+  // const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
   const [thresholdCurrency, setThresholdCurrency] = useState(props?.calculation?.min_threshold?.currency);
   const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
   const [maxCostCurrency, setMaxCostCurrency] = useState(props?.calculation?.max_cost?.currency);
@@ -34,10 +34,26 @@ const AdminTab4 = (props) => {
       max_cost: { currency: maxCostCurrency, value: maxCost },
     })
       .then((res) => {
-        console.log("qwertyuifghj", res);
+        console.log("handleCoefficientChange", res);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        console.log("handleCoefficientChange", err);
+      });
+  };
+  const handleAddCoefficient = async () => {
+    await API("put", `/calculations/`, {
+      country: props.countryId,
+      type: "coefficient",
+      coefficient: coefficient,
+      min_threshold: { currency: thresholdCurrency, value: MinThreshold },
+      min_cost: { currency: minCostCurrency, value: minCost },
+      max_cost: { currency: maxCostCurrency, value: maxCost },
+    })
+      .then((res) => {
+        console.log("handleAddCoefficient", res);
+      })
+      .catch((err) => {
+        console.log("handleAddCoefficient", err);
       });
   };
 
@@ -54,8 +70,8 @@ const AdminTab4 = (props) => {
           name="radio-item-1"
           value="on"
           type="radio"
-          onChange={(e) => setCurrentRadioValue("coefficient")}
-          defaultChecked={currentRadioValue === "coefficient"}
+          onChange={(e) => props.setCurrentRadioValue("coefficient")}
+          defaultChecked={props.currentRadioValue === "coefficient"}
         />
         <label
           htmlFor="radio-item-1"
@@ -73,8 +89,8 @@ const AdminTab4 = (props) => {
           name="radio-item-1"
           value="off"
           type="radio"
-          onChange={(e) => setCurrentRadioValue("range")}
-          defaultChecked={currentRadioValue === "range"}
+          onChange={(e) => props.setCurrentRadioValue("range")}
+          defaultChecked={props.currentRadioValue === "range"}
         />
         <label
           style={{
@@ -86,8 +102,9 @@ const AdminTab4 = (props) => {
         </label>
       </div>
 
-      {currentRadioValue === "range" && <CalculationRange rows={rows} id={props?.calculation?._id} />}
-      {currentRadioValue === "coefficient" && (
+      {props.currentRadioValue === "range" ? (
+        <CalculationRange id={props?.calculation?._id} />
+      ) : props.currentRadioValue === "coefficient" ? (
         <>
           <div className="Coefficient_main">
             <div className="Coefficient_input_div">
@@ -97,7 +114,9 @@ const AdminTab4 = (props) => {
                     Minimum threshold
                   </label>
                   <TextFieldSelect
-                    value={thresholdCurrency === "USD" ? "$ " + MinThreshold : "€ " + MinThreshold}
+                    value={
+                      thresholdCurrency === "USD" ? "$ " + MinThreshold : maxCostCurrency === "EURO" ? "€ " + MinThreshold : ""
+                    }
                     disabled={true}
                   />
                 </FormControl>
@@ -124,7 +143,10 @@ const AdminTab4 = (props) => {
                   <label htmlFor="" className="buyer_label">
                     minimum cost
                   </label>
-                  <TextFieldSelect value={minCostCurrency === "USD" ? "$ " + minCost : "€ " + minCost} disabled={true} />
+                  <TextFieldSelect
+                    value={minCostCurrency === "USD" ? "$ " + minCost : maxCostCurrency === "EURO" ? "€ " + minCost : ""}
+                    disabled={true}
+                  />
                 </FormControl>
               </div>
               <div className="luyer_input_field">
@@ -132,12 +154,17 @@ const AdminTab4 = (props) => {
                   <label htmlFor="" className="buyer_label">
                     Coût maximum
                   </label>
-                  <TextFieldSelect value={maxCostCurrency === "USD" ? "$ " + maxCost : "€ " + maxCost} disabled={true} />
+                  <TextFieldSelect
+                    value={maxCostCurrency === "USD" ? "$ " + maxCost : maxCostCurrency === "EURO" ? "€ " + maxCost : ""}
+                    disabled={true}
+                  />
                 </FormControl>
               </div>
             </div>
           </div>
         </>
+      ) : (
+        props.setCurrentRadioValue("coefficient")
       )}
 
       <Modal
@@ -211,7 +238,11 @@ const AdminTab4 = (props) => {
               />
             </FormControl>
           </div>
-          <Button text="Modifier" className="bom_downloadFile_btn" onClick={handleCoefficientChange} />
+          <Button
+            text="Modifier"
+            className="bom_downloadFile_btn"
+            onClick={props.calculation ? handleCoefficientChange : handleAddCoefficient}
+          />
         </div>
       </Modal>
     </>
