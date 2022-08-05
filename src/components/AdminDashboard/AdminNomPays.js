@@ -61,7 +61,9 @@ const AdminNomPays = () => {
   const [document, setDocument] = useState();
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
+  const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
+  const [currentRadioValue, setCurrentRadioValue] = useState();
   const [calculation, setCalculation] = useState();
   useEffect(() => {
     handleCountryData();
@@ -72,10 +74,11 @@ const AdminNomPays = () => {
   const handleCountryData = async () => {
     await API("get", `/countries/${id}`)
       .then((res) => {
-        setVendor(res.data.country.vendors);
-        setDocument(res.data.country.documents);
-        setBoms(res.data.country.boms);
-        setCalculation(res.data.country.calculation);
+        setVendor(res?.data?.country?.vendors);
+        setDocument(res?.data?.country?.documents);
+        setBoms(res?.data?.country?.boms);
+        setCalculation(res?.data?.country?.calculation);
+        setCurrentRadioValue(res?.data?.country?.calculation?.type);
       })
       .catch((err) => {
         console.log("---->ERR", err);
@@ -83,6 +86,7 @@ const AdminNomPays = () => {
   };
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
+  const handleAddBomModalClose = () => setOpenAddBomModal(false);
 
   return (
     <>
@@ -112,12 +116,14 @@ const AdminNomPays = () => {
                   <SearchField placeholder="Searching" className="Country_search_input" />
                   <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
                 </div>
-                <Button text="Modifier" className="Edit_btn" />
+                <Button text="Modifier" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country">
                 <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Modifier" className="Edit_btn" onClick={() => setOpenCalculationModal(true)} />
+                {currentRadioValue === "coefficient" && (
+                  <Button text="Modifier" className="Edit_btn" onClick={() => setOpenCalculationModal(true)} />
+                )}
               </div>
             ) : (
               ""
@@ -150,7 +156,13 @@ const AdminNomPays = () => {
               {/* table 3 */}
               <TabPanel value={value} index={2}>
                 <div className="list_table">
-                  <AdminTab3 rows={boms} />
+                  <AdminTab3
+                    rows={boms}
+                    handleCountryData={handleCountryData}
+                    setOpenAddBomModal={setOpenAddBomModal}
+                    openAddBomModal={openAddBomModal}
+                    handleAddBomModalClose={handleAddBomModalClose}
+                  />
                 </div>
               </TabPanel>
               {/* table 4 */}
@@ -161,6 +173,8 @@ const AdminNomPays = () => {
                   setOpenCalculationModal={setOpenCalculationModal}
                   handleCalculationClose={handleCalculationClose}
                   countryId={id}
+                  currentRadioValue={currentRadioValue}
+                  setCurrentRadioValue={setCurrentRadioValue}
                 />
               </TabPanel>
             </Box>

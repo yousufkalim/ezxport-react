@@ -27,23 +27,25 @@ export default function MultipleSelectCheckmarks(props) {
     <div>
       <FormControl sx={{ width: "100%" }}>
         <Select
-        sx={{
-            height:"2.9rem !important"
-        }}
-        name={props.name}
+          sx={{
+            height: "2.9rem !important",
+          }}
+          name={props.name}
           multiple
           value={props.value}
           onChange={props.onChange}
           input={<OutlinedInput label="Tag" />}
-          renderValue={(selected) => selected.join(', ')}
+          renderValue={(selected) => selected.join(", ")}
           MenuProps={MenuProps}
         >
-          {props.names.map((name) => (
-            <MenuItem key={name} value={name}>
-              <Checkbox checked={props.select.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
+          {props.names.map((item) => {
+            return (
+              <MenuItem key={item} value={item}>
+                <Checkbox checked={props?.select?.indexOf(item) > -1} />
+                <ListItemText primary={item} />
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </div>
