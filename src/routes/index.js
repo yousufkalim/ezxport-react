@@ -10,8 +10,10 @@ import Login from '../Auth/Login';
 import ForgetPassword from '../Auth/ForgetPassword';
 import ChangePassword from '../Auth/ChangePassword';
 import Registration from '../Auth/Registration';
+// AUTH Routes
 import UserLayouts from '../Layouts/UserLayouts';
 import AdminLayouts from '../Layouts/AdminLayouts';
+import RequestForm from "../Dashboard/UserDashboard/RequestForm";
 
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get('reset');
@@ -54,6 +56,7 @@ const Index = ({ role }) => {
             {role === "user" ? (
               <>
                 <Route path="/User/Dashboard" component={UserLayouts} />
+                <Route path="/User/RequestForm" component={RequestForm} />
                 <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
               </>
             ) : role === "admin" ? (

@@ -214,11 +214,11 @@ const ServiceProviders = () => {
             Select country to add
           </label>
           <MultiSelect name="countries" onChange={handleChange} value={select} names={names} select={select} />
-          <Button text="Add A country" className="add_vendor_button" onClick={handleAddVendor} />
+          <Button text="Add Service Provider" className="add_vendor_button" onClick={handleAddVendor} />
         </div>
       </Modal>
     </>
   );
-};;;
+};
 
 export default ServiceProviders;

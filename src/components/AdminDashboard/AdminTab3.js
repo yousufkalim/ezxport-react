@@ -15,7 +15,6 @@ import Modal from "../../components/Common/Modal";
 import InputField from "../../components/Common/InputField";
 import MultiSelect from "../../components/Common/MultiSelect";
 import Button from "../Common/Button";
-import Select from "../Common/Select";
 import { toast } from "react-toastify";
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
@@ -82,7 +81,7 @@ const AdminTab3 = (props) => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        console.log("handleCoutries", err);
       });
   };
   useEffect(() => {
@@ -97,7 +96,6 @@ const AdminTab3 = (props) => {
       });
       setId(ids);
     }
-    console.log(ids, "ids");
   }, [select]);
   const handleEditBomClick = (bomcode) => {
     setOpen(true);

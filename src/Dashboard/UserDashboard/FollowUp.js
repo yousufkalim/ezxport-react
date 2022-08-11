@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import ListOfRequests from '../../components/UderDashboard/ListOfRequests';
 
 function createData(name, calories, fat, carbs, protein, protein2) {
@@ -56,9 +56,9 @@ const FollowUp = () => {
           {/* list head  */}
           <div className="List_heading_div">
             <h1 className="list_h1">List of requests</h1>
-            <NavLink className="list_reqst_btn" to="#">
+            <Link className="list_reqst_btn" to="/User/RequestForm">
               Create a request
-            </NavLink>
+            </Link>
           </div>
           {/* list table   */}
           <div className="list_table">

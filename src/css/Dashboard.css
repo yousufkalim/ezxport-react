@@ -106,7 +106,7 @@
 
 .country {
   color: #667085 !important;
-  background-color: #eaecf0;
+  background-color: #EAECF0 !important;
 }
 .country2 {
   color: #667085 !important;
@@ -181,7 +181,7 @@ position: relative;
   text-decoration: none;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
 margin-left: 1em;
-
+cursor: pointer;
 }
 .update_Boms_btn {
   width: 9rem;
