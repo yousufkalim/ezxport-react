@@ -59,7 +59,7 @@ const AdminLayouts = () => {
             </>
           )}
 
-          <div className="dashboard_right_side">
+          <div className="dashboard_right_side" style={{ overflow: "hidden !important" }}>
             <MenuIcon
               onClick={() => {
                 setShowMenu(!showMenu);

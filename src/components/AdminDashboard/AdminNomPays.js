@@ -61,6 +61,7 @@ const AdminNomPays = () => {
   const [document, setDocument] = useState();
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
+  const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
   const [currentRadioValue, setCurrentRadioValue] = useState();
@@ -87,6 +88,7 @@ const AdminNomPays = () => {
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
   const handleAddBomModalClose = () => setOpenAddBomModal(false);
+  const handleAddDocumentModalClose = () => setOpenAddBomModal(false);
 
   return (
     <>
@@ -103,12 +105,12 @@ const AdminNomPays = () => {
             {value === 0 ? (
               <div className="searching_div_country">
                 <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Modifier" className="Edit_btn" />
+                {/* <Button text="Modifier" className="Edit_btn" /> */}
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Modifier" className="Edit_btn" />
+                <Button text="Create" className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
@@ -150,7 +152,15 @@ const AdminNomPays = () => {
               {/* table 2 */}
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  <AdminTab2 rows={document} img={DownArrow} />
+                  <AdminTab2
+                    rows={document}
+                    img={DownArrow}
+                    handleAddDocumentModalClose={handleAddDocumentModalClose}
+                    openAddDocument={openAddDocument}
+                    setOpenAddDocument={setOpenAddDocument}
+                    handleCountryData={handleCountryData}
+                    countryId={id}
+                  />
                 </div>
               </TabPanel>
               {/* table 3 */}

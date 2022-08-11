@@ -271,7 +271,7 @@ const Country = () => {
           </div>
           {/* list table   */}
           <div className="list_table">
-            <TableContainer component={Paper}>
+            <TableContainer component={Paper} style={{ overflow: "scroll !important" }}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow>

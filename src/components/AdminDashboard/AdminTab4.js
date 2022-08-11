@@ -6,6 +6,7 @@ import TextFieldSelect from "../Common/TextFieldSelect";
 import Modal from "../Common/Modal";
 import Button from "../Common/Button";
 import API from "../../api/index";
+import { toast } from "react-toastify";
 function createData(name, calories, fat, carbs, protein, protein2) {
   return { name, calories, fat, carbs, protein, protein2 };
 }
@@ -16,6 +17,7 @@ const rows = [
 ];
 const AdminTab4 = (props) => {
   // const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
+
   const [thresholdCurrency, setThresholdCurrency] = useState(props?.calculation?.min_threshold?.currency);
   const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
   const [maxCostCurrency, setMaxCostCurrency] = useState(props?.calculation?.max_cost?.currency);
@@ -35,6 +37,8 @@ const AdminTab4 = (props) => {
     })
       .then((res) => {
         console.log("handleCoefficientChange", res);
+        props.setOpenCalculationModal(false);
+        toast.success("Coefficient Updated Successfully");
       })
       .catch((err) => {
         console.log("handleCoefficientChange", err);
@@ -51,6 +55,8 @@ const AdminTab4 = (props) => {
     })
       .then((res) => {
         console.log("handleAddCoefficient", res);
+        props.setOpenCalculationModal(false);
+        toast.success("Coefficient Added Successfully");
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
