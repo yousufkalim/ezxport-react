@@ -29,15 +29,14 @@ const ForgetPassword = () => {
     <>
       <Header />
       <div className="login_mainDiv">
-        <Link className="backArrow_div" 
-          to="/"
-          >
-        <img
+        <div className="backArrow_div">
+        <Link to="/" ><img
           src={BackArrow}
           alt="back"
           className="backArrow"
           />
           </Link>
+          </div>
         <div className="loginCenterDiv">
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
