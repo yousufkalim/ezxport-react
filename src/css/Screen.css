@@ -1,8 +1,9 @@
 .login_mainDiv {
   text-align: center;
 }
-.backArrow_div{
-  width: 2%;
+.backArrow_div {
+  width: auto;
+  display: flex;
 }
 .login_h2 {
   font-size: 20px;
@@ -48,23 +49,30 @@ label {
 .input_field2 {
   position: relative;
 }
-.quizIcon {
+.quizIcon.MuiSvgIcon-root {
   position: absolute;
+  font-size: 1em;
   right: 2%;
-  top: 38%;
+  top: 30%;
+  cursor: pointer;
+}
+.forgot_p-div {
+  margin-left: auto;
+  width: auto;
+  padding: 3% 0 6% 0;
+  display: flex;
+  justify-content: flex-end;
 }
 .forgot_p {
   color: #6941c6;
   font-size: 14px;
   font-weight: 500;
   text-align: right;
-  padding: 3% 0 6% 0;
-  margin-left: auto;
+  width: auto;
   display: block;
   text-decoration: none;
 }
-.logingbtn,
-.regBtn {
+.logingbtn {
   display: block;
   background-color: #6941c6;
   border: none;
@@ -77,6 +85,38 @@ label {
   margin: 4% 0 0 0;
   text-decoration: none;
   cursor: pointer;
+}
+.logingbtn_disabled {
+  display: block;
+  background-color: gray;
+  border: none;
+  color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4% 0 0 0;
+  text-decoration: none;
+}
+.regBtn {
+  display: block;
+  background-color: #6941c6;
+  border: none;
+  color: #fff;
+  width: auto;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+.register-div {
+  width: auto;
+  display: flex;
+  margin: 4% 0 0 0;
+  justify-content: center;
+  padding: 10px 14px;
 }
 .regBtn2 {
   margin: 0 !important;
