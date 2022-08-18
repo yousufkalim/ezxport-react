@@ -36,11 +36,11 @@ const Registration = () => {
       address: form.fullAddress,
       city: form.town,
       zipcode: form.postelCode,
-      company:{
-        name:form.companyLastName,
-        type:form.typeOfSociety,
-        vat:form.vatNumber,
-      }
+      company: {
+        name: form.companyLastName,
+        type: form.typeOfSociety,
+        vat: form.vatNumber,
+      },
     })
       .then(() => {
         toast.success("User created successfully");
@@ -54,31 +54,16 @@ const Registration = () => {
     <>
       <Header />
       <div className="login_mainDiv">
-        <Link to="/">
-        <img
-          src={BackArrow}
-          alt="back"
-          className="backArrow"
-          />
+        <div className="backArrow_div">
+          <Link to="/">
+            <img src={BackArrow} alt="back" className="backArrow" />
           </Link>
-
+        </div>
         <div className="registration_div">
           {/* first input fields  */}
           <h2 className="user_info">User information</h2>
           <div className="regist_form">
             <div className="regist_input_div">
-              <div className="regist_col1">
-                <label htmlFor="">First name</label>
-                <input
-                  type="text"
-                  className="reg_input"
-                  placeholder="Firs name"
-                  required
-                  value={form.firstName}
-                  name="firstName"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
-                />
-              </div>
               <div className="regist_col1">
                 <label htmlFor="">Last name</label>
                 <input
@@ -88,7 +73,23 @@ const Registration = () => {
                   required
                   value={form.lastName}
                   name="lastName"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
+                />
+              </div>
+              <div className="regist_col1">
+                <label htmlFor="">First name</label>
+                <input
+                  type="text"
+                  className="reg_input"
+                  placeholder="First name"
+                  required
+                  value={form.firstName}
+                  name="firstName"
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -102,19 +103,23 @@ const Registration = () => {
                   required
                   value={form.email}
                   name="email"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div className="regist_col1">
                 <label htmlFor="">Telephone</label>
                 <input
-                  type="number"
+                  type="string"
                   className="reg_input"
                   placeholder="33 07 86 36 02 20"
                   required
                   value={form.phone}
                   name="phone"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -128,7 +133,9 @@ const Registration = () => {
                   required
                   value={form.fullAddress}
                   name="fullAddress"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div className="regist_col2">
@@ -141,7 +148,9 @@ const Registration = () => {
                     required
                     value={form.postelCode}
                     name="postelCode"
-                    onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      handleFormData(e.target.name, e.target.value)
+                    }
                   />
                 </div>
                 <div className="city_inputs2">
@@ -153,7 +162,9 @@ const Registration = () => {
                     required
                     value={form.town}
                     name="town"
-                    onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                    onChange={(e) =>
+                      handleFormData(e.target.name, e.target.value)
+                    }
                   />
                 </div>
               </div>
@@ -168,7 +179,9 @@ const Registration = () => {
                   required
                   value={form.password}
                   name="password"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div className="regist_col1">
@@ -180,7 +193,9 @@ const Registration = () => {
                   required
                   value={form.confirmPassword}
                   name="confirmPassword"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -199,7 +214,9 @@ const Registration = () => {
                   required
                   value={form.companyLastName}
                   name="companyLastName"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
               <div className="regist_col1">
@@ -209,7 +226,9 @@ const Registration = () => {
                   id=""
                   className="reg_input"
                   value={form.typeOfSociety}
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 >
                   <option value="1">Type 1</option>
                   <option value="2">Type 2</option>
@@ -229,13 +248,19 @@ const Registration = () => {
                   required
                   value={form.vatNumber}
                   name="vatNumber"
-                  onChange={(e) => handleFormData(e.target.name, e.target.value)}
+                  onChange={(e) =>
+                    handleFormData(e.target.name, e.target.value)
+                  }
                 />
               </div>
             </div>
           </div>
           {/* ///  */}
-          <Button className="register_fm" onClick={handleSubmit} text="Register" />
+          <Button
+            className="register_fm"
+            onClick={handleSubmit}
+            text="Register"
+          />
         </div>
       </div>
     </>
