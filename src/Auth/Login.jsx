@@ -1,18 +1,21 @@
-import React, { useState } from 'react';
-import LoginIcon from '../assets/LoginIcon.svg';
-import Quiz from '../assets/Quiz.png';
-import { Link } from 'react-router-dom';
-import Header from '../components/Common/Header';
-import API from '../api/index';
-import { toast } from 'react-toastify';
-import InputField from '../components/Common/InputField';
-import Button from '../components/Common/Button';
+import React, { useState } from "react";
+import LoginIcon from "../assets/LoginIcon.svg";
+import Quiz from "../assets/Quiz.png";
+import { Link } from "react-router-dom";
+import Header from "../components/Common/Header";
+import API from "../api/index";
+import { toast } from "react-toastify";
+import InputField from "../components/Common/InputField";
+import Button from "../components/Common/Button";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   // ts@admin.com
   // 12345678
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -20,28 +23,30 @@ const Login = () => {
     setPassword(e.target.value);
   };
   const handleLoggin = async () => {
-    await API('post', '/auth/login', {
+    await API("post", "/auth/login", {
       email: email,
       password: password,
     })
       .then((res) => {
-        if (res?.data?.role === 'user') {
-          localStorage.setItem('userData', JSON.stringify(res.data.user));
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', JSON.stringify(res.data.role));
-          window.location = '/User/Dashboard/ListOfRequests';
-        } else if(res?.data?.role === 'admin'){
-          localStorage.setItem('userData', JSON.stringify(res.data.admin));
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('role', JSON.stringify(res.data.role));
+        if (res?.data?.role === "user") {
+          localStorage.setItem("userData", JSON.stringify(res.data.user));
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("role", JSON.stringify(res.data.role));
+          window.location = "/User/Dashboard/ListOfRequests";
+        } else if (res?.data?.role === "admin") {
+          localStorage.setItem("userData", JSON.stringify(res.data.admin));
+          localStorage.setItem("token", res.data.token);
+          localStorage.setItem("role", JSON.stringify(res.data.role));
 
-          window.location = '/admin/Dashboard/Country';
+          window.location = "/admin/Dashboard/Country";
         }
       })
+
       .catch((err) => {
         toast.error(err.response.data.message);
       });
   };
+  const handleShowPassword = () => setShowPassword(!showPassword);
   return (
     <>
       <Header />
@@ -61,7 +66,6 @@ const Login = () => {
               placeholder="mail@mail.com"
               onChange={handleEmail}
               value={email}
-              icon={Quiz}
             />
           </div>
           {/* PASSWORD  */}
@@ -69,20 +73,31 @@ const Login = () => {
             <label htmlFor="Password">Password</label>
             <InputField
               className="input_email"
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
               onChange={handlePassword}
               value={password}
-              icon={Quiz}
+              visibleEye
+              icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
+              onClick={handleShowPassword}
             />
-            <Link to="/forgetpassword" className="forgot_p">
-              Forgot your password ?
+            <div className="forgot_p-div">
+              <Link to="/forgetpassword" className="forgot_p">
+                Forgot your password ?
+              </Link>
+            </div>
+          </div>
+          <Button
+            className={email && password ? "logingbtn" : "logingbtn_disabled"}
+            onClick={handleLoggin}
+            text="To log in"
+            disabled={(!email || !password) == true}
+          />
+          <div className="register-div">
+            <Link to="/registration" className="regBtn">
+              Register
             </Link>
           </div>
-          <Button className="logingbtn" onClick={handleLoggin} text="To log in" />
-          <Link to="/registration" className="regBtn">
-            Register
-          </Link>
         </div>
       </div>
     </>
