@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LoginIcon from "../assets/LoginIcon.svg";
 import Quiz from "../assets/Quiz.png";
 import { Link } from "react-router-dom";
@@ -9,23 +9,60 @@ import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
+import validate from "validate.js";
+const schema = {
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    email: true,
+    length: {
+      maximum: 64,
+    },
+  },
+  password: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+};
 const Login = () => {
   // ts@admin.com
   // 12345678
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      email: "",
+      password: "",
+    },
+    touched: {},
+    errors: {},
+  });
   const [showPassword, setShowPassword] = useState(false);
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  //checks which field is selected
+  const handleChange = (event) => {
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]: event.target.value,
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true,
+      },
+    }));
   };
   const handleLoggin = async () => {
     await API("post", "/auth/login", {
-      email: email,
-      password: password,
+      email: formState.values.email,
+      password: formState.values.password,
     })
       .then((res) => {
         if (res?.data?.role === "user") {
@@ -46,7 +83,12 @@ const Login = () => {
         toast.error(err.response.data.message);
       });
   };
+
   const handleShowPassword = () => setShowPassword(!showPassword);
+
+  //checks error in the selected field
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
   return (
     <>
       <Header />
@@ -61,26 +103,42 @@ const Login = () => {
           <div className="email_inputs_div">
             <label htmlFor="E-mail address">E-mail address</label>
             <InputField
-              className="input_email"
+              className={
+                hasError("email") && formState.errors.email
+                  ? "input_email_red"
+                  : "input_email"
+              }
+              name="email"
               type="email"
               placeholder="mail@mail.com"
-              onChange={handleEmail}
-              value={email}
+              value={formState.values.email}
+              onChange={handleChange}
             />
+            <div className="error-format">
+              {hasError("email") ? formState.errors.email[0] : null}
+            </div>
           </div>
           {/* PASSWORD  */}
           <div className="email_inputs_div">
             <label htmlFor="Password">Password</label>
             <InputField
-              className="input_email"
+              className={
+                hasError("password") && formState.errors.password
+                  ? "input_email_red"
+                  : "input_email"
+              }
+              name="password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              onChange={handlePassword}
-              value={password}
+              onChange={handleChange}
+              value={formState.values.password}
               visibleEye
               icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
               onClick={handleShowPassword}
             />
+            <div className="error-format">
+              {hasError("password") ? formState.errors.password[0] : null}
+            </div>
             <div className="forgot_p-div">
               <Link to="/forgetpassword" className="forgot_p">
                 Forgot your password ?
@@ -88,10 +146,16 @@ const Login = () => {
             </div>
           </div>
           <Button
-            className={email && password ? "logingbtn" : "logingbtn_disabled"}
+            className={
+              formState.values.email && formState.values.password
+                ? "logingbtn"
+                : "logingbtn_disabled"
+            }
             onClick={handleLoggin}
             text="To log in"
-            disabled={(!email || !password) == true}
+            disabled={
+              (!formState.values.email || !formState.values.password) == true
+            }
           />
           <div className="register-div">
             <Link to="/registration" className="regBtn">
