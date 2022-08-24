@@ -454,7 +454,7 @@ const Registration = () => {
               }
               onClick={handleSubmit}
               text="Register"
-              disbaled={formState.isValid ? true : false}
+              disbaled={!formState.isValid ? true : false}
             />
           </div>
         </div>
