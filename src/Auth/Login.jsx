@@ -149,7 +149,7 @@ const Login = () => {
             className={formState.isValid ? "logingbtn" : "logingbtn_disabled"}
             onClick={handleLoggin}
             text="To log in"
-            disabled={formState.isValid ? true : false}
+            disabled={!formState.isValid ? true : false}
           />
           <div className="register-div">
             <Link to="/registration" className="regBtn">
