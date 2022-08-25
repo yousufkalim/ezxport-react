@@ -1,67 +1,106 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import ListOfRequests from '../../components/UderDashboard/ListOfRequests';
+import React, { useState, useEffect } from "react";
+import SearchField from "../../components/Common/SearchField";
+import { NavLink } from "react-router-dom";
+import API from "../../api";
+import Moment from "moment";
 
-function createData(name, calories, fat, carbs, protein, protein2) {
-  return { name, calories, fat, carbs, protein, protein2 };
-}
-const rows = [
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-  createData(
-    'Application title',
-    ' 07 / 03 / 2022',
-    '300 €',
-    23,
-    'Veritas, Veritas 2',
-    'File validated'
-  ),
-];
+// table
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const Requests = () => {
+  const [allRequest, setAllRequest] = useState([]);
+  useEffect(() => {
+    handleAllRequest();
+  }, []);
+  const handleAllRequest = async () => {
+    await API("get", "/requests")
+      .then((res) => {
+        setAllRequest(res.data.requets);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
   return (
     <div className="list_main_div">
       <div className="list_second_div">
         {/* list head  */}
         <div className="List_heading_div">
           <h1 className="list_h1">List of requests</h1>
-          <NavLink className="list_reqst_btn" to="#">
-            Create a request
-          </NavLink>
+          <div className="searchingRequest">
+            <SearchField placeholder="Searching" />
+          </div>
         </div>
         {/* list table   */}
         <div className="list_table">
-          <ListOfRequests rows={rows} />
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    Request
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    Date
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    Certificate cost
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    Service providers
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    Statutes
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {allRequest?.map((item) => (
+                  <TableRow key={item?._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {item?.title}
+                      <br />
+                      <p className="country2">{item?.country?.name}</p>
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      {Moment(item?.createdAt).format("DD/MM/YYYY")}
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      {item?.certification_cost?.value ? (
+                        <>
+                          {item?.certification_cost?.currency === "USD"
+                            ? item?.certification_cost?.value + "$"
+                            : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
+                        </>
+                      ) : (
+                        "--"
+                      )}
+                    </TableCell>
+
+                    <TableCell align="left" className="country2">
+                      {item?.vendor?.contact_lname ? (
+                        <>
+                          {item?.vendor?.contact_lname}
+                          {item?.vendor?.contact_fname}
+                        </>
+                      ) : (
+                        "--"
+                      )}
+                    </TableCell>
+                    <TableCell align="left">
+                      <p className="clrClass">{item.status}</p>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     </div>

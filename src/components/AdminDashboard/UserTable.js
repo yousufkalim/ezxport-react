@@ -37,6 +37,7 @@ const UserTable = (props) => {
                     {props.headTitle.map((item) => (
                       <TableCell
                         className="table_head"
+                        align="left"
                         sx={{
                           color: "#667085",
                           backgroundColor: "#F9FAFB;",
@@ -50,7 +51,6 @@ const UserTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {console.log("ROWS", props.rows)}
                   {props.rows.map((row) => (
                     <TableRow
                       onClick={() => {
@@ -59,34 +59,35 @@ const UserTable = (props) => {
                       key={row.name}
                       sx={{ cursor: "pointer", border: "1px solid #E5E5E5;" }}
                     >
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
-                        {row.first_name}
-                      </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.last_name}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
+                        {row.first_name}
+                      </TableCell>
+
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.email}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.phone_number}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.address}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
-                        {row.zip_code}
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
+                        {row.zip_code || row.zipcode}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.city}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.company.name}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.company.type}
                       </TableCell>
-                      <TableCell component="th" scope="row" sx={{ border: "none", padding: 2 }} className="table_cell">
+                      <TableCell component="th" scope="row" align="left" className="table_cell">
                         {row.company.vat}
                       </TableCell>
                     </TableRow>

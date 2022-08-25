@@ -4,6 +4,7 @@ const TextFieldSelect = (props) => {
   return (
     <div style={{ position: "relative" }}>
       <input
+        name={props.name}
         type={props.type}
         style={{
           width: "100%",

@@ -38,9 +38,12 @@
   padding: 1% 0 1% 1% !important;
 }
 .table_cell {
-  font-size: 1rem !important;
+  font-size: 0.9rem !important;
   padding: 1.5% 0 1.5% 1% !important;
-  min-width: 80px !important;
+  min-width: 150px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border: none;
 }
 .export_btn {
   background: none;

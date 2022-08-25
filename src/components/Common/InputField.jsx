@@ -6,6 +6,8 @@ const InputField = (props) => {
     <>
       <div className="input_field2">
         <input
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
           name={props.name}
           value={props.value}
           className={props.className}
