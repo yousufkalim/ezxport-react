@@ -1,8 +1,9 @@
 .login_mainDiv {
   text-align: center;
 }
-.backArrow_div{
-  width: 2%;
+.backArrow_div {
+  width: auto;
+  display: flex;
 }
 .login_h2 {
   font-size: 20px;
@@ -40,6 +41,16 @@ label {
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
   margin: 2% 0;
+  outline: none;
+}
+.input_email_red {
+  width: 100%;
+  padding: 3% 2%;
+  border: 1px solid rgb(252, 7, 7, 0.6);
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  margin: 2% 0;
+  outline: none;
 }
 .input_field {
   position: relative;
@@ -48,23 +59,30 @@ label {
 .input_field2 {
   position: relative;
 }
-.quizIcon {
+.quizIcon.MuiSvgIcon-root {
   position: absolute;
+  font-size: 1em;
   right: 2%;
-  top: 38%;
+  top: 30%;
+  cursor: pointer;
+}
+.forgot_p-div {
+  margin-left: auto;
+  width: auto;
+  padding: 3% 0 6% 0;
+  display: flex;
+  justify-content: flex-end;
 }
 .forgot_p {
   color: #6941c6;
   font-size: 14px;
   font-weight: 500;
   text-align: right;
-  padding: 3% 0 6% 0;
-  margin-left: auto;
+  width: auto;
   display: block;
   text-decoration: none;
 }
-.logingbtn,
-.regBtn {
+.logingbtn {
   display: block;
   background-color: #6941c6;
   border: none;
@@ -77,6 +95,38 @@ label {
   margin: 4% 0 0 0;
   text-decoration: none;
   cursor: pointer;
+}
+.logingbtn_disabled {
+  display: block;
+  background-color: rgb(187, 186, 186, 0.5);
+  border: transparent;
+  color: gray;
+  width: 100%;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 4% 0 0 0;
+  text-decoration: none;
+}
+.regBtn {
+  display: block;
+  background-color: #6941c6;
+  border: none;
+  color: #fff;
+  width: auto;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+.register-div {
+  width: auto;
+  display: flex;
+  margin: 4% 0 0 0;
+  justify-content: center;
+  padding: 10px 14px;
 }
 .regBtn2 {
   margin: 0 !important;
@@ -127,6 +177,16 @@ label {
   border: 1px solid #d0d5dd;
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
+  outline: none;
+}
+.reg_input_red {
+  width: 100%;
+  padding: 3% 2%;
+  margin: 2% 0;
+  border: 1px solid rgb(252, 7, 7, 0.6);
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  outline: none;
 }
 .city_inputs {
   width: 70%;
@@ -142,6 +202,17 @@ label {
   border: 1px solid #d0d5dd;
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
+  outline: none;
+}
+.reg_input_red2 {
+  width: 80%;
+  padding: 7% 2%;
+  margin: 5% 0;
+  display: block;
+  border: 1px solid rgb(252, 7, 7, 0.6);
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  outline: none;
 }
 .reg_input3 {
   width: 100%;
@@ -151,6 +222,17 @@ label {
   border: 1px solid #d0d5dd;
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
+  outline: none;
+}
+.reg_input_red3 {
+  width: 100%;
+  padding: 4.8% 2%;
+  margin: 4.3% 0;
+  display: block;
+  border: 1px solid rgb(252, 7, 7, 0.6);
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  outline: none;
 }
 .regist_col2 {
   width: 48%;
@@ -164,11 +246,28 @@ label {
   color: #ffffff;
   font-size: 16px;
   padding: 10px 18px;
-  width: 412px;
+  width: 30%;
   margin: 3% 0;
   cursor: pointer;
 }
-@media screen and (max-width: 580px) {
+.register_fm_disabled {
+  background: rgb(187, 186, 186, 0.5);
+  border: transparent;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: gray;
+  font-size: 16px;
+  padding: 10px 18px;
+  width: 30%;
+  margin: 3% 0;
+}
+.error-format {
+  color: red;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-start;
+}
+@media screen and (max-width: 500px) {
   .regist_input_div {
     flex-direction: column;
   }
@@ -177,5 +276,22 @@ label {
   }
   .regist_col2 {
     width: 100%;
+  }
+  label {
+    font-size: 12px;
+  }
+  .forgot_p {
+    font-size: 12px;
+  }
+  .register_fm {
+    width: 50%;
+    font-size: 12px;
+  }
+  .register_fm_disabled {
+    width: 50%;
+    font-size: 12px;
+  }
+  .error-format {
+    font-size: 10px;
   }
 }
