@@ -5,6 +5,9 @@
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   border: none !important;
 }
+.css-tlc64q-MuiPaper-root-MuiDialog-paper{
+  border-radius: 12px !important;
+}
 
 .buyer_main {
   width: 95%;

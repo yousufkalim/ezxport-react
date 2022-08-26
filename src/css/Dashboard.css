@@ -139,6 +139,12 @@
   width: 50%;
   height: 40px;
 }
+.searchingRequest {
+  position: relative;
+  display: flex;
+  width: 30%;
+  height: 40px;
+}
 .searching2 {
   display: flex;
   justify-content: flex-end;

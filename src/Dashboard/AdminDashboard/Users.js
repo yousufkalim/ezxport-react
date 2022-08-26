@@ -4,10 +4,10 @@ import API from "../../api/index";
 
 const HeadTitle = [
   {
-    list: "First name",
+    list: "Last name",
   },
   {
-    list: "Last name",
+    list: "First name",
   },
   {
     list: "E-mail address",
