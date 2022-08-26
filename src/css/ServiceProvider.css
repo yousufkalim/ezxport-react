@@ -1,5 +1,5 @@
 .changeProvider {
-  width: 30%;
+  width: 200px;
   margin: 0 0 0px 37px;
   text-decoration: none;
   border: none;
@@ -9,49 +9,79 @@
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   padding: 1% 2%;
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
 }
 .textfield_row1 {
-    color: #667085;
-    padding-left: 9px;
-    font-size: 1rem;
-    background-color: transparent;
-  width: 28%;
+  color: #667085;
+  padding-left: 9px;
+  font-size: 1rem;
+  /* background-color: transparent; */
+  width: 32%;
   height: 2.7rem;
   border-radius: 6px;
-  border: 1px solid rgb(175, 173, 173);
+  border: 1px solid #d0d5dd;
 }
 .textfield_row2 {
-    font-size: 1rem;
-    padding-left: 9px;
-    color: #667085;
-    width: 100%;
-    height: 2.7rem;
-    border-radius: 6px;
-    border: 1px solid #D0D5DD;
-  }
-.textField_div1{
+  font-size: 1rem;
+  padding-left: 9px;
+  color: #667085;
+  width: 100%;
+  height: 2.7rem;
+  border-radius: 6px;
+  border: 1px solid #d0d5dd;
+  outline: none;
 }
-.textField_div2{
-    display: flex;
-    justify-content: space-between;
+.textfield_row2_red {
+  font-size: 1rem;
+  padding-left: 9px;
+  color: #667085;
+  width: 100%;
+  height: 2.7rem;
+  border-radius: 6px;
+  border: 1px solid rgb(252, 7, 7, 0.6);
+  outline: none;
 }
-.textField_row2_div{
-    width: 32%;
+/* .textField_div1 {
+} */
+.textField_div2 {
+  display: flex;
+  justify-content: space-between;
+}
+.textField_row2_div {
+  width: 32%;
 }
 
-.edit_vendor_div{
-    height: 25rem;
+.edit_vendor_div {
+  height: 25rem;
 }
-.edit_vendor_button{
-    margin-top: 2rem;
-    background-color: #6941C6;
+.edit_vendor_button {
+  margin-top: 2rem;
+  background-color: #6941c6;
+  width: 100%;
+  color: white;
+  height: 2.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .changeProvider {
+    width: auto;
+    font-size: 12px;
+  }
+  .textfield_row1 {
     width: 100%;
-    color: white;
-    height: 2.5rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+    font-size: 0.8rem;
+  }
+  .textField_div2 {
+    flex-direction: column;
+  }
+  .textField_row2_div {
+    width: 100%;
+  }
+  .textfield_row2 {
+    font-size: 0.8rem;
+  }
 }
