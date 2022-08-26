@@ -47,11 +47,12 @@
   padding: 0 !important;
 }
 .textfiled_select_component {
+  display: flex;
   position: absolute;
   height: 2.3rem;
   right: 5px;
   top: 5px;
-  width: 24%;
+  /* width: 24%; */
   padding-left: 25px;
   border: transparent;
   outline: none;
@@ -66,4 +67,14 @@
   color: #fff;
   padding: 2%;
   cursor: pointer;
+}
+@media screen and (max-width: 600px) {
+  .textfiled_select_component {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .buyer_h2 {
+    font-size: 15px;
+  }
 }

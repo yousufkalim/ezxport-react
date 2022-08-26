@@ -20,3 +20,10 @@
   font-weight: 500;
   line-height: 30px;
 }
+@media screen and (max-width: 600px) {
+  .userdetail_textField_div2 {
+    width: 80%;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
