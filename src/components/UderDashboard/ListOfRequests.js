@@ -1,14 +1,14 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 // table
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const ListOfRequests = ({ rows }) => {
   return (
@@ -18,36 +18,63 @@ const ListOfRequests = ({ rows }) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Request
               </TableCell>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Date
               </TableCell>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Certificate cost
               </TableCell>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Nb codes
               </TableCell>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Service providers
               </TableCell>
-              <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+              <TableCell
+                align="left"
+                className="country"
+                style={{ backgrounColor: "#EAECF0" }}
+              >
                 Statutes
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
                 <TableCell component="th" scope="row">
-                  <NavLink
+                  {/* <NavLink
                     to="/User/Dashboard/Application"
                     style={{ color: 'black', textDecoration: 'none' }}
-                  >
-                    {row.name}
-                  </NavLink>
+                  > */}
+                  {row.name}
+                  {/* </NavLink> */}
 
                   <br />
                   <p className="country2"> Country</p>
