@@ -88,6 +88,9 @@
 }
 .list_h1 {
   font-size: 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 .list_reqst_btn {
   text-decoration: none;
@@ -98,7 +101,7 @@
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   padding: 1% 2%;
-  font-size: 16px;
+  font-size: 13px;
 }
 .list_table {
   margin: 2% 0;
@@ -146,7 +149,7 @@
 .searching_div_country {
   position: relative;
   display: flex;
-  width: 30%;
+  width: 50%;
   height: 40px;
 }
 .searching_div_country2 {
@@ -157,7 +160,7 @@
   height: 40px;
 }
 .list_reqst_btn2 {
-  width: 90%;
+  width: 200px;
   margin: 0 0 0px 37px;
   text-decoration: none;
   border: none;
@@ -166,16 +169,15 @@
   border: 1px solid #7f56d9;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
-  padding: 1% 2%;
-  font-size: 16px;
+  font-size: 13px;
   text-align: center;
   cursor: pointer;
 }
 .Edit_btn {
-  width: 6rem;
+  width: 20%;
   background-color: #7f56d9;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #7f56d9;
   border-radius: 8px;
   text-decoration: none;
@@ -184,10 +186,10 @@
   cursor: pointer;
 }
 .update_Boms_btn {
-  width: 9rem;
+  width: 40%;
   background-color: #7f56d9;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   border: 1px solid #7f56d9;
   border-radius: 8px;
   text-decoration: none;
@@ -204,7 +206,7 @@
   padding: 10px 30px;
 }
 .Country_search_input {
-  width: 80%;
+  width: 70%;
   height: 100%;
   background: #ffffff;
   border: 1px solid #d0d5dd;
@@ -304,6 +306,13 @@
   top: 0;
   border: 1px solid black;
 }
+.searching_div_style {
+  display: flex;
+  width: 65%;
+}
+.css-quj9j6-MuiTable-root {
+  min-width: 0 !important;
+}
 @media screen and (max-width: 780px) {
   .hambrgr_icon {
     display: block !important;
@@ -318,6 +327,7 @@
     display: block;
     width: 250px;
     height: 100%;
+    z-index: 9999;
   }
   .dashboard_left_side {
     display: none;
@@ -342,5 +352,64 @@
   }
   .pagination_btn {
     padding: 2px 22px;
+  }
+  .searching_div_style {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 600px) {
+  .search_input {
+    display: none;
+  }
+  .list_reqst_btn {
+    font-size: 13px;
+  }
+  .list_reqst_btn2 {
+    /* font-size: 13px; */
+    width: 70%;
+  }
+  .search_icon {
+    display: none;
+  }
+  .searching {
+    justify-content: flex-end;
+  }
+  .Country_search_input {
+    display: none;
+  }
+  .searching_div_country {
+    justify-content: flex-end;
+  }
+  .Edit_btn {
+    font-size: 12px;
+    width: 70%;
+  }
+  .update_Boms_btn {
+    font-size: 12px;
+    width: 100%;
+  }
+  .searching_div_country2 {
+    width: 55%;
+  }
+  .MuiTabs-flexContainer {
+    display: grid !important;
+    justify-content: center;
+  }
+  .MuiButtonBase-root {
+    font-size: 13px !important;
+  }
+  .MuiTableCell-root {
+    font-size: 13px !important;
+  }
+}
+@media screen and (max-width: 400px) {
+  .searching_div_style {
+    width: 100%;
+  }
+  .list_h1 {
+    font-size: 13px;
+  }
+  .list_reqst_btn2 {
+    font-size: 12px;
   }
 }
