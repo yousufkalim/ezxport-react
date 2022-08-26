@@ -266,20 +266,37 @@ const Country = () => {
             <h1 className="list_h1">Country</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button className="list_reqst_btn2" text={"Add a country"} Imgsrc={PlusIcon} onClick={() => setOpen(true)} />
+              <Button
+                className="list_reqst_btn2"
+                text={"Add a country"}
+                Imgsrc={PlusIcon}
+                onClick={() => setOpen(true)}
+              />
             </div>
           </div>
           {/* list table   */}
           <div className="list_table">
-            <TableContainer component={Paper} style={{ overflow: "scroll !important" }}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableContainer
+              component={Paper}
+              style={{ overflow: "scroll !important" }}
+            >
+              <Table
+                sx={{ minWidth: 650 }}
+                size="small"
+                aria-label="a dense table"
+              >
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                    <TableCell
+                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
+                    >
                       Country <img src={DownArrow} alt="" />
                     </TableCell>
-                    {history.location.pathname === "/Admin/Dashboard/Service" && (
-                      <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                    {history.location.pathname ===
+                      "/Admin/Dashboard/Service" && (
+                      <TableCell
+                        sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
+                      >
                         {/* {props.text2} */}
                         &nbsp;
                         <img src={DownArrow} alt="" />
@@ -293,8 +310,16 @@ const Country = () => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: "1px solid #E5E5E5;", padding: 2, cursor: "pointer" }}
-                        onClick={() => history.push(`/Admin/Dashboard/Country/NomPays/${item._id}`)}
+                        sx={{
+                          border: "1px solid #E5E5E5;",
+                          padding: 2,
+                          cursor: "pointer",
+                        }}
+                        onClick={() =>
+                          history.push(
+                            `/Admin/Dashboard/Country/NomPays/${item._id}`
+                          )
+                        }
                       >
                         {item.name}
                       </TableCell>
@@ -308,7 +333,13 @@ const Country = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title="Add a country" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Add a country"
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="add_country_div">
           <div
             style={{
@@ -323,7 +354,11 @@ const Country = () => {
               <label htmlFor="" className="buyer_label">
                 Select a country to add
               </label>
-              <Select id="demo-simple-select" defaultValue={dropdown} className="buyer_input">
+              <Select
+                id="demo-simple-select"
+                defaultValue={"default"}
+                className="buyer_input"
+              >
                 <MenuItem value="default"> {"Select a Country"}</MenuItem>
                 {countryList.map((item) => {
                   return (
@@ -334,7 +369,11 @@ const Country = () => {
                 })}
               </Select>
             </FormControl>
-            <Button text="Add A country" className="add_Country_button" onClick={handleAddCountry} />
+            <Button
+              text="Add A country"
+              className="add_Country_button"
+              onClick={handleAddCountry}
+            />
           </div>
         </div>
       </Modal>
