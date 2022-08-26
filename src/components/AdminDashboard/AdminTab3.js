@@ -16,6 +16,14 @@ import InputField from "../../components/Common/InputField";
 import MultiSelect from "../../components/Common/MultiSelect";
 import Button from "../Common/Button";
 import { toast } from "react-toastify";
+import validate from "validate.js";
+
+const schema = {
+  code: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+};
+
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
   const [names, setNames] = useState([]);
@@ -25,8 +33,42 @@ const AdminTab3 = (props) => {
   const [select, setSelect] = useState([]);
   const [bomCode, setBomCode] = useState("");
   const [certificate_status, setCertificate_status] = useState("");
-  const [newbomCode, setNewBomCode] = useState("");
   const [newcertificate_status, setNewCertificate_status] = useState("");
+
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      code: "",
+    },
+    touched: {},
+    errors: {},
+  });
+
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  const handleChange = (event) => {
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]: event.target.value,
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true,
+      },
+    }));
+  };
 
   useEffect(() => {
     handleCoutries();
@@ -61,7 +103,7 @@ const AdminTab3 = (props) => {
   };
   const handleClose = () => setOpen(false);
 
-  const handleChange = (event) => {
+  const handleCountryChange = (event) => {
     const {
       target: { value },
     } = event;
@@ -114,7 +156,7 @@ const AdminTab3 = (props) => {
   };
   const handleAddBom = async () => {
     await API("post", "/boms", {
-      code: newbomCode,
+      code: formState.values.code,
       certification_required: newcertificate_status,
       countries: id,
     })
@@ -140,16 +182,29 @@ const AdminTab3 = (props) => {
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 Status <img src={DownArrow} alt="" />
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>Actions</TableCell>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
-                <TableCell style={{ width: "20%" }} component="th" scope="row" sx={{ padding: 2 }} align="left">
+                <TableCell
+                  style={{ width: "20%" }}
+                  component="th"
+                  scope="row"
+                  sx={{ padding: 2 }}
+                  align="left"
+                >
                   {row.code}
                 </TableCell>
-                <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ padding: 2 }}
+                  align="left"
+                >
                   <p
                     style={{
                       background: "#ECFDF3",
@@ -210,7 +265,13 @@ const AdminTab3 = (props) => {
         </Table>
       </TableContainer>
       <PaginationPage />
-      <Modal open={open} setOpen={setOpen} title="Update BOMs" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Update BOMs"
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div style={{ height: "20%" }}>
           <label htmlFor="" className="label_modal">
             BOMs code
@@ -236,8 +297,18 @@ const AdminTab3 = (props) => {
           <label htmlFor="" className="label_modal">
             Select country for BOMs
           </label>
-          <MultiSelect name="countries" onChange={handleChange} value={select} names={names} select={select} />
-          <Button text="Add A country" className="add_vendor_button" onClick={() => handleBomUpdate(data._id)} />
+          <MultiSelect
+            name="countries"
+            onChange={handleCountryChange}
+            value={select}
+            names={names}
+            select={select}
+          />
+          <Button
+            text="Update BOM"
+            className="add_vendor_button"
+            onClick={() => handleBomUpdate(data._id)}
+          />
         </div>
       </Modal>
       <Modal
@@ -252,11 +323,18 @@ const AdminTab3 = (props) => {
             BOMs code
           </label>{" "}
           <InputField
-            name="bomCode"
-            value={newbomCode}
-            className="textfield_addvendor"
-            onChange={(e) => setNewBomCode(e.target.value)}
+            name="code"
+            value={formState.values.code}
+            className={
+              hasError("code") && formState.errors.code
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
+            onChange={handleChange}
           />
+          <div className="error-format">
+            {hasError("code") ? formState.errors.code[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Status
           </label>{" "}
@@ -272,8 +350,18 @@ const AdminTab3 = (props) => {
           <label htmlFor="" className="label_modal">
             Select country for BOMs
           </label>
-          <MultiSelect name="countries" onChange={handleChange} value={select} names={names} select={select} />
-          <Button text="Add A country" className="add_vendor_button" onClick={handleAddBom} />
+          <MultiSelect
+            name="countries"
+            onChange={handleCountryChange}
+            value={select}
+            names={names}
+            select={select}
+          />
+          <Button
+            text="Add BOMs"
+            className="add_vendor_button"
+            onClick={handleAddBom}
+          />
         </div>
       </Modal>
     </>
