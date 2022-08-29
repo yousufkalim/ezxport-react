@@ -31,8 +31,8 @@ const FollowUp = () => {
           {/* list head  */}
           <div className="List_heading_div">
             <h1 className="list_h1">List of requests</h1>
-            <Link className="list_reqst_btn" to="/User/RequestForm">
-              Create a request
+            <Link to="/User/RequestForm">
+              <button className="list_reqst_btn">Create a request</button>
             </Link>
           </div>
           {/* list table   */}
@@ -41,27 +41,50 @@ const FollowUp = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       Request
                     </TableCell>
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       Date
                     </TableCell>
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       Certificate cost
                     </TableCell>
 
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       Service providers
                     </TableCell>
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       Statutes
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {allRequest?.map((item) => (
-                    <TableRow key={item?._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableRow
+                      key={item?._id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
                       <TableCell component="th" scope="row">
                         {item?.title}
                         <br />
@@ -75,7 +98,8 @@ const FollowUp = () => {
                           <>
                             {item?.certification_cost?.currency === "USD"
                               ? item?.certification_cost?.value + "$"
-                              : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
+                              : item?.certification_cost?.currency === "EURO" &&
+                                item?.certification_cost?.value + "€"}
                           </>
                         ) : (
                           "--"
