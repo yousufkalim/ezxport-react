@@ -23,6 +23,7 @@
 .dashboard_logo {
   /* padding: 0 0 5% 0; */
   padding: 8px 12px;
+  width: 100%;
 }
 .dashboard_right_side {
   width: 80%;
@@ -316,14 +317,23 @@
   display: flex;
   width: 65%;
 }
-.css-quj9j6-MuiTable-root {
+.css-18qulp9 {
   min-width: 0 !important;
+}
+
+@media screen and (max-width: 900px) {
+  .dashboard_li {
+    font-size: 14px;
+  }
 }
 @media screen and (max-width: 780px) {
   .hambrgr_icon {
     display: block !important;
     margin: 2% 2%;
     color: #6941c6;
+  }
+  .dashboard_logo {
+    width: auto;
   }
   .cros_icon {
     float: right;
@@ -344,12 +354,7 @@
   .list_reqst_btn {
     font-size: 14px;
   }
-  .dashboard_li {
-    font-size: 14px;
-  }
-  .dashboard_logo {
-    width: 60%;
-  }
+
   .dashboard_right_side {
     width: 100%;
   }
@@ -363,6 +368,7 @@
     width: 70%;
   }
 }
+
 @media screen and (max-width: 600px) {
   .search_input {
     display: none;
@@ -407,13 +413,16 @@
   .MuiTableCell-root {
     font-size: 13px !important;
   }
+  .list_h1 {
+    margin-right: 10px;
+  }
 }
 @media screen and (max-width: 400px) {
   .searching_div_style {
     width: 100%;
   }
   .list_h1 {
-    font-size: 13px;
+    font-size: 15px;
   }
   .list_reqst_btn2 {
     font-size: 12px;
