@@ -243,6 +243,7 @@ const Country = () => {
   };
   useEffect(() => {
     handleCountries();
+    setDropdown("default");
   }, [open]);
   const handleClose = () => setOpen(false);
   const handleAddCountry = async () => {
@@ -359,7 +360,9 @@ const Country = () => {
                 defaultValue={"default"}
                 className="buyer_input"
               >
-                <MenuItem value="default"> {"Select a Country"}</MenuItem>
+                <MenuItem disabled value="default">
+                  {"Select a Country"}
+                </MenuItem>
                 {countryList.map((item) => {
                   return (
                     <MenuItem value={item} onClick={() => setDropdown(item)}>
@@ -370,8 +373,13 @@ const Country = () => {
               </Select>
             </FormControl>
             <Button
-              text="Add A country"
-              className="add_Country_button"
+              text="Add a country"
+              className={
+                dropdown === "default"
+                  ? "add_Country_button_disabled"
+                  : "add_Country_button"
+              }
+              disabled={dropdown === "default" ? true : false}
               onClick={handleAddCountry}
             />
           </div>
