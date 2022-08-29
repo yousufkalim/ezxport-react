@@ -31,6 +31,7 @@
   cursor: pointer;
   padding: 10px 20px;
   font-size: 16px;
+  margin-right: 10px;
 }
 .validateForm {
   width: 50%;
@@ -52,31 +53,38 @@
   font-weight: 600;
   color: #344054;
 }
-.ExportDocuments_btn {
+.Validator_document_btn_div {
   background: #12b76a;
+  border-radius: 8px;
+  padding: 0 10px;
   border: 1px solid #d0d5dd;
+  margin-top: 2%;
+}
+.ExportDocuments_btn {
+  border: none;
+  background: #12b76a;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 5px;
   font-size: 16px;
   font-weight: 400;
 }
 .ExportDocuments_btn2 {
   background: #12b76a;
-  border: 1px solid #d0d5dd;
+  border: none;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   color: #fff;
   height: 3rem;
-  padding: 0px 20px;
+  padding: 0px 5px;
   font-size: 16px;
   font-weight: 400;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 2%;
+  /* margin-top: 2%; */
 }
 .switch_buttons {
   padding: 3% 0;
@@ -129,8 +137,12 @@
 }
 .redclass {
   background: none;
-  color: red;
   border: 1px solid red;
+  color: red;
+}
+.redclass2 {
+  background: none;
+  color: red;
 }
 .redText2 {
   background-color: red;
@@ -150,6 +162,12 @@
   padding-top: 10px;
   font-size: 18px;
   line-height: 1.5;
+}
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  top: calc(62% - 0.5em) !important;
+}
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding-top: 10px !important;
 }
 @media only screen and (min-width: 200px) and (max-width: 800px) {
   .Reference_center_div {

@@ -36,17 +36,17 @@ const ExportDocuments = (props) => {
           <div className="switch_column">
             <SwitchButton text="Test report" />
           </div>
-          <select
-            name="cars"
-            id="cars"
+          <div
+            className={`Validator_document_btn_div ${props.redText2}`}
             style={{ position: 'absolute', right: '0' }}
-            className="ExportDocuments_btn"
           >
-            <option value="volvo">Validated documents</option>
-            <option value="saab">Validated documents</option>
-            <option value="mercedes">Validated documents</option>
-            <option value="audi">Validated documents</option>
-          </select>
+            <select name="cars" id="cars" className="ExportDocuments_btn">
+              <option value="volvo">Validated documents</option>
+              <option value="saab">Validated documents</option>
+              <option value="mercedes">Validated documents</option>
+              <option value="audi">Validated documents</option>
+            </select>
+          </div>
           {/* <button style={{ position: 'absolute', right: '0' }} className="ExportDocuments_btn">
             Validated documents &nbsp; ⮟
           </button> */}
@@ -115,7 +115,11 @@ const ExportDocuments = (props) => {
         </div>
         <AddDocument title="Ask for other documents for the product" />
         {/* extra add documents  */}
-        <ValidateButton redclass="redclass" text="8510860 – Nomenclature name" />
+        <ValidateButton
+          redclass="redclass"
+          redclass2="redclass2"
+          text="8510860 – Nomenclature name"
+        />
         <ProductInputs redText2="redText2" Invalid="Invalid product" />
         {/* switch   */}
         <div className="switch_buttons" style={{ position: 'relative' }}>

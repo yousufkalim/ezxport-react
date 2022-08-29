@@ -5,12 +5,14 @@ const ValidateButton = (props) => {
     <>
       <div className="import_dcuments">
         <p className="ExportDocuments_p">{props.text}</p>
-        <select name="cars" id="cars" className={`ExportDocuments_btn ${props.redclass}`}>
-          <option value="volvo">Validated documents</option>
-          <option value="saab">Validated documents</option>
-          <option value="mercedes">Validated documents</option>
-          <option value="audi">Validated documents</option>
-        </select>
+        <div className={`Validator_document_btn_div ${props.redclass}`}>
+          <select name="cars" id="cars" className={`ExportDocuments_btn ${props.redclass2}`}>
+            <option value="volvo">Validated documents</option>
+            <option value="saab">Validated documents</option>
+            <option value="mercedes">Validated documents</option>
+            <option value="audi">Validated documents</option>
+          </select>
+        </div>
         {/* <button className={`ExportDocuments_btn ${props.redclass}`}>
           Validated documents &nbsp; ⮟
         </button> */}

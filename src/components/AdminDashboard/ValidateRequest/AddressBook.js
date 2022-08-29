@@ -11,9 +11,7 @@ const AddressBook = (props) => {
         <div>
           <span className="seller_title">Seller data</span>
           <div>
-            <label className="label_modal" style={{ marginTop: '1rem' }}>
-              Add or select a seller
-            </label>
+            <label className="label_modal">Add or select a seller</label>
             <Select
               name="seller"
               id="demo-simple-select"
@@ -24,7 +22,7 @@ const AddressBook = (props) => {
               className="countrydropdown"
             >
               <MenuItem disabled value="default">
-                Add or select a seller
+                Company Name
               </MenuItem>
               {props?.sellers?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -36,7 +34,7 @@ const AddressBook = (props) => {
               <label className="label_modal">Company Name</label>
               <InputField
                 className="company_name_input"
-                placeholder="Country Name"
+                placeholder="Company Name"
                 name="companyName"
                 value={props?.step3?.sellerData?.companyName}
                 onChange={(e) => {
@@ -74,7 +72,7 @@ const AddressBook = (props) => {
               <label className="label_modal">Telephone</label>
               <InputField
                 className="company_name_input"
-                placeholder="xx xx xx xx xx"
+                placeholder="33 07 86 36 02 20"
                 name="telephone"
                 value={props?.step3?.sellerData?.telephone}
                 onChange={(e) => {
@@ -146,7 +144,7 @@ const AddressBook = (props) => {
               className="countrydropdown"
             >
               <MenuItem disabled value="default">
-                Add or select a Buyer
+                Company Name
               </MenuItem>
               {props?.buyers?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -155,10 +153,10 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div style={{ width: '48%' }}>
-              <label className="label_modal">Country Name</label>
+              <label className="label_modal">Company Name</label>
               <InputField
                 className="company_name_input"
-                placeholder="Country Name"
+                placeholder="Company Name"
                 name="companyName"
                 value={props?.step3?.buyerData?.companyName}
                 onChange={(e) => {
@@ -268,7 +266,7 @@ const AddressBook = (props) => {
               className="countrydropdown"
             >
               <MenuItem disabled value="default">
-                Add inspection location
+                Place of inspection
               </MenuItem>
               {props?.places?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -288,11 +286,12 @@ const AddressBook = (props) => {
             />
           </div>
           <div className="inspection_textfield">
+            x
             <div style={{ width: '48%' }}>
               <label className="label_modal">Company Name</label>
               <InputField
                 className="company_name_input"
-                placeholder="Country Name"
+                placeholder="Company Name"
                 name="companyName"
                 value={props?.step3?.placeOfInspection?.companyName}
                 onChange={(e) => {

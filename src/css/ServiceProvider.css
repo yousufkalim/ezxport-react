@@ -14,44 +14,45 @@
   cursor: pointer;
 }
 .textfield_row1 {
-    color: #667085;
-    padding-left: 9px;
-    font-size: 1rem;
-    background-color: transparent;
+  color: #667085;
+  padding-left: 9px;
+  font-size: 1rem;
+  background-color: transparent;
   width: 28%;
   height: 2.7rem;
   border-radius: 6px;
   border: 1px solid rgb(175, 173, 173);
 }
 .textfield_row2 {
-    font-size: 1rem;
-    padding-left: 9px;
-    color: #667085;
-    width: 100%;
-    height: 2.7rem;
-    border-radius: 6px;
-    border: 1px solid #D0D5DD;
-  }
-.textField_div1{
+  font-size: 1rem;
+  padding-left: 9px;
+  color: #667085;
+  width: 100%;
+  height: 2.7rem;
+  border-radius: 6px;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
 }
-.textField_div2{
-    display: flex;
-    justify-content: space-between;
+.textField_div1 {
 }
-.textField_row2_div{
-    width: 32%;
+.textField_div2 {
+  display: flex;
+  justify-content: space-between;
+}
+.textField_row2_div {
+  width: 32%;
 }
 
-.edit_vendor_div{
-    height: 25rem;
+.edit_vendor_div {
+  height: 25rem;
 }
-.edit_vendor_button{
-    margin-top: 2rem;
-    background-color: #6941C6;
-    width: 100%;
-    color: white;
-    height: 2.5rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+.edit_vendor_button {
+  margin-top: 2rem;
+  background-color: #6941c6;
+  width: 100%;
+  color: white;
+  height: 2.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }

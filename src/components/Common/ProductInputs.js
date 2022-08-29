@@ -18,15 +18,17 @@ const ProductInputs = (props) => {
           props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
         }}
       />
-      <select name="cars" id="cars" className={`ExportDocuments_btn2 ${props.redText2}`}>
-        <option value="volvo">
-          {props.validText} &nbsp; {props.Invalid}
-        </option>
-        <option value="saab">{props.validText}</option>
-        <option value="mercedes">{props.validText}</option>
-        <option value="audi">{props.validText}</option>
-        &nbsp;{' '}
-      </select>
+      <div className={`Validator_document_btn_div ${props.redText2}`}>
+        <select name="cars" id="cars" className={`ExportDocuments_btn2 ${props.redText2}`}>
+          <option value="volvo">
+            {props.validText} &nbsp; {props.Invalid}
+          </option>
+          <option value="saab">{props.validText}</option>
+          <option value="mercedes">{props.validText}</option>
+          <option value="audi">{props.validText}</option>
+          &nbsp;{' '}
+        </select>
+      </div>
       {/* <button className={`ExportDocuments_btn2 ${props.redText2}`}>
         {props.validText} &nbsp; {props.Invalid}
         <span style={{ marginLeft: 'auto', display: 'inline-block', textAlign: 'right' }}>⮟</span>
@@ -56,7 +58,7 @@ const ProductInputs = (props) => {
           }}
         >
           <option value={'default'} disabled>
-            select type of Condition
+            Product Condition
           </option>
           <option value="Bad">Bad</option>
           <option value="Average">Average</option>
@@ -100,7 +102,7 @@ const ProductInputs = (props) => {
             </select>
           </div>
           <div style={{ width: '48%' }}>
-            <label className="label_modal" style={{ marginBottom: '0.5rem' }}>
+            <label className="label_modal" style={{ marginBottom: '0rem' }}>
               Price
             </label>
 
@@ -146,16 +148,16 @@ const ProductInputs = (props) => {
           Country
         </label>
         <Select
+          className="countrydropdown2"
           id="demo-simple-select"
           defaultValue={'default'}
           name="country"
           onChange={(e) => {
             props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
           }}
-          className="countrydropdown2"
         >
           <MenuItem disabled value="default">
-            Select a country
+            Country
           </MenuItem>
           {props.countries?.map((item) => {
             return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
