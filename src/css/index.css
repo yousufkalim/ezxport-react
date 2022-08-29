@@ -13,10 +13,9 @@
 @import url('./Modal/AddCountryModal.css');
 @import url('./Modal/AddServiceProvider.css');
 
-
 @import url('./NomPays.css');
 @import url('./UserDetails.css');
-
+@import url('./ValidateRequest/index.css');
 
 /* Defaults */
 * {
