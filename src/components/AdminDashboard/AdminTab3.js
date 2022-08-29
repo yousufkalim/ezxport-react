@@ -22,6 +22,9 @@ const schema = {
   code: {
     presence: { allowEmpty: false, message: "is required" },
   },
+  updateCode: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
 };
 
 const AdminTab3 = (props) => {
@@ -31,7 +34,6 @@ const AdminTab3 = (props) => {
   const [id, setId] = useState();
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
-  const [bomCode, setBomCode] = useState("");
   const [certificate_status, setCertificate_status] = useState("");
   const [newcertificate_status, setNewCertificate_status] = useState("");
 
@@ -39,6 +41,7 @@ const AdminTab3 = (props) => {
     isValid: false,
     values: {
       code: "",
+      updateCode: "",
     },
     touched: {},
     errors: {},
@@ -75,7 +78,7 @@ const AdminTab3 = (props) => {
   }, []);
   const handleBomUpdate = async (BomId) => {
     await API("put", `/boms/${BomId}`, {
-      code: bomCode,
+      code: formState.values.updateCode,
       certification_required: certificate_status,
       countries: id,
     })
@@ -98,10 +101,12 @@ const AdminTab3 = (props) => {
         toast.success("BOMs deleted successfully");
       })
       .catch((err) => {
-        console.log("handleBomDelete", err);
       });
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setSelect([]);
+    setOpen(false);
+  };
 
   const handleCountryChange = (event) => {
     const {
@@ -142,7 +147,13 @@ const AdminTab3 = (props) => {
   const handleEditBomClick = (bomcode) => {
     setOpen(true);
     setData(bomcode);
-    setBomCode(bomcode.code);
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        updateCode: bomcode?.code,
+      },
+    }));
     setCertificate_status(bomcode.certification_required);
     let countries = [];
     options?.map((item) => {
@@ -277,11 +288,18 @@ const AdminTab3 = (props) => {
             BOMs code
           </label>{" "}
           <InputField
-            name="bomCode"
-            value={bomCode}
-            className="textfield_addvendor"
-            onChange={(e) => setBomCode(e.target.value)}
+            name="updateCode"
+            value={formState.values.updateCode}
+            className={
+              hasError("updateCode") && formState.errors.updateCode
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
+            onChange={handleChange}
           />
+          <div className="error-format">
+            {hasError("updateCode") ? formState.errors.updateCode[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Status
           </label>{" "}
@@ -306,7 +324,12 @@ const AdminTab3 = (props) => {
           />
           <Button
             text="Update BOM"
-            className="add_vendor_button"
+            className={
+              formState.isValid && select.length > 0
+                ? "add_vendor_button"
+                : "add_vendor_button_disabled"
+            }
+            disabled={!formState.isValid || select.length < 1 ? true : false}
             onClick={() => handleBomUpdate(data._id)}
           />
         </div>
@@ -359,8 +382,13 @@ const AdminTab3 = (props) => {
           />
           <Button
             text="Add BOMs"
-            className="add_vendor_button"
+            className={
+              formState.isValid && select.length > 0
+                ? "add_vendor_button"
+                : "add_vendor_button_disabled"
+            }
             onClick={handleAddBom}
+            disabled={!formState.isValid || select.length < 1 ? true : false}
           />
         </div>
       </Modal>
