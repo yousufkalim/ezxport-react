@@ -66,6 +66,16 @@
   border-radius: 6px;
   cursor: pointer;
 }
+.edit_vendor_button_disabled {
+  margin-top: 2rem;
+  background-color: rgb(187, 186, 186, 0.5);
+  width: 100%;
+  color: white;
+  height: 2.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
 @media screen and (max-width: 600px) {
   .changeProvider {
     width: auto;
