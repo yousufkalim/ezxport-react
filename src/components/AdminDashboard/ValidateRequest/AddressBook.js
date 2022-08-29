@@ -22,7 +22,7 @@ const AddressBook = (props) => {
               className="countrydropdown"
             >
               <MenuItem disabled value="default">
-                Company Name
+                select a seller
               </MenuItem>
               {props?.sellers?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -286,7 +286,6 @@ const AddressBook = (props) => {
             />
           </div>
           <div className="inspection_textfield">
-            x
             <div style={{ width: '48%' }}>
               <label className="label_modal">Company Name</label>
               <InputField

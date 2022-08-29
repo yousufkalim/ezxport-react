@@ -148,6 +148,7 @@ const ProductInputs = (props) => {
           Country
         </label>
         <Select
+          style={{ paddingTop: '8px' }}
           className="countrydropdown2"
           id="demo-simple-select"
           defaultValue={'default'}
