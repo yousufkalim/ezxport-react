@@ -429,7 +429,12 @@ const NameProvider = () => {
           </div>
           <Button
             text="Update Service Provider"
-            className="edit_vendor_button"
+            className={
+              formState.isValid
+                ? "edit_vendor_button"
+                : "edit_vendor_button_disabled"
+            }
+            disabled={!formState.isValid ? true : false}
             onClick={handelUpdateVendor}
           />
         </div>

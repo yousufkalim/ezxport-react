@@ -354,16 +354,19 @@ const ServiceProviders = () => {
             names={names}
             select={select}
           />
+          {/* {console.log("===", select)} */}
           <Button
             text="Add Service Provider"
             className={
-              formState.isValid
+              formState.isValid && select.length > 0
                 ? "add_vendor_button"
                 : "add_vendor_button_disabled"
             }
             onClick={handleAddVendor}
-            disabled={!formState.isValid ? true : false}
+            disabled={!formState.isValid || select.length < 1 ? true : false}
           />
+          {console.log("selc", select.length)}
+          {console.log("selc", !formState.isValid)}
         </div>
       </Modal>
     </>
