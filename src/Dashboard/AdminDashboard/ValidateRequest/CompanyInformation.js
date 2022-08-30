@@ -1,4 +1,4 @@
-import InputField from '../../Common/InputField';
+import InputField from '../../../components/Common/InputField';
 import React, { useState, useEffect } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
-import API from '../../../api/index';
+// import API from '../../../api/index';
 
 import AddressBook from './AddressBook';
 import ExportDocuments from './ExportDocuments';

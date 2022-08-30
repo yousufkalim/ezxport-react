@@ -1,8 +1,8 @@
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import DatePicker from '../../Common/DatePicker';
-import InputField from '../../Common/InputField';
+import DatePicker from '../../../components/Common/DatePicker';
+import InputField from '../../../components/Common/InputField';
 
 const AddressBook = (props) => {
   return (

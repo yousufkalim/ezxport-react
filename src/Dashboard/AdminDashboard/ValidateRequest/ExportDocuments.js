@@ -1,8 +1,8 @@
 import React from 'react';
-import ValidateButton from '../../Common/ValidateButton';
-import SwitchButton from '../../Common/SwitchButton';
-import AddDocument from '../../Common/AddDocument';
-import ProductInputs from '../../Common/ProductInputs';
+import ValidateButton from '../../../components/Common/ValidateButton';
+import SwitchButton from '../../../components/Common/SwitchButton';
+import AddDocument from '../../../components/Common/AddDocument';
+import ProductInputs from '../../../components/Common/ProductInputs';
 
 const ExportDocuments = (props) => {
   return (

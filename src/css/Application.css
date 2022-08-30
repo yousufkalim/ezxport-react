@@ -1,0 +1,54 @@
+.InformationTab {
+  width: 100%;
+  display: flex;
+}
+.InformationTab_col {
+  width: 50%;
+}
+.requestDate_tab {
+  margin-bottom: 3%;
+}
+.requestData_p {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 2% !important;
+}
+.requestData_date {
+  font-size: 16px;
+  font-weight: 700;
+}
+.expeditions_div {
+  border-bottom: 1px solid #eaecf0;
+  padding-bottom: 2%;
+  margin: 1.3% 0;
+}
+.expeditions_p {
+  font-size: 18px;
+  font-weight: 500;
+}
+.SellerTab_div {
+  margin-left: 20%;
+}
+.SellerTab_postalAndTown {
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ProductLists_title {
+  font-size: 18px;
+  font-weight: 500;
+}
+.total_value_p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #667085;
+}
+.total_value_p > span {
+  font-weight: 700;
+}
+.ProductLists_heading {
+  border-bottom: 1px solid #eaecf0;
+  padding-bottom: 1%;
+  margin-top: 1.5%;
+}

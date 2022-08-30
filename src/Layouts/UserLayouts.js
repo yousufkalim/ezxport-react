@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import "../css/Dashboard.css";
-import DashLogo from "../assets/DashLogo.svg";
-import Drawer from "../components/Common/Drawer";
-import { UserRoutes } from "../routes/routes";
-import { Switch, Route } from "react-router-dom";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import React, { useState } from 'react';
+import '../css/Dashboard.css';
+import DashLogo from '../assets/DashLogo.svg';
+import Drawer from '../components/Common/Drawer';
+import { UserRoutes } from '../routes/routes';
+import { Switch, Route } from 'react-router-dom';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const UserLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -65,7 +65,7 @@ const UserLayouts = () => {
             />
             <Switch>
               {UserRoutes.map((item) => {
-                return <Route path={item.path} render={() => <item.component />} />;
+                return <Route exact path={item.path} render={() => <item.component />} />;
               })}
             </Switch>
           </div>

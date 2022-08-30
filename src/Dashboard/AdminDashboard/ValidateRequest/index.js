@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Reference from '../../../components/AdminDashboard/ValidateRequest/Reference';
-import CompanyInformation from '../../../components/AdminDashboard/ValidateRequest/CompanyInformation';
+import Reference from './Reference';
+import CompanyInformation from '../ValidateRequest/CompanyInformation';
 
 const Index = () => {
   const [countTabe, setCountTabe] = useState();
