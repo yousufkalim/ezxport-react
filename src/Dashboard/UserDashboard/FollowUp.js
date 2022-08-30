@@ -1,29 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import API from "../../api/index";
-import Moment from "moment";
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import API from '../../api/index';
+import Moment from 'moment';
 
 const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const handleAllRequest = async () => {
-    await API("get", "/requests")
+    await API('get', '/requests')
       .then((res) => {
         setAllRequest(res.data.requets);
       })
       .catch((err) => {
-        console.log("handleAllRequest", err);
+        console.log('handleAllRequest', err);
       });
   };
   useEffect(() => {
     handleAllRequest();
   }, []);
+
+  const history = useHistory();
   return (
     <>
       <div className="list_main_div">
@@ -44,13 +46,16 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
+
                       style={{ backgrounColor: "#EAECF0" }}
+
                     >
                       Request
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
+
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       Date
@@ -58,6 +63,7 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
+
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       Certificate cost
@@ -66,6 +72,7 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
+
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       Service providers
@@ -73,6 +80,7 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
+
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       Statutes
@@ -83,6 +91,7 @@ const FollowUp = () => {
                   {allRequest?.map((item) => (
                     <TableRow
                       key={item?._id}
+
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
@@ -91,18 +100,19 @@ const FollowUp = () => {
                         <p className="country2">{item?.country?.name}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
-                        {Moment(item?.createdAt).format("DD/MM/YYYY")}
+                        {Moment(item?.createdAt).format('DD/MM/YYYY')}
                       </TableCell>
                       <TableCell align="left" className="country2">
                         {item?.certification_cost?.value ? (
                           <>
+
                             {item?.certification_cost?.currency === "USD"
                               ? item?.certification_cost?.value + "$"
                               : item?.certification_cost?.currency === "EURO" &&
                                 item?.certification_cost?.value + "€"}
                           </>
                         ) : (
-                          "--"
+                          '--'
                         )}
                       </TableCell>
 
@@ -113,7 +123,7 @@ const FollowUp = () => {
                             {item?.vendor?.contact_fname}
                           </>
                         ) : (
-                          "--"
+                          '--'
                         )}
                       </TableCell>
                       <TableCell align="left">

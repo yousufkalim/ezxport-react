@@ -2,13 +2,23 @@
   padding-right: 32px;
   padding: 0;
 }
+.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 0 10px !important;
+}
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   border: none !important;
+  width: 100% !important;
 }
-.css-tlc64q-MuiPaper-root-MuiDialog-paper{
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+  height: 3rem !important;
+  margin-top: 7px !important;
+}
+.css-tlc64q-MuiPaper-root-MuiDialog-paper {
   border-radius: 12px !important;
 }
-
+.css-1in441m {
+  display: none !important;
+}
 .buyer_main {
   width: 95%;
   margin: auto;
@@ -55,8 +65,10 @@
   height: 2.3rem;
   right: 5px;
   top: 5px;
-  /* width: 24%; */
-  padding-left: 25px;
+
+  width: 32%;
+  /* padding-left: 25px; */
+
   border: transparent;
   outline: none;
   font-size: 1rem;
@@ -71,6 +83,10 @@
   padding: 2%;
   cursor: pointer;
 }
+
+.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
+  top: -5px !important;
+
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
     font-size: 13px;
@@ -80,4 +96,5 @@
   .buyer_h2 {
     font-size: 15px;
   }
+
 }

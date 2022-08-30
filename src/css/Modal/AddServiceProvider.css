@@ -38,8 +38,10 @@
 }
 .label_modal {
   display: block;
+  color: #344054;
   /* padding-bottom: 5px;
      */
   margin-top: 1rem;
   padding-bottom: 5px;
+  font-weight: 600;
 }

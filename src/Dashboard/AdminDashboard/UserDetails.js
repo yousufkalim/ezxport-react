@@ -1,30 +1,30 @@
-import SearchField from "../../components/Common/SearchField";
-import Button from "../../components/Common/Button";
-import InputField from "../../components/Common/InputField";
-import Modal from "../../components/Common/Modal";
-import BackArrow from "../../assets/BackArrow.svg";
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import PaginationPage from "../../components/AdminDashboard/Pagination";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import AdminTab1 from "../../components/AdminDashboard/AdminTab1";
-import AdminTab2 from "../../components/AdminDashboard/AdminTab2";
-import DownArrow from "../../assets/TitleDownArrow.svg";
-import { useParams } from "react-router-dom";
-import API from "../../api/index";
-import { toast } from "react-toastify";
-import Moment from "moment";
+import SearchField from '../../components/Common/SearchField';
+import Button from '../../components/Common/Button';
+import InputField from '../../components/Common/InputField';
+import Modal from '../../components/Common/Modal';
+import BackArrow from '../../assets/BackArrow.svg';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+import PaginationPage from '../../components/AdminDashboard/Pagination';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import AdminTab1 from '../../components/AdminDashboard/AdminTab1';
+import AdminTab2 from '../../components/AdminDashboard/AdminTab2';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import { useParams } from 'react-router-dom';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import Moment from 'moment';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,7 +55,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 const UserDetails = () => {
@@ -63,16 +63,16 @@ const UserDetails = () => {
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [completeAddress, setCompleteAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [town, setTown] = useState("");
-  const [name, setName] = useState("");
-  const [societyType, setSocietyType] = useState("");
-  const [vatNumber, setVatNumber] = useState("");
+  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [completeAddress, setCompleteAddress] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [town, setTown] = useState('');
+  const [name, setName] = useState('');
+  const [societyType, setSocietyType] = useState('');
+  const [vatNumber, setVatNumber] = useState('');
   // user request states
   const [requestById, setRequestById] = useState([]);
 
@@ -83,7 +83,7 @@ const UserDetails = () => {
     setValue(newValue);
   };
   const handleUserData = async () => {
-    await API("get", `/users/${id}`)
+    await API('get', `/users/${id}`)
       .then((res) => {
         setLastName(res?.data?.user?.last_name);
         setFirstName(res?.data?.user?.first_name);
@@ -97,18 +97,18 @@ const UserDetails = () => {
         setVatNumber(res?.data?.user?.company?.vat);
       })
       .catch((err) => {
-        console.log(err, "errrrrr");
+        console.log(err, 'errrrrr');
       });
   };
 
   const handleRequestByUserId = async () => {
-    await API("get", `/requests/getByUser/${id}`)
+    await API('get', `/requests/getByUser/${id}`)
       .then((res) => {
         setRequestById(res?.data?.requet);
         // console.log("first", res.data);
       })
       .catch((err) => {
-        console.log("err---->", err);
+        console.log('err---->', err);
       });
   };
 
@@ -127,18 +127,12 @@ const UserDetails = () => {
           </div>
 
           <div className="list_table">
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: '100%' }}>
               <Box>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  className="tab_menu"
-                >
-                  <Tab
-                    className="admin_tab_btn"
-                    label="Information"
-                    {...a11yProps(0)}
-                  />
+
+                <Tabs value={value} onChange={handleChange} className="tab_menu">
+                  <Tab className="admin_tab_btn" label="Information" {...a11yProps(0)} />
+
                   <Tab
                     className="admin_tab_btn"
                     label="Demandes"
@@ -155,51 +149,44 @@ const UserDetails = () => {
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Nom
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={lastName}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={lastName} />
+
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Prénom
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={firstName}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={firstName} />
+
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Adresse email
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={email}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={email} />
+
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Téléphone
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={phoneNumber}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={phoneNumber} />
+
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Adresse complète
-                      </label>{" "}
+                      </label>{' '}
+
                       <InputField
                         disabled={true}
                         className="textfield_row2"
@@ -207,20 +194,24 @@ const UserDetails = () => {
                       />
                     </div>
                     <div className="userdetail_textField_div2">
-                      <div style={{ width: "35%" }}>
+                      <div style={{ width: '35%' }} className="postel_input">
                         <label htmlFor="" className="label_modal">
                           Code postal
-                        </label>{" "}
+
+                        </label>{' '}
+
                         <InputField
                           disabled={true}
                           className="userdetail_textField_row"
                           value={postalCode}
                         />
                       </div>
-                      <div style={{ width: "60%" }}>
+                      <div style={{ width: '60%' }}>
                         <label htmlFor="" className="label_modal">
                           Ville
-                        </label>{" "}
+
+                        </label>{' '}
+
                         <InputField
                           disabled={true}
                           className="userdetail_textField_row"
@@ -229,41 +220,35 @@ const UserDetails = () => {
                       </div>
                     </div>
                   </div>
-                  <p className="title_text" style={{ marginTop: "2.5rem" }}>
+                  <p className="title_text" style={{ marginTop: '2.5rem' }}>
                     Informations entreprise
                   </p>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Nom
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={name}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={name} />
+
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Type de société
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={societyType}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={societyType} />
+
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
                         Numéro de TVA
-                      </label>{" "}
-                      <InputField
-                        disabled={true}
-                        className="textfield_row2"
-                        value={vatNumber}
-                      />
+
+                      </label>{' '}
+                      <InputField disabled={true} className="textfield_row2" value={vatNumber} />
+
                     </div>
                   </div>
                 </div>
@@ -279,21 +264,26 @@ const UserDetails = () => {
                             <TableCell
                               align="left"
                               className="country"
-                              style={{ backgrounColor: "#EAECF0" }}
+
+                              style={{ backgrounColor: '#EAECF0' }}
+
                             >
                               Demande
                             </TableCell>
                             <TableCell
                               align="left"
                               className="country"
-                              style={{ backgrounColor: "#EAECF0" }}
+
+                              style={{ backgrounColor: '#EAECF0' }}
+
                             >
                               Date
                             </TableCell>
                             <TableCell
                               align="left"
                               className="country"
-                              style={{ backgrounColor: "#EAECF0" }}
+                              style={{ backgrounColor: '#EAECF0' }}
+
                             >
                               Coût certificat
                             </TableCell>
@@ -301,6 +291,7 @@ const UserDetails = () => {
                             <TableCell
                               align="left"
                               className="country"
+
                               style={{ backgrounColor: "#EAECF0" }}
                             >
                               Prestataires
@@ -308,7 +299,9 @@ const UserDetails = () => {
                             <TableCell
                               align="left"
                               className="country"
+
                               style={{ backgrounColor: "#EAECF0" }}
+
                             >
                               Status
                             </TableCell>
@@ -318,6 +311,7 @@ const UserDetails = () => {
                           {requestById?.map((item) => (
                             <TableRow
                               key={item?._id}
+
                               sx={{
                                 "&:last-child td, &:last-child th": {
                                   border: 0,
@@ -332,20 +326,22 @@ const UserDetails = () => {
                                 </p>
                               </TableCell>
                               <TableCell align="left" className="country2">
-                                {Moment(item?.createdAt).format("DD/MM/YYYY")}
+                                {Moment(item?.createdAt).format('DD/MM/YYYY')}
                               </TableCell>
                               <TableCell align="left" className="country2">
                                 {item?.certification_cost?.value ? (
                                   <>
+
                                     {item?.certification_cost?.currency ===
                                     "USD"
                                       ? item?.certification_cost?.value + "$"
                                       : item?.certification_cost?.currency ===
                                           "EURO" &&
                                         item?.certification_cost?.value + "€"}
+
                                   </>
                                 ) : (
-                                  "--"
+                                  '--'
                                 )}
                               </TableCell>
 
@@ -356,7 +352,7 @@ const UserDetails = () => {
                                     {item?.vendor?.contact_fname}
                                   </>
                                 ) : (
-                                  "--"
+                                  '--'
                                 )}
                               </TableCell>
                               <TableCell align="left">

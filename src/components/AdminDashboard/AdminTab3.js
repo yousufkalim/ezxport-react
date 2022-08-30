@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import PaginationPage from "./Pagination";
 import Table from "@mui/material/Table";
@@ -36,6 +37,7 @@ const AdminTab3 = (props) => {
   const [id, setId] = useState();
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
+
   // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState("default");
   const [certificate_status, setCertificate_status] = useState("");
@@ -113,30 +115,32 @@ const AdminTab3 = (props) => {
     handleCoutries();
   }, []);
   const handleBomUpdate = async (BomId) => {
+
     await API("put", `/boms/${BomId}`, {
       code: updateBomCode.values.updateCode,
       certification_required: certificate_status,
       countries: id,
     })
       .then((res) => {
-        console.log("handleBomUpdate", res);
+        console.log('handleBomUpdate', res);
         props.handleCountryData();
         setOpen(false);
-        toast.success("BOMs updated successfully");
+        toast.success('BOMs updated successfully');
       })
       .catch((err) => {
-        console.log("handleBomUpdate", err);
+        console.log('handleBomUpdate', err);
       });
   };
 
   const handleBomDelete = async (BomId) => {
-    await API("delete", `/boms/${BomId}`)
+    await API('delete', `/boms/${BomId}`)
       .then((res) => {
-        console.log("handleBomDelete", res);
+        console.log('handleBomDelete', res);
         props.handleCountryData();
-        toast.success("BOMs deleted successfully");
+        toast.success('BOMs deleted successfully');
       })
       .catch((err) => {
+
         console.log("handleBomDelete", err);
       });
   };
@@ -151,11 +155,11 @@ const AdminTab3 = (props) => {
     } = event;
     setSelect(
       // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
+      typeof value === 'string' ? value.split(',') : value
     );
   };
   const handleCoutries = async () => {
-    await API("get", "/countries/")
+    await API('get', '/countries/')
       .then((res) => {
         let country_name = [];
         setOptions(res?.data?.countries);
@@ -165,7 +169,7 @@ const AdminTab3 = (props) => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("handleCoutries", err);
+        console.log('handleCoutries', err);
       });
   };
   useEffect(() => {
@@ -203,19 +207,20 @@ const AdminTab3 = (props) => {
     setSelect(countries);
   };
   const handleAddBom = async () => {
+
     await API("post", "/boms", {
       code: formState.values.code,
       certification_required: newCertificate_status,
       countries: id,
     })
       .then((res) => {
-        console.log("handleAddBom", res);
+        console.log('handleAddBom', res);
         props.handleCountryData();
         props.setOpenAddBomModal(false);
-        toast.success("BOMs added successfully");
+        toast.success('BOMs added successfully');
       })
       .catch((err) => {
-        console.log("handleAddBom", err);
+        console.log('handleAddBom', err);
       });
   };
   return (
@@ -224,12 +229,13 @@ const AdminTab3 = (props) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 BOMs code <img src={DownArrow} alt="" />
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Status <img src={DownArrow} alt="" />
               </TableCell>
+
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 Actions
               </TableCell>
@@ -239,6 +245,7 @@ const AdminTab3 = (props) => {
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
                 <TableCell
+
                   style={{ width: "20%" }}
                   component="th"
                   scope="row"
@@ -255,21 +262,21 @@ const AdminTab3 = (props) => {
                 >
                   <p
                     style={{
-                      background: "#ECFDF3",
-                      borderRadius: "16px",
-                      display: "inline-block",
-                      padding: "2px 5px",
-                      color: "#027A48",
+                      background: '#ECFDF3',
+                      borderRadius: '16px',
+                      display: 'inline-block',
+                      padding: '2px 5px',
+                      color: '#027A48',
                     }}
                   ></p>
                   {row.certification_required === false ? (
                     <p
                       style={{
-                        background: "#ECFDF3",
-                        borderRadius: "16px",
-                        display: "inline-block",
-                        padding: "2px 5px",
-                        color: "#027A48",
+                        background: '#ECFDF3',
+                        borderRadius: '16px',
+                        display: 'inline-block',
+                        padding: '2px 5px',
+                        color: '#027A48',
                       }}
                     >
                       Subject to inspection
@@ -277,11 +284,11 @@ const AdminTab3 = (props) => {
                   ) : (
                     <p
                       style={{
-                        background: "#FFFAEB",
-                        borderRadius: "16px",
-                        display: "inline-block",
-                        padding: "2px 5px",
-                        color: "#B54708",
+                        background: '#FFFAEB',
+                        borderRadius: '16px',
+                        display: 'inline-block',
+                        padding: '2px 5px',
+                        color: '#B54708',
                       }}
                     >
                       Not subject
@@ -293,7 +300,7 @@ const AdminTab3 = (props) => {
                     src={DeleteIcon}
                     alt=""
                     className="dltIcon"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => handleBomDelete(row._id)}
                   />
                   &nbsp; &nbsp;
@@ -301,7 +308,7 @@ const AdminTab3 = (props) => {
                     src={EditIcon}
                     alt=""
                     className="dltIcon"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => {
                       handleEditBomClick(row);
                     }}
@@ -320,10 +327,11 @@ const AdminTab3 = (props) => {
         handleClose={handleClose}
         Closebtn={true}
       >
+
         <div style={{ height: "20%" }}>
           <label htmlFor="" className="label_modal">
             BOMs code
-          </label>{" "}
+          </label>{' '}
           <InputField
             name="updateCode"
             value={updateBomCode.values.updateCode}
@@ -341,7 +349,7 @@ const AdminTab3 = (props) => {
           </div>
           <label htmlFor="" className="label_modal">
             Status
-          </label>{" "}
+          </label>{' '}
           <select
             defaultValue={setCertificate_status}
             name="certificate_status"
@@ -356,18 +364,21 @@ const AdminTab3 = (props) => {
           </label>
           <MultiSelect
             name="countries"
+
             onChange={handleCountryChange}
             value={select}
             names={names}
             select={select}
           />
           <Button
+
             text="Update BOM"
             className={
               updateBomCode.isValid && select.length > 0
                 ? "add_vendor_button"
                 : "add_vendor_button_disabled"
             }
+
             disabled={
               !updateBomCode.isValid || select.length < 1 ? true : false
             }
@@ -382,10 +393,10 @@ const AdminTab3 = (props) => {
         handleClose={props.handleAddBomModalClose}
         Closebtn={true}
       >
-        <div style={{ height: "20%" }}>
+        <div style={{ height: '20%' }}>
           <label htmlFor="" className="label_modal">
             BOMs code
-          </label>{" "}
+          </label>{' '}
           <InputField
             name="code"
             value={formState.values.code}
@@ -401,7 +412,7 @@ const AdminTab3 = (props) => {
           </div>
           <label htmlFor="" className="label_modal">
             Status
-          </label>{" "}
+          </label>{' '}
           <select
             defaultValue={newCertificate_status}
             name="certificate_status"
@@ -419,11 +430,14 @@ const AdminTab3 = (props) => {
           </label>
           <MultiSelect
             name="countries"
+
             onChange={handleCountryChange}
+
             value={select}
             names={names}
             select={select}
           />
+
           <Button
             text="Add BOMs"
             className={

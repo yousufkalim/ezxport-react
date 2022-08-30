@@ -1,0 +1,17 @@
+import React from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+const ApplicationHeader = () => {
+  return (
+    <div>
+      <div className="List_heading_div">
+        <p className="list_h1">
+          <ArrowBackIcon className="leftArrowIcon" />
+          &nbsp; Application title
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default ApplicationHeader;

@@ -1,0 +1,241 @@
+.Reference_header {
+  width: 90%;
+  margin: auto;
+}
+.Reference_center_div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2% 0;
+}
+.Reference_h2 {
+  font-weight: 800;
+  font-size: 20px;
+}
+.validate_button {
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+.validate_button2 {
+  background: none;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: black;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.validateForm {
+  width: 50%;
+  margin: auto;
+}
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  box-shadow: inherit !important;
+}
+.import_dcuments {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3%;
+  border-bottom: 1px solid #eaecf0;
+  padding-bottom: 2%;
+}
+.ExportDocuments_p {
+  font-size: 18px;
+  font-weight: 600;
+  color: #344054;
+}
+.Validator_document_btn_div {
+  background: #12b76a;
+  border-radius: 8px;
+  padding: 0 10px;
+  border: 1px solid #d0d5dd;
+  margin-top: 2%;
+}
+.ExportDocuments_btn {
+  border: none;
+  background: #12b76a;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px 5px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.ExportDocuments_btn2 {
+  background: #12b76a;
+  border: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  height: 3rem;
+  /* padding: 0px 5px; */
+  font-size: 16px;
+  font-weight: 400;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-top: 2%; */
+}
+.switch_buttons {
+  padding: 3% 0;
+  display: flex;
+}
+.switch_p {
+  font-size: 16px;
+  font-weight: 500;
+}
+.switch_p2 {
+  color: #004eeb;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 7px 0;
+}
+.switch_column {
+  width: 50%;
+}
+.request_documents_title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 3%;
+  color: #344054;
+}
+.request_documents_label {
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 5px;
+  color: #344054;
+}
+.request_documents_input {
+  width: 100%;
+  height: 3rem;
+  padding: 0px 10px;
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+}
+.add_ducoment_p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7f56d9;
+  padding-left: 10px;
+}
+.add_ducoment_div {
+  padding-top: 5%;
+  display: flex;
+  align-items: center;
+}
+.redclass {
+  background: none;
+  border: 1px solid red;
+  color: red;
+}
+.redclass2 {
+  background: none;
+  color: red;
+}
+.redText2 {
+  background-color: red;
+  padding: 0 !important;
+  color: #fff;
+  padding: 0 5px 0 0 !important;
+}
+.SendDocuments_main {
+  text-align: center;
+  margin-top: 3%;
+}
+.SendDocuments_second {
+  width: 40%;
+  margin: auto;
+  margin-top: 4%;
+}
+.SendDocuments_P {
+  padding: 0 17%;
+  padding-top: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+}
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  top: calc(62% - 0.5em) !important;
+}
+
+@media only screen and (min-width: 200px) and (max-width: 800px) {
+  .Reference_center_div {
+    margin: 3% 0;
+    flex-direction: column;
+  }
+  .Reference_h2 {
+    font-size: 14px;
+  }
+  .validate_button {
+    padding: 7px 15px;
+    font-size: 12px;
+  }
+  .validateForm {
+    width: 100%;
+  }
+  .SendDocuments_second {
+    width: 100%;
+  }
+  .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+    min-height: 34px !important;
+  }
+  .tab_btn1 {
+    font-size: 9px !important;
+  }
+  .tab_btn2 {
+    font-size: 9px !important;
+  }
+  .tab_btn3 {
+    font-size: 9px !important;
+  }
+  .ExportDocuments_btn {
+    padding: 10px 8px;
+    font-size: 9px;
+  }
+  .ExportDocuments_p {
+    font-size: 12px;
+  }
+  .switch_p2 {
+    font-size: 12px;
+    padding: 0px 0;
+  }
+  .company_name_input {
+    font-size: 12px;
+  }
+  .company_name_input2 {
+    font-size: 12px !important;
+  }
+  .switch_column {
+    width: 36%;
+  }
+  .postel_input {
+    width: 42% !important;
+  }
+  .label_modal {
+    font-size: 11px !important;
+  }
+}
+@media only screen and (min-width: 801px) and (max-width: 1200px) {
+  .validateForm {
+    width: 90%;
+  }
+  .SendDocuments_second {
+    width: 80%;
+  }
+}
+@media only screen and (min-width: 1201px) and (max-width: 1500px) {
+  .validateForm {
+    width: 70%;
+  }
+}

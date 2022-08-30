@@ -1,3 +1,4 @@
+
 import React from "react";
 import InputField from "./InputField";
 import TextFieldSelect from "./TextFieldSelect";
@@ -37,27 +38,27 @@ const ProductForm = (props) => {
       <h3>
         Code # {props.cindex + 1} Product # {props.index1 + 1}
       </h3>
-      <label style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>Product Name</label>
+      <label style={{ marginTop: props.index1 !== 0 ? '2.5rem' : '1rem' }}>Product Name</label>
       <InputField
         className="product_name_textfield"
         name="name"
         onChange={(e) => handleDataChange(e)}
       />
-      <label style={{ marginTop: "1rem" }}>Description</label>
+      <label style={{ marginTop: '1rem' }}>Description</label>
       <InputField
         className="product_name_textfield"
         name="description"
         onChange={(e) => handleDataChange(e)}
       />
       <div>
-        <label style={{ marginTop: "1rem" }}>Condition</label>
+        <label style={{ marginTop: '1rem' }}>Condition</label>
         <select
           className="countrydropdown"
-          defaultValue={"default"}
+          defaultValue={'default'}
           name="condition"
           onChange={(e) => handleDataChange(e)}
         >
-          <option value={"default"} disabled>
+          <option value={'default'} disabled>
             select type of Condition
           </option>
           <option value="Bad">Bad</option>
@@ -67,7 +68,7 @@ const ProductForm = (props) => {
         </select>
       </div>
       <div className="inspection_textfield">
-        <div style={{ width: "48%" }}>
+        <div style={{ width: '48%' }}>
           <label>Amount</label>
           <InputField
             className="company_name_input"
@@ -76,13 +77,15 @@ const ProductForm = (props) => {
             onChange={(e) => handleDataChange(e)}
           />
         </div>
-        <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-          <div style={{ width: "35%" }}>
+        <div style={{ width: '48%', display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '35%' }}>
             <label>Unit of measure</label>
             <select
               className="company_name_input"
               name="unit"
+
               onChange={(e) => handleDataChange(e)}
+
             >
               <option value="millimeter">Mm</option>
               <option value="centimeter">Cm</option>
@@ -92,11 +95,13 @@ const ProductForm = (props) => {
               <option value="foot/feet">Ft</option>
             </select>
           </div>
-          <div style={{ width: "60%" }}>
-            <label style={{ marginBottom: "1rem" }}>Price</label>
+          <div style={{ width: '60%' }}>
+            <label style={{ marginBottom: '1.5rem' }}>Price</label>
 
             <TextFieldSelect
+              className="company_name_input2"
               name="price"
+
               onChange={(e) => handleDataChange(e)}
               selectName="currency"
               onOptionChange={(e) => handleDataChange(e)}
@@ -104,23 +109,23 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <label style={{ marginTop: "1rem" }}>Mark</label>
+      <label style={{ marginTop: '1rem' }}>Mark</label>
       <InputField
         className="product_name_textfield"
         name="mark"
         onChange={(e) => handleDataChange(e)}
       />
-      <label style={{ marginTop: "1rem" }}>Builder</label>
+      <label style={{ marginTop: '1rem' }}>Builder</label>
       <InputField
         className="product_name_textfield"
         name="builder"
         onChange={(e) => handleDataChange(e)}
       />
       <div>
-        <label style={{ marginTop: "1rem" }}>Country</label>
+        <label style={{ marginTop: '1rem' }}>Country</label>
         <Select
           id="demo-simple-select"
-          defaultValue={"default"}
+          defaultValue={'default'}
           name="country"
           onChange={(e) => handleDataChange(e)}
           className="countrydropdown"
@@ -133,8 +138,8 @@ const ProductForm = (props) => {
           })}
         </Select>
       </div>
-      <div style={{ display: "flex", width: "95%", justifyContent: "space-between" }}>
-        <div style={{ width: "47%" }}>
+      <div style={{ display: 'flex', width: '95%', justifyContent: 'space-between' }}>
+        <div style={{ width: '47%' }}>
           <label>Technical sheet</label>
           <div className="to_download_div">
             <FilePicker
@@ -148,7 +153,7 @@ const ProductForm = (props) => {
             />
           </div>
         </div>
-        <div style={{ width: "47%" }}>
+        <div style={{ width: '47%' }}>
           <label>Test report</label>
           <div className="to_download_div">
             <FilePicker
@@ -163,8 +168,8 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex", width: "95%", justifyContent: "space-between" }}>
-        <div style={{ width: "47%" }}>
+      <div style={{ display: 'flex', width: '95%', justifyContent: 'space-between' }}>
+        <div style={{ width: '47%' }}>
           <label>Analysis Certificate</label>
           <div className="to_download_div">
             <FilePicker
@@ -178,7 +183,7 @@ const ProductForm = (props) => {
             />
           </div>
         </div>
-        <div style={{ width: "47%" }}>
+        <div style={{ width: '47%' }}>
           <label>Plan</label>
           <div className="to_download_div">
             <FilePicker
@@ -193,7 +198,7 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <div style={{ width: "95%" }}>
+      <div style={{ width: '95%' }}>
         <label>Other documents</label>
         <div className="to_download_div">
           <FilePicker

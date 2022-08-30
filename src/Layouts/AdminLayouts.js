@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import '../css/Dashboard.css';
 import DashLogo from '../assets/DashLogo.svg';
-import Drawer from "../components/Common/Drawer";
+import Drawer from '../components/Common/Drawer';
 import { AdminRoutes } from '../routes/routes';
 import { Switch, Route } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import NomPays from '../Dashboard/AdminDashboard/NomPays';
-import NameProvider from "../Dashboard/AdminDashboard/NameProvider";
-import UserDetails from "../Dashboard/AdminDashboard/UserDetails";
+import NameProvider from '../Dashboard/AdminDashboard/NameProvider';
+import UserDetails from '../Dashboard/AdminDashboard/UserDetails';
 
 const AdminLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -59,7 +59,7 @@ const AdminLayouts = () => {
             </>
           )}
 
-          <div className="dashboard_right_side" style={{ overflow: "hidden !important" }}>
+          <div className="dashboard_right_side" style={{ overflow: 'hidden !important' }}>
             <MenuIcon
               onClick={() => {
                 setShowMenu(!showMenu);
@@ -71,7 +71,11 @@ const AdminLayouts = () => {
                 return <Route exact path={item.path} render={() => <item.component />} />;
               })}
               <Route exact path="/Admin/Dashboard/Country/NomPays/:id" component={NomPays} />
-              <Route exact path="/Admin/Dashboard/ServiceProvider/nameProvider/:id" component={NameProvider} />
+              <Route
+                exact
+                path="/Admin/Dashboard/ServiceProvider/nameProvider/:id"
+                component={NameProvider}
+              />
               <Route exact path="/Admin/Dashboard/Users/UserDetails/:id" component={UserDetails} />
             </Switch>
           </div>

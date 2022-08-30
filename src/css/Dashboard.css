@@ -88,10 +88,10 @@
   justify-content: space-between;
 }
 .list_h1 {
-  font-size: 30px;
+  font-size: 25px;
   display: flex;
   align-items: center;
-  gap: 15px;
+
 }
 .list_reqst_btn {
   text-decoration: none;
