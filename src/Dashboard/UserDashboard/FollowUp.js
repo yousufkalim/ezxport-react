@@ -46,25 +46,21 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
-
-                      style={{ backgrounColor: "#EAECF0" }}
-
+                      style={{ backgrounColor: '#EAECF0' }}
                     >
                       Request
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-
-                      style={{ backgrounColor: "#EAECF0" }}
+                      style={{ backgrounColor: '#EAECF0' }}
                     >
                       Date
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-
-                      style={{ backgrounColor: "#EAECF0" }}
+                      style={{ backgrounColor: '#EAECF0' }}
                     >
                       Certificate cost
                     </TableCell>
@@ -72,16 +68,14 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
-
-                      style={{ backgrounColor: "#EAECF0" }}
+                      style={{ backgrounColor: '#EAECF0' }}
                     >
                       Service providers
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-
-                      style={{ backgrounColor: "#EAECF0" }}
+                      style={{ backgrounColor: '#EAECF0' }}
                     >
                       Statutes
                     </TableCell>
@@ -90,9 +84,10 @@ const FollowUp = () => {
                 <TableBody>
                   {allRequest?.map((item) => (
                     <TableRow
+                      style={{ cursor: 'pointer' }}
                       key={item?._id}
-
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      onClick={() => history.push('/User/Dashboard/Application')}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
                         {item?.title}
@@ -105,11 +100,10 @@ const FollowUp = () => {
                       <TableCell align="left" className="country2">
                         {item?.certification_cost?.value ? (
                           <>
-
-                            {item?.certification_cost?.currency === "USD"
-                              ? item?.certification_cost?.value + "$"
-                              : item?.certification_cost?.currency === "EURO" &&
-                                item?.certification_cost?.value + "€"}
+                            {item?.certification_cost?.currency === 'USD'
+                              ? item?.certification_cost?.value + '$'
+                              : item?.certification_cost?.currency === 'EURO' &&
+                                item?.certification_cost?.value + '€'}
                           </>
                         ) : (
                           '--'
