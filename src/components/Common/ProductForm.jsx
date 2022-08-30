@@ -4,7 +4,33 @@ import TextFieldSelect from "./TextFieldSelect";
 import MenuItem from "@mui/material/MenuItem";
 import FilePicker from "./FilePicker";
 import Select from "@mui/material/Select";
+
 const ProductForm = (props) => {
+  const handleDataChange = (e) => {
+    props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
+  }
+  const handleAddDocument = async (name, files, cindex, index1) => {
+    const base64 = await convertBase64(files)
+
+    props.setCodes((prev) => {
+      prev[cindex].products[index1][name] = {
+        url: [base64]
+      }
+      return [...prev];
+    });
+  };
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
   return (
     <>
       <div className="divider_line"></div>
@@ -14,18 +40,14 @@ const ProductForm = (props) => {
       <label style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>Product Name</label>
       <InputField
         className="product_name_textfield"
-        name="productName"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        name="name"
+        onChange={(e) => handleDataChange(e)}
       />
       <label style={{ marginTop: "1rem" }}>Description</label>
       <InputField
         className="product_name_textfield"
         name="description"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        onChange={(e) => handleDataChange(e)}
       />
       <div>
         <label style={{ marginTop: "1rem" }}>Condition</label>
@@ -33,9 +55,7 @@ const ProductForm = (props) => {
           className="countrydropdown"
           defaultValue={"default"}
           name="condition"
-          onChange={(e) => {
-            props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-          }}
+          onChange={(e) => handleDataChange(e)}
         >
           <option value={"default"} disabled>
             select type of Condition
@@ -53,9 +73,7 @@ const ProductForm = (props) => {
             className="company_name_input"
             placeholder="90 road of rouvroy"
             name="amount"
-            onChange={(e) => {
-              props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-            }}
+            onChange={(e) => handleDataChange(e)}
           />
         </div>
         <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
@@ -64,9 +82,7 @@ const ProductForm = (props) => {
             <select
               className="company_name_input"
               name="unit"
-              onChange={(e) => {
-                props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-              }}
+              onChange={(e) => handleDataChange(e)}
             >
               <option value="millimeter">Mm</option>
               <option value="centimeter">Cm</option>
@@ -81,9 +97,9 @@ const ProductForm = (props) => {
 
             <TextFieldSelect
               name="price"
-              onChange={(e) => {
-                props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-              }}
+              onChange={(e) => handleDataChange(e)}
+              selectName="currency"
+              onOptionChange={(e) => handleDataChange(e)}
             />
           </div>
         </div>
@@ -92,17 +108,13 @@ const ProductForm = (props) => {
       <InputField
         className="product_name_textfield"
         name="mark"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        onChange={(e) => handleDataChange(e)}
       />
       <label style={{ marginTop: "1rem" }}>Builder</label>
       <InputField
         className="product_name_textfield"
         name="builder"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        onChange={(e) => handleDataChange(e)}
       />
       <div>
         <label style={{ marginTop: "1rem" }}>Country</label>
@@ -110,9 +122,7 @@ const ProductForm = (props) => {
           id="demo-simple-select"
           defaultValue={"default"}
           name="country"
-          onChange={(e) => {
-            props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-          }}
+          onChange={(e) => handleDataChange(e)}
           className="countrydropdown"
         >
           <MenuItem disabled value="default">
@@ -127,13 +137,29 @@ const ProductForm = (props) => {
         <div style={{ width: "47%" }}>
           <label>Technical sheet</label>
           <div className="to_download_div">
-            <FilePicker />
+            <FilePicker
+              multiple
+              index={`1${props.cindex}${props.index1}`}
+              // fileName={item.fileName}
+              name="technical_sheet"
+              onChange={(e) =>
+                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+              }
+            />
           </div>
         </div>
         <div style={{ width: "47%" }}>
           <label>Test report</label>
           <div className="to_download_div">
-            <FilePicker />
+            <FilePicker
+              multiple
+              index={`2${props.cindex}${props.index1}`}
+              // fileName={item.fileName}
+              name="test_report"
+              onChange={(e) =>
+                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+              }
+            />
           </div>
         </div>
       </div>
@@ -141,20 +167,44 @@ const ProductForm = (props) => {
         <div style={{ width: "47%" }}>
           <label>Analysis Certificate</label>
           <div className="to_download_div">
-            <FilePicker />
+            <FilePicker
+              multiple
+              index={`3${props.cindex}${props.index1}`}
+              // fileName={item.fileName}
+              name="analysis_certificate"
+              onChange={(e) =>
+                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+              }
+            />
           </div>
         </div>
         <div style={{ width: "47%" }}>
           <label>Plan</label>
           <div className="to_download_div">
-            <FilePicker />
+            <FilePicker
+              multiple
+              index={`4${props?.cindex}${props?.index1}`}
+              // fileName={item.fileName}
+              name="plan"
+              onChange={(e) =>
+                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+              }
+            />
           </div>
         </div>
       </div>
       <div style={{ width: "95%" }}>
         <label>Other documents</label>
         <div className="to_download_div">
-          <FilePicker />
+          <FilePicker
+            multiple
+            index={`5${props.cindex}${props.index1}`}
+            // fileName={item.fileName}
+            name="other_docs"
+            onChange={(e) =>
+              handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+            }
+          />
         </div>
       </div>
     </>

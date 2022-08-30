@@ -21,7 +21,7 @@ const TextFieldSelect = (props) => {
         disabled={props.disabled}
       />
       {/* <span>{props.currency === "USD" ? "$" : "€"}</span> */}
-      <select name="select" className="textfiled_select_component" onChange={props.onOptionChange}>
+      <select name={props.selectName} className="textfiled_select_component" onChange={props.onOptionChange}>
         <option value={"USD"}>USD</option>
         <option value={"EURO"}>EURO</option>
       </select>
