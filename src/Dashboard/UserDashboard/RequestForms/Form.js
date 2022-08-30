@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -15,7 +16,10 @@ import BOMsForm from "./BOMsForm";
 import DispatchForm from "./Dispatch";
 import DocumentForm from "./Document";
 import ServiceproviderForm from "./ServiceProvider";
-
+import { useHistory } from "react-router-dom";
+import API from "../../../api/index";
+import { toast } from "react-toastify";
+const userData = JSON.parse(localStorage.getItem("userData"));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
@@ -38,29 +42,90 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
     borderRadius: 1,
   },
 }));
-
 const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
 export default function HorizontalNonLinearStepper() {
-  const [activeStep, setActiveStep] = React.useState(0);
-  console.log("🚀 ~ file: Form.js ~ line 40 ~ HorizontalNonLinearStepper ~ activeStep", activeStep);
-  const [completed, setCompleted] = React.useState({});
+  const [activeStep, setActiveStep] = useState(0);
+  const [completed, setCompleted] = useState({});
+  const history = useHistory(null);
+  // requestId of request created
+  const [requestId, setRequestedId] = useState("");
 
+  //step 1 states
+  const [step1, setStep1] = useState({
+    country: "",
+    user: userData._id,
+    title: "",
+  });
+  const [matchedData, setMatchedData] = useState([]);
+  const [unMatchedData, setUnMatchedData] = useState([]);
+  const [codes, setCodes] = useState([]);
+
+  // step 2 states
+  const [step2, setStep2] = useState({
+    vendorId: "",
+    contactInfo: false,
+    lastName: "",
+    firstName: "",
+    email: "",
+  });
+  // step 3 states
+  const [step3, setStep3] = useState({
+    sellerData: {
+      seller: "",
+      companyName: "",
+      Country: "",
+      CountryId: "",
+      email: "",
+      telephone: "",
+      fullAddress: "",
+      postalCode: "",
+      town: "",
+    },
+    buyerData: {
+      buyer: "",
+      companyName: "",
+      Country: "",
+      CountryId: "",
+      email: "",
+      telephone: "",
+      fullAddress: "",
+      postalCode: "",
+      town: "",
+    },
+    placeOfInspection: {
+      InspectionPlace: "",
+      InspectionDate: "",
+      companyName: "",
+      Country: "",
+      CountryId: "",
+      email: "",
+      telephone: "",
+      fullAddress: "",
+      postalCode: "",
+      town: "",
+      contactLastName: "",
+      contactFirsttName: "",
+    },
+  });
+  const [sellers, setSeller] = useState([]);
+  const [buyers, setBuyers] = useState([]);
+  const [places, setPlaces] = useState([]);
+  // step 4 states
+  const [CountryDoc, setCountryDoc] = useState([]);
+  const [createdCodes, setCreatedCodes] = useState({});
+  const [productCodes, setProductCodes] = useState([]);
   const totalSteps = () => {
     return steps.length;
   };
-
   const completedSteps = () => {
     return Object.keys(completed).length;
   };
-
   const isLastStep = () => {
     return activeStep === totalSteps() - 1;
   };
-
   const allStepsCompleted = () => {
     return completedSteps() === totalSteps();
   };
-
   const handleNext = () => {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
@@ -70,34 +135,232 @@ export default function HorizontalNonLinearStepper() {
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const handleStep = (step) => () => {
     setActiveStep(step);
   };
-
   const handleComplete = () => {
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
     handleNext();
   };
-
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});
   };
+  const hanldeEstimateRequest = async () => {
+    let data = {
+      country: step1.country,
+      user: step1.user,
+      title: step1.title,
+      codes: [],
+    };
+    matchedData.map((item) => {
+      data.codes.push({
+        code: item.codeID,
+        monetary_value: item.monetary_value,
+        certification_required: item.certification_required,
+      });
+    });
 
+    await API("post", "/requests/boms", data)
+      .then((res) => {
+        console.log("hanldeEstimateRequest", res);
+        handleNext();
+        setRequestedId(res?.data?.request?._id);
+      })
+      .catch((err) => {
+        console.log("hanldeEstimateRequest", err);
+      });
+  };
+  const handleStep2 = async () => {
+    await API("put", "/requests/userVendor", {
+      user: userData._id,
+      request: requestId,
+      vendor: step2.vendorId,
+      contact_info: step2.contactInfo,
+      contact_fname: step2.firstName,
+      contact_lname: step2.lastName,
+      contact_email: step2.email,
+    })
+      .then((res) => {
+        handleNext();
+        toast.success("Service Provider Updated Successfully");
+      })
+      .catch((err) => {
+        console.log("handleStep2", err);
+      });
+  };
+  const handleStep3 = async () => {
+    await API("put", "/requests/dispatch", {
+      request: requestId,
+      inspection_date: step3.placeOfInspection.InspectionDate,
+      buyer: {
+        phone_number: step3.buyerData.telephone,
+        company_name: step3.buyerData.companyName,
+        email: step3.buyerData.email,
+        country: step3.buyerData.CountryId,
+        city: step3.buyerData.town,
+        zipcode: step3.buyerData.postalCode,
+        address: step3.buyerData.fullAddress,
+        user: userData._id,
+      },
+      seller: {
+        phone_number: step3.sellerData.telephone,
+        company_name: step3.sellerData.companyName,
+        email: step3.sellerData.email,
+        country: step3.sellerData.CountryId,
+        city: step3.sellerData.town,
+        zipcode: step3.sellerData.postalCode,
+        address: step3.sellerData.fullAddress,
+        user: userData._id,
+      },
+      place: {
+        phone_number: step3.placeOfInspection.telephone,
+        company_name: step3.placeOfInspection.companyName,
+        email: step3.placeOfInspection.email,
+        country: step3.placeOfInspection.CountryId,
+        city: step3.placeOfInspection.town,
+        zipcode: step3.placeOfInspection.postalCode,
+        address: step3.placeOfInspection.fullAddress,
+        conatct_fname: step3.placeOfInspection.contactFirsttName,
+        contact_name: step3.placeOfInspection.contactLastName,
+        user: userData._id,
+      },
+    })
+      .then((res) => {
+        handleNext();
+        setCreatedCodes(res.data.request);
+        toast.success(res.data.message);
+      })
+      .catch((err) => {
+        console.log("handleStep3", err);
+        toast.error("Some Went Wrong");
+      });
+  };
+  const handleStep4 = async () => {
+    let data = {
+      request: requestId,
+      codes: []
+    };
+    productCodes.map((item) => {
+      item.products.map((item2) => {
+        data.codes.push(item2)
+      })
+    })
+    await API("put", "/requests/documents", data).then((res) => {
+      history.push("/User/Dashboard/ListOfRequests");
+    }).catch((err) => {
+      console.log("err--->", err)
+    })
+  };
+  const handleDocByCountryId = async () => {
+    await API("get", `/documents/getByCountry/62e37dd29a4ffb100c352814`) // country ID will be replaced after testing
+      .then((res) => {
+        setCountryDoc(res.data.document);
+      })
+      .catch((err) => {
+        console.log("handleDocByCountryId", err);
+      });
+  };
+  const handleUploadDoc = async (file, docId, index) => {
+    let formData = new FormData();
+    formData.append("doc_id", docId);
+    formData.append("file", file);
+    await API("put", `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) // reqest Id will be replaced after testing
+      .then((res) => {
+        console.log("handleUploadDoc", res);
+        setCountryDoc((prev) => {
+          prev[index].fileName = file.name;
+          return [...prev];
+        });
+      })
+      .catch((err) => {
+        console.log("handleUploadDoc", err);
+      });
+  };
+  const handleStep1Change = (name, value) => {
+    setStep1({ ...step1, [name]: value });
+  };
+  const handleStep2Change = (name, value) => {
+    setStep2({ ...step2, [name]: value });
+  };
+  const handleSellerData = (name, value) => {
+    setStep3((prev) => {
+      prev.sellerData = { ...prev.sellerData, [name]: value };
+      return { ...prev };
+    });
+  };
+  const handleBuyerData = (name, value) => {
+    setStep3((prev) => {
+      prev.buyerData = { ...prev.buyerData, [name]: value };
+      return { ...prev };
+    });
+  };
+  const handleInspectionData = (name, value) => {
+    setStep3((prev) => {
+      prev.placeOfInspection = { ...prev.placeOfInspection, [name]: value };
+      return { ...prev };
+    });
+  };
+  const handleSeller = async () => {
+    // userID will be replaced and it is for testing purpose
+    await API("get", `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+      .then((res) => {
+        setSeller(res.data.seller);
+      })
+      .catch((err) => {
+        console.log("handleSeller", err);
+      });
+  };
+  const handleBuyer = async () => {
+    // userID will be replaced and it is for testing purpose
+    await API("get", `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+      .then((res) => {
+        setBuyers(res.data.buyer);
+      })
+      .catch((err) => {
+        console.log("handleBuyer", err);
+      });
+  };
+  const handlePlaces = async () => {
+    // userID will be replaced and it is for testing purpose
+    await API("put", `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
+      .then((res) => {
+        setPlaces(res.data.place);
+      })
+      .catch((err) => {
+        console.log("handleBuyer", err);
+      });
+  };
+
+  useEffect(() => {
+    handleSeller();
+    handleBuyer();
+    handlePlaces();
+    handleDocByCountryId();
+  }, []);
   return (
-    <Box sx={{ width: "95%", marginTop: "3rem" }}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+    <Box sx={{ width: "100%", marginTop: "3rem" }}>
+      <Stepper
+        alternativeLabel
+        activeStep={activeStep}
+        connector={<QontoConnector />}
+        style={{ marginRight: "3rem", width: "95%" }}
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepLabel onClick={handleStep(index)}>
-              <p style={{ color: activeStep === index ? "#6941C6" : "black" }}>{label}</p>
+              <p
+                style={{
+                  color: activeStep === index ? "#6941C6" : "black",
+                }}
+              >
+                {label}
+              </p>
             </StepLabel>
           </Step>
         ))}
@@ -114,22 +377,48 @@ export default function HorizontalNonLinearStepper() {
         ) : (
           <React.Fragment>
             {activeStep === 0 ? (
-              <BOMsForm />
+              <BOMsForm
+                step1={step1}
+                setStep1={setStep1}
+                handleChange={handleStep1Change}
+                codes={codes}
+                setCodes={setCodes}
+                setMatchedData={setMatchedData}
+                setUnMatchedData={setUnMatchedData}
+                matchedData={matchedData}
+                unMatchedData={unMatchedData}
+                // handleAllRequestByCountryId={handleAllRequestByCountryId}
+              />
             ) : activeStep === 1 ? (
-              <ServiceproviderForm />
+              <ServiceproviderForm countryId={step1.country} step2={step2} handleChange={handleStep2Change} />
             ) : activeStep === 2 ? (
-              <DispatchForm />
+              <DispatchForm
+                step3={step3}
+                setStep3={setStep3}
+                handleSellerData={handleSellerData}
+                handleBuyerData={handleBuyerData}
+                handleInspectionData={handleInspectionData}
+                sellers={sellers}
+                buyers={buyers}
+                places={places}
+              />
             ) : activeStep === 3 ? (
-              <DocumentForm />
+              <DocumentForm
+                handleDocByCountryId={handleDocByCountryId}
+                handleUploadDoc={handleUploadDoc}
+                CountryDoc={CountryDoc}
+                createdCodes={createdCodes}
+                        userData={userData._id}
+                        setProductCodes={setProductCodes}
+                        productCodes={productCodes}
+              />
             ) : (
               ""
             )}
 
-            {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
-
             <Box sx={{ display: "flex", flexDirection: "row", width: "90%" }}>
               <div style={{ width: "100%", display: activeStep !== 0 && "none" }}>
-                <Button1 onClick={handleNext} className="request_Estimate_btn" text="Estimate my request" />
+                <Button1 onClick={hanldeEstimateRequest} className="request_Estimate_btn" text="Estimate my request" />
               </div>
 
               <div
@@ -144,19 +433,13 @@ export default function HorizontalNonLinearStepper() {
                   <Button1 text="Previous step" className="import_Btn" disabled={activeStep === 0} onClick={handleBack} />
                 </div>
                 <div style={{ width: "50%", justifyContent: "flex-end", display: activeStep === 0 ? "none" : "flex" }}>
-                  <Button1 text="Next Step" className="download_Btn" onClick={handleNext} />
+                  <Button1
+                    text={activeStep === 3 ? "Send my file" : "Next Step"}
+                    className="download_Btn"
+                    onClick={activeStep === 1 ? handleStep2 : activeStep === 2 ? handleStep3 : activeStep === 3 && handleStep4}
+                  />
                 </div>
-              </div>
-
-              {/* <Box sx={{ flex: "1 1 auto" }} /> */}
-              {/* {activeStep !== steps.length &&
-                (completed[activeStep] ? (
-                  <Typography variant="caption" sx={{ display: "inline-block" }}>
-                    Step {activeStep + 1} already completed
-                  </Typography>
-                ) : (
-                  <Button onClick={handleComplete}>{completedSteps() === totalSteps() - 1 ? "Finish" : "Complete Step"}</Button>
-                ))} */}
+                </div>
             </Box>
           </React.Fragment>
         )}

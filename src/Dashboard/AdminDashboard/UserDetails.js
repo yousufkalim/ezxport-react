@@ -24,6 +24,7 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
 import { toast } from "react-toastify";
+import Moment from "moment";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,43 +58,8 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-function createData(name, calories, fat, carbs, protein, protein2) {
-  return { name, calories, fat, carbs, protein, protein2 };
-}
-const rows = [
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "Veritas, Veritas 2", "File validated"),
-  createData("Titre de la demande", " 07/03/2022", "300 €", 23, "--", "File validated"),
-];
 const UserDetails = () => {
+  // user data states
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
@@ -107,6 +73,8 @@ const UserDetails = () => {
   const [name, setName] = useState("");
   const [societyType, setSocietyType] = useState("");
   const [vatNumber, setVatNumber] = useState("");
+  // user request states
+  const [requestById, setRequestById] = useState([]);
 
   useEffect(() => {
     handleUserData();
@@ -122,7 +90,7 @@ const UserDetails = () => {
         setEmail(res?.data?.user?.email);
         setPhoneNumber(res?.data?.user?.phone_number);
         setCompleteAddress(res?.data?.user?.address);
-        setPostalCode(res?.data?.user?.zipcode);
+        setPostalCode(res?.data?.user?.zipcode || res?.data?.user?.zip_code);
         setTown(res?.data?.user?.city);
         setName(res?.data?.user?.company?.name);
         setSocietyType(res?.data?.user?.company?.type);
@@ -130,6 +98,17 @@ const UserDetails = () => {
       })
       .catch((err) => {
         console.log(err, "errrrrr");
+      });
+  };
+
+  const handleRequestByUserId = async () => {
+    await API("get", `/requests/getByUser/${id}`)
+      .then((res) => {
+        setRequestById(res?.data?.requet);
+        // console.log("first", res.data);
+      })
+      .catch((err) => {
+        console.log("err---->", err);
       });
   };
 
@@ -152,7 +131,7 @@ const UserDetails = () => {
               <Box>
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label="Information" {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label="Demandes" {...a11yProps(1)} />
+                  <Tab className="admin_tab_btn" label="Demandes" {...a11yProps(1)} onClick={handleRequestByUserId} />
                 </Tabs>
               </Box>
 
@@ -239,7 +218,6 @@ const UserDetails = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  {" "}
                   <>
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -254,9 +232,7 @@ const UserDetails = () => {
                             <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                               Coût certificat
                             </TableCell>
-                            <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                              Nb codes
-                            </TableCell>
+
                             <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                               Prestataires
                             </TableCell>
@@ -266,28 +242,40 @@ const UserDetails = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {rows.map((row) => (
-                            <TableRow key={row.name} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                          {requestById?.map((item) => (
+                            <TableRow key={item?._id} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                               <TableCell component="th" scope="row">
-                                {row.name}
-
+                                {item?.title}
                                 <br />
-                                <p className="country2"> Pays</p>
+                                <p className="country2">{item?.country?.name}</p>
                               </TableCell>
                               <TableCell align="left" className="country2">
-                                {row.calories}
+                                {Moment(item?.createdAt).format("DD/MM/YYYY")}
                               </TableCell>
                               <TableCell align="left" className="country2">
-                                {row.fat}
+                                {item?.certification_cost?.value ? (
+                                  <>
+                                    {item?.certification_cost?.currency === "USD"
+                                      ? item?.certification_cost?.value + "$"
+                                      : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
+                                  </>
+                                ) : (
+                                  "--"
+                                )}
                               </TableCell>
+
                               <TableCell align="left" className="country2">
-                                {row.carbs}
-                              </TableCell>
-                              <TableCell align="left" className="country2">
-                                {row.protein}
+                                {item?.vendor?.contact_lname ? (
+                                  <>
+                                    {item?.vendor?.contact_lname}
+                                    {item?.vendor?.contact_fname}
+                                  </>
+                                ) : (
+                                  "--"
+                                )}
                               </TableCell>
                               <TableCell align="left">
-                                <p className="clrClass">{row.protein2}</p>
+                                <p className="clrClass">{item.status}</p>
                               </TableCell>
                             </TableRow>
                           ))}

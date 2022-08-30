@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Inputfield from "../../../components/Common/InputField";
 import Button from "../../../components/Common/Button";
 import Table from "@mui/material/Table";
@@ -11,112 +11,446 @@ import DownArrow from "../../../assets/DownArrow.svg";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import EditIcon from "../../../assets/EditIcon.svg";
-const BOMsForm = () => {
-  const rangeData = [
-    {
-      code: "12345678",
-      value: "7000",
-    },
-    {
-      code: "12345678",
-      value: "7000",
-    },
-    {
-      code: "12345678",
-      value: "7000",
-    },
-    {
-      code: "12345678",
-      value: "7000",
-    },
-  ];
+import Modal from "../../../components/Common/Modal";
+import InputField from "../../../components/Common/InputField";
+import { ReactComponent as Logo } from "../../../assets/logo.svg";
+import { ReactComponent as Featured } from "../../../assets/Featured.svg";
+import { ReactComponent as Featured1 } from "../../../assets/Featured1.svg";
+import API from "../../../api/index";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { toast } from "react-toastify";
+const user = JSON.parse(localStorage.getItem("userData"));
+const BOMsForm = (props) => {
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const [certificateRequire, setCertificateRequire] = useState(false);
+  const [certificateNotRequire, setCertificateNotRequire] = useState(false);
+  const [verificationModal, setVerificationModal] = useState(false);
+  const [requestedModal, setRequestedModal] = useState(false);
+  const [countries, setCounteries] = useState();
+  const [code, setCode] = useState("default");
+  const [monetaryValue, setMonetaryValue] = useState("");
+  // const [certificationRequired, setCertificationRequired] = useState(false);
+  const [retrieveRequestId, setRetrieveRequestId] = useState("");
+  const [requestByCountry, setRequestByCountry] = useState([]);
+  const [codeOfCountry, setCodeOfCountry] = useState("");
+  // const [rangeData, setRangeData] = useState([]);
+  const [editModalData, setEditModalData] = useState({});
+  const [importedFile, setImportedFile] = useState();
+
+  const handleAllRequestByCountryId = async () => {
+    await API("get", `/requests/getByCountry/${props?.step1?.country}`)
+      .then((res) => {
+        setRequestByCountry(res?.data?.requet);
+      })
+      .catch((err) => {
+        console.log("handleAllRequestByCountryId=>", err);
+      });
+  };
+  useEffect(() => {
+    handleAllRequestByCountryId();
+  }, [props?.step1?.country]);
+  useEffect(() => {
+    if (props?.step1?.country !== "") {
+      handleTitle();
+    }
+  }, [props?.step1?.country]);
+
+  const handleEditModal = () => setOpenEditModal(false);
+  const handleCertificateRequire = () => setCertificateRequire(false);
+  const handleCertificateNotRequire = () => setCertificateNotRequire(false);
+  const handleVerification = () => setVerificationModal(false);
+  const handleRequested = () => setRequestedModal(false);
+  const handleGetAllCountry = async () => {
+    await API("get", "/countries/")
+      .then((res) => {
+        setCounteries(res.data.countries);
+      })
+      .catch((err) => {
+        console.log(err, "<----");
+      });
+  };
+  useEffect(() => {
+    handleGetAllCountry();
+  }, []);
+  const handleAddCodes = () => {
+    props.matchedData.push({
+      code: code?.code,
+      codeID: code?._id,
+      monetary_value: monetaryValue || "--",
+      certification_required: code?.certification_required,
+    });
+    let filtered = props.unMatchedData.filter((item) => {
+      return item.bom.code !== code.code;
+    });
+    props.setUnMatchedData(filtered);
+    setCode("default");
+    setMonetaryValue("");
+  };
+
+  const handleDocument = async (file) => {
+    setImportedFile(file);
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("country", `${props.step1.country}`); //country ID
+    await API("post", "/boms/filterCodes", formData)
+      .then((res) => {
+        let arr1 = [];
+        res?.data?.matchedData.map((item) => {
+          arr1.push({
+            code: item?.bom?.code,
+            codeID: item?.bom?._id,
+            monetary_value: monetaryValue || "--",
+            certification_required: item.bom?.certification_required,
+          });
+        });
+
+        props?.setMatchedData([...props.matchedData, ...arr1]);
+        props?.setUnMatchedData(res?.data?.unMatched);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  const handleDelete = (code) => {
+    let filtered = props.matchedData.filter((item) => {
+      return item.codeID !== code.codeID;
+    });
+    props.setMatchedData(filtered);
+  };
+  const handleTitle = async () => {
+    await API("post", "/requests/createName", {
+      userId: user._id,
+      countryId: props?.step1?.country,
+    })
+      .then((res) => {
+        props.handleChange("title", (res?.data?.tile).toUpperCase());
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  const handleSearchTitle = async () => {
+    await API("post", "/requests/searchName/", {
+      title: props?.step1?.title,
+    })
+      .then((res) => {
+        props.handleChange("title", res?.data?.tile);
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  };
   return (
     <div>
       <label>Country</label>
-      <select className="countrydropdown">
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-      </select>
+      <Select
+        name="country"
+        id="demo-simple-select"
+        defaultValue={"123"}
+        onChange={(e) => {
+          props.handleChange(e.target.name, e.target.value);
+        }}
+        className="countrydropdown"
+      >
+        <MenuItem disabled value="123">
+          Select a Country
+        </MenuItem>
+        {countries?.map((item) => {
+          return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+        })}
+      </Select>
       <label>Create a new request or select an old request to retrieve information</label>
-      <select className="countrydropdown">
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-        <option value={0}>qwertyu</option>
-      </select>
+      <Select
+        id="demo-simple-select"
+        defaultValue={"default"}
+        onChange={(e) => {
+          setRetrieveRequestId(e.target.value);
+        }}
+        className="countrydropdown"
+      >
+        <MenuItem value="default">Create a new Request</MenuItem>
+        {requestByCountry?.map((item) => {
+          return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
+        })}
+      </Select>
       <label>Application title</label>
-      <Inputfield className="applicationTitle" />
+      <Inputfield
+        name="title"
+        className="applicationTitle"
+        onChange={(e) => {
+          props.handleChange(e.target.name, e.target.value);
+        }}
+        onBlur={handleSearchTitle}
+        value={props.step1.title}
+      />
       <div style={{ display: "flex" }}>
         <div style={{ width: "40%" }}>
           <span className="title_productList">Product Lists</span>
           <br />
-          <u style={{ color: "#7F56D9", fontSize: "14px" }}>You don't know your product nomenclatures?</u>
+          <u style={{ color: "#7F56D9", fontSize: "14px", cursor: "pointer" }}>You don't know your product nomenclatures?</u>
         </div>
         <div style={{ width: "55%", display: "flex", alignItems: "flex-start", justifyContent: "flex-end" }}>
-          <Button text="Import an XLS file" className="import_Btn" />
+          <label className="import_Btn" htmlFor="file">
+            {importedFile?.name || "Import an XLS file"}
+            <input type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+          </label>
+
           <Button text="Download XLS file" className="download_Btn" />
         </div>
       </div>
       <div style={{ display: "flex", width: "100%" }}>
         <div className="codedropdown_div">
           <label style={{ marginTop: "1rem" }}>Code</label>
-          <select className="countrydropdown">
-            <option>qwertyu</option>
-          </select>
+
+          <Select
+            name="codes"
+            id="demo-simple-select"
+            defaultValue={"default"}
+            onChange={(e) => setCode(e.target.value)}
+            className="countrydropdown"
+          >
+            <MenuItem disabled value="default">
+              Select a Code
+            </MenuItem>
+            {props.unMatchedData?.map((item) => {
+              return <MenuItem value={item?.bom}>{item?.bom?.code}</MenuItem>;
+            })}
+          </Select>
         </div>
         <div className="codedropdown_div">
           <label style={{ marginTop: "1rem" }}>Monetary value</label>
-          <Inputfield className="applicationTitle" />
+          <Inputfield value={monetaryValue} className="applicationTitle" onChange={(e) => setMonetaryValue(e.target.value)} />
         </div>
         <div className="codedropdown_div1">
-          <Button text="To add" className="to_add_btn" />
+          <Button text="To add" className="to_add_btn" onClick={handleAddCodes} />
         </div>
       </div>
-      <TableContainer component={Paper} style={{ width: "95%" }}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center" className="country">
-                Code <img src={DownArrow} alt="" />
-              </TableCell>
-              <TableCell align="center" className="country">
-                Monetary value <img src={DownArrow} alt="" />
-              </TableCell>
-
-              <TableCell align="center" className="country">
-                Actions <img src={DownArrow} alt="" />
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rangeData?.map((item) => (
-              <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell align="center" style={{ width: "20%" }}>
-                  {item.code}
-                  <br />
+      {props.matchedData.length === 0 ? (
+        ""
+      ) : (
+        <TableContainer component={Paper} style={{ width: "95%" }}>
+          <Table aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell align="center" className="country">
+                  Code <img src={DownArrow} alt="" />
                 </TableCell>
-                <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                  {item.value}
+                <TableCell align="center" className="country">
+                  Monetary value <img src={DownArrow} alt="" />
                 </TableCell>
 
-                <TableCell align="center" className="country2">
-                  <img src={DeleteIcon} alt="" className="dltIcon" style={{ cursor: "pointer" }} />
-                  &nbsp; &nbsp;
-                  <img src={EditIcon} alt="" className="dltIcon" style={{ cursor: "pointer" }} />
+                <TableCell align="center" className="country">
+                  Actions <img src={DownArrow} alt="" />
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {props.matchedData?.map((item, index) => (
+                <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell align="center" style={{ width: "20%" }}>
+                    {item?.code}
+                    <br />
+                  </TableCell>
+                  <TableCell align="center" className="country2" style={{ width: "20%" }}>
+                    {item?.monetary_value}
+                  </TableCell>
+
+                  <TableCell align="center" className="country2">
+                    <img
+                      src={DeleteIcon}
+                      alt=""
+                      className="dltIcon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleDelete(item)}
+                    />
+                    &nbsp; &nbsp;
+                    <img
+                      src={EditIcon}
+                      alt=""
+                      className="dltIcon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setOpenEditModal(true);
+                        setEditModalData({ item, index });
+                      }}
+                      // onClick={() => setCertificateRequire(true)}
+                      // onClick={() => setCertificateNotRequire(true)}
+                      // onClick={() => setVerificationModal(true)}
+                      // onClick={() => setRequestedModal(true)}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+
+      <Modal open={openEditModal} setOpen={setOpenEditModal} title="Modify BOM" handleClose={handleEditModal} Closebtn={true}>
+        <div>
+          <div style={{ marginTop: "2.2rem" }}>
+            <label>Code</label>
+            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
+          </div>
+          <div style={{ marginTop: "1rem" }}>
+            <label>Monetary Value</label>
+            <InputField
+              className="monetary_value"
+              value={editModalData?.item?.monetary_value}
+              onChange={(e) => {
+                setEditModalData((prev) => {
+                  prev.item.monetary_value = e.target.value;
+                  return { ...prev };
+                });
+              }}
+            />
+          </div>
+          <Button
+            text="To confirm"
+            className="to_confirm_btn"
+            onClick={() => {
+              props.setMatchedData((prev) => {
+                prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
+                return [...prev];
+              });
+              setOpenEditModal(false);
+            }}
+          />
+          <Button
+            text="Delete BOM"
+            className="delete_bom_btn"
+            onClick={() => {
+              handleDelete(editModalData);
+              setOpenEditModal(false);
+            }}
+          />
+        </div>
+      </Modal>
+      <Modal open={certificateRequire} setOpen={setCertificateRequire} handleClose={handleCertificateRequire}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured />
+            </div>
+
+            <div className="space">
+              Those products for <b>Gabon require a certification</b>
+            </div>
+            <div className="space">
+              Le tarif de cette certification est à hauteur de <b>300€/HT</b>
+            </div>
+          </div>
+          <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
+          <Button text="Go back to my request" className="delete_bom_btn" />
+        </div>
+      </Modal>
+      <Modal open={certificateNotRequire} setOpen={setCertificateNotRequire} handleClose={handleCertificateNotRequire}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured1 />
+            </div>
+
+            <div className="space">
+              Those products for <b>Gabon do not require a certification</b>
+            </div>
+            <div className="space">You can therefore send your goods without going through an organization.</div>
+          </div>
+          <Button text="Make another request" className="to_confirm_btn" />
+          <Button text="Go back to my request" className="delete_bom_btn" />
+        </div>
+      </Modal>
+      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured />
+            </div>
+
+            <div className="space" style={{ width: "75%", textAlign: "center" }}>
+              Les nomenclatures listées pour le{" "}
+              <b>
+                Gabon sont soumises <br />à vérification et certification.
+              </b>
+            </div>
+            <div className="space">
+              Le tarif de cette certification est à hauteur de <b>7000€/HT</b>
+            </div>
+          </div>
+          <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
+          <Button text="Go back to my request" className="delete_bom_btn" />
+        </div>
+      </Modal>
+      <Modal open={requestedModal} setOpen={setRequestedModal} handleClose={handleRequested}>
+        <div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "column",
+              marginTop: "1rem",
+              marginBottom: "1rem",
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured1 />
+            </div>
+
+            <div className="space" style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}>
+              Votre demande été effectuée <br />
+              avec succès
+            </div>
+            <div className="space" style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}>
+              Nous allons procéder au traitement de votre dossier
+              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
+              pouvez retrouver votre demande dans le tableau de
+              <br /> <b>suivi des demandes.</b>
+            </div>
+          </div>
+          <Button text="D’accord" className="to_confirm_btn" />
+        </div>
+      </Modal>
     </div>
   );
 };

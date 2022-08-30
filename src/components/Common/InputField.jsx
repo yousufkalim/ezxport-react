@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import Quiz from '../assets/Quiz.png';
 
 const InputField = (props) => {
@@ -6,6 +6,8 @@ const InputField = (props) => {
     <>
       <div className="input_field2">
         <input
+          onFocus={props.onFocus}
+          onBlur={props.onBlur}
           name={props.name}
           value={props.value}
           className={props.className}
@@ -15,11 +17,12 @@ const InputField = (props) => {
           disabled={props.disabled}
         />
         <img src={props.icon} alt="" className="quizIcon" />
+        {props.visibleEye && (
+          <props.icon2 className="quizIcon" onClick={props.onClick} />
+        )}
       </div>
     </>
   );
 };
 
 export default InputField;
-
-
