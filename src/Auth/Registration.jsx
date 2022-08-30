@@ -144,6 +144,21 @@ const Registration = () => {
       }));
     }
   };
+  const handleNameChange = (event) => {
+    if (!event.target.value.match(/[^aA-zZ]/)) {
+      setFormState((formState) => ({
+        ...formState,
+        values: {
+          ...formState.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...formState.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
+  };
   // const handleFormData = (name, value) => {
   //   setForm({ ...form, [name]: value });
   // };
@@ -202,7 +217,7 @@ const Registration = () => {
                   placeholder="Last name"
                   value={formState.values.lastName}
                   name="lastName"
-                  onChange={handleChange}
+                  onChange={handleNameChange}
                 />
                 <div className="error-format">
                   {hasError("lastName") ? formState.errors.lastName[0] : null}
@@ -221,7 +236,7 @@ const Registration = () => {
                   required
                   value={formState.values.firstName}
                   name="firstName"
-                  onChange={handleChange}
+                  onChange={handleNameChange}
                 />
                 <div className="error-format">
                   {hasError("firstName") ? formState.errors.firstName[0] : null}
@@ -399,7 +414,7 @@ const Registration = () => {
                   required
                   value={formState.values.companyLastName}
                   name="companyLastName"
-                  onChange={handleChange}
+                  onChange={handleNameChange}
                 />
                 <div className="error-format">
                   {hasError("companyLastName")
