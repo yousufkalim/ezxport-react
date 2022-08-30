@@ -12,6 +12,7 @@
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
   height: 3rem !important;
   margin-top: 7px !important;
+  /* border: none !important; */
 }
 .css-tlc64q-MuiPaper-root-MuiDialog-paper {
   border-radius: 12px !important;
@@ -46,7 +47,7 @@
 }
 .buyer_label {
   display: block;
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 .buyer_input {
   border: none !important;
@@ -83,10 +84,17 @@
   padding: 2%;
   cursor: pointer;
 }
-
+.demo-simple-select {
+}
+.css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
+  position: unset !important;
+}
+.css-bpeome-MuiSvgIcon-root-MuiSelect-icon {
+  position: unset !important;
+}
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   top: -5px !important;
-
+}
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
     font-size: 13px;
@@ -96,5 +104,4 @@
   .buyer_h2 {
     font-size: 15px;
   }
-
 }
