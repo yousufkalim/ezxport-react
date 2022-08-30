@@ -1,10 +1,8 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import ClearIcon from '@mui/icons-material/Clear';
-
+import React from "react";
+import Dialog from "@mui/material/Dialog";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const Models = (props) => {
-
   return (
     <>
       <div>
@@ -18,7 +16,15 @@ const Models = (props) => {
           <div className="buyer_main">
             <div className="buyer_heading">
               <h2 className="buyer_h2">{props?.title}</h2>
-              {props?.Closebtn && <ClearIcon onClick={() => props?.setOpen(false)} style={{ cursor: "pointer" }} />}
+              {props?.Closebtn && (
+                <ClearIcon
+                  onClick={() => {
+                    props?.setOpen(false);
+                    props?.handleClose();
+                  }}
+                  style={{ cursor: "pointer" }}
+                />
+              )}
             </div>
             {props?.children}
           </div>

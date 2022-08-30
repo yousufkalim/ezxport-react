@@ -100,31 +100,59 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; NomPays
+              NomPays
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
+                <SearchField
+                  placeholder="Searching"
+                  className="Country_search_input"
+                />
                 {/* <Button text="Modifier" className="Edit_btn" /> */}
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Create" className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
+                <SearchField
+                  placeholder="Searching"
+                  className="Country_search_input"
+                />
+                <Button
+                  text="Create"
+                  className="Edit_btn"
+                  onClick={() => setOpenAddDocument(true)}
+                />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
-                <div style={{ display: "flex", width: "60%" }}>
-                  <SearchField placeholder="Searching" className="Country_search_input" />
-                  <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
+                <div className="searching_div_style">
+                  <SearchField
+                    placeholder="Searching"
+                    className="Country_search_input"
+                  />
+                  <Button
+                    text="Update BOMs"
+                    className="update_Boms_btn"
+                    onClick={() => setOpen(true)}
+                  />
                 </div>
-                <Button text="Modifier" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
+                <Button
+                  text="Modifier"
+                  className="Edit_btn"
+                  onClick={() => setOpenAddBomModal(true)}
+                />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
+                <SearchField
+                  placeholder="Searching"
+                  className="Country_search_input"
+                />
                 {currentRadioValue === "coefficient" && (
-                  <Button text="Modifier" className="Edit_btn" onClick={() => setOpenCalculationModal(true)} />
+                  <Button
+                    text="Modifier"
+                    className="Edit_btn"
+                    onClick={() => setOpenCalculationModal(true)}
+                  />
                 )}
               </div>
             ) : (
@@ -135,11 +163,31 @@ const AdminNomPays = () => {
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
-                <Tabs value={value} onChange={handleChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label="Documents" {...a11yProps(1)} />
-                  <Tab className="admin_tab_btn" label="BOMs" {...a11yProps(2)} />
-                  <Tab className="admin_tab_btn" label="Calculation" {...a11yProps(3)} />
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  className="tab_menu"
+                >
+                  <Tab
+                    className="admin_tab_btn"
+                    label="Service providers"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    className="admin_tab_btn"
+                    label="Documents"
+                    {...a11yProps(1)}
+                  />
+                  <Tab
+                    className="admin_tab_btn"
+                    label="BOMs"
+                    {...a11yProps(2)}
+                  />
+                  <Tab
+                    className="admin_tab_btn"
+                    label="Calculation"
+                    {...a11yProps(3)}
+                  />
                 </Tabs>
               </Box>
               {/* table 1 */}
@@ -191,16 +239,31 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title="Actualiser les nomenclatures" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Actualiser les nomenclatures"
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+              Télécharger votre fichier nomenclature{" "}
+              <img src={Icon} alt="" className="quiz_icon" />
             </label>
-            <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
+            <Button
+              text="Télécharger le fichier actuel"
+              className="bom_downloadFile_btn"
+            />
           </div>
-          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
-            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+          <label
+            htmlFor=""
+            className="bom_popup_label"
+            style={{ paddingBottom: "10px" }}
+          >
+            Télécharger votre fichier nomenclature{" "}
+            <img src={Icon} alt="" className="quiz_icon" />
           </label>
           <FilePicker />
           <Button text="Actualiser" className="bom_downloadFile_btn" />
