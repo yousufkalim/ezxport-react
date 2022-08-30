@@ -33,8 +33,8 @@ const FollowUp = () => {
           {/* list head  */}
           <div className="List_heading_div">
             <h1 className="list_h1">List of requests</h1>
-            <Link className="list_reqst_btn" to="/User/RequestForm">
-              Create a request
+            <Link to="/User/RequestForm">
+              <button className="list_reqst_btn">Create a request</button>
             </Link>
           </div>
           {/* list table   */}
@@ -46,21 +46,25 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
+
+                      style={{ backgrounColor: "#EAECF0" }}
+
                     >
                       Request
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
+
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
                       Date
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
+
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
                       Certificate cost
                     </TableCell>
@@ -68,14 +72,16 @@ const FollowUp = () => {
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
+
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
                       Service providers
                     </TableCell>
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: '#EAECF0' }}
+
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
                       Statutes
                     </TableCell>
@@ -85,9 +91,8 @@ const FollowUp = () => {
                   {allRequest?.map((item) => (
                     <TableRow
                       key={item?._id}
-                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                      style={{ cursor: 'pointer' }}
-                      onClick={() => history.push('/User/Dashboard/Application')}
+
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
                         {item?.title}
@@ -100,10 +105,11 @@ const FollowUp = () => {
                       <TableCell align="left" className="country2">
                         {item?.certification_cost?.value ? (
                           <>
-                            {item?.certification_cost?.currency === 'USD'
-                              ? item?.certification_cost?.value + '$'
-                              : item?.certification_cost?.currency === 'EURO' &&
-                                item?.certification_cost?.value + '€'}
+
+                            {item?.certification_cost?.currency === "USD"
+                              ? item?.certification_cost?.value + "$"
+                              : item?.certification_cost?.currency === "EURO" &&
+                                item?.certification_cost?.value + "€"}
                           </>
                         ) : (
                           '--'

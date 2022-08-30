@@ -1,21 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import PaginationPage from './Pagination';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import DeleteIcon from '../../assets/DeleteIcon.svg';
-import EditIcon from '../../assets/EditIcon.svg';
-import API from '../../api/index';
-import Modal from '../../components/Common/Modal';
-import InputField from '../../components/Common/InputField';
-import MultiSelect from '../../components/Common/MultiSelect';
-import Button from '../Common/Button';
-import { toast } from 'react-toastify';
+
+import React, { useState, useEffect } from "react";
+import PaginationPage from "./Pagination";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import DeleteIcon from "../../assets/DeleteIcon.svg";
+import EditIcon from "../../assets/EditIcon.svg";
+import API from "../../api/index";
+import Modal from "../../components/Common/Modal";
+import InputField from "../../components/Common/InputField";
+import MultiSelect from "../../components/Common/MultiSelect";
+import Button from "../Common/Button";
+import { toast } from "react-toastify";
+import validate from "validate.js";
+
+const schema = {
+  code: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  updateCode: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+};
+
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
   const [names, setNames] = useState([]);
@@ -28,12 +40,50 @@ const AdminTab3 = (props) => {
   const [newbomCode, setNewBomCode] = useState('');
   const [newcertificate_status, setNewCertificate_status] = useState('');
 
+
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      code: "",
+      updateCode: "",
+    },
+    touched: {},
+    errors: {},
+  });
+
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  const handleChange = (event) => {
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]: event.target.value,
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true,
+      },
+    }));
+  };
+
   useEffect(() => {
     handleCoutries();
   }, []);
   const handleBomUpdate = async (BomId) => {
-    await API('put', `/boms/${BomId}`, {
-      code: bomCode,
+
+    await API("put", `/boms/${BomId}`, {
+      code: formState.values.updateCode,
       certification_required: certificate_status,
       countries: id,
     })
@@ -57,11 +107,15 @@ const AdminTab3 = (props) => {
       })
       .catch((err) => {
         console.log('handleBomDelete', err);
+
       });
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setSelect([]);
+    setOpen(false);
+  };
 
-  const handleChange = (event) => {
+  const handleCountryChange = (event) => {
     const {
       target: { value },
     } = event;
@@ -100,7 +154,13 @@ const AdminTab3 = (props) => {
   const handleEditBomClick = (bomcode) => {
     setOpen(true);
     setData(bomcode);
-    setBomCode(bomcode.code);
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        updateCode: bomcode?.code,
+      },
+    }));
     setCertificate_status(bomcode.certification_required);
     let countries = [];
     options?.map((item) => {
@@ -113,8 +173,9 @@ const AdminTab3 = (props) => {
     setSelect(countries);
   };
   const handleAddBom = async () => {
-    await API('post', '/boms', {
-      code: newbomCode,
+
+    await API("post", "/boms", {
+      code: formState.values.code,
       certification_required: newcertificate_status,
       countries: id,
     })
@@ -140,14 +201,18 @@ const AdminTab3 = (props) => {
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Status <img src={DownArrow} alt="" />
               </TableCell>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>Actions</TableCell>
+
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                Actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
                 <TableCell
-                  style={{ width: '20%' }}
+
+                  style={{ width: "20%" }}
                   component="th"
                   scope="row"
                   sx={{ padding: 2 }}
@@ -155,7 +220,12 @@ const AdminTab3 = (props) => {
                 >
                   {row.code}
                 </TableCell>
-                <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
+                <TableCell
+                  component="th"
+                  scope="row"
+                  sx={{ padding: 2 }}
+                  align="left"
+                >
                   <p
                     style={{
                       background: '#ECFDF3',
@@ -223,16 +293,24 @@ const AdminTab3 = (props) => {
         handleClose={handleClose}
         Closebtn={true}
       >
-        <div style={{ height: '20%' }}>
+
+        <div style={{ height: "20%" }}>
           <label htmlFor="" className="label_modal">
             BOMs code
           </label>{' '}
           <InputField
-            name="bomCode"
-            value={bomCode}
-            className="textfield_addvendor"
-            onChange={(e) => setBomCode(e.target.value)}
+            name="updateCode"
+            value={formState.values.updateCode}
+            className={
+              hasError("updateCode") && formState.errors.updateCode
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
+            onChange={handleChange}
           />
+          <div className="error-format">
+            {hasError("updateCode") ? formState.errors.updateCode[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Status
           </label>{' '}
@@ -250,14 +328,22 @@ const AdminTab3 = (props) => {
           </label>
           <MultiSelect
             name="countries"
-            onChange={handleChange}
+
+            onChange={handleCountryChange}
             value={select}
             names={names}
             select={select}
           />
           <Button
-            text="Add A country"
-            className="add_vendor_button"
+
+            text="Update BOM"
+            className={
+              formState.isValid && select.length > 0
+                ? "add_vendor_button"
+                : "add_vendor_button_disabled"
+            }
+            disabled={!formState.isValid || select.length < 1 ? true : false}
+
             onClick={() => handleBomUpdate(data._id)}
           />
         </div>
@@ -274,11 +360,18 @@ const AdminTab3 = (props) => {
             BOMs code
           </label>{' '}
           <InputField
-            name="bomCode"
-            value={newbomCode}
-            className="textfield_addvendor"
-            onChange={(e) => setNewBomCode(e.target.value)}
+            name="code"
+            value={formState.values.code}
+            className={
+              hasError("code") && formState.errors.code
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
+            onChange={handleChange}
           />
+          <div className="error-format">
+            {hasError("code") ? formState.errors.code[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Status
           </label>{' '}
@@ -296,12 +389,24 @@ const AdminTab3 = (props) => {
           </label>
           <MultiSelect
             name="countries"
-            onChange={handleChange}
+
+            onChange={handleCountryChange}
+
             value={select}
             names={names}
             select={select}
           />
-          <Button text="Add A country" className="add_vendor_button" onClick={handleAddBom} />
+
+          <Button
+            text="Add BOMs"
+            className={
+              formState.isValid && select.length > 0
+                ? "add_vendor_button"
+                : "add_vendor_button_disabled"
+            }
+            onClick={handleAddBom}
+            disabled={!formState.isValid || select.length < 1 ? true : false}
+          />
         </div>
       </Modal>
     </>

@@ -6,6 +6,7 @@
 .UserTable_right_div {
   display: flex;
   position: relative;
+  width: 70%;
 }
 
 .pagination_div {
@@ -81,4 +82,11 @@
   cursor: pointer;
   color: #fff;
   padding: 1%;
+  height: 40px;
+}
+
+@media screen and (max-width: 780px) {
+  .UserTable_right_div {
+    width: 80%;
+  }
 }

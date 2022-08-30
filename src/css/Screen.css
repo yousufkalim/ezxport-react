@@ -58,6 +58,7 @@ label {
 }
 .input_field2 {
   position: relative;
+  outline: none;
 }
 .quizIcon.MuiSvgIcon-root {
   position: absolute;

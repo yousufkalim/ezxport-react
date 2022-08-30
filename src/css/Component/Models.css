@@ -60,12 +60,15 @@
   padding: 0 !important;
 }
 .textfiled_select_component {
+  display: flex;
   position: absolute;
   height: 2.3rem;
   right: 5px;
   top: 5px;
+
   width: 32%;
   /* padding-left: 25px; */
+
   border: transparent;
   outline: none;
   font-size: 1rem;
@@ -80,6 +83,18 @@
   padding: 2%;
   cursor: pointer;
 }
+
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   top: -5px !important;
+
+@media screen and (max-width: 600px) {
+  .textfiled_select_component {
+    font-size: 13px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .buyer_h2 {
+    font-size: 15px;
+  }
+
 }

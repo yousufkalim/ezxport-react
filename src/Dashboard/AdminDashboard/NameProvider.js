@@ -24,6 +24,35 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
 import { toast } from "react-toastify";
+import validate from "validate.js";
+
+const schema = {
+  fullName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { minimum: 2 },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    email: true,
+    length: {
+      maximum: 64,
+    },
+  },
+  contact: {
+    presence: { allowEmpty: false, message: "is required" },
+    email: true,
+    length: {
+      maximum: 64,
+    },
+  },
+  phone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 10,
+      minimum: 10,
+    },
+  },
+};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -59,6 +88,21 @@ function a11yProps(index) {
 }
 
 const NameProvider = () => {
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      fullName: "",
+      contact: "",
+      email: "",
+      phone: "",
+    },
+    touched: {},
+    errors: {},
+  });
+
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
@@ -70,19 +114,67 @@ const NameProvider = () => {
   const [countries, setCountries] = useState();
 
   useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  const handlePhnChange = (event) => {
+    if (!event.target.value.match(/[^0-9]/)) {
+      setFormState((formState) => ({
+        ...formState,
+        values: {
+          ...formState.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...formState.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
+  };
+  const handleChange = (event) => {
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]: event.target.value,
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true,
+      },
+    }));
+  };
+
+  useEffect(() => {
     handleGetVendor();
   }, [open]);
-  const handleChange = (event, newValue) => {
+
+  const handleDataChange = (event, newValue) => {
     setValue(newValue);
   };
   const handleGetVendor = async () => {
     await API("get", `/vendors/${id}`)
       .then((res) => {
         console.log(res, "resssss");
-        setSendingEmail(res?.data?.vendor?.sending_email);
-        setContact(res?.data?.vendor?.contact_email);
-        setFullname(res?.data?.vendor?.name);
-        setPhoneNumber(res?.data?.vendor?.phone_number);
+        setFormState((formState) => ({
+          ...formState,
+          values: {
+            fullName: res?.data?.vendor?.name,
+            contact: res?.data?.vendor?.contact_email,
+            email: res?.data?.vendor?.sending_email,
+            phone: res?.data?.vendor?.phone_number,
+          },
+        }));
+        // setSendingEmail);
+        // setContact(res?.data?.vendor?.contact_email);
+        // setFullname(res?.data?.vendor?.name);
+        // setPhoneNumber(res?.data?.vendor?.phone_number);
         setCountries(res?.data?.vendor?.countries);
       })
       .catch((err) => {
@@ -92,10 +184,10 @@ const NameProvider = () => {
   const handleClose = () => setOpen(false);
   const handelUpdateVendor = async () => {
     await API("put", `/vendors/${id}`, {
-      phone_number: phoneNumber,
-      name: fullname,
-      sending_email: sendingEmail,
-      contact_email: Contact,
+      phone_number: formState.values.phone,
+      name: formState.values.fullName,
+      sending_email: formState.values.email,
+      contact_email: formState.values.contact,
       countries: countries,
     })
       .then((res) => {
@@ -122,12 +214,16 @@ const NameProvider = () => {
               <Link to="/Admin/Dashboard/Service">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; Service Providers
+              Service Providers
             </h1>
 
             {value === 0 ? (
               <div className="searching2">
-                <Button text="Change Provider" className="changeProvider" onClick={() => setOpen(true)} />
+                <Button
+                  text="Change Provider"
+                  className="changeProvider"
+                  onClick={() => setOpen(true)}
+                />
               </div>
             ) : (
               <div className="searching">
@@ -140,9 +236,21 @@ const NameProvider = () => {
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
-                <Tabs value={value} onChange={handleChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label="Information" {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label="Associated Countries" {...a11yProps(1)} />
+                <Tabs
+                  value={value}
+                  onChange={handleDataChange}
+                  className="tab_menu"
+                >
+                  <Tab
+                    className="admin_tab_btn"
+                    label="Information"
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    className="admin_tab_btn"
+                    label="Associated Countries"
+                    {...a11yProps(1)}
+                  />
                 </Tabs>
               </Box>
 
@@ -152,26 +260,46 @@ const NameProvider = () => {
                     <label htmlFor="" className="label_modal">
                       Default sending email address
                     </label>{" "}
-                    <InputField name="sendingEmail" className="textfield_row1" disabled={true} value={sendingEmail} />
+                    <InputField
+                      name="sendingEmail"
+                      className="textfield_row1"
+                      disabled={true}
+                      value={formState.values.email}
+                    />
                   </div>
                   <div className="textField_div2">
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         Contact
                       </label>{" "}
-                      <InputField disabled={true} name="Contact" className="textfield_row2" value={Contact} />
+                      <InputField
+                        disabled={true}
+                        name="Contact"
+                        className="textfield_row2"
+                        value={formState.values.contact}
+                      />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         Full Name
                       </label>{" "}
-                      <InputField disabled={true} name="fullname" className="textfield_row2" value={fullname} />
+                      <InputField
+                        disabled={true}
+                        name="fullname"
+                        className="textfield_row2"
+                        value={formState.values.fullName}
+                      />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         Phone Number
                       </label>{" "}
-                      <InputField disabled={true} name="phoneNumber" className="textfield_row2" value={phoneNumber} />
+                      <InputField
+                        disabled={true}
+                        name="phoneNumber"
+                        className="textfield_row2"
+                        value={formState.values.phone}
+                      />
                     </div>
                   </div>
                 </div>
@@ -182,10 +310,19 @@ const NameProvider = () => {
                   {" "}
                   <>
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                      <Table
+                        sx={{ minWidth: 650 }}
+                        size="small"
+                        aria-label="a dense table"
+                      >
                         <TableHead>
                           <TableRow>
-                            <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                            <TableCell
+                              sx={{
+                                color: "#667085",
+                                backgroundColor: "#F9FAFB",
+                              }}
+                            >
                               Country <img src={DownArrow} alt="" />
                             </TableCell>
                           </TableRow>
@@ -194,7 +331,14 @@ const NameProvider = () => {
                           {countries?.map((item) => {
                             return (
                               <TableRow key={item.name}>
-                                <TableCell component="th" scope="row" sx={{ border: "1px solid #E5E5E5;", padding: 2 }}>
+                                <TableCell
+                                  component="th"
+                                  scope="row"
+                                  sx={{
+                                    border: "1px solid #E5E5E5;",
+                                    padding: 2,
+                                  }}
+                                >
                                   {item.name}
                                 </TableCell>
                               </TableRow>
@@ -211,40 +355,88 @@ const NameProvider = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title="Update Service Provider" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Update Service Provider"
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="edit_vendor_div">
           <label htmlFor="" className="label_modal">
             Full Name
           </label>{" "}
-          <InputField value={fullname} name="fullname" className="textfield_row2" onChange={(e) => setFullname(e.target.value)} />
+          <InputField
+            value={formState.values.fullName}
+            name="fullName"
+            className={
+              hasError("fullName") && formState.errors.fullName
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
+            onChange={handleChange}
+          />
+          <div className="error-format">
+            {hasError("fullName") ? formState.errors.fullName[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Phone Number
           </label>{" "}
           <InputField
-            value={phoneNumber}
-            name="phone_Number"
-            className="textfield_row2"
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            value={formState.values.phone}
+            name="phone"
+            className={
+              hasError("phone") && formState.errors.phone
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
+            onChange={handlePhnChange}
           />
+          <div className="error-format">
+            {hasError("phone") ? formState.errors.phone[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Contact
           </label>{" "}
           <InputField
-            value={Contact}
-            name="contactEmail"
-            className="textfield_row2"
-            onChange={(e) => setContact(e.target.value)}
+            value={formState.values.contact}
+            name="contact"
+            className={
+              hasError("contact") && formState.errors.contact
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
+            onChange={handleChange}
           />
+          <div className="error-format">
+            {hasError("contact") ? formState.errors.contact[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             Default sending Email address
           </label>
           <InputField
-            value={sendingEmail}
-            name="sendingEmail"
-            className="textfield_row2"
-            onChange={(e) => setSendingEmail(e.target.value)}
+            value={formState.values.email}
+            name="email"
+            className={
+              hasError("email") && formState.errors.email
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
+            onChange={handleChange}
           />
-          <Button text="Update Service Provider" className="edit_vendor_button" onClick={handelUpdateVendor} />
+          <div className="error-format">
+            {hasError("email") ? formState.errors.email[0] : null}
+          </div>
+          <Button
+            text="Update Service Provider"
+            className={
+              formState.isValid
+                ? "edit_vendor_button"
+                : "edit_vendor_button_disabled"
+            }
+            disabled={!formState.isValid ? true : false}
+            onClick={handelUpdateVendor}
+          />
         </div>
       </Modal>
     </>

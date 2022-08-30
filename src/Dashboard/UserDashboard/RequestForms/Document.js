@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import FilePicker from "../../../components/Common/FilePicker";
 import HelperIcon from "../../../assets/Quiz.png";
 import { Grid } from "@mui/material";
@@ -6,28 +6,23 @@ import { Tooltip } from "@mui/material";
 import { ReactComponent as AddProductIcon } from "../../../assets/AddProductIcon.svg";
 import API from "../../../api/index";
 import ProductForm from "../../../components/Common/ProductForm";
-const Document = (props) => {
-  console.log("🚀 ~ file: Document.js ~ line 10 ~ Document ~ props", props);
-  const [codes, setCodes] = useState([]);
-  console.log("🚀 ~ file: Document.js ~ line 12 ~ Document ~ codes", codes);
 
+const Document = (props) => {
+  // const [codes, setCodes] = useState([]);
   const [countries, setCountries] = useState([]);
-  // const code = useMemo(() =>  props.createdCodes.codes.map((item) => {
-  //     item.products = [{}];
-  //     return item;
-  //   })
-  // , []);
+  console.log("🚀 ~ file: Document.js ~ line 12 ~ Document ~ codes", props.productCodes);
+
   useEffect(() => {
     if(props?.createdCodes?.codes){
       let product = props.createdCodes.codes.map((item) => {
-        item.products = [{}];
+        item.products = [{ user: props.userData, code: item.code._id }];
         return item;
       })
-      setCodes(product);
+      props.setProductCodes(product);
     }
-    console.log("njm", props?.createdCodes?.codes);
-
     handleAllCountries();
+
+    // props.setProductCodes()
   }, [props?.createdCodes?.codes]);
   const handleProductChange = (name, value, cindex, index1) => {
     // setProducts((prev) => {
@@ -35,16 +30,16 @@ const Document = (props) => {
     //   return [...prev];
     // });
 
-    setCodes((prev) => {
+    props.setProductCodes((prev) => {
       prev[cindex].products[index1][name] = value;
       return [...prev];
     });
   };
 
-  const addEmptyProduct = (cindex) => {
-    setCodes((prev) => {
-      console.log("prev", prev);
-      prev[cindex].products = [...prev[cindex].products, {}];
+
+  const addEmptyProduct = (cindex, item) => {
+    props.setProductCodes((prev) => {
+      prev[cindex].products = [...prev[cindex].products, { user: props.userData, code: item.code._id }];
       return [...prev];
     });
   };
@@ -57,6 +52,7 @@ const Document = (props) => {
         console.log("errrrr", err);
       });
   };
+
   return (
     <div className="documents_main_div">
       <div className="title_Div_documents">
@@ -88,9 +84,9 @@ const Document = (props) => {
             </Grid>
           );
         })}
-      </Grid>;
+      </Grid>
       {
-        codes?.map((item, cindex) => {
+        props?.productCodes?.map((item, cindex) => {
           return (
             <div>
               <div className="title_Div_documents">
@@ -101,10 +97,10 @@ const Document = (props) => {
               <span className="to_complete_pill">The product documents are to be completed</span>
               {item?.products?.map((product, index1) => {
                 return (
-                  <ProductForm handleProductChange={handleProductChange} cindex={cindex} index1={index1} countries={countries} />
+                  <ProductForm handleProductChange={handleProductChange} cindex={cindex} index1={index1} countries={countries} setCodes={props.setProductCodes} />
                 );
               })}
-              <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex)}>
+              <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex, item)}>
                 <AddProductIcon />
                 &nbsp;&nbsp;Add another product
               </div>
