@@ -25,19 +25,17 @@ const ProductLists = (props) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  {props.Data.map((item) => {
-                    return (
-                      <TableCell
-                        align="left"
-                        className="country"
-                        style={{ backgrounColor: '#EAECF0' }}
-                      >
-                        {item.heading}
-                        &nbsp; &nbsp;
-                        <img src={TitleDownArrow} alt="" className="title_arrow" />
-                      </TableCell>
-                    );
-                  })}
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                    Code &nbsp; &nbsp;
+                    <img src={TitleDownArrow} alt="" className="title_arrow" />
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                    Denomination &nbsp; &nbsp;
+                    <img src={TitleDownArrow} alt="" className="title_arrow" />
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                    Monetary value
+                  </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -49,16 +47,9 @@ const ProductLists = (props) => {
                     <TableCell align="left" className="country2" style={{ width: '22%' }}>
                       {item.contact}
                     </TableCell>
-                    <TableCell align="left" className="country2">
+                    <TableCell align="left" className="country2" style={{ width: '100%' }}>
                       {item.AssociatedCountries}
                     </TableCell>
-                    {props.Icons === false ? (
-                      ''
-                    ) : (
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
-                        <img src={item.Icon} alt="" />
-                      </TableCell>
-                    )}
                   </TableRow>
                 ))}
               </TableBody>
