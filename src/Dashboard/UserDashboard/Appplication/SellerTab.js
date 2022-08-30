@@ -3,19 +3,26 @@ import ProductLists from './ProductLists';
 
 const Data = [
   {
-    heading: 'Code',
     ServiceProviders: '85107861',
     contact: '–',
     AssociatedCountries: '€5,000',
   },
   {
-    heading: 'Denomination',
     ServiceProviders: '85107862',
     contact: '–',
     AssociatedCountries: '€5,000',
   },
   {
-    heading: 'Monetary value',
+    ServiceProviders: '85107863',
+    contact: '–',
+    AssociatedCountries: '€5,000',
+  },
+  {
+    ServiceProviders: '85107863',
+    contact: '–',
+    AssociatedCountries: '€5,000',
+  },
+  {
     ServiceProviders: '85107863',
     contact: '–',
     AssociatedCountries: '€5,000',
