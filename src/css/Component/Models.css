@@ -86,7 +86,7 @@
 
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   top: -5px !important;
-
+}
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
     font-size: 13px;
@@ -96,5 +96,4 @@
   .buyer_h2 {
     font-size: 15px;
   }
-
 }
