@@ -16,9 +16,10 @@
   background-color: #6941c6;
   width: 20%;
   color: #fff;
-  position: relative;
+  position: fixed;
   padding: 2% 2%;
   left: 0;
+  height: 100vh;
 }
 .dashboard_logo {
   /* padding: 0 0 5% 0; */
@@ -27,6 +28,7 @@
 }
 .dashboard_right_side {
   width: 80%;
+  margin-left: 20%;
 }
 .dash_menu2 {
   position: absolute;
@@ -91,7 +93,6 @@
   font-size: 25px;
   display: flex;
   align-items: center;
-
 }
 .list_reqst_btn {
   text-decoration: none;
@@ -357,6 +358,7 @@
 
   .dashboard_right_side {
     width: 100%;
+    margin: 0;
   }
   .pagination {
     width: 63%;
