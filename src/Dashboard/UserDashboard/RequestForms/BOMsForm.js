@@ -260,7 +260,7 @@ const BOMsForm = (props) => {
       {props.matchedData.length === 0 ? (
         ''
       ) : (
-        <TableContainer component={Paper} style={{ width: '95%' }}>
+        <TableContainer component={Paper} style={{ width: '100%', marginTop: '2%' }}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>

@@ -1,0 +1,12 @@
+.ApPlus_popup {
+  width: 100%;
+}
+.ApPlus_popup_form {
+  padding: 20px;
+}
+.ApPlus_popup_ha {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1% 0;
+}
