@@ -1,37 +1,36 @@
-
-import React from "react";
-import InputField from "./InputField";
-import TextFieldSelect from "./TextFieldSelect";
-import MenuItem from "@mui/material/MenuItem";
-import FilePicker from "./FilePicker";
-import Select from "@mui/material/Select";
+import React from 'react';
+import InputField from './InputField';
+import TextFieldSelect from './TextFieldSelect';
+import MenuItem from '@mui/material/MenuItem';
+import FilePicker from './FilePicker';
+import Select from '@mui/material/Select';
 
 const ProductForm = (props) => {
   const handleDataChange = (e) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-  }
+  };
   const handleAddDocument = async (name, files, cindex, index1) => {
-    const base64 = await convertBase64(files)
+    const base64 = await convertBase64(files);
 
     props.setCodes((prev) => {
       prev[cindex].products[index1][name] = {
-        url: [base64]
-      }
+        url: [base64],
+      };
       return [...prev];
     });
   };
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
-      fileReader.readAsDataURL(file)
+      fileReader.readAsDataURL(file);
       fileReader.onload = () => {
         resolve(fileReader.result);
-      }
+      };
       fileReader.onerror = (error) => {
         reject(error);
-      }
-    })
-  }
+      };
+    });
+  };
   return (
     <>
       <div className="divider_line"></div>
@@ -83,9 +82,7 @@ const ProductForm = (props) => {
             <select
               className="company_name_input"
               name="unit"
-
               onChange={(e) => handleDataChange(e)}
-
             >
               <option value="millimeter">Mm</option>
               <option value="centimeter">Cm</option>
@@ -101,7 +98,6 @@ const ProductForm = (props) => {
             <TextFieldSelect
               className="company_name_input2"
               name="price"
-
               onChange={(e) => handleDataChange(e)}
               selectName="currency"
               onOptionChange={(e) => handleDataChange(e)}

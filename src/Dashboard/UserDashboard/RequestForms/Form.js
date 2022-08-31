@@ -368,7 +368,7 @@ export default function HorizontalNonLinearStepper() {
           </Step>
         ))}
       </Stepper>
-      <div style={{ width: '100%', marginTop: '3rem', marginLeft: '0%' }}>
+      <div className="stepper_form">
         {allStepsCompleted() ? (
           <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
@@ -425,8 +425,8 @@ export default function HorizontalNonLinearStepper() {
               ''
             )}
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
-              <div style={{ width: '83%', display: activeStep !== 0 && 'none' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+              <div style={{ width: '100%', display: activeStep !== 0 && 'none' }}>
                 <Button1
                   onClick={hanldeEstimateRequest}
                   className="request_Estimate_btn"

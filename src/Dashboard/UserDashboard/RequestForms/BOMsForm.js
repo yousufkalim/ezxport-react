@@ -142,7 +142,7 @@ const BOMsForm = (props) => {
       });
   };
   return (
-    <div style={{ width: '75%' }}>
+    <div style={{ width: '100%' }}>
       <label className="BomLabel">Country</label>
       <Select
         name="country"
@@ -188,7 +188,7 @@ const BOMsForm = (props) => {
         onBlur={handleSearchTitle}
         value={props.step1.title}
       />
-      <div style={{ display: 'flex' }}>
+      <div className="ProductList_boms" style={{ display: 'flex' }}>
         <div style={{ width: '50%' }}>
           <span className="title_productList">Product Lists</span>
           <br />
@@ -246,9 +246,7 @@ const BOMsForm = (props) => {
           </Select>
         </div>
         <div className="codedropdown_div">
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
-            Monetary value
-          </label>
+          <label className="BomLabel">Monetary value</label>
           <Inputfield
             value={monetaryValue}
             className="applicationTitle"
