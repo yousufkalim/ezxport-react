@@ -20,6 +20,9 @@ const schema = {
   },
   password: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      minimum: 8,
+    },
   },
 };
 const Login = () => {
