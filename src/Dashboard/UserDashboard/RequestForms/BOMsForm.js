@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import Inputfield from "../../../components/Common/InputField";
-import Button from "../../../components/Common/Button";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import DownArrow from "../../../assets/DownArrow.svg";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "../../../assets/DeleteIcon.svg";
-import EditIcon from "../../../assets/EditIcon.svg";
-import Modal from "../../../components/Common/Modal";
-import InputField from "../../../components/Common/InputField";
-import { ReactComponent as Logo } from "../../../assets/logo.svg";
-import { ReactComponent as Featured } from "../../../assets/Featured.svg";
-import { ReactComponent as Featured1 } from "../../../assets/Featured1.svg";
-import API from "../../../api/index";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { toast } from "react-toastify";
-const user = JSON.parse(localStorage.getItem("userData"));
+import React, { useState, useEffect } from 'react';
+import Inputfield from '../../../components/Common/InputField';
+import Button from '../../../components/Common/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import DownArrow from '../../../assets/DownArrow.svg';
+import Paper from '@mui/material/Paper';
+import DeleteIcon from '../../../assets/DeleteIcon.svg';
+import EditIcon from '../../../assets/EditIcon.svg';
+import Modal from '../../../components/Common/Modal';
+import InputField from '../../../components/Common/InputField';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { ReactComponent as Featured } from '../../../assets/Featured.svg';
+import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
+import API from '../../../api/index';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { toast } from 'react-toastify';
+const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = (props) => {
   const [openEditModal, setOpenEditModal] = useState(false);
   const [certificateRequire, setCertificateRequire] = useState(false);
@@ -28,30 +28,30 @@ const BOMsForm = (props) => {
   const [verificationModal, setVerificationModal] = useState(false);
   const [requestedModal, setRequestedModal] = useState(false);
   const [countries, setCounteries] = useState();
-  const [code, setCode] = useState("default");
-  const [monetaryValue, setMonetaryValue] = useState("");
+  const [code, setCode] = useState('default');
+  const [monetaryValue, setMonetaryValue] = useState('');
   // const [certificationRequired, setCertificationRequired] = useState(false);
-  const [retrieveRequestId, setRetrieveRequestId] = useState("");
+  const [retrieveRequestId, setRetrieveRequestId] = useState('');
   const [requestByCountry, setRequestByCountry] = useState([]);
-  const [codeOfCountry, setCodeOfCountry] = useState("");
+  const [codeOfCountry, setCodeOfCountry] = useState('');
   // const [rangeData, setRangeData] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
 
   const handleAllRequestByCountryId = async () => {
-    await API("get", `/requests/getByCountry/${props?.step1?.country}`)
+    await API('get', `/requests/getByCountry/${props?.step1?.country}`)
       .then((res) => {
         setRequestByCountry(res?.data?.requet);
       })
       .catch((err) => {
-        console.log("handleAllRequestByCountryId=>", err);
+        console.log('handleAllRequestByCountryId=>', err);
       });
   };
   useEffect(() => {
     handleAllRequestByCountryId();
   }, [props?.step1?.country]);
   useEffect(() => {
-    if (props?.step1?.country !== "") {
+    if (props?.step1?.country !== '') {
       handleTitle();
     }
   }, [props?.step1?.country]);
@@ -62,12 +62,12 @@ const BOMsForm = (props) => {
   const handleVerification = () => setVerificationModal(false);
   const handleRequested = () => setRequestedModal(false);
   const handleGetAllCountry = async () => {
-    await API("get", "/countries/")
+    await API('get', '/countries/')
       .then((res) => {
         setCounteries(res.data.countries);
       })
       .catch((err) => {
-        console.log(err, "<----");
+        console.log(err, '<----');
       });
   };
   useEffect(() => {
@@ -77,30 +77,30 @@ const BOMsForm = (props) => {
     props.matchedData.push({
       code: code?.code,
       codeID: code?._id,
-      monetary_value: monetaryValue || "--",
+      monetary_value: monetaryValue || '--',
       certification_required: code?.certification_required,
     });
     let filtered = props.unMatchedData.filter((item) => {
       return item.bom.code !== code.code;
     });
     props.setUnMatchedData(filtered);
-    setCode("default");
-    setMonetaryValue("");
+    setCode('default');
+    setMonetaryValue('');
   };
 
   const handleDocument = async (file) => {
     setImportedFile(file);
     let formData = new FormData();
-    formData.append("file", file);
-    formData.append("country", `${props.step1.country}`); //country ID
-    await API("post", "/boms/filterCodes", formData)
+    formData.append('file', file);
+    formData.append('country', `${props.step1.country}`); //country ID
+    await API('post', '/boms/filterCodes', formData)
       .then((res) => {
         let arr1 = [];
         res?.data?.matchedData.map((item) => {
           arr1.push({
             code: item?.bom?.code,
             codeID: item?.bom?._id,
-            monetary_value: monetaryValue || "--",
+            monetary_value: monetaryValue || '--',
             certification_required: item.bom?.certification_required,
           });
         });
@@ -109,7 +109,7 @@ const BOMsForm = (props) => {
         props?.setUnMatchedData(res?.data?.unMatched);
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
   };
   const handleDelete = (code) => {
@@ -119,35 +119,35 @@ const BOMsForm = (props) => {
     props.setMatchedData(filtered);
   };
   const handleTitle = async () => {
-    await API("post", "/requests/createName", {
+    await API('post', '/requests/createName', {
       userId: user._id,
       countryId: props?.step1?.country,
     })
       .then((res) => {
-        props.handleChange("title", (res?.data?.tile).toUpperCase());
+        props.handleChange('title', (res?.data?.tile).toUpperCase());
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
   };
   const handleSearchTitle = async () => {
-    await API("post", "/requests/searchName/", {
+    await API('post', '/requests/searchName/', {
       title: props?.step1?.title,
     })
       .then((res) => {
-        props.handleChange("title", res?.data?.tile);
+        props.handleChange('title', res?.data?.tile);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
   };
   return (
-    <div>
-      <label>Country</label>
+    <div style={{ width: '75%' }}>
+      <label className="BomLabel">Country</label>
       <Select
         name="country"
         id="demo-simple-select"
-        defaultValue={"123"}
+        defaultValue={'123'}
         onChange={(e) => {
           props.handleChange(e.target.name, e.target.value);
         }}
@@ -160,10 +160,13 @@ const BOMsForm = (props) => {
           return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
         })}
       </Select>
-      <label>Create a new request or select an old request to retrieve information</label>
+
+      <label className="BomLabel">
+        Create a new request or select an old request to retrieve information
+      </label>
       <Select
         id="demo-simple-select"
-        defaultValue={"default"}
+        defaultValue={'default'}
         onChange={(e) => {
           setRetrieveRequestId(e.target.value);
         }}
@@ -174,39 +177,63 @@ const BOMsForm = (props) => {
           return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
         })}
       </Select>
-      <label>Application title</label>
+      <label className="BomLabel">Application title</label>
       <Inputfield
+        style={{ width: '100%' }}
         name="title"
-        className="applicationTitle"
+        className="applicationTitle2"
         onChange={(e) => {
           props.handleChange(e.target.name, e.target.value);
         }}
         onBlur={handleSearchTitle}
         value={props.step1.title}
       />
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "40%" }}>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '50%' }}>
           <span className="title_productList">Product Lists</span>
           <br />
-          <u style={{ color: "#7F56D9", fontSize: "14px", cursor: "pointer" }}>You don't know your product nomenclatures?</u>
+          <u style={{ color: '#7F56D9', fontSize: '14px', cursor: 'pointer' }}>
+            You don't know your product nomenclatures?
+          </u>
         </div>
-        <div style={{ width: "55%", display: "flex", alignItems: "flex-start", justifyContent: "flex-end" }}>
+        <div
+          style={{
+            width: '55%',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-end',
+          }}
+        >
           <label className="import_Btn" htmlFor="file">
-            {importedFile?.name || "Import an XLS file"}
-            <input type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+            {importedFile?.name || 'Import an XLS file'}
+            <input
+              type="file"
+              style={{ display: 'none' }}
+              id="file"
+              onChange={(e) => handleDocument(e.target.files[0])}
+            />
           </label>
 
           <Button text="Download XLS file" className="download_Btn" />
         </div>
       </div>
-      <div style={{ display: "flex", width: "100%" }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         <div className="codedropdown_div">
-          <label style={{ marginTop: "1rem" }}>Code</label>
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Code
+          </label>
 
           <Select
             name="codes"
             id="demo-simple-select"
-            defaultValue={"default"}
+            defaultValue={'default'}
             onChange={(e) => setCode(e.target.value)}
             className="countrydropdown"
           >
@@ -219,17 +246,23 @@ const BOMsForm = (props) => {
           </Select>
         </div>
         <div className="codedropdown_div">
-          <label style={{ marginTop: "1rem" }}>Monetary value</label>
-          <Inputfield value={monetaryValue} className="applicationTitle" onChange={(e) => setMonetaryValue(e.target.value)} />
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Monetary value
+          </label>
+          <Inputfield
+            value={monetaryValue}
+            className="applicationTitle"
+            onChange={(e) => setMonetaryValue(e.target.value)}
+          />
         </div>
         <div className="codedropdown_div1">
           <Button text="To add" className="to_add_btn" onClick={handleAddCodes} />
         </div>
       </div>
       {props.matchedData.length === 0 ? (
-        ""
+        ''
       ) : (
-        <TableContainer component={Paper} style={{ width: "95%" }}>
+        <TableContainer component={Paper} style={{ width: '95%' }}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -247,12 +280,12 @@ const BOMsForm = (props) => {
             </TableHead>
             <TableBody>
               {props.matchedData?.map((item, index) => (
-                <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="center" style={{ width: "20%" }}>
+                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell align="center" style={{ width: '20%' }}>
                     {item?.code}
                     <br />
                   </TableCell>
-                  <TableCell align="center" className="country2" style={{ width: "20%" }}>
+                  <TableCell align="center" className="country2" style={{ width: '20%' }}>
                     {item?.monetary_value}
                   </TableCell>
 
@@ -261,7 +294,7 @@ const BOMsForm = (props) => {
                       src={DeleteIcon}
                       alt=""
                       className="dltIcon"
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => handleDelete(item)}
                     />
                     &nbsp; &nbsp;
@@ -269,7 +302,7 @@ const BOMsForm = (props) => {
                       src={EditIcon}
                       alt=""
                       className="dltIcon"
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => {
                         setOpenEditModal(true);
                         setEditModalData({ item, index });
@@ -287,14 +320,24 @@ const BOMsForm = (props) => {
         </TableContainer>
       )}
 
-      <Modal open={openEditModal} setOpen={setOpenEditModal} title="Modify BOM" handleClose={handleEditModal} Closebtn={true}>
+      <Modal
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+        title="Modify BOM"
+        handleClose={handleEditModal}
+        Closebtn={true}
+      >
         <div>
-          <div style={{ marginTop: "2.2rem" }}>
-            <label>Code</label>
-            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
+          <div style={{ marginTop: '2.2rem' }}>
+            <label className="BomLabel">Code</label>
+            <InputField
+              className="code_textfield"
+              value={editModalData?.item?.code}
+              disabled={true}
+            />
           </div>
-          <div style={{ marginTop: "1rem" }}>
-            <label>Monetary Value</label>
+          <div style={{ marginTop: '1rem' }}>
+            <label className="BomLabel">Monetary Value</label>
             <InputField
               className="monetary_value"
               value={editModalData?.item?.monetary_value}
@@ -327,16 +370,20 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
-      <Modal open={certificateRequire} setOpen={setCertificateRequire} handleClose={handleCertificateRequire}>
+      <Modal
+        open={certificateRequire}
+        setOpen={setCertificateRequire}
+        handleClose={handleCertificateRequire}
+      >
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
             }}
           >
             <div className="space">
@@ -357,16 +404,20 @@ const BOMsForm = (props) => {
           <Button text="Go back to my request" className="delete_bom_btn" />
         </div>
       </Modal>
-      <Modal open={certificateNotRequire} setOpen={setCertificateNotRequire} handleClose={handleCertificateNotRequire}>
+      <Modal
+        open={certificateNotRequire}
+        setOpen={setCertificateNotRequire}
+        handleClose={handleCertificateNotRequire}
+      >
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
             }}
           >
             <div className="space">
@@ -379,22 +430,28 @@ const BOMsForm = (props) => {
             <div className="space">
               Those products for <b>Gabon do not require a certification</b>
             </div>
-            <div className="space">You can therefore send your goods without going through an organization.</div>
+            <div className="space">
+              You can therefore send your goods without going through an organization.
+            </div>
           </div>
           <Button text="Make another request" className="to_confirm_btn" />
           <Button text="Go back to my request" className="delete_bom_btn" />
         </div>
       </Modal>
-      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
+      <Modal
+        open={verificationModal}
+        setOpen={setVerificationModal}
+        handleClose={handleVerification}
+      >
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
             }}
           >
             <div className="space">
@@ -404,8 +461,8 @@ const BOMsForm = (props) => {
               <Featured />
             </div>
 
-            <div className="space" style={{ width: "75%", textAlign: "center" }}>
-              Les nomenclatures listées pour le{" "}
+            <div className="space" style={{ width: '75%', textAlign: 'center' }}>
+              Les nomenclatures listées pour le{' '}
               <b>
                 Gabon sont soumises <br />à vérification et certification.
               </b>
@@ -422,12 +479,12 @@ const BOMsForm = (props) => {
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
             }}
           >
             <div className="space">
@@ -437,11 +494,17 @@ const BOMsForm = (props) => {
               <Featured1 />
             </div>
 
-            <div className="space" style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}>
+            <div
+              className="space"
+              style={{ textAlign: 'center', fontSize: '2rem', fontWeight: '600' }}
+            >
               Votre demande été effectuée <br />
               avec succès
             </div>
-            <div className="space" style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}>
+            <div
+              className="space"
+              style={{ fontSize: '1.2rem', width: '90%', color: '#667085', textAlign: 'center' }}
+            >
               Nous allons procéder au traitement de votre dossier
               <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
               pouvez retrouver votre demande dans le tableau de

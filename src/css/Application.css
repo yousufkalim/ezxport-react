@@ -52,3 +52,26 @@
   padding-bottom: 1%;
   margin-top: 1.5%;
 }
+@media screen and (max-width: 780px) {
+  .list_h1 {
+    width: 100%;
+  }
+  .table_li2 {
+    padding-left: 0%;
+    width: 12%;
+  }
+  .table_li4 {
+    padding-left: 12%;
+    width: 23% !important;
+  }
+  .send_p {
+    position: absolute;
+    right: 0;
+    right: 38%;
+    padding: 5px 8px;
+  }
+  .requestData_date {
+    font-size: 13px;
+    font-weight: 700;
+  }
+}

@@ -1,60 +1,60 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
-import Button from "@mui/material/Button";
-import Button1 from "../../../components/Common/Button";
-import Typography from "@mui/material/Typography";
-import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
-import { styled } from "@mui/material/styles";
-import PropTypes from "prop-types";
-import Check from "@mui/icons-material/Check";
-import { StepLabel } from "@mui/material";
-import BOMsForm from "./BOMsForm";
-import DispatchForm from "./Dispatch";
-import DocumentForm from "./Document";
-import ServiceproviderForm from "./ServiceProvider";
-import { useHistory } from "react-router-dom";
-import API from "../../../api/index";
-import { toast } from "react-toastify";
-const userData = JSON.parse(localStorage.getItem("userData"));
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepButton from '@mui/material/StepButton';
+import Button from '@mui/material/Button';
+import Button1 from '../../../components/Common/Button';
+import Typography from '@mui/material/Typography';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import Check from '@mui/icons-material/Check';
+import { StepLabel } from '@mui/material';
+import BOMsForm from './BOMsForm';
+import DispatchForm from './Dispatch';
+import DocumentForm from './Document';
+import ServiceproviderForm from './ServiceProvider';
+import { useHistory } from 'react-router-dom';
+import API from '../../../api/index';
+import { toast } from 'react-toastify';
+const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
+    left: 'calc(-50% + 16px)',
+    right: 'calc(50% + 16px)',
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7F56D9",
+      borderColor: '#7F56D9',
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7F56D9",
+      borderColor: '#7F56D9',
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
     borderTopWidth: 3,
     borderRadius: 1,
   },
 }));
-const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
+const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const history = useHistory(null);
   // requestId of request created
-  const [requestId, setRequestedId] = useState("");
+  const [requestId, setRequestedId] = useState('');
 
   //step 1 states
   const [step1, setStep1] = useState({
-    country: "",
+    country: '',
     user: userData._id,
-    title: "",
+    title: '',
   });
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
@@ -62,49 +62,49 @@ export default function HorizontalNonLinearStepper() {
 
   // step 2 states
   const [step2, setStep2] = useState({
-    vendorId: "",
+    vendorId: '',
     contactInfo: false,
-    lastName: "",
-    firstName: "",
-    email: "",
+    lastName: '',
+    firstName: '',
+    email: '',
   });
   // step 3 states
   const [step3, setStep3] = useState({
     sellerData: {
-      seller: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
+      seller: '',
+      companyName: '',
+      Country: '',
+      CountryId: '',
+      email: '',
+      telephone: '',
+      fullAddress: '',
+      postalCode: '',
+      town: '',
     },
     buyerData: {
-      buyer: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
+      buyer: '',
+      companyName: '',
+      Country: '',
+      CountryId: '',
+      email: '',
+      telephone: '',
+      fullAddress: '',
+      postalCode: '',
+      town: '',
     },
     placeOfInspection: {
-      InspectionPlace: "",
-      InspectionDate: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
-      contactLastName: "",
-      contactFirsttName: "",
+      InspectionPlace: '',
+      InspectionDate: '',
+      companyName: '',
+      Country: '',
+      CountryId: '',
+      email: '',
+      telephone: '',
+      fullAddress: '',
+      postalCode: '',
+      town: '',
+      contactLastName: '',
+      contactFirsttName: '',
     },
   });
   const [sellers, setSeller] = useState([]);
@@ -166,18 +166,18 @@ export default function HorizontalNonLinearStepper() {
       });
     });
 
-    await API("post", "/requests/boms", data)
+    await API('post', '/requests/boms', data)
       .then((res) => {
-        console.log("hanldeEstimateRequest", res);
+        console.log('hanldeEstimateRequest', res);
         handleNext();
         setRequestedId(res?.data?.request?._id);
       })
       .catch((err) => {
-        console.log("hanldeEstimateRequest", err);
+        console.log('hanldeEstimateRequest', err);
       });
   };
   const handleStep2 = async () => {
-    await API("put", "/requests/userVendor", {
+    await API('put', '/requests/userVendor', {
       user: userData._id,
       request: requestId,
       vendor: step2.vendorId,
@@ -188,14 +188,14 @@ export default function HorizontalNonLinearStepper() {
     })
       .then((res) => {
         handleNext();
-        toast.success("Service Provider Updated Successfully");
+        toast.success('Service Provider Updated Successfully');
       })
       .catch((err) => {
-        console.log("handleStep2", err);
+        console.log('handleStep2', err);
       });
   };
   const handleStep3 = async () => {
-    await API("put", "/requests/dispatch", {
+    await API('put', '/requests/dispatch', {
       request: requestId,
       inspection_date: step3.placeOfInspection.InspectionDate,
       buyer: {
@@ -237,49 +237,51 @@ export default function HorizontalNonLinearStepper() {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log("handleStep3", err);
-        toast.error("Some Went Wrong");
+        console.log('handleStep3', err);
+        toast.error('Some Went Wrong');
       });
   };
   const handleStep4 = async () => {
     let data = {
       request: requestId,
-      codes: []
+      codes: [],
     };
     productCodes.map((item) => {
       item.products.map((item2) => {
-        data.codes.push(item2)
+        data.codes.push(item2);
+      });
+    });
+    await API('put', '/requests/documents', data)
+      .then((res) => {
+        history.push('/User/Dashboard/ListOfRequests');
       })
-    })
-    await API("put", "/requests/documents", data).then((res) => {
-      history.push("/User/Dashboard/ListOfRequests");
-    }).catch((err) => {
-      console.log("err--->", err)
-    })
+      .catch((err) => {
+        console.log('err--->', err);
+      });
   };
   const handleDocByCountryId = async () => {
-    await API("get", `/documents/getByCountry/62e37dd29a4ffb100c352814`) // country ID will be replaced after testing
+    await API('get', `/documents/getByCountry/62e37dd29a4ffb100c352814`) // country ID will be replaced after testing
       .then((res) => {
         setCountryDoc(res.data.document);
       })
       .catch((err) => {
-        console.log("handleDocByCountryId", err);
+        console.log('handleDocByCountryId', err);
       });
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
-    formData.append("doc_id", docId);
-    formData.append("file", file);
-    await API("put", `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) // reqest Id will be replaced after testing
+    formData.append('doc_id', docId);
+    formData.append('file', file);
+    await API('put', `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) // reqest Id will be replaced after testing
       .then((res) => {
-        console.log("handleUploadDoc", res);
+        console.log('handleUploadDoc', res);
         setCountryDoc((prev) => {
           prev[index].fileName = file.name;
           return [...prev];
         });
       })
       .catch((err) => {
-        console.log("handleUploadDoc", err);
+        console.log('handleUploadDoc', err);
       });
   };
   const handleStep1Change = (name, value) => {
@@ -308,32 +310,32 @@ export default function HorizontalNonLinearStepper() {
   };
   const handleSeller = async () => {
     // userID will be replaced and it is for testing purpose
-    await API("get", `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setSeller(res.data.seller);
       })
       .catch((err) => {
-        console.log("handleSeller", err);
+        console.log('handleSeller', err);
       });
   };
   const handleBuyer = async () => {
     // userID will be replaced and it is for testing purpose
-    await API("get", `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
       .catch((err) => {
-        console.log("handleBuyer", err);
+        console.log('handleBuyer', err);
       });
   };
   const handlePlaces = async () => {
     // userID will be replaced and it is for testing purpose
-    await API("put", `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('put', `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setPlaces(res.data.place);
       })
       .catch((err) => {
-        console.log("handleBuyer", err);
+        console.log('handleBuyer', err);
       });
   };
 
@@ -344,19 +346,20 @@ export default function HorizontalNonLinearStepper() {
     handleDocByCountryId();
   }, []);
   return (
-    <Box sx={{ width: "100%", marginTop: "3rem" }}>
+    <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper
         alternativeLabel
         activeStep={activeStep}
         connector={<QontoConnector />}
-        style={{ marginRight: "3rem", width: "95%" }}
+        // style={{ marginRight: '3rem', width: '95%' }}
+        className="stepperClass"
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
             <StepLabel onClick={handleStep(index)}>
               <p
                 style={{
-                  color: activeStep === index ? "#6941C6" : "black",
+                  color: activeStep === index ? '#6941C6' : 'black',
                 }}
               >
                 {label}
@@ -365,12 +368,14 @@ export default function HorizontalNonLinearStepper() {
           </Step>
         ))}
       </Stepper>
-      <div style={{ width: "90%", marginTop: "3rem", marginLeft: "8%" }}>
+      <div style={{ width: '100%', marginTop: '3rem', marginLeft: '0%' }}>
         {allStepsCompleted() ? (
           <React.Fragment>
-            <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
+            <Typography sx={{ mt: 2, mb: 1 }}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
               <Button onClick={handleReset}>Reset</Button>
             </Box>
           </React.Fragment>
@@ -390,7 +395,11 @@ export default function HorizontalNonLinearStepper() {
                 // handleAllRequestByCountryId={handleAllRequestByCountryId}
               />
             ) : activeStep === 1 ? (
-              <ServiceproviderForm countryId={step1.country} step2={step2} handleChange={handleStep2Change} />
+              <ServiceproviderForm
+                countryId={step1.country}
+                step2={step2}
+                handleChange={handleStep2Change}
+              />
             ) : activeStep === 2 ? (
               <DispatchForm
                 step3={step3}
@@ -408,38 +417,59 @@ export default function HorizontalNonLinearStepper() {
                 handleUploadDoc={handleUploadDoc}
                 CountryDoc={CountryDoc}
                 createdCodes={createdCodes}
-                        userData={userData._id}
-                        setProductCodes={setProductCodes}
-                        productCodes={productCodes}
+                userData={userData._id}
+                setProductCodes={setProductCodes}
+                productCodes={productCodes}
               />
             ) : (
-              ""
+              ''
             )}
 
-            <Box sx={{ display: "flex", flexDirection: "row", width: "90%" }}>
-              <div style={{ width: "100%", display: activeStep !== 0 && "none" }}>
-                <Button1 onClick={hanldeEstimateRequest} className="request_Estimate_btn" text="Estimate my request" />
+            <Box sx={{ display: 'flex', flexDirection: 'row', width: '90%' }}>
+              <div style={{ width: '83%', display: activeStep !== 0 && 'none' }}>
+                <Button1
+                  onClick={hanldeEstimateRequest}
+                  className="request_Estimate_btn"
+                  text="Estimate my request"
+                />
               </div>
 
               <div
                 style={{
-                  display: activeStep === 0 ? "none" : "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: "1rem",
+                  display: activeStep === 0 ? 'none' : 'flex',
+                  flexDirection: 'row',
+                  width: '100%',
+                  marginTop: '1rem',
                 }}
               >
-                <div style={{ width: "50%", display: activeStep === 0 && "none" }}>
-                  <Button1 text="Previous step" className="import_Btn" disabled={activeStep === 0} onClick={handleBack} />
-                </div>
-                <div style={{ width: "50%", justifyContent: "flex-end", display: activeStep === 0 ? "none" : "flex" }}>
+                <div style={{ width: '50%', display: activeStep === 0 && 'none' }}>
                   <Button1
-                    text={activeStep === 3 ? "Send my file" : "Next Step"}
-                    className="download_Btn"
-                    onClick={activeStep === 1 ? handleStep2 : activeStep === 2 ? handleStep3 : activeStep === 3 && handleStep4}
+                    text="Previous step"
+                    className="import_Btn"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
                   />
                 </div>
+                <div
+                  style={{
+                    width: '50%',
+                    justifyContent: 'flex-end',
+                    display: activeStep === 0 ? 'none' : 'flex',
+                  }}
+                >
+                  <Button1
+                    text={activeStep === 3 ? 'Send my file' : 'Next Step'}
+                    className="download_Btn"
+                    onClick={
+                      activeStep === 1
+                        ? handleStep2
+                        : activeStep === 2
+                        ? handleStep3
+                        : activeStep === 3 && handleStep4
+                    }
+                  />
                 </div>
+              </div>
             </Box>
           </React.Fragment>
         )}
