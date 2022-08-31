@@ -1,7 +1,7 @@
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding-right: 32px;
   padding: 0;
-  margin-top: 10px !important;
+  margin-top: 7px !important;
 }
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 0 10px !important;
@@ -87,6 +87,7 @@
 
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
   top: -5px !important;
+  border: none !important;
 }
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
