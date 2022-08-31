@@ -345,7 +345,7 @@ const AdminTab3 = (props) => {
             Status
           </label>{" "}
           <select
-            defaultValue={setCertificate_status}
+            defaultValue={certificate_status}
             name="certificate_status"
             className="textfield_addvendor"
             onChange={(e) => setCertificate_status(e.target.value)}
@@ -429,12 +429,20 @@ const AdminTab3 = (props) => {
           <Button
             text="Add BOMs"
             className={
-              formState.isValid && select.length > 0
+              formState.isValid &&
+              select.length > 0 &&
+              newCertificate_status != "default"
                 ? "add_vendor_button"
                 : "add_vendor_button_disabled"
             }
             onClick={handleAddBom}
-            disabled={!formState.isValid || select.length < 1 ? true : false}
+            disabled={
+              !formState.isValid ||
+              select.length < 1 ||
+              newCertificate_status === "default"
+                ? true
+                : false
+            }
           />
         </div>
       </Modal>
