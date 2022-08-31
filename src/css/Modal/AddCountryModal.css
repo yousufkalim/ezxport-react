@@ -12,6 +12,7 @@
   height: 2.5rem;
   border: none;
   border-radius: 6px;
+  cursor: pointer;
 }
 .add_Country_button_disabled {
   background-color: rgb(187, 186, 186, 0.5);
