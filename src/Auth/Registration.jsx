@@ -104,6 +104,7 @@ const Registration = () => {
     errors: {},
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -145,7 +146,7 @@ const Registration = () => {
     }
   };
   const handleNameChange = (event) => {
-    if (!event.target.value.match(/[^aA-zZ]/)) {
+    if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -190,6 +191,8 @@ const Registration = () => {
   const hasError = (field) =>
     formState.touched[field] && formState.errors[field] ? true : false;
   const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <>
@@ -371,7 +374,7 @@ const Registration = () => {
               <div className="regist_col1">
                 <label htmlFor="">Confirming your password</label>
                 <InputField
-                  type={showPassword ? "text" : "password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   className={
                     hasError("confirmPassword") &&
                     formState.errors.confirmPassword
@@ -384,8 +387,10 @@ const Registration = () => {
                   name="confirmPassword"
                   onChange={handleChange}
                   visibleEye
-                  icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
-                  onClick={handleShowPassword}
+                  icon2={
+                    showConfirmPassword ? VisibilityIcon : VisibilityOffIcon
+                  }
+                  onClick={handleShowConfirmPassword}
                 />
                 <div className="error-format">
                   {hasError("confirmPassword")
@@ -443,7 +448,7 @@ const Registration = () => {
               <div className="regist_col1">
                 <label htmlFor="">VAT number</label>
                 <input
-                  type="number"
+                  type="string"
                   className={
                     hasError("vatNumber") && formState.errors.vatNumber
                       ? "reg_input_red"
@@ -453,7 +458,7 @@ const Registration = () => {
                   required
                   value={formState.values.vatNumber}
                   name="vatNumber"
-                  onChange={handleChange}
+                  onChange={handlePhnChange}
                 />
                 <div className="error-format">
                   {hasError("vatNumber") && formState.errors.vatNumber}
