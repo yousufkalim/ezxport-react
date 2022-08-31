@@ -62,7 +62,7 @@ label {
 }
 .quizIcon.MuiSvgIcon-root {
   position: absolute;
-  font-size: 1em;
+  font-size: 1.2em;
   right: 2%;
   top: 30%;
   cursor: pointer;
@@ -138,7 +138,18 @@ label {
   background: none;
   color: #6941c6;
 }
+@media screen and (max-width: 1000px) {
+  .quizIcon.MuiSvgIcon-root {
+    font-size: 1.1em;
+    top: 28%;
+  }
+}
+
 @media screen and (max-width: 880px) {
+  .quizIcon.MuiSvgIcon-root {
+    font-size: 1.2em;
+    top: 32%;
+  }
   .loginCenterDiv {
     width: 70%;
     margin: 5% auto;
@@ -294,5 +305,9 @@ label {
   }
   .error-format {
     font-size: 10px;
+  }
+  .quizIcon.MuiSvgIcon-root {
+    font-size: 1em;
+    top: 30%;
   }
 }
