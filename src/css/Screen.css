@@ -37,7 +37,7 @@ label {
 .input_email {
   width: 100%;
   padding: 3% 2%;
-  border: 1px solid #d0d5dd;
+  border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
   margin: 2% 0;
@@ -186,7 +186,7 @@ label {
   width: 100%;
   padding: 3% 2%;
   margin: 2% 0;
-  border: 1px solid #d0d5dd;
+  border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
   outline: none;
@@ -211,7 +211,7 @@ label {
   padding: 7% 2%;
   margin: 5% 0;
   display: block;
-  border: 1px solid #d0d5dd;
+  border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
   outline: none;
@@ -231,7 +231,7 @@ label {
   padding: 4.8% 2%;
   margin: 4.3% 0;
   display: block;
-  border: 1px solid #d0d5dd;
+  border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
   outline: none;

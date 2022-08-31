@@ -23,17 +23,17 @@ const ProductLists = (props) => {
           {/* table  */}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
+              <TableHead style={{ backgroundColor: '#F9FAFB' }}>
                 <TableRow>
-                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                  <TableCell align="left" className="country">
                     Code &nbsp; &nbsp;
                     <img src={TitleDownArrow} alt="" className="title_arrow" />
                   </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                  <TableCell align="left" className="country">
                     Denomination &nbsp; &nbsp;
                     <img src={TitleDownArrow} alt="" className="title_arrow" />
                   </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                  <TableCell align="left" className="country">
                     Monetary value
                   </TableCell>
                 </TableRow>

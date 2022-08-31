@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import InputField from "../../../components/Common/InputField";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import DatePicker from "../../../components/Common/DatePicker";
-import moment from "moment";
+import React, { useEffect, useState } from 'react';
+import InputField from '../../../components/Common/InputField';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import DatePicker from '../../../components/Common/DatePicker';
+import moment from 'moment';
 const Dispatch = (props) => {
   const handleSelectedSeller = () => {
     let SelectedSeller = props?.sellers?.find((item) => {
@@ -73,11 +73,13 @@ const Dispatch = (props) => {
       <div>
         <span className="seller_title">Seller data</span>
         <div>
-          <label style={{ marginTop: "1rem" }}>Add or select a seller</label>
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Add or select a seller
+          </label>
           <Select
             name="seller"
             id="demo-simple-select"
-            defaultValue={"default"}
+            defaultValue={'default'}
             onChange={(e) => {
               props.handleSellerData(e.target.name, e.target.value);
             }}
@@ -92,8 +94,8 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Company Name</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"
@@ -104,8 +106,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Country</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Country</label>
             <InputField
               className="company_name_input"
               placeholder="CL"
@@ -118,8 +120,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>E-Mail Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -130,8 +132,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Telephone</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
               placeholder="xx xx xx xx xx"
@@ -144,8 +146,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Full Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -156,9 +158,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
-              <label>Postel Code</label>
+          <div style={{ width: '48%', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -169,8 +171,8 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label>Town</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -187,11 +189,13 @@ const Dispatch = (props) => {
       <div className="buyer_data_div">
         <span className="seller_title">Buyer data</span>
         <div>
-          <label style={{ marginTop: "1rem" }}>Add or select a buyer</label>
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Add or select a buyer
+          </label>
           <Select
             name="buyer"
             id="demo-simple-select"
-            defaultValue={"default"}
+            defaultValue={'default'}
             onChange={(e) => {
               props.handleBuyerData(e.target.name, e.target.value);
             }}
@@ -206,8 +210,8 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Country Name</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Country Name</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"
@@ -218,8 +222,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Country</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Country</label>
             <InputField
               className="company_name_input"
               placeholder="CL"
@@ -232,8 +236,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>E-Mail Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -244,8 +248,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Telephone</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -258,8 +262,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Full Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -270,9 +274,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
-              <label>Postel Code</label>
+          <div style={{ width: '48%', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -283,8 +287,8 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label>Town</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -301,11 +305,13 @@ const Dispatch = (props) => {
       <div className="buyer_data_div">
         <span className="seller_title">Place of inspection</span>
         <div>
-          <label style={{ marginTop: "1rem" }}>Add or select an inspection location</label>
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Add or select an inspection location
+          </label>
           <Select
             name="InspectionPlace"
             id="demo-simple-select"
-            defaultValue={"default"}
+            defaultValue={'default'}
             onChange={(e) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
@@ -320,7 +326,9 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div>
-          <label style={{ marginTop: "1rem" }}>Date on which the goods can be inspected</label>
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            Date on which the goods can be inspected
+          </label>
           <DatePicker
             name="InspectionDate"
             value={props?.step3?.placeOfInspection?.InspectionDate} //moment().format("LL")
@@ -330,8 +338,8 @@ const Dispatch = (props) => {
           />
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Company Name</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"
@@ -342,8 +350,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Country</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Country</label>
             <InputField
               className="company_name_input"
               placeholder="CL"
@@ -356,8 +364,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>E-Mail Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -368,8 +376,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>Telephone</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -382,8 +390,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>Full Address</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -394,9 +402,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
-              <label>Postel Code</label>
+          <div style={{ width: '48%', display: 'flex', justifyContent: 'space-between' }}>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -407,8 +415,8 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label>Town</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -422,8 +430,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
-            <label>contact name</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">contact name</label>
             <InputField
               className="company_name_input"
               placeholder="contact name"
@@ -434,8 +442,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
-            <label>contact first name</label>
+          <div style={{ width: '48%' }}>
+            <label className="BomLabel">contact first name</label>
             <InputField
               className="company_name_input"
               placeholder="contact first name"

@@ -107,7 +107,7 @@ const TabMenu = (props) => {
   };
   return (
     <>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: '100%' }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
             <Tab className="tab_btn1" label="Acheteurs" {...a11yProps(0)} />
@@ -126,7 +126,11 @@ const TabMenu = (props) => {
                   <TableRow>
                     {props.title.map((item) => {
                       return (
-                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                        <TableCell
+                          align="left"
+                          className="country"
+                          style={{ backgrounColor: '#EAECF0' }}
+                        >
                           {item.heading}
                         </TableCell>
                       );
@@ -135,7 +139,11 @@ const TabMenu = (props) => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableRow
+                      key={row.Société}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                      style={{ cursor: 'pointer' }}
+                    >
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -149,12 +157,12 @@ const TabMenu = (props) => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         <img src={DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
@@ -177,7 +185,11 @@ const TabMenu = (props) => {
                   <TableRow>
                     {props.title.map((item) => {
                       return (
-                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                        <TableCell
+                          align="left"
+                          className="country"
+                          style={{ backgrounColor: '#EAECF0' }}
+                        >
                           {item.heading}
                         </TableCell>
                       );
@@ -186,7 +198,10 @@ const TabMenu = (props) => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableRow
+                      key={row.Société}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -200,12 +215,12 @@ const TabMenu = (props) => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
@@ -228,7 +243,11 @@ const TabMenu = (props) => {
                   <TableRow>
                     {props.title.map((item) => {
                       return (
-                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                        <TableCell
+                          align="left"
+                          className="country"
+                          style={{ backgrounColor: '#EAECF0' }}
+                        >
                           {item.heading}
                         </TableCell>
                       );
@@ -237,7 +256,10 @@ const TabMenu = (props) => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <TableRow key={row.Société} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableRow
+                      key={row.Société}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
                       <TableCell component="th" scope="row">
                         {row.Société}
                       </TableCell>
@@ -251,12 +273,12 @@ const TabMenu = (props) => {
                       <TableCell align="left" className="country2">
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
