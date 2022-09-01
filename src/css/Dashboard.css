@@ -85,12 +85,13 @@
   margin: 2% auto;
 }
 .List_heading_div {
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 .list_h1 {
-  width: 100%;
+  width: auto;
   font-size: 25px;
   display: flex;
   align-items: center;
@@ -140,8 +141,9 @@
 .searching {
   position: relative;
   display: flex;
-  width: 50%;
+  width: 40%;
   height: 40px;
+  justify-content: space-between;
 }
 .searchingRequest {
   position: relative;
@@ -170,8 +172,8 @@
   height: 40px;
 }
 .list_reqst_btn2 {
-  width: 200px;
-  margin: 0 0 0px 37px;
+  width: 62%;
+  margin: 0 0 0px 3%;
   text-decoration: none;
   border: none;
   color: #fff;
@@ -179,7 +181,7 @@
   border: 1px solid #7f56d9;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
   cursor: pointer;
 }
@@ -392,13 +394,29 @@
   text-align: left;
   margin: 0 0 0 3%;
 }
-
+.css-quj9j6-MuiTable-root {
+  min-width: 0 !important;
+}
+@media screen and (max-width: 1065px) {
+  .searching {
+    width: 50%;
+  }
+}
 @media screen and (max-width: 900px) {
   .dashboard_li {
     font-size: 14px;
   }
+  .list_reqst_btn2 {
+    width: 70%;
+  }
 }
 @media screen and (max-width: 780px) {
+  .searching {
+    width: 100%;
+  }
+  .list_reqst_btn2 {
+    width: 85%;
+  }
   .hambrgr_icon {
     display: block !important;
     margin: 2% 2%;
@@ -437,9 +455,9 @@
   .pagination_btn {
     padding: 2px 22px;
   }
-  .searching_div_style {
+  /* .searching_div_style {
     width: 70%;
-  }
+  } */
 }
 
 @media screen and (max-width: 600px) {
@@ -450,7 +468,7 @@
     font-size: 13px;
   }
   .list_reqst_btn2 {
-    /* font-size: 13px; */
+    font-size: 13px;
     width: 70%;
   }
   .search_icon {
