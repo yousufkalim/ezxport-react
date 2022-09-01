@@ -48,7 +48,11 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     className={`${activeUploadButton === index + 1 && 'activeLi'} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
-                    <img src={item.icon} alt="" className="li_img" />
+                    <span
+                      className={`${activeUploadButton === index + 1 && 'li_img_white'}  li_img `}
+                    >
+                      {item.icon}
+                    </span>
                     {item.name}
                   </Link>
                 </>
