@@ -19,7 +19,7 @@ const ViewBuyerPopup = ({ open, setOpen }) => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title="Ajouter un acheteur"
+        title="Add a buyer"
         handleClose={handleClose}
         Closebtn={true}
       >

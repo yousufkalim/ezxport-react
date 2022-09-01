@@ -6,12 +6,14 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import TabMenu from '../../components/Common/TabMenu';
 import Button from '../../components/Common/Button';
+import TitleDownArrow from '../../assets/TitleDownArrow.svg';
+
 const title = [
-  { heading: 'Nom société' },
-  { heading: 'Pays' },
-  { heading: 'Adresse email' },
-  { heading: 'Téléphone' },
-  { heading: 'Adresse' },
+  { heading: 'Company Name', imgSrc: TitleDownArrow },
+  { heading: 'Country' },
+  { heading: 'E-mail address' },
+  { heading: 'Telephone' },
+  { heading: 'Address' },
   { heading: '' },
 ];
 
@@ -38,11 +40,7 @@ const AddressBook = () => {
             <h1 className="list_h1">Address Book</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button
-                text="Ajouter un acheteur"
-                className="list_reqst_btn3"
-                onClick={handleClickOpen}
-              />
+              <Button text="Add a buyer" className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
           {/* list table   */}
