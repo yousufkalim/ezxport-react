@@ -31,7 +31,8 @@ const TableComponent = (props) => {
                       className="country"
                       style={{ backgrounColor: '#EAECF0' }}
                     >
-                      {item.heading}
+                      {item.heading} &nbsp;
+                      <img src={item.imgSrc} alt="" className="title_arrow" />
                     </TableCell>
                   );
                 })}
@@ -45,11 +46,10 @@ const TableComponent = (props) => {
                   sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {item.ServiceProviders}
+                    <p className="AP_plus_title">{item.ServiceProviders}</p>
                   </TableCell>
                   <TableCell align="left" className="country2">
-                    {item.contact}
-                    <br />
+                    <p className="AP_plus_title"> {item.contact}</p>
                     <p className="country2"> tim.jennings@example.com</p>
                   </TableCell>
                   <TableCell align="left" className="country2">

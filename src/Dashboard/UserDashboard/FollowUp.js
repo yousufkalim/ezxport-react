@@ -90,8 +90,7 @@ const FollowUp = () => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        {item?.title}
-                        <br />
+                        <p className="request_title">{item?.title}</p>
                         <p className="country2">{item?.country?.name}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">

@@ -1,4 +1,6 @@
 /* Importing all CSS files */
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Mulish:ital@1&family=Raleway:wght@700&display=swap');
+
 /* @import url('./Header.css'); */
 @import url('./Component/Header.css');
 @import url('./Component/FilePicker.css');
@@ -24,7 +26,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: 'Inter', sans-serif !important;
+  /* font-family: 'Inter', sans-serif !important; */
+  font-family: 'Inter';
 }
 
 /* Primary Variables */

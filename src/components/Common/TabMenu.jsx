@@ -55,7 +55,7 @@ function createData(Société, Congo, mail, address, num, chaussée, DotedIcon) 
 // rows
 const rows = [
   createData(
-    'Société 1',
+    'Company 1',
     'Congo',
     'mail@mail.com',
     'address',
@@ -64,7 +64,7 @@ const rows = [
     DotedIcon
   ),
   createData(
-    'Société 1',
+    'Company 1',
     'Congo',
     'mail@mail.com',
     'address',
@@ -73,7 +73,7 @@ const rows = [
     DotedIcon
   ),
   createData(
-    'Société 1',
+    'Company 1',
     'Congo',
     'mail@mail.com',
     'address',
@@ -82,7 +82,7 @@ const rows = [
     DotedIcon
   ),
   createData(
-    'Société 1',
+    'Company 1',
     'Congo',
     'mail@mail.com',
     'address',
@@ -91,7 +91,7 @@ const rows = [
     DotedIcon
   ),
   createData(
-    'Société 1',
+    'Company 1',
     'Congo',
     'mail@mail.com',
     'address',
@@ -122,9 +122,9 @@ const TabMenu = (props) => {
       <Box sx={{ width: '100%' }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
-            <Tab className="tab_btn1" label="Acheteurs" {...a11yProps(0)} />
-            <Tab className="tab_btn2" label="Vendeurs" {...a11yProps(1)} />
-            <Tab className="tab_btn3" label="Lieux d’inspection" {...a11yProps(2)} />
+            <Tab className="tab_btn1" label="Buyers" {...a11yProps(0)} />
+            <Tab className="tab_btn2" label="Sellers" {...a11yProps(1)} />
+            <Tab className="tab_btn3" label="Inspection locations" {...a11yProps(2)} />
           </Tabs>
         </Box>
         {/* table 1  */}
@@ -143,7 +143,8 @@ const TabMenu = (props) => {
                           className="country"
                           style={{ backgrounColor: '#EAECF0' }}
                         >
-                          {item.heading}
+                          {item.heading} &nbsp;
+                          <img src={item.imgSrc} alt="" className="title_arrow" />
                         </TableCell>
                       );
                     })}
@@ -157,7 +158,7 @@ const TabMenu = (props) => {
                       style={{ cursor: 'pointer' }}
                     >
                       <TableCell component="th" scope="row" onClick={handleClickOpen}>
-                        {row.Société}
+                        <p className="AP_plus_title">{row.Société} </p>
                       </TableCell>
                       <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.Congo}
@@ -175,7 +176,7 @@ const TabMenu = (props) => {
                         style={{ cursor: 'pointer' }}
                         onClick={handleClickOpen}
                       >
-                        {row.chaussée}
+                        <p className="AP_plus_title">{row.chaussée}</p>
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
@@ -212,7 +213,8 @@ const TabMenu = (props) => {
                           className="country"
                           style={{ backgrounColor: '#EAECF0' }}
                         >
-                          {item.heading}
+                          {item.heading}&nbsp;
+                          <img src={item.imgSrc} alt="" className="title_arrow" />
                         </TableCell>
                       );
                     })}
@@ -224,25 +226,32 @@ const TabMenu = (props) => {
                       key={row.Société}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {row.Société}
+                      <TableCell component="th" scope="row" onClick={handleClickOpen}>
+                        <p className="AP_plus_title">{row.Société} </p>
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.Congo}
                         <br />
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.mail}
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.num}
                       </TableCell>
                       <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
-                        {row.chaussée}
-                        <p className="country2"> 34 733, Kinshasa</p>
+                        <p className="AP_plus_title">{row.chaussée}</p>
+                        <p className="country2" onClick={handleClickOpen}>
+                          34 733, Kinshasa
+                        </p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleClickOpen2}
+                      >
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
@@ -270,7 +279,8 @@ const TabMenu = (props) => {
                           className="country"
                           style={{ backgrounColor: '#EAECF0' }}
                         >
-                          {item.heading}
+                          {item.heading}&nbsp;
+                          <img src={item.imgSrc} alt="" className="title_arrow" />
                         </TableCell>
                       );
                     })}
@@ -282,25 +292,32 @@ const TabMenu = (props) => {
                       key={row.Société}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell component="th" scope="row">
-                        {row.Société}
+                      <TableCell component="th" scope="row" onClick={handleClickOpen}>
+                        <p className="AP_plus_title">{row.Société} </p>
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.Congo}
                         <br />
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.mail}
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.num}
                       </TableCell>
                       <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
-                        {row.chaussée}
-                        <p className="country2"> 34 733, Kinshasa</p>
+                        <p className="AP_plus_title">{row.chaussée}</p>
+                        <p className="country2" onClick={handleClickOpen}>
+                          34 733, Kinshasa
+                        </p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleClickOpen2}
+                      >
                         <img src={row.DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>

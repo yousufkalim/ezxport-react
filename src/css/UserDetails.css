@@ -21,6 +21,12 @@
   font-weight: 500;
   line-height: 30px;
 }
+.css-1q2h7u5.Mui-selected {
+  color: black !important;
+}
+.css-ttwr4n {
+  background-color: transparent !important;
+}
 @media screen and (max-width: 600px) {
   .userdetail_textField_div2 {
     width: 80%;

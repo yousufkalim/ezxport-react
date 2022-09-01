@@ -79,16 +79,17 @@ const Documents = () => {
             <Box sx={{ width: '100%' }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label="Par demande" {...a11yProps(0)} />
-                  <Tab className="tab_btn3" label="Par nomenclature" {...a11yProps(2)} />
+                  <Tab className="tab_btn1" label="By Request" {...a11yProps(0)} />
+                  <Tab className="tab_btn3" label="By Nomenclature" {...a11yProps(2)} />
                 </Tabs>
               </Box>
+              <br />
               <TabPanel value={value} index={0}>
                 {/* List  */}
                 <List>
-                  <ListItemButton sx={{ border: '1px solid #EAECF0' }}>
-                    <li className="table_li" style={{ marginRight: 'auto', display: 'flex' }}>
-                      Nom dossier &nbsp;
+                  <ListItemButton sx={{ border: '1px solid #EAECF0', background: '#f9fafb' }}>
+                    <li className="table_li_name" style={{ marginRight: 'auto', display: 'flex' }}>
+                      Folder name &nbsp;
                       <img src={TitleDownArrow} alt="" className="title_arrow" />
                     </li>
                   </ListItemButton>
@@ -111,7 +112,7 @@ const Documents = () => {
                       <ListItemButton sx={{ border: '1px solid #EAECF0' }}>
                         <li className="table_li2" style={{ marginRight: 'auto', display: 'flex' }}>
                           <img src={RightArrow} alt="" className="rightArrow2" />
-                          Bon&nbsp;de&nbsp;livraison
+                          Delivery&nbsp;form
                         </li>
                         <img src={DownloadIcon} alt="" className="downlaod_img" />
                       </ListItemButton>
@@ -129,7 +130,7 @@ const Documents = () => {
                       >
                         <li className="table_li3" style={{ marginRight: 'auto', display: 'flex' }}>
                           <img src={RightArrow} alt="" className="rightArrow" />
-                          Nom&nbsp;produit
+                          Product&nbsp;name
                         </li>
                         <img src={DownloadIcon} alt="" className="downlaod_img_main" />
                         {open ? <ExpandLess /> : <ExpandMore />}
@@ -192,9 +193,9 @@ const Documents = () => {
               {/* 2in tag */}
               <TabPanel value={value} index={1}>
                 <List>
-                  <ListItemButton sx={{ border: '1px solid #EAECF0' }}>
-                    <li className="table_li" style={{ marginRight: 'auto', display: 'flex' }}>
-                      Nom dossier &nbsp;
+                  <ListItemButton sx={{ border: '1px solid #EAECF0', background: '#f9fafb' }}>
+                    <li className="table_li_name" style={{ marginRight: 'auto', display: 'flex' }}>
+                      Folder name &nbsp;
                       <img src={TitleDownArrow} alt="" className="title_arrow" />
                     </li>
                   </ListItemButton>
