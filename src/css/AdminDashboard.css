@@ -8,6 +8,9 @@
   position: relative;
   width: 70%;
 }
+.css-4ff9q7.Mui-completed {
+  color: #7f56d9 !important;
+}
 
 .pagination_div {
   border: 1px solid #e5e5e5 !important;
