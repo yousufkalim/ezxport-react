@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useParams } from 'react-router-dom';
-// import API from '../../../api/index';
+import API from '../../../api/index';
 
 import AddressBook from './AddressBook';
 import ExportDocuments from './ExportDocuments';
@@ -61,11 +61,13 @@ const ValidateForm = (props) => {
   const [societyType, setSocietyType] = useState('');
   const [vatNumber, setVatNumber] = useState('');
   // user request states
-  const [requestById, setRequestById] = useState([]);
+  const [requestById, setRequestById] = useState({});
 
-  //   useEffect(() => {
-  //     handleUserData();
-  //   }, []);
+  useEffect(() => {
+    handlerequestById();
+  }, []);
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -73,35 +75,17 @@ const ValidateForm = (props) => {
     props.TabeProps(value);
   }, [value]);
 
-  // const handleUserData = async () => {
-  //   await API('get', `/users/${id}`)
-  //     .then((res) => {
-  //       setLastName(res?.data?.user?.last_name);
-  //       setFirstName(res?.data?.user?.first_name);
-  //       setEmail(res?.data?.user?.email);
-  //       setPhoneNumber(res?.data?.user?.phone_number);
-  //       setCompleteAddress(res?.data?.user?.address);
-  //       setPostalCode(res?.data?.user?.zipcode || res?.data?.user?.zip_code);
-  //       setTown(res?.data?.user?.city);
-  //       setName(res?.data?.user?.company?.name);
-  //       setSocietyType(res?.data?.user?.company?.type);
-  //       setVatNumber(res?.data?.user?.company?.vat);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, 'errrrrr');
-  //     });
-  // };
+  const handlerequestById = async () => {
+    await API('get', `/requests/${id}`)
+      .then((res) => {
+        console.log("🚀 ~ file: CompanyInformation.js ~ line 81 ~ .then ~ res", res)
+        setRequestById(res.data.requet)
 
-  //   const handleRequestByUserId = async () => {
-  //     await API('get', `/requests/getByUser/${id}`)
-  //       .then((res) => {
-  //         setRequestById(res?.data?.requet);
-  //         // console.log("first", res.data);
-  //       })
-  //       .catch((err) => {
-  //         console.log('err---->', err);
-  //       });
-  //   };
+      })
+      .catch((err) => {
+        console.log(err, 'errrrrr');
+      });
+  };
 
   return (
     <>
@@ -125,8 +109,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={lastName}
-                        placeholder="Last name"
+                        value={requestById?.user?.last_name}
                       />
                     </div>
                     <div className="userdetail_textField_div">
@@ -135,8 +118,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={firstName}
-                        placeholder="First name"
+                        value={requestById?.user?.first_name}
                       />
                     </div>
                   </div>
@@ -147,8 +129,8 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={email}
-                        placeholder="mail@mail.com"
+                        value={requestById?.user?.email}
+
                       />
                     </div>
                     <div className="userdetail_textField_div">
@@ -157,8 +139,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={phoneNumber}
-                        placeholder="33 07 86 36 02 20"
+                        value={requestById?.user?.phone_number}
                       />
                     </div>
                   </div>
@@ -169,8 +150,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={completeAddress}
-                        placeholder="90 road of rouvroy"
+                        value={requestById?.user?.address}
                       />
                     </div>
                     <div className="userdetail_textField_div2">
@@ -180,8 +160,7 @@ const ValidateForm = (props) => {
                         </label>{' '}
                         <InputField
                           className="userdetail_textField_row"
-                          value={postalCode}
-                          placeholder="80100"
+                          value={requestById?.user?.zip_code}
                         />
                       </div>
                       <div style={{ width: '60%' }}>
@@ -190,8 +169,7 @@ const ValidateForm = (props) => {
                         </label>{' '}
                         <InputField
                           className="userdetail_textField_row"
-                          value={town}
-                          placeholder="Abbeville"
+                          value={requestById?.user?.city}
                         />
                       </div>
                     </div>
@@ -201,7 +179,7 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Last name
                       </label>{' '}
-                      <InputField className="textfield_row2" value={name} placeholder="Last name" />
+                      <InputField className="textfield_row2" value={requestById?.user?.company?.name} />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
@@ -209,8 +187,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={societyType}
-                        placeholder="Type 1"
+                        value={requestById?.user?.company?.type}
                       />
                     </div>
                   </div>
@@ -221,8 +198,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={vatNumber}
-                        placeholder="6372890367849"
+                        value={requestById?.user?.company?.vat}
                       />
                     </div>
                   </div>
@@ -233,7 +209,7 @@ const ValidateForm = (props) => {
                 <div className="list_table">
                   <>
                     <TableContainer component={Paper}>
-                      <AddressBook />
+                      <AddressBook requestById={requestById} />
                     </TableContainer>
                   </>
                 </div>
@@ -243,7 +219,7 @@ const ValidateForm = (props) => {
                 <div className="list_table">
                   <>
                     <TableContainer component={Paper}>
-                      <ExportDocuments />
+                      <ExportDocuments requestById={requestById} />
                     </TableContainer>
                   </>
                 </div>

@@ -6,6 +6,7 @@ const DatePicker = (props) => {
       &nbsp;
       <Calendar />
       <input
+        disabled={props.disabled}
         type="date"
         className="input_Calendar"
         id="date"

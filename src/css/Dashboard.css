@@ -91,7 +91,7 @@
 }
 .list_h1 {
   width: 100%;
-  font-size: 25px;
+  font-size: 30px;
   display: flex;
   align-items: center;
 }
@@ -114,6 +114,7 @@
 .country {
   color: #667085 !important;
   background-color: #eaecf0 !important;
+  padding-left: 5px;
 }
 .country2 {
   color: #667085 !important;
@@ -121,6 +122,13 @@
 .clrClass {
   color: #027a48 !important;
   background: #ecfdf3;
+  border-radius: 16px;
+  padding: 2px 4px !important;
+  display: inline-block !important;
+}
+.missingDocStatus {
+  color: #B54708 !important;
+  background: #FFFAEB;
   border-radius: 16px;
   padding: 2px 4px !important;
   display: inline-block !important;

@@ -100,6 +100,7 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
+              &nbsp;
               NomPays
             </h1>
             {value === 0 ? (
