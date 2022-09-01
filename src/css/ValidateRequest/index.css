@@ -177,6 +177,7 @@
 }
 .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   top: calc(62% - 0.5em) !important;
+  margin-top: 9px !important;
 }
 
 @media only screen and (min-width: 200px) and (max-width: 800px) {

@@ -476,7 +476,7 @@ export default function HorizontalNonLinearStepper() {
               ''
             )}
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', marginTop: '5%' }}>
               <div style={{ width: '100%', display: activeStep !== 0 && 'none' }}>
                 <Button1
                   onClick={hanldeEstimateRequest}
@@ -490,10 +490,16 @@ export default function HorizontalNonLinearStepper() {
                   display: activeStep === 0 ? 'none' : 'flex',
                   flexDirection: 'row',
                   width: '100%',
-                  marginTop: '1rem',
+                  marginTop: '0rem',
                 }}
               >
-                <div style={{ width: '50%', display: activeStep === 0 && 'none' }}>
+                <div
+                  style={{
+                    width: '50%',
+                    marginBottom: '5%',
+                    display: activeStep === 0 && 'none',
+                  }}
+                >
                   <Button1
                     text="Previous step"
                     className="import_Btn"

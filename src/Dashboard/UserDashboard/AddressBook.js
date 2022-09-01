@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import SearchField from "../../components/Common/SearchField";
-import Modal from "../../components/Common/Modal";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TabMenu from "../../components/Common/TabMenu";
-import Button from "../../components/Common/Button";
+import SearchField from '../../components/Common/SearchField';
+import Modal from '../../components/Common/Modal';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TabMenu from '../../components/Common/TabMenu';
+import Button from '../../components/Common/Button';
+import TitleDownArrow from '../../assets/TitleDownArrow.svg';
+
 const title = [
-  { heading: "Nom société" },
-  { heading: "Pays" },
-  { heading: "Adresse email" },
-  { heading: "Téléphone" },
-  { heading: "Adresse" },
-  { heading: "" },
+  { heading: 'Company Name', imgSrc: TitleDownArrow },
+  { heading: 'Country' },
+  { heading: 'E-mail address' },
+  { heading: 'Telephone' },
+  { heading: 'Address' },
+  { heading: '' },
 ];
 
 const AddressBook = () => {
+  const [dropdown, setDropdown] = useState('default');
   const [open, setOpen] = useState(false);
-  const [dropdown, setDropdown] = useState("default");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,13 +40,7 @@ const AddressBook = () => {
             <h1 className="list_h1">Address Book</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
-              <Button
-                text="Ajouter un acheteur"
-                className="list_reqst_btn2"
-                open={open}
-                setOpen={setOpen}
-                onClick={handleClickOpen}
-              />
+              <Button text="Add a buyer" className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
           {/* list table   */}
@@ -53,7 +49,13 @@ const AddressBook = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title="Ajouter un acheteur" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title="Ajouter un acheteur"
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="buyer_label">
@@ -66,7 +68,12 @@ const AddressBook = () => {
               <label htmlFor="" className="buyer_label">
                 Selectionner un pays
               </label>
-              <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange} className="buyer_input">
+              <Select
+                id="demo-simple-select"
+                defaultValue={dropdown}
+                onChange={handleChange}
+                className="buyer_input"
+              >
                 <MenuItem value="default">Gabon</MenuItem>
                 <MenuItem value={10}>Une demande</MenuItem>
                 <MenuItem value={20}>Une demande</MenuItem>
@@ -122,4 +129,3 @@ const AddressBook = () => {
 };
 
 export default AddressBook;
-
