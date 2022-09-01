@@ -66,6 +66,9 @@
 .css-qiwgdb.MuiSelect-select {
   padding: 0 10px !important;
 }
+.css-qiwgdb {
+  padding: 0 10px !important;
+}
 .textfiled_select_component {
   display: flex;
   position: absolute;
