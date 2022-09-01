@@ -9,9 +9,14 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import API from '../../api/index';
 import Moment from 'moment';
+import Modal from '../../components/Common/Modal';
+import { ReactComponent as Logo } from '../../assets/logo.svg';
+import { ReactComponent as Featured1 } from '../../assets/Featured1.svg';
+import Button from '../../components/Common/Button';
 
 const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
+  const [requestedModal, setRequestedModal] = useState(false);
   const handleAllRequest = async () => {
     await API('get', '/requests')
       .then((res) => {
@@ -22,10 +27,19 @@ const FollowUp = () => {
       });
   };
   useEffect(() => {
+    let request = localStorage.getItem('Requested')
+    if (request === "true") {
+      setRequestedModal(true)
+    }
     handleAllRequest();
   }, []);
 
   const history = useHistory();
+  const handleRequested = () => {
+    setRequestedModal(false)
+    localStorage.removeItem('Requested')
+  };
+
   return (
     <>
       <div className="list_main_div">
@@ -131,6 +145,45 @@ const FollowUp = () => {
           </div>
         </div>
       </div>
+      <Modal open={requestedModal} setOpen={setRequestedModal} handleClose={handleRequested}>
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured1 />
+            </div>
+
+            <div
+              className="space"
+              style={{ textAlign: 'center', fontSize: '2rem', fontWeight: '600' }}
+            >
+              Votre demande été effectuée <br />
+              avec succès
+            </div>
+            <div
+              className="space"
+              style={{ fontSize: '1.2rem', width: '90%', color: '#667085', textAlign: 'center' }}
+            >
+              Nous allons procéder au traitement de votre dossier
+              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
+              pouvez retrouver votre demande dans le tableau de
+              <br /> <b>suivi des demandes.</b>
+            </div>
+          </div>
+          <Button text="D’accord" className="to_confirm_btn" onClick={handleRequested} />
+        </div>
+      </Modal>
     </>
   );
 };

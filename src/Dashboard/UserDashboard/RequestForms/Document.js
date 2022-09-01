@@ -8,9 +8,8 @@ import API from '../../../api/index';
 import ProductForm from '../../../components/Common/ProductForm';
 
 const Document = (props) => {
-  // const [codes, setCodes] = useState([]);
+
   const [countries, setCountries] = useState([]);
-  console.log('🚀 ~ file: Document.js ~ line 12 ~ Document ~ codes', props.productCodes);
 
   useEffect(() => {
     if (props?.createdCodes?.codes) {
@@ -21,14 +20,8 @@ const Document = (props) => {
       props.setProductCodes(product);
     }
     handleAllCountries();
-
-    // props.setProductCodes()
   }, [props?.createdCodes?.codes]);
   const handleProductChange = (name, value, cindex, index1) => {
-    // setProducts((prev) => {
-    //   prev[index][name] = value;
-    //   return [...prev];
-    // });
 
     props.setProductCodes((prev) => {
       prev[cindex].products[index1][name] = value;
@@ -91,20 +84,17 @@ const Document = (props) => {
         props?.productCodes?.map((item, cindex) => {
           return (
             <div>
-              <div className="title_Div_documents">
-                <span className="title_span">{item.code.code} – Nomenclature name</span>
-                <span className="to_complete_pill">To Complete</span>
-                {/* <span className="complete_pill">Complete</span> */}
-              </div>
-              <span className="to_complete_pill">The product documents are to be completed</span>
+
               {item?.products?.map((product, index1) => {
                 return (
                   <ProductForm
                     handleProductChange={handleProductChange}
+                    item={item}
                     cindex={cindex}
                     index1={index1}
                     countries={countries}
                     setCodes={props.setProductCodes}
+                    product={product}
                   />
                 );
               })}

@@ -20,21 +20,17 @@ import API from '../../../api/index';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = (props) => {
+  const history = useHistory(null)
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [certificateRequire, setCertificateRequire] = useState(false);
-  const [certificateNotRequire, setCertificateNotRequire] = useState(false);
   const [verificationModal, setVerificationModal] = useState(false);
-  const [requestedModal, setRequestedModal] = useState(false);
   const [countries, setCounteries] = useState();
   const [code, setCode] = useState('default');
   const [monetaryValue, setMonetaryValue] = useState('');
-  // const [certificationRequired, setCertificationRequired] = useState(false);
   const [retrieveRequestId, setRetrieveRequestId] = useState('');
   const [requestByCountry, setRequestByCountry] = useState([]);
-  const [codeOfCountry, setCodeOfCountry] = useState('');
-  // const [rangeData, setRangeData] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
 
@@ -45,6 +41,8 @@ const BOMsForm = (props) => {
       })
       .catch((err) => {
         console.log('handleAllRequestByCountryId=>', err);
+        toast.error(err.response.data.message.msg)
+
       });
   };
   useEffect(() => {
@@ -57,17 +55,16 @@ const BOMsForm = (props) => {
   }, [props?.step1?.country]);
 
   const handleEditModal = () => setOpenEditModal(false);
-  const handleCertificateRequire = () => setCertificateRequire(false);
-  const handleCertificateNotRequire = () => setCertificateNotRequire(false);
+  const handleCertificateRequire = () => props.setCertificateRequire(false);
+  const handleCertificateNotRequire = () => props.setCertificateNotRequire(false);
   const handleVerification = () => setVerificationModal(false);
-  const handleRequested = () => setRequestedModal(false);
   const handleGetAllCountry = async () => {
     await API('get', '/countries/')
       .then((res) => {
         setCounteries(res.data.countries);
       })
       .catch((err) => {
-        console.log(err, '<----');
+        toast.error(err.response.data.message.msg)
       });
   };
   useEffect(() => {
@@ -81,7 +78,7 @@ const BOMsForm = (props) => {
       certification_required: code?.certification_required,
     });
     let filtered = props.unMatchedData.filter((item) => {
-      return item.bom.code !== code.code;
+      return item?.code !== code.code;
     });
     props.setUnMatchedData(filtered);
     setCode('default');
@@ -95,12 +92,13 @@ const BOMsForm = (props) => {
     formData.append('country', `${props.step1.country}`); //country ID
     await API('post', '/boms/filterCodes', formData)
       .then((res) => {
+        console.log("RESSS", res)
         let arr1 = [];
         res?.data?.matchedData.map((item) => {
           arr1.push({
             code: item?.bom?.code,
             codeID: item?.bom?._id,
-            monetary_value: monetaryValue || '--',
+            monetary_value: monetaryValue || item?.monetary_value,
             certification_required: item.bom?.certification_required,
           });
         });
@@ -109,7 +107,8 @@ const BOMsForm = (props) => {
         props?.setUnMatchedData(res?.data?.unMatched);
       })
       .catch((err) => {
-        console.log('err', err);
+        toast.error(err.response.data.message.msg)
+        setImportedFile('')
       });
   };
   const handleDelete = (code) => {
@@ -127,7 +126,8 @@ const BOMsForm = (props) => {
         props.handleChange('title', (res?.data?.tile).toUpperCase());
       })
       .catch((err) => {
-        console.log('err', err);
+        toast.error(err.response.data.message.msg)
+
       });
   };
   const handleSearchTitle = async () => {
@@ -241,7 +241,7 @@ const BOMsForm = (props) => {
               Select a Code
             </MenuItem>
             {props.unMatchedData?.map((item) => {
-              return <MenuItem value={item?.bom}>{item?.bom?.code}</MenuItem>;
+              return <MenuItem value={item}>{item?.code}</MenuItem>;
             })}
           </Select>
         </div>
@@ -260,6 +260,7 @@ const BOMsForm = (props) => {
       {props.matchedData.length === 0 ? (
         ''
       ) : (
+
         <TableContainer component={Paper} style={{ width: '100%', marginTop: '2%' }}>
           <Table aria-label="simple table">
             <TableHead>
@@ -305,10 +306,6 @@ const BOMsForm = (props) => {
                         setOpenEditModal(true);
                         setEditModalData({ item, index });
                       }}
-                      // onClick={() => setCertificateRequire(true)}
-                      // onClick={() => setCertificateNotRequire(true)}
-                      // onClick={() => setVerificationModal(true)}
-                      // onClick={() => setRequestedModal(true)}
                     />
                   </TableCell>
                 </TableRow>
@@ -317,7 +314,7 @@ const BOMsForm = (props) => {
           </Table>
         </TableContainer>
       )}
-
+      {/* Edit codes modal */}
       <Modal
         open={openEditModal}
         setOpen={setOpenEditModal}
@@ -368,9 +365,10 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
+      {/* certification required modal */}
       <Modal
-        open={certificateRequire}
-        setOpen={setCertificateRequire}
+        open={props.certificateRequire}
+        setOpen={props.setCertificateRequire}
         handleClose={handleCertificateRequire}
       >
         <div>
@@ -395,16 +393,16 @@ const BOMsForm = (props) => {
               Those products for <b>Gabon require a certification</b>
             </div>
             <div className="space">
-              Le tarif de cette certification est à hauteur de <b>300€/HT</b>
+              Le tarif de cette certification est à hauteur de <b>{props.certificationCostOfCode}</b>
             </div>
           </div>
-          <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
-          <Button text="Go back to my request" className="delete_bom_btn" />
+          <Button text="Continue my request on Ezxport" className="to_confirm_btn" onClick={props.handleStep1} />
+          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateRequire} />
         </div>
       </Modal>
       <Modal
-        open={certificateNotRequire}
-        setOpen={setCertificateNotRequire}
+        open={props.certificateNotRequire}
+        setOpen={props.setCertificateNotRequire}
         handleClose={handleCertificateNotRequire}
       >
         <div>
@@ -432,11 +430,11 @@ const BOMsForm = (props) => {
               You can therefore send your goods without going through an organization.
             </div>
           </div>
-          <Button text="Make another request" className="to_confirm_btn" />
-          <Button text="Go back to my request" className="delete_bom_btn" />
+          <Button text="Make another request" className="to_confirm_btn" onClick={() => history.push('/User/Dashboard/ListOfRequests')} />
+          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      <Modal
+      {/* <Modal
         open={verificationModal}
         setOpen={setVerificationModal}
         handleClose={handleVerification}
@@ -472,46 +470,8 @@ const BOMsForm = (props) => {
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
           <Button text="Go back to my request" className="delete_bom_btn" />
         </div>
-      </Modal>
-      <Modal open={requestedModal} setOpen={setRequestedModal} handleClose={handleRequested}>
-        <div>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexDirection: 'column',
-              marginTop: '1rem',
-              marginBottom: '1rem',
-            }}
-          >
-            <div className="space">
-              <Logo />
-            </div>
-            <div className="space">
-              <Featured1 />
-            </div>
+      </Modal> */}
 
-            <div
-              className="space"
-              style={{ textAlign: 'center', fontSize: '2rem', fontWeight: '600' }}
-            >
-              Votre demande été effectuée <br />
-              avec succès
-            </div>
-            <div
-              className="space"
-              style={{ fontSize: '1.2rem', width: '90%', color: '#667085', textAlign: 'center' }}
-            >
-              Nous allons procéder au traitement de votre dossier
-              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
-              pouvez retrouver votre demande dans le tableau de
-              <br /> <b>suivi des demandes.</b>
-            </div>
-          </div>
-          <Button text="D’accord" className="to_confirm_btn" />
-        </div>
-      </Modal>
     </div>
   );
 };
