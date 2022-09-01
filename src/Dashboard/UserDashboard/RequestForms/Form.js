@@ -497,7 +497,9 @@ export default function HorizontalNonLinearStepper() {
                   marginTop: '1rem',
                 }}
               >
-                <div style={{ width: '50%', display: activeStep === 0 && 'none' }}>
+                <div
+                  style={{ width: '50%', marginBottom: '5%', display: activeStep === 0 && 'none' }}
+                >
                   <Button1
                     text="Previous step"
                     className="import_Btn"

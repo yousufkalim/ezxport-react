@@ -78,7 +78,14 @@ const ProductInputs = (props) => {
             }}
           />
         </div>
-        <div style={{ width: '63%', display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            width: '63%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <div style={{ width: '48%' }}>
             <label className="label_modal">Unit of measure</label>
             <select
