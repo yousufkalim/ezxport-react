@@ -256,7 +256,7 @@ const Country = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.success("Something Went Wrong");
+        toast.error("Country already exists");
       });
   };
   return (
