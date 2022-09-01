@@ -59,6 +59,9 @@ export default function HorizontalNonLinearStepper() {
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
   const [codes, setCodes] = useState([]);
+  const [certificateRequire, setCertificateRequire] = useState(false);
+  const [certificateNotRequire, setCertificateNotRequire] = useState(false);
+  const [certificationCostOfCode, setCertificationCostOfCode] = useState('')
 
   // step 2 states
   const [step2, setStep2] = useState({
@@ -165,7 +168,33 @@ export default function HorizontalNonLinearStepper() {
         certification_required: item.certification_required,
       });
     });
+    await API('post', '/requests/calculateCost', data).then((res) => {
+      console.log("qwertyurtyuiogfvhjvhj", res)
+      if (res.data.status === " Required") {
+        setCertificateRequire(true)
+        setCertificationCostOfCode(res.data.certification_cost)
+      } else if (res.data.status === "Not Required") {
+        setCertificateNotRequire(true)
+      }
+    }).catch((err) => {
+      console.log("errrrr", err)
+    })
 
+  };
+  const handleStep1 = async () => {
+    let data = {
+      country: step1.country,
+      user: step1.user,
+      title: step1.title,
+      codes: [],
+    };
+    matchedData.map((item) => {
+      data.codes.push({
+        code: item.codeID,
+        monetary_value: item.monetary_value,
+        certification_required: item.certification_required,
+      });
+    });
     await API('post', '/requests/boms', data)
       .then((res) => {
         console.log('hanldeEstimateRequest', res);
@@ -174,8 +203,10 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('hanldeEstimateRequest', err);
+        toast.error(err.response.data.message)
+
       });
-  };
+  }
   const handleStep2 = async () => {
     await API('put', '/requests/userVendor', {
       user: userData._id,
@@ -192,6 +223,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleStep2', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handleStep3 = async () => {
@@ -239,6 +272,8 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => {
         console.log('handleStep3', err);
         toast.error('Some Went Wrong');
+        toast.error(err.response.data.message)
+
       });
   };
   const handleStep4 = async () => {
@@ -253,10 +288,13 @@ export default function HorizontalNonLinearStepper() {
     });
     await API('put', '/requests/documents', data)
       .then((res) => {
+        localStorage.setItem("Requested", true)
         history.push('/User/Dashboard/ListOfRequests');
       })
       .catch((err) => {
         console.log('err--->', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handleDocByCountryId = async () => {
@@ -266,6 +304,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleDocByCountryId', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handleUploadDoc = async (file, docId, index) => {
@@ -282,6 +322,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleUploadDoc', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handleStep1Change = (name, value) => {
@@ -316,6 +358,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleSeller', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handleBuyer = async () => {
@@ -326,6 +370,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleBuyer', err);
+        toast.error(err.response.data.message)
+
       });
   };
   const handlePlaces = async () => {
@@ -336,6 +382,8 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleBuyer', err);
+        toast.error(err.response.data.message)
+
       });
   };
 
@@ -392,6 +440,14 @@ export default function HorizontalNonLinearStepper() {
                 setUnMatchedData={setUnMatchedData}
                 matchedData={matchedData}
                 unMatchedData={unMatchedData}
+                  //certificate Require modal
+                  certificateRequire={certificateRequire}
+                  setCertificateRequire={setCertificateRequire}
+                  certificationCostOfCode={certificationCostOfCode}
+                  //certificate not Require modal
+                  certificateNotRequire={certificateNotRequire}
+                  setCertificateNotRequire={setCertificateNotRequire}
+                  handleStep1={handleStep1}
                 // handleAllRequestByCountryId={handleAllRequestByCountryId}
               />
             ) : activeStep === 1 ? (
