@@ -183,6 +183,20 @@
   text-align: center;
   cursor: pointer;
 }
+.list_reqst_btn3 {
+  width: 300px;
+  margin: 0 0 0px 10px;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+}
 .Edit_btn {
   width: 20%;
   background-color: #7f56d9;

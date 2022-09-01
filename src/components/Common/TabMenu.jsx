@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import DotedIcon from '../../assets/DotedIcon.svg';
+import ViewBuyerPopup from '../../Dashboard/UserDashboard/ModelPopup/ViewBuyerPopup';
+import EdditBuyer from '../../Dashboard/UserDashboard/ModelPopup/EdditBuyer.js';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -101,12 +103,22 @@ const rows = [
 
 const TabMenu = (props) => {
   const [value, setValue] = React.useState(0);
+  const [open, setOpen] = useState(false);
+  const [edditPop, setEdditPop] = useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClickOpen2 = () => {
+    setEdditPop(true);
+  };
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
     <>
+      <EdditBuyer open={edditPop} setOpen={setEdditPop} />
+      <ViewBuyerPopup open={open} setOpen={setOpen} />
       <Box sx={{ width: '100%' }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
@@ -144,25 +156,35 @@ const TabMenu = (props) => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                       style={{ cursor: 'pointer' }}
                     >
-                      <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row" onClick={handleClickOpen}>
                         {row.Société}
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.Congo}
                         <br />
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.mail}
                       </TableCell>
-                      <TableCell align="left" className="country2">
+                      <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.num}
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleClickOpen}
+                      >
                         {row.chaussée}
                         <p className="country2"> 34 733, Kinshasa</p>
                       </TableCell>
 
-                      <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
+                      <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={handleClickOpen2}
+                      >
                         <img src={DotedIcon} alt="" />
                       </TableCell>
                     </TableRow>
