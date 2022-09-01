@@ -259,7 +259,7 @@ export default function HorizontalNonLinearStepper() {
         zipcode: step3.placeOfInspection.postalCode,
         address: step3.placeOfInspection.fullAddress,
         conatct_fname: step3.placeOfInspection.contactFirsttName,
-        contact_lname: step3.placeOfInspection.contactLastName,
+        contact_name: step3.placeOfInspection.contactLastName,
         user: userData._id,
       },
     })
@@ -311,7 +311,7 @@ export default function HorizontalNonLinearStepper() {
     let formData = new FormData();
     formData.append('doc_id', docId);
     formData.append('file', file);
-    await API('put', `/requests/documentsUpload/${requestId}`, formData) 
+    await API('put', `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) 
       .then((res) => {
         console.log('handleUploadDoc', res);
         setCountryDoc((prev) => {
@@ -350,7 +350,7 @@ export default function HorizontalNonLinearStepper() {
     });
   };
   const handleSeller = async () => {
-    await API('get', `/sellers/getByUser/${userData._id}`)
+    await API('get', `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setSeller(res.data.seller);
       })
@@ -361,7 +361,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleBuyer = async () => {
-    await API('get', `/buyers/getByUser/${userData._id}`)
+    await API('get', `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
@@ -372,7 +372,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handlePlaces = async () => {
-    await API('put', `/places/getByUser/${userData._id}`)
+    await API('put', `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
       .then((res) => {
         setPlaces(res.data.place);
       })
