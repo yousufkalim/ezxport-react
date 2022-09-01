@@ -21,7 +21,7 @@ const schema = {
   password: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      minimum: 8,
+      minimum: 6,
     },
   },
 };
@@ -149,11 +149,20 @@ const Login = () => {
             </div>
           </div>
           <Button
-            className={formState.isValid ? "logingbtn" : "logingbtn_disabled"}
+            className={
+              formState.isValid ||
+              (formState.values.email != "" && formState.values.password !== "")
+                ? "logingbtn"
+                : "logingbtn_disabled"
+            }
             onClick={handleLoggin}
             text="To log in"
             disabled={!formState.isValid ? true : false}
           />
+          {console.log(
+            "🚀 ~ file: Login.jsx ~ line 161 ~ Login ~ formState.isValid",
+            formState.isValid
+          )}{" "}
           <div className="register-div">
             <Link to="/registration" className="regBtn">
               Register
