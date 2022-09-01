@@ -24,7 +24,7 @@ const schema = {
   },
 };
 const updateSchema = {
-  updateCode: {
+  bomCode: {
     presence: { allowEmpty: false, message: "is required" },
   },
 };
@@ -52,7 +52,7 @@ const AdminTab3 = (props) => {
   const [updateBomCode, setUpdateBomCode] = useState({
     isValid: false,
     values: {
-      updateCode: "",
+      bomCode: "",
     },
     touched: {},
     errors: {},
@@ -115,7 +115,7 @@ const AdminTab3 = (props) => {
   }, []);
   const handleBomUpdate = async (BomId) => {
     await API("put", `/boms/${BomId}`, {
-      code: updateBomCode.values.updateCode,
+      code: updateBomCode.values.bomCode,
       certification_required: certificate_status,
       countries: id,
     })
@@ -189,7 +189,7 @@ const AdminTab3 = (props) => {
       ...updateBomCode,
       values: {
         ...updateBomCode.values,
-        updateCode: bomcode.code,
+        bomCode: bomcode.code,
       },
     }));
     setCertificate_status(bomcode.certification_required);
@@ -327,25 +327,23 @@ const AdminTab3 = (props) => {
             BOMs code
           </label>{" "}
           <InputField
-            name="updateCode"
-            value={updateBomCode.values.updateCode}
+            name="bomCode"
+            value={updateBomCode.values.bomCode}
             className={
-              updateHasError("updateCode") && updateBomCode.errors.updateCode
+              updateHasError("bomCode") && updateBomCode.errors.bomCode
                 ? "textfield_addvendor_red"
                 : "textfield_addvendor"
             }
             onChange={handleUpdateBomChange}
           />
           <div className="error-format">
-            {updateHasError("updateCode")
-              ? updateBomCode.errors.updateCode[0]
-              : null}
+            {updateHasError("bomCode") ? updateBomCode.errors.bomCode[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
             Status
           </label>{" "}
           <select
-            defaultValue={setCertificate_status}
+            defaultValue={certificate_status}
             name="certificate_status"
             className="textfield_addvendor"
             onChange={(e) => setCertificate_status(e.target.value)}
@@ -429,12 +427,20 @@ const AdminTab3 = (props) => {
           <Button
             text="Add BOMs"
             className={
-              formState.isValid && select.length > 0
+              formState.isValid &&
+              select.length > 0 &&
+              newCertificate_status != "default"
                 ? "add_vendor_button"
                 : "add_vendor_button_disabled"
             }
             onClick={handleAddBom}
-            disabled={!formState.isValid || select.length < 1 ? true : false}
+            disabled={
+              !formState.isValid ||
+              select.length < 1 ||
+              newCertificate_status === "default"
+                ? true
+                : false
+            }
           />
         </div>
       </Modal>

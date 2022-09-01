@@ -50,6 +50,9 @@ const schema = {
   },
   password: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      minimum: 6,
+    },
   },
   confirmPassword: {
     presence: { allowEmpty: false, message: "is required" },
@@ -97,7 +100,7 @@ const Registration = () => {
       password: "",
       confirmPassword: "",
       companyLastName: "",
-      typeOfSociety: "",
+      typeOfSociety: "default",
       vatNumber: "",
     },
     touched: {},
@@ -433,9 +436,13 @@ const Registration = () => {
                   name="typeOfSociety"
                   id=""
                   className="reg_input"
-                  defaultValue={"1"}
+                  defaultValue={"default"}
                   onChange={handleChange}
+                  value={formState.values.typeOfSociety}
                 >
+                  <option disabled value="default">
+                    Select your type
+                  </option>
                   <option value="1">Type 1</option>
                   <option value="2">Type 2</option>
                   <option value="3">Type 3</option>
@@ -444,6 +451,7 @@ const Registration = () => {
                 </select>
               </div>
             </div>
+            {console.log("ts", formState.values.typeOfSociety)}
             <div className="regist_input_div">
               <div className="regist_col1">
                 <label htmlFor="">VAT number</label>
@@ -470,11 +478,18 @@ const Registration = () => {
           <div className="btn_div">
             <Button
               className={
-                formState.isValid ? "register_fm" : "register_fm_disabled"
+                formState.isValid && formState.values.typeOfSociety != "default"
+                  ? "register_fm"
+                  : "register_fm_disabled"
               }
               onClick={handleSubmit}
               text="Register"
-              disbaled={!formState.isValid ? true : false}
+              disabled={
+                !formState.isValid ||
+                formState.values.typeOfSociety === "default"
+                  ? true
+                  : false
+              }
             />
           </div>
         </div>

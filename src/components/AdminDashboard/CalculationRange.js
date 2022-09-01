@@ -14,7 +14,20 @@ import EditIcon from "../../assets/EditIcon.svg";
 import API from "../../api/index";
 import { toast } from "react-toastify";
 import Modal from "../Common/Modal";
+import validate from "validate.js";
 import Button from "../Common/Button";
+
+const schema = {
+  minCost: {
+    presence: { allowEmpty: false },
+  },
+  maxCost: {
+    presence: { allowEmpty: false },
+  },
+  certificate: {
+    presence: { allowEmpty: false },
+  },
+};
 const CalculationRange = (props) => {
   const [rangeData, setRangeData] = useState();
   const [itemId, setItemId] = useState();
@@ -26,6 +39,41 @@ const CalculationRange = (props) => {
   const [rangeCertificat, setRangeCertificat] = useState();
   const [rangeMinCost, setRangeMinCost] = useState();
   const [rangeMaxCost, setRangeMaxCost] = useState();
+
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      minCost: "",
+      maxCost: "",
+      certificate: "",
+    },
+    touched: {},
+    errors: {},
+  });
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  const handleValuesChange = (event) => {
+    if (!event.target.value.match(/[^0-9]/)) {
+      setFormState((formState) => ({
+        ...formState,
+        values: {
+          ...formState.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...formState.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
+  };
   const handleRangeData = async () => {
     await API("get", `/calculations/${props.id}`)
       .then((res) => {
@@ -38,12 +86,24 @@ const CalculationRange = (props) => {
   };
   const handleAddRange = async () => {
     await API("put", `/calculations/addRange/${props.id}`, {
-      range: { min: minCost, max: maxCost, certificate_cost: certificat },
+      range: {
+        min: formState.values.minCost,
+        max: formState.values.maxCost,
+        certificate_cost: formState.values.certificate,
+      },
     })
       .then((res) => {
         console.log("handleAddRange", res);
         handleRangeData();
-        setMinCost("");
+        setFormState((formState) => ({
+          ...formState,
+          values: {
+            ...formState.values,
+            minCost: "",
+            maxCost: "",
+            certificate: "",
+          },
+        }));
         setMaxCost("");
         setCertificat("");
         toast.success("Range added successfully");
@@ -98,28 +158,54 @@ const CalculationRange = (props) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                  <TableCell
+                    align="left"
+                    className="country"
+                    style={{ backgrounColor: "#EAECF0" }}
+                  >
                     Minimum <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                  <TableCell
+                    align="left"
+                    className="country"
+                    style={{ backgrounColor: "#EAECF0" }}
+                  >
                     Maximum <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                  <TableCell
+                    align="left"
+                    className="country"
+                    style={{ backgrounColor: "#EAECF0" }}
+                  >
                     Coût certificat <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                  <TableCell
+                    align="left"
+                    className="country"
+                    style={{ backgrounColor: "#EAECF0" }}
+                  >
                     Actions <img src={DownArrow} alt="" />
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rangeData?.map((item) => (
-                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row" style={{ width: "20%" }}>
+                  <TableRow
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      style={{ width: "20%" }}
+                    >
                       {item.min}
                       <br />
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ width: "20%" }}>
+                    <TableCell
+                      align="left"
+                      className="country2"
+                      style={{ width: "20%" }}
+                    >
                       {item.max}
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -166,8 +252,9 @@ const CalculationRange = (props) => {
                     Minimum
                   </label>
                   <TextFieldSelect
-                    value={minCost}
-                    onChange={(e) => setMinCost(e.target.value)}
+                    value={formState.values.minCost}
+                    name="minCost"
+                    onChange={handleValuesChange}
                     // onOptionChange={(e) => {
                     //   setMinCostCurrency(e.target.value);
                     // }}
@@ -180,8 +267,9 @@ const CalculationRange = (props) => {
                     Maximum
                   </label>
                   <TextFieldSelect
-                    value={maxCost}
-                    onChange={(e) => setMaxCost(e.target.value)}
+                    value={formState.values.maxCost}
+                    name="maxCost"
+                    onChange={handleValuesChange}
                     // onOptionChange={(e) => {
                     //   setMaxCostCurrency(e.target.value);
                     // }}
@@ -194,8 +282,9 @@ const CalculationRange = (props) => {
                     Coût certificat
                   </label>
                   <TextFieldSelect
-                    value={certificat}
-                    onChange={(e) => setCertificat(e.target.value)}
+                    value={formState.values.certificate}
+                    name="certificate"
+                    onChange={handleValuesChange}
                     // onOptionChange={(e) => {
                     //   setMaxCostCurrency(e.target.value);
                     // }}
@@ -204,16 +293,26 @@ const CalculationRange = (props) => {
               </div>
             </div>
             <button
-              className="AddSlice_button"
+              className={
+                !formState.isValid
+                  ? "AddSlice_button_disabled"
+                  : "AddSlice_button"
+              }
               onClick={handleAddRange}
-              disabled={!minCost && !maxCost && !certificat ? true : false}
+              disabled={!formState.isValid ? true : false}
             >
               Ajouter la ligne
             </button>
           </div>
         </div>
       </div>
-      <Modal open={editModal} setOpen={setEditModal} title="Edit Range" handleClose={handleEditModalClose} Closebtn={true}>
+      <Modal
+        open={editModal}
+        setOpen={setEditModal}
+        title="Edit Range"
+        handleClose={handleEditModalClose}
+        Closebtn={true}
+      >
         <div>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
@@ -252,7 +351,11 @@ const CalculationRange = (props) => {
             />
           </FormControl>
           <div style={{ marginTop: "2rem" }}>
-            <Button text="Update" className="bom_downloadFile_btn" onClick={handleUpdateRange} />
+            <Button
+              text="Update"
+              className="bom_downloadFile_btn"
+              onClick={handleUpdateRange}
+            />
           </div>
         </div>
       </Modal>
