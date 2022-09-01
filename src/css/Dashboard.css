@@ -68,11 +68,15 @@
 }
 .li_img {
   padding-right: 5%;
+  color: #d6bbfb !important;
+}
+.li_img_white {
+  color: White !important;
 }
 .userDetail {
   border-top: 1px solid rgb(113, 113, 113);
   margin: 5% 0 0 0px;
-  padding: 5% 0 0 0;
+  padding: 5% 0 0 9px;
   text-decoration: none;
 }
 .user_mail {
