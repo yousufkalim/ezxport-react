@@ -224,7 +224,6 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => {
         console.log('handleStep2', err);
         toast.error(err.response.data.message)
-
       });
   };
   const handleStep3 = async () => {
