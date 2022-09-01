@@ -10,7 +10,7 @@ import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("dojac63370@aregods.com");
+  const [email, setEmail] = useState("");
   const [flag, setFlag] = useState(false);
   const handleResetPassword = async () => {
     await API("put", `/auth/forgot/${email}`)
@@ -24,26 +24,31 @@ const ForgetPassword = () => {
         toast.error(err.response.data.message);
         setFlag(false);
       });
+    setFlag(!flag);
   };
   return (
     <>
       <Header />
       <div className="login_mainDiv">
         <div className="backArrow_div">
-        <Link to="/" ><img
-          src={BackArrow}
-          alt="back"
-          className="backArrow"
-          />
+          <Link to="/">
+            <img src={BackArrow} alt="back" className="backArrow" />
           </Link>
-          </div>
+        </div>
         <div className="loginCenterDiv">
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
-            <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: "5px" }} />
+            <img
+              src={ForgetLogo}
+              alt=""
+              className="login_icons"
+              style={{ paddingBottom: "5px" }}
+            />
             <br />
             <h2 className="login_h2">Forgot your password ?</h2>
-            <p className="forget_p">Please enter your email address to reset your password</p>
+            <p className="forget_p">
+              Please enter your email address to reset your password
+            </p>
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
@@ -54,18 +59,36 @@ const ForgetPassword = () => {
               placeholder="mail@mail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              icon={Quiz}
             />
           </div>
           {/* login button  */}
           {!flag ? (
-            <Button className="logingbtn" onClick={handleResetPassword} text="Reset Password" />
+            <div className={"resetPassword-div"}>
+              <Button
+                className={email === "" ? "logingbtn_disabled" : "logingbtn"}
+                onClick={handleResetPassword}
+                text="Reset Password"
+                disabled={email === "" && true}
+              />
+            </div>
           ) : (
-            <p className="regBtn" style={{ cursor: "default !important" }}>
-              Request made successfully
-            </p>
+            <div className="requestSuccess-div">
+              <button
+                className="regBtn"
+                style={{ cursor: "default !important" }}
+              >
+                Request made successfully
+              </button>
+            </div>
           )}
-          <Button className={flag ? "logingbtn" : "regBtn"} onClick={handleResetPassword} text="resend again" />
+          <div className="resetPassword-div">
+            <Button
+              className={flag ? "logingbtn" : "regBtn"}
+              onClick={handleResetPassword}
+              text="resend again"
+              disabled={!flag || email === "" ? true : false}
+            />
+          </div>
         </div>
       </div>
     </>
