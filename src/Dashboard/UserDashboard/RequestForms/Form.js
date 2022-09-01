@@ -259,7 +259,7 @@ export default function HorizontalNonLinearStepper() {
         zipcode: step3.placeOfInspection.postalCode,
         address: step3.placeOfInspection.fullAddress,
         conatct_fname: step3.placeOfInspection.contactFirsttName,
-        contact_name: step3.placeOfInspection.contactLastName,
+        contact_lname: step3.placeOfInspection.contactLastName,
         user: userData._id,
       },
     })
@@ -311,7 +311,7 @@ export default function HorizontalNonLinearStepper() {
     let formData = new FormData();
     formData.append('doc_id', docId);
     formData.append('file', file);
-    await API('put', `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) // reqest Id will be replaced after testing
+    await API('put', `/requests/documentsUpload/${requestId}`, formData) 
       .then((res) => {
         console.log('handleUploadDoc', res);
         setCountryDoc((prev) => {
@@ -350,8 +350,7 @@ export default function HorizontalNonLinearStepper() {
     });
   };
   const handleSeller = async () => {
-    // userID will be replaced and it is for testing purpose
-    await API('get', `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/sellers/getByUser/${userData._id}`)
       .then((res) => {
         setSeller(res.data.seller);
       })
@@ -362,8 +361,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleBuyer = async () => {
-    // userID will be replaced and it is for testing purpose
-    await API('get', `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/buyers/getByUser/${userData._id}`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
@@ -374,8 +372,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handlePlaces = async () => {
-    // userID will be replaced and it is for testing purpose
-    await API('put', `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('put', `/places/getByUser/${userData._id}`)
       .then((res) => {
         setPlaces(res.data.place);
       })
@@ -398,7 +395,6 @@ export default function HorizontalNonLinearStepper() {
         alternativeLabel
         activeStep={activeStep}
         connector={<QontoConnector />}
-        // style={{ marginRight: '3rem', width: '95%' }}
         className="stepperClass"
       >
         {steps.map((label, index) => (
