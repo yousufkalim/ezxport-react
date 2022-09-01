@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputField from './InputField';
 import TextFieldSelect from './TextFieldSelect';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,6 +6,7 @@ import FilePicker from './FilePicker';
 import Select from '@mui/material/Select';
 
 const ProductForm = (props) => {
+  const [toComplete, setToComplete] = useState()
   const handleDataChange = (e) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
@@ -15,6 +16,7 @@ const ProductForm = (props) => {
     props.setCodes((prev) => {
       prev[cindex].products[index1][name] = {
         url: [base64],
+        filename: files.name
       };
       return [...prev];
     });
@@ -31,8 +33,34 @@ const ProductForm = (props) => {
       };
     });
   };
+  const validateProduct = () => {
+    let validated = true
+
+    if (Object.keys(props?.product).length > 14) {
+      for (const key in props?.product) {
+        if (!props?.product[key]) {
+          validated = false
+          break
+        }
+      }
+    } else {
+      validated = false
+    }
+    return validated
+  }
+
   return (
     <>
+      <div className="title_Div_documents">
+        <span className="title_span">{props.item.code.code} – Nomenclature name</span>
+        {validateProduct() ? <span className="complete_pill">Complete</span> :
+          <span className="to_complete_pill">To Complete</span>
+        }
+      </div>
+      {validateProduct() ? "" :
+        <span className="to_complete_pill">The product documents are to be completed</span>
+      }
+
       <div className="divider_line"></div>
       <h3>
         Code # {props.cindex + 1} Product # {props.index1 + 1}
@@ -153,7 +181,7 @@ const ProductForm = (props) => {
             <FilePicker
               multiple
               index={`1${props.cindex}${props.index1}`}
-              // fileName={item.fileName}
+              fileName={props?.product?.technical_sheet?.filename}
               name="technical_sheet"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
@@ -167,7 +195,7 @@ const ProductForm = (props) => {
             <FilePicker
               multiple
               index={`2${props.cindex}${props.index1}`}
-              // fileName={item.fileName}
+              fileName={props?.product?.test_report?.filename}
               name="test_report"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
@@ -183,7 +211,7 @@ const ProductForm = (props) => {
             <FilePicker
               multiple
               index={`3${props.cindex}${props.index1}`}
-              // fileName={item.fileName}
+              fileName={props?.product?.analysis_certificate?.filename}
               name="analysis_certificate"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
@@ -197,7 +225,7 @@ const ProductForm = (props) => {
             <FilePicker
               multiple
               index={`4${props?.cindex}${props?.index1}`}
-              // fileName={item.fileName}
+              fileName={props?.product?.plan?.filename}
               name="plan"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
@@ -212,7 +240,7 @@ const ProductForm = (props) => {
           <FilePicker
             multiple
             index={`5${props.cindex}${props.index1}`}
-            // fileName={item.fileName}
+            fileName={props?.product?.other_docs?.filename}
             name="other_docs"
             onChange={(e) =>
               handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
