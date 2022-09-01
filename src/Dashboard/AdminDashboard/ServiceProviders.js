@@ -191,7 +191,7 @@ const ServiceProviders = () => {
           {/* list head  */}
           <div className="List_heading_div">
             <h1 className="list_h1">Service providers</h1>
-            <div className="searching">
+            <div className="searching3">
               <SearchField placeholder="Searching" />
               <Button
                 className="list_reqst_btn2"
