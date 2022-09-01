@@ -26,7 +26,12 @@ const AskQuestion = () => {
                 <label htmlFor="" className="question_label">
                   Your question is related to
                 </label>
-                <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange}>
+                <Select
+                  id="demo-simple-select"
+                  defaultValue={dropdown}
+                  onChange={handleChange}
+                  style={{ paddingTop: '7px' }}
+                >
                   <MenuItem value="default">A demand</MenuItem>
                   <MenuItem value={10}>A demand</MenuItem>
                   <MenuItem value={20}>A demand</MenuItem>
@@ -38,7 +43,12 @@ const AskQuestion = () => {
                 <label htmlFor="" className="question_label">
                   Select request
                 </label>
-                <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange}>
+                <Select
+                  id="demo-simple-select"
+                  defaultValue={dropdown}
+                  onChange={handleChange}
+                  style={{ paddingTop: '7px' }}
+                >
                   <MenuItem value="default">Application Title – Date</MenuItem>
                   <MenuItem value={10}>Application Title – Date</MenuItem>
                   <MenuItem value={20}>Application Title – Date</MenuItem>

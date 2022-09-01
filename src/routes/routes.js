@@ -11,10 +11,10 @@ import ServiceProviders from '../Dashboard/AdminDashboard/ServiceProviders';
 import Users from '../Dashboard/AdminDashboard/Users';
 import Requests from '../Dashboard/AdminDashboard/Requests';
 // icons of screen
-import Logo1 from '../assets/LILogo1.svg';
-import Logo2 from '../assets/LILogo2.svg';
-import Logo3 from '../assets/LILogo3.svg';
-import Logo4 from '../assets/LILogo4.svg';
+import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
+import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
+import { ReactComponent as Logo3 } from '../assets/LILogo3.svg';
+import { ReactComponent as Logo4 } from '../assets/LILogo4.svg';
 import Logo5 from '../assets/LILogo5.svg';
 import AdminLogo1 from '../assets/AdminLogo1.svg';
 import AdminLogo2 from '../assets/AdminLogo2.svg';
@@ -24,25 +24,25 @@ export const UserRoutes = [
   {
     path: '/User/Dashboard/ListOfRequests',
     name: 'Follow-up of requests',
-    icon: Logo1,
+    icon: <Logo1 />,
     component: FollowUp,
   },
   {
     path: '/User/Dashboard/Providers',
     name: 'Service providers',
-    icon: Logo2,
+    icon: <Logo2 />,
     component: Providers,
   },
   {
     path: '/User/Dashboard/AddressBook',
     name: 'Address Book',
-    icon: Logo3,
+    icon: <Logo3 />,
     component: AddressBook,
   },
   {
     path: '/User/Dashboard/Documents',
     name: 'Documents',
-    icon: Logo4,
+    icon: <Logo4 />,
     component: Documents,
   },
   // Routes cannot be add after this should be added before this comment

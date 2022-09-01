@@ -17,7 +17,7 @@ const ServiceProvider = (props) => {
     VendorByCountryId();
   }, []);
   return (
-    <div style={{ height: '75vh', width: '100%' }}>
+    <div style={{ width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <span style={{ fontSize: '1.2rem' }}>
           Please select <b>a vendor</b> for this request
@@ -42,9 +42,7 @@ const ServiceProvider = (props) => {
         })}
       </Grid>
       {/* </div> */}
-      <div
-        style={{ marginBottom: '2rem', marginTop: '4rem', display: 'flex', alignItems: 'center' }}
-      >
+      <div style={{ marginBottom: '0', marginTop: '2%', display: 'flex', alignItems: 'center' }}>
         <input
           type="checkbox"
           className="checkBox"
@@ -59,7 +57,7 @@ const ServiceProvider = (props) => {
       </div>
       {props.step2.contactInfo ? (
         <>
-          <div style={{ display: 'flex' }}>
+          <div style={{ display: 'flex', marginTop: '3%' }}>
             <div style={{ width: '50%' }}>
               <label>Last Name</label>
               <InputField
