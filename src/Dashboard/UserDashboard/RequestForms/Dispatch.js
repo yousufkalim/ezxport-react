@@ -53,7 +53,7 @@ const Dispatch = (props) => {
       prev.placeOfInspection.fullAddress = SelectedPlace?.address;
       prev.placeOfInspection.postalCode = SelectedPlace?.zip_code;
       prev.placeOfInspection.town = SelectedPlace?.city;
-      prev.placeOfInspection.contactLastName = SelectedPlace?.contact_name;
+      prev.placeOfInspection.contactLastName = SelectedPlace?.contact_lname;
       prev.placeOfInspection.contactFirsttName = SelectedPlace?.conatct_fname;
       return { ...prev };
     });

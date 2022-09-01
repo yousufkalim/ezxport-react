@@ -103,6 +103,16 @@
 .switch_column {
   width: 50%;
 }
+.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track{
+  background-color: #7f56d9 !important;
+}
+.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
+  color: #7f56d9 !important;
+}
+.css-13xy2my {
+  box-shadow: inherit !important;
+
+}
 .request_documents_title {
   font-size: 18px;
   font-weight: 600;
@@ -167,7 +177,7 @@
 }
 .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   top: calc(62% - 0.5em) !important;
-  margin-top: 7px !important;
+  margin-top: 9px !important;
 }
 
 @media only screen and (min-width: 200px) and (max-width: 800px) {

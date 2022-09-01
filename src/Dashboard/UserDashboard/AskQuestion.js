@@ -24,25 +24,35 @@ const AskQuestion = () => {
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
                 <label htmlFor="" className="question_label">
-                  Votre question est relative à
+                  Your question is related to
                 </label>
-                <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange}>
-                  <MenuItem value="default">Une demande</MenuItem>
-                  <MenuItem value={10}>Une demande</MenuItem>
-                  <MenuItem value={20}>Une demande</MenuItem>
-                  <MenuItem value={30}>Une demande</MenuItem>
+                <Select
+                  id="demo-simple-select"
+                  defaultValue={dropdown}
+                  onChange={handleChange}
+                  style={{ paddingTop: '7px' }}
+                >
+                  <MenuItem value="default">A demand</MenuItem>
+                  <MenuItem value={10}>A demand</MenuItem>
+                  <MenuItem value={20}>A demand</MenuItem>
+                  <MenuItem value={30}>A demand</MenuItem>
                 </Select>
                 <br />
               </FormControl>
               <FormControl fullWidth>
                 <label htmlFor="" className="question_label">
-                  Sélectionner la demande
+                  Select request
                 </label>
-                <Select id="demo-simple-select" defaultValue={dropdown} onChange={handleChange}>
-                  <MenuItem value="default">Titre de la demande – Date</MenuItem>
-                  <MenuItem value={10}>Titre de la demande – Date</MenuItem>
-                  <MenuItem value={20}>Titre de la demande – Date</MenuItem>
-                  <MenuItem value={30}>Titre de la demande – Date</MenuItem>
+                <Select
+                  id="demo-simple-select"
+                  defaultValue={dropdown}
+                  onChange={handleChange}
+                  style={{ paddingTop: '7px' }}
+                >
+                  <MenuItem value="default">Application Title – Date</MenuItem>
+                  <MenuItem value={10}>Application Title – Date</MenuItem>
+                  <MenuItem value={20}>Application Title – Date</MenuItem>
+                  <MenuItem value={30}>Application Title – Date</MenuItem>
                 </Select>
                 <br />
               </FormControl>
@@ -53,12 +63,12 @@ const AskQuestion = () => {
                 <TextareaAutosize
                   aria-label="minimum height"
                   minRows={10}
-                  placeholder="Description de votre demande"
+                  placeholder="Description of your request"
                   style={{ padding: '10px' }}
                 />
                 <br />
               </FormControl>
-              <button className="quiz_btn">Poser la question</button>
+              <button className="quiz_btn">Ask the question</button>
             </Box>
           </div>
         </div>

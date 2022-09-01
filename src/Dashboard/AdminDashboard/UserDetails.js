@@ -129,7 +129,6 @@ const UserDetails = () => {
           <div className="list_table">
             <Box sx={{ width: '100%' }}>
               <Box>
-
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label="Information" {...a11yProps(0)} />
 
@@ -148,45 +147,36 @@ const UserDetails = () => {
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Nom
-
+                        Last name
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={lastName} />
-
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Prénom
-
+                        First name
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={firstName} />
-
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Adresse email
-
+                        E-mail address
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={email} />
-
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Téléphone
-
+                        Telephone
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={phoneNumber} />
-
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Adresse complète
+                        Full address
                       </label>{' '}
-
                       <InputField
                         disabled={true}
                         className="textfield_row2"
@@ -196,10 +186,8 @@ const UserDetails = () => {
                     <div className="userdetail_textField_div2">
                       <div style={{ width: '35%' }} className="postel_input">
                         <label htmlFor="" className="label_modal">
-                          Code postal
-
+                          Postal code
                         </label>{' '}
-
                         <InputField
                           disabled={true}
                           className="userdetail_textField_row"
@@ -208,10 +196,8 @@ const UserDetails = () => {
                       </div>
                       <div style={{ width: '60%' }}>
                         <label htmlFor="" className="label_modal">
-                          Ville
-
+                          Town
                         </label>{' '}
-
                         <InputField
                           disabled={true}
                           className="userdetail_textField_row"
@@ -226,29 +212,23 @@ const UserDetails = () => {
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Nom
-
+                        Last name
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={name} />
-
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Type de société
-
+                        Type of society
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={societyType} />
-
                     </div>
                   </div>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Numéro de TVA
-
+                        VAT number
                       </label>{' '}
                       <InputField disabled={true} className="textfield_row2" value={vatNumber} />
-
                     </div>
                   </div>
                 </div>
@@ -264,18 +244,14 @@ const UserDetails = () => {
                             <TableCell
                               align="left"
                               className="country"
-
                               style={{ backgrounColor: '#EAECF0' }}
-
                             >
                               Demande
                             </TableCell>
                             <TableCell
                               align="left"
                               className="country"
-
                               style={{ backgrounColor: '#EAECF0' }}
-
                             >
                               Date
                             </TableCell>
@@ -283,25 +259,21 @@ const UserDetails = () => {
                               align="left"
                               className="country"
                               style={{ backgrounColor: '#EAECF0' }}
-
                             >
-                              Coût certificat
+                              Certificate cost
                             </TableCell>
 
                             <TableCell
                               align="left"
                               className="country"
-
-                              style={{ backgrounColor: "#EAECF0" }}
+                              style={{ backgrounColor: '#EAECF0' }}
                             >
-                              Prestataires
+                              Service providers
                             </TableCell>
                             <TableCell
                               align="left"
                               className="country"
-
-                              style={{ backgrounColor: "#EAECF0" }}
-
+                              style={{ backgrounColor: '#EAECF0' }}
                             >
                               Status
                             </TableCell>
@@ -311,9 +283,8 @@ const UserDetails = () => {
                           {requestById?.map((item) => (
                             <TableRow
                               key={item?._id}
-
                               sx={{
-                                "&:last-child td, &:last-child th": {
+                                '&:last-child td, &:last-child th': {
                                   border: 0,
                                 },
                               }}
@@ -321,9 +292,7 @@ const UserDetails = () => {
                               <TableCell component="th" scope="row">
                                 {item?.title}
                                 <br />
-                                <p className="country2">
-                                  {item?.country?.name}
-                                </p>
+                                <p className="country2">{item?.country?.name}</p>
                               </TableCell>
                               <TableCell align="left" className="country2">
                                 {Moment(item?.createdAt).format('DD/MM/YYYY')}
@@ -331,14 +300,10 @@ const UserDetails = () => {
                               <TableCell align="left" className="country2">
                                 {item?.certification_cost?.value ? (
                                   <>
-
-                                    {item?.certification_cost?.currency ===
-                                    "USD"
-                                      ? item?.certification_cost?.value + "$"
-                                      : item?.certification_cost?.currency ===
-                                          "EURO" &&
-                                        item?.certification_cost?.value + "€"}
-
+                                    {item?.certification_cost?.currency === 'USD'
+                                      ? item?.certification_cost?.value + '$'
+                                      : item?.certification_cost?.currency === 'EURO' &&
+                                        item?.certification_cost?.value + '€'}
                                   </>
                                 ) : (
                                   '--'

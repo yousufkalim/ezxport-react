@@ -100,7 +100,11 @@ const Requests = () => {
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      <p className="clrClass">{item.status}</p>
+                      {item?.status === "not required" ?
+                        <p className="clrClass">{item?.status}</p>
+                        : item?.status === "Missing Documents" ?
+                          <p className="missingDocStatus">{item?.status}</p>
+                          : "--"}
                     </TableCell>
                   </TableRow>
                 ))}
