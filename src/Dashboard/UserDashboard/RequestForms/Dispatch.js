@@ -16,7 +16,7 @@ const Dispatch = (props) => {
       prev.sellerData.email = SelectedSeller?.email;
       prev.sellerData.telephone = SelectedSeller?.phone_number;
       prev.sellerData.fullAddress = SelectedSeller?.address;
-      prev.sellerData.postalCode = SelectedSeller?.zip_code;
+      prev.sellerData.postalCode = SelectedSeller?.zipcode;
       prev.sellerData.town = SelectedSeller?.city;
       return { ...prev };
     });
@@ -33,7 +33,7 @@ const Dispatch = (props) => {
       prev.buyerData.email = SelectedBuyer?.email;
       prev.buyerData.telephone = SelectedBuyer?.phone_number;
       prev.buyerData.fullAddress = SelectedBuyer?.address;
-      prev.buyerData.postalCode = SelectedBuyer?.zip_code;
+      prev.buyerData.postalCode = SelectedBuyer?.zipcode;
       prev.buyerData.town = SelectedBuyer?.city;
       return { ...prev };
     });
@@ -51,9 +51,9 @@ const Dispatch = (props) => {
       prev.placeOfInspection.email = SelectedPlace?.email;
       prev.placeOfInspection.telephone = SelectedPlace?.phone_number;
       prev.placeOfInspection.fullAddress = SelectedPlace?.address;
-      prev.placeOfInspection.postalCode = SelectedPlace?.zip_code;
+      prev.placeOfInspection.postalCode = SelectedPlace?.zipcode;
       prev.placeOfInspection.town = SelectedPlace?.city;
-      prev.placeOfInspection.contactLastName = SelectedPlace?.contact_name;
+      prev.placeOfInspection.contactLastName = SelectedPlace?.contact_lname;
       prev.placeOfInspection.contactFirsttName = SelectedPlace?.conatct_fname;
       return { ...prev };
     });
@@ -431,7 +431,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div style={{ width: '48%' }}>
-            <label className="BomLabel">contact name</label>
+            <label className="BomLabel">contact last name</label>
             <InputField
               className="company_name_input"
               placeholder="contact name"

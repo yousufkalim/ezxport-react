@@ -29,7 +29,7 @@ const AddressBook = (props) => {
                 className="company_name_input"
                 disabled
                 name="Country"
-                value={props?.requestById?.seller?.country}
+                value={props?.requestById?.seller?.country?.name}
 
               />
             </div>
@@ -121,7 +121,7 @@ const AddressBook = (props) => {
                 disabled
 
                 name="Country"
-                value={props?.requestById?.buyer?.country}
+                value={props?.requestById?.buyer?.country?.name}
 
               />
             </div>
@@ -223,7 +223,7 @@ const AddressBook = (props) => {
                 className="company_name_input"
                 disabled
                 name="Country"
-                value={props?.requestById?.place?.country}
+                value={props?.requestById?.place?.country?.name}
 
               />
             </div>
@@ -292,12 +292,12 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div style={{ width: '48%' }}>
-              <label className="label_modal">contact name</label>
+              <label className="label_modal">contact last name</label>
               <InputField
                 className="company_name_input"
                 disabled
                 name="contactLastName"
-                value={props?.requestById?.place?.contact_name}
+                value={props?.requestById?.place?.contact_lname}
               />
             </div>
             <div style={{ width: '48%' }}>
@@ -306,7 +306,7 @@ const AddressBook = (props) => {
                 className="company_name_input"
                 disabled
                 name="contactFirsttName"
-                value={props?.requestById?.place?.conatct_fname}
+                value={props?.requestById?.place?.contact_fname}
               />
             </div>
           </div>

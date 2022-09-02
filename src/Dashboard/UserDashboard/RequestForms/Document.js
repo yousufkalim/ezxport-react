@@ -8,6 +8,7 @@ import API from '../../../api/index';
 import ProductForm from '../../../components/Common/ProductForm';
 
 const Document = (props) => {
+  console.log("🚀 ~ file: Document.js ~ line 11 ~ Document ~ props", props)
 
   const [countries, setCountries] = useState([]);
 
@@ -105,7 +106,7 @@ const Document = (props) => {
             </div>
           );
         })
-        //
+
       }
     </div>
   );

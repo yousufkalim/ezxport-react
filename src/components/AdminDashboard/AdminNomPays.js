@@ -58,6 +58,7 @@ const AdminNomPays = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [vendor, setVendor] = useState();
+  const [CountryName, setCountryName] = useState("");
   const [document, setDocument] = useState();
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
@@ -75,6 +76,7 @@ const AdminNomPays = () => {
   const handleCountryData = async () => {
     await API('get', `/countries/${id}`)
       .then((res) => {
+        setCountryName(res?.data?.country?.name)
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
@@ -100,7 +102,7 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; NomPays
+              &nbsp; {CountryName}
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
@@ -122,7 +124,7 @@ const AdminNomPays = () => {
                     onClick={() => setOpen(true)}
                   />
                 </div>
-                <Button text="Edit" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
+                    <Button text="Add BOMs" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country">

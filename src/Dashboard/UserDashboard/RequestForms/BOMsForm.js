@@ -12,10 +12,10 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '../../../assets/DeleteIcon.svg';
 import EditIcon from '../../../assets/EditIcon.svg';
 import Modal from '../../../components/Common/Modal';
+import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
 import InputField from '../../../components/Common/InputField';
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import { ReactComponent as Featured } from '../../../assets/Featured.svg';
-import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
 import API from '../../../api/index';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
@@ -271,6 +271,9 @@ const BOMsForm = (props) => {
                 <TableCell align="center" className="country">
                   Monetary value <img src={DownArrow} alt="" />
                 </TableCell>
+                  <TableCell align="center" className="country">
+                    certificate required<img src={DownArrow} alt="" />
+                  </TableCell>
 
                 <TableCell align="center" className="country">
                   Actions <img src={DownArrow} alt="" />
@@ -286,6 +289,9 @@ const BOMsForm = (props) => {
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: '20%' }}>
                     {item?.monetary_value}
+                  </TableCell>
+                  <TableCell align="center" className="country2" style={{ width: '20%' }}>
+                    {item?.certification_required === true ? "true" : "false"}
                   </TableCell>
 
                   <TableCell align="center" className="country2">
@@ -390,10 +396,10 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              Those products for <b>Gabon require a certification</b>
+              Those products for <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCountryOfCode} require a certification</span>
             </div>
             <div className="space">
-              Le tarif de cette certification est à hauteur de <b>{props.certificationCostOfCode}</b>
+              Le tarif de cette certification est à hauteur de <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
             </div>
           </div>
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" onClick={props.handleStep1} />
@@ -434,7 +440,7 @@ const BOMsForm = (props) => {
           <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      {/* <Modal
+      <Modal
         open={verificationModal}
         setOpen={setVerificationModal}
         handleClose={handleVerification}
@@ -470,7 +476,7 @@ const BOMsForm = (props) => {
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
           <Button text="Go back to my request" className="delete_bom_btn" />
         </div>
-      </Modal> */}
+      </Modal>
 
     </div>
   );

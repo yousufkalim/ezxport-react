@@ -160,7 +160,6 @@ const NameProvider = () => {
   const handleGetVendor = async () => {
     await API('get', `/vendors/${id}`)
       .then((res) => {
-        console.log(res, 'resssss');
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -190,7 +189,6 @@ const NameProvider = () => {
       countries: countries,
     })
       .then((res) => {
-        console.log('first,res', res);
         setOpen(false);
         toast.success('Service Provider Updated Successfully');
       })
@@ -200,9 +198,7 @@ const NameProvider = () => {
         toast.error(err.response.data.message);
       });
   };
-  //   const handleGetCountrybyId = () => {
-  //     countries;
-  //   };
+
   return (
     <>
       <div className="list_main_div">
@@ -213,7 +209,7 @@ const NameProvider = () => {
               <Link to="/Admin/Dashboard/Service">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; Service Providers
+              &nbsp; {formState.values.fullName}
             </h1>
             {value === 0 ? (
               <div className="searching2">

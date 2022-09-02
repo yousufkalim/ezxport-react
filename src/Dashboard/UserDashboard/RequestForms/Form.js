@@ -19,6 +19,10 @@ import ServiceproviderForm from './ServiceProvider';
 import { useHistory } from 'react-router-dom';
 import API from '../../../api/index';
 import { toast } from 'react-toastify';
+import Modal from '../../../components/Common/Modal';
+import { ReactComponent as Featured } from '../../../assets/Featured.svg';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
+
 const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -46,6 +50,7 @@ const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
+  const [platformSelect, setPlatformSelect] = useState(false)
   const history = useHistory(null);
   // requestId of request created
   const [requestId, setRequestedId] = useState('');
@@ -62,6 +67,7 @@ export default function HorizontalNonLinearStepper() {
   const [certificateRequire, setCertificateRequire] = useState(false);
   const [certificateNotRequire, setCertificateNotRequire] = useState(false);
   const [certificationCostOfCode, setCertificationCostOfCode] = useState('')
+  const [certificationCountryOfCode, setCertificationCountryOfCode] = useState('')
 
   // step 2 states
   const [step2, setStep2] = useState({
@@ -169,10 +175,10 @@ export default function HorizontalNonLinearStepper() {
       });
     });
     await API('post', '/requests/calculateCost', data).then((res) => {
-      console.log("qwertyurtyuiogfvhjvhj", res)
-      if (res.data.status === " Required") {
+      if (res.data.status === "Required") {
         setCertificateRequire(true)
-        setCertificationCostOfCode(res.data.certification_cost)
+        setCertificationCostOfCode(res?.data?.certification_cost)
+        setCertificationCountryOfCode(res?.data?.country)
       } else if (res.data.status === "Not Required") {
         setCertificateNotRequire(true)
       }
@@ -259,7 +265,7 @@ export default function HorizontalNonLinearStepper() {
         zipcode: step3.placeOfInspection.postalCode,
         address: step3.placeOfInspection.fullAddress,
         conatct_fname: step3.placeOfInspection.contactFirsttName,
-        contact_name: step3.placeOfInspection.contactLastName,
+        contact_lname: step3.placeOfInspection.contactLastName,
         user: userData._id,
       },
     })
@@ -270,11 +276,12 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log('handleStep3', err);
-        toast.error('Some Went Wrong');
-        toast.error(err.response.data.message)
+        toast.error(err.response.data.message.msg)
 
       });
   };
+  const handleSendFile = () => setPlatformSelect(true)
+
   const handleStep4 = async () => {
     let data = {
       request: requestId,
@@ -293,25 +300,24 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => {
         console.log('err--->', err);
         toast.error(err.response.data.message)
-
       });
   };
   const handleDocByCountryId = async () => {
-    await API('get', `/documents/getByCountry/62e37dd29a4ffb100c352814`) // country ID will be replaced after testing
+    await API('get', `/documents/getByCountry/${step1.country}`) 
       .then((res) => {
+        console.log("qwertyu", res)
         setCountryDoc(res.data.document);
       })
       .catch((err) => {
         console.log('handleDocByCountryId', err);
         toast.error(err.response.data.message)
-
       });
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
     formData.append('doc_id', docId);
     formData.append('file', file);
-    await API('put', `/requests/documentsUpload/62f635b1adbfcb5ffe17be07`, formData) 
+    await API('put', `/requests/documentsUpload/${requestId}`, formData) 
       .then((res) => {
         console.log('handleUploadDoc', res);
         setCountryDoc((prev) => {
@@ -350,7 +356,7 @@ export default function HorizontalNonLinearStepper() {
     });
   };
   const handleSeller = async () => {
-    await API('get', `/sellers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/sellers/getByUser/${userData._id}`)
       .then((res) => {
         setSeller(res.data.seller);
       })
@@ -361,7 +367,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleBuyer = async () => {
-    await API('get', `/buyers/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('get', `/buyers/getByUser/${userData._id}`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
@@ -372,7 +378,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handlePlaces = async () => {
-    await API('put', `/places/getByUser/62e3b220fa1f4d22d6cefcb4`)
+    await API('put', `/places/getByUser/${userData._id}`)
       .then((res) => {
         setPlaces(res.data.place);
       })
@@ -382,6 +388,44 @@ export default function HorizontalNonLinearStepper() {
 
       });
   };
+  const handleStripe = () => {
+    handleStep4()
+    const line_items = [
+      {
+        price_data: {
+          currency: 'USD',
+          product_data: {
+            name: step1.title,
+          },
+          unit_amount: (+certificationCostOfCode + 50) * 100,
+
+        },
+        quantity: 1,
+      },
+    ];
+    getSessionUrl(requestId, line_items);
+  }
+  const getSessionUrl = async (id, line_items) => {
+    try {
+      const response = await API('post', '/requests/Checkout', {
+        line_items: line_items,
+        metaData: { id },
+      });
+      window.location = response.data.url;
+    } catch (e) {
+      console.trace(e);
+    }
+  };
+
+
+  const handleSendEmail = async () => {
+    await API('put', `/requests/sendEmail/${requestId}`).then((res) => {
+      toast.success(res?.data?.message)
+    }).catch((err) => {
+      toast.error(err.response.data.message)
+    })
+  }
+
 
   useEffect(() => {
     handleSeller();
@@ -389,6 +433,7 @@ export default function HorizontalNonLinearStepper() {
     handlePlaces();
     handleDocByCountryId();
   }, []);
+  const handlePlatformSelect = () => setPlatformSelect(false)
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper
@@ -439,6 +484,7 @@ export default function HorizontalNonLinearStepper() {
                   certificateRequire={certificateRequire}
                   setCertificateRequire={setCertificateRequire}
                   certificationCostOfCode={certificationCostOfCode}
+                  certificationCountryOfCode={certificationCountryOfCode}
                   //certificate not Require modal
                   certificateNotRequire={certificateNotRequire}
                   setCertificateNotRequire={setCertificateNotRequire}
@@ -522,7 +568,7 @@ export default function HorizontalNonLinearStepper() {
                         ? handleStep2
                         : activeStep === 2
                         ? handleStep3
-                        : activeStep === 3 && handleStep4
+                          : activeStep === 3 && handleSendFile
                     }
                   />
                 </div>
@@ -531,6 +577,36 @@ export default function HorizontalNonLinearStepper() {
           </React.Fragment>
         )}
       </div>
+      <Modal
+        open={platformSelect}
+        setOpen={setPlatformSelect}
+        handleClose={handlePlatformSelect}
+      >
+        <div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div className="space">
+              <Logo />
+            </div>
+            <div className="space">
+              <Featured />
+            </div>
+            <div className="space">
+              Select a Platform to Continue your request
+            </div>
+          </div>
+          <Button1 text="Continue request on Ezxport Platform" className="to_confirm_btn" onClick={handleStripe} />
+          <Button1 text="Continue request on other Platform" className="delete_bom_btn" onClick={handleSendEmail} />
+        </div>
+      </Modal>
     </Box>
   );
 }

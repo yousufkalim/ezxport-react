@@ -3,26 +3,23 @@ import ValidateButton from '../../../components/Common/ValidateButton';
 import SwitchButton from '../../../components/Common/SwitchButton';
 import AddDocument from '../../../components/Common/AddDocument';
 import ProductInputs from '../../../components/Common/ProductInputs';
+import { Grid } from '@mui/material';
 
 const ExportDocuments = (props) => {
   return (
     <>
       <div className="ExportDocuments" style={{ marginBottom: '5%' }}>
         <ValidateButton text="Import documents specific to Gabon" />
+        {/* countryName={props?.requestById?.country?.name}  */}
         {/* switch   */}
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Proforma" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Import declaration" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Quality certificate" />
-          </div>
-        </div>
+        <Grid container spacing={2} sx={{ marginTop: '2rem', marginBottom: "2rem" }}>
+          {props?.requestById?.documents?.map((item) => {
+            return <Grid item xs={6} className="vendors_div">
+              <SwitchButton text={item?.doc_id?.name} />
+            </Grid>
+          })}
+        </Grid>
+
         {/* Request other documents  */}
         <AddDocument title="Request other documents for Gabon" />
         <ValidateButton text="8510860 – Nomenclature name" />
