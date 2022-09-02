@@ -231,7 +231,7 @@ const ServiceProviders = () => {
                           cursor: 'pointer',
                         }}
                       >
-                        {item.name}
+                        <p className="AP_plus_title">{item.name}</p>
                       </TableCell>
                       <TableCell
                         component="th"
@@ -246,7 +246,7 @@ const ServiceProviders = () => {
                         }}
                       >
                         {item.countries.map((country) => {
-                          return <p>{country.name}</p>;
+                          return <p className="AP_plus_title">{country.name}</p>;
                         })}
                       </TableCell>
                     </TableRow>

@@ -1,6 +1,6 @@
-import React from "react";
-import Dialog from "@mui/material/Dialog";
-import ClearIcon from "@mui/icons-material/Clear";
+import React from 'react';
+import Dialog from '@mui/material/Dialog';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Models = (props) => {
   return (
@@ -22,7 +22,7 @@ const Models = (props) => {
                     props?.setOpen(false);
                     props?.handleClose();
                   }}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 />
               )}
             </div>
