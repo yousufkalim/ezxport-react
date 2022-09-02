@@ -25,7 +25,7 @@
 .buyer_main {
   width: 95%;
   margin: auto;
-  padding: 3% 0;
+  padding: 3% 12px;
   overflow: hidden;
 }
 .luyer_input_field {
@@ -38,8 +38,8 @@
 }
 .buyer_h2 {
   font-size: 18px;
-  color: #141b29;
-  font-weight: 500;
+  color: black;
+  font-weight: 600;
 }
 .second_input_field {
   display: flex;

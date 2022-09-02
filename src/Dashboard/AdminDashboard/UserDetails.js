@@ -122,7 +122,7 @@ const UserDetails = () => {
               <Link to="/Admin/Dashboard/Users">
                 <img src={BackArrow} alt="" />
               </Link>
-              User
+              &nbsp; User
             </h1>
           </div>
 
@@ -142,7 +142,7 @@ const UserDetails = () => {
               </Box>
 
               <TabPanel value={value} index={0}>
-                <div className="list_table">
+                <div className="list_table" style={{ marginTop: '4%' }}>
                   <p className="title_text">Informations utilisateur</p>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
@@ -290,8 +290,7 @@ const UserDetails = () => {
                               }}
                             >
                               <TableCell component="th" scope="row">
-                                {item?.title}
-                                <br />
+                                <p className="AP_plus_title">{item?.title}</p>
                                 <p className="country2">{item?.country?.name}</p>
                               </TableCell>
                               <TableCell align="left" className="country2">

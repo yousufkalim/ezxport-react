@@ -1,24 +1,24 @@
-import SearchField from "../../components/Common/SearchField";
-import Button from "../../components/Common/Button";
-import BackArrow from "../../assets/BackArrow.svg";
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
-import AdminTab1 from "./AdminTab1";
-import AdminTab2 from "./AdminTab2";
-import AdminTab3 from "./AdminTab3";
-import AdminTab4 from "./AdminTab4";
-import DownArrow from "../../assets/TitleDownArrow.svg";
-import { useParams } from "react-router-dom";
-import API from "../../api/index";
-import FilePicker from "../../components/Common/FilePicker";
-import Icon from "../../assets/Quiz.png";
-import Modal from "../../components/Common/Modal";
-import TextFieldSelect from "../Common/TextFieldSelect";
+import SearchField from '../../components/Common/SearchField';
+import Button from '../../components/Common/Button';
+import BackArrow from '../../assets/BackArrow.svg';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import AdminTab1 from './AdminTab1';
+import AdminTab2 from './AdminTab2';
+import AdminTab3 from './AdminTab3';
+import AdminTab4 from './AdminTab4';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import { useParams } from 'react-router-dom';
+import API from '../../api/index';
+import FilePicker from '../../components/Common/FilePicker';
+import Icon from '../../assets/Quiz.png';
+import Modal from '../../components/Common/Modal';
+import TextFieldSelect from '../Common/TextFieldSelect';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,7 +49,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -73,7 +73,7 @@ const AdminNomPays = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
-    await API("get", `/countries/${id}`)
+    await API('get', `/countries/${id}`)
       .then((res) => {
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
@@ -82,7 +82,7 @@ const AdminNomPays = () => {
         setCurrentRadioValue(res?.data?.country?.calculation?.type);
       })
       .catch((err) => {
-        console.log("---->ERR", err);
+        console.log('---->ERR', err);
       });
   };
   const handleClose = () => setOpen(false);
@@ -96,99 +96,58 @@ const AdminNomPays = () => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div">
-            <h1 className="list_h1">
+            <h1 className="list_nom_h1">
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp;
-              NomPays
+              &nbsp; NomPays
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField
-                  placeholder="Searching"
-                  className="Country_search_input"
-                />
-                {/* <Button text="Modifier" className="Edit_btn" /> */}
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                <Button text="Edit" className="Edit_btn" />
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
-                <SearchField
-                  placeholder="Searching"
-                  className="Country_search_input"
-                />
-                <Button
-                  text="Create"
-                  className="Edit_btn"
-                  onClick={() => setOpenAddDocument(true)}
-                />
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                <Button text="Edit" className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-                  <SearchField
-                    placeholder="Searching"
-                    className="Country_search_input"
-                  />
+                  <SearchField placeholder="Searching" className="Country_search_input" />
                   <Button
                     text="Update BOMs"
                     className="update_Boms_btn"
                     onClick={() => setOpen(true)}
                   />
                 </div>
-                <Button
-                  text="Modifier"
-                  className="Edit_btn"
-                  onClick={() => setOpenAddBomModal(true)}
-                />
+                <Button text="Edit" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country">
-                <SearchField
-                  placeholder="Searching"
-                  className="Country_search_input"
-                />
-                {currentRadioValue === "coefficient" && (
+                <SearchField placeholder="Searching" className="Country_search_input" />
+                {currentRadioValue === 'coefficient' && (
                   <Button
-                    text="Modifier"
+                    text="Edit"
                     className="Edit_btn"
                     onClick={() => setOpenCalculationModal(true)}
                   />
                 )}
               </div>
             ) : (
-              ""
+              <></>
             )}
           </div>
           {/* list table   */}
           <div className="list_table">
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: '100%' }}>
               <Box>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  className="tab_menu"
-                >
-                  <Tab
-                    className="admin_tab_btn"
-                    label="Service providers"
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    className="admin_tab_btn"
-                    label="Documents"
-                    {...a11yProps(1)}
-                  />
-                  <Tab
-                    className="admin_tab_btn"
-                    label="BOMs"
-                    {...a11yProps(2)}
-                  />
-                  <Tab
-                    className="admin_tab_btn"
-                    label="Calculation"
-                    {...a11yProps(3)}
-                  />
+                <Tabs value={value} onChange={handleChange} className="tab_menu">
+                  <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
+                  <Tab className="admin_tab_btn" label="Documents" {...a11yProps(1)} />
+                  <Tab className="admin_tab_btn" label="BOMs" {...a11yProps(2)} />
+                  <Tab className="admin_tab_btn" label="Calculation" {...a11yProps(3)} />
                 </Tabs>
               </Box>
               {/* table 1 */}
@@ -250,21 +209,12 @@ const AdminNomPays = () => {
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              Télécharger votre fichier nomenclature{" "}
-              <img src={Icon} alt="" className="quiz_icon" />
+              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
             </label>
-            <Button
-              text="Télécharger le fichier actuel"
-              className="bom_downloadFile_btn"
-            />
+            <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
           </div>
-          <label
-            htmlFor=""
-            className="bom_popup_label"
-            style={{ paddingBottom: "10px" }}
-          >
-            Télécharger votre fichier nomenclature{" "}
-            <img src={Icon} alt="" className="quiz_icon" />
+          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
+            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
           </label>
           <FilePicker />
           <Button text="Actualiser" className="bom_downloadFile_btn" />
