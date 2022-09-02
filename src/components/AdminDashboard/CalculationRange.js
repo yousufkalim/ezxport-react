@@ -75,13 +75,13 @@ const CalculationRange = (props) => {
     }
   };
   const handleRangeData = async () => {
-    await API('get', `/calculations/${props.id}`)
+    await API('get', `/calculations/${props?.id}`)
       .then((res) => {
-        console.log(res, 'eeeeeee');
+        console.log(res, 'handleRangeData');
         setRangeData(res?.data?.calculation?.range);
       })
       .catch((err) => {
-        console.log(err, 'errrrrrr');
+        console.log(err, 'handleRangeData');
       });
   };
   const handleAddRange = async () => {
@@ -112,6 +112,27 @@ const CalculationRange = (props) => {
         console.log('handleAddRange', err);
       });
   };
+
+  const handleNewRange = async () => {
+    await API("post", `/calculations/`, {
+      country: props.CountryId,
+      type: "range",
+      range: {
+        min: formState.values.minCost,
+        max: formState.values.maxCost,
+        certificate_cost: formState.values.certificate,
+      },
+    })
+      .then((res) => {
+        console.log("handleAddCoefficient", res);
+        props.setOpenCalculationModal(false);
+        toast.success("Coefficient Added Successfully");
+      })
+      .catch((err) => {
+        console.log("handleAddCoefficient", err);
+      });
+
+  }
   const handleDeleteCalculation = async (calId) => {
     await API('put', `/calculations/deleteRange/${props?.id}`, {
       rangeId: calId,
@@ -265,9 +286,10 @@ const CalculationRange = (props) => {
                 </FormControl>
               </div>
             </div>
+            {console.log("wertyuytr", props.Calculation)}
             <button
               className={!formState.isValid ? 'AddSlice_button_disabled' : 'AddSlice_button'}
-              onClick={handleAddRange}
+              onClick={props.Calculation ? handleAddRange : handleNewRange}
               disabled={!formState.isValid ? true : false}
             >
               Ajouter la ligne

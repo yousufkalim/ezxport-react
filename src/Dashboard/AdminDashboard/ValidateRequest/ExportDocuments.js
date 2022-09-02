@@ -22,7 +22,8 @@ const ExportDocuments = (props) => {
 
         {/* Request other documents  */}
         <AddDocument title="Request other documents for Gabon" />
-        <ValidateButton text="8510860 – Nomenclature name" />
+
+        <ValidateButton text={` – Nomenclature name`} />
         {/* inputs */}
         <ProductInputs validText="Validated product" />
         {/* switch   */}
