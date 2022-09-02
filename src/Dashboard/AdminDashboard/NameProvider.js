@@ -215,7 +215,6 @@ const NameProvider = () => {
               </Link>
               &nbsp; Service Providers
             </h1>
-
             {value === 0 ? (
               <div className="searching2">
                 <Button

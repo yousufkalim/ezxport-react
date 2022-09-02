@@ -22,9 +22,9 @@
   height: 100vh;
 }
 .dashboard_logo {
-  /* padding: 0 0 5% 0; */
-  padding: 8px 12px;
-  width: 100%;
+  padding: 9px 9px;
+  width: 76%;
+  margin-bottom: 6%;
 }
 .dashboard_right_side {
   width: 80%;
