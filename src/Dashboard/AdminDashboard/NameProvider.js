@@ -211,7 +211,6 @@ const NameProvider = () => {
               </Link>
               &nbsp; {formState.values.fullName}
             </h1>
-
             {value === 0 ? (
               <div className="searching2">
                 <Button

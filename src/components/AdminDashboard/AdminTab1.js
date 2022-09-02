@@ -17,8 +17,7 @@ const AdminTab1 = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                Service providers sdfghjk
-                <img src={DownArrow} alt="" />
+                Service providers <img src={DownArrow} alt="" />
               </TableCell>
             </TableRow>
           </TableHead>
