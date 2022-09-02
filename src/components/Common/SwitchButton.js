@@ -7,6 +7,7 @@ const SwitchButton = (props) => {
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
+
         <p className="switch_p2">
           Document.pdf &nbsp; {props.pdfText} &nbsp; {props.pdfText2}
         </p>
