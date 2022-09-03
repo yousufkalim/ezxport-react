@@ -21,9 +21,19 @@
   font-weight: 600;
   line-height: 20px;
 }
+.css-1q2h7u5 {
+  font-family: 'Inter' !important;
+}
+.css-9sbb3g {
+  font-family: 'Inter' !important;
+}
+.css-1n786et {
+  font-family: 'Inter' !important;
+}
 .css-1q2h7u5.Mui-selected {
   color: #6941c6 !important;
   background-color: #f9f5ff !important;
+  font-family: 'Inter' !important;
 }
 .css-1ex1afd-MuiTableCell-root {
   font-family: 'Inter' !important;
