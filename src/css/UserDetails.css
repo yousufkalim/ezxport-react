@@ -59,6 +59,10 @@
 .css-ttwr4n {
   background-color: transparent !important;
 }
+.css-fvipm8 {
+  border: none !important;
+}
+
 @media screen and (max-width: 600px) {
   .userdetail_textField_div2 {
     width: 80%;
