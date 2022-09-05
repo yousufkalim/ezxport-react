@@ -54,11 +54,10 @@ const Dispatch = (props) => {
       prev.placeOfInspection.postalCode = SelectedPlace?.zipcode;
       prev.placeOfInspection.town = SelectedPlace?.city;
       prev.placeOfInspection.contactLastName = SelectedPlace?.contact_lname;
-      prev.placeOfInspection.contactFirsttName = SelectedPlace?.conatct_fname;
+      prev.placeOfInspection.contactFirstName = SelectedPlace?.conatct_fname;
       return { ...prev };
     });
   };
-
   useEffect(() => {
     handleSelectedSeller();
   }, [props?.step3?.sellerData?.seller]);
@@ -447,8 +446,8 @@ const Dispatch = (props) => {
             <InputField
               className="company_name_input"
               placeholder="contact first name"
-              name="contactFirsttName"
-              value={props?.step3?.placeOfInspection?.contactFirsttName}
+              name="contactFirstName"
+              value={props?.step3?.placeOfInspection?.contactFirstName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
