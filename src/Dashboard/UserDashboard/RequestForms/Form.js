@@ -161,6 +161,8 @@ export default function HorizontalNonLinearStepper() {
     setCompleted({});
   };
   const hanldeEstimateRequest = async () => {
+    console.log("in func")
+
     let data = {
       country: step1.country,
       user: step1.user,
@@ -175,12 +177,14 @@ export default function HorizontalNonLinearStepper() {
       });
     });
     await API('post', '/requests/calculateCost', data).then((res) => {
+      console.log("in API")
       if (res.data.status === "Required") {
         setCertificateRequire(true)
         setCertificationCostOfCode(res?.data?.certification_cost)
         setCertificationCountryOfCode(res?.data?.country)
       } else if (res.data.status === "Not Required") {
         setCertificateNotRequire(true)
+        setCertificationCountryOfCode(res?.data?.country)
       }
     }).catch((err) => {
       console.log("errrrr", err)
