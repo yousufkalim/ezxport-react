@@ -19,22 +19,31 @@ import Button from "../Common/Button";
 
 const schema = {
   minCost: {
-    presence: { allowEmpty: false },
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 6,
+    },
   },
   maxCost: {
-    presence: { allowEmpty: false },
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 6,
+    },
   },
   certificate: {
-    presence: { allowEmpty: false },
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 6,
+    },
   },
 };
 const CalculationRange = (props) => {
   const [rangeData, setRangeData] = useState();
   const [itemId, setItemId] = useState();
   const [editModal, setEditModal] = useState(false);
-  const [certificat, setCertificat] = useState();
-  const [minCost, setMinCost] = useState();
-  const [maxCost, setMaxCost] = useState();
+  // const [certificat, setCertificat] = useState();
+  // const [minCost, setMinCost] = useState();
+  // const [maxCost, setMaxCost] = useState();
   //
   const [rangeCertificat, setRangeCertificat] = useState();
   const [rangeMinCost, setRangeMinCost] = useState();
@@ -60,7 +69,7 @@ const CalculationRange = (props) => {
   }, [formState.values]);
 
   const handleValuesChange = (event) => {
-    if (!event.target.value.match(/[^0-9]/)) {
+    if (!event.target.value.match(/[^1-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -98,14 +107,13 @@ const CalculationRange = (props) => {
         setFormState((formState) => ({
           ...formState,
           values: {
-            ...formState.values,
             minCost: "",
             maxCost: "",
             certificate: "",
           },
         }));
-        setMaxCost("");
-        setCertificat("");
+        // setMaxCost("");
+        // setCertificat("");
         toast.success("Range added successfully");
       })
       .catch((err) => {
@@ -148,6 +156,8 @@ const CalculationRange = (props) => {
     handleRangeData();
   }, []);
   const handleEditModalClose = () => setEditModal(false);
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <>
@@ -259,6 +269,9 @@ const CalculationRange = (props) => {
                     //   setMinCostCurrency(e.target.value);
                     // }}
                   />
+                  <div className="error-format">
+                    {hasError("minCost") ? formState.errors.minCost[0] : null}
+                  </div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
@@ -274,6 +287,9 @@ const CalculationRange = (props) => {
                     //   setMaxCostCurrency(e.target.value);
                     // }}
                   />
+                  <div className="error-format">
+                    {hasError("maxCost") ? formState.errors.maxCost[0] : null}
+                  </div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
@@ -289,6 +305,11 @@ const CalculationRange = (props) => {
                     //   setMaxCostCurrency(e.target.value);
                     // }}
                   />
+                  <div className="error-format">
+                    {hasError("certificate")
+                      ? formState.errors.certificate[0]
+                      : null}
+                  </div>
                 </FormControl>
               </div>
             </div>
@@ -301,6 +322,7 @@ const CalculationRange = (props) => {
               onClick={handleAddRange}
               disabled={!formState.isValid ? true : false}
             >
+              {console.log("hr", handleAddRange)}
               Ajouter la ligne
             </button>
           </div>

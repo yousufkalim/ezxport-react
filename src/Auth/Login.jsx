@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import LoginIcon from "../assets/LoginIcon.svg";
-import Quiz from "../assets/Quiz.png";
 import { Link } from "react-router-dom";
 import Header from "../components/Common/Header";
 import API from "../api/index";
@@ -149,12 +148,7 @@ const Login = () => {
             </div>
           </div>
           <Button
-            className={
-              formState.isValid ||
-              (formState.values.email != "" && formState.values.password !== "")
-                ? "logingbtn"
-                : "logingbtn_disabled"
-            }
+            className={formState.isValid ? "logingbtn" : "logingbtn_disabled"}
             onClick={handleLoggin}
             text="To log in"
             disabled={!formState.isValid ? true : false}
