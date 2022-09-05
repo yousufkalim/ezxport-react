@@ -4,6 +4,8 @@ import FollowUp from '../Dashboard/UserDashboard/FollowUp';
 import Providers from '../Dashboard/UserDashboard/Providers';
 import AddressBook from '../Dashboard/UserDashboard/AddressBook';
 import Documents from '../Dashboard/UserDashboard/Documents';
+import Account from '../Dashboard/UserDashboard/Account';
+import CreateRequest from '../Dashboard/UserDashboard/CreateRequest';
 import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
 import Application from '../Dashboard/UserDashboard/Appplication/index.js';
 import Country from '../Dashboard/AdminDashboard/Country';
@@ -15,10 +17,11 @@ import { ReactComponent as Logo1 } from '../assets/LILogo1.svg';
 import { ReactComponent as Logo2 } from '../assets/LILogo2.svg';
 import { ReactComponent as Logo3 } from '../assets/LILogo3.svg';
 import { ReactComponent as Logo4 } from '../assets/LILogo4.svg';
-import Logo5 from '../assets/LILogo5.svg';
+// import Logo5 from '../assets/LILogo5.svg';
 import { ReactComponent as AdminLogo1 } from '../assets/AdminLogo1.svg';
 import { ReactComponent as AdminLogo2 } from '../assets/AdminLogo2.svg';
 import { ReactComponent as AdminLogo3 } from '../assets/AdminLogo3.svg';
+// import LILogo6 from '../assets/LILogo6.svg';
 
 export const UserRoutes = [
   {
@@ -45,18 +48,27 @@ export const UserRoutes = [
     icon: <Logo4 />,
     component: Documents,
   },
+
   // Routes cannot be add after this should be added before this comment
   {
     path: '/User/Dashboard/AskQuestion',
-    name: ' Ask a question',
-    icon: Logo5,
     component: AskQuestion,
+  },
+  {
+    path: '/User/Dashboard/Account',
+    component: Account,
   },
   {
     path: '/User/Dashboard/Application',
     name: 'Application',
     component: Application,
   },
+  // {
+  //   path: '/User/Dashboard/CreateRequest',
+  //   name: 'add Request',
+  //   icon: <Logo4 />,
+  //   component: CreateRequest,
+  // },
 ];
 
 export const AdminRoutes = [

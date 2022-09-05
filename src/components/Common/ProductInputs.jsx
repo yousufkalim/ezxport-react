@@ -1,6 +1,6 @@
 import React from 'react';
-import InputField from '../Common/InputField';
-import TextFieldSelect from '../Common/TextFieldSelect';
+import InputField from './InputField';
+import TextFieldSelect from './TextFieldSelect';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 

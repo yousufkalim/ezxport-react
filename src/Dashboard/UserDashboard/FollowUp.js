@@ -27,17 +27,17 @@ const FollowUp = () => {
       });
   };
   useEffect(() => {
-    let request = localStorage.getItem('Requested')
-    if (request === "true") {
-      setRequestedModal(true)
+    let request = localStorage.getItem('Requested');
+    if (request === 'true') {
+      setRequestedModal(true);
     }
     handleAllRequest();
   }, []);
 
   const history = useHistory();
   const handleRequested = () => {
-    setRequestedModal(false)
-    localStorage.removeItem('Requested')
+    setRequestedModal(false);
+    localStorage.removeItem('Requested');
   };
 
   return (
@@ -134,11 +134,13 @@ const FollowUp = () => {
                         )}
                       </TableCell>
                       <TableCell align="left">
-                        {item?.status === "not required" ?
+                        {item?.status === 'not required' ? (
                           <p className="clrClass">{item?.status}</p>
-                          : item?.status === "Missing Documents" ?
-                            <p className="missingDocStatus">{item?.status}</p>
-                            : "--"}
+                        ) : item?.status === 'Missing Documents' ? (
+                          <p className="missingDocStatus">{item?.status}</p>
+                        ) : (
+                          '--'
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}

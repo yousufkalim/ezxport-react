@@ -36,9 +36,9 @@ const AddressBook = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
-          <div className="List_heading_div">
-            <h1 className="list_h1">Address Book</h1>
-            <div className="searching">
+          <div className="List_heading_div4">
+            <h1 className="list_h1_address">Address Book</h1>
+            <div className="searching5">
               <SearchField placeholder="Searching" />
               <Button text="Add a buyer" className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
