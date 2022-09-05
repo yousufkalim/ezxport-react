@@ -113,7 +113,7 @@ export default function HorizontalNonLinearStepper() {
       postalCode: '',
       town: '',
       contactLastName: '',
-      contactFirsttName: '',
+      contactFirstName: '',
     },
   });
   const [sellers, setSeller] = useState([]);
@@ -161,8 +161,6 @@ export default function HorizontalNonLinearStepper() {
     setCompleted({});
   };
   const hanldeEstimateRequest = async () => {
-    console.log("in func")
-
     let data = {
       country: step1.country,
       user: step1.user,
@@ -268,7 +266,7 @@ export default function HorizontalNonLinearStepper() {
         city: step3.placeOfInspection.town,
         zipcode: step3.placeOfInspection.postalCode,
         address: step3.placeOfInspection.fullAddress,
-        conatct_fname: step3.placeOfInspection.contactFirsttName,
+        contact_fname: step3.placeOfInspection.contactFirstName,
         contact_lname: step3.placeOfInspection.contactLastName,
         user: userData._id,
       },
@@ -309,7 +307,7 @@ export default function HorizontalNonLinearStepper() {
   const handleDocByCountryId = async () => {
     await API('get', `/documents/getByCountry/${step1.country}`) 
       .then((res) => {
-        console.log("qwertyu", res)
+        console.log("handleDocByCountryId", res)
         setCountryDoc(res.data.document);
       })
       .catch((err) => {
@@ -432,10 +430,10 @@ export default function HorizontalNonLinearStepper() {
 
 
   useEffect(() => {
+    handleDocByCountryId();
     handleSeller();
     handleBuyer();
     handlePlaces();
-    handleDocByCountryId();
   }, []);
   const handlePlatformSelect = () => setPlatformSelect(false)
   return (
