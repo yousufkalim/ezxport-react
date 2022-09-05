@@ -1,83 +1,60 @@
-import React from 'react';
-import InputField from './InputField';
-import TextFieldSelect from './TextFieldSelect';
+import React, { useState } from 'react';
+import InputField from '../Common/InputField';
+import TextFieldSelect from '../Common/TextFieldSelect';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
+import AddProduct from '../Common/AddProduct';
+import SwitchButton from '../Common/SwitchButton';
+
+import { ReactComponent as Arrow } from '../../assets/arrow.svg';
 
 const ProductInputs = (props) => {
+  const [addProduct, setAddProduct] = useState(false);
+
   return (
     <>
       <label className="label_modal" style={{ marginTop: props.index1 !== 0 ? '2.5rem' : '1rem' }}>
         Product Name
       </label>
       <InputField
+        disabled
         className="product_name_textfield2"
-        name="productName"
-        placeholder="Product name"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        name="name"
+        value={props?.product?.name}
       />
-      <div className={`Validator_document_btn_div ${props.redText2}`}>
-        <select name="cars" id="cars" className={`ExportDocuments_btn2 ${props.redText2}`}>
-          <option value="volvo">
-            {props.validText} &nbsp; {props.Invalid}
-          </option>
-          <option value="saab">{props.validText}</option>
-          <option value="mercedes">{props.validText}</option>
-          <option value="audi">{props.validText}</option>
-          &nbsp;{' '}
-        </select>
-      </div>
-      {/* <button className={`ExportDocuments_btn2 ${props.redText2}`}>
-        {props.validText} &nbsp; {props.Invalid}
-        <span style={{ marginLeft: 'auto', display: 'inline-block', textAlign: 'right' }}>⮟</span>
-      </button> */}
-
+      {/* <div className={`Validator_document_btn_div ${props.redText2}`} style={{ display: "flex", alignItems: "center", }}>
+        <p className={`ExportDocuments_btn2 ${props.redText2}`}>Validated products</p>
+        <Arrow />
+      </div> */}
       <label className="label_modal" style={{ marginTop: '1rem' }}>
         Description
       </label>
       <InputField
+        disabled
         className="product_name_textfield2"
         name="description"
-        placeholder="Description"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        value={props?.product?.description}
       />
-      <div>
-        <label className="label_modal" style={{ marginTop: '1rem' }}>
-          Condition
-        </label>
-        <select
-          className="countrydropdown2"
-          defaultValue={'default'}
-          name="condition"
-          onChange={(e) => {
-            props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-          }}
-        >
-          <option value={'default'} disabled>
-            Product Condition
-          </option>
-          <option value="Bad">Bad</option>
-          <option value="Average">Average</option>
-          <option value="Good">Good</option>
-          <option value="Excellent">Excellent</option>
-        </select>
-      </div>
+      <label className="label_modal" style={{ marginTop: '1rem' }}>
+        Condition
+      </label>
+      <InputField
+        disabled
+        className="product_name_textfield2"
+        name="condition"
+        value={props?.product?.condition}
+      />
       <div className="inspection_textfield">
         <div style={{ width: '34%' }}>
           <label className="label_modal">Amount</label>
           <InputField
             className="company_name_input"
-            placeholder="Number"
+            disabled
             name="amount"
-            onChange={(e) => {
-              props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-            }}
+            value={props?.product?.amount}
           />
         </div>
+
         <div
           style={{
             width: '63%',
@@ -88,42 +65,24 @@ const ProductInputs = (props) => {
         >
           <div style={{ width: '48%' }}>
             <label className="label_modal">Unit of measure</label>
-            <select
+            <InputField
               className="company_name_input"
+              disabled
               name="unit"
-              onChange={(e) => {
-                props.handleProductChange(
-                  e.target.name,
-                  e.target.value,
-                  props.cindex,
-                  props.index1
-                );
-              }}
-            >
-              <option value="millimeter">Mm</option>
-              <option value="centimeter">Cm</option>
-              <option value="meter">M</option>
-              <option value="kilometer">Km</option>
-              <option value="inch">In</option>
-              <option value="foot/feet">Ft</option>
-            </select>
+              value={props?.product?.unit}
+            />
           </div>
           <div style={{ width: '48%' }}>
             <label className="label_modal" style={{ marginBottom: '0rem' }}>
               Price
             </label>
-
-            <TextFieldSelect
+            <InputField
+              className="company_name_input"
+              disabled
               name="price"
-              placeholder="$ Number"
-              onChange={(e) => {
-                props.handleProductChange(
-                  e.target.name,
-                  e.target.value,
-                  props.cindex,
-                  props.index1
-                );
-              }}
+              value={`${props?.product?.price?.value} ${
+                props?.product?.price?.currency === 'USD' ? '$' : '€'
+              }`}
             />
           </div>
         </div>
@@ -133,45 +92,62 @@ const ProductInputs = (props) => {
       </label>
       <InputField
         className="product_name_textfield2"
+        disabled
         name="Mark"
-        placeholder="Mark"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        value={props?.product?.mark}
       />
       <label className="label_modal" style={{ marginTop: '1rem' }}>
         Builder
       </label>
       <InputField
         className="product_name_textfield2"
+        disabled
         name="builder"
-        placeholder="Mark"
-        onChange={(e) => {
-          props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-        }}
+        value={props?.product?.builder}
       />
-      <div>
-        <label className="label_modal" style={{ marginTop: '1rem' }}>
-          Country
-        </label>
-        <Select
-          style={{ paddingTop: '8px' }}
-          className="countrydropdown2"
-          id="demo-simple-select"
-          defaultValue={'default'}
-          name="country"
-          onChange={(e) => {
-            props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
-          }}
+      <label className="label_modal" style={{ marginTop: '1rem' }}>
+        Country
+      </label>
+      <InputField
+        className="product_name_textfield2"
+        disabled
+        name="country"
+        value={props?.product?.country}
+      />
+      <div className="switch_buttons" style={{ position: 'relative' }}>
+        <div className="switch_column">
+          <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
+        </div>
+        <div className="switch_column">
+          <SwitchButton text="Test report" />
+        </div>
+        <div
+          className={`Validator_document_btn_div ${props.redText2}`}
+          style={{ position: 'absolute', right: '0' }}
         >
-          <MenuItem disabled value="default">
-            Country
-          </MenuItem>
-          {props.countries?.map((item) => {
-            return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
-          })}
-        </Select>
+          <p className="ExportDocuments_btn">
+            Validated documents <Arrow />
+          </p>
+        </div>
       </div>
+      <div className="switch_buttons">
+        <div className="switch_column">
+          <SwitchButton text="Technical sheet" />
+        </div>
+        <div className="switch_column">
+          <SwitchButton text="Test report" />
+        </div>
+      </div>
+      <div className="switch_buttons">
+        <div className="switch_column">
+          <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
+        </div>
+      </div>
+      <AddProduct
+        title="Ask for other documents for the product"
+        addProduct={addProduct}
+        setAddProduct={setAddProduct}
+      />
     </>
   );
 };

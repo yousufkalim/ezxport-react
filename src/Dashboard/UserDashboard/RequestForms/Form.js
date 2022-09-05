@@ -113,7 +113,7 @@ export default function HorizontalNonLinearStepper() {
       postalCode: '',
       town: '',
       contactLastName: '',
-      contactFirsttName: '',
+      contactFirstName: '',
     },
   });
   const [sellers, setSeller] = useState([]);
@@ -175,12 +175,14 @@ export default function HorizontalNonLinearStepper() {
       });
     });
     await API('post', '/requests/calculateCost', data).then((res) => {
+      console.log("in API")
       if (res.data.status === "Required") {
         setCertificateRequire(true)
         setCertificationCostOfCode(res?.data?.certification_cost)
         setCertificationCountryOfCode(res?.data?.country)
       } else if (res.data.status === "Not Required") {
         setCertificateNotRequire(true)
+        setCertificationCountryOfCode(res?.data?.country)
       }
     }).catch((err) => {
       console.log("errrrr", err)
@@ -264,7 +266,7 @@ export default function HorizontalNonLinearStepper() {
         city: step3.placeOfInspection.town,
         zipcode: step3.placeOfInspection.postalCode,
         address: step3.placeOfInspection.fullAddress,
-        conatct_fname: step3.placeOfInspection.contactFirsttName,
+        contact_fname: step3.placeOfInspection.contactFirstName,
         contact_lname: step3.placeOfInspection.contactLastName,
         user: userData._id,
       },
@@ -305,7 +307,7 @@ export default function HorizontalNonLinearStepper() {
   const handleDocByCountryId = async () => {
     await API('get', `/documents/getByCountry/${step1.country}`) 
       .then((res) => {
-        console.log("qwertyu", res)
+        console.log("handleDocByCountryId", res)
         setCountryDoc(res.data.document);
       })
       .catch((err) => {
@@ -428,10 +430,10 @@ export default function HorizontalNonLinearStepper() {
 
 
   useEffect(() => {
+    handleDocByCountryId();
     handleSeller();
     handleBuyer();
     handlePlaces();
-    handleDocByCountryId();
   }, []);
   const handlePlatformSelect = () => setPlatformSelect(false)
   return (
