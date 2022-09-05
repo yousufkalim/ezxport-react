@@ -278,7 +278,7 @@ const AdminTab3 = (props) => {
                       color: "#027A48",
                     }}
                   ></p>
-                  {row.certification_required === false ? (
+                  {row.certification_required === true ? (
                     <p
                       style={{
                         background: "#ECFDF3",
@@ -363,8 +363,8 @@ const AdminTab3 = (props) => {
             className="textfield_addvendor"
             onChange={(e) => setCertificate_status(e.target.value)}
           >
-            <option value={true}>Not subject</option>
-            <option value={false}>Subject to inspection</option>
+            <option value={false}>Not subject</option>
+            <option value={true}>Subject to inspection</option>
           </select>
           <label htmlFor="" className="label_modal">
             Select country for BOMs

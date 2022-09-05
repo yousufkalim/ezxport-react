@@ -1,21 +1,14 @@
 import React from 'react';
-
+import { ReactComponent as Arrow } from '../../assets/arrow.svg';
 const ValidateButton = (props) => {
   return (
     <>
       <div className="import_dcuments">
         <p className="ExportDocuments_p">{props.text}</p>
-        <div className={`Validator_document_btn_div ${props.redclass}`}>
-          <select name="cars" id="cars" className={`ExportDocuments_btn ${props.redclass2}`}>
-            <option value="volvo">Validated documents</option>
-            <option value="saab">Validated documents</option>
-            <option value="mercedes">Validated documents</option>
-            <option value="audi">Validated documents</option>
-          </select>
+        <div className={`Validator_document_btn_div ${props.redclass}`} onClick={props.onClick} style={{ cursor: "pointer" }}>
+          <p className={`ExportDocuments_btn ${props.redclass2}`}>Validated documents <Arrow /></p>
         </div>
-        {/* <button className={`ExportDocuments_btn ${props.redclass}`}>
-          Validated documents &nbsp; ⮟
-        </button> */}
+
       </div>
     </>
   );
