@@ -208,10 +208,10 @@ const ServiceProviders = () => {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                      Prestataire <img src={DownArrow} alt="" />
+                      Service provider <img src={DownArrow} alt="" />
                     </TableCell>
                     <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                      Pays associés &nbsp;
+                      Associated countries &nbsp;
                       <img src={DownArrow} alt="" />
                     </TableCell>
                   </TableRow>

@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from "react";
-import UserTable from "../../components/AdminDashboard/UserTable";
-import API from "../../api/index";
+import React, { useEffect, useState } from 'react';
+import UserTable from '../../components/AdminDashboard/UserTable';
+import API from '../../api/index';
 
 const HeadTitle = [
   {
-    list: "Last name",
+    list: 'Last name',
   },
   {
-    list: "First name",
+    list: 'First name',
   },
   {
-    list: "E-mail address",
+    list: 'E-mail address',
   },
   {
-    list: "Tééphone",
+    list: 'Telephone',
   },
   {
-    list: "Adresse",
+    list: 'Address',
   },
   {
-    list: "Code postal",
+    list: 'Postal code',
   },
   {
-    list: "Ville",
+    list: 'Town',
   },
   {
-    list: "Nom entreprise",
+    list: 'Company name',
   },
   {
-    list: "Type société",
+    list: 'Company type',
   },
   {
-    list: "Numéro de TVA",
+    list: 'VAT number',
   },
 ];
 
@@ -42,7 +42,7 @@ const Users = () => {
   }, []);
 
   const HandleAllUser = async () => {
-    await API("get", "/users/")
+    await API('get', '/users/')
       .then((res) => {
         setAllUsers(res.data.users);
       })
