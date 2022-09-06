@@ -13,12 +13,14 @@ import InputField from "../components/Common/InputField";
 const schema = {
   firstName: {
     presence: { allowEmpty: false, message: "is required" },
-    length: { minimum: 2 },
+    length: {
+      maximum: 32,
+    },
   },
   lastName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      minimum: 2,
+      maximum: 32,
     },
   },
   email: {
@@ -37,6 +39,9 @@ const schema = {
   },
   fullAddress: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
   },
   postelCode: {
     presence: { allowEmpty: false, message: "is required" },
@@ -47,11 +52,15 @@ const schema = {
   },
   town: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 32,
+    },
   },
   password: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       minimum: 6,
+      maximum: 32,
     },
   },
   confirmPassword: {
@@ -66,6 +75,10 @@ const schema = {
   },
   vatNumber: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      minimum: 13,
+      maximum: 13,
+    },
   },
 };
 
@@ -469,7 +482,7 @@ const Registration = () => {
                   onChange={handlePhnChange}
                 />
                 <div className="error-format">
-                  {hasError("vatNumber") && formState.errors.vatNumber}
+                  {hasError("vatNumber") ? formState.errors.vatNumber[0] : null}
                 </div>
               </div>
             </div>
