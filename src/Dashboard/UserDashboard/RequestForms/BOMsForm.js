@@ -12,15 +12,18 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '../../../assets/DeleteIcon.svg';
 import EditIcon from '../../../assets/EditIcon.svg';
 import Modal from '../../../components/Common/Modal';
+import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
 import InputField from '../../../components/Common/InputField';
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
 import { ReactComponent as Featured } from '../../../assets/Featured.svg';
-import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
 import API from '../../../api/index';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+
+
 const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = (props) => {
   const history = useHistory(null)
@@ -33,6 +36,7 @@ const BOMsForm = (props) => {
   const [requestByCountry, setRequestByCountry] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
+  const [loading, setLoading] = useState(false)
 
   const handleAllRequestByCountryId = async () => {
     await API('get', `/requests/getByCountry/${props?.step1?.country}`)
@@ -86,6 +90,7 @@ const BOMsForm = (props) => {
   };
 
   const handleDocument = async (file) => {
+    setLoading(true)
     setImportedFile(file);
     let formData = new FormData();
     formData.append('file', file);
@@ -93,6 +98,7 @@ const BOMsForm = (props) => {
     await API('post', '/boms/filterCodes', formData)
       .then((res) => {
         console.log("RESSS", res)
+        setLoading(false)
         let arr1 = [];
         res?.data?.matchedData.map((item) => {
           arr1.push({
@@ -107,6 +113,7 @@ const BOMsForm = (props) => {
         props?.setUnMatchedData(res?.data?.unMatched);
       })
       .catch((err) => {
+        setLoading(false)
         toast.error(err.response.data.message.msg)
         setImportedFile('')
       });
@@ -204,6 +211,13 @@ const BOMsForm = (props) => {
             justifyContent: 'flex-end',
           }}
         >
+          <div style={{
+            marginRight: "7px",
+          }}>
+            {loading ?
+              <CircularProgress color="secondary" />
+              : ""}
+          </div>
           <label className="import_Btn" htmlFor="file">
             {importedFile?.name || 'Import an XLS file'}
             <input
@@ -271,6 +285,9 @@ const BOMsForm = (props) => {
                 <TableCell align="center" className="country">
                   Monetary value <img src={DownArrow} alt="" />
                 </TableCell>
+                  <TableCell align="center" className="country">
+                    certificate required<img src={DownArrow} alt="" />
+                  </TableCell>
 
                 <TableCell align="center" className="country">
                   Actions <img src={DownArrow} alt="" />
@@ -286,6 +303,9 @@ const BOMsForm = (props) => {
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: '20%' }}>
                     {item?.monetary_value}
+                  </TableCell>
+                  <TableCell align="center" className="country2" style={{ width: '20%' }}>
+                    {item?.certification_required === true ? "true" : "false"}
                   </TableCell>
 
                   <TableCell align="center" className="country2">
@@ -390,10 +410,10 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              Those products for <b>Gabon require a certification</b>
+              Those products for <span className='bold_text_in_modal'>{props.certificationCountryOfCode} require a certification</span>
             </div>
             <div className="space">
-              Le tarif de cette certification est à hauteur de <b>{props.certificationCostOfCode}</b>
+              Le tarif de cette certification est à hauteur de <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
             </div>
           </div>
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" onClick={props.handleStep1} />
@@ -424,9 +444,9 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              Those products for <b>Gabon do not require a certification</b>
+              Those products for <span className='bold_text_in_modal'>{props.certificationCountryOfCode} do not require a certification</span>
             </div>
-            <div className="space">
+            <div className="space" style={{ textAlign: "center" }}>
               You can therefore send your goods without going through an organization.
             </div>
           </div>
@@ -434,7 +454,7 @@ const BOMsForm = (props) => {
           <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      {/* <Modal
+      <Modal
         open={verificationModal}
         setOpen={setVerificationModal}
         handleClose={handleVerification}
@@ -470,7 +490,7 @@ const BOMsForm = (props) => {
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" />
           <Button text="Go back to my request" className="delete_bom_btn" />
         </div>
-      </Modal> */}
+      </Modal>
 
     </div>
   );

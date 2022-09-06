@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Button = (props) => {
   return (
@@ -10,7 +10,7 @@ const Button = (props) => {
         disabled={props.disabled}
       >
         <img src={props.Imgsrc} alt="" />
-        &nbsp;
+        &nbsp; &nbsp;
         {props.text}
       </button>
     </>

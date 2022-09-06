@@ -22,9 +22,9 @@
   height: 100vh;
 }
 .dashboard_logo {
-  /* padding: 0 0 5% 0; */
-  padding: 8px 12px;
-  width: 100%;
+  padding: 9px 9px;
+  width: 76%;
+  margin-bottom: 6%;
 }
 .dashboard_right_side {
   width: 80%;
@@ -100,6 +100,23 @@
   display: flex;
   align-items: center;
 }
+.list_nom_h1 {
+  width: 80%;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+}
+.list_user_h1 {
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+}
+.list_rqst_h1 {
+  width: 66%;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+}
 .list_reqst_btn {
   text-decoration: none;
   border: none;
@@ -142,8 +159,8 @@
   display: inline-block !important;
 }
 .missingDocStatus {
-  color: #B54708 !important;
-  background: #FFFAEB;
+  color: #b54708 !important;
+  background: #fffaeb;
   border-radius: 16px;
   padding: 2px 4px !important;
   display: inline-block !important;
@@ -163,7 +180,14 @@
 .searching {
   position: relative;
   display: flex;
-  width: 40%;
+  width: 80%;
+  height: 40px;
+  justify-content: space-between;
+}
+.searching3 {
+  position: relative;
+  display: flex;
+  width: 90%;
   height: 40px;
   justify-content: space-between;
 }
@@ -183,6 +207,7 @@
 .searching_div_country {
   position: relative;
   display: flex;
+  justify-content: space-between;
   width: 50%;
   height: 40px;
 }
@@ -190,7 +215,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 70%;
+  width: 100%;
   height: 40px;
 }
 .list_reqst_btn2 {
@@ -206,6 +231,9 @@
   font-size: 14px;
   text-align: center;
   cursor: pointer;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
 }
 .list_reqst_btn3 {
   width: 300px;
@@ -221,17 +249,36 @@
   text-align: center;
   cursor: pointer;
 }
+.list_reqst_btn4 {
+  width: 37%;
+  margin: 0 0 0px 3%;
+  text-decoration: none;
+  border: none;
+  color: #fff;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
 .Edit_btn {
-  width: 20%;
+  width: 22%;
+  padding: 0 3% 0 0;
   background-color: #7f56d9;
   color: #fff;
-  font-size: 14px;
   border: 1px solid #7f56d9;
   border-radius: 8px;
   text-decoration: none;
-  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
-  margin-left: 1em;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  margin-left: 0em;
   cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
 }
 .update_Boms_btn {
   width: 40%;
@@ -243,9 +290,20 @@
   text-decoration: none;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   margin-left: 1em;
+  padding: 0 3% 0 0;
 }
 .search_input {
-  width: 100%;
+  width: 70%;
+  height: 100%;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  padding: 10px 30px;
+}
+.rqst_searching {
+  width: 100% !important;
+  background-color: red;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -254,7 +312,7 @@
   padding: 10px 30px;
 }
 .Country_search_input {
-  width: 70%;
+  width: 74%;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -432,7 +490,6 @@
   min-width: 0 !important;
 }
 
-
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .dashboard_li {
     font-size: 14px;
@@ -458,21 +515,109 @@
     box-sizing: content-box;
     margin-top: auto;
   }
+  .list_h1 {
+    font-size: 22px;
+    width: 45%;
+  }
+  .list_user_h1 {
+    font-size: 22px;
+    /* width: 45%; */
+  }
+  .list_rqst_h1 {
+    font-size: 22px;
+  }
+  .list_reqst_btn2 {
+    font-size: 13px;
+  }
+  .list_reqst_btn4 {
+    font-size: 13px;
+  }
+  .css-i4bv87-MuiSvgIcon-root {
+    width: 0.8em !important;
+    height: 1em;
+  }
+  .pagination_btn {
+    min-width: 13% !important;
+    font-size: 13px !important;
+  }
+  .list_nom_h1 {
+    width: 60%;
+    font-size: 22px;
+  }
+  .update_Boms_btn {
+    width: 70%;
+  }
+  .title_text {
+    font-size: 18px;
+  }
 }
 @media screen and (max-width: 900px) {
   .dashboard_li {
-    font-size: 14px;
+    font-size: 12px;
+  }
+  .list_h1 {
+    width: 52%;
+    font-size: 24px;
   }
   .list_reqst_btn2 {
-    width: 70%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+  }
+  .searching {
+    width: 100%;
+  }
+  .list_reqst_btn4 {
+    width: 56%;
+    font-size: 14px;
+  }
+  .dashboard_left_side {
+    padding: 2% 0%;
+  }
+  .AP_plus_title {
+    font-size: 12px;
+  }
+  .list_rqst_h1 {
+    width: 66%;
+    font-size: 24px;
+  }
+  .list_user_h1 {
+    font-size: 24px;
+  }
+  .list_nom_h1 {
+    width: 60%;
+    font-size: 22px;
+  }
+  .update_Boms_btn {
+    width: 46%;
+    color: #fff;
+    font-size: 13px;
+    margin-left: 1em;
+    padding: 0 1% 0 0;
+  }
+  .searching_div_style {
+    display: flex;
+    width: 71%;
   }
 }
 @media screen and (max-width: 780px) {
   .searching {
     width: 100%;
+    height: 35px;
+  }
+  .list_nom_h1 {
+    width: 50%;
+    font-size: 22px !important;
+  }
+  .update_Boms_btn {
+    width: 62%;
   }
   .list_reqst_btn2 {
-    width: 85%;
+    width: 55%;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
   }
   .hambrgr_icon {
     display: block !important;
@@ -511,15 +656,31 @@
   }
   .pagination_btn {
     padding: 2px 22px;
+    min-width: 20%;
+  }
+  .Coefficient_main {
+    width: 38%;
   }
   /* .searching_div_style {
     width: 70%;
   } */
+  .header_center_div {
+    padding: 7px 0;
+  }
+  .Coefficient_main {
+    width: 42% !important;
+  }
 }
 
 @media screen and (max-width: 600px) {
   .search_input {
-    display: none;
+    /* display: none; */
+  }
+  .Coefficient_main {
+    width: 70% !important;
+  }
+  .header_center_div {
+    padding: 7px 0;
   }
   .list_reqst_btn {
     font-size: 13px;
@@ -542,14 +703,15 @@
   }
   .Edit_btn {
     font-size: 12px;
-    width: 70%;
+    width: 53%;
+    margin-left: 11px;
   }
   .update_Boms_btn {
     font-size: 12px;
     width: 100%;
   }
   .searching_div_country2 {
-    width: 55%;
+    width: 100%;
   }
   .MuiTabs-flexContainer {
     /* display: grid !important; */
@@ -563,6 +725,19 @@
   }
   .list_h1 {
     margin-right: 10px;
+  }
+  .list_nom_h1 {
+    font-size: 20px;
+  }
+  .list_h1 {
+    width: 63% !important;
+  }
+  .searching3 {
+    width: 100% !important;
+    flex-direction: row-reverse !important;
+  }
+  .userdetail_textField_div {
+    width: 100%;
   }
 }
 @media screen and (max-width: 400px) {

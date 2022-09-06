@@ -57,7 +57,6 @@ const AdminTab3 = (props) => {
     touched: {},
     errors: {},
   });
-  console.log("cer", newCertificate_status);
 
   const hasError = (field) =>
     formState.touched[field] && formState.errors[field] ? true : false;
@@ -213,6 +212,21 @@ const AdminTab3 = (props) => {
         console.log("handleAddBom", res);
         props.handleCountryData();
         props.setOpenAddBomModal(false);
+        setFormState((formState) => ({
+          ...formState,
+          values: {
+            ...formState.values,
+            code: "",
+            certificate_status: "",
+            countries: "",
+          },
+          touched: {
+            ...updateBomCode.touched,
+            code: false,
+            certificate_status: false,
+            countries: false
+          },
+        }));
         toast.success("BOMs added successfully");
       })
       .catch((err) => {
@@ -264,7 +278,7 @@ const AdminTab3 = (props) => {
                       color: "#027A48",
                     }}
                   ></p>
-                  {row.certification_required === false ? (
+                  {row.certification_required === true ? (
                     <p
                       style={{
                         background: "#ECFDF3",
@@ -315,6 +329,7 @@ const AdminTab3 = (props) => {
         </Table>
       </TableContainer>
       <PaginationPage />
+      {/* update modal */}
       <Modal
         open={open}
         setOpen={setOpen}
@@ -348,8 +363,8 @@ const AdminTab3 = (props) => {
             className="textfield_addvendor"
             onChange={(e) => setCertificate_status(e.target.value)}
           >
-            <option value={true}>Not subject</option>
-            <option value={false}>Subject to inspection</option>
+            <option value={false}>Not subject</option>
+            <option value={true}>Subject to inspection</option>
           </select>
           <label htmlFor="" className="label_modal">
             Select country for BOMs
@@ -375,6 +390,7 @@ const AdminTab3 = (props) => {
           />
         </div>
       </Modal>
+      {/* Add modal */}
       <Modal
         open={props.openAddBomModal}
         setOpen={props.setOpenAddBomModal}

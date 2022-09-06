@@ -79,7 +79,7 @@ const ValidateForm = (props) => {
     await API('get', `/requests/${id}`)
       .then((res) => {
         console.log("🚀 ~ file: CompanyInformation.js ~ line 81 ~ .then ~ res", res)
-        setRequestById(res.data.requet)
+        setRequestById(res.data.request)
 
       })
       .catch((err) => {

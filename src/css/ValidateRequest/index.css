@@ -103,15 +103,14 @@
 .switch_column {
   width: 50%;
 }
-.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track{
+.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
   background-color: #7f56d9 !important;
 }
-.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
+.css-priqlz-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked {
   color: #7f56d9 !important;
 }
 .css-13xy2my {
   box-shadow: inherit !important;
-
 }
 .request_documents_title {
   font-size: 18px;
@@ -141,7 +140,7 @@
   padding-left: 10px;
 }
 .add_ducoment_div {
-  padding-top: 5%;
+  padding-top: 2%;
   display: flex;
   align-items: center;
 }
@@ -231,7 +230,7 @@
     width: 36%;
   }
   .postel_input {
-    width: 42% !important;
+    width: 35% !important;
   }
   .label_modal {
     font-size: 11px !important;

@@ -54,7 +54,17 @@
 }
 @media screen and (max-width: 780px) {
   .list_h1 {
+    width: 44%;
+  }
+  .UserTable {
     width: 100%;
+  }
+  .searchingRequest {
+    width: 50%;
+    height: 35px;
+  }
+  .searching3 {
+    height: 35px;
   }
   .table_li2 {
     padding-left: 0%;

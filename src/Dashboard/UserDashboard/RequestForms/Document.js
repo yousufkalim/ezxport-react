@@ -8,7 +8,6 @@ import API from '../../../api/index';
 import ProductForm from '../../../components/Common/ProductForm';
 
 const Document = (props) => {
-
   const [countries, setCountries] = useState([]);
 
   useEffect(() => {
@@ -20,6 +19,7 @@ const Document = (props) => {
       props.setProductCodes(product);
     }
     handleAllCountries();
+    props.handleDocByCountryId()
   }, [props?.createdCodes?.codes]);
   const handleProductChange = (name, value, cindex, index1) => {
 
@@ -56,6 +56,7 @@ const Document = (props) => {
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: '100%' }}>
+        {console.log("item", props)}
         {props?.CountryDoc?.map((item, index) => {
           return (
             <Grid item xs={6}>
@@ -105,7 +106,7 @@ const Document = (props) => {
             </div>
           );
         })
-        //
+
       }
     </div>
   );

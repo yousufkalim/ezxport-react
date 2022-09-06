@@ -33,9 +33,9 @@ const Requests = () => {
       <div className="list_second_div">
         {/* list head  */}
         <div className="List_heading_div">
-          <h1 className="list_h1">List of requests</h1>
+          <h1 className="list_rqst_h1">List of requests</h1>
           <div className="searchingRequest">
-            <SearchField placeholder="Searching" />
+            <SearchField placeholder="Searching" className="rqst_searching" />
           </div>
         </div>
         {/* list table   */}
@@ -69,8 +69,7 @@ const Requests = () => {
                     onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}
                   >
                     <TableCell component="th" scope="row">
-                      {item?.title}
-                      <br />
+                      <p className="AP_plus_title">{item?.title}</p>
                       <p className="country2">{item?.country?.name}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -100,11 +99,13 @@ const Requests = () => {
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {item?.status === "not required" ?
+                      {item?.status === 'not required' ? (
                         <p className="clrClass">{item?.status}</p>
-                        : item?.status === "Missing Documents" ?
-                          <p className="missingDocStatus">{item?.status}</p>
-                          : "--"}
+                      ) : item?.status === 'Missing Documents' ? (
+                        <p className="missingDocStatus">{item?.status}</p>
+                      ) : (
+                        '--'
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
