@@ -10,6 +10,7 @@ import Login from '../Auth/Login';
 import ForgetPassword from '../Auth/ForgetPassword';
 import ChangePassword from '../Auth/ChangePassword';
 import Registration from '../Auth/Registration';
+import Account from '../Dashboard/UserDashboard/Account';
 // AUTH Routes
 import UserLayouts from '../Layouts/UserLayouts';
 import AdminLayouts from '../Layouts/AdminLayouts';
@@ -60,6 +61,7 @@ const Index = ({ role }) => {
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Route path="/User/RequestForm" component={RequestForm} />
                 <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
+                {/* <Route exact path="/User/Dashboard/Account" component={Account} /> */}
               </>
             ) : role === 'admin' ? (
               <>

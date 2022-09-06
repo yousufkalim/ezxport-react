@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LILogo5 from '../../assets/LILogo5.svg';
 import LILogo6 from '../../assets/LILogo6.svg';
 import LILogo7 from '../../assets/LILogo7.svg';
+import Tooltip from '@mui/material/Tooltip';
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
@@ -34,7 +35,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     >
                       {item.icon}
                     </span>
-                    {item.name}
+                    {item?.name}
                   </Link>
                 </>
               );
@@ -69,17 +70,17 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               <Link
                 exact
                 to="/User/Dashboard/AskQuestion"
-                className={`${activeUploadButton === 5 && 'activeLi'} dashboard_li `}
-                onClick={() => handleActiveUploadButton(5)}
+                className={`${activeUploadButton === 6 && 'activeLi '} dashboard_li `}
+                onClick={() => handleActiveUploadButton(6)}
               >
                 <img src={LILogo5} alt="" className="li_img" />
                 Ask a question
               </Link>
               <Link
                 exact
-                to="#"
-                className={`${activeUploadButton === 6 && 'activeLi'} dashboard_li `}
-                onClick={() => handleActiveUploadButton(6)}
+                to="/User/Dashboard/Account"
+                className={`${activeUploadButton === 7 && 'activeLi'} dashboard_li `}
+                onClick={() => handleActiveUploadButton(7)}
               >
                 <img src={LILogo6} alt="" className="li_img" />
                 Account

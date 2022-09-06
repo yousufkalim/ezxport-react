@@ -5,7 +5,7 @@ const ApplicationHeader = () => {
   return (
     <div>
       <div className="List_heading_div">
-        <p className="list_h1">
+        <p className="list_h1_app">
           <ArrowBackIcon className="leftArrowIcon" />
           &nbsp; Application title
           <p className="send_p2">Sent</p>

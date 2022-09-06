@@ -9,7 +9,7 @@ import SwitchButton from '../Common/SwitchButton';
 import { ReactComponent as Arrow } from '../../assets/arrow.svg';
 
 const ProductInputs = (props) => {
-  const [addProduct, setAddProduct] = useState(false)
+  const [addProduct, setAddProduct] = useState(false);
 
   return (
     <>
@@ -35,7 +35,7 @@ const ProductInputs = (props) => {
         name="description"
         value={props?.product?.description}
       />
-        <label className="label_modal" style={{ marginTop: '1rem' }}>
+      <label className="label_modal" style={{ marginTop: '1rem' }}>
         Condition
       </label>
       <InputField
@@ -63,7 +63,6 @@ const ProductInputs = (props) => {
             alignItems: 'center',
           }}
         >
-
           <div style={{ width: '48%' }}>
             <label className="label_modal">Unit of measure</label>
             <InputField
@@ -72,7 +71,7 @@ const ProductInputs = (props) => {
               name="unit"
               value={props?.product?.unit}
             />
-          </div> 
+          </div>
           <div style={{ width: '48%' }}>
             <label className="label_modal" style={{ marginBottom: '0rem' }}>
               Price
@@ -81,7 +80,9 @@ const ProductInputs = (props) => {
               className="company_name_input"
               disabled
               name="price"
-              value={`${props?.product?.price?.value} ${props?.product?.price?.currency === "USD" ? "$" : "€"}`}
+              value={`${props?.product?.price?.value} ${
+                props?.product?.price?.currency === 'USD' ? '$' : '€'
+              }`}
             />
           </div>
         </div>
@@ -103,7 +104,6 @@ const ProductInputs = (props) => {
         disabled
         name="builder"
         value={props?.product?.builder}
-
       />
       <label className="label_modal" style={{ marginTop: '1rem' }}>
         Country
@@ -125,7 +125,9 @@ const ProductInputs = (props) => {
           className={`Validator_document_btn_div ${props.redText2}`}
           style={{ position: 'absolute', right: '0' }}
         >
-          <p className="ExportDocuments_btn">Validated documents <Arrow /></p>
+          <p className="ExportDocuments_btn">
+            Validated documents <Arrow />
+          </p>
         </div>
       </div>
       <div className="switch_buttons">
@@ -141,8 +143,11 @@ const ProductInputs = (props) => {
           <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
         </div>
       </div>
-      <AddProduct title="Ask for other documents for the product" addProduct={addProduct}
-        setAddProduct={setAddProduct} />
+      <AddProduct
+        title="Ask for other documents for the product"
+        addProduct={addProduct}
+        setAddProduct={setAddProduct}
+      />
     </>
   );
 };

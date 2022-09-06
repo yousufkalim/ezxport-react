@@ -17,7 +17,7 @@ const AskQuestion = () => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div">
-            <h1 className="list_h1">Poser une question</h1>
+            <h1 className="list_h1">Ask a question</h1>
           </div>
           {/* list table   */}
           <div className="question_form">
