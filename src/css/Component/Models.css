@@ -34,6 +34,7 @@
 .buyer_heading {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .buyer_h2 {
   font-size: 18px;
