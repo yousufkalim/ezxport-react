@@ -21,11 +21,19 @@ import validate from "validate.js";
 const schema = {
   code: {
     presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 16,
+      minimum: 4,
+    },
   },
 };
 const updateSchema = {
   bomCode: {
     presence: { allowEmpty: false, message: "is required" },
+  },
+  length: {
+    maximum: 16,
+    minimum: 4,
   },
 };
 
@@ -95,6 +103,21 @@ const AdminTab3 = (props) => {
         [event.target.name]: true,
       },
     }));
+  };
+  const handleNumberChange = (event) => {
+    if (!event.target.value.match(/[^0-9]/)) {
+      setFormState((formState) => ({
+        ...formState,
+        values: {
+          ...formState.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...formState.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
   };
   const handleUpdateBomChange = (event) => {
     setUpdateBomCode((updateBomCode) => ({
@@ -394,7 +417,7 @@ const AdminTab3 = (props) => {
                 ? "textfield_addvendor_red"
                 : "textfield_addvendor"
             }
-            onChange={handleChange}
+            onChange={handleNumberChange}
           />
           <div className="error-format">
             {hasError("code") ? formState.errors.code[0] : null}
