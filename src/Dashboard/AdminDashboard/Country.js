@@ -241,6 +241,7 @@ const Country = () => {
         console.log(err, "<----");
       });
   };
+  let sorted = countries.sort((a, b) => (a.name > b.name ? 1 : -1));
   useEffect(() => {
     handleCountries();
     setDropdown("default");
@@ -306,7 +307,7 @@ const Country = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {countries.map((item) => (
+                  {sorted.map((item) => (
                     <TableRow key={item.name}>
                       <TableCell
                         component="th"
