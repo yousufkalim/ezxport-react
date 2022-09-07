@@ -10,11 +10,7 @@ import { toast } from "react-toastify";
 function createData(name, calories, fat, carbs, protein, protein2) {
   return { name, calories, fat, carbs, protein, protein2 };
 }
-const rows = [
-  createData("500 €", "999 €", "300 €", "22"),
-  createData("500 €", "999 €", "300 €", "22"),
-  createData("500 €", "999 €", "300 €", "22"),
-];
+
 const AdminTab4 = (props) => {
   // const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
 
@@ -55,7 +51,7 @@ const AdminTab4 = (props) => {
       });
   };
   const handleAddCoefficient = async () => {
-    await API("put", `/calculations/`, {
+    await API("post", `/calculations/`, {
       country: props.countryId,
       type: "coefficient",
       coefficient: coefficient,
@@ -119,7 +115,7 @@ const AdminTab4 = (props) => {
       </div>
 
       {props.currentRadioValue === "range" ? (
-        <CalculationRange id={props?.calculation?._id} />
+        <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} />
       ) : props.currentRadioValue === "coefficient" ? (
         <>
           <div className="Coefficient_main">
@@ -303,7 +299,6 @@ const AdminTab4 = (props) => {
                 : false
             }
           />
-          {console.log(" maxCost", maxCost)}
         </div>
       </Modal>
     </>

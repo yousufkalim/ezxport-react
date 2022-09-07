@@ -17,7 +17,7 @@ const AskQuestion = () => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div">
-            <h1 className="list_h1">Poser une question</h1>
+            <h1 className="list_h1">Ask a question</h1>
           </div>
           {/* list table   */}
           <div className="question_form">
@@ -30,7 +30,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '7px' }}
+                  style={{ paddingTop: '3px' }}
                 >
                   <MenuItem value="default">A demand</MenuItem>
                   <MenuItem value={10}>A demand</MenuItem>
@@ -47,7 +47,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '7px' }}
+                  style={{ paddingTop: '3px' }}
                 >
                   <MenuItem value="default">Application Title – Date</MenuItem>
                   <MenuItem value={10}>Application Title – Date</MenuItem>

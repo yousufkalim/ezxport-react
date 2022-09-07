@@ -191,7 +191,7 @@ const ServiceProviders = () => {
           {/* list head  */}
           <div className="List_heading_div">
             <h1 className="list_h1">Service providers</h1>
-            <div className="searching">
+            <div className="searching3">
               <SearchField placeholder="Searching" />
               <Button
                 className="list_reqst_btn2"
@@ -211,60 +211,50 @@ const ServiceProviders = () => {
               >
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
-                    >
-                      Prestataire <img src={DownArrow} alt="" />
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      Service provider <img src={DownArrow} alt="" />
                     </TableCell>
-                    <TableCell
-                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
-                    >
-                      Pays associés &nbsp;
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      Associated countries &nbsp;
                       <img src={DownArrow} alt="" />
                     </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {vendors?.map((item) => {
-                    return (
-                      <TableRow key={item.name}>
-                        <TableCell
-                          onClick={() => {
-                            history.push(
-                              `/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`
-                            );
-                          }}
-                          component="th"
-                          scope="row"
-                          sx={{
-                            border: "1px solid #E5E5E5;",
-                            padding: 2,
-                            cursor: "pointer",
-                          }}
-                        >
-                          {item.name}
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            border: "1px solid #E5E5E5;",
-                            padding: 2,
-                            cursor: "pointer",
-                          }}
-                          onClick={() => {
-                            history.push(
-                              `/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`
-                            );
-                          }}
-                        >
-                          {item.countries.map((country) => {
-                            return <p>{country.name}</p>;
-                          })}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                  {vendors?.map((item) => (
+                    <TableRow key={item.name}>
+                      <TableCell
+                        onClick={() => {
+                          history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
+                        }}
+                        component="th"
+                        scope="row"
+                        sx={{
+                          border: '1px solid #E5E5E5;',
+                          padding: 2,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <p className="AP_plus_title">{item.name}</p>
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{
+                          border: '1px solid #E5E5E5;',
+                          padding: 2,
+                          cursor: 'pointer',
+                        }}
+                        onClick={() => {
+                          history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
+                        }}
+                      >
+                        {item.countries.map((country) => {
+                          return <p className="AP_plus_title">{country.name}</p>;
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>

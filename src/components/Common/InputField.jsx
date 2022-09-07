@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 // import Quiz from '../assets/Quiz.png';
 
 const InputField = (props) => {
@@ -18,9 +18,7 @@ const InputField = (props) => {
           autoComplete="new-password"
         />
         <img src={props.icon} alt="" className="quizIcon" />
-        {props.visibleEye && (
-          <props.icon2 className="quizIcon" onClick={props.onClick} />
-        )}
+        {props.visibleEye && <props.icon2 className="quizIcon" onClick={props.onClick} />}
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from "../Common/Button";
-import SearchField from "../Common/SearchField";
+import Button from '../Common/Button';
+import SearchField from '../Common/SearchField';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,7 +11,7 @@ import Paper from '@mui/material/Paper';
 import ExportIcon from '../../assets/ExportIcon.svg';
 import PaginationPage from './Pagination';
 import { useHistory } from 'react-router-dom';
-import icon from "../../assets/TitleDownArrow.svg";
+import icon from '../../assets/TitleDownArrow.svg';
 
 const UserTable = (props) => {
   const history = useHistory();
@@ -22,7 +22,7 @@ const UserTable = (props) => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="UserTable">
-            <h1 className="list_h1">{props.title}</h1>
+            <h1 className="list_user_h1">{props.title}</h1>
             <div className="UserTable_right_div">
               <SearchField placeholder="Searching" />
               <Button className="export_btn" text="Export list" Imgsrc={ExportIcon} />
@@ -39,8 +39,8 @@ const UserTable = (props) => {
                         className="table_head"
                         align="left"
                         sx={{
-                          color: "#667085",
-                          backgroundColor: "#F9FAFB;",
+                          color: '#667085',
+                          backgroundColor: '#F9FAFB;',
                         }}
                       >
                         {item.list}
@@ -57,38 +57,38 @@ const UserTable = (props) => {
                         history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
                       }}
                       key={row.name}
-                      sx={{ cursor: "pointer", border: "1px solid #E5E5E5;" }}
+                      sx={{ cursor: 'pointer', border: '1px solid #E5E5E5;' }}
                     >
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.last_name}
+                        <p className="AP_plus_title">{row.last_name}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.first_name}
+                        <p className="AP_plus_title">{row.first_name}</p>
                       </TableCell>
 
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.email}
+                        <p className="AP_plus_title">{row.email}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.phone_number}
+                        <p className="AP_plus_title">{row.phone_number}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.address}
+                        <p className="AP_plus_title">{row.address}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.zip_code || row.zipcode}
+                        <p className="AP_plus_title">{row.zip_code || row.zipcode}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.city}
+                        <p className="AP_plus_title">{row.city}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.company.name}
+                        <p className="AP_plus_title">{row.company.name}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.company.type}
+                        <p className="AP_plus_title">{row.company.type}</p>
                       </TableCell>
                       <TableCell component="th" scope="row" align="left" className="table_cell">
-                        {row.company.vat}
+                        <p className="AP_plus_title">{row.company.vat}</p>
                       </TableCell>
                     </TableRow>
                   ))}

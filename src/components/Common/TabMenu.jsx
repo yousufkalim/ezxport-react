@@ -60,7 +60,7 @@ const rows = [
     'mail@mail.com',
     'address',
     '+33 07 83 73 82 32',
-    '97 chaussée de rouvroy',
+    '97 road of rouvroy',
     DotedIcon
   ),
   createData(
@@ -69,7 +69,7 @@ const rows = [
     'mail@mail.com',
     'address',
     '+33 07 83 73 82 32',
-    '97 chaussée de rouvroy',
+    '97 road of rouvroy',
     DotedIcon
   ),
   createData(
@@ -78,7 +78,7 @@ const rows = [
     'mail@mail.com',
     'address',
     '+33 07 83 73 82 32',
-    '97 chaussée de rouvroy',
+    '97 road of rouvroy',
     DotedIcon
   ),
   createData(
@@ -87,7 +87,7 @@ const rows = [
     'mail@mail.com',
     'address',
     '+33 07 83 73 82 32',
-    '97 chaussée de rouvroy',
+    '97 road of rouvroy',
     DotedIcon
   ),
   createData(
@@ -96,7 +96,7 @@ const rows = [
     'mail@mail.com',
     'address',
     '+33 07 83 73 82 32',
-    '97 chaussée de rouvroy',
+    '97 road of rouvroy',
     DotedIcon
   ),
 ];

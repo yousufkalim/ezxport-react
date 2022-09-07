@@ -7,15 +7,19 @@ const SwitchButton = (props) => {
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
-        <p className="switch_p2">
-          Document.pdf &nbsp; {props.pdfText} &nbsp; {props.pdfText2}
-        </p>
+        {props?.item?.url?.map((item) => {
+          var filename = item.split('-').slice(-3).reverse().pop()
+          return <p className="switch_p2" >{filename}</p>
+        })}
+        &nbsp; {props.pdfText} &nbsp; {props.pdfText2}
         <FormControlLabel
-          value="Valid"
+          name={props.name}
+          onChange={props.onChange}
+          checked={props.checked}
           control={<Switch color="secondary" />}
-          label="Valid"
+          label={props.label}
           labelPlacement="Valid"
-          // checked
+          value={props.value}
         />
       </div>
     </>

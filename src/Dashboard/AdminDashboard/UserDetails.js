@@ -104,7 +104,8 @@ const UserDetails = () => {
   const handleRequestByUserId = async () => {
     await API('get', `/requests/getByUser/${id}`)
       .then((res) => {
-        setRequestById(res?.data?.requet);
+        console.log("🚀 ~ file: UserDetails.js ~ line 107 ~ .then ~ res", res)
+        setRequestById(res?.data?.request);
         // console.log("first", res.data);
       })
       .catch((err) => {
@@ -122,7 +123,7 @@ const UserDetails = () => {
               <Link to="/Admin/Dashboard/Users">
                 <img src={BackArrow} alt="" />
               </Link>
-              User
+              &nbsp; {`${lastName} ${firstName}`}
             </h1>
           </div>
 
@@ -142,7 +143,7 @@ const UserDetails = () => {
               </Box>
 
               <TabPanel value={value} index={0}>
-                <div className="list_table">
+                <div className="list_table" style={{ marginTop: '4%' }}>
                   <p className="title_text">Informations utilisateur</p>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
@@ -236,99 +237,105 @@ const UserDetails = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  <>
-                    <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                          <TableRow>
-                            <TableCell
-                              align="left"
-                              className="country"
-                              style={{ backgrounColor: '#EAECF0' }}
-                            >
-                              Demande
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              className="country"
-                              style={{ backgrounColor: '#EAECF0' }}
-                            >
-                              Date
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              className="country"
-                              style={{ backgrounColor: '#EAECF0' }}
-                            >
-                              Certificate cost
-                            </TableCell>
-
-                            <TableCell
-                              align="left"
-                              className="country"
-                              style={{ backgrounColor: '#EAECF0' }}
-                            >
-                              Service providers
-                            </TableCell>
-                            <TableCell
-                              align="left"
-                              className="country"
-                              style={{ backgrounColor: '#EAECF0' }}
-                            >
-                              Status
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {requestById?.map((item) => (
-                            <TableRow
-                              key={item?._id}
-                              sx={{
-                                '&:last-child td, &:last-child th': {
-                                  border: 0,
-                                },
-                              }}
-                            >
-                              <TableCell component="th" scope="row">
-                                {item?.title}
-                                <br />
-                                <p className="country2">{item?.country?.name}</p>
+                  {requestById?.length !== 0 ?
+                    <>
+                      <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: '#EAECF0' }}
+                              >
+                                Demande
                               </TableCell>
-                              <TableCell align="left" className="country2">
-                                {Moment(item?.createdAt).format('DD/MM/YYYY')}
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: '#EAECF0' }}
+                              >
+                                Date
                               </TableCell>
-                              <TableCell align="left" className="country2">
-                                {item?.certification_cost?.value ? (
-                                  <>
-                                    {item?.certification_cost?.currency === 'USD'
-                                      ? item?.certification_cost?.value + '$'
-                                      : item?.certification_cost?.currency === 'EURO' &&
-                                        item?.certification_cost?.value + '€'}
-                                  </>
-                                ) : (
-                                  '--'
-                                )}
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: '#EAECF0' }}
+                              >
+                                Certificate cost
                               </TableCell>
 
-                              <TableCell align="left" className="country2">
-                                {item?.vendor?.contact_lname ? (
-                                  <>
-                                    {item?.vendor?.contact_lname}
-                                    {item?.vendor?.contact_fname}
-                                  </>
-                                ) : (
-                                  '--'
-                                )}
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: '#EAECF0' }}
+                              >
+                                Service providers
                               </TableCell>
-                              <TableCell align="left">
-                                <p className="clrClass">{item.status}</p>
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: '#EAECF0' }}
+                              >
+                                Status
                               </TableCell>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </TableContainer>
-                  </>
+                          </TableHead>
+                          <TableBody>
+                            {requestById?.map((item) => (
+                              <TableRow
+                                key={item?._id}
+                                sx={{
+                                  '&:last-child td, &:last-child th': {
+                                    border: 0,
+                                  },
+                                }}
+                              >
+                                <TableCell component="th" scope="row">
+                                  <p className="AP_plus_title">{item?.title}</p>
+                                  <p className="country2">{item?.country?.name}</p>
+                                </TableCell>
+                                <TableCell align="left" className="country2">
+                                  {Moment(item?.createdAt).format('DD/MM/YYYY')}
+                                </TableCell>
+                                <TableCell align="left" className="country2">
+                                  {item?.certification_cost?.value ? (
+                                    <>
+                                      {item?.certification_cost?.currency === 'USD'
+                                        ? item?.certification_cost?.value + '$'
+                                        : item?.certification_cost?.currency === 'EURO' &&
+                                        item?.certification_cost?.value + '€'}
+                                    </>
+                                  ) : (
+                                    '--'
+                                  )}
+                                </TableCell>
+
+                                <TableCell align="left" className="country2">
+                                  {item?.vendor?.contact_lname ? (
+                                    <>
+                                      {item?.vendor?.contact_lname}
+                                      {item?.vendor?.contact_fname}
+                                    </>
+                                  ) : (
+                                    '--'
+                                  )}
+                                </TableCell>
+                                <TableCell align="left">
+                                  <p className="clrClass">{item.status}</p>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </> :
+                    <>
+                      <h1 style={{ textAlign: "center", color: "#667085" }}>No request created by {`${lastName} ${firstName}`}
+                      </h1>
+                    </>
+                  }
+
                 </div>
               </TabPanel>
             </Box>

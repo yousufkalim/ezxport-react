@@ -42,7 +42,10 @@ const ServiceProvider = (props) => {
         })}
       </Grid>
       {/* </div> */}
-      <div style={{ marginBottom: '0', marginTop: '2%', display: 'flex', alignItems: 'center' }}>
+      <div
+        className="DoYouHave"
+        style={{ marginBottom: '0', display: 'flex', alignItems: 'center' }}
+      >
         <input
           type="checkbox"
           className="checkBox"

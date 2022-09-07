@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from "react";
-import PaginationPage from "./Pagination";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Modal from "../Common/Modal";
-import InputField from "../Common/InputField";
-import Button from "../Common/Button";
-import API from "../../api/index";
-import { toast } from "react-toastify";
-import DeleteIcon from "../../assets/DeleteIcon.svg";
-import validate from "validate.js";
+import React, { useState, useEffect } from 'react';
+import PaginationPage from './Pagination';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '../Common/Modal';
+import InputField from '../Common/InputField';
+import Button from '../Common/Button';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import validate from 'validate.js';
 
 const schema = {
   name: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
   },
   info: {
-    presence: { allowEmpty: false, message: " is required" },
+    presence: { allowEmpty: false, message: ' is required' },
   },
 };
 
@@ -28,8 +28,8 @@ const AdminTab2 = (props) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      name: "",
-      info: "",
+      name: '',
+      info: '',
     },
     touched: {},
     errors: {},
@@ -38,28 +38,28 @@ const AdminTab2 = (props) => {
   // const [info, setInfo] = useState("");
 
   const handleAddDocuments = async () => {
-    await API("post", "/documents/", {
+    await API('post', '/documents/', {
       name: formState.values.name,
       info: formState.values.info,
       countries: [props.countryId],
     })
       .then((res) => {
-        console.log("handleAddDocuments", res);
+        console.log('handleAddDocuments', res);
         props.handleCountryData();
         props.setOpenAddDocument(false);
-        toast.success("Document Added Successfully");
+        toast.success('Document Added Successfully');
         setFormState((formState) => ({
           ...formState,
           values: {
-            name: "",
-            info: "",
+            name: '',
+            info: '',
           },
           touched: {},
           errors: {},
         }));
       })
       .catch((err) => {
-        console.log("handleAddDocuments", err);
+        console.log('handleAddDocuments', err);
         props.setOpenAddDocument(false);
         toast.error(err.response.data.message);
       });
@@ -75,11 +75,11 @@ const AdminTab2 = (props) => {
   }, [formState.values]);
 
   const handleDocumentDelete = async (id) => {
-    await API("delete", `/documents/${id}`)
+    await API('delete', `/documents/${id}`)
       .then((res) => {
         console.log(res);
         props.handleCountryData();
-        toast.success("Document Deleted Successfully");
+        toast.success('Document Deleted Successfully');
       })
       .catch((err) => {
         console.log(err);
@@ -99,21 +99,20 @@ const AdminTab2 = (props) => {
       },
     }));
   };
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Documents <img src={props.img} alt="" />
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Help Information <img src={props.img} alt="" />
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Actions <img src={props.img} alt="" />
               </TableCell>
             </TableRow>
@@ -121,23 +120,18 @@ const AdminTab2 = (props) => {
           <TableBody>
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
-                <TableCell
-                  style={{ width: "20%" }}
-                  component="th"
-                  scope="row"
-                  sx={{ padding: 2 }}
-                >
-                  {row?.name}
+                <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
+                  <p className="AP_plus_title">{row?.name}</p>
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{ padding: 2 }}>
-                  {row?.info}
+                  <p className="AP_plus_title">{row?.info}</p>
                 </TableCell>
                 <TableCell align="left" className="country2">
                   <img
                     src={DeleteIcon}
                     alt=""
                     className="dltIcon"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => handleDocumentDelete(row._id)}
                   />
                 </TableCell>
@@ -154,47 +148,39 @@ const AdminTab2 = (props) => {
         handleClose={props.handleAddDocumentModalClose}
         Closebtn={true}
       >
-        <div style={{ height: "20%" }}>
+        <div style={{ height: '20%' }}>
           <label htmlFor="" className="label_modal">
             Document Name
-          </label>{" "}
+          </label>{' '}
           <InputField
             name="name"
             value={formState.values.name}
             className={
-              hasError("name") && formState.errors.info
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('name') && formState.errors.info
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("name") ? formState.errors.name[0] : null}
-          </div>
+          <div className="error-format">{hasError('name') ? formState.errors.name[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Help Information
-          </label>{" "}
+          </label>{' '}
           <InputField
             name="info"
             value={formState.values.info}
             className={
-              hasError("info") && formState.errors.info
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('info') && formState.errors.info
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("info") ? formState.errors.info[0] : null}
-          </div>
+          <div className="error-format">{hasError('info') ? formState.errors.info[0] : null}</div>
           <Button
             text="Add Document"
             disabled={!formState.isValid ? true : false}
-            className={
-              formState.isValid
-                ? "add_vendor_button"
-                : "add_vendor_button_disabled"
-            }
+            className={formState.isValid ? 'add_vendor_button' : 'add_vendor_button_disabled'}
             onClick={handleAddDocuments}
           />
         </div>

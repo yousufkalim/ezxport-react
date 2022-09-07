@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TextFieldSelect from "../Common/TextFieldSelect";
-import FormControl from "@mui/material/FormControl";
-import DownArrow from "../../assets/TitleDownArrow.svg";
-import DeleteIcon from "../../assets/DeleteIcon.svg";
-import EditIcon from "../../assets/EditIcon.svg";
-import API from "../../api/index";
-import { toast } from "react-toastify";
-import Modal from "../Common/Modal";
-import validate from "validate.js";
-import Button from "../Common/Button";
+import React, { useState, useEffect } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TextFieldSelect from '../Common/TextFieldSelect';
+import FormControl from '@mui/material/FormControl';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import EditIcon from '../../assets/EditIcon.svg';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import Modal from '../Common/Modal';
+import validate from 'validate.js';
+import Button from '../Common/Button';
 
 const schema = {
   minCost: {
@@ -52,9 +52,9 @@ const CalculationRange = (props) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      minCost: "",
-      maxCost: "",
-      certificate: "",
+      minCost: '',
+      maxCost: '',
+      certificate: '',
     },
     touched: {},
     errors: {},
@@ -88,17 +88,17 @@ const CalculationRange = (props) => {
     }
   };
   const handleRangeData = async () => {
-    await API("get", `/calculations/${props.id}`)
+    await API('get', `/calculations/${props?.id}`)
       .then((res) => {
-        console.log(res, "eeeeeee");
+        console.log(res, 'handleRangeData');
         setRangeData(res?.data?.calculation?.range);
       })
       .catch((err) => {
-        console.log(err, "errrrrrr");
+        console.log(err, 'handleRangeData');
       });
   };
   const handleAddRange = async () => {
-    await API("put", `/calculations/addRange/${props.id}`, {
+    await API('put', `/calculations/addRange/${props.id}`, {
       range: {
         min: formState.values.minCost,
         max: formState.values.maxCost,
@@ -106,7 +106,7 @@ const CalculationRange = (props) => {
       },
     })
       .then((res) => {
-        console.log("handleAddRange", res);
+        console.log('handleAddRange', res);
         handleRangeData();
         setFormState((formState) => ({
           ...formState,
@@ -116,28 +116,51 @@ const CalculationRange = (props) => {
             certificate: "",
           },
         }));
-        // const hasError = (field) =>
-        //   formState.touched[field] && formState.errors[field] ? true : false;
+        // setMaxCost("");
+        // setCertificat("");
+        toast.success("Range added successfully");
+
       })
       .catch((err) => {
-        console.log("handleAddRange", err);
+        console.log('handleAddRange', err);
       });
   };
+
+  const handleNewRange = async () => {
+    await API("post", `/calculations/`, {
+      country: props.CountryId,
+      type: "range",
+      range: {
+        min: formState.values.minCost,
+        max: formState.values.maxCost,
+        certificate_cost: formState.values.certificate,
+      },
+    })
+      .then((res) => {
+        console.log("handleAddCoefficient", res);
+        props.setOpenCalculationModal(false);
+        toast.success("Coefficient Added Successfully");
+      })
+      .catch((err) => {
+        console.log("handleAddCoefficient", err);
+      });
+
+  }
   const handleDeleteCalculation = async (calId) => {
-    await API("put", `/calculations/deleteRange/${props?.id}`, {
+    await API('put', `/calculations/deleteRange/${props?.id}`, {
       rangeId: calId,
     })
       .then((res) => {
-        console.log("handleDeleteCalculation", res);
+        console.log('handleDeleteCalculation', res);
         handleRangeData();
-        toast.success("Range Deleted successfully");
+        toast.success('Range Deleted successfully');
       })
       .catch((err) => {
-        console.log("handleDeleteCalculation", err);
+        console.log('handleDeleteCalculation', err);
       });
   };
   const handleUpdateRange = async () => {
-    await API("put", `/calculations/updateRange/${props?.id}`, {
+    await API('put', `/calculations/updateRange/${props?.id}`, {
       range: {
         max: rangeMaxCost,
         min: rangeMinCost,
@@ -147,12 +170,12 @@ const CalculationRange = (props) => {
     })
       .then((res) => {
         setEditModal(false);
-        console.log("handleUpdateRange", res);
+        console.log('handleUpdateRange', res);
         handleRangeData();
-        toast.success("Range updated successfully");
+        toast.success('Range updated successfully');
       })
       .catch((err) => {
-        console.log("handleUpdateRange", err);
+        console.log('handleUpdateRange', err);
       });
   };
   useEffect(() => {
@@ -171,65 +194,38 @@ const CalculationRange = (props) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell
-                    align="left"
-                    className="country"
-                    style={{ backgrounColor: "#EAECF0" }}
-                  >
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
                     Minimum <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell
-                    align="left"
-                    className="country"
-                    style={{ backgrounColor: "#EAECF0" }}
-                  >
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
                     Maximum <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell
-                    align="left"
-                    className="country"
-                    style={{ backgrounColor: "#EAECF0" }}
-                  >
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
                     Coût certificat <img src={DownArrow} alt="" />
                   </TableCell>
-                  <TableCell
-                    align="left"
-                    className="country"
-                    style={{ backgrounColor: "#EAECF0" }}
-                  >
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
                     Actions <img src={DownArrow} alt="" />
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rangeData?.map((item) => (
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      style={{ width: "20%" }}
-                    >
-                      {item.min}
-                      <br />
+                  <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row" style={{ width: '20%' }}>
+                      <p className="AP_plus_title">{item.min}</p>
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country2"
-                      style={{ width: "20%" }}
-                    >
-                      {item.max}
+                    <TableCell align="left" className="country2" style={{ width: '20%' }}>
+                      <p className="AP_plus_title">{item.max}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {item.certificate_cost}
+                      <p className="AP_plus_title">{item.certificate_cost}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
                       <img
                         src={DeleteIcon}
                         alt=""
                         className="dltIcon"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteCalculation(item._id)}
                       />
                       &nbsp; &nbsp;
@@ -237,7 +233,7 @@ const CalculationRange = (props) => {
                         src={EditIcon}
                         alt=""
                         className="dltIcon"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
                           setEditModal(true);
                           setItemId(item._id);
@@ -253,7 +249,7 @@ const CalculationRange = (props) => {
             </Table>
           </TableContainer>
         ) : (
-          ""
+          ''
         )}
         <div className="AddSlice_main">
           <div className="AddSlice_senter">
@@ -316,6 +312,7 @@ const CalculationRange = (props) => {
                 </FormControl>
               </div>
             </div>
+            {console.log("wertyuytr", props.Calculation)}
             <button
               className={
                 !formState.isValid ||
@@ -349,7 +346,7 @@ const CalculationRange = (props) => {
         Closebtn={true}
       >
         <div>
-          <FormControl fullWidth style={{ marginTop: "1rem" }}>
+          <FormControl fullWidth style={{ marginTop: '1rem' }}>
             <label htmlFor="" className="buyer_label">
               Minimum
             </label>
@@ -361,7 +358,7 @@ const CalculationRange = (props) => {
               // }}
             />
           </FormControl>
-          <FormControl fullWidth style={{ marginTop: "1rem" }}>
+          <FormControl fullWidth style={{ marginTop: '1rem' }}>
             <label htmlFor="" className="buyer_label">
               Maximum
             </label>
@@ -373,7 +370,7 @@ const CalculationRange = (props) => {
               // }}
             />
           </FormControl>
-          <FormControl fullWidth style={{ marginTop: "1rem" }}>
+          <FormControl fullWidth style={{ marginTop: '1rem' }}>
             <label htmlFor="" className="buyer_label">
               Coût certificat
             </label>
@@ -385,12 +382,8 @@ const CalculationRange = (props) => {
               // }}
             />
           </FormControl>
-          <div style={{ marginTop: "2rem" }}>
-            <Button
-              text="Update"
-              className="bom_downloadFile_btn"
-              onClick={handleUpdateRange}
-            />
+          <div style={{ marginTop: '2rem' }}>
+            <Button text="Update" className="bom_downloadFile_btn" onClick={handleUpdateRange} />
           </div>
         </div>
       </Modal>

@@ -10,12 +10,14 @@ import Login from '../Auth/Login';
 import ForgetPassword from '../Auth/ForgetPassword';
 import ChangePassword from '../Auth/ChangePassword';
 import Registration from '../Auth/Registration';
+import Account from '../Dashboard/UserDashboard/Account';
 // AUTH Routes
 import UserLayouts from '../Layouts/UserLayouts';
 import AdminLayouts from '../Layouts/AdminLayouts';
 import RequestForm from '../Dashboard/UserDashboard/RequestForm';
 import ValidateRequest from '../Dashboard/AdminDashboard/ValidateRequest/index';
 import SendDocuments from '../components/Common/SendDocuments';
+import RequestDocuments from '../components/Common/RequestDocuments';
 
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get('reset');
@@ -60,12 +62,14 @@ const Index = ({ role }) => {
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Route path="/User/RequestForm" component={RequestForm} />
                 <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
+                {/* <Route exact path="/User/Dashboard/Account" component={Account} /> */}
               </>
             ) : role === 'admin' ? (
               <>
                 <Route path="/Admin/Dashboard" component={AdminLayouts} />
                 <Route path="/Admin/ValidateRequest/:id" component={ValidateRequest} />
                 <Route path="/SendDocuments" component={SendDocuments} />
+                    <Route path="/RequestDocuments" component={RequestDocuments} />
                 <Redirect from="/" to="/Admin/Dashboard/Country" />
               </>
             ) : (

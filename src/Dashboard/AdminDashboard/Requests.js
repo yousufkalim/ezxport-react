@@ -33,9 +33,9 @@ const Requests = () => {
       <div className="list_second_div">
         {/* list head  */}
         <div className="List_heading_div">
-          <h1 className="list_h1">List of requests</h1>
+          <h1 className="list_rqst_h1">List of requests</h1>
           <div className="searchingRequest">
-            <SearchField placeholder="Searching" />
+            <SearchField placeholder="Searching" className="rqst_searching" />
           </div>
         </div>
         {/* list table   */}
@@ -62,15 +62,16 @@ const Requests = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {allRequest?.map((item) => (
-                  <TableRow
+                {allRequest?.map((item) => {
+                  console.log("first", item)
+                  return (
+                    <TableRow
                     key={item?._id}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
                     onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}
                   >
                     <TableCell component="th" scope="row">
-                      {item?.title}
-                      <br />
+                      <p className="AP_plus_title">{item?.title}</p>
                       <p className="country2">{item?.country?.name}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -90,24 +91,31 @@ const Requests = () => {
                     </TableCell>
 
                     <TableCell align="left" className="country2">
-                      {item?.vendor?.contact_lname ? (
+                        {item?.vendor?.vendor ? (
                         <>
-                          {item?.vendor?.contact_lname}
-                          {item?.vendor?.contact_fname}
+                            {item?.vendor?.vendor?.name}
                         </>
                       ) : (
                         '--'
                       )}
                     </TableCell>
                     <TableCell align="left">
-                      {item?.status === "not required" ?
-                        <p className="clrClass">{item?.status}</p>
-                        : item?.status === "Missing Documents" ?
+                        {item?.status === "Validate By Admin" ? (
+                          <p className="clrClass">{item?.status}</p>
+                        ) : item?.status === 'missing documents' ? (
                           <p className="missingDocStatus">{item?.status}</p>
-                          : "--"}
+                        ) : item?.status === 'Validated' ? (
+                          <p className="clrClass">{item?.status}</p>
+                        ) : item?.status === 'sent' ? (
+                          <p className="send_status">{item?.status}</p>
+                        ) : item?.status === 'Benig Checked By Expert' ? (
+                          <p className="process_status">{item?.status}</p>
+                        ) : ("--")}
                     </TableCell>
                   </TableRow>
-                ))}
+                  )
+
+                })}
               </TableBody>
             </Table>
           </TableContainer>

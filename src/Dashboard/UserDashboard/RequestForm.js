@@ -19,7 +19,8 @@ const RequestForm = () => {
               color: '#6941C6',
               marginTop: '1rem',
               textDecoration: 'none',
-              fontSize: '1rem',
+              fontSize: '14px',
+              fontWeight: '500',
             }}
           >
             Return to Dashboard

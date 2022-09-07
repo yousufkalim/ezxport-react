@@ -1,149 +1,125 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ValidateButton from '../../../components/Common/ValidateButton';
 import SwitchButton from '../../../components/Common/SwitchButton';
-import AddDocument from '../../../components/Common/AddDocument';
 import ProductInputs from '../../../components/Common/ProductInputs';
-
+import { Grid } from '@mui/material';
+import { ReactComponent as Arrow } from '../../../assets/arrow.svg';
+import PlusButton from '../../../assets/PlusButton.svg';
+import { ReactComponent as Delete } from "../../../assets/DeleteIcon.svg"
 const ExportDocuments = (props) => {
+  console.log("🚀 ~ file: ExportDocuments.js ~ line 10 ~ ExportDocuments ~ props", props)
+
+  useEffect(() => {
+    handleCountryDocuments()
+  }, [props?.requestById])
+  const handleCountryDocuments = () => {
+    let temp = props?.requestById?.documents?.filter((item) => {
+      return item.status === "valid"
+    })
+    if (props?.requestById?.documents?.length === temp.length) {
+      props.setValidateCountry(true)
+    } else { props.setValidateCountry(false) }
+  }
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...props.inputList];
+    list[index][name] = value;
+    props.setInputList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = index => {
+    const list = [...props.inputList];
+    list.splice(index, 1);
+    props.setInputList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    props.setInputList([...props.inputList, { name: "" }]);
+  };
   return (
     <>
       <div className="ExportDocuments" style={{ marginBottom: '5%' }}>
-        <ValidateButton text="Import documents specific to Gabon" />
-        {/* switch   */}
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Proforma" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Import declaration" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Quality certificate" />
-          </div>
-        </div>
-        {/* Request other documents  */}
-        <AddDocument title="Request other documents for Gabon" />
-        <ValidateButton text="8510860 – Nomenclature name" />
-        {/* inputs */}
-        <ProductInputs validText="Validated product" />
-        {/* switch   */}
-        <div className="switch_buttons" style={{ position: 'relative' }}>
-          <div className="switch_column">
-            <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Test report" />
-          </div>
-          <div
-            className={`Validator_document_btn_div ${props.redText2}`}
-            style={{ position: 'absolute', right: '0' }}
-          >
-            <select name="cars" id="cars" className="ExportDocuments_btn">
-              <option value="volvo">Validated documents</option>
-              <option value="saab">Validated documents</option>
-              <option value="mercedes">Validated documents</option>
-              <option value="audi">Validated documents</option>
-            </select>
-          </div>
-          {/* <button style={{ position: 'absolute', right: '0' }} className="ExportDocuments_btn">
-            Validated documents &nbsp; ⮟
-          </button> */}
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Technical sheet" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Test report" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
-          </div>
-        </div>
-        <AddDocument title="Ask for other documents for the product" />
-        <ProductInputs validText="Validated product" />
-        {/* switch   */}
-        <div className="switch_buttons" style={{ position: 'relative' }}>
-          <div className="switch_column">
-            <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Test report" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Analysis Certificate" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Plan" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
-          </div>
-        </div>
-        <AddDocument title="Ask for other documents for the product" />
-        <ValidateButton text="8510860 – Nomenclature name" />
-        <ProductInputs validText="Validated product" />
-        {/* switch   */}
-        <div className="switch_buttons" style={{ position: 'relative' }}>
-          <div className="switch_column">
-            <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Test report" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Analysis Certificate" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Plan" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
-          </div>
-        </div>
-        <AddDocument title="Ask for other documents for the product" />
-        {/* extra add documents  */}
         <ValidateButton
-          redclass="redclass"
-          redclass2="redclass2"
-          text="8510860 – Nomenclature name"
+          text={`Import documents specific to ${props.requestById.country.name}`}
+          className={props.validateCountry ? "Validator_document_btn_div" : "Validator_document_btn_div redclass"}
         />
-        <ProductInputs redText2="redText2" Invalid="Invalid product" />
         {/* switch   */}
-        <div className="switch_buttons" style={{ position: 'relative' }}>
-          <div className="switch_column">
-            <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Test report" />
+        <Grid container spacing={2} sx={{ marginTop: '2rem', marginBottom: "2rem" }}>
+          {props?.requestById?.documents?.map((item) => {
+
+            return <Grid item xs={6} className="vendors_div">
+              <SwitchButton
+                text={item?.doc_id?.name}
+                item={item}
+                onChange={(e) => props.handleCountryDocsValidate(e.target.checked, item?.doc_id?._id)}
+                label={item.status === "valid" ? "Valid" : "Un-Valid"}
+                checked={item.status === "valid" ? true : false}
+              />
+            </Grid>
+          })}
+        </Grid>
+
+
+
+        <div className="request_documents">
+
+          <p className="request_documents_title">{`Request other documents for ${props.requestById.country.name}`}</p>
+        {/* Request other documents  */}
+
+          {props.inputList?.map((item, index) => {
+            return <>
+              <div className="request_documents_input_div">
+                <label htmlFor="" className="request_documents_label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: index !== 0 ? "1rem" : "none" }}>
+                  Document name
+                  <Delete onClick={() => handleRemoveClick(index)} style={{ cursor: "pointer" }} />
+                </label>
+                <input
+                  name='name'
+                  type="text"
+                  className="request_documents_input"
+                  placeholder="Enter Document name"
+                  onChange={e => handleInputChange(e, index)}
+                  value={item.name}
+                />
+              </div>
+            </>
+          })}
+
+          <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
+            <img src={PlusButton} alt="" onClick={handleAddClick} />
+            <p className="add_ducoment_p">Request another document</p>
           </div>
         </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Analysis Certificate" />
-          </div>
-          <div className="switch_column">
-            <SwitchButton text="Plan" />
-          </div>
-        </div>
-        <div className="switch_buttons">
-          <div className="switch_column">
-            <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
-          </div>
-        </div>
-        <AddDocument title="Ask for other documents for the product" />
+
+
+
+        {props?.requestById?.codes?.map((code, cIndex) => {
+          return <>
+            <ValidateButton text={`${code.code.code} – Nomenclature name`} className="Validator_document_btn_div" />
+            {code?.products?.map((product, pIndex) => {
+              return <>
+                <ProductInputs
+                  requestById={props.requestById}
+                  validText="Validated product"
+                  product={product}
+                  pIndex={pIndex}
+                  handleProductDocsValidate={props.handleProductDocsValidate}
+                  inputListProduct={props.inputListProduct}
+                  setInputListProduct={props.setInputListProduct}
+                  validateProduct={props.validateProduct}
+                  setValidateProduct={props.setValidateProduct}
+                />
+              </>
+
+            })}
+
+          </>
+
+        })}
       </div>
     </>
   );
