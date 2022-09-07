@@ -30,7 +30,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '7px' }}
+                  style={{ paddingTop: '3px' }}
                 >
                   <MenuItem value="default">A demand</MenuItem>
                   <MenuItem value={10}>A demand</MenuItem>
@@ -47,7 +47,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '7px' }}
+                  style={{ paddingTop: '3px' }}
                 >
                   <MenuItem value="default">Application Title – Date</MenuItem>
                   <MenuItem value={10}>Application Title – Date</MenuItem>

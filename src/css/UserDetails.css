@@ -227,7 +227,7 @@ input:focus {
     flex-direction: column;
   }
   .searching5 {
-    margin: 3% 0;
+    margin: 3% auto !important;
   }
   .search_input {
     width: 77%;
