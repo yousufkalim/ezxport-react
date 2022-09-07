@@ -100,8 +100,7 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp;
-              NomPays
+              &nbsp; NomPays
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
@@ -254,7 +253,7 @@ const AdminNomPays = () => {
               <img src={Icon} alt="" className="quiz_icon" />
             </label>
             <Button
-              text="Télécharger le fichier actuel"
+              text="Download current file"
               className="bom_downloadFile_btn"
             />
           </div>
@@ -267,7 +266,7 @@ const AdminNomPays = () => {
             <img src={Icon} alt="" className="quiz_icon" />
           </label>
           <FilePicker />
-          <Button text="Actualiser" className="bom_downloadFile_btn" />
+          <Button text="Refresh" className="bom_downloadFile_btn" />
         </div>
       </Modal>
     </>
