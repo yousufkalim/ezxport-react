@@ -65,7 +65,7 @@ const schema = {
   },
   confirmPassword: {
     presence: { allowEmpty: false, message: "is required" },
-    equality: "password",
+    equality: { attribute: "password", message: "does not match" },
   },
   companyLastName: {
     presence: { allowEmpty: false, message: "is required" },
@@ -209,7 +209,6 @@ const Registration = () => {
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
-
   return (
     <>
       <Header />
@@ -266,7 +265,7 @@ const Registration = () => {
               <div className="regist_col1">
                 <label htmlFor="">E-mail address</label>
                 <input
-                  type="text"
+                  type="email"
                   className={
                     hasError("email") && formState.errors.email
                       ? "reg_input_red"
@@ -384,7 +383,7 @@ const Registration = () => {
                   onClick={handleShowPassword}
                 />
                 <div className="error-format">
-                  {hasError("password") && formState.errors.password}
+                  {hasError("password") ? formState.errors.password[0] : null}
                 </div>
               </div>
               <div className="regist_col1">
@@ -447,7 +446,6 @@ const Registration = () => {
                 <label htmlFor="">Type of society</label>
                 <select
                   name="typeOfSociety"
-                  id=""
                   className="reg_input"
                   defaultValue={"default"}
                   onChange={handleChange}
