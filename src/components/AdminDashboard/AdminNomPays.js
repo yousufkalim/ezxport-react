@@ -58,7 +58,7 @@ const AdminNomPays = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [vendor, setVendor] = useState();
-  const [CountryName, setCountryName] = useState("");
+  const [CountryName, setCountryName] = useState('');
   const [document, setDocument] = useState();
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
@@ -76,7 +76,7 @@ const AdminNomPays = () => {
   const handleCountryData = async () => {
     await API('get', `/countries/${id}`)
       .then((res) => {
-        setCountryName(res?.data?.country?.name)
+        setCountryName(res?.data?.country?.name);
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
@@ -124,15 +124,19 @@ const AdminNomPays = () => {
                     onClick={() => setOpen(true)}
                   />
                 </div>
-                    <Button text="Add BOMs" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
+                <Button
+                  text="Add BOMs"
+                  className="Edit_btn"
+                  onClick={() => setOpenAddBomModal(true)}
+                />
               </div>
             ) : value === 3 ? (
-              <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
+              <div className="searching_div_country3">
+                <SearchField placeholder="Searching" className="Country_search_input2" />
                 {currentRadioValue === 'coefficient' && (
                   <Button
                     text="Edit"
-                    className="Edit_btn"
+                    className="Edit_btn2"
                     onClick={() => setOpenCalculationModal(true)}
                   />
                 )}

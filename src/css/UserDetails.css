@@ -17,9 +17,10 @@
   justify-content: space-between;
 }
 .title_text {
-  font-size: 1.6rem;
+  font-size: 20px;
   font-weight: 600;
   line-height: 20px;
+  padding-bottom: 5px;
 }
 .css-1q2h7u5 {
   font-family: 'Inter' !important;
@@ -226,11 +227,22 @@ input:focus {
   .List_heading_div4 {
     flex-direction: column;
   }
+  .List_heading_div {
+    margin: 30px 0;
+  }
   .searching5 {
     margin: 3% auto !important;
   }
   .search_input {
-    width: 77%;
+    width: 100%;
     padding: 10px 10px;
+  }
+  .list_service_btn2 {
+    width: 100%;
+    padding: 10px 0px;
+    margin: 10px 0;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
   }
 }

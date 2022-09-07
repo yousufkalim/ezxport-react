@@ -148,11 +148,14 @@
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.23);
   font-size: 1rem;
+  padding: 0 10px;
 }
 .seller_title {
   font-size: 20px;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   font-weight: 600;
+  padding-top: 10px;
+  display: inline-block;
 }
 .company_name_input {
   padding-left: 7px;

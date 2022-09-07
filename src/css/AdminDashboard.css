@@ -7,6 +7,7 @@
   display: flex;
   position: relative;
   width: 70%;
+  height: 45px;
 }
 .css-4ff9q7.Mui-completed {
   color: #7f56d9 !important;
@@ -44,7 +45,7 @@
   color: #667085 !important;
 }
 .table_head {
-  font-size: 12px !important;
+  font-size: 14px !important;
   padding: 1% 0 1% 1% !important;
 }
 .table_cell {
@@ -64,7 +65,7 @@
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   width: 200px;
-  padding: 2% 5%;
+  padding: 2% 3%;
   margin-left: 2%;
   font-size: 16px;
   font-weight: 500;
@@ -79,6 +80,7 @@
 }
 .AddSlice_title {
   font-size: 16px;
+  font-weight: 600;
 }
 .AddSlice_input_fields {
   width: 32%;
@@ -105,6 +107,21 @@
   color: #fff;
   padding: 1%;
   height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+}
+.css-1j6yz7d-MuiTableCell-root,
+.css-z5ytm4-MuiTableCell-root,
+.css-17buc2-MuiTableCell-root,
+.css-dsuxgy-MuiTableCell-root,
+.css-10w330c-MuiButtonBase-root-MuiPaginationItem-root,
+.css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root,
+.css-1oosg8s-MuiFormControl-root-MuiTextField-root,
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
+.css-ahj2mt-MuiTypography-root,
+.css-1v2lvtn-MuiPaginationItem-root,
+.css-6a1lrz-MuiTableCell-root {
+  font-family: 'Inter' !important;
 }
 
 @media screen and (max-width: 950px) {
@@ -115,5 +132,18 @@
 @media screen and (max-width: 780px) {
   .UserTable_right_div {
     width: 80%;
+    height: 35px;
+  }
+  .export_btn {
+    font-size: 13px;
+    align-items: center;
+  }
+  .list_user_h1 {
+    font-size: 17px;
+  }
+  .css-heg063-MuiTabs-flexContainer {
+    overflow: scroll !important;
+    padding-bottom: 10px !important;
+    margin-top: 10px !important;
   }
 }
