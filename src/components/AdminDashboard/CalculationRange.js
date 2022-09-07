@@ -68,8 +68,9 @@ const CalculationRange = (props) => {
     }));
   }, [formState.values]);
 
+  console.log("use", useEffect);
   const handleValuesChange = (event) => {
-    if (!event.target.value.match(/[^1-9]/)) {
+    if (!event.target.value.match(/[^0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -81,6 +82,9 @@ const CalculationRange = (props) => {
           [event.target.name]: true,
         },
       }));
+    }
+    if (event.target.value.substring(0, 1) === "0") {
+      toast.error("field should be greater than zero");
     }
   };
   const handleRangeData = async () => {
@@ -112,9 +116,8 @@ const CalculationRange = (props) => {
             certificate: "",
           },
         }));
-        // setMaxCost("");
-        // setCertificat("");
-        toast.success("Range added successfully");
+        // const hasError = (field) =>
+        //   formState.touched[field] && formState.errors[field] ? true : false;
       })
       .catch((err) => {
         console.log("handleAddRange", err);
@@ -315,12 +318,22 @@ const CalculationRange = (props) => {
             </div>
             <button
               className={
-                !formState.isValid
+                !formState.isValid ||
+                (formState.values.minCost < "1" &&
+                  formState.values.maxCost < "1" &&
+                  formState.values.certificate < "1")
                   ? "AddSlice_button_disabled"
                   : "AddSlice_button"
               }
               onClick={handleAddRange}
-              disabled={!formState.isValid ? true : false}
+              disabled={
+                !formState.isValid ||
+                (formState.values.minCost < "1" &&
+                  formState.values.maxCost < "1" &&
+                  formState.values.certificate < "1")
+                  ? true
+                  : false
+              }
             >
               {console.log("hr", handleAddRange)}
               Ajouter la ligne
