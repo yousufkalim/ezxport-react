@@ -46,6 +46,7 @@ function a11yProps(index) {
   };
 }
 const ValidateForm = (props) => {
+  console.log('🚀 ~ file: CompanyInformation.js ~ line 49 ~ ValidateForm ~ props', props);
   // user data states
   const params = useParams();
   const { id } = params;
@@ -60,12 +61,8 @@ const ValidateForm = (props) => {
   // const [name, setName] = useState('');
   // const [societyType, setSocietyType] = useState('');
   // const [vatNumber, setVatNumber] = useState('');
-  // user request states
-  const [requestById, setRequestById] = useState({});
-
-  useEffect(() => {
-    handlerequestById();
-  }, []);
+  // // user request states
+  // const [requestById, setRequestById] = useState({});
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -73,17 +70,6 @@ const ValidateForm = (props) => {
   useEffect(() => {
     props.TabeProps(value);
   }, [value]);
-
-  const handlerequestById = async () => {
-    await API('get', `/requests/${id}`)
-      .then((res) => {
-        console.log('🚀 ~ file: CompanyInformation.js ~ line 81 ~ .then ~ res', res);
-        setRequestById(res.data.request);
-      })
-      .catch((err) => {
-        console.log(err, 'errrrrr');
-      });
-  };
 
   return (
     <>
@@ -105,7 +91,10 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Last name
                       </label>{' '}
-                      <InputField className="textfield_row2" value={requestById?.user?.last_name} />
+                      <InputField
+                        className="textfield_row2"
+                        value={props.requestById?.user?.last_name}
+                      />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
@@ -113,7 +102,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={requestById?.user?.first_name}
+                        value={props.requestById?.user?.first_name}
                       />
                     </div>
                   </div>
@@ -122,7 +111,10 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         E-mail address
                       </label>{' '}
-                      <InputField className="textfield_row2" value={requestById?.user?.email} />
+                      <InputField
+                        className="textfield_row2"
+                        value={props.requestById?.user?.email}
+                      />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
@@ -130,7 +122,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={requestById?.user?.phone_number}
+                        value={props.requestById?.user?.phone_number}
                       />
                     </div>
                   </div>
@@ -139,7 +131,10 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Full address
                       </label>{' '}
-                      <InputField className="textfield_row2" value={requestById?.user?.address} />
+                      <InputField
+                        className="textfield_row2"
+                        value={props.requestById?.user?.address}
+                      />
                     </div>
                     <div className="userdetail_textField_div2">
                       <div className="postel_input">
@@ -148,7 +143,9 @@ const ValidateForm = (props) => {
                         </label>{' '}
                         <InputField
                           className="userdetail_textField_row"
-                          value={requestById?.user?.zip_code}
+                          value={
+                            props.requestById?.user?.zipcode || props.requestById?.user?.zip_code
+                          }
                         />
                       </div>
                       <div style={{ width: '60%' }}>
@@ -157,7 +154,7 @@ const ValidateForm = (props) => {
                         </label>{' '}
                         <InputField
                           className="userdetail_textField_row"
-                          value={requestById?.user?.city}
+                          value={props.requestById?.user?.city}
                         />
                       </div>
                     </div>
@@ -169,7 +166,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={requestById?.user?.company?.name}
+                        value={props.requestById?.user?.company?.name}
                       />
                     </div>
                     <div className="userdetail_textField_div">
@@ -178,7 +175,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={requestById?.user?.company?.type}
+                        value={props.requestById?.user?.company?.type}
                       />
                     </div>
                   </div>
@@ -189,7 +186,7 @@ const ValidateForm = (props) => {
                       </label>{' '}
                       <InputField
                         className="textfield_row2"
-                        value={requestById?.user?.company?.vat}
+                        value={props.requestById?.user?.company?.vat}
                       />
                     </div>
                   </div>
@@ -200,7 +197,7 @@ const ValidateForm = (props) => {
                 <div className="list_table">
                   <>
                     <TableContainer component={Paper}>
-                      <AddressBook requestById={requestById} />
+                      <AddressBook requestById={props.requestById} />
                     </TableContainer>
                   </>
                 </div>
@@ -210,7 +207,19 @@ const ValidateForm = (props) => {
                 <div className="list_table">
                   <>
                     <TableContainer component={Paper}>
-                      <ExportDocuments requestById={requestById} />
+                      <ExportDocuments
+                        requestById={props.requestById}
+                        handleCountryDocsValidate={props.handleCountryDocsValidate}
+                        handleProductDocsValidate={props.handleProductDocsValidate}
+                        inputList={props.inputList}
+                        setInputList={props.setInputList}
+                        inputListProduct={props.inputListProduct}
+                        setInputListProduct={props.setInputListProduct}
+                        validateCountry={props.validateCountry}
+                        setValidateCountry={props.setValidateCountry}
+                        validateProduct={props.validateProduct}
+                        setValidateProduct={props.setValidateProduct}
+                      />
                     </TableContainer>
                   </>
                 </div>

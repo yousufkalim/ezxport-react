@@ -1,16 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InputField from '../Common/InputField';
 import TextFieldSelect from '../Common/TextFieldSelect';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import AddProduct from '../Common/AddProduct';
 import SwitchButton from '../Common/SwitchButton';
-
+import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg"
 import { ReactComponent as Arrow } from '../../assets/arrow.svg';
+import PlusButton from '../../assets/PlusButton.svg';
 
 const ProductInputs = (props) => {
-  const [addProduct, setAddProduct] = useState(false);
+  useEffect(() => {
+    handleProductDocuments()
+  }, [props?.requestById])
 
+
+  const handleProductDocuments = () => {
+    if (props?.product) {
+      if (props?.product?.other_docs?.status === "valid" &&
+        props?.product?.plan?.status === "valid" &&
+        props?.product?.analysis_certificate?.status === "valid" &&
+        props?.product?.test_report?.status === "valid" &&
+        props?.product?.technical_sheet?.status === "valid") {
+        props.setValidateProduct(true)
+      } else { props.setValidateProduct(false) }
+    } else {
+      props.setValidateProduct(false)
+    }
+  }
+
+
+  // handle input change
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...props.inputListProduct];
+    list[index][name] = value;
+    props.setInputListProduct(list);
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = index => {
+    const list = [...props.inputListProduct];
+    list.splice(index, 1);
+    props.setInputListProduct(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    props.setInputListProduct([...props.inputListProduct, { product: props?.product?._id, name: "" }]);
+  };
   return (
     <>
       <label className="label_modal" style={{ marginTop: props.index1 !== 0 ? '2.5rem' : '1rem' }}>
@@ -22,10 +57,6 @@ const ProductInputs = (props) => {
         name="name"
         value={props?.product?.name}
       />
-      {/* <div className={`Validator_document_btn_div ${props.redText2}`} style={{ display: "flex", alignItems: "center", }}>
-        <p className={`ExportDocuments_btn2 ${props.redText2}`}>Validated products</p>
-        <Arrow />
-      </div> */}
       <label className="label_modal" style={{ marginTop: '1rem' }}>
         Description
       </label>
@@ -80,9 +111,8 @@ const ProductInputs = (props) => {
               className="company_name_input"
               disabled
               name="price"
-              value={`${props?.product?.price?.value} ${
-                props?.product?.price?.currency === 'USD' ? '$' : '€'
-              }`}
+              value={`${props?.product?.price?.value} ${props?.product?.price?.currency === 'USD' ? '$' : '€'
+                }`}
             />
           </div>
         </div>
@@ -112,42 +142,117 @@ const ProductInputs = (props) => {
         className="product_name_textfield2"
         disabled
         name="country"
-        value={props?.product?.country}
+        value={props?.product?.country?.name}
       />
       <div className="switch_buttons" style={{ position: 'relative' }}>
         <div className="switch_column">
-          <SwitchButton text="Technical sheet" pdfText="Document.pdf" />
+          <SwitchButton
+            text="Technical sheet"
+            name="technical_sheet"
+            item={props?.product?.technical_sheet}
+            label={props?.product?.technical_sheet?.status === "valid" ? "Valid" : "Un-Valid"}
+            checked={props?.product?.technical_sheet?.status === "valid" ? true : false}
+            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+          />
         </div>
         <div className="switch_column">
-          <SwitchButton text="Test report" />
+          <SwitchButton
+            text="Test report"
+            name="test_report"
+            item={props?.product?.test_report}
+            label={props?.product?.test_report?.status === "valid" ? "Valid" : "Un-Valid"}
+            checked={props?.product?.test_report?.status === "valid" ? true : false}
+            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+          />
         </div>
-        <div
-          className={`Validator_document_btn_div ${props.redText2}`}
-          style={{ position: 'absolute', right: '0' }}
-        >
-          <p className="ExportDocuments_btn">
-            Validated documents <Arrow />
-          </p>
+        {props.validateProduct ? <>
+          <div
+            className="Validator_document_btn_div"
+            style={{ position: 'absolute', right: '0' }}
+          >
+            <p>Validated documents <Arrow /></p>
+          </div >
+        </> :
+          <>
+            <div
+              className="Validator_document_btn_div redclass"
+              style={{ position: 'absolute', right: '0' }}
+            >
+              <p>Invalid documents <Arrow /></p>
+            </div>
+          </>
+        }
+
+      </div >
+      <div className="switch_buttons">
+        <div className="switch_column">
+          <SwitchButton
+            text="Analysis Certificate"
+            name="analysis_certificate"
+            item={props?.product?.analysis_certificate}
+            label={props?.product?.analysis_certificate?.status === "valid" ? "Valid" : "Un-Valid"}
+            checked={props?.product?.analysis_certificate?.status === "valid" ? true : false}
+            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+          />
+        </div>
+        <div className="switch_column">
+          <SwitchButton
+            text="Plan"
+            name="plan"
+            item={props?.product?.plan}
+            label={props?.product?.plan?.status === "valid" ? "Valid" : "Un-Valid"}
+            checked={props?.product?.plan?.status === "valid" ? true : false}
+            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+          />
         </div>
       </div>
       <div className="switch_buttons">
         <div className="switch_column">
-          <SwitchButton text="Technical sheet" />
-        </div>
-        <div className="switch_column">
-          <SwitchButton text="Test report" />
+          <SwitchButton
+            text="Other documents"
+            name="other_docs"
+            item={props?.product?.other_docs}
+            label={props?.product?.other_docs?.status === "valid" ? "Valid" : "Un-Valid"}
+            checked={props?.product?.other_docs?.status === "valid" ? true : false}
+            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+          />
         </div>
       </div>
-      <div className="switch_buttons">
-        <div className="switch_column">
-          <SwitchButton text="Other documents" pdfText="Document.pdf" pdfText2="Document.pdf" />
+
+
+
+
+
+
+      <div className="request_documents">
+
+        <p className="request_documents_title">Ask for other documents for the product</p>
+        {/* Request other documents  */}
+
+        {props.inputListProduct?.map((item, index) => {
+          return <>
+            <div className="request_documents_input_div">
+              <label htmlFor="" className="request_documents_label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: index !== 0 ? "1rem" : "none" }}>
+                Document name
+                <Delete onClick={() => handleRemoveClick(index)} style={{ cursor: "pointer" }} />
+              </label>
+              <input
+                name='name'
+                type="text"
+                className="request_documents_input"
+                placeholder="Enter Document name"
+                onChange={e => handleInputChange(e, index)}
+                value={item.name}
+              />
+            </div>
+          </>
+        })}
+
+        <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
+          <img src={PlusButton} alt="" onClick={handleAddClick} />
+          <p className="add_ducoment_p">Request another document</p>
         </div>
       </div>
-      <AddProduct
-        title="Ask for other documents for the product"
-        addProduct={addProduct}
-        setAddProduct={setAddProduct}
-      />
     </>
   );
 };

@@ -17,6 +17,7 @@ import AdminLayouts from '../Layouts/AdminLayouts';
 import RequestForm from '../Dashboard/UserDashboard/RequestForm';
 import ValidateRequest from '../Dashboard/AdminDashboard/ValidateRequest/index';
 import SendDocuments from '../components/Common/SendDocuments';
+import RequestDocuments from '../components/Common/RequestDocuments';
 
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get('reset');
@@ -68,6 +69,7 @@ const Index = ({ role }) => {
                 <Route path="/Admin/Dashboard" component={AdminLayouts} />
                 <Route path="/Admin/ValidateRequest/:id" component={ValidateRequest} />
                 <Route path="/SendDocuments" component={SendDocuments} />
+                    <Route path="/RequestDocuments" component={RequestDocuments} />
                 <Redirect from="/" to="/Admin/Dashboard/Country" />
               </>
             ) : (

@@ -139,8 +139,8 @@ export default function HorizontalNonLinearStepper() {
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
+        // find the first step that has been completed
+        steps.findIndex((step, i) => !(i in completed))
         : activeStep + 1;
     setActiveStep(newActiveStep);
   };
@@ -414,14 +414,16 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleSendEmail = async () => {
-    await API('put', `/requests/sendEmail/${requestId}`)
-      .then((res) => {
-        toast.success(res?.data?.message);
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
-  };
+    await API('put', `/requests/sendEmail/${requestId}`).then((res) => {
+      handleStep4()
+      toast.success(res?.data?.message)
+      localStorage.setItem("Requested", true)
+      history.push('/User/Dashboard/ListOfRequests');
+    }).catch((err) => {
+      toast.error(err.response.data.message)
+    })
+  }
+
 
   useEffect(() => {
     handleDocByCountryId();
@@ -486,7 +488,7 @@ export default function HorizontalNonLinearStepper() {
                 certificateNotRequire={certificateNotRequire}
                 setCertificateNotRequire={setCertificateNotRequire}
                 handleStep1={handleStep1}
-                // handleAllRequestByCountryId={handleAllRequestByCountryId}
+              // handleAllRequestByCountryId={handleAllRequestByCountryId}
               />
             ) : activeStep === 1 ? (
               <ServiceproviderForm
@@ -564,8 +566,8 @@ export default function HorizontalNonLinearStepper() {
                       activeStep === 1
                         ? handleStep2
                         : activeStep === 2
-                        ? handleStep3
-                        : activeStep === 3 && handleSendFile
+                          ? handleStep3
+                          : activeStep === 3 && handleSendFile
                     }
                   />
                 </div>
