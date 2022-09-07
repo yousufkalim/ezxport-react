@@ -96,6 +96,7 @@ const FollowUp = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+                  {console.log("first", allRequest)}
                   {allRequest?.map((item) => (
                     <TableRow
                       style={{ cursor: 'pointer' }}
@@ -124,21 +125,26 @@ const FollowUp = () => {
                       </TableCell>
 
                       <TableCell align="left" className="country2">
-                        {item?.vendor?.contact_lname ? (
+                        {item?.vendor?.vendor ? (
                           <>
-                            {item?.vendor?.contact_lname}
-                            {item?.vendor?.contact_fname}
+                            {item?.vendor?.vendor?.name}
                           </>
                         ) : (
                           '--'
                         )}
                       </TableCell>
                       <TableCell align="left">
-                        {item?.status === "not required" ?
+                        {item?.status === "Validate By Admin" ? (
                           <p className="clrClass">{item?.status}</p>
-                          : item?.status === "Missing Documents" ?
-                            <p className="missingDocStatus">{item?.status}</p>
-                            : "--"}
+                        ) : item?.status === 'missing documents' || item?.status === 'Missing Documents' ? (
+                          <p className="missingDocStatus">{item?.status}</p>
+                        ) : item?.status === 'Validated' ? (
+                          <p className="clrClass">{item?.status}</p>
+                        ) : item?.status === 'sent' ? (
+                          <p className="send_status">{item?.status}</p>
+                        ) : item?.status === 'Benig Checked By Expert' ? (
+                          <p className="process_status">{item?.status}</p>
+                        ) : ("--")}
                       </TableCell>
                     </TableRow>
                   ))}

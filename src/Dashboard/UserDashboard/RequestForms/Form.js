@@ -422,7 +422,10 @@ export default function HorizontalNonLinearStepper() {
 
   const handleSendEmail = async () => {
     await API('put', `/requests/sendEmail/${requestId}`).then((res) => {
+      handleStep4()
       toast.success(res?.data?.message)
+      localStorage.setItem("Requested", true)
+      history.push('/User/Dashboard/ListOfRequests');
     }).catch((err) => {
       toast.error(err.response.data.message)
     })
