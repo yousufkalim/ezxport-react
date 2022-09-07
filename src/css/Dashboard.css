@@ -1,3 +1,23 @@
+/* width */
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: inherit !important;
   border: none !important;
@@ -95,7 +115,7 @@
   justify-content: space-between;
 }
 .list_h1 {
-  width: 100%;
+  width: 30%;
   font-size: 30px;
   display: flex;
   align-items: center;
@@ -142,8 +162,8 @@
   display: inline-block !important;
 }
 .missingDocStatus {
-  color: #B54708 !important;
-  background: #FFFAEB;
+  color: #b54708 !important;
+  background: #fffaeb;
   border-radius: 16px;
   padding: 2px 4px !important;
   display: inline-block !important;
@@ -432,8 +452,13 @@
   min-width: 0 !important;
 }
 
-
 @media screen and (min-width: 901px) and (max-width: 1200px) {
+  .searching {
+    width: 50%;
+  }
+  .list_reqst_btn2 {
+    width: 73%;
+  }
   .dashboard_li {
     font-size: 14px;
   }
@@ -458,13 +483,26 @@
     box-sizing: content-box;
     margin-top: auto;
   }
+  .export_btn {
+    width: 220px !important;
+  }
+  .UserTable {
+    width: 80% !important;
+  }
 }
 @media screen and (max-width: 900px) {
+  .export_btn {
+    width: 250px !important;
+  }
+  .searching {
+    width: 50%;
+  }
   .dashboard_li {
     font-size: 14px;
   }
   .list_reqst_btn2 {
-    width: 70%;
+    width: 80%;
+    font-size: 13px;
   }
 }
 @media screen and (max-width: 780px) {
@@ -518,6 +556,9 @@
 }
 
 @media screen and (max-width: 600px) {
+  .export_btn {
+    width: 150px !important;
+  }
   .search_input {
     display: none;
   }
@@ -526,7 +567,7 @@
   }
   .list_reqst_btn2 {
     font-size: 13px;
-    width: 70%;
+    width: 65%;
   }
   .search_icon {
     display: none;
@@ -573,6 +614,7 @@
     font-size: 15px;
   }
   .list_reqst_btn2 {
+    width: 75%;
     font-size: 12px;
   }
 }
