@@ -15,6 +15,7 @@ const InputField = (props) => {
           placeholder={props.placeholder}
           onChange={props.onChange}
           disabled={props.disabled}
+          autoComplete="new-password"
         />
         <img src={props.icon} alt="" className="quizIcon" />
         {props.visibleEye && (
