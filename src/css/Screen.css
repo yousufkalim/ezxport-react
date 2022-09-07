@@ -130,10 +130,10 @@ label {
   padding: 10px 14px;
 }
 .resetPassword-div {
-  width: auto;
+  width: 100%;
   display: flex;
   justify-content: center;
-  padding: 10px 14px;
+  padding: 5px 0 20px 0;
 }
 .requestSuccess-div {
   width: auto;
