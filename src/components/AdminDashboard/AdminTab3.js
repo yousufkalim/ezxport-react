@@ -30,13 +30,12 @@ const schema = {
 const updateSchema = {
   bomCode: {
     presence: { allowEmpty: false, message: "is required" },
-  },
-  length: {
-    maximum: 16,
-    minimum: 4,
+    length: {
+      maximum: 16,
+      minimum: 4,
+    },
   },
 };
-
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
   const [names, setNames] = useState([]);
@@ -120,17 +119,19 @@ const AdminTab3 = (props) => {
     }
   };
   const handleUpdateBomChange = (event) => {
-    setUpdateBomCode((updateBomCode) => ({
-      ...updateBomCode,
-      values: {
-        ...updateBomCode.values,
-        [event.target.name]: event.target.value,
-      },
-      touched: {
-        ...updateBomCode.touched,
-        [event.target.name]: true,
-      },
-    }));
+    if (!event.target.value.match(/[^0-9]/)) {
+      setUpdateBomCode((updateBomCode) => ({
+        ...updateBomCode,
+        values: {
+          ...updateBomCode.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...updateBomCode.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
   };
 
   useEffect(() => {
