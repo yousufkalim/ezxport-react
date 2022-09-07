@@ -81,7 +81,7 @@
   border-radius: 8px;
   cursor: pointer;
   color: #fff;
-  padding: 1%;
+  /* padding: 1%; */
   height: 40px;
 }
 .AddSlice_button_disabled {
@@ -92,15 +92,15 @@
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
   color: #fff;
-  padding: 1%;
+  /* padding: 1%; */
   height: 40px;
 }
 
-@media screen and (max-width: 950px) {
+/* @media screen and (max-width: 950px) {
   .UserTable {
-    width: 70%;
+    width: 60%;
   }
-}
+} */
 @media screen and (max-width: 780px) {
   .UserTable_right_div {
     width: 80%;
