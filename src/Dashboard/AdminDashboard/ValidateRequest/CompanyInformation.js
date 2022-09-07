@@ -50,23 +50,22 @@ const ValidateForm = (props) => {
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
-  const [lastName, setLastName] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [completeAddress, setCompleteAddress] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [town, setTown] = useState('');
-  const [name, setName] = useState('');
-  const [societyType, setSocietyType] = useState('');
-  const [vatNumber, setVatNumber] = useState('');
+  // const [lastName, setLastName] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
+  // const [completeAddress, setCompleteAddress] = useState('');
+  // const [postalCode, setPostalCode] = useState('');
+  // const [town, setTown] = useState('');
+  // const [name, setName] = useState('');
+  // const [societyType, setSocietyType] = useState('');
+  // const [vatNumber, setVatNumber] = useState('');
   // user request states
   const [requestById, setRequestById] = useState({});
 
   useEffect(() => {
     handlerequestById();
   }, []);
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -78,9 +77,8 @@ const ValidateForm = (props) => {
   const handlerequestById = async () => {
     await API('get', `/requests/${id}`)
       .then((res) => {
-        console.log("🚀 ~ file: CompanyInformation.js ~ line 81 ~ .then ~ res", res)
-        setRequestById(res.data.request)
-
+        console.log('🚀 ~ file: CompanyInformation.js ~ line 81 ~ .then ~ res', res);
+        setRequestById(res.data.request);
       })
       .catch((err) => {
         console.log(err, 'errrrrr');
@@ -107,10 +105,7 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Last name
                       </label>{' '}
-                      <InputField
-                        className="textfield_row2"
-                        value={requestById?.user?.last_name}
-                      />
+                      <InputField className="textfield_row2" value={requestById?.user?.last_name} />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
@@ -127,11 +122,7 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         E-mail address
                       </label>{' '}
-                      <InputField
-                        className="textfield_row2"
-                        value={requestById?.user?.email}
-
-                      />
+                      <InputField className="textfield_row2" value={requestById?.user?.email} />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
@@ -148,13 +139,10 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Full address
                       </label>{' '}
-                      <InputField
-                        className="textfield_row2"
-                        value={requestById?.user?.address}
-                      />
+                      <InputField className="textfield_row2" value={requestById?.user?.address} />
                     </div>
                     <div className="userdetail_textField_div2">
-                      <div style={{ width: '35%' }} className="postel_input">
+                      <div className="postel_input">
                         <label htmlFor="" className="label_modal">
                           Code postal
                         </label>{' '}
@@ -179,7 +167,10 @@ const ValidateForm = (props) => {
                       <label htmlFor="" className="label_modal">
                         Last name
                       </label>{' '}
-                      <InputField className="textfield_row2" value={requestById?.user?.company?.name} />
+                      <InputField
+                        className="textfield_row2"
+                        value={requestById?.user?.company?.name}
+                      />
                     </div>
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">

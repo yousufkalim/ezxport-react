@@ -1,5 +1,4 @@
 import React from 'react';
-// import Quiz from '../assets/Quiz.png';
 
 const InputField = (props) => {
   return (

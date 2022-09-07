@@ -98,6 +98,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.List_Details_div {
+  width: auto;
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
 .List_heading_div5 {
   width: auto;
   display: flex;
@@ -718,7 +724,7 @@
     font-size: 13px !important;
   }
   .list_nom_h1 {
-    width: 60%;
+    width: 36%;
     font-size: 22px;
   }
   .update_Boms_btn {
@@ -726,6 +732,37 @@
   }
   .title_text {
     font-size: 18px;
+  }
+  .list_h1_Country {
+    font-size: 22px;
+  }
+  .searching {
+    width: 100%;
+    height: 40px;
+  }
+  .searching_div_country {
+    height: 40px;
+  }
+  .searching_div_country3 {
+    width: 64%;
+    height: 40px;
+  }
+  .list_service_btn2 {
+    width: 80%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+  }
+  .searching2 {
+    height: 40px;
+  }
+  .export_btn {
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+  }
+  .list_Details_h1 {
+    font-size: 22px;
   }
 }
 @media screen and (max-width: 900px) {
@@ -752,8 +789,8 @@
     font-size: 12px;
   }
   .list_h1 {
-    width: 52%;
-    font-size: 24px;
+    width: 50%;
+    font-size: 25px;
   }
   .list_reqst_btn2 {
     width: 55%;
@@ -784,6 +821,7 @@
   .list_nom_h1 {
     width: 60%;
     font-size: 22px;
+    width: 40% !important;
   }
   .update_Boms_btn {
     width: 46%;
@@ -798,6 +836,30 @@
   }
   .request_title {
     font-size: 13px;
+  }
+  .list_h1_Country {
+    width: 73%;
+    font-size: 25px;
+  }
+  .Edit_btn {
+    width: 21%;
+    font-size: 13px;
+  }
+  .Coefficient_main {
+    width: 42% !important;
+  }
+  .textfiled_select_component {
+    width: 27% !important;
+  }
+  .searching_div_country3 {
+    width: 48%;
+    height: 40px;
+  }
+  .list_service_btn2 {
+    width: 82%;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
   }
 }
 @media screen and (max-width: 780px) {
@@ -951,6 +1013,10 @@
     margin: auto;
     width: 56% !important;
   }
+  .list_Details_h1 {
+    width: 56% !important;
+    font-size: 17px;
+  }
   .searching3 {
     width: 72% !important;
     /* flex-direction: row-reverse !important; */
@@ -958,7 +1024,7 @@
     justify-content: center;
   }
   .userdetail_textField_div {
-    width: 100%;
+    width: 100% !important;
   }
   .question_form {
     width: 80%;

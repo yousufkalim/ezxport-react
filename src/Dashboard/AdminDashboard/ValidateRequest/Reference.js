@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import EzxportIcon from '../../../assets/EzxportIcon.svg';
-import { Link } from "react-router-dom";
-import BackArrow from "../../../assets/BackArrow.svg";
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../assets/BackArrow.svg';
 
 const Reference = (props) => {
   const history = useHistory();
@@ -13,12 +13,15 @@ const Reference = (props) => {
           <div className="Reference_header">
             <div className="Reference_center_div">
               <div className="Reference_heading">
-                <p className="Reference_h2">
-                  <Link to="/Admin/Dashboard/Requests">
+                <Link
+                  to="/Admin/Dashboard/Requests"
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                  </Link>
-                  &nbsp;
-                  Reference </p>
+                    &nbsp; Reference{' '}
+                  </p>
+                </Link>
               </div>
               <div className="Reference_logo_div">
                 <img src={EzxportIcon} alt="" className="header_center_div" />
@@ -38,12 +41,15 @@ const Reference = (props) => {
           <div className="Reference_header">
             <div className="Reference_center_div">
               <div className="Reference_heading">
+                <Link
+                  to="/Admin/Dashboard/Requests"
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
                   <p className="Reference_h2">
-                    <Link to="/Admin/Dashboard/Requests">
-                      <img src={BackArrow} alt="" />
-                    </Link>
-                    &nbsp;
-                    Reference </p>
+                    <img src={BackArrow} alt="" />
+                    &nbsp; Reference
+                  </p>
+                </Link>
               </div>
               <div className="Reference_logo_div">
                 <img src={EzxportIcon} alt="" className="header_center_div" />
