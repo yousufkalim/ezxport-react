@@ -10,7 +10,7 @@ const Button = (props) => {
         disabled={props.disabled}
       >
         <img src={props.Imgsrc} alt="" />
-        &nbsp; &nbsp;
+        &nbsp;
         {props.text}
       </button>
     </>

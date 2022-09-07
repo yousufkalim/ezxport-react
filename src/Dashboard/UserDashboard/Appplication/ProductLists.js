@@ -42,10 +42,10 @@ const ProductLists = (props) => {
                 {props.Data.map((item) => (
                   <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row" style={{ width: '22%' }}>
-                      {item.ServiceProviders}
+                      <p className="AP_plus_title">{item.ServiceProviders}</p>
                     </TableCell>
                     <TableCell align="left" className="country2" style={{ width: '22%' }}>
-                      {item.contact}
+                      <p className="AP_plus_title">{item.contact}</p>
                     </TableCell>
                     <TableCell align="left" className="country2" style={{ width: '100%' }}>
                       {item.AssociatedCountries}

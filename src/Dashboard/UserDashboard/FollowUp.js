@@ -27,17 +27,17 @@ const FollowUp = () => {
       });
   };
   useEffect(() => {
-    let request = localStorage.getItem('Requested')
-    if (request === "true") {
-      setRequestedModal(true)
+    let request = localStorage.getItem('Requested');
+    if (request === 'true') {
+      setRequestedModal(true);
     }
     handleAllRequest();
   }, []);
 
   const history = useHistory();
   const handleRequested = () => {
-    setRequestedModal(false)
-    localStorage.removeItem('Requested')
+    setRequestedModal(false);
+    localStorage.removeItem('Requested');
   };
 
   return (
@@ -117,7 +117,7 @@ const FollowUp = () => {
                             {item?.certification_cost?.currency === 'USD'
                               ? item?.certification_cost?.value + '$'
                               : item?.certification_cost?.currency === 'EURO' &&
-                                item?.certification_cost?.value + '€'}
+                              item?.certification_cost?.value + '€'}
                           </>
                         ) : (
                           '--'

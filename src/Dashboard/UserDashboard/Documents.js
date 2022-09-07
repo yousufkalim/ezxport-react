@@ -69,10 +69,10 @@ const Documents = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div">
-            <h1 className="list_h1">Documents</h1>
-            <div className="searching">
-              <input type="text" className="search_input" placeholder="To Research" />
-              <img src={SearchIcon} alt="" className="search_icon" />
+            <h1 className="list_h1_doc">Documents</h1>
+            <div className="searching4">
+              <input type="text" className="search_input2" placeholder="To Research" />
+              <img src={SearchIcon} alt="" className="search_icon2" />
             </div>
           </div>
           <div className="list_table">

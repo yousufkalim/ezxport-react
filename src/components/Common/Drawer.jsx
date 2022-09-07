@@ -3,8 +3,24 @@ import { Link } from 'react-router-dom';
 import LILogo5 from '../../assets/LILogo5.svg';
 import LILogo6 from '../../assets/LILogo6.svg';
 import LILogo7 from '../../assets/LILogo7.svg';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import ClearIcon from '@mui/icons-material/Clear';
+
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('userData')));
   const [role, setRole] = useState(JSON.parse(localStorage.getItem('role')));
   const handleLoggout = () => {
@@ -34,7 +50,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     >
                       {item.icon}
                     </span>
-                    {item.name}
+                    {item?.name}
                   </Link>
                 </>
               );
@@ -69,17 +85,17 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               <Link
                 exact
                 to="/User/Dashboard/AskQuestion"
-                className={`${activeUploadButton === 5 && 'activeLi'} dashboard_li `}
-                onClick={() => handleActiveUploadButton(5)}
+                className={`${activeUploadButton === 6 && 'activeLi '} dashboard_li `}
+                onClick={() => handleActiveUploadButton(6)}
               >
                 <img src={LILogo5} alt="" className="li_img" />
                 Ask a question
               </Link>
               <Link
                 exact
-                to="#"
-                className={`${activeUploadButton === 6 && 'activeLi'} dashboard_li `}
-                onClick={() => handleActiveUploadButton(6)}
+                to="/User/Dashboard/Account"
+                className={`${activeUploadButton === 7 && 'activeLi'} dashboard_li `}
+                onClick={() => handleActiveUploadButton(7)}
               >
                 <img src={LILogo6} alt="" className="li_img" />
                 Account
@@ -98,13 +114,40 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 src={LILogo7}
                 alt=""
                 className="user_profile"
-                onClick={handleLoggout}
+                onClick={handleClickOpen}
+                // onClick={handleLoggout}
                 style={{ cursor: 'pointer' }}
               />
             </div>
             <p className="user_mail">{user.email}</p>
           </div>
         </ul>
+      </div>
+      {/* logout popup  */}
+      <div>
+        <Dialog
+          fullWidth
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <div className="buyer_main">
+            <div className="buyer_heading">
+              <h2 className="buyer_h2">Are you sure you want to log out?</h2>
+              <ClearIcon onClick={handleClose} />
+            </div>
+            {/* {children} */}
+            <div className="logout_popup">
+              <Button className="logBtn" onClick={handleClose}>
+                Cancel
+              </Button>
+              <Button className="logBtn2" onClick={handleLoggout} autoFocus>
+                Logout
+              </Button>
+            </div>
+          </div>
+        </Dialog>
       </div>
     </>
   );

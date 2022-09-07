@@ -40,9 +40,9 @@ const Providers = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          <div className="List_heading_div">
-            <h1 className="list_h1">Service providers</h1>
-            <div className="searching">
+          <div className="List_heading_div5">
+            <h1 className="list_h1_provider">Service providers</h1>
+            <div className="searching_provider">
               <input type="text" className="search_input" placeholder="To Search" />
               <img src={SearchIcon} alt="" className="search_icon" />
             </div>

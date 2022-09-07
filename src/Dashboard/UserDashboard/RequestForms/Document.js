@@ -19,10 +19,9 @@ const Document = (props) => {
       props.setProductCodes(product);
     }
     handleAllCountries();
-    props.handleDocByCountryId()
+    props.handleDocByCountryId();
   }, [props?.createdCodes?.codes]);
   const handleProductChange = (name, value, cindex, index1) => {
-
     props.setProductCodes((prev) => {
       prev[cindex].products[index1][name] = value;
       return [...prev];
@@ -56,14 +55,14 @@ const Document = (props) => {
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: '100%' }}>
-        {console.log("item", props)}
+        {console.log('item', props)}
         {props?.CountryDoc?.map((item, index) => {
           return (
             <Grid item xs={6}>
-              <label>
+              <label style={{ display: 'flex' }}>
                 {item?.name}
                 <Tooltip title={item?.info} placement="top">
-                  <img src={HelperIcon} />
+                  <img style={{ paddingLeft: '5px' }} src={HelperIcon} />
                 </Tooltip>
               </label>
 
@@ -81,33 +80,29 @@ const Document = (props) => {
           );
         })}
       </Grid>
-      {
-        props?.productCodes?.map((item, cindex) => {
-          return (
-            <div>
-
-              {item?.products?.map((product, index1) => {
-                return (
-                  <ProductForm
-                    handleProductChange={handleProductChange}
-                    item={item}
-                    cindex={cindex}
-                    index1={index1}
-                    countries={countries}
-                    setCodes={props.setProductCodes}
-                    product={product}
-                  />
-                );
-              })}
-              <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex, item)}>
-                <AddProductIcon />
-                &nbsp;&nbsp;Add another product
-              </div>
+      {props?.productCodes?.map((item, cindex) => {
+        return (
+          <div>
+            {item?.products?.map((product, index1) => {
+              return (
+                <ProductForm
+                  handleProductChange={handleProductChange}
+                  item={item}
+                  cindex={cindex}
+                  index1={index1}
+                  countries={countries}
+                  setCodes={props.setProductCodes}
+                  product={product}
+                />
+              );
+            })}
+            <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex, item)}>
+              <AddProductIcon />
+              &nbsp;&nbsp;Add another product
             </div>
-          );
-        })
-
-      }
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -70,7 +70,7 @@ const ApPlusPopup = ({ open, setOpen }) => {
                 </div>
               </div>
               <div className="luyer_input_field"></div>
-              <button className="luyer_button">Confirmer</button>
+              <button className="luyer_button">To Confirm</button>
             </div>
           </div>
         </Dialog>
