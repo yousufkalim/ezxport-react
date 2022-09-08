@@ -42,7 +42,10 @@
 .css-i4bv87-MuiSvgIcon-root {
   width: 0.7em !important;
   font-size: 2.5rem !important;
-  color: #667085 !important;
+  color: #000 !important;
+}
+.css-1sptd97 {
+  margin-top: 1rem !important;
 }
 .table_head {
   font-size: 14px !important;
@@ -120,8 +123,22 @@
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input,
 .css-ahj2mt-MuiTypography-root,
 .css-1v2lvtn-MuiPaginationItem-root,
-.css-6a1lrz-MuiTableCell-root {
+.css-6a1lrz-MuiTableCell-root,
+.css-fvipm8 {
   font-family: 'Inter' !important;
+  border-radius: 7px !important;
+}
+.css-igs3ac {
+  inset: 0 0px 0 0 !important;
+  height: 3rem !important;
+}
+.css-qiwgdb.MuiSelect-select {
+  min-height: 2.7rem !important;
+}
+.css-qiwgdb.css-qiwgdb.css-qiwgdb {
+  display: flex !important;
+  justify-content: left !important;
+  align-items: center !important;
 }
 
 @media screen and (max-width: 950px) {
