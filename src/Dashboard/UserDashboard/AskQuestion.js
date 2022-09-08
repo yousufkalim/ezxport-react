@@ -64,7 +64,7 @@ const AskQuestion = () => {
                   aria-label="minimum height"
                   minRows={10}
                   placeholder="Description of your request"
-                  style={{ padding: '10px' }}
+                  style={{ padding: '10px', borderRadius: '7px' }}
                 />
                 <br />
               </FormControl>

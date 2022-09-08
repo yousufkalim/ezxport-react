@@ -162,7 +162,6 @@ const TabMenu = (props) => {
                       </TableCell>
                       <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.Congo}
-                        <br />
                       </TableCell>
                       <TableCell align="left" className="country2" onClick={handleClickOpen}>
                         {row.mail}

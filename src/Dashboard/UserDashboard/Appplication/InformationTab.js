@@ -81,7 +81,7 @@ const InformationTab = () => {
             <Tab className="tab_btn3" label="Place of inspection" {...a11yProps(2)} />
           </Tabs>
         </Box>
-        <br />
+
         <TabPanel value={value} index={0}>
           <div className="list_table">
             <SellerTab />
