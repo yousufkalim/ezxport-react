@@ -26,6 +26,10 @@
   width: 95%;
   margin: auto;
   padding: 3% 12px;
+  overflow-y: scroll;
+}
+.buyer_main::-webkit-scrollbar {
+  width: 0px;
 }
 .luyer_input_field {
   margin: 5% 0 !important;
@@ -91,6 +95,9 @@
   color: #fff;
   padding: 2%;
   cursor: pointer;
+}
+.luyer_button:hover {
+  background: #603dab;
 }
 .luyer_button2 {
   width: 100%;
