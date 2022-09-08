@@ -264,7 +264,7 @@ const Country = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div">
-            <h1 className="list_h1">Country</h1>
+            <h1 className="list_h1_Country">Country</h1>
             <div className="searching">
               <SearchField placeholder="Searching" />
               <Button

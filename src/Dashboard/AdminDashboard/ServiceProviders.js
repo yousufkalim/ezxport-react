@@ -194,7 +194,7 @@ const ServiceProviders = () => {
             <div className="searching3">
               <SearchField placeholder="Searching" />
               <Button
-                className="list_reqst_btn2"
+                className="list_service_btn2"
                 text={'Add a service provider'}
                 Imgsrc={PlusIcon}
                 onClick={() => setOpen(true)}
