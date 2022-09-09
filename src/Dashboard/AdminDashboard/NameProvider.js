@@ -221,7 +221,7 @@ const NameProvider = () => {
               </div>
             ) : (
               <div className="searching">
-                <SearchField placeholder="Searching" />
+                <SearchField placeholder="Searching" className="search_name_input" />
                 <Button text="Change Provider" className="changeProvider" />
               </div>
             )}
@@ -274,7 +274,7 @@ const NameProvider = () => {
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Phone Number
+                        Telephone number
                       </label>{' '}
                       <InputField
                         disabled={true}
@@ -317,7 +317,7 @@ const NameProvider = () => {
                                     padding: 2,
                                   }}
                                 >
-                                  {item.name}
+                                  <p className="AP_plus_title">{item.name}</p>
                                 </TableCell>
                               </TableRow>
                             );

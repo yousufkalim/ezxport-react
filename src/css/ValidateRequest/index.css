@@ -8,6 +8,17 @@
   align-items: center;
   margin: 2% 0;
 }
+.return_btn{
+  margin-top: 2rem;
+  background: #7f56d9;
+  border: 1px solid #7f56d9;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 25px;
+  font-size: 16px;
+}
 .Reference_h2 {
   font-weight: 800;
   font-size: 20px;
@@ -60,7 +71,7 @@
   border: 1px solid rgba(0, 0, 0, 0.23);
   margin-top: 2%;
 }
-.ExportDocuments_btn {
+.Validator_document_btn_div p {
   border: none;
   background: #12b76a;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
@@ -149,7 +160,7 @@
   border: 1px solid red;
   color: red;
 }
-.redclass2 {
+.redclass p {
   background: none;
   color: red;
 }
@@ -178,6 +189,9 @@
   top: calc(62% - 0.5em) !important;
   margin-top: 13px !important;
 }
+.postel_input {
+  width: 35% !important;
+}
 
 @media only screen and (min-width: 200px) and (max-width: 800px) {
   .Reference_center_div {
@@ -188,8 +202,8 @@
     font-size: 14px;
   }
   .validate_button {
-    padding: 7px 15px;
-    font-size: 12px;
+    padding: 12px 20px;
+    font-size: 13px;
   }
   .validateForm {
     width: 100%;
@@ -201,13 +215,13 @@
     min-height: 34px !important;
   }
   .tab_btn1 {
-    font-size: 9px !important;
+    font-size: 12px !important;
   }
   .tab_btn2 {
-    font-size: 9px !important;
+    font-size: 12px !important;
   }
   .tab_btn3 {
-    font-size: 9px !important;
+    font-size: 12px !important;
   }
   .ExportDocuments_btn {
     padding: 10px 8px;
@@ -230,10 +244,16 @@
     width: 36%;
   }
   .postel_input {
-    width: 35% !important;
+    width: 38% !important;
   }
   .label_modal {
     font-size: 11px !important;
+  }
+  .calender_div {
+    width: 48%;
+  }
+  .seller_title {
+    font-size: 17px;
   }
 }
 @media only screen and (min-width: 801px) and (max-width: 1200px) {

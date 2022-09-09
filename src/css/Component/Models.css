@@ -26,6 +26,10 @@
   width: 95%;
   margin: auto;
   padding: 3% 12px;
+  overflow-y: scroll;
+}
+.buyer_main::-webkit-scrollbar {
+  width: 0px;
 }
 .luyer_input_field {
   margin: 5% 0 !important;
@@ -76,13 +80,11 @@
   height: 2.3rem;
   right: 5px;
   top: 5px;
-
-  width: 32%;
-  /* padding-left: 25px; */
-
+  width: 24%;
   border: transparent;
   outline: none;
-  font-size: 1rem;
+  font-size: 16px;
+  font-weight: 400;
 }
 .luyer_button {
   width: 100%;
@@ -93,6 +95,9 @@
   color: #fff;
   padding: 2%;
   cursor: pointer;
+}
+.luyer_button:hover {
+  background: #603dab;
 }
 .luyer_button2 {
   width: 100%;
@@ -105,8 +110,7 @@
   cursor: pointer;
   margin: 2% 0;
 }
-.demo-simple-select {
-}
+
 .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   position: unset !important;
 }
@@ -124,6 +128,7 @@
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
     font-size: 13px;
+    width: 23%;
   }
 }
 @media screen and (max-width: 500px) {
