@@ -1,18 +1,85 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import Spinner from '../../components/Common/Spinner';
+
+const questions = [
+  {
+    title: "What is your country name?",
+  },
+  {
+    title: "What is your age?"
+  }
+]
 
 const AskQuestion = () => {
-  const [dropdown, setDropdown] = React.useState('default');
+  const [formData, setFormData] = useState({question: '', request: '', description: ''});
+  const user = localStorage.getItem('userData');
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const userData = JSON.parse(user);
 
-  const handleChange = (event) => {
-    setDropdown(event.target.value);
+  useEffect(() => {
+    getUserRequest();
+  }, [])
+
+  const getUserRequest = async () => {
+    setLoading(true);
+    try {
+      await API('get', `/requests/getByUser/${userData._id}`).then((res) => {
+        setRequests(res.data.request);
+        setLoading(false);
+      }).catch(err => {
+        toast.error('Something went wrong');
+      })
+    }catch(err){
+      toast.error(err.message);
+      setLoading(false);
+    }
+  }
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData({...formData, [name]: value});
   };
-  return (
-    <>
+
+  const resetForm = () => {
+    setFormData({question: '', request: '', description: ''});
+  }
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const {question, request: requestTitle, description: message} = formData;
+    const obj = {
+      question,
+      requestTitle,
+      message,
+    }
+    
+    setSubmitLoading(true);
+    await API('post', `/users/sendQuestion/${userData._id}`, obj).then((res) => {
+      resetForm();
+      toast.success(res.data.message);
+      setSubmitLoading(false);
+    }).catch(err => {
+      toast.err('Something went wrong');
+      setSubmitLoading(false);
+    })
+  }
+
+  if(loading){
+    return (
+      <Spinner />
+    )
+  }else {
+    return (
+      <>
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
@@ -28,14 +95,16 @@ const AskQuestion = () => {
                 </label>
                 <Select
                   id="demo-simple-select"
-                  defaultValue={dropdown}
-                  onChange={handleChange}
+                  name="question"
+                  value={formData.question}
+                  onChange={(e) => handleChange(e)}
                   style={{ paddingTop: '3px' }}
                 >
-                  <MenuItem value="default">A demand</MenuItem>
-                  <MenuItem value={10}>A demand</MenuItem>
-                  <MenuItem value={20}>A demand</MenuItem>
-                  <MenuItem value={30}>A demand</MenuItem>
+                  {
+                    questions.map(({title}) => (
+                      <MenuItem value={title}>{title}</MenuItem>
+                    ))
+                  }
                 </Select>
                 <br />
               </FormControl>
@@ -45,14 +114,16 @@ const AskQuestion = () => {
                 </label>
                 <Select
                   id="demo-simple-select"
-                  defaultValue={dropdown}
-                  onChange={handleChange}
+                  name="request"
+                  value={formData.request}
+                  onChange={(e) => handleChange(e)}
                   style={{ paddingTop: '3px' }}
                 >
-                  <MenuItem value="default">Application Title – Date</MenuItem>
-                  <MenuItem value={10}>Application Title – Date</MenuItem>
-                  <MenuItem value={20}>Application Title – Date</MenuItem>
-                  <MenuItem value={30}>Application Title – Date</MenuItem>
+                  {
+                    requests.map(item => (
+                      <MenuItem value={item.title}>{item.title}</MenuItem>
+                    ))
+                  }        
                 </Select>
                 <br />
               </FormControl>
@@ -61,20 +132,24 @@ const AskQuestion = () => {
                   Description
                 </label>
                 <TextareaAutosize
+                  onChange={(e) => handleChange(e)}
+                  name="description"
                   aria-label="minimum height"
                   minRows={10}
+                  value={formData.description}
                   placeholder="Description of your request"
                   style={{ padding: '10px', borderRadius: '7px' }}
                 />
                 <br />
               </FormControl>
-              <button className="quiz_btn">Ask the question</button>
+              <button disabled={submitLoading} onClick={(e) => submitHandler(e)} className="quiz_btn">Ask the question</button>
             </Box>
           </div>
         </div>
       </div>
     </>
-  );
+    )
+  }
 };
 
 export default AskQuestion;

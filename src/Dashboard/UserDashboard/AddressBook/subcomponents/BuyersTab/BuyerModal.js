@@ -86,7 +86,6 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
             handleCloseModal()
           }).catch(err => toast.success('Something went wrong!'));
       }
-      console.log("Buyers ", buyer);
 
       const handleSubmit = (e) => {
         e.preventDefault();
