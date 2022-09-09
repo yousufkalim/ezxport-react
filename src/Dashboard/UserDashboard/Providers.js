@@ -1,41 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SearchIcon from '../../assets/SearchIcon.svg';
-import TableComponent from '../../components/Common/TableComponent';
-import DotedIcon from '../../assets/DotedIcon.svg';
+import ProvidersTable from '../../components/UserDashboard/ProvidersTable';
 import TitleDownArrow from '../../assets/TitleDownArrow.svg';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import Spinner from '../../components/Common/Spinner';
 
-const Data = [
-  {
-    heading: 'Service providers',
-    imgSrc: TitleDownArrow,
-    ServiceProviders: 'AP plus',
-    contact: 'Darrell Steward',
-    AssociatedCountries: 'Ivory Coast, Cameroon, Gabon',
-    Icon: DotedIcon,
-  },
-  {
-    heading: 'Contact',
-    ServiceProviders: 'AP Dillon',
-    contact: 'Darrell Steward',
-    AssociatedCountries: 'Ivory Coast, Cameroon, Gabon',
-    Icon: DotedIcon,
-  },
-  {
-    heading: 'Associated countries',
-    ServiceProviders: 'AP plus',
-    contact: 'Darrell Steward',
-    AssociatedCountries: 'Ivory Coast, Cameroon, Gabon',
-    Icon: DotedIcon,
-  },
-  {
-    heading: '',
-    ServiceProviders: 'AP plus',
-    contact: 'Darrell Steward',
-    AssociatedCountries: 'Ivory Coast, Cameroon, Gabon',
-    Icon: DotedIcon,
-  },
-];
 const Providers = () => {
+
+  const [providers, setProviders] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const user = localStorage.getItem('userData')
+  const userData = JSON.parse(user);
+
+  useEffect(() => {
+    getProviders();
+  }, []);
+
+  const getProviders = async () => {
+    setLoading(true);
+    await API('get', `/vendors/userVendor/${userData._id}`).then((res) => {
+      const data = res?.data?.Uservendors?.map(item => item.vendor);
+      setProviders(data);
+      setLoading(false);
+    }).catch((err) => {
+      toast.error('Something went wrong!')
+      setLoading(false);
+    });
+  }
+
   return (
     <>
       <div className="list_main_div">
@@ -47,10 +40,13 @@ const Providers = () => {
               <img src={SearchIcon} alt="" className="search_icon" />
             </div>
           </div>
-          <TableComponent
-            Data={Data}
-            // Icons={false}
-          />
+          <ProvidersTable
+              data={providers}
+              getProviders={getProviders}
+              dataLoading={loading}
+              // Icons={false}
+            />
+          
         </div>
       </div>
     </>
