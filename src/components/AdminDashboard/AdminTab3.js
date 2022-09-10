@@ -415,8 +415,8 @@ const AdminTab3 = (props) => {
             <option disabled value={'default'}>
               Select an Option
             </option>
-            <option value={true}>Not subject</option>
-            <option value={false}>Subject to inspection</option>
+            <option value={false}>Not subject</option>
+            <option value={true}>Subject to inspection</option>
           </select>
           <label htmlFor="" className="label_modal">
             Select country for BOMs

@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import InformationTab from './InformationTab';
 import DocumentsTab from './DocumentsTab';
-
-const ApplicationTab = () => {
+import Badge from '@mui/material/Badge';
+const ApplicationTab = (props) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -47,21 +47,24 @@ const ApplicationTab = () => {
   return (
     <>
       <div className="list_table">
-        <Box sx={{ width: '100%' }}>
+        <Box sx={{ width: '100%', }}>
           <Box>
-            <Tabs value={value} onChange={handleChange}>
+            <Tabs value={value} onChange={handleChange} >
               <Tab className="tab_btn1" label="Information" {...a11yProps(0)} />
-              <Tab className="tab_btn3" label="Documents" {...a11yProps(1)} />
+              <Tab className="tab_btn3"  {...a11yProps(1)} label='Documents' />
+              {props?.userRequest?.status === "missing documents" || props?.userRequest?.status === "Missing Documents" ?
+                <div className='badge_missingDocs' />
+                : ""}
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
             <div className="list_table">
-              <InformationTab />
+              <InformationTab userRequest={props?.userRequest} />
             </div>
           </TabPanel>
           <TabPanel value={value} index={1}>
             <div className="list_table">
-              <DocumentsTab />
+              <DocumentsTab userRequest={props?.userRequest} />
             </div>
           </TabPanel>
         </Box>

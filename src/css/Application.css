@@ -1,3 +1,13 @@
+.css-jpln7h-MuiTabs-scroller {
+padding: 13px 0;
+}
+.badge_missingDocs{
+  height: 11px;
+   width: 11px; 
+   background-color: #D92D20;
+   border-radius: 50%;
+    margin: 0 0 0 1px;
+}
 .InformationTab {
   width: 100%;
   display: flex;

@@ -20,7 +20,7 @@ import API from '../../../api/index';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const user = JSON.parse(localStorage.getItem('userData'));
@@ -197,18 +197,14 @@ const BOMsForm = (props) => {
         <div style={{ width: '50%' }}>
           <span className="title_productList">Product lists</span>
           <br />
-          <u
-            style={{
+          <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download style={{
               color: '#7F56D9',
               display: 'inline-block',
               paddingTop: '5px',
               fontSize: '12px',
               fontWeight: '500',
               cursor: 'pointer',
-            }}
-          >
-            You don't know your product nomenclatures?
-          </u>
+          }}>You don't know your product nomenclatures?</Link>
         </div>
         <div
           style={{
@@ -234,8 +230,7 @@ const BOMsForm = (props) => {
               onChange={(e) => handleDocument(e.target.files[0])}
             />
           </label>
-
-          <Button text="Download XLS file" className="download_Btn" />
+          <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn">Download XLS file</Link>
         </div>
       </div>
       <div
@@ -276,7 +271,7 @@ const BOMsForm = (props) => {
           />
         </div>
         <div className="codedropdown_div1">
-          <Button text="To add" className="to_add_btn" onClick={handleAddCodes} />
+          <Button text="To add" className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"} onClick={handleAddCodes} disabled={code === "default" ? true : false} />
         </div>
       </div>
       {props.matchedData.length === 0 ? (

@@ -58,11 +58,11 @@ export const UserRoutes = [
     path: '/User/Dashboard/Account',
     component: Account,
   },
-  {
-    path: '/User/Dashboard/Application',
-    name: 'Application',
-    component: Application,
-  },
+  // {
+  //   path: '/User/Dashboard/Application',
+  //   name: 'Application',
+  //   component: Application,
+  // },
   // {
   //   path: '/User/Dashboard/CreateRequest',
   //   name: 'add Request',
