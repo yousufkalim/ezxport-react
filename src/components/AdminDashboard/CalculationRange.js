@@ -69,19 +69,38 @@ const CalculationRange = (props) => {
   }, [formState.values]);
 
   const handleValuesChange = (event) => {
-    if (!event.target.value.match(/[^1-9]/)) {
-      setFormState((formState) => ({
+    const validatedValue = event.target.value.replace(/[^0-9]/g, '');
+    if(validatedValue==="0"){
+      if(formState.values.minCost!==""){
+       return setFormState((formState) => ({
+          ...formState,
+          values: {
+            ...formState.values,
+            [event.target.name]: validatedValue,
+          },
+          touched: {
+            ...formState.touched,
+            [event.target.name]: true,
+          },
+        }));  
+      }
+    }
+    else{
+      return setFormState((formState) => ({
         ...formState,
         values: {
           ...formState.values,
-          [event.target.name]: event.target.value,
+          [event.target.name]: validatedValue,
         },
         touched: {
           ...formState.touched,
           [event.target.name]: true,
         },
-      }));
+      })); 
     }
+    // if (!validatedValue.match(/[^1-9\0\.*$]/)) {
+      
+    // }
   };
   const handleRangeData = async () => {
     await API('get', `/calculations/${props?.id}`)
@@ -260,6 +279,7 @@ const CalculationRange = (props) => {
                     value={formState.values.minCost}
                     name="minCost"
                     onChange={handleValuesChange}
+                    type="tel"
                     // onOptionChange={(e) => {
                     //   setMinCostCurrency(e.target.value);
                     // }}
@@ -308,13 +328,13 @@ const CalculationRange = (props) => {
                 </FormControl>
               </div>
             </div>
-            {console.log("wertyuytr", props.Calculation)}
+            {/* {console.log("wertyuytr", props.Calculation)} */}
             <button
               className={!formState.isValid ? 'AddSlice_button_disabled' : 'AddSlice_button'}
               onClick={props.Calculation ? handleAddRange : handleNewRange}
               disabled={!formState.isValid ? true : false}
             >
-              {console.log("hr", handleAddRange)}
+              {/* {console.log("hr", handleAddRange)} */}
               Ajouter la ligne
             </button>
           </div>
