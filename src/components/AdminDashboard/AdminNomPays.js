@@ -91,6 +91,9 @@ const AdminNomPays = () => {
   const handleCalculationClose = () => setOpenCalculationModal(false);
   const handleAddBomModalClose = () => setOpenAddBomModal(false);
   const handleAddDocumentModalClose = () => setOpenAddBomModal(false);
+  const handleCodesFile = (file) => {
+    console.log("eeeee", file)
+  }
 
   return (
     <>
@@ -211,15 +214,20 @@ const AdminNomPays = () => {
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+              Download your BOM file 
             </label>
             <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
           </div>
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
-            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+            Upload your BOM file 
           </label>
-          <FilePicker />
-          <Button text="Actualiser" className="bom_downloadFile_btn" />
+          <FilePicker
+            // index={"1"}
+            // fileName={item.fileName}
+            // name={item.name}
+            onChange={(e) => handleCodesFile(e.target.files[0])}
+          />
+          <Button text="Submit" className="bom_downloadFile_btn" />
         </div>
       </Modal>
     </>
