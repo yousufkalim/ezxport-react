@@ -8,14 +8,17 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
 
-const ProductLists = (props) => {
+const ProductLists = ({ codes }) => {
+  const monetary_value = codes?.reduce((n, { monetary_value }) =>
+    n + monetary_value, 0
+  )
   return (
     <>
       <div className="ProductLists">
         <div className="ProductLists_heading">
           <p className="ProductLists_title">Product Lists</p>
           <p className="total_value_p">
-            Total value <span> – 25 000 € – 23 codes </span>
+            Total value <span> – {monetary_value} –</span> {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}  
           </p>
         </div>
         {/* table  */}
@@ -39,16 +42,16 @@ const ProductLists = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.Data.map((item) => (
+                {codes?.map((item) => (
                   <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row" style={{ width: '22%' }}>
-                      <p className="AP_plus_title">{item.ServiceProviders}</p>
+                      <p className="AP_plus_title">{item.code}</p>
                     </TableCell>
                     <TableCell align="left" className="country2" style={{ width: '22%' }}>
-                      <p className="AP_plus_title">{item.contact}</p>
+                      <p className="AP_plus_title">--</p>
                     </TableCell>
                     <TableCell align="left" className="country2" style={{ width: '100%' }}>
-                      {item.AssociatedCountries}
+                      {item.monetary_value}
                     </TableCell>
                   </TableRow>
                 ))}
