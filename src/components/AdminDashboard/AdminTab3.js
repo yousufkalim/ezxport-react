@@ -258,7 +258,7 @@ const AdminTab3 = (props) => {
                   sx={{ padding: 2 }}
                   align="left"
                 >
-                  {row.code}
+                  <p className="AP_plus_title">{row.code}</p>
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
                   <p

@@ -1,7 +1,7 @@
-import SearchField from '../../components/Common/SearchField';
-import Button from '../../components/Common/Button';
+// import SearchField from '../../components/Common/SearchField';
+// import Button from '../../components/Common/Button';
 import InputField from '../../components/Common/InputField';
-import Modal from '../../components/Common/Modal';
+// import Modal from '../../components/Common/Modal';
 import BackArrow from '../../assets/BackArrow.svg';
 import { Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
@@ -9,7 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-import PaginationPage from '../../components/AdminDashboard/Pagination';
+// import PaginationPage from '../../components/AdminDashboard/Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,12 +18,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import AdminTab1 from '../../components/AdminDashboard/AdminTab1';
-import AdminTab2 from '../../components/AdminDashboard/AdminTab2';
-import DownArrow from '../../assets/TitleDownArrow.svg';
+// import AdminTab1 from '../../components/AdminDashboard/AdminTab1';
+// import AdminTab2 from '../../components/AdminDashboard/AdminTab2';
+// import DownArrow from '../../assets/TitleDownArrow.svg';
 import { useParams } from 'react-router-dom';
 import API from '../../api/index';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import Moment from 'moment';
 
 function TabPanel(props) {
@@ -104,7 +104,7 @@ const UserDetails = () => {
   const handleRequestByUserId = async () => {
     await API('get', `/requests/getByUser/${id}`)
       .then((res) => {
-        console.log("🚀 ~ file: UserDetails.js ~ line 107 ~ .then ~ res", res)
+        console.log('🚀 ~ file: UserDetails.js ~ line 107 ~ .then ~ res', res);
         setRequestById(res?.data?.request);
         // console.log("first", res.data);
       })
@@ -118,12 +118,13 @@ const UserDetails = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
-          <div className="List_heading_div">
-            <h1 className="list_h1">
+          <div className="List_Details_div">
+            <h1 className="list_Details_h1">
               <Link to="/Admin/Dashboard/Users">
-                <img src={BackArrow} alt="" />
+                <img src={BackArrow} alt="" style={{ marginRight: '10px' }} />
               </Link>
-              &nbsp; {`${lastName} ${firstName}`}
+              &nbsp;
+              {`${lastName} ${firstName}`}
             </h1>
           </div>
 
@@ -185,7 +186,7 @@ const UserDetails = () => {
                       />
                     </div>
                     <div className="userdetail_textField_div2">
-                      <div style={{ width: '35%' }} className="postel_input">
+                      <div className="postel_input">
                         <label htmlFor="" className="label_modal">
                           Postal code
                         </label>{' '}
@@ -237,7 +238,7 @@ const UserDetails = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  {requestById?.length !== 0 ?
+                  {requestById?.length !== 0 ? (
                     <>
                       <TableContainer component={Paper}>
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -304,7 +305,7 @@ const UserDetails = () => {
                                       {item?.certification_cost?.currency === 'USD'
                                         ? item?.certification_cost?.value + '$'
                                         : item?.certification_cost?.currency === 'EURO' &&
-                                        item?.certification_cost?.value + '€'}
+                                          item?.certification_cost?.value + '€'}
                                     </>
                                   ) : (
                                     '--'
@@ -329,13 +330,14 @@ const UserDetails = () => {
                           </TableBody>
                         </Table>
                       </TableContainer>
-                    </> :
+                    </>
+                  ) : (
                     <>
-                      <h1 style={{ textAlign: "center", color: "#667085" }}>No request created by {`${lastName} ${firstName}`}
+                      <h1 style={{ textAlign: 'center', color: '#667085' }}>
+                        No request created by {`${lastName} ${firstName}`}
                       </h1>
                     </>
-                  }
-
+                  )}
                 </div>
               </TabPanel>
             </Box>

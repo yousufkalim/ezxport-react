@@ -96,6 +96,7 @@ const FollowUp = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
+
                   {allRequest?.map((item) => (
                     <TableRow
                       style={{ cursor: 'pointer' }}
@@ -116,7 +117,7 @@ const FollowUp = () => {
                             {item?.certification_cost?.currency === 'USD'
                               ? item?.certification_cost?.value + '$'
                               : item?.certification_cost?.currency === 'EURO' &&
-                              item?.certification_cost?.value + '€'}
+                                item?.certification_cost?.value + '€'}
                           </>
                         ) : (
                           '--'
@@ -124,18 +125,13 @@ const FollowUp = () => {
                       </TableCell>
 
                       <TableCell align="left" className="country2">
-                        {item?.vendor?.vendor ? (
-                          <>
-                            {item?.vendor?.vendor?.name}
-                          </>
-                        ) : (
-                          '--'
-                        )}
+                        {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : '--'}
                       </TableCell>
                       <TableCell align="left">
-                        {item?.status === "Validate By Admin" ? (
+                        {item?.status === 'Validate By Admin' ? (
                           <p className="clrClass">{item?.status}</p>
-                        ) : item?.status === 'missing documents' || item?.status === 'Missing Documents' ? (
+                        ) : item?.status === 'Missing documents' ||
+                          item?.status === 'Missing Documents' ? (
                           <p className="missingDocStatus">{item?.status}</p>
                         ) : item?.status === 'Validated' ? (
                           <p className="clrClass">{item?.status}</p>
@@ -143,7 +139,9 @@ const FollowUp = () => {
                           <p className="send_status">{item?.status}</p>
                         ) : item?.status === 'Benig Checked By Expert' ? (
                           <p className="process_status">{item?.status}</p>
-                        ) : ("--")}
+                        ) : (
+                          '--'
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}

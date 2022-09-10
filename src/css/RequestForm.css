@@ -35,7 +35,7 @@
 }
 .stepperClass {
   margin-left: -10%;
-  width: 93%;
+  width: 96%;
 }
 .stepper_form {
   width: 75%;
@@ -163,11 +163,14 @@
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.23);
   font-size: 1rem;
+  padding: 0 10px;
 }
 .seller_title {
   font-size: 20px;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
   font-weight: 600;
+  padding-top: 10px;
+  display: inline-block;
 }
 .company_name_input {
   padding-left: 7px;
@@ -188,7 +191,7 @@
   border-radius: 7px;
   border: 1px solid rgba(0, 0, 0, 0.23);
   height: 3rem;
-  width: 23%;
+  width: 18%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -203,7 +206,8 @@
   position: relative;
   margin-left: 0.7rem;
   outline: none;
-  font-size: 1rem;
+  font-size: 14px;
+  font-weight: 500;
   border: none;
   height: 2.8rem;
 }
@@ -276,7 +280,9 @@ input[type='radio']:checked {
   background-color: #fffaeb;
 }
 .title_span {
-  font-size: 1.3rem;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
 }
 .divider_line {
   width: 100%;

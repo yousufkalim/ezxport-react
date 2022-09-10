@@ -31,6 +31,7 @@ export default function MultipleSelectCheckmarks(props) {
             height: "2.9rem !important",
           }}
           name={props.name}
+          disabled={props.disabled}
           multiple
           value={props.value}
           onChange={props.onChange}

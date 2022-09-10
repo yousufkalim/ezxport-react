@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
+import React from 'react';
+// import MenuItem from '@mui/material/MenuItem';
+// import Select from '@mui/material/Select';
 import DatePicker from '../../../components/Common/DatePicker';
 import InputField from '../../../components/Common/InputField';
 import moment from 'moment';
@@ -20,7 +20,6 @@ const AddressBook = (props) => {
                 className="company_name_input"
                 name="companyName"
                 value={props?.requestById?.seller?.company_name}
-
               />
             </div>
             <div style={{ width: '48%' }}>
@@ -30,7 +29,6 @@ const AddressBook = (props) => {
                 disabled
                 name="Country"
                 value={props?.requestById?.seller?.country?.name}
-
               />
             </div>
           </div>
@@ -42,7 +40,6 @@ const AddressBook = (props) => {
                 disabled
                 name="email"
                 value={props?.requestById?.seller?.email}
-
               />
             </div>
             <div style={{ width: '48%' }}>
@@ -52,7 +49,6 @@ const AddressBook = (props) => {
                 disabled
                 name="telephone"
                 value={props?.requestById?.seller?.phone_number}
-
               />
             </div>
           </div>
@@ -62,10 +58,8 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="fullAddress"
                 value={props?.requestById?.seller?.address}
-
               />
             </div>
             <div
@@ -75,15 +69,13 @@ const AddressBook = (props) => {
                 justifyContent: 'space-between',
               }}
             >
-              <div style={{ width: '35%' }} className="postel_input">
+              <div className="postel_input">
                 <label className="label_modal">Postel Code</label>
                 <InputField
                   className="company_name_input"
                   disabled
-
                   name="postalCode"
                   value={props?.requestById?.seller?.zipcode}
-
                 />
               </div>
               <div style={{ width: '60%' }}>
@@ -91,10 +83,8 @@ const AddressBook = (props) => {
                 <InputField
                   className="company_name_input"
                   disabled
-
                   name="town"
                   value={props?.requestById?.seller?.city}
-
                 />
               </div>
             </div>
@@ -109,7 +99,6 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="companyName"
                 value={props?.requestById?.buyer?.company_name}
               />
@@ -119,10 +108,8 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="Country"
                 value={props?.requestById?.buyer?.country?.name}
-
               />
             </div>
           </div>
@@ -132,10 +119,8 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="email"
                 value={props?.requestById?.buyer?.email}
-
               />
             </div>
             <div style={{ width: '48%' }}>
@@ -143,10 +128,8 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="telephone"
                 value={props?.requestById?.buyer?.phone_number}
-
               />
             </div>
           </div>
@@ -156,10 +139,8 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="fullAddress"
                 value={props?.requestById?.buyer?.address}
-
               />
             </div>
             <div
@@ -174,10 +155,8 @@ const AddressBook = (props) => {
                 <InputField
                   className="company_name_input"
                   disabled
-
                   name="postalCode"
                   value={props?.requestById?.buyer?.zipcode}
-
                 />
               </div>
               <div style={{ width: '60%' }}>
@@ -187,7 +166,6 @@ const AddressBook = (props) => {
                   disabled
                   name="town"
                   value={props?.requestById?.buyer?.city}
-
                 />
               </div>
             </div>
@@ -203,7 +181,7 @@ const AddressBook = (props) => {
             <DatePicker
               disabled
               name="InspectionDate"
-              value={moment(props?.requestById?.inspection_date).format("YYYY-MM-DD")}
+              value={moment(props?.requestById?.inspection_date).format('YYYY-MM-DD')}
             />
           </div>
           <div className="inspection_textfield">
@@ -212,7 +190,6 @@ const AddressBook = (props) => {
               <InputField
                 className="company_name_input"
                 disabled
-
                 name="companyName"
                 value={props?.requestById?.place?.company_name}
               />
@@ -224,7 +201,6 @@ const AddressBook = (props) => {
                 disabled
                 name="Country"
                 value={props?.requestById?.place?.country?.name}
-
               />
             </div>
           </div>
@@ -236,7 +212,6 @@ const AddressBook = (props) => {
                 className="company_name_input"
                 name="email"
                 value={props?.requestById?.place?.email}
-
               />
             </div>
             <div style={{ width: '48%' }}>
@@ -246,7 +221,6 @@ const AddressBook = (props) => {
                 disabled
                 name="telephone"
                 value={props?.requestById?.place?.phone_number}
-
               />
             </div>
           </div>
@@ -258,7 +232,6 @@ const AddressBook = (props) => {
                 disabled
                 name="fullAddress"
                 value={props?.requestById?.place?.address}
-
               />
             </div>
             <div
@@ -275,7 +248,6 @@ const AddressBook = (props) => {
                   disabled
                   name="postalCode"
                   value={props?.requestById?.place?.zipcode}
-
                 />
               </div>
               <div style={{ width: '60%' }}>
@@ -285,7 +257,6 @@ const AddressBook = (props) => {
                   disabled
                   name="town"
                   value={props?.requestById?.place?.city}
-
                 />
               </div>
             </div>

@@ -64,7 +64,7 @@ label {
   position: absolute;
   font-size: 1.2em;
   right: 2%;
-  top: 30%;
+  top: 13%;
   cursor: pointer;
 }
 .forgot_p-div {
@@ -290,6 +290,13 @@ label {
   font-size: 12px;
   display: flex;
   justify-content: flex-start;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 @media screen and (max-width: 500px) {
   .regist_input_div {
