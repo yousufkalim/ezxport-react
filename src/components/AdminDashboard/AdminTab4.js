@@ -127,11 +127,7 @@ const AdminTab4 = (props) => {
                   </label>
                   <TextFieldSelect
                     value={
-                      thresholdCurrency === "USD"
-                        ? "$ " + MinThreshold
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + MinThreshold
-                        : ""
+                        MinThreshold
                     }
                     disabled={true}
                   />
@@ -145,7 +141,7 @@ const AdminTab4 = (props) => {
                   <TextField
                     id="outlined-basic"
                     variant="outlined"
-                    value={coefficient}
+                      value={coefficient + " %"}
                     sx={{
                       ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input":
                         {
@@ -162,11 +158,7 @@ const AdminTab4 = (props) => {
                   </label>
                   <TextFieldSelect
                     value={
-                      minCostCurrency === "USD"
-                        ? "$ " + minCost
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + minCost
-                        : ""
+                        minCost
                     }
                     disabled={true}
                   />
@@ -179,11 +171,7 @@ const AdminTab4 = (props) => {
                   </label>
                   <TextFieldSelect
                     value={
-                      maxCostCurrency === "USD"
-                        ? "$ " + maxCost
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + maxCost
-                        : ""
+                        maxCost
                     }
                     disabled={true}
                   />
@@ -225,7 +213,7 @@ const AdminTab4 = (props) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Coefficient
+                Coefficient %
               </label>
               <TextField
                 onChange={(e) => {
