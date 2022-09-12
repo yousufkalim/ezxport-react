@@ -20,7 +20,7 @@ import Spinner from '../../../../../components/Common/Spinner';
 
 
 const title = [
-    { heading: 'Company Name', imgSrc: TitleDownArrow },
+    { heading: 'Name', imgSrc: TitleDownArrow },
     { heading: 'Country' },
     { heading: 'E-mail address' },
     { heading: 'Telephone' },
@@ -274,7 +274,7 @@ const SellersTab = ({open, setOpen,userId, countries}) => {
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="buyer_label">
-              Company Name
+              Name
             </label>
             <InputField
               className={

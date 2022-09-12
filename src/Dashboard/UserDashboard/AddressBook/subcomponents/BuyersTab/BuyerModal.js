@@ -123,7 +123,7 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="buyer_label">
-              Company Name
+              Name
             </label>
             <InputField
               className={

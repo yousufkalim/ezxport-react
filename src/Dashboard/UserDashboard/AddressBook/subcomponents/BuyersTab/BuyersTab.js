@@ -16,7 +16,7 @@ import BuyerModal from './BuyerModal';
 
 
 const title = [
-    { heading: 'Company Name', imgSrc: TitleDownArrow },
+    { heading: 'Name', imgSrc: TitleDownArrow },
     { heading: 'Country' },
     { heading: 'E-mail address' },
     { heading: 'Telephone' },
