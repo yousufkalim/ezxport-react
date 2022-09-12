@@ -12,6 +12,9 @@ const societyType = [
     },
     {
         name: "IT"
+    },
+    {
+      name: "4"
     }
 ]
 

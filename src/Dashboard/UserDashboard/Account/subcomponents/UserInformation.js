@@ -1,5 +1,4 @@
 import React from 'react';
-import QuizIcon from '../../../../assets/QuizIcon.svg';
 import InputField from '../../../../components/Common/InputField';
 
 const UserInformation = () => {
@@ -13,7 +12,6 @@ const UserInformation = () => {
                     E-mail address
                   </label>
                   <InputField disabled value={user.email} type="text" className="email_input" placeholder="mail@mail.com" />
-                  <img src={QuizIcon} alt="" className="email_input_icon" />
       </div>
   )
 }

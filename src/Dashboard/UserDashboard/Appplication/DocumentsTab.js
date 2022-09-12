@@ -36,9 +36,11 @@ const DocumentsTab = ({ userRequest }) => {
   const handleRequest = () => {
     setOpen(!open);
   };
+  
   const handleCode = () => {
     setProductOpen(!productOpen);
   };
+
   const handleReqDoc = async () => {
     await API("get", `/requests/zipFile/${userRequest._id}`)
       .then((res) => {

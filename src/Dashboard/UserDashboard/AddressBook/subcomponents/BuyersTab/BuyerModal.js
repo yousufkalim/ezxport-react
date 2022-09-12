@@ -40,6 +40,7 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
       }, [formState.values]);
 
       const countryHandler = (e) => {
+        console.log("Country ", e.target.value)
         setFormState((state) => ({
           ...state,
           values: {...state.values, country: e.target.value}
@@ -150,7 +151,7 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
                 id="demo-simple-select"
                 disabled={!isEdit && buyer}
                 name="country"
-                defaultValue={formState.values.country}
+                // defaultValue={formState.values.country}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"

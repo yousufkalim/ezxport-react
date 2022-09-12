@@ -715,6 +715,11 @@
   text-align: center !important;
 }
 
+.company_input_society {
+  width: 50%;
+  margin-top: 5px;
+}
+
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .dashboard_li {
     font-size: 14px;
