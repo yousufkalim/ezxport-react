@@ -78,7 +78,11 @@
   border: none;
   border-radius: 6px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
+  .Validator_document_btn_div {
+    display: none;
+  }
+
   .changeProvider {
     width: 112px;
     font-size: 12px;

@@ -994,7 +994,7 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
   .Coefficient_main {
     width: 70% !important;
   }
