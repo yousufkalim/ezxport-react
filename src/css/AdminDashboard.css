@@ -1,12 +1,10 @@
 .UserTable {
-  width: 66%;
   display: flex;
   justify-content: space-between;
 }
 .UserTable_right_div {
   display: flex;
   position: relative;
-  width: 60%;
   height: 45px;
 }
 .css-4ff9q7.Mui-completed {
@@ -67,7 +65,7 @@
   border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   border-radius: 8px;
-  width: 200px;
+  width: 142px;
   padding: 2% 3%;
   margin-left: 3%;
   font-size: 16px;
@@ -141,11 +139,16 @@
   justify-content: left !important;
   align-items: center !important;
 }
+@media screen and (min-width: 951px) and (max-width: 1050px) {
+  .UserTable_right_div {
+    height: 40px;
+  }
+  .searchingRequest {
+    height: 40px;
+  }
+}
 
 @media screen and (max-width: 950px) {
-  .UserTable {
-    width: 87%;
-  }
   .UserTable_right_div {
     height: 40px;
   }
@@ -169,14 +172,29 @@
     font-size: 12px !important;
   }
 }
+@media screen and (min-width: 670px) and (max-width: 780px) {
+  .company_name_input {
+    width: 92% !important;
+  }
+}
 @media screen and (max-width: 780px) {
+  .css-i4bv87-MuiSvgIcon-root {
+    font-size: 3rem !important;
+  }
   .UserTable_right_div {
-    width: 80%;
     height: 35px;
+  }
+  .amount_input_div {
+    width: 100% !important;
+  }
+  .unit_input_div {
+    width: 100% !important;
   }
   .export_btn {
     font-size: 13px;
     align-items: center;
+    justify-content: center;
+    width: 117px;
   }
   .list_user_h1 {
     font-size: 17px;
