@@ -195,7 +195,7 @@ const ServiceProviders = () => {
               <SearchField placeholder="Searching" />
               <Button
                 className="list_service_btn2"
-                text={'Add a service provider'}
+                text={"Add a service provider"}
                 Imgsrc={PlusIcon}
                 onClick={() => setOpen(true)}
               />
@@ -206,11 +206,11 @@ const ServiceProviders = () => {
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                  <TableRow sx={{ border: "1px solid #EAECF0" }}>
+                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       Service provider <img src={DownArrow} alt="" />
                     </TableCell>
-                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       Associated countries &nbsp;
                       <img src={DownArrow} alt="" />
                     </TableCell>
@@ -218,7 +218,7 @@ const ServiceProviders = () => {
                 </TableHead>
                 <TableBody>
                   {vendors?.map((item) => (
-                    <TableRow key={item.name}>
+                    <TableRow key={item.name} sx={{ border: "1px solid #EAECF0" }}>
                       <TableCell
                         onClick={() => {
                           history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
@@ -226,9 +226,8 @@ const ServiceProviders = () => {
                         component="th"
                         scope="row"
                         sx={{
-                          border: '1px solid #E5E5E5;',
                           padding: 2,
-                          cursor: 'pointer',
+                          cursor: "pointer",
                         }}
                       >
                         <p className="AP_plus_title">{item.name}</p>
@@ -237,16 +236,22 @@ const ServiceProviders = () => {
                         component="th"
                         scope="row"
                         sx={{
-                          border: '1px solid #E5E5E5;',
                           padding: 2,
-                          cursor: 'pointer',
+                          cursor: "pointer",
+                          display: "flex",
+                          justifyContent: "flex-start",
+                          alignItems: "flex-start",
                         }}
                         onClick={() => {
                           history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
                         }}
                       >
                         {item.countries.map((country) => {
-                          return <p className="AP_plus_title">{country.name}</p>;
+                          return (
+                            <p className="AP_plus_title" style={{ paddingLeft: "10px" }}>
+                              {country.name}
+                            </p>
+                          );
                         })}
                       </TableCell>
                     </TableRow>
@@ -258,102 +263,68 @@ const ServiceProviders = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title="Add a Service Provider"
-        handleClose={handleClose}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title="Add a Service Provider" handleClose={handleClose} Closebtn={true}>
         <div className="add_vendor_div">
           <label htmlFor="" className="label_modal">
             Full Name
-          </label>{' '}
+          </label>{" "}
           <InputField
             name="fullname"
-            className={
-              hasError('fullname') && formState.errors.fullname
-                ? 'textfield_addvendor_red'
-                : 'textfield_addvendor'
-            }
+            className={hasError("fullname") && formState.errors.fullname ? "textfield_addvendor_red" : "textfield_addvendor"}
             value={formState.values.fullname}
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError('fullname') ? formState.errors.fullname[0] : null}
-          </div>
+          <div className="error-format">{hasError("fullname") ? formState.errors.fullname[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Phone Number
-          </label>{' '}
+          </label>{" "}
           <InputField
             name="phone_Number"
             value={formState.values.phone_Number}
             type="string"
             className={
-              hasError('phone_Number') && formState.errors.phone_Number
-                ? 'textfield_addvendor_red'
-                : 'textfield_addvendor'
+              hasError("phone_Number") && formState.errors.phone_Number ? "textfield_addvendor_red" : "textfield_addvendor"
             }
             onChange={handlePhnChange}
           />
-          <div className="error-format">
-            {hasError('phone_Number') ? formState.errors.phone_Number[0] : null}
-          </div>
+          <div className="error-format">{hasError("phone_Number") ? formState.errors.phone_Number[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Contact
-          </label>{' '}
+          </label>{" "}
           <InputField
             name="contactEmail"
             className={
-              hasError('contactEmail') && formState.errors.contactEmail
-                ? 'textfield_addvendor_red'
-                : 'textfield_addvendor'
+              hasError("contactEmail") && formState.errors.contactEmail ? "textfield_addvendor_red" : "textfield_addvendor"
             }
             onChange={handleChange}
             value={formState.values.contactEmail}
           />
-          <div className="error-format">
-            {hasError('contactEmail') ? formState.errors.contactEmail[0] : null}
-          </div>
+          <div className="error-format">{hasError("contactEmail") ? formState.errors.contactEmail[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Default sending Email address
           </label>
           <InputField
             name="sendingEmail"
             className={
-              hasError('sendingEmail') && formState.errors.sendingEmail
-                ? 'textfield_addvendor_red'
-                : 'textfield_addvendor'
+              hasError("sendingEmail") && formState.errors.sendingEmail ? "textfield_addvendor_red" : "textfield_addvendor"
             }
             onChange={handleChange}
             value={formState.values.sendingEmail}
           />
-          <div className="error-format">
-            {hasError('sendingEmail') ? formState.errors.sendingEmail[0] : null}
-          </div>
+          <div className="error-format">{hasError("sendingEmail") ? formState.errors.sendingEmail[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Select country to add
           </label>
-          <MultiSelect
-            name="country"
-            onChange={handleMultiSelectChange}
-            value={select}
-            names={names}
-            select={select}
-          />
+          <MultiSelect name="country" onChange={handleMultiSelectChange} value={select} names={names} select={select} />
           {/* {console.log("===", select)} */}
           <Button
             text="Add Service Provider"
-            className={
-              formState.isValid && select.length > 0
-                ? 'add_vendor_button'
-                : 'add_vendor_button_disabled'
-            }
+            className={formState.isValid && select.length > 0 ? "add_vendor_button" : "add_vendor_button_disabled"}
             onClick={handleAddVendor}
             disabled={!formState.isValid || select.length < 1 ? true : false}
           />
-          {console.log('selc', select.length)}
-          {console.log('selc', !formState.isValid)}
+          {console.log("selc", select.length)}
+          {console.log("selc", !formState.isValid)}
         </div>
       </Modal>
     </>

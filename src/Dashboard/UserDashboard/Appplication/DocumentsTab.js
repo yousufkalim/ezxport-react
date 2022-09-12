@@ -14,6 +14,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api/index";
 import { toast } from "react-toastify";
 import Button from "../../../components/Common/Button";
+import { Typography } from "@mui/material";
 
 const DocumentsTab = ({ userRequest }) => {
   const [open, setOpen] = useState(true);
@@ -83,7 +84,7 @@ const DocumentsTab = ({ userRequest }) => {
     <>
       {userRequest?.missing_docs?.length !== 0 ? (
         <>
-          <span>Missing Documents</span>
+          <Typography>Missing Documents</Typography>
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <span>Code name</span>
           <Grid container spacing={2}>
@@ -106,7 +107,7 @@ const DocumentsTab = ({ userRequest }) => {
               );
             })}
           </Grid>
-          <Button text="Send Documents" />
+          {/* <Button text="Send Documents" /> */}
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <span>Comments by the Admin</span> <br />
           <TextareaAutosize
