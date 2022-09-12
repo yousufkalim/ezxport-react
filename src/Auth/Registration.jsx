@@ -384,7 +384,7 @@ const Registration = () => {
                   onClick={handleShowPassword}
                 />
                 <div className="error-format">
-                  {hasError("password") && formState.errors.password}
+                  {hasError("password") ? formState.errors.password[0] : null}
                 </div>
               </div>
               <div className="regist_col1">

@@ -11,6 +11,7 @@
 @import url('./RequestForm.css');
 
 @import url('./Component/Models.css');
+@import url('./Component/CalculationInput.css');
 @import url('./Modal/Bom-Popup.css');
 @import url('./Modal/AddCountryModal.css');
 @import url('./Modal/AddServiceProvider.css');

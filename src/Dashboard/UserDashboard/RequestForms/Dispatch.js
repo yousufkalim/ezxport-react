@@ -43,6 +43,7 @@ const Dispatch = (props) => {
     let SelectedPlace = props?.places?.find((item) => {
       return item._id === props?.step3?.placeOfInspection?.InspectionPlace;
     });
+    console.log("🚀 ~ file: Dispatch.js ~ line 46 ~ SelectedPlace ~ SelectedPlace", SelectedPlace);
 
     props.setStep3((prev) => {
       prev.placeOfInspection.companyName = SelectedPlace?.company_name;
@@ -54,31 +55,34 @@ const Dispatch = (props) => {
       prev.placeOfInspection.postalCode = SelectedPlace?.zipcode;
       prev.placeOfInspection.town = SelectedPlace?.city;
       prev.placeOfInspection.contactLastName = SelectedPlace?.contact_lname;
-      prev.placeOfInspection.contactFirstName = SelectedPlace?.conatct_fname;
+      prev.placeOfInspection.contactFirstName = SelectedPlace?.contact_fname;
       return { ...prev };
     });
   };
+
   useEffect(() => {
     handleSelectedSeller();
-  }, [props?.step3?.sellerData?.seller]);
+  }, [props?.step3?.sellerData.seller]);
+
   useEffect(() => {
     handleSelectedBuyer();
   }, [props?.step3?.buyerData?.buyer]);
   useEffect(() => {
     handleSelectedPlace();
   }, [props?.step3?.placeOfInspection?.InspectionPlace]);
+
   return (
     <div className="dispatch_main_Div">
       <div>
         <span className="seller_title">Seller data</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+          <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select a seller
           </label>
           <Select
             name="seller"
             id="demo-simple-select"
-            defaultValue={'default'}
+            defaultValue={"default"}
             onChange={(e) => {
               props.handleSellerData(e.target.name, e.target.value);
             }}
@@ -93,7 +97,9 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
@@ -105,9 +111,27 @@ const Dispatch = (props) => {
               }}
             />
           </div>
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Country</label>
-            <InputField
+            <Select
+              className="company_name_input"
+              name="CountryId"
+              id="demo-simple-select"
+              value={props?.step3?.sellerData?.CountryId || "default"}
+              onChange={(e) => {
+                props.handleSellerData(e.target.name, e.target.value);
+              }}
+            >
+              <MenuItem disabled value={"default"}>
+                Select a Country
+              </MenuItem>
+              {props?.countries?.map((item) => {
+                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              })}
+            </Select>
+            {/* <InputField
               className="company_name_input"
               placeholder="CL"
               name="Country"
@@ -115,11 +139,12 @@ const Dispatch = (props) => {
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
-            />
+            /> */}
           </div>
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -131,7 +156,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -146,6 +173,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -159,6 +187,7 @@ const Dispatch = (props) => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
+
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -170,7 +199,7 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: '60%' }}>
+            <div style={{ width: "60%" }}>
               <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
@@ -188,13 +217,13 @@ const Dispatch = (props) => {
       <div className="buyer_data_div">
         <span className="seller_title">Buyer data</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+          <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select a buyer
           </label>
           <Select
             name="buyer"
             id="demo-simple-select"
-            defaultValue={'default'}
+            defaultValue={"default"}
             onChange={(e) => {
               props.handleBuyerData(e.target.name, e.target.value);
             }}
@@ -210,6 +239,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Country Name</label>
             <InputField
               className="company_name_input"
@@ -222,8 +252,25 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Country</label>
-            <InputField
+            <Select
+              className="company_name_input"
+              name="CountryId"
+              id="demo-simple-select"
+              value={props?.step3?.buyerData?.CountryId || "default"}
+              onChange={(e) => {
+                props?.handleBuyerData(e.target.name, e.target.value);
+              }}
+            >
+              <MenuItem disabled value={"default"}>
+                Select a Country
+              </MenuItem>
+              {props?.countries?.map((item) => {
+                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              })}
+            </Select>
+            {/* <InputField
               className="company_name_input"
               placeholder="CL"
               name="Country"
@@ -231,11 +278,12 @@ const Dispatch = (props) => {
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
-            />
+            /> */}
           </div>
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -247,7 +295,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -262,6 +312,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -275,6 +326,7 @@ const Dispatch = (props) => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
+
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -286,7 +338,7 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: '60%' }}>
+            <div style={{ width: "60%" }}>
               <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
@@ -304,13 +356,13 @@ const Dispatch = (props) => {
       <div className="buyer_data_div">
         <span className="seller_title">Place of inspection</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+          <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select an inspection location
           </label>
           <Select
             name="InspectionPlace"
             id="demo-simple-select"
-            defaultValue={'default'}
+            defaultValue={"default"}
             onChange={(e) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
@@ -325,7 +377,7 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div>
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+          <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Date on which the goods can be inspected
           </label>
           <DatePicker
@@ -338,6 +390,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
@@ -350,20 +403,30 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Country</label>
-            <InputField
+            <Select
               className="company_name_input"
-              placeholder="CL"
-              name="Country"
-              value={props?.step3?.placeOfInspection?.Country}
+              name="CountryId"
+              id="demo-simple-select"
+              value={props?.step3?.placeOfInspection?.CountryId || "default"}
               onChange={(e) => {
-                props.handleInspectionData(e.target.name, e.target.value);
+                props?.handleInspectionData(e.target.name, e.target.value);
               }}
-            />
+            >
+              <MenuItem disabled value={"default"}>
+                Select a Country
+              </MenuItem>
+              {props?.countries?.map((item) => {
+                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              })}
+            </Select>
           </div>
         </div>
         <div className="inspection_textfield">
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -376,6 +439,7 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -390,6 +454,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -403,6 +468,7 @@ const Dispatch = (props) => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
+
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -414,7 +480,7 @@ const Dispatch = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: '60%' }}>
+            <div style={{ width: "60%" }}>
               <label className="BomLabel">Town</label>
               <InputField
                 className="company_name_input"
@@ -430,6 +496,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
+
             <label className="BomLabel">contact last name</label>
             <InputField
               className="company_name_input"
@@ -441,7 +508,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
+
           <div className="speps_3_feilds">
+
             <label className="BomLabel">contact first name</label>
             <InputField
               className="company_name_input"

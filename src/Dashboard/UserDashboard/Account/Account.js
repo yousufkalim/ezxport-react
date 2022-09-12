@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import SearchIcon from '../../assets/SearchIcon.svg';
-import QuizIcon from '../../assets/QuizIcon.svg';
+import React, { useEffect, useState } from 'react';
+import SearchIcon from '../../../assets/SearchIcon.svg';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
+import UserInformation from './subcomponents/UserInformation';
+import CompanyInformation from './subcomponents/CompanyInformation';
+import { toast } from 'react-toastify';
+import API from '../../../api/index';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,10 +46,51 @@ function a11yProps(index) {
 
 const Account = () => {
   const [value, setValue] = useState(0);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading ] = useState(false);
+  const [formData, setFormData] = useState({name: '', type: '', vat: ''})
+
+  useEffect(() => {
+      getUserInformation();
+  }, []);
+
+  const setData = (data) => {
+      const {name, type, vat} = data;
+      setFormData({name, type, vat});
+  }
+
+  const getUserInformation = async () => {
+      const user = localStorage.getItem('userData');
+      const userData = JSON.parse(user);
+      setLoading(true);
+      await API('get', `/users/${userData._id}`).then((res) => {
+          const currentUser = res.data.user;
+          setUser(currentUser);
+          setData(currentUser.company);
+          setLoading(false);
+      }).catch(err => {
+          toast.error('Something went wrong');
+          setLoading(false);
+      });
+  }
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  const submitCompanyInfo = async () => {
+    const {name, type, vat} = formData;
+    const companyObj = {
+      name, type, vat
+    };
+    const userData = {...user};
+    userData.company = companyObj;
+    await API('put', `/users/${userData._id}`, userData).then((res) => {
+      toast.success('company updated successfully');
+    }).catch(err => {
+      toast.error("Something went wrong!")
+    })
+  }
 
   return (
     <>
@@ -56,7 +101,7 @@ const Account = () => {
             {value === 1 ? (
               <>
                 <div className="account_container">
-                  <button className="account_btn">Validate the modification</button>
+                  <button onClick={(e) => submitCompanyInfo(e)} className="account_btn">Validate the modification</button>
                 </div>
               </>
             ) : (
@@ -74,46 +119,12 @@ const Account = () => {
               <br />
               {/* 1in tag */}
               <TabPanel value={value} index={0}>
-                <div className="emailAddress_div">
-                  <label className="email_input_label" htmlFor="">
-                    E-mail address
-                  </label>
-                  <input type="text" className="email_input" placeholder="mail@mail.com" />
-                  <img src={QuizIcon} alt="" className="email_input_icon" />
-                </div>
+                  <UserInformation />
               </TabPanel>
 
               {/* 2in tag */}
               <TabPanel value={value} index={1}>
-                <div className="company_input_div">
-                  <div className="company_input_col">
-                    <label className="email_input_label" htmlFor="">
-                      Last name
-                    </label>
-                    <input type="text" className="company_input" placeholder="Last name" />
-                  </div>
-                  <div className="company_input_col">
-                    <label className="email_input_label" htmlFor="">
-                      Type of society
-                    </label>
-                    <div className="select_options">
-                      <select className="company_input2" name="cars" id="cars">
-                        <option value="volvo">Type</option>
-                        <option value="saab">Type</option>
-                        <option value="mercedes">Type</option>
-                        <option value="audi">Type</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div className="company_input_div">
-                  <div className="company_input_col">
-                    <label className="email_input_label" htmlFor="">
-                      VAT number
-                    </label>
-                    <input type="text" className="company_input" placeholder="6372890367849" />
-                  </div>
-                </div>
+                  <CompanyInformation formData={formData} setFormData={setFormData} loading={loading} />
               </TabPanel>
             </Box>
           </div>

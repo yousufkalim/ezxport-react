@@ -3,8 +3,8 @@ import React from 'react';
 import FollowUp from '../Dashboard/UserDashboard/FollowUp';
 import Providers from '../Dashboard/UserDashboard/Providers';
 import AddressBook from '../Dashboard/UserDashboard/AddressBook';
-import Documents from '../Dashboard/UserDashboard/Documents';
-import Account from '../Dashboard/UserDashboard/Account';
+import Documents from '../Dashboard/UserDashboard/Documents/Documents';
+import Account from '../Dashboard/UserDashboard/Account/Account';
 import CreateRequest from '../Dashboard/UserDashboard/CreateRequest';
 import AskQuestion from '../Dashboard/UserDashboard/AskQuestion';
 import Application from '../Dashboard/UserDashboard/Appplication/index.js';
@@ -58,11 +58,11 @@ export const UserRoutes = [
     path: '/User/Dashboard/Account',
     component: Account,
   },
-  {
-    path: '/User/Dashboard/Application',
-    name: 'Application',
-    component: Application,
-  },
+  // {
+  //   path: '/User/Dashboard/Application',
+  //   name: 'Application',
+  //   component: Application,
+  // },
   // {
   //   path: '/User/Dashboard/CreateRequest',
   //   name: 'add Request',

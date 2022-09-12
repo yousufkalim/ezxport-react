@@ -44,7 +44,7 @@ const ExportDocuments = (props) => {
     <>
       <div className="ExportDocuments" style={{ marginBottom: '5%' }}>
         <ValidateButton
-          text={`Import documents specific to ${props.requestById.country.name}`}
+          text={`Import documents specific to ${props?.requestById?.country?.name}`}
           className={props.validateCountry ? "Validator_document_btn_div" : "Validator_document_btn_div redclass"}
         />
         {/* switch   */}

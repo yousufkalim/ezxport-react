@@ -57,15 +57,16 @@ const AdminNomPays = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [vendor, setVendor] = useState();
-  const [CountryName, setCountryName] = useState('');
+  const [country, setCountry] = useState("");
   const [document, setDocument] = useState();
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState();
+  const [currentRadioValue, setCurrentRadioValue] = useState("");
   const [calculation, setCalculation] = useState();
+  const [file, setFile] = useState("");
   useEffect(() => {
     handleCountryData();
   }, [openCalculationModal]);
@@ -73,9 +74,9 @@ const AdminNomPays = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
-    await API('get', `/countries/${id}`)
+    await API("get", `/countries/${id}`)
       .then((res) => {
-        setCountryName(res?.data?.country?.name);
+        setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
@@ -83,13 +84,27 @@ const AdminNomPays = () => {
         setCurrentRadioValue(res?.data?.country?.calculation?.type);
       })
       .catch((err) => {
-        console.log('---->ERR', err);
+        console.log("---->ERR", err);
       });
   };
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
   const handleAddBomModalClose = () => setOpenAddBomModal(false);
   const handleAddDocumentModalClose = () => setOpenAddBomModal(false);
+  const handleCodesFile = async (file) => {
+    setFile(file);
+    console.log("eeeee", file);
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("country", `${country._id}`); //country ID
+    await API("post", "/boms/uploadCodes/", formData)
+      .then((res) => {
+        console.log("resss", res);
+      })
+      .catch((err) => {
+        console.log("errr", err);
+      });
+  };
 
   return (
     <>
@@ -101,7 +116,7 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; {CountryName}
+              &nbsp; {country?.name}
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
@@ -117,27 +132,16 @@ const AdminNomPays = () => {
               <div className="searching_div_country2">
                 <div className="searching_div_style">
                   <SearchField placeholder="Searching" className="Country_search_input" />
-                  <Button
-                    text="Update BOMs"
-                    className="update_Boms_btn"
-                    onClick={() => setOpen(true)}
-                  />
+                  <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
                 </div>
-                <Button
-                  text="Add BOMs"
-                  className="Edit_btn_bom"
-                  onClick={() => setOpenAddBomModal(true)}
-                />
+
+                <Button text="Add BOMs" className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
                 <SearchField placeholder="Searching" className="Country_search_Calculation" />
-                {currentRadioValue === 'coefficient' && (
-                  <Button
-                    text="Edit"
-                    className="Edit_btn2"
-                    onClick={() => setOpenCalculationModal(true)}
-                  />
+                {currentRadioValue === "coefficient" && (
+                  <Button text="Edit" className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
                 )}
               </div>
             ) : (
@@ -146,7 +150,7 @@ const AdminNomPays = () => {
           </div>
           {/* list table   */}
           <div className="list_table">
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
@@ -204,25 +208,26 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title="Actualiser les nomenclatures"
-        handleClose={handleClose}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title="Update BOMs" handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              Download your BOM file <img src={Icon} alt="" className="quiz_icon" />
+
+              Download your BOM file
             </label>
-            <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
+            <Button text="Download current file" className="bom_downloadFile_btn" />
           </div>
-          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
-            Download your BOM file <img src={Icon} alt="" className="quiz_icon" />
+
+          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
+            Upload your BOM file
           </label>
-          <FilePicker />
-          <Button text="Actualiser" className="bom_downloadFile_btn" />
+          <FilePicker
+            // index={"1"}
+            fileName={file.name}
+            name={file.name}
+            onChange={(e) => handleCodesFile(e.target.files[0])}
+          />
+          <Button text="Submit" className="bom_downloadFile_btn" />
         </div>
       </Modal>
     </>

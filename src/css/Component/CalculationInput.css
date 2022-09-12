@@ -1,0 +1,9 @@
+.calculation_input{
+    width: 100%;
+    height: 3rem;
+    border-radius: 9px;
+    border: 1.5px solid #D0D5DD;
+    outline: none;
+    font-size: 1rem;
+    padding-left: 1rem;
+}

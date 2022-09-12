@@ -218,12 +218,6 @@ const ProductInputs = (props) => {
           />
         </div>
       </div>
-
-
-
-
-
-
       <div className="request_documents">
 
         <p className="request_documents_title">Ask for other documents for the product</p>

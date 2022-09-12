@@ -162,7 +162,8 @@
   width: 164px;
 }
 .list_table {
-  margin: 2% 0;
+  /* margin: 2% 0; */
+  padding: 1.5% 0;
 }
 .request_title {
   font-size: 14px;
@@ -558,6 +559,32 @@
   border-radius: 16px;
   padding: 5px 8px;
 }
+.send_p_valid {
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  color: #027A48;
+  right: 40%;
+  background: #ECFDF3;
+  border-radius: 16px;
+  padding: 5px 8px;
+}
+.send_p_invalid {
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  right: 0;
+  color: #C01048;
+  right: 40%;
+  background: #FFF1F3;
+  border-radius: 16px;
+  padding: 5px 8px;
+}
+
+
+
+
 .send_p2 {
   font-size: 12px;
   font-weight: 500;
@@ -670,6 +697,11 @@
   display: inline-block !important;
   margin: 5% 0 0 2% !important;
   text-align: center !important;
+}
+
+.company_input_society {
+  width: 50%;
+  margin-top: 5px;
 }
 
 @media screen and (min-width: 901px) and (max-width: 1200px) {
