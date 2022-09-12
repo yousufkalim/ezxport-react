@@ -477,10 +477,8 @@ input:focus {
   }
   .list_service_btn2 {
     padding: 10px 0px;
-    margin: 10px 0;
-    font-size: 13px;
-    display: flex;
-    justify-content: center;
+    font-size: 12px;
+    width: 172px;
   }
   .missingDocStatus {
     font-size: 9px;
