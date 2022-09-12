@@ -18,7 +18,6 @@ import API from '../../api/index';
 import FilePicker from '../../components/Common/FilePicker';
 import Icon from '../../assets/Quiz.png';
 import Modal from '../../components/Common/Modal';
-import TextFieldSelect from '../Common/TextFieldSelect';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -126,13 +125,13 @@ const AdminNomPays = () => {
                 </div>
                 <Button
                   text="Add BOMs"
-                  className="Edit_btn"
+                  className="Edit_btn_bom"
                   onClick={() => setOpenAddBomModal(true)}
                 />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
-                <SearchField placeholder="Searching" className="Country_search_input2" />
+                <SearchField placeholder="Searching" className="Country_search_Calculation" />
                 {currentRadioValue === 'coefficient' && (
                   <Button
                     text="Edit"
@@ -215,12 +214,12 @@ const AdminNomPays = () => {
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+              Download your BOM file <img src={Icon} alt="" className="quiz_icon" />
             </label>
             <Button text="Télécharger le fichier actuel" className="bom_downloadFile_btn" />
           </div>
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
-            Télécharger votre fichier nomenclature <img src={Icon} alt="" className="quiz_icon" />
+            Download your BOM file <img src={Icon} alt="" className="quiz_icon" />
           </label>
           <FilePicker />
           <Button text="Actualiser" className="bom_downloadFile_btn" />
