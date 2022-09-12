@@ -53,15 +53,9 @@
   margin-top: 1.5%;
 }
 @media screen and (max-width: 780px) {
-  /* .list_h1 {
-    margin: auto;
-  } */
-  .UserTable {
-    width: 100%;
-  }
   .searchingRequest {
-    width: 50%;
-    height: 35px;
+    display: none;
+    height: 40px;
   }
   .searching3 {
     height: 35px;
