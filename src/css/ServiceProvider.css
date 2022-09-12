@@ -11,6 +11,7 @@
   font-size: 16px;
   text-align: center;
   cursor: pointer;
+  margin-left: 15px;
 }
 .textfield_row1 {
   color: #667085;
@@ -79,7 +80,7 @@
 }
 @media screen and (max-width: 600px) {
   .changeProvider {
-    width: auto;
+    width: 112px;
     font-size: 12px;
   }
   .textfield_row1 {
