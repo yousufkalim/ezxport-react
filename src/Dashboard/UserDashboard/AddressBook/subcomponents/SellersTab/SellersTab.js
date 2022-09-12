@@ -115,7 +115,7 @@ const SellersTab = ({open, setOpen,userId, countries}) => {
             country,
             city,
             phone_number,
-            zip_code,
+            zipcode,
             address } = item;
             const values = {
                 companyName: company_name,
@@ -123,7 +123,7 @@ const SellersTab = ({open, setOpen,userId, countries}) => {
                 country: country?._id,
                 town: city,
                 telephone: phone_number,
-                zipcode: zip_code,
+                zipcode,
                 address,
             }
             setFormState({...formState, values: {...values}})

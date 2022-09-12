@@ -62,8 +62,8 @@ const Account = () => {
   const getUserInformation = async () => {
       const user = localStorage.getItem('userData');
       const userData = JSON.parse(user);
+      setLoading(true);
       await API('get', `/users/${userData._id}`).then((res) => {
-          setLoading(true);
           const currentUser = res.data.user;
           setUser(currentUser);
           setData(currentUser.company);

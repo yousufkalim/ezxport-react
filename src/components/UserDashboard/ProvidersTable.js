@@ -84,12 +84,12 @@ const ProvidersTable = (props) => {
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        <p className="AP_plus_title">{item.name}</p>
+                        <p className="AP_plus_title">{item?.name}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
                         <p className="AP_plus_title">
                             {
-                                item.sending_email
+                                item?.sending_email
                             }
                         </p>
                       </TableCell>

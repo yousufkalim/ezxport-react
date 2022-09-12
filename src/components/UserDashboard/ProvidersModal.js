@@ -17,7 +17,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
 
   useEffect(() => {
     if(data){
-      const count = data?.countries?.map(item => allCountries.find(country => country._id === item)).map(c => c.name);
+      const count = data?.countries?.map(item => allCountries.find(country => country?._id === item)).map(c => c?.name);
       const splitName = data?.name?.split(' ');
       setFormData({firstName: splitName[0], lastName: splitName[1], email: data?.sending_email, countries: count});
     }
