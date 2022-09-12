@@ -194,35 +194,13 @@ const BOMsForm = (props) => {
         value={props.step1.title}
       />
       <div className="ProductList_boms" style={{ display: 'flex' }}>
-        <div style={{ width: '50%' }}>
+        <div style={{ width: '50%' }} className="product_link_btns">
           <span className="title_productList">Product lists</span>
           <br />
-          <u
-            style={{
-              color: '#7F56D9',
-              display: 'inline-block',
-              paddingTop: '5px',
-              fontSize: '12px',
-              fontWeight: '500',
-              cursor: 'pointer',
-            }}
-          >
-            You don't know your product nomenclatures?
-          </u>
+          <u className="title_productList_link">You don't know your product nomenclatures?</u>
         </div>
-        <div
-          style={{
-            width: '55%',
-            display: 'flex',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-end',
-          }}
-        >
-          <div
-            style={{
-              marginRight: '7px',
-            }}
-          >
+        <div className="product_link_btns_bottons">
+          <div className="CircularProgress">
             {loading ? <CircularProgress color="secondary" /> : ''}
           </div>
           <label className="import_Btn" htmlFor="file">
@@ -238,14 +216,7 @@ const BOMsForm = (props) => {
           <Button text="Download XLS file" className="download_Btn" />
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          width: '100%',
-        }}
-      >
+      <div className="monetary_value_div">
         <div className="codedropdown_div">
           <label className="BomLabel" style={{ marginTop: '1rem' }}>
             Code
@@ -276,7 +247,7 @@ const BOMsForm = (props) => {
           />
         </div>
         <div className="codedropdown_div1">
-          <Button text="To add" className="to_add_btn" onClick={handleAddCodes} />
+          <Button text="To Add" className="to_add_btn" onClick={handleAddCodes} />
         </div>
       </div>
       {props.matchedData.length === 0 ? (
@@ -322,7 +293,6 @@ const BOMsForm = (props) => {
                       style={{ cursor: 'pointer' }}
                       onClick={() => handleDelete(item)}
                     />
-                    &nbsp; &nbsp; &nbsp;
                     <img
                       src={EditIcon}
                       alt=""
