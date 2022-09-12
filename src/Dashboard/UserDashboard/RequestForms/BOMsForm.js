@@ -28,7 +28,6 @@ const BOMsForm = (props) => {
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [verificationModal, setVerificationModal] = useState(false);
-  // const [countries, setCounteries] = useState();
   const [code, setCode] = useState("default");
   const [monetaryValue, setMonetaryValue] = useState("");
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
