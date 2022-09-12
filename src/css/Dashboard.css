@@ -2,7 +2,7 @@
   color: inherit !important;
   border: none !important;
   border: 1px solid #d0d5dd !important;
-  background-color: #eaecf0 !important;
+  background-color: #f9fafb !important;
 }
 .css-1aquho2-MuiTabs-indicator {
   background: none !important;
@@ -186,7 +186,7 @@
   color: #027a48 !important;
   background: #ecfdf3;
   border-radius: 16px;
-  padding: 2px 4px !important;
+  padding: 2px 6px !important;
   display: inline-block !important;
 }
 .missingDocStatus {
@@ -213,7 +213,7 @@
 .searching {
   position: relative;
   display: flex;
-  height: 44px;
+  height: 40px;
   justify-content: space-between;
 }
 .searching_provider {
@@ -243,7 +243,7 @@
 .searchingRequest {
   position: relative;
   display: flex;
-  width: 30%;
+  width: 320px;
   height: 44px;
 }
 .searching2 {
@@ -268,6 +268,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
+  width: 320px;
   height: 44px;
 }
 .list_reqst_btn2 {
@@ -353,7 +354,7 @@
   margin-left: 4%;
 }
 .Edit_btn_bom {
-  width: 110px;
+  width: 138px;
 }
 .Edit_btn2 {
   width: 66px;
@@ -543,6 +544,7 @@
 }
 .searching_div_style {
   display: flex;
+  margin: 0 100px 0 0;
 }
 .css-18qulp9 {
   min-width: 0 !important;
@@ -746,6 +748,10 @@
     font-size: 13px;
     display: flex;
     justify-content: center;
+    width: 187px;
+  }
+  .search_input {
+    width: 275px;
   }
   .searching2 {
     height: 40px;
@@ -812,15 +818,12 @@
     justify-content: center;
     font-size: 12px;
   }
-  /* .searching {
-    width: 100%;
-  } */
   .list_reqst_btn4 {
     font-size: 13px;
-    width: 124px;
+    width: 140px;
   }
   .search_input {
-    width: 260px;
+    width: 180px;
   }
   .dashboard_left_side {
     padding: 2% 0%;
@@ -852,6 +855,7 @@
   }
   .searching_div_style {
     display: flex;
+    margin: 0 8px 0 0 !important;
   }
   .request_title {
     font-size: 11px;
@@ -870,14 +874,21 @@
   }
   .searching_div_country3 {
     height: 40px;
+    width: 260px;
   }
+  .Country_search_Calculation {
+    width: 100%;
+    margin-left: auto;
+  }
+
   .list_service_btn2 {
     font-size: 13px;
     display: flex;
     justify-content: center;
+    width: 180px;
   }
   .Country_search_input {
-    width: 270px;
+    width: 209px !important;
   }
   .list_reqst_btn {
     font-size: 13px;
@@ -887,10 +898,19 @@
     font-size: 9px;
     text-align: center;
   }
+  .searching3 {
+    height: 40px;
+  }
 }
 @media screen and (max-width: 780px) {
   .searching {
-    height: 35px;
+    height: 40px;
+  }
+  .searching2 {
+    height: 40px;
+  }
+  .search_name_input {
+    width: 270px;
   }
   .Country_search_input {
     width: 260px;
@@ -914,6 +934,7 @@
   }
   .cros_icon {
     float: right;
+    color: #fff !important;
   }
   .dashboard_left_side2 {
     position: fixed;
@@ -959,9 +980,6 @@
   .list_h1_provider {
     font-size: 17px;
   }
-  /* .searching_provider {
-    width: 40%;
-  } */
   .list_h1_Country {
     font-size: 17px;
   }
@@ -995,6 +1013,9 @@
   }
   .searching {
     justify-content: flex-end;
+  }
+  .search_name_input {
+    display: none;
   }
   .Country_search_input {
     display: none;
@@ -1053,6 +1074,15 @@
     font-size: 12px;
     width: 121px;
   }
+  .Edit_btn {
+    width: 60px;
+  }
+  .Edit_btn_bom {
+    width: 90px;
+  }
+  .searching_div_style {
+    margin: 0 0 0 0 !important;
+  }
   .update_Boms_btn {
     width: 104px;
   }
@@ -1070,9 +1100,6 @@
   }
 }
 @media screen and (max-width: 400px) {
-  /* .searching_div_style {
-    width: 100%;
-  } */
   .list_h1 {
     font-size: 15px;
   }
@@ -1088,9 +1115,6 @@
   .list_h1_provider {
     font-size: 15px !important;
   }
-  /* .searching_provider {
-    width: 60%;
-  } */
   .list_reqst_btn4 {
     font-size: 13px;
     width: 124px;
@@ -1102,5 +1126,8 @@
   }
   .update_Boms_btn {
     width: 104px;
+  }
+  .searching_div_country3 {
+    display: none;
   }
 }
