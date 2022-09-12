@@ -144,7 +144,7 @@ const UserDetails = () => {
               </Box>
 
               <TabPanel value={value} index={0}>
-                <div className="list_table" style={{ marginTop: '4%' }}>
+                <div className="list_table">
                   <p className="title_text">Informations utilisateur</p>
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">

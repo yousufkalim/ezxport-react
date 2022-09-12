@@ -111,19 +111,16 @@
   justify-content: space-between;
 }
 .list_h1 {
-  width: 100%;
   font-size: 30px;
   display: flex;
   align-items: center;
 }
 .list_h1_Country {
-  width: 100%;
   font-size: 30px;
   display: flex;
   align-items: center;
 }
 .list_h1_provider {
-  width: 50%;
   font-size: 30px;
   display: flex;
   align-items: center;
@@ -136,7 +133,6 @@
   align-items: center;
 }
 .list_nom_h1 {
-  width: 60%;
   font-size: 30px;
   display: flex;
   align-items: center;
@@ -218,34 +214,30 @@
 .searching {
   position: relative;
   display: flex;
-  width: 80%;
   height: 44px;
   justify-content: space-between;
 }
 .searching_provider {
   position: relative;
-  width: 25%;
   height: 44px;
   text-align: right;
 }
 .searching5 {
   position: relative;
   display: flex;
-  width: 70%;
   height: 44px;
   justify-content: space-between;
 }
 .searching4 {
   position: relative;
   display: flex;
-  width: 30%;
+  /* width: 30%; */
   height: 44px;
   justify-content: space-between;
 }
 .searching3 {
   position: relative;
   display: flex;
-  width: 90%;
   height: 44px;
   justify-content: space-between;
 }
@@ -259,28 +251,24 @@
   display: flex;
   justify-content: flex-end;
   position: relative;
-  width: 50%;
   height: 44px;
 }
 .searching_div_country {
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 50%;
   height: 44px;
 }
 .searching_div_country2 {
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 100%;
   height: 44px;
 }
 .searching_div_country3 {
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 40%;
   height: 44px;
 }
 .list_reqst_btn2 {
@@ -301,7 +289,7 @@
   font-weight: 500;
 }
 .list_service_btn2 {
-  width: 80%;
+  width: 231px;
   margin: 0 0 0px 3%;
   text-decoration: none;
   border: none;
@@ -318,7 +306,7 @@
   font-weight: 500;
 }
 .list_reqst_btn3 {
-  width: 300px;
+  width: 127px;
   margin: 0 0 0px 10px;
   text-decoration: none;
   border: none;
@@ -332,7 +320,6 @@
   cursor: pointer;
 }
 .list_reqst_btn4 {
-  width: 56%;
   margin: 0 0 0px 3%;
   text-decoration: none;
   border: none;
@@ -349,37 +336,32 @@
   font-weight: 500;
   display: flex;
   justify-content: center;
+  width: 172px;
 }
-.Edit_btn {
-  width: 20%;
-  padding: 0 0% 0 0;
+.Edit_btn,
+.Edit_btn_bom,
+.Edit_btn2 {
+  width: 66px;
   background-color: #7f56d9;
   color: #fff;
   border: 1px solid #7f56d9;
   border-radius: 8px;
   text-decoration: none;
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
-  margin-left: 0em;
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
+  margin-left: 4%;
+}
+.Edit_btn_bom {
+  width: 110px;
 }
 .Edit_btn2 {
-  width: 17%;
-  padding: 0 0% 0 0;
-  background-color: #7f56d9;
-  color: #fff;
-  border: 1px solid #7f56d9;
-  border-radius: 8px;
-  text-decoration: none;
-  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
-  margin-left: 0em;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 500;
+  width: 66px;
+  margin-left: 1rem;
 }
 .update_Boms_btn {
-  width: 40%;
+  width: 170px;
   background-color: #7f56d9;
   color: #fff;
   font-size: 16px;
@@ -388,11 +370,10 @@
   text-decoration: none;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
   margin-left: 1em;
-  padding: 0 3% 0 0;
   font-weight: 500 !important;
 }
 .search_input {
-  width: 100%;
+  width: 320px;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -401,7 +382,7 @@
   padding: 10px 30px;
 }
 .search_name_input {
-  width: 60%;
+  width: 320px;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -410,7 +391,6 @@
   padding: 10px 30px;
 }
 .search_input2 {
-  width: 100%;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -430,7 +410,7 @@
   padding: 10px 30px;
 }
 .Country_search_input {
-  width: 76%;
+  width: 320px;
   height: 100%;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.23);
@@ -439,7 +419,8 @@
   padding: 10px 30px;
   outline: none !important;
 }
-.Country_search_input2 {
+.Country_search_input2,
+.Country_search_Calculation {
   width: 78%;
   height: 100%;
   background: #ffffff;
@@ -448,6 +429,10 @@
   border-radius: 8px;
   padding: 10px 30px;
   outline: none !important;
+}
+.Country_search_Calculation {
+  width: 100%;
+  margin-left: auto;
 }
 
 .search_icon {
@@ -559,7 +544,6 @@
 }
 .searching_div_style {
   display: flex;
-  width: 65%;
 }
 .css-18qulp9 {
   min-width: 0 !important;
@@ -747,7 +731,6 @@
   }
   .list_h1 {
     font-size: 22px;
-    width: 45%;
   }
   .list_user_h1 {
     font-size: 22px;
@@ -761,7 +744,6 @@
   }
   .list_reqst_btn4 {
     font-size: 13px;
-    width: 84%;
   }
   .css-i4bv87-MuiSvgIcon-root {
     width: 0.8em !important;
@@ -772,12 +754,11 @@
     font-size: 13px !important;
   }
   .list_nom_h1 {
-    width: 36%;
     font-size: 22px;
   }
-  .update_Boms_btn {
+  /* .update_Boms_btn {
     width: 70%;
-  }
+  } */
   .title_text {
     font-size: 18px;
   }
@@ -785,18 +766,15 @@
     font-size: 22px;
   }
   .searching {
-    width: 100%;
     height: 40px;
   }
   .searching_div_country {
     height: 40px;
   }
   .searching_div_country3 {
-    width: 64%;
     height: 40px;
   }
   .list_service_btn2 {
-    width: 80%;
     font-size: 13px;
     display: flex;
     justify-content: center;
@@ -812,8 +790,30 @@
   .list_Details_h1 {
     font-size: 22px;
   }
+  .searching {
+    height: 40px;
+  }
+  .Country_search_input {
+    width: 235px;
+  }
+  .update_Boms_btn {
+    width: 125px;
+  }
+  .Edit_btn,
+  .Edit_btn_bom,
+  .Edit_btn2 {
+    width: 119px;
+  }
 }
 @media screen and (max-width: 900px) {
+  .Edit_btn,
+  .Edit_btn_bom,
+  .Edit_btn2 {
+    font-size: 13px !important;
+  }
+  .searching_div_country2 {
+    height: 40px;
+  }
   .send_p3 {
     display: none;
   }
@@ -827,7 +827,6 @@
     display: none;
   }
   .list_h1_app {
-    width: 60%;
     font-size: 15px;
   }
   .send_p2 {
@@ -837,8 +836,7 @@
     font-size: 12px;
   }
   .list_h1 {
-    width: 50%;
-    font-size: 25px;
+    font-size: 17px;
   }
   .list_reqst_btn2 {
     width: 55%;
@@ -846,15 +844,23 @@
     justify-content: center;
     font-size: 12px;
   }
-  .searching {
+  /* .searching {
     width: 100%;
-  }
+  } */
   .list_reqst_btn4 {
-    width: 82%;
-    font-size: 14px;
+    font-size: 13px;
+    width: 124px;
+  }
+  .search_input {
+    width: 260px;
   }
   .dashboard_left_side {
     padding: 2% 0%;
+    width: 25%;
+  }
+  .dashboard_right_side {
+    width: 75%;
+    margin-left: auto;
   }
   .AP_plus_title {
     font-size: 12px;
@@ -867,30 +873,25 @@
     font-size: 24px;
   }
   .list_nom_h1 {
-    width: 60%;
     font-size: 22px;
-    width: 40% !important;
   }
   .update_Boms_btn {
-    width: 46%;
     color: #fff;
     font-size: 13px;
     margin-left: 1em;
     padding: 0 1% 0 0;
+    width: 102px;
   }
   .searching_div_style {
     display: flex;
-    width: 71%;
   }
   .request_title {
-    font-size: 13px;
+    font-size: 11px;
   }
   .list_h1_Country {
-    width: 73%;
-    font-size: 25px;
+    font-size: 22px;
   }
   .Edit_btn {
-    width: 21%;
     font-size: 13px;
   }
   .Coefficient_main {
@@ -900,27 +901,34 @@
     width: 27% !important;
   }
   .searching_div_country3 {
-    width: 48%;
     height: 40px;
   }
   .list_service_btn2 {
-    width: 82%;
     font-size: 13px;
     display: flex;
     justify-content: center;
   }
+  .Country_search_input {
+    width: 270px;
+  }
+  .list_reqst_btn {
+    font-size: 13px;
+    width: 128px;
+  }
+  .missingDocStatus {
+    font-size: 9px;
+    text-align: center;
+  }
 }
 @media screen and (max-width: 780px) {
   .searching {
-    width: 100%;
     height: 35px;
   }
-  .list_nom_h1 {
-    width: 50%;
-    font-size: 20px !important;
+  .Country_search_input {
+    width: 260px;
   }
-  .update_Boms_btn {
-    width: 62%;
+  .list_nom_h1 {
+    font-size: 20px !important;
   }
   .list_reqst_btn2 {
     width: 55%;
@@ -953,7 +961,8 @@
     font-size: 17px;
   }
   .list_reqst_btn {
-    font-size: 14px;
+    font-size: 12px;
+    width: 122px;
   }
 
   .dashboard_right_side {
@@ -982,18 +991,16 @@
   .list_h1_provider {
     font-size: 17px;
   }
-  .searching_provider {
+  /* .searching_provider {
     width: 40%;
-  }
+  } */
   .list_h1_Country {
     font-size: 17px;
-    width: 35%;
   }
   .list_service_btn2 {
     display: flex;
     justify-content: center;
     font-size: 13px;
-    width: 94%;
   }
   .list_rqst_h1 {
     width: 53%;
@@ -1029,21 +1036,12 @@
   }
   .Edit_btn {
     font-size: 12px;
-    width: 53%;
     margin-left: 13px;
   }
   .update_Boms_btn {
     font-size: 12px;
-    width: 77%;
-  }
-  .searching_div_country2 {
-    width: 100%;
-  }
-  .searching_div_country3 {
-    width: 100%;
   }
   .Edit_btn2 {
-    width: 38%;
     margin-left: 1em;
     font-size: 14px;
   }
@@ -1051,23 +1049,18 @@
     font-size: 13px !important;
   }
   .MuiTableCell-root {
-    font-size: 13px !important;
+    font-size: 11px !important;
   }
   .list_nom_h1 {
     font-size: 20px;
   }
   .list_h1 {
     margin-right: 10px;
-    margin: auto;
-    width: 56% !important;
   }
   .list_Details_h1 {
-    width: 56% !important;
     font-size: 17px;
   }
   .searching3 {
-    width: 72% !important;
-    /* flex-direction: row-reverse !important; */
     flex-direction: column;
     justify-content: center;
   }
@@ -1081,23 +1074,42 @@
     font-size: 17px;
   }
   .searching_provider {
-    width: 60%;
+    display: none;
   }
   .list_h1_Country {
     font-size: 15px;
-    width: 30%;
+  }
+  .Edit_btn,
+  .Edit_btn_bom,
+  .Edit_btn2 {
+    font-size: 12px;
+    width: 121px;
+  }
+  .update_Boms_btn {
+    width: 104px;
+  }
+  .request_title {
+    font-size: 11px;
+  }
+  .list_reqst_btn {
+    width: 130px;
+  }
+  .table_li {
+    font-size: 11px !important ;
+  }
+  .table_li4 {
+    font-size: 11px !important;
   }
 }
 @media screen and (max-width: 400px) {
-  .searching_div_style {
+  /* .searching_div_style {
     width: 100%;
-  }
+  } */
   .list_h1 {
     font-size: 15px;
   }
   .list_h1_Country {
     font-size: 15px;
-    width: 30%;
   }
   .list_reqst_btn2 {
     font-size: 12px;
@@ -1106,13 +1118,21 @@
     margin: 2% 0;
   }
   .list_h1_provider {
-    font-size: 15px;
+    font-size: 15px !important;
   }
-  .searching_provider {
+  /* .searching_provider {
     width: 60%;
-  }
+  } */
   .list_reqst_btn4 {
-    width: 82%;
     font-size: 13px;
+    width: 124px;
+  }
+  .Edit_btn,
+  .Edit_btn_bom,
+  .Edit_btn2 {
+    font-size: 12px;
+  }
+  .update_Boms_btn {
+    width: 104px;
   }
 }

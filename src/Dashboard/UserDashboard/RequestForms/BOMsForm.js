@@ -190,6 +190,7 @@ const BOMsForm = (props) => {
         onBlur={handleSearchTitle}
         value={props.step1.title}
       />
+
       <div className="ProductList_boms" style={{ display: "flex" }}>
         <div style={{ width: "50%" }}>
           <span className="title_productList">Product lists</span>
@@ -234,14 +235,9 @@ const BOMsForm = (props) => {
           </Link>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
+
+      <div className="monetary_value_div">
+
         <div className="codedropdown_div">
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Code
@@ -272,12 +268,14 @@ const BOMsForm = (props) => {
           />
         </div>
         <div className="codedropdown_div1">
+
           <Button
             text="To add"
             className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"}
             onClick={handleAddCodes}
             disabled={code === "default" ? true : false}
           />
+
         </div>
       </div>
       {props.matchedData.length === 0 ? (
@@ -323,7 +321,6 @@ const BOMsForm = (props) => {
                       style={{ cursor: "pointer" }}
                       onClick={() => handleDelete(item)}
                     />
-                    &nbsp; &nbsp; &nbsp;
                     <img
                       src={EditIcon}
                       alt=""

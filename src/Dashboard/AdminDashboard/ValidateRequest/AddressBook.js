@@ -13,7 +13,7 @@ const AddressBook = (props) => {
           <span className="seller_title">Seller data</span>
 
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Company Name</label>
               <InputField
                 disabled
@@ -22,7 +22,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.seller?.company_name}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Country</label>
               <InputField
                 className="company_name_input"
@@ -33,7 +33,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">E-Mail Address</label>
               <InputField
                 className="company_name_input"
@@ -42,7 +42,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.seller?.email}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Telephone</label>
               <InputField
                 className="company_name_input"
@@ -53,7 +53,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Full Address</label>
               <InputField
                 className="company_name_input"
@@ -62,13 +62,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.seller?.address}
               />
             </div>
-            <div
-              style={{
-                width: '48%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
+            <div className="steps_3_2inFeilds">
               <div className="postel_input">
                 <label className="label_modal">Postel Code</label>
                 <InputField
@@ -94,7 +88,7 @@ const AddressBook = (props) => {
           <span className="seller_title">Buyer data</span>
 
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Company Name</label>
               <InputField
                 className="company_name_input"
@@ -103,7 +97,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.buyer?.company_name}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Country</label>
               <InputField
                 className="company_name_input"
@@ -114,7 +108,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">E-Mail Address</label>
               <InputField
                 className="company_name_input"
@@ -123,7 +117,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.buyer?.email}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Telephone</label>
               <InputField
                 className="company_name_input"
@@ -134,7 +128,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Full Address</label>
               <InputField
                 className="company_name_input"
@@ -143,13 +137,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.buyer?.address}
               />
             </div>
-            <div
-              style={{
-                width: '48%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
+            <div className="steps_3_2inFeilds">
               <div style={{ width: '35%' }}>
                 <label className="label_modal">Postel Code</label>
                 <InputField
@@ -185,7 +173,7 @@ const AddressBook = (props) => {
             />
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Company Name</label>
               <InputField
                 className="company_name_input"
@@ -194,7 +182,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.place?.company_name}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Country</label>
               <InputField
                 className="company_name_input"
@@ -205,7 +193,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">E-Mail Address</label>
               <InputField
                 disabled
@@ -214,7 +202,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.place?.email}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Telephone</label>
               <InputField
                 className="company_name_input"
@@ -225,7 +213,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">Full Address</label>
               <InputField
                 className="company_name_input"
@@ -234,13 +222,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.place?.address}
               />
             </div>
-            <div
-              style={{
-                width: '48%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
+            <div className="steps_3_2inFeilds">
               <div style={{ width: '35%' }}>
                 <label className="label_modal">Postel Code</label>
                 <InputField
@@ -262,7 +244,7 @@ const AddressBook = (props) => {
             </div>
           </div>
           <div className="inspection_textfield">
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">contact last name</label>
               <InputField
                 className="company_name_input"
@@ -271,7 +253,7 @@ const AddressBook = (props) => {
                 value={props?.requestById?.place?.contact_lname}
               />
             </div>
-            <div style={{ width: '48%' }}>
+            <div className="speps_3_feilds">
               <label className="label_modal">contact first name</label>
               <InputField
                 className="company_name_input"
