@@ -7,8 +7,10 @@ import Typography from '@mui/material/Typography';
 import SellerTab from './SellerTab';
 import BuyerTab from './BuyerTab';
 import PlaceOfInspectionTab from './PlaceOfInspectionTab';
+import moment from 'moment';
+import ProductLists from './ProductLists';
 
-const InformationTab = () => {
+const InformationTab = (props) => {
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -51,21 +53,21 @@ const InformationTab = () => {
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">Request date</p>
-            <p className="requestData_date">07/03/2023</p>
+            <p className="requestData_date">{moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}</p>
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">Country</p>
-            <p className="requestData_date">Gabon</p>
+            <p className="requestData_date">{props?.userRequest?.country?.name}</p>
           </div>
         </div>
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">Certificate cost</p>
-            <p className="requestData_date">300 €</p>
+            <p className="requestData_date">{props?.userRequest?.certification_cost?.value} {props?.userRequest?.certification_cost?.currency === "USD" ? "$" : "€"} </p>
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">Inspection date</p>
-            <p className="requestData_date">Jan 6, 2022</p>
+            <p className="requestData_date">{moment(props?.userRequest?.inspection_date).format("ll")}</p>
           </div>
         </div>
       </div>
@@ -84,20 +86,22 @@ const InformationTab = () => {
 
         <TabPanel value={value} index={0}>
           <div className="list_table">
-            <SellerTab />
+            <SellerTab seller={props?.userRequest?.seller} codes={props?.userRequest?.codes} />
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <div className="list_table">
-            <BuyerTab />
+            <BuyerTab buyer={props?.userRequest?.buyer} />
           </div>
         </TabPanel>
         <TabPanel value={value} index={2}>
           <div className="list_table">
-            <PlaceOfInspectionTab />
+            <PlaceOfInspectionTab place={props?.userRequest?.place} />
           </div>
         </TabPanel>
       </Box>
+      <ProductLists codes={props?.userRequest?.codes} />
+
     </>
   );
 };

@@ -6,6 +6,7 @@ import { UserRoutes } from '../routes/routes';
 import { Switch, Route } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import Application from '../Dashboard/UserDashboard/Appplication/index.js';
 
 const UserLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -68,6 +69,8 @@ const UserLayouts = () => {
               {UserRoutes.map((item) => {
                 return <Route exact path={item.path} render={() => <item.component />} />;
               })}
+              <Route exact path="/User/Dashboard/Application/:id" component={Application} />
+
             </Switch>
           </div>
         </div>

@@ -7,6 +7,8 @@ import Modal from "../Common/Modal";
 import Button from "../Common/Button";
 import API from "../../api/index";
 import { toast } from "react-toastify";
+import CalculationCoefficient from "./CalculationCoefficient";
+import InputField from "../Common/InputField";
 function createData(name, calories, fat, carbs, protein, protein2) {
   return { name, calories, fat, carbs, protein, protein2 };
 }
@@ -14,21 +16,11 @@ function createData(name, calories, fat, carbs, protein, protein2) {
 const AdminTab4 = (props) => {
   // const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
 
-  const [thresholdCurrency, setThresholdCurrency] = useState(
-    props?.calculation?.min_threshold?.currency
-  );
-  const [minCostCurrency, setMinCostCurrency] = useState(
-    props?.calculation?.min_cost?.currency
-  );
-  const [maxCostCurrency, setMaxCostCurrency] = useState(
-    props?.calculation?.max_cost?.currency
-  );
-  const [MinThreshold, setMinThreshold] = useState(
-    props?.calculation?.min_threshold?.value
-  );
-  const [coefficient, setCoefficient] = useState(
-    props?.calculation?.coefficient
-  );
+  const [thresholdCurrency, setThresholdCurrency] = useState(props?.calculation?.min_threshold?.currency);
+  const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
+  const [maxCostCurrency, setMaxCostCurrency] = useState(props?.calculation?.max_cost?.currency);
+  const [MinThreshold, setMinThreshold] = useState(props?.calculation?.min_threshold?.value);
+  const [coefficient, setCoefficient] = useState(props?.calculation?.coefficient);
   const [minCost, setMinCost] = useState(props?.calculation?.min_cost?.value);
   const [maxCost, setMaxCost] = useState(props?.calculation?.max_cost?.value);
 
@@ -113,93 +105,20 @@ const AdminTab4 = (props) => {
           Calculation by range
         </label>
       </div>
+      {console.log(props.currentRadioValue, "dfghjhgfggfggf")}
 
       {props.currentRadioValue === "range" ? (
         <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} />
-      ) : props.currentRadioValue === "coefficient" ? (
-        <>
-          <div className="Coefficient_main">
-            <div className="Coefficient_input_div">
-              <div className="luyer_input_field">
-                <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    Minimum threshold
-                  </label>
-                  <TextFieldSelect
-                    value={
-                      thresholdCurrency === "USD"
-                        ? "$ " + MinThreshold
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + MinThreshold
-                        : ""
-                    }
-                    disabled={true}
-                  />
-                </FormControl>
-              </div>
-              <div className="luyer_input_field">
-                <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    Coefficient
-                  </label>
-                  <TextField
-                    id="outlined-basic"
-                    variant="outlined"
-                    value={coefficient}
-                    sx={{
-                      ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input":
-                        {
-                          height: "1rem !important",
-                        },
-                    }}
-                  />
-                </FormControl>
-              </div>
-              <div className="luyer_input_field">
-                <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    minimum cost
-                  </label>
-                  <TextFieldSelect
-                    value={
-                      minCostCurrency === "USD"
-                        ? "$ " + minCost
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + minCost
-                        : ""
-                    }
-                    disabled={true}
-                  />
-                </FormControl>
-              </div>
-              <div className="luyer_input_field">
-                <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    Coût maximum
-                  </label>
-                  <TextFieldSelect
-                    value={
-                      maxCostCurrency === "USD"
-                        ? "$ " + maxCost
-                        : maxCostCurrency === "EURO"
-                        ? "€ " + maxCost
-                        : ""
-                    }
-                    disabled={true}
-                  />
-                </FormControl>
-              </div>
-            </div>
-          </div>
-        </>
       ) : (
-        props.setCurrentRadioValue("coefficient")
+        props.currentRadioValue === "coefficient" && (
+          <CalculationCoefficient MinThreshold={MinThreshold} coefficient={coefficient} minCost={minCost} maxCost={maxCost} />
+        )
       )}
 
       <Modal
         open={props.openCalculationModal}
         setOpen={props.setOpenCalculationModal}
-        title="Mise à jour Calcul par coefficient"
+        title="Update calculation by coefficient"
         handleClose={props.handleCalculationClose}
         Closebtn={true}
       >
@@ -210,14 +129,11 @@ const AdminTab4 = (props) => {
                 Minimum threshold
               </label>
 
-              <TextFieldSelect
+              <InputField
+                className="calculation_input"
                 value={MinThreshold}
                 onChange={(e) => {
-                  !e.target.value.match(/[^0-9]/) &&
-                    setMinThreshold(e.target.value);
-                }}
-                onOptionChange={(e) => {
-                  setThresholdCurrency(e.target.value);
+                  !e.target.value.match(/[^0-9]/) && setMinThreshold(e.target.value);
                 }}
               />
             </FormControl>
@@ -225,21 +141,14 @@ const AdminTab4 = (props) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Coefficient
+                Coefficient %
               </label>
-              <TextField
+              <InputField
+                className="calculation_input"
                 onChange={(e) => {
-                  !e.target.value.match(/[^0-9]/) &&
-                    setCoefficient(e.target.value);
+                  !e.target.value.match(/[^0-9]/) && setCoefficient(e.target.value);
                 }}
-                id="outlined-basic"
-                variant="outlined"
                 value={coefficient}
-                sx={{
-                  ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
-                    height: "1rem !important",
-                  },
-                }}
               />
             </FormControl>
           </div>
@@ -249,13 +158,11 @@ const AdminTab4 = (props) => {
                 minimum cost
               </label>
 
-              <TextFieldSelect
+              <InputField
+                className="calculation_input"
                 value={minCost}
                 onChange={(e) => {
                   !e.target.value.match(/[^0-9]/) && setMinCost(e.target.value);
-                }}
-                onOptionChange={(e) => {
-                  setMinCostCurrency(e.target.value);
                 }}
               />
             </FormControl>
@@ -266,38 +173,24 @@ const AdminTab4 = (props) => {
                 Coût maximum
               </label>
 
-              <TextFieldSelect
+              <InputField
+                className="calculation_input"
                 value={maxCost}
                 onChange={(e) => {
                   !e.target.value.match(/[^0-9]/) && setMaxCost(e.target.value);
-                }}
-                onOptionChange={(e) => {
-                  setMaxCostCurrency(e.target.value);
                 }}
               />
             </FormControl>
           </div>
           <Button
-            text="Modifier"
+            text="Update"
             className={
-              MinThreshold === "" ||
-              minCost === "" ||
-              maxCost == "" ||
-              coefficient === ""
+              MinThreshold === "" || minCost === "" || maxCost == "" || coefficient === ""
                 ? "bom_downloadFile_btn_disabled"
                 : "bom_downloadFile_btn"
             }
-            onClick={
-              props.calculation ? handleCoefficientChange : handleAddCoefficient
-            }
-            disabled={
-              MinThreshold === "" ||
-              minCost === "" ||
-              maxCost === "" ||
-              coefficient === ""
-                ? true
-                : false
-            }
+            onClick={props.calculation ? handleCoefficientChange : handleAddCoefficient}
+            disabled={MinThreshold === "" || minCost === "" || maxCost === "" || coefficient === "" ? true : false}
           />
         </div>
       </Modal>

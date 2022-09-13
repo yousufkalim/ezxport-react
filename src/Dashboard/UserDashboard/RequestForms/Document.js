@@ -55,7 +55,6 @@ const Document = (props) => {
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: '100%' }}>
-        {console.log('item', props)}
         {props?.CountryDoc?.map((item, index) => {
           return (
             <Grid item xs={6}>
