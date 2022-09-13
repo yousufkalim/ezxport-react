@@ -84,7 +84,7 @@ const Index = () => {
         console.log("handleProductDocsValidate", err);
       });
   };
-
+  // console.log();
   const handleRequestDoc = async () => {
     await API("put", `/requests/ReqmissingDocs/${requestById._id}`, {
       admin_remarks: comment,
