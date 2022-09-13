@@ -250,9 +250,9 @@
   .Validator_document_btn_div p {
     font-size: 13px;
   }
-  .redclass {
+  /* .redclass {
     display: none !important;
-  }
+  } */
 
   .request_documents_title {
     font-size: 16px;
