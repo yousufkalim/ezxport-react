@@ -1,0 +1,48 @@
+{
+    "dashboard": {
+        "user": {
+            "addressBook": {
+                "modal": {
+                    "title": {
+                        "add": "Add Buyer",
+                        "edit": "Edit Buyer",
+                        "view": "View Buyer"
+                    },
+                    "form": {
+                        "name": {
+                            "label": "Name",
+                            "error": "Name is required"
+                        },
+                        "country": {
+                            "label": "Select a country"
+                        },
+                        "email": {
+                            "label": "Email Address"
+                        },
+                        "telephone": {
+                            "label": "Telephone"
+                        },
+                        "address": {
+                            "label": "Address"
+                        },
+                        "postalCode": {
+                            "label": "Postal Code"
+                        },
+                        "town": {
+                            "label": "Town"
+                        },
+                        "lastName": {
+                            "label": "Last Name"
+                        },
+                        "firstName": {
+                            "label": "first Name"
+                        }
+                    }
+                }
+            }
+        },
+        "admin": {
+
+        }
+    }
+}

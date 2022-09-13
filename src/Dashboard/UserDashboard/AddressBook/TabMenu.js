@@ -10,6 +10,37 @@ import BuyersTab from './subcomponents/BuyersTab';
 import SellersTab from './subcomponents/SellersTab';
 import LocationsTab from './subcomponents/LocationsTab';
 
+const schema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64
+    },
+  },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  email: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+    email: true
+  },
+  address: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+  },
+  zipcode: {
+    presence: {allowEmpty: false, message: "is required"},
+  },
+  telephone: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 10, minimum: 10},
+  },
+  town: {
+    presence: {allowEmpty: false, message: "is required"},
+  }
+}
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,7 +75,7 @@ function a11yProps(index) {
   };
 }
 
-const TabMenu = ({value, handleChange, setOpen, open, title}) => {
+const TabMenu = ({t,value, handleChange, setOpen, open, title}) => {
 
   const [countries, setCountries] = useState([]);
   const user = localStorage.getItem('userData')
@@ -75,17 +106,17 @@ const TabMenu = ({value, handleChange, setOpen, open, title}) => {
         </Box>
         {/* Buyers Tab */}
         <TabPanel value={value} index={0}>
-          <BuyersTab userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
+          <BuyersTab schema={schema} t={t} userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
         </TabPanel>
 
         {/* Sellers TAB 2  */}
         <TabPanel value={value} index={1}>
-          <SellersTab userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
+          <SellersTab schema={schema} t={t} userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
         </TabPanel>
 
         {/* Locations TAB 3  */}
         <TabPanel value={value} index={2}>
-          <LocationsTab userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
+          <LocationsTab t={t} userId={userData._id} countries={countries} setOpen={setOpen} open={open} value={value} />
         </TabPanel>
       </Box>
   );
