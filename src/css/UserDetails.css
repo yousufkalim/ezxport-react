@@ -23,39 +23,39 @@
   padding-bottom: 5px;
 }
 .css-1q2h7u5 {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-q34dxg {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1kfoz9l {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1bigob2 {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-9sbb3g {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1n786et {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1q2h7u5.Mui-selected {
   color: #6941c6 !important;
   background-color: #f9f5ff !important;
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1ex1afd-MuiTableCell-root {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1ygcj2i-MuiTableCell-root {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-wmokj3-MuiTableCell-root {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .css-ttwr4n {
   background-color: transparent !important;
@@ -407,7 +407,7 @@ input:focus {
     width: 40%;
   }
   .calender_div {
-    width: 32%;
+    width: 22%;
   }
   .textfiled_select_component {
     font-size: 11px;
@@ -647,7 +647,7 @@ input:focus {
     width: 100%;
   }
   .textfiled_select_component {
-    width: 37% !important;
+    width: 22% !important;
   }
   .addProduct_btn {
     font-size: 13px;
@@ -668,5 +668,8 @@ input:focus {
   }
   .rightArrow {
     padding-right: 20% !important;
+  }
+  .Country_search_Calculation {
+    display: none !important;
   }
 }
