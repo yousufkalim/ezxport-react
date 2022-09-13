@@ -19,7 +19,7 @@ const ServiceProvider = (props) => {
   return (
     <div style={{ width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span style={{ fontSize: '1.2rem' }}>
+        <span className="aVendor_heading">
           Please select <b>a vendor</b> for this request
         </span>
       </div>
@@ -42,10 +42,7 @@ const ServiceProvider = (props) => {
         })}
       </Grid>
       {/* </div> */}
-      <div
-        className="DoYouHave"
-        style={{ marginBottom: '0', display: 'flex', alignItems: 'center' }}
-      >
+      <div className="DoYouHave">
         <input
           type="checkbox"
           className="checkBox"
@@ -54,14 +51,14 @@ const ServiceProvider = (props) => {
             props.handleChange(e.target.name, e.target.checked);
           }}
         />
-        <span style={{ paddingLeft: '10px' }}>
+        <span className="check_company_p">
           Do you have contact information for this certification company?
         </span>
       </div>
       {props.step2.contactInfo ? (
         <>
-          <div style={{ display: 'flex', marginTop: '3%' }}>
-            <div style={{ width: '50%' }}>
+          <div className="steps_2_main">
+            <div className="steps_2_feild">
               <label>Last Name</label>
               <InputField
                 className="last_name_input"
@@ -71,7 +68,7 @@ const ServiceProvider = (props) => {
                 }}
               />
             </div>
-            <div style={{ width: '50%' }}>
+            <div className="steps_2_feild">
               <label>First Name</label>
               <InputField
                 className="last_name_input"
@@ -82,7 +79,7 @@ const ServiceProvider = (props) => {
               />
             </div>
           </div>
-          <div style={{ width: '50%' }}>
+          <div className="steps_2_feild">
             <label>Email Address</label>
             <InputField
               className="last_name_input"

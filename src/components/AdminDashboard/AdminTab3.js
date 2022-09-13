@@ -304,7 +304,7 @@ const AdminTab3 = (props) => {
                     style={{ cursor: 'pointer' }}
                     onClick={() => handleBomDelete(row._id)}
                   />
-                  &nbsp; &nbsp;
+
                   <img
                     src={EditIcon}
                     alt=""

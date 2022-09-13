@@ -11,7 +11,7 @@ const SwitchButton = (props) => {
           var filename = item.split('-').slice(-3).reverse().pop();
           return <p className="switch_p2">{filename}</p>;
         })}
-        &nbsp; {props.pdfText} &nbsp; {props.pdfText2}
+        {props.pdfText} &nbsp; {props.pdfText2}
         <FormControlLabel
           name={props.name}
           onChange={props.onChange}

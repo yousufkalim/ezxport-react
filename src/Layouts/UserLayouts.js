@@ -24,6 +24,7 @@ const UserLayouts = () => {
               <div className="dashboard_left_side2">
                 {/* dashbord logo  */}
                 <CloseIcon
+                  color="primary"
                   className="cros_icon"
                   onClick={() => {
                     setShowMenu(false);

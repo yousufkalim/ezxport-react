@@ -97,7 +97,9 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
@@ -109,7 +111,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Country</label>
             <Select
               className="company_name_input"
@@ -139,7 +143,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -151,7 +157,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -165,7 +173,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -177,8 +187,10 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
+ 
+          <div className="steps_3_2inFeilds">
+            <div style={{ width: '35%' }}>
+ 
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -229,7 +241,9 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Country Name</label>
             <InputField
               className="company_name_input"
@@ -241,7 +255,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Country</label>
             <Select
               className="company_name_input"
@@ -271,7 +287,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -283,7 +301,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -297,7 +317,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+  
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -309,8 +331,10 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
+ 
+          <div className="steps_3_2inFeilds">
+            <div style={{ width: '35%' }}>
+ 
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -373,7 +397,9 @@ const Dispatch = (props) => {
           />
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
@@ -385,7 +411,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Country</label>
             <Select
               className="company_name_input"
@@ -406,7 +434,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+
+          <div className="speps_3_feilds">
+
             <label className="BomLabel">E-Mail Address</label>
             <InputField
               className="company_name_input"
@@ -418,7 +448,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Telephone</label>
             <InputField
               className="company_name_input"
@@ -432,7 +464,9 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+ 
+          <div className="speps_3_feilds">
+ 
             <label className="BomLabel">Full Address</label>
             <InputField
               className="company_name_input"
@@ -444,8 +478,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%", display: "flex", justifyContent: "space-between" }}>
-            <div style={{ width: "35%" }}>
+          <div className="steps_3_2inFeilds">
+            <div style={{ width: '35%' }}>
+
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -472,7 +507,7 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-          <div style={{ width: "48%" }}>
+          <div className="speps_3_feilds">
             <label className="BomLabel">contact last name</label>
             <InputField
               className="company_name_input"
@@ -484,7 +519,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
-          <div style={{ width: "48%" }}>
+          <div className="speps_3_feilds">
+
             <label className="BomLabel">contact first name</label>
             <InputField
               className="company_name_input"

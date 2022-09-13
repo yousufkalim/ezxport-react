@@ -64,7 +64,7 @@ label {
   position: absolute;
   font-size: 1.2em;
   right: 2%;
-  top: 13%;
+  top: 28% !important;
   cursor: pointer;
 }
 .forgot_p-div {
@@ -309,7 +309,7 @@ label {
     width: 100%;
   }
   label {
-    font-size: 12px;
+    font-size: 10px;
   }
   .forgot_p {
     font-size: 12px;

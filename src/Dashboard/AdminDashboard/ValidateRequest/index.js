@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import CompanyInformation from '../ValidateRequest/CompanyInformation';
-import { useHistory } from 'react-router-dom';
-import EzxportIcon from '../../../assets/EzxportIcon.svg';
+import React, { useState, useEffect } from "react";
+import CompanyInformation from "../ValidateRequest/CompanyInformation";
+import { useHistory } from "react-router-dom";
+import EzxportIcon from "../../../assets/EzxportIcon.svg";
 import { Link } from "react-router-dom";
 import BackArrow from "../../../assets/BackArrow.svg";
 import { useParams } from 'react-router-dom';
@@ -10,10 +10,12 @@ import { toast } from 'react-toastify';
 import Modal from "../../../components/Common/Modal"
 import Button from "../../../components/Common/Button"
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+
 const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
+
 
   const [inputList, setInputList] = useState([])
   const [inputListProduct, setInputListProduct] = useState([])
@@ -21,7 +23,6 @@ const Index = () => {
   const [validateProduct, setValidateProduct] = useState(false)
   const [commentModal, setCommentModal] = useState(false)
   const [comment, setComment] = useState("")
-
 
 
   const params = useParams();
@@ -35,65 +36,59 @@ const Index = () => {
   }
 
   const handlerequestById = async () => {
-    await API('get', `/requests/${id}`)
+    await API("get", `/requests/${id}`)
       .then((res) => {
-        setRequestById(res.data.request)
-
+        setRequestById(res.data.request);
       })
       .catch((err) => {
-        console.log(err, 'errrrrr');
+        console.log(err, "errrrrr");
       });
   };
 
   const handleCountryDocsValidate = async (checked, id) => {
-    await API('put', `/requests/validateDoc/${requestById._id}`,
-      {
-        doc_id: id,
-        status: checked ? "valid" : "invalid"
-      })
+    await API("put", `/requests/validateDoc/${requestById._id}`, {
+      doc_id: id,
+      status: checked ? "valid" : "invalid",
+    })
       .then((res) => {
-        console.log("handleCountryDocsValidate", res)
+        console.log("handleCountryDocsValidate", res);
         if (checked) {
-          toast.success("Document Validated Successfully")
-          handlerequestById()
+          toast.success("Document Validated Successfully");
+          handlerequestById();
         } else {
-          toast.warning("Document Un-Validated")
-          handlerequestById()
-
+          toast.warning("Document Un-Validated");
+          handlerequestById();
         }
-      }).catch((err) => {
-        console.log("handleCountryDocsValidate", err)
-
       })
-  }
+      .catch((err) => {
+        console.log("handleCountryDocsValidate", err);
+      });
+  };
 
   const handleProductDocsValidate = async (name, checked, id) => {
     const DocName = name;
-    await API('put', `/requests/validateProductDoc/${id}`,
-      {
-        [DocName]:
-        {
-          status: checked ? "valid" : "invalid"
-        }
-      })
+    await API("put", `/requests/validateProductDoc/${id}`, {
+      [DocName]: {
+        status: checked ? "valid" : "invalid",
+      },
+    })
       .then((res) => {
         if (checked) {
-          console.log("handleProductDocsValidate", res)
-          toast.success("Document Validated Successfully")
-          handlerequestById()
+          console.log("handleProductDocsValidate", res);
+          toast.success("Document Validated Successfully");
+          handlerequestById();
         } else {
-          toast.warning("Document Un-Validated")
-          handlerequestById()
-
+          toast.warning("Document Un-Validated");
+          handlerequestById();
         }
-      }).catch((err) => {
-        console.log("handleProductDocsValidate", err)
-
       })
-  }
-
+      .catch((err) => {
+        console.log("handleProductDocsValidate", err);
+      });
+  };
 
   const handleRequestDoc = async () => {
+
     await API('put', `/requests/ReqmissingDocs/${requestById._id}`,
       {
       admin_remarks: comment,
@@ -107,19 +102,25 @@ const Index = () => {
       }).catch((err) => {
         console.log("err", err)
       })
-  }
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
   const handleValidByAdmin = async () => {
-
-    await API('put', `/requests/validateRequest/${requestById._id}`)
+    await API("put", `/requests/validateRequest/${requestById._id}`)
       .then((res) => {
-        console.log(res, "handleValidByAdmin")
-        history.push('/SendDocuments')
-      }).catch((err) => {
-        console.log("err", err)
+        console.log(res, "handleValidByAdmin");
+        history.push("/SendDocuments");
       })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  
   }
   const handleClose = () => setCommentModal(false)
   const handleModalOpen = () => setCommentModal(true) 
+
   return (
     <>
       {countTabe === 2 ? (
@@ -127,12 +128,15 @@ const Index = () => {
           <div className="Reference_header">
             <div className="Reference_center_div">
               <div className="Reference_heading">
-                <p className="Reference_h2">
-                  <Link to="/Admin/Dashboard/Requests">
+                <Link
+                  to="/Admin/Dashboard/Requests"
+                  style={{ color: "black", textDecoraion: "none" }}
+                >
+                  <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                  </Link>
-                  &nbsp;
-                  Reference </p>
+                    &nbsp; Reference{" "}
+                  </p>
+                </Link>
               </div>
               <div className="Reference_logo_div">
                 <img src={EzxportIcon} alt="" className="header_center_div" />
@@ -140,7 +144,10 @@ const Index = () => {
               <div className="validate_btn_div">
                 <button className="validate_button2">Download the file</button>
                 &nbsp;
-                {validateCountry && validateProduct && inputList.length === 0 && inputListProduct.length === 0 ?
+                {validateCountry &&
+                validateProduct &&
+                inputList.length === 0 &&
+                inputListProduct.length === 0 ? (
                   <button className="validate_button" onClick={handleValidByAdmin}>
                     Validate the file
                   </button>
@@ -148,9 +155,7 @@ const Index = () => {
                   <button className="validate_button" onClick={handleModalOpen}>
                     Request document
                   </button>
-
-                }
-
+                )}
               </div>
             </div>
           </div>
@@ -160,12 +165,15 @@ const Index = () => {
           <div className="Reference_header">
             <div className="Reference_center_div">
               <div className="Reference_heading">
-                <p className="Reference_h2">
-                  <Link to="/Admin/Dashboard/Requests">
+                <Link
+                  to="/Admin/Dashboard/Requests"
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                  </Link>
-                  &nbsp;
-                  Reference </p>
+                    &nbsp; Reference{" "}
+                  </p>
+                </Link>
               </div>
               <div className="Reference_logo_div">
                 <img src={EzxportIcon} alt="" className="header_center_div" />

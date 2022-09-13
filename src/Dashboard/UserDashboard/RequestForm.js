@@ -1,33 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Form from './RequestForms/Form';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const RequestForm = () => {
   return (
-    <div style={{ height: '100vh', display: 'flex' }}>
-      <div
-        style={{
-          width: '20%',
-          display: 'flex',
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-        }}
-      >
+    <div style={{ height: '100vh', display: 'flex', justifyContent: 'space-between' }}>
+      <div className="left_back_side">
         <Link to="/User/Dashboard/ListOfRequests" style={{ textDecoration: 'none' }}>
-          <p
-            style={{
-              color: '#6941C6',
-              marginTop: '1rem',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: '500',
-            }}
-          >
-            Return to Dashboard
-          </p>
+          <p className="return_back">Return to Dashboard</p>
+          <ArrowBackIcon className="leftArrowIcon back_dashboard" />
         </Link>
       </div>
-      <div style={{ width: '80%' }}>
+      <div className="rqst_form_div">
         <Form />
       </div>
     </div>
