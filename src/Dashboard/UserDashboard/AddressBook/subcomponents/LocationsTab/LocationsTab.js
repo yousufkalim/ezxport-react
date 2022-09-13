@@ -17,39 +17,59 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import EditIcon from '../../../../../assets/EditIcon.svg';
 import Spinner from '../../../../../components/Common/Spinner';
+import Button from '../../../../../components/Common/Button';
 
 
 const title = [
-    { heading: 'Company Name', imgSrc: TitleDownArrow },
-    { heading: 'Country' },
-    { heading: 'E-mail address' },
-    { heading: 'Telephone' },
-    { heading: 'Address' },
-    { heading: '' },
-  ];
+  { heading: 'dashboard.user.addressBook.modal.form.name.label', imgSrc: TitleDownArrow },
+  { heading: 'dashboard.user.addressBook.modal.form.country.label' },
+  { heading: 'dashboard.user.addressBook.modal.form.email.label' },
+  { heading: 'dashboard.user.addressBook.modal.form.telephone.label' },
+  { heading: 'dashboard.user.addressBook.modal.form.address.label' },
+  { heading: '' },
+];
 
-  const schema = {
-    companyName: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 64
-      },
+const schema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64
     },
-    email: {
-      presence: {allowEmpty: false, message: "is required"},
-      length: {maximum: 64},
-      email: true
-    },
-    telephone: {
-      presence: {allowEmpty: false, message: "is required"},
-      length: {maximum: 10, minimum: 10},
-    }
-  
+  },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  email: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+    email: true
+  },
+  address: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+  },
+  zipcode: {
+    presence: {allowEmpty: false, message: "is required"},
+  },
+  telephone: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 10, minimum: 10},
+  },
+  town: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+  },
+  lastName: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
+  },
+  firstName: {
+    presence: {allowEmpty: false, message: "is required"},
+    length: {maximum: 64},
   }
+}
   
-
-
-const LocationsTab = ({open, setOpen,userId, countries}) => {
+const LocationsTab = ({t, open, setOpen,userId, countries}) => {
 
     const [formState, setFormState] = useState({
         isValid: false,
@@ -66,15 +86,6 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
       useEffect(() => {
         fetchLocations();
       },[])
-    
-      useEffect(() => {
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          errors: errors ?? {},
-          isValid: errors ? false : true
-        }))
-      }, [formState.values]);
 
       const fetchLocations = () => {
         setLoading(true);
@@ -96,7 +107,7 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
     
       const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
+        setFormState({...formState, values:{...formState.values, [name]: value}})
       }
 
       const handleOpenModal = (edit, item) => {
@@ -123,8 +134,21 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
                 firstName: contact_fname,
                 lastName: contact_lname
             }
-            setFormState({...formState, values: {...values}})
+            setFormState({...formState, values: {...values}, isValid: true})
        }
+      }
+
+      const handleBlur = (e) => {
+        e.preventDefault();
+        const {name} = e.target;
+        const errors = validate(formState.values, schema);
+        setFormState((formState) => ({
+          ...formState,
+          errors: errors ?? {},
+          touched: {...formState.touched, [name]: true},
+          isValid: errors ? false : true
+    
+        }))
       }
 
       const handleCloseModal = () => {
@@ -184,6 +208,8 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
         }
       }
 
+
+
       const hasError = (field) => formState.touched[field] && formState.errors[field] ? true : false;
 
       const MODAL_TITLE = isEdit ? 'Edit inspection location' : location ? 'View inspection location' : 'Add inspection location'
@@ -202,7 +228,7 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
                         className="country"
                         style={{ backgrounColor: '#EAECF0' }}
                     >
-                        {item.heading} &nbsp;
+                        {t(item.heading)} &nbsp;
                         <img src={item.imgSrc} alt="" className="title_arrow" />
                     </TableCell>
                     );
@@ -270,37 +296,28 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
             Closebtn={true}
         >
         <div className="buyer_socond">
-          <div className="luyer_input_field">
-            <label htmlFor="" className="buyer_label">
-              Company Name
-            </label>
+        <div className="luyer_input_field">
             <InputField
-              className={
-                hasError("companyName") && formState.errors.companyName
-                  ? "input_email_red"
-                  : "input_email"
-              }
+              label="dashboard.user.addressBook.modal.form.name.label"
               disabled={!isEdit && location}
               name='companyName'
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
+              onBlur={(e) => handleBlur(e)}
+              isError={hasError("companyName")}
+              error={formState.errors?.companyName}
               type="text" placeholder="Company 1" />
-              {
-                hasError('companyName') && (
-                  <div>{formState.errors.companyName[0] ?? null}</div>
-                )
-              }
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Select a country
+                {t("dashboard.user.addressBook.modal.form.country.label")}
               </label>
               <Select
                 id="demo-simple-select"
                 disabled={!isEdit && location}
-                name="country"
-                defaultValue={formState.values.country}
+                name='country'
+                onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -311,40 +328,37 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
                   ))
                 }
               </Select>
+              {
+                hasError('country') && (
+                  <div className='input-error'>{formState.errors.country ?? null}</div>
+                )
+              }
             </FormControl>
           </div>
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  E-mail address
-                </label>
                 <InputField 
-                  className={
-                    hasError("email") && formState.errors.email
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.email.label")}
                   name='email'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("email")}
+                  error={formState.errors.email}
                   value={formState.values.email}
                   type="email"
                   placeholder="mail@mail.com" />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Telephone
-                </label>
                 <InputField 
-                  className={
-                    hasError("telephone") && formState.errors.telephone
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.telephone.label")}
                   name='telephone'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("telephone")}
+                  error={formState.errors.telephone}
                   value={formState.values.telephone}
                   type="number"
                   placeholder="+33 03 32 32 42 42" />
@@ -353,18 +367,14 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
           </div>
           <div className="luyer_input_field">
             <div className="luyer_input_field">
-              <label htmlFor="" className="buyer_label">
-                Address
-              </label>
               <InputField 
-                className={
-                  hasError("address") && formState.errors.address
-                    ? "input_email_red"
-                    : "input_email"
-                }
+                label={t("dashboard.user.addressBook.modal.form.address.label")}
                 name='address'
                 disabled={!isEdit && location}
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => handleBlur(e)}
+                isError={hasError("address")}
+                error={formState.errors.address}
                 value={formState.values.address}
                 type="text" placeholder="97 road of rouvroy" />
             </div>
@@ -372,34 +382,26 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Postal code
-                </label>
                 <InputField 
-                  className={
-                    hasError("zipcode") && formState.errors.zipcode
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.postalCode.label")}
                   name='zipcode'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("zipcode")}
+                  error={formState.errors.zipcode}
                   value={formState.values.zipcode}
                   type="number" placeholder="34 832" />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Town
-                </label>
                 <InputField 
-                  className={
-                    hasError("town") && formState.errors.town
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.town.label")}
                   name='town'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("town")}
+                  error={formState.errors?.town}
                   value={formState.values.town}
                   type="text" placeholder="Congo" />
               </div>
@@ -408,41 +410,33 @@ const LocationsTab = ({open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  First Name
-                </label>
                 <InputField 
-                  className={
-                    hasError("firstName") && formState.errors.zipcode
-                      ? "input_email_red"
-                      : "input_email"
-                  }
                   name='firstName'
+                  label={t("dashboard.user.addressBook.modal.form.firstName.label")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("firstName")}
+                  error={formState.errors?.firstName}
                   value={formState.values.firstName}
                   type="text" placeholder="John" />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Last Name
-                </label>
-                <InputField 
-                  className={
-                    hasError("lastName") && formState.errors.lastName
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                <InputField
                   name='lastName'
+                  label={t("dashboard.user.addressBook.modal.form.lastName.label")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("lastName")}
+                  error={formState.errors?.lastName}
                   value={formState.values.lastName}
                   type="text" placeholder="Congo" />
               </div>
             </div>
           </div>
           {
-            ((!isEdit && !location) || (isEdit && location)) && <button type='submit' onClick={(e => handleSubmit(e))} className="luyer_button">To Confirm</button>
+            ((!isEdit && !location) || (isEdit && location)) && <Button text="To Confirm" disabled={!formState.isValid} type='submit' onClick={(e => handleSubmit(e))} className="luyer_button" />
           }
         </div>
       </Modal>
