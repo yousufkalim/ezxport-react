@@ -124,7 +124,7 @@
 .css-6a1lrz-MuiTableCell-root,
 .css-fvipm8,
 .css-1ujsas3 {
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
   border-radius: 7px !important;
 }
 .css-igs3ac {
@@ -179,7 +179,7 @@
 }
 @media screen and (max-width: 780px) {
   .css-i4bv87-MuiSvgIcon-root {
-    font-size: 3rem !important;
+    font-size: 2rem !important;
   }
   .UserTable_right_div {
     height: 35px;
@@ -203,5 +203,11 @@
     overflow: scroll !important;
     padding-bottom: 10px !important;
     margin-top: 10px !important;
+  }
+  .send_status {
+    font-size: 12px;
+  }
+  .send_status {
+    font-size: 11px;
   }
 }
