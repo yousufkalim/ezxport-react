@@ -1,12 +1,12 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import React from "react";
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 
 const AskQuestion = () => {
-  const [dropdown, setDropdown] = React.useState('default');
+  const [dropdown, setDropdown] = React.useState("default");
 
   const handleChange = (event) => {
     setDropdown(event.target.value);
@@ -30,7 +30,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '3px' }}
+                  // style={{ paddingTop: '3px' }}
                 >
                   <MenuItem value="default">A demand</MenuItem>
                   <MenuItem value={10}>A demand</MenuItem>
@@ -47,7 +47,7 @@ const AskQuestion = () => {
                   id="demo-simple-select"
                   defaultValue={dropdown}
                   onChange={handleChange}
-                  style={{ paddingTop: '3px' }}
+                  // style={{ paddingTop: "3px" }}
                 >
                   <MenuItem value="default">Application Title – Date</MenuItem>
                   <MenuItem value={10}>Application Title – Date</MenuItem>
@@ -64,7 +64,7 @@ const AskQuestion = () => {
                   aria-label="minimum height"
                   minRows={10}
                   placeholder="Description of your request"
-                  style={{ padding: '10px', borderRadius: '7px' }}
+                  style={{ padding: "10px", borderRadius: "7px" }}
                 />
                 <br />
               </FormControl>
