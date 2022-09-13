@@ -79,9 +79,9 @@
   border-radius: 6px;
 }
 @media screen and (max-width: 680px) {
-  .Validator_document_btn_div {
+  /* .Validator_document_btn_div {
     display: none;
-  }
+  } */
 
   .changeProvider {
     width: 112px;
@@ -99,5 +99,12 @@
   }
   .textfield_row2 {
     font-size: 0.8rem;
+  }
+  .switch_buttons {
+    flex-direction: column;
+  }
+  .return_btn {
+    padding: 8px 8px;
+    font-size: 14px;
   }
 }
