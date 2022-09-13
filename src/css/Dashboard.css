@@ -268,7 +268,6 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 320px;
   height: 44px;
 }
 .list_reqst_btn2 {
@@ -524,7 +523,7 @@
   margin: 5% auto;
 }
 .question_label {
-  padding: 1% 0;
+  padding: 10px 0 !important;
   font-family: 500;
 }
 .quiz_btn {
@@ -745,13 +744,13 @@
     height: 40px;
   }
   .list_service_btn2 {
-    font-size: 13px;
+    font-size: 12px;
     display: flex;
     justify-content: center;
     width: 187px;
   }
   .search_input {
-    width: 275px;
+    width: 230px;
   }
   .searching2 {
     height: 40px;
@@ -777,6 +776,13 @@
   .Edit_btn_bom,
   .Edit_btn2 {
     width: 119px;
+  }
+  .searching_div_style {
+    display: flex;
+    margin: 0 9px 0 0;
+  }
+  .searching3 {
+    height: 40px;
   }
 }
 @media screen and (max-width: 900px) {
@@ -874,7 +880,6 @@
   }
   .searching_div_country3 {
     height: 40px;
-    width: 260px;
   }
   .Country_search_Calculation {
     width: 100%;
@@ -901,6 +906,19 @@
   .searching3 {
     height: 40px;
   }
+  .Edit_btn_bom {
+    width: 98px !important;
+  }
+  .searching2 {
+    height: 40px;
+  }
+  .list_Details_h1 {
+    font-size: 22px !important;
+  }
+  .title_text {
+    font-size: 17px;
+    padding-bottom: 0;
+  }
 }
 @media screen and (max-width: 780px) {
   .searching {
@@ -916,7 +934,7 @@
     width: 260px;
   }
   .list_nom_h1 {
-    font-size: 20px !important;
+    font-size: 18px !important;
   }
   .list_reqst_btn2 {
     width: 55%;
@@ -992,9 +1010,15 @@
     width: 53%;
     font-size: 17px;
   }
+  .list_Details_h1 {
+    font-size: 22px !important;
+  }
 }
 
 @media screen and (max-width: 680px) {
+  .calender_div {
+    width: 37% !important;
+  }
   .Coefficient_main {
     width: 70% !important;
   }
@@ -1033,6 +1057,7 @@
   .Edit_btn2 {
     margin-left: 1em;
     font-size: 14px;
+    width: 63px !important;
   }
   .MuiButtonBase-root {
     font-size: 13px !important;
@@ -1098,6 +1123,12 @@
   .table_li4 {
     font-size: 11px !important;
   }
+  .AddSlice_input_fields {
+    width: 61% !important;
+  }
+  .title_text {
+    font-size: 17px !important;
+  }
 }
 @media screen and (max-width: 400px) {
   .list_h1 {
@@ -1127,7 +1158,30 @@
   .update_Boms_btn {
     width: 104px;
   }
-  .searching_div_country3 {
-    display: none;
+  .Country_search_Calculation {
+    display: none !important;
+  }
+  .AddSlice_inputs_div {
+    flex-direction: column;
+  }
+  .AddSlice_input_fields {
+    width: 60% !important;
+    margin: auto;
+  }
+  .dltIcon {
+    margin-left: 3px;
+  }
+  .AddSlice_title {
+    text-align: center;
+    padding: 10px 0;
+  }
+  .AddSlice_button_disabled {
+    margin-top: 20px;
+  }
+  .title_text {
+    font-size: 15px !important;
+  }
+  .calender_div {
+    width: 47% !important;
   }
 }
