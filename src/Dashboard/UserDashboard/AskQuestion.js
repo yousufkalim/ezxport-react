@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
@@ -43,6 +44,7 @@ const AskQuestion = () => {
       setLoading(false);
     }
   }
+
 
   const handleChange = (e) => {
     const {name, value} = e.target;
@@ -95,10 +97,12 @@ const AskQuestion = () => {
                 </label>
                 <Select
                   id="demo-simple-select"
+
                   name="question"
                   value={formData.question}
                   onChange={(e) => handleChange(e)}
                   style={{ paddingTop: '3px' }}
+
                 >
                   {
                     questions.map(({title}) => (
@@ -114,6 +118,7 @@ const AskQuestion = () => {
                 </label>
                 <Select
                   id="demo-simple-select"
+
                   name="request"
                   value={formData.request}
                   onChange={(e) => handleChange(e)}
@@ -138,7 +143,7 @@ const AskQuestion = () => {
                   minRows={10}
                   value={formData.description}
                   placeholder="Description of your request"
-                  style={{ padding: '10px', borderRadius: '7px' }}
+                  style={{ padding: "10px", borderRadius: "7px" }}
                 />
                 <br />
               </FormControl>

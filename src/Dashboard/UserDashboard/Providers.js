@@ -5,6 +5,7 @@ import TitleDownArrow from '../../assets/TitleDownArrow.svg';
 import API from '../../api/index';
 import { toast } from 'react-toastify';
 import Spinner from '../../components/Common/Spinner';
+import toaster from '../../utils/toaster';
 
 const Providers = () => {
 
@@ -23,6 +24,7 @@ const Providers = () => {
       const data = res?.data?.Uservendors?.map(item => item.vendor);
       setProviders(data);
       setLoading(false);
+      toaster('success', "testing");
     }).catch((err) => {
       toast.error('Something went wrong!')
       setLoading(false);

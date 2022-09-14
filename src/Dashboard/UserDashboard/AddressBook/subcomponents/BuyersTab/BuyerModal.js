@@ -7,37 +7,25 @@ import Modal from '../../../../../components/Common/Modal';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Button from '../../../../../components/Common/Button';
+import toaster from '../../../../../utils/toaster';
 
-const schema = {
-    companyName: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 64
-      },
-    },
-    email: {
-      presence: {allowEmpty: false, message: "is required"},
-      length: {maximum: 64},
-      email: true
-    },
-    telephone: {
-      presence: {allowEmpty: false, message: "is required"},
-      length: {maximum: 10, minimum: 10},
-    }
-  }
-  
+const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId, buyer,isEdit,setIsEdit, countries, setOpen, setBuyer, formState, setFormState, open}) => {
 
-const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, setOpen, setBuyer, formState, setFormState, open}) => {
-
-      useEffect(() => {
+      const handleBlur = (e) => {
+        e.preventDefault();
+        const {name} = e.target;
         const errors = validate(formState.values, schema);
+        console.log("Errors ", errors );
+        console.log("Lastest state  ", formState);
         setFormState((formState) => ({
           ...formState,
           errors: errors ?? {},
+          touched: {...formState.touched, [name]: true},
           isValid: errors ? false : true
     
         }))
-      }, [formState.values]);
+      }
 
       const countryHandler = (e) => {
         console.log("Country ", e.target.value)
@@ -49,7 +37,7 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
     
       const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
+        setFormState({...formState, values:{...formState.values, [name]: value}})
       }
 
       const handleCloseModal = () => {
@@ -81,8 +69,7 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
 
       const editBuyer = async (data) => {
         await API('put', `/buyers/${buyer._id}`, data).then((res) => {
-            toast.success('Buyer updated successfully!');
-           
+            toaster('success', "Buyer updated sucessfully");
             fetchBuyers();
             handleCloseModal()
           }).catch(err => toast.success('Something went wrong!'));
@@ -111,47 +98,40 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
 
 
     const hasError = (field) => formState.touched[field] && formState.errors[field] ? true : false;
-    const MODAL_TITLE = isEdit ? 'Edit buyer' : buyer ? 'View buyer' : 'Add buyer'
+
+    console.log("has Errorr" , formState);
+    const MODAL_TITLE = isEdit ? 'dashboard.user.addressBook.modal.title.edit' : buyer ? 'dashboard.user.addressBook.modal.title.view' : 'dashboard.user.addressBook.modal.title.add'
   return (
     <Modal
             open={open}
             setOpen={setOpen}
-            title={MODAL_TITLE}
+            title={t(MODAL_TITLE)}
             handleClose={() => handleCloseModal()}
             Closebtn={true}
         >
         <div className="buyer_socond">
           <div className="luyer_input_field">
-            <label htmlFor="" className="buyer_label">
-              Company Name
-            </label>
             <InputField
-              className={
-                hasError("companyName") && formState.errors.companyName
-                  ? "input_email_red"
-                  : "input_email"
-              }
+              label="dashboard.user.addressBook.modal.form.name.label"
               disabled={!isEdit && buyer}
               name='companyName'
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
+              onBlur={(e) => handleBlur(e)}
+              isError={hasError("companyName")}
+              error={formState.errors?.companyName}
               type="text" placeholder="Company 1" />
-              {
-                hasError('companyName') && (
-                  <div>{formState.errors.companyName[0] ?? null}</div>
-                )
-              }
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Select a country
+                {t("dashboard.user.addressBook.modal.form.country.label")}
               </label>
               <Select
                 id="demo-simple-select"
                 disabled={!isEdit && buyer}
-                name="country"
-                // defaultValue={formState.values.country}
+                name='country'
+                onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -162,40 +142,37 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
                   ))
                 }
               </Select>
+              {
+                hasError('country') && (
+                  <div className='input-error'>{formState.errors.country ?? null}</div>
+                )
+              }
             </FormControl>
           </div>
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  E-mail address
-                </label>
                 <InputField 
-                  className={
-                    hasError("email") && formState.errors.email
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.email.label")}
                   name='email'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("email")}
+                  error={formState.errors.email}
                   value={formState.values.email}
                   type="email"
                   placeholder="mail@mail.com" />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Telephone
-                </label>
                 <InputField 
-                  className={
-                    hasError("telephone") && formState.errors.telephone
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.telephone.label")}
                   name='telephone'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("telephone")}
+                  error={formState.errors.telephone}
                   value={formState.values.telephone}
                   type="number"
                   placeholder="+33 03 32 32 42 42" />
@@ -204,18 +181,14 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
           </div>
           <div className="luyer_input_field">
             <div className="luyer_input_field">
-              <label htmlFor="" className="buyer_label">
-                Address
-              </label>
               <InputField 
-                className={
-                  hasError("address") && formState.errors.address
-                    ? "input_email_red"
-                    : "input_email"
-                }
+                label={t("dashboard.user.addressBook.modal.form.address.label")}
                 name='address'
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
+                onBlur={(e) => handleBlur(e)}
+                isError={hasError("address")}
+                error={formState.errors.address}
                 value={formState.values.address}
                 type="text" placeholder="97 road of rouvroy" />
             </div>
@@ -223,41 +196,33 @@ const BuyerModal = ({fetchBuyers, userId, buyer,isEdit,setIsEdit, countries, set
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Postal code
-                </label>
                 <InputField 
-                  className={
-                    hasError("zipcode") && formState.errors.zipcode
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.postalCode.label")}
                   name='zipcode'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("zipcode")}
+                  error={formState.errors.zipcode}
                   value={formState.values.zipcode}
                   type="number" placeholder="34 832" />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  Town
-                </label>
                 <InputField 
-                  className={
-                    hasError("town") && formState.errors.town
-                      ? "input_email_red"
-                      : "input_email"
-                  }
+                  label={t("dashboard.user.addressBook.modal.form.town.label")}
                   name='town'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("town")}
+                  error={formState.errors?.town}
                   value={formState.values.town}
                   type="text" placeholder="Congo" />
               </div>
             </div>
           </div>
           {
-            ((!isEdit && !buyer) || (isEdit && buyer)) && <button type='submit' onClick={(e => handleSubmit(e))} className="luyer_button">To Confirm</button>
+            ((!isEdit && !buyer) || (isEdit && buyer)) && <Button text="To Confirm" disabled={!formState.isValid} type='submit' onClick={(e => handleSubmit(e))} className="luyer_button" />
           }
         </div>
       </Modal>

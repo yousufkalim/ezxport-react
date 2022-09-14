@@ -3,6 +3,7 @@ import SearchField from '../../../components/Common/SearchField';
 import TabMenu from './TabMenu';
 import Button from '../../../components/Common/Button';
 import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
+import {useTranslation} from "react-i18next";
 
 const title = [
   { heading: 'Company Name', imgSrc: TitleDownArrow },
@@ -35,6 +36,8 @@ const schema = {
 
 const AddressBook = () => {
 
+  const {t} = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
 
@@ -46,7 +49,7 @@ const AddressBook = () => {
     setOpen(true);
   };
 
-  const buttonTitle = value === 0 ? 'Add buyer' : value === 1 ? 'Add seller' : 'Add inspection location'
+  const buttonTitle = value === 0 ? 'Add buyer' : value === 1 ? 'Add seller' : 'Add location'
 
   return (
     <>
@@ -62,7 +65,7 @@ const AddressBook = () => {
           </div>
           {/* list table   */}
           <div className="list_table">
-            <TabMenu handleChange={handleChange} value={value} setOpen={setOpen} open={open} title={title} />
+            <TabMenu t={t} handleChange={handleChange} value={value} setOpen={setOpen} open={open} title={title} />
           </div>
         </div>
       </div>

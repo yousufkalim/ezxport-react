@@ -8,7 +8,7 @@
   align-items: center;
   margin: 2% 0;
 }
-.return_btn{
+.return_btn {
   margin-top: 2rem;
   background: #7f56d9;
   border: 1px solid #7f56d9;
@@ -199,10 +199,24 @@
     flex-direction: column;
   }
   .Reference_h2 {
-    font-size: 14px;
+    font-size: 16px;
   }
+  .Reference_logo_div {
+    padding: 1% 0;
+  }
+  .validate_button2 {
+    font-size: 13px;
+    padding: 12px 10px;
+  }
+  .redclass p {
+    font-size: 13px;
+  }
+  .import_dcuments {
+    flex-direction: column;
+  }
+
   .validate_button {
-    padding: 12px 20px;
+    padding: 12px 10px;
     font-size: 13px;
   }
   .validateForm {
@@ -228,7 +242,20 @@
     font-size: 9px;
   }
   .ExportDocuments_p {
-    font-size: 12px;
+    font-size: 14px;
+  }
+  .add_ducoment_p {
+    font-size: 14px;
+  }
+  .Validator_document_btn_div p {
+    font-size: 13px;
+  }
+  /* .redclass {
+    display: none !important;
+  } */
+
+  .request_documents_title {
+    font-size: 16px;
   }
   .switch_p2 {
     font-size: 12px;
@@ -241,7 +268,7 @@
     font-size: 12px !important;
   }
   .switch_column {
-    width: 36%;
+    width: 50%;
   }
   .postel_input {
     width: 38% !important;
@@ -249,9 +276,7 @@
   .label_modal {
     font-size: 11px !important;
   }
-  .calender_div {
-    width: 48%;
-  }
+
   .seller_title {
     font-size: 17px;
   }

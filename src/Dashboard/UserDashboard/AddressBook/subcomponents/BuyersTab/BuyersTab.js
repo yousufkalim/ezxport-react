@@ -13,23 +13,21 @@ import Spinner from '../../../../../components/Common/Spinner';
 import EditIcon from '../../../../../assets/EditIcon.svg';
 import BuyerModal from './BuyerModal';
 
-
-
 const title = [
-    { heading: 'Company Name', imgSrc: TitleDownArrow },
-    { heading: 'Country' },
-    { heading: 'E-mail address' },
-    { heading: 'Telephone' },
-    { heading: 'Address' },
+    { heading: 'dashboard.user.addressBook.modal.form.name.label', imgSrc: TitleDownArrow },
+    { heading: 'dashboard.user.addressBook.modal.form.country.label' },
+    { heading: 'dashboard.user.addressBook.modal.form.email.label' },
+    { heading: 'dashboard.user.addressBook.modal.form.telephone.label' },
+    { heading: 'dashboard.user.addressBook.modal.form.address.label' },
     { heading: '' },
   ];
 
-
-const BuyersTab = ({open, setOpen,userId, countries}) => {
+const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
       const [buyers, setBuyers] = useState([]);
       const [buyer, setBuyer] = useState(null);
       const [loading, setLoading] = useState(false);
       const [isEdit, setIsEdit] = useState(false);
+      const [activeField, setActiveField] = useState("");
 
       const [formState, setFormState] = useState({
         isValid: false,
@@ -48,7 +46,6 @@ const BuyersTab = ({open, setOpen,userId, countries}) => {
       const fetchBuyers = () => {
         setLoading(true);
         API('get', `/buyers/getByUser/${userData._id}`).then((res) => {
-            console.log("Buyers ", res)
             setBuyers(res.data.buyer);
             setLoading(false);
         }).catch((err) => {
@@ -80,88 +77,88 @@ const BuyersTab = ({open, setOpen,userId, countries}) => {
                 zipcode,
                 address,
             }
-            setFormState({...formState, values: {...values}})
+            setFormState({...formState, values: {...values}, isValid: true})
        }
       }
 
   return (
     <>
         <div className="list_table">
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-                <TableRow>
-                {title.map((item) => {
-                    return (
-                    <TableCell
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                    {title.map((item) => {
+                        return (
+                        <TableCell
+                            align="left"
+                            className="country"
+                            style={{ backgrounColor: '#EAECF0' }}
+                        >
+                            {t(item.heading)} &nbsp;
+                            <img src={item.imgSrc} alt="" className="title_arrow" />
+                        </TableCell>
+                        );
+                    })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {loading ? <Spinner /> : buyers?.map((buyer) => (
+                    <TableRow
+                        key={buyer._id}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleOpenModal(false, buyer) }
+                    >
+                        <TableCell component="th" scope="row" >
+                        <p className="AP_plus_title">{buyer.company_name} </p>
+                        </TableCell>
+                        <TableCell align="left" className="country2" >
+                        {buyer.country.name}
+                        <br />
+                        </TableCell>
+                        <TableCell align="left" className="country2" >
+                        {buyer.email}
+                        </TableCell>
+                        <TableCell align="left" className="country2" >
+                        {buyer.phone_number}
+                        </TableCell>
+                        <TableCell
                         align="left"
-                        className="country"
-                        style={{ backgrounColor: '#EAECF0' }}
-                    >
-                        {item.heading} &nbsp;
-                        <img src={item.imgSrc} alt="" className="title_arrow" />
-                    </TableCell>
-                    );
-                })}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {loading ? <Spinner /> : buyers?.map((buyer) => (
-                <TableRow
-                    key={buyer._id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleOpenModal(false, buyer) }
-                >
-                    <TableCell component="th" scope="row" >
-                    <p className="AP_plus_title">{buyer.company_name} </p>
-                    </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.country.name}
-                    <br />
-                    </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.email}
-                    </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.phone_number}
-                    </TableCell>
-                    <TableCell
-                    align="left"
-                    className="country2"
-                    style={{ cursor: 'pointer' }}
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
+                        
+                        >
+                        <p className="country2">{buyer.address}</p>
+                        </TableCell>
+
+                        <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ cursor: 'pointer' }}
                     
-                    >
-                    <p className="country2">{buyer.address}</p>
-                    </TableCell>
+                        >
+                        <img
+                                    src={EditIcon}
+                                    alt=""
+                                    className="dltIcon"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={(e) => {
+                                        e.stopPropagation(true);
+                                        handleOpenModal(true, buyer)
+                                    }}
+                                />
+                        </TableCell>
+                    </TableRow>
+                    ))}
+                </TableBody>
+                </Table>
+            </TableContainer>
 
-                    <TableCell
-                    align="left"
-                    className="country2"
-                    style={{ cursor: 'pointer' }}
-                
-                    >
-                    <img
-                                src={EditIcon}
-                                alt=""
-                                className="dltIcon"
-                                style={{ cursor: 'pointer' }}
-                                onClick={(e) => {
-                                    e.stopPropagation(true);
-                                    handleOpenModal(true, buyer)
-                                }}
-                            />
-                    </TableCell>
-                </TableRow>
-                ))}
-            </TableBody>
-            </Table>
-        </TableContainer>
-
-        <BuyerModal userId={userId} countries={countries} formState={formState} setFormState={setFormState} isEdit={isEdit} setBuyer={setBuyer} setIsEdit={setIsEdit} buyer={buyer} fetchBuyers={fetchBuyers} setOpen={setOpen} open={open} />
-        {/* table  */}
+            <BuyerModal schema={schema} t={t} setActiveField={setActiveField} activeField={activeField} userId={userId} countries={countries} formState={formState} setFormState={setFormState} isEdit={isEdit} setBuyer={setBuyer} setIsEdit={setIsEdit} buyer={buyer} fetchBuyers={fetchBuyers} setOpen={setOpen} open={open} />
+            {/* table  */}
         </div>
-  </>
+    </>
   )
 }
 

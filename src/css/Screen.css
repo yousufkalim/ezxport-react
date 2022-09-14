@@ -43,6 +43,33 @@ label {
   margin: 2% 0;
   outline: none;
 }
+
+.input-field {
+  width: 100%;
+  padding: 3% 2%;
+  border: 1px solid rgba(0, 0, 0, 0.23);
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  border-radius: 8px;
+  margin: 2% 0 0 0;
+  outline: none;
+}
+
+.input-error {
+  color: red;
+  font-size: 12px;
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+.primary-button:disabled {
+  color: #344054 !important;
+}
+
+.input_field_error {
+  border: 1px solid rgb(252, 7, 7, 0.6);
+}
+
 .input_email_red {
   width: 100%;
   padding: 3% 2%;
@@ -65,6 +92,7 @@ label {
   font-size: 1.2em;
   right: 2%;
   top: 17%;
+
   cursor: pointer;
 }
 .forgot_p-div {
@@ -309,7 +337,7 @@ label {
     width: 100%;
   }
   label {
-    font-size: 12px;
+    font-size: 10px;
   }
   .forgot_p {
     font-size: 12px;

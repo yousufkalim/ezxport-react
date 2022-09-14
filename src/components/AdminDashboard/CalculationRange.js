@@ -20,19 +20,19 @@ import InputField from '../Common/InputField';
 
 const schema = {
   minCost: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 6,
     },
   },
   maxCost: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 6,
     },
   },
   certificate: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 6,
     },
@@ -128,16 +128,17 @@ const CalculationRange = (props) => {
         setFormState((formState) => ({
           ...formState,
           values: {
+
             minCost: "",
             maxCost: "",
             certificate: "",
           }, isValid: true,
           touched: {}
+
         }));
         // setMaxCost("");
         // setCertificat("");
-        toast.success("Range added successfully");
-
+        toast.success('Range added successfully');
       })
       .catch((err) => {
         console.log('handleAddRange', err);
@@ -145,9 +146,9 @@ const CalculationRange = (props) => {
   };
 
   const handleNewRange = async () => {
-    await API("post", `/calculations/`, {
+    await API('post', `/calculations/`, {
       country: props.CountryId,
-      type: "range",
+      type: 'range',
       range: {
         min: formState.values.minCost,
         max: formState.values.maxCost,
@@ -155,8 +156,9 @@ const CalculationRange = (props) => {
       },
     })
       .then((res) => {
-        console.log("handleAddCoefficient", res);
+        console.log('handleAddCoefficient', res);
         props.setOpenCalculationModal(false);
+
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -168,12 +170,12 @@ const CalculationRange = (props) => {
           touched: {}
         }));
         toast.success("Coefficient Added Successfully");
+
       })
       .catch((err) => {
-        console.log("handleAddCoefficient", err);
+        console.log('handleAddCoefficient', err);
       });
-
-  }
+  };
   const handleDeleteCalculation = async (calId) => {
     await API('put', `/calculations/deleteRange/${props?.id}`, {
       rangeId: calId,
@@ -210,8 +212,7 @@ const CalculationRange = (props) => {
     handleRangeData();
   }, []);
   const handleEditModalClose = () => setEditModal(false);
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
   return (
     <>
@@ -256,7 +257,7 @@ const CalculationRange = (props) => {
                         style={{ cursor: 'pointer' }}
                         onClick={() => handleDeleteCalculation(item._id)}
                       />
-                      &nbsp; &nbsp;
+
                       <img
                         src={EditIcon}
                         alt=""
@@ -297,7 +298,7 @@ const CalculationRange = (props) => {
 
                   />
                   <div className="error-format">
-                    {hasError("minCost") ? formState.errors.minCost[0] : null}
+                    {hasError('minCost') ? formState.errors.minCost[0] : null}
                   </div>
                 </FormControl>
               </div>
@@ -314,7 +315,7 @@ const CalculationRange = (props) => {
 
                   />
                   <div className="error-format">
-                    {hasError("maxCost") ? formState.errors.maxCost[0] : null}
+                    {hasError('maxCost') ? formState.errors.maxCost[0] : null}
                   </div>
                 </FormControl>
               </div>
@@ -331,13 +332,12 @@ const CalculationRange = (props) => {
 
                   />
                   <div className="error-format">
-                    {hasError("certificate")
-                      ? formState.errors.certificate[0]
-                      : null}
+                    {hasError('certificate') ? formState.errors.certificate[0] : null}
                   </div>
                 </FormControl>
               </div>
             </div>
+
             <button
               className={!formState.isValid ? 'AddSlice_button_disabled' : 'AddSlice_button'}
               onClick={props.Calculation ? handleAddRange : handleNewRange}

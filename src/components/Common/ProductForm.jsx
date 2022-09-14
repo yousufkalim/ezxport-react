@@ -6,7 +6,7 @@ import FilePicker from './FilePicker';
 import Select from '@mui/material/Select';
 
 const ProductForm = (props) => {
-  const [toComplete, setToComplete] = useState()
+  const [toComplete, setToComplete] = useState();
   const handleDataChange = (e) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
@@ -16,7 +16,7 @@ const ProductForm = (props) => {
     props.setCodes((prev) => {
       prev[cindex].products[index1][name] = {
         url: [base64],
-        filename: files.name
+        filename: files.name,
       };
       return [...prev];
     });
@@ -34,35 +34,39 @@ const ProductForm = (props) => {
     });
   };
   const validateProduct = () => {
-    let validated = true
+    let validated = true;
 
     if (Object.keys(props?.product).length > 14) {
       for (const key in props?.product) {
         if (!props?.product[key]) {
-          validated = false
-          break
+          validated = false;
+          break;
         }
       }
     } else {
-      validated = false
+      validated = false;
     }
-    return validated
-  }
+    return validated;
+  };
 
   return (
     <>
       <div className="title_Div_documents">
         <span className="title_span">{props.item.code.code} – Nomenclature name</span>
-        {validateProduct() ? <span className="complete_pill">Complete</span> :
+        {validateProduct() ? (
+          <span className="complete_pill">Complete</span>
+        ) : (
           <span className="to_complete_pill">To Complete</span>
-        }
+        )}
       </div>
-      {validateProduct() ? "" :
+      {validateProduct() ? (
+        ''
+      ) : (
         <span className="to_complete_pill">The product documents are to be completed</span>
-      }
+      )}
 
       <div className="divider_line"></div>
-      <h3>
+      <h3 className="steps_3_h3">
         Code # {props.cindex + 1} Product # {props.index1 + 1}
       </h3>
       <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? '2.5rem' : '1rem' }}>
@@ -101,7 +105,7 @@ const ProductForm = (props) => {
         </select>
       </div>
       <div className="inspection_textfield">
-        <div style={{ width: '48%' }}>
+        <div className="steps_4_inspeciton">
           <label className="BomLabel">Amount</label>
           <InputField
             className="company_name_input"
@@ -110,7 +114,10 @@ const ProductForm = (props) => {
             onChange={(e) => handleDataChange(e)}
           />
         </div>
-        <div style={{ width: '48%', display: 'flex', justifyContent: 'space-between' }}>
+        <div
+          className="steps_4_inspeciton"
+          style={{ display: 'flex', justifyContent: 'space-between' }}
+        >
           <div style={{ width: '35%' }}>
             <label className="BomLabel">Unit of measure</label>
             <select

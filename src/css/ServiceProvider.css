@@ -1,6 +1,5 @@
 .changeProvider {
   width: 167px;
-  margin: 0 0 0px 37px;
   text-decoration: none;
   border: none;
   color: #fff;
@@ -12,13 +11,14 @@
   font-size: 16px;
   text-align: center;
   cursor: pointer;
+  margin-left: 15px;
 }
 .textfield_row1 {
   color: #667085;
   padding-left: 9px;
   font-size: 1rem;
   background-color: transparent;
-  width: 28%;
+  width: 29%;
 
   height: 2.7rem;
   border-radius: 6px;
@@ -46,15 +46,13 @@
   outline: none;
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
 }
-.textField_div1 {
-}
-
 .textField_div2 {
   display: flex;
   justify-content: space-between;
 }
 .textField_row2_div {
   width: 32%;
+  margin: 7px 0 0 0;
 }
 
 .edit_vendor_div {
@@ -80,9 +78,13 @@
   border: none;
   border-radius: 6px;
 }
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 680px) {
+  /* .Validator_document_btn_div {
+    display: none;
+  } */
+
   .changeProvider {
-    width: auto;
+    width: 112px;
     font-size: 12px;
   }
   .textfield_row1 {
@@ -97,5 +99,12 @@
   }
   .textfield_row2 {
     font-size: 0.8rem;
+  }
+  .switch_buttons {
+    flex-direction: column;
+  }
+  .return_btn {
+    padding: 8px 8px;
+    font-size: 14px;
   }
 }

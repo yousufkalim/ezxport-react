@@ -18,8 +18,9 @@ import API from '../../api/index';
 import FilePicker from '../../components/Common/FilePicker';
 import Icon from '../../assets/Quiz.png';
 import Modal from '../../components/Common/Modal';
-import TextFieldSelect from '../Common/TextFieldSelect';
+
 import { toast } from 'react-toastify';
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -142,13 +143,20 @@ const AdminNomPays = () => {
                   <SearchField placeholder="Searching" className="Country_search_input" />
                   <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
                 </div>
-                <Button text="Add BOMs" className="Edit_btn" onClick={() => setOpenAddBomModal(true)} />
+
+                <Button
+                  text="Add BOMs"
+                  className="Edit_btn_bom"
+                  onClick={() => setOpenAddBomModal(true)}
+                />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
+
                 <SearchField placeholder="Searching" className="Country_search_input2" />
                 {currentRadioValue === "coefficient" && (
                         <Button text={currentRadioValue === "coefficient" ? "Edit" : "Add"} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
+
                 )}
               </div>
             ) : (
@@ -222,14 +230,18 @@ const AdminNomPays = () => {
         <div className="buyer_socond">
           <div className="luyer_input_field" >
             <label htmlFor="" className="bom_popup_label">
+
               Download your BOM file
+
             </label>
             <div className="bom_download_File_btn_div">
               <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>Download current file</Link>
             </div>
           </div>
+
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
             Upload your BOM file
+
           </label>
           <FilePicker
             index={"01"}

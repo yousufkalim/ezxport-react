@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const PaginationPage = () => {
   return (
     <>
-      <div className="pagination_div" style={{ display: 'flex', alignItems: 'center' }}>
+      {/* <div className="pagination_div" style={{ display: 'flex', alignItems: 'center' }}>
         <button className="pagination_btn">
           <ArrowBackIcon /> Previous
         </button>
@@ -20,7 +20,7 @@ const PaginationPage = () => {
         <button className="pagination_btn">
           Next <ArrowForwardIcon />
         </button>
-      </div>
+      </div> */}
     </>
   );
 };

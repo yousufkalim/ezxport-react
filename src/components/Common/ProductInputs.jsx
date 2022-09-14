@@ -2,30 +2,32 @@ import React, { useState, useEffect } from 'react';
 import InputField from '../Common/InputField';
 import TextFieldSelect from '../Common/TextFieldSelect';
 import SwitchButton from '../Common/SwitchButton';
-import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg"
+import { ReactComponent as Delete } from '../../assets/DeleteIcon.svg';
 import { ReactComponent as Arrow } from '../../assets/arrow.svg';
 import PlusButton from '../../assets/PlusButton.svg';
 
 const ProductInputs = (props) => {
   useEffect(() => {
-    handleProductDocuments()
-  }, [props?.requestById])
-
+    handleProductDocuments();
+  }, [props?.requestById]);
 
   const handleProductDocuments = () => {
     if (props?.product) {
-      if (props?.product?.other_docs?.status === "valid" &&
-        props?.product?.plan?.status === "valid" &&
-        props?.product?.analysis_certificate?.status === "valid" &&
-        props?.product?.test_report?.status === "valid" &&
-        props?.product?.technical_sheet?.status === "valid") {
-        props.setValidateProduct(true)
-      } else { props.setValidateProduct(false) }
+      if (
+        props?.product?.other_docs?.status === 'valid' &&
+        props?.product?.plan?.status === 'valid' &&
+        props?.product?.analysis_certificate?.status === 'valid' &&
+        props?.product?.test_report?.status === 'valid' &&
+        props?.product?.technical_sheet?.status === 'valid'
+      ) {
+        props.setValidateProduct(true);
+      } else {
+        props.setValidateProduct(false);
+      }
     } else {
-      props.setValidateProduct(false)
+      props.setValidateProduct(false);
     }
-  }
-
+  };
 
   // handle input change
   const handleInputChange = (e, index) => {
@@ -36,7 +38,7 @@ const ProductInputs = (props) => {
   };
 
   // handle click event of the Remove button
-  const handleRemoveClick = index => {
+  const handleRemoveClick = (index) => {
     const list = [...props.inputListProduct];
     list.splice(index, 1);
     props.setInputListProduct(list);
@@ -44,7 +46,10 @@ const ProductInputs = (props) => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    props.setInputListProduct([...props.inputListProduct, { product: props?.product?._id, name: "" }]);
+    props.setInputListProduct([
+      ...props.inputListProduct,
+      { product: props?.product?._id, name: '' },
+    ]);
   };
   return (
     <>
@@ -76,7 +81,7 @@ const ProductInputs = (props) => {
         value={props?.product?.condition}
       />
       <div className="inspection_textfield">
-        <div style={{ width: '34%' }}>
+        <div className="amount_input_div" style={{ width: '34%' }}>
           <label className="label_modal">Amount</label>
           <InputField
             className="company_name_input"
@@ -87,6 +92,7 @@ const ProductInputs = (props) => {
         </div>
 
         <div
+          className="unit_input_div"
           style={{
             width: '63%',
             display: 'flex',
@@ -111,8 +117,9 @@ const ProductInputs = (props) => {
               className="company_name_input"
               disabled
               name="price"
-              value={`${props?.product?.price?.value} ${props?.product?.price?.currency === 'USD' ? '$' : '€'
-                }`}
+              value={`${props?.product?.price?.value} ${
+                props?.product?.price?.currency === 'USD' ? '$' : '€'
+              }`}
             />
           </div>
         </div>
@@ -150,9 +157,11 @@ const ProductInputs = (props) => {
             text="Technical sheet"
             name="technical_sheet"
             item={props?.product?.technical_sheet}
-            label={props?.product?.technical_sheet?.status === "valid" ? "Valid" : "Un-Valid"}
-            checked={props?.product?.technical_sheet?.status === "valid" ? true : false}
-            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+            label={props?.product?.technical_sheet?.status === 'valid' ? 'Valid' : 'Un-Valid'}
+            checked={props?.product?.technical_sheet?.status === 'valid' ? true : false}
+            onChange={(e) =>
+              props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)
+            }
           />
         </div>
         <div className="switch_column">
@@ -160,39 +169,48 @@ const ProductInputs = (props) => {
             text="Test report"
             name="test_report"
             item={props?.product?.test_report}
-            label={props?.product?.test_report?.status === "valid" ? "Valid" : "Un-Valid"}
-            checked={props?.product?.test_report?.status === "valid" ? true : false}
-            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+            label={props?.product?.test_report?.status === 'valid' ? 'Valid' : 'Un-Valid'}
+            checked={props?.product?.test_report?.status === 'valid' ? true : false}
+            onChange={(e) =>
+              props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)
+            }
           />
         </div>
-        {props.validateProduct ? <>
-          <div
-            className="Validator_document_btn_div"
-            style={{ position: 'absolute', right: '0' }}
-          >
-            <p>Validated documents <Arrow /></p>
-          </div >
-        </> :
+        {props.validateProduct ? (
+          <>
+            <div
+              className="Validator_document_btn_div"
+              style={{ position: 'absolute', right: '0' }}
+            >
+              <p>
+                Validated documents <Arrow />
+              </p>
+            </div>
+          </>
+        ) : (
           <>
             <div
               className="Validator_document_btn_div redclass"
               style={{ position: 'absolute', right: '0' }}
             >
-              <p>Invalid documents <Arrow /></p>
+              <p>
+                Invalid documents <Arrow />
+              </p>
             </div>
           </>
-        }
-
-      </div >
+        )}
+      </div>
       <div className="switch_buttons">
         <div className="switch_column">
           <SwitchButton
             text="Analysis Certificate"
             name="analysis_certificate"
             item={props?.product?.analysis_certificate}
-            label={props?.product?.analysis_certificate?.status === "valid" ? "Valid" : "Un-Valid"}
-            checked={props?.product?.analysis_certificate?.status === "valid" ? true : false}
-            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+            label={props?.product?.analysis_certificate?.status === 'valid' ? 'Valid' : 'Un-Valid'}
+            checked={props?.product?.analysis_certificate?.status === 'valid' ? true : false}
+            onChange={(e) =>
+              props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)
+            }
           />
         </div>
         <div className="switch_column">
@@ -200,9 +218,11 @@ const ProductInputs = (props) => {
             text="Plan"
             name="plan"
             item={props?.product?.plan}
-            label={props?.product?.plan?.status === "valid" ? "Valid" : "Un-Valid"}
-            checked={props?.product?.plan?.status === "valid" ? true : false}
-            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+            label={props?.product?.plan?.status === 'valid' ? 'Valid' : 'Un-Valid'}
+            checked={props?.product?.plan?.status === 'valid' ? true : false}
+            onChange={(e) =>
+              props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)
+            }
           />
         </div>
       </div>
@@ -212,37 +232,50 @@ const ProductInputs = (props) => {
             text="Other documents"
             name="other_docs"
             item={props?.product?.other_docs}
-            label={props?.product?.other_docs?.status === "valid" ? "Valid" : "Un-Valid"}
-            checked={props?.product?.other_docs?.status === "valid" ? true : false}
-            onChange={(e) => props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)}
+            label={props?.product?.other_docs?.status === 'valid' ? 'Valid' : 'Un-Valid'}
+            checked={props?.product?.other_docs?.status === 'valid' ? true : false}
+            onChange={(e) =>
+              props.handleProductDocsValidate(e.target.name, e.target.checked, props?.product?._id)
+            }
           />
         </div>
       </div>
-      <div className="request_documents">
 
+      <div className="request_documents">
         <p className="request_documents_title">Ask for other documents for the product</p>
         {/* Request other documents  */}
 
         {props.inputListProduct?.map((item, index) => {
-          return <>
-            <div className="request_documents_input_div">
-              <label htmlFor="" className="request_documents_label" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: index !== 0 ? "1rem" : "none" }}>
-                Document name
-                <Delete onClick={() => handleRemoveClick(index)} style={{ cursor: "pointer" }} />
-              </label>
-              <input
-                name='name'
-                type="text"
-                className="request_documents_input"
-                placeholder="Enter Document name"
-                onChange={e => handleInputChange(e, index)}
-                value={item.name}
-              />
-            </div>
-          </>
+          return (
+            <>
+              <div className="request_documents_input_div">
+                <label
+                  htmlFor=""
+                  className="request_documents_label"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginTop: index !== 0 ? '1rem' : 'none',
+                  }}
+                >
+                  Document name
+                  <Delete onClick={() => handleRemoveClick(index)} style={{ cursor: 'pointer' }} />
+                </label>
+                <input
+                  name="name"
+                  type="text"
+                  className="request_documents_input"
+                  placeholder="Enter Document name"
+                  onChange={(e) => handleInputChange(e, index)}
+                  value={item.name}
+                />
+              </div>
+            </>
+          );
         })}
 
-        <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
+        <div className="add_ducoment_div" style={{ cursor: 'pointer' }}>
           <img src={PlusButton} alt="" onClick={handleAddClick} />
           <p className="add_ducoment_p">Request another document</p>
         </div>
