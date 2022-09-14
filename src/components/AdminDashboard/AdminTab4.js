@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CalculationRange from "./CalculationRange";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
@@ -9,12 +9,9 @@ import API from "../../api/index";
 import { toast } from "react-toastify";
 import CalculationCoefficient from "./CalculationCoefficient";
 import InputField from "../Common/InputField";
-function createData(name, calories, fat, carbs, protein, protein2) {
-  return { name, calories, fat, carbs, protein, protein2 };
-}
+
 
 const AdminTab4 = (props) => {
-  // const [currentRadioValue, setCurrentRadioValue] = useState(props?.calculation?.type);
 
   const [thresholdCurrency, setThresholdCurrency] = useState(props?.calculation?.min_threshold?.currency);
   const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
@@ -23,6 +20,7 @@ const AdminTab4 = (props) => {
   const [coefficient, setCoefficient] = useState(props?.calculation?.coefficient);
   const [minCost, setMinCost] = useState(props?.calculation?.min_cost?.value);
   const [maxCost, setMaxCost] = useState(props?.calculation?.max_cost?.value);
+  const [coefficientChange, setCoefficientChange] = useState(props?.calculation);
 
   const handleCoefficientChange = async () => {
     await API("put", `/calculations/${props?.calculation?._id}`, {
@@ -36,6 +34,8 @@ const AdminTab4 = (props) => {
       .then((res) => {
         console.log("handleCoefficientChange", res);
         props.setOpenCalculationModal(false);
+        props.handleCountryData()
+        setCoefficientChange(res?.data?.calculation)
         toast.success("Coefficient Updated Successfully");
       })
       .catch((err) => {
@@ -53,6 +53,8 @@ const AdminTab4 = (props) => {
     })
       .then((res) => {
         console.log("handleAddCoefficient", res);
+        props.handleCountryData()
+        setCoefficientChange(res?.data?.calculation)
         props.setOpenCalculationModal(false);
         toast.success("Coefficient Added Successfully");
       })
@@ -105,13 +107,12 @@ const AdminTab4 = (props) => {
           Calculation by range
         </label>
       </div>
-      {console.log(props.currentRadioValue, "dfghjhgfggfggf")}
 
       {props.currentRadioValue === "range" ? (
-        <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} />
+        <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} currency={props.currency} />
       ) : (
         props.currentRadioValue === "coefficient" && (
-          <CalculationCoefficient MinThreshold={MinThreshold} coefficient={coefficient} minCost={minCost} maxCost={maxCost} />
+            <CalculationCoefficient coefficientChange={coefficientChange} currency={props.currency} />
         )
       )}
 

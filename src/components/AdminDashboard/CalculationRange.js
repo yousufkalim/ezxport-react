@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import Modal from '../Common/Modal';
 import validate from 'validate.js';
 import Button from '../Common/Button';
+import InputField from '../Common/InputField';
 
 const schema = {
   minCost: {
@@ -59,6 +60,7 @@ const CalculationRange = (props) => {
     touched: {},
     errors: {},
   });
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState((formState) => ({
@@ -129,7 +131,8 @@ const CalculationRange = (props) => {
             minCost: "",
             maxCost: "",
             certificate: "",
-          },
+          }, isValid: true,
+          touched: {}
         }));
         // setMaxCost("");
         // setCertificat("");
@@ -154,6 +157,16 @@ const CalculationRange = (props) => {
       .then((res) => {
         console.log("handleAddCoefficient", res);
         props.setOpenCalculationModal(false);
+        setFormState((formState) => ({
+          ...formState,
+          values: {
+            minCost: "",
+            maxCost: "",
+            certificate: "",
+          },
+          isValid: true,
+          touched: {}
+        }));
         toast.success("Coefficient Added Successfully");
       })
       .catch((err) => {
@@ -227,13 +240,13 @@ const CalculationRange = (props) => {
                 {rangeData?.map((item) => (
                   <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row" style={{ width: '20%' }}>
-                      <p className="AP_plus_title">{item.min}</p>
+                      <p className="AP_plus_title">{`${item.min} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2" style={{ width: '20%' }}>
-                      <p className="AP_plus_title">{item.max}</p>
+                      <p className="AP_plus_title">{`${item.max} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      <p className="AP_plus_title">{item.certificate_cost}</p>
+                      <p className="AP_plus_title">{`${item.certificate_cost} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
                       <img
@@ -268,21 +281,20 @@ const CalculationRange = (props) => {
         )}
         <div className="AddSlice_main">
           <div className="AddSlice_senter">
-            <h2 className="AddSlice_title">Ajouter une tranche</h2>
+            <h2 className="AddSlice_title">Add a slice</h2>
             <div className="AddSlice_inputs_div">
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <label htmlFor="" className="buyer_label">
                     Minimum
                   </label>
-                  <TextFieldSelect
+                  <InputField
                     value={formState.values.minCost}
                     name="minCost"
                     onChange={handleValuesChange}
                     type="tel"
-                    // onOptionChange={(e) => {
-                    //   setMinCostCurrency(e.target.value);
-                    // }}
+                    className="calculation_input"
+
                   />
                   <div className="error-format">
                     {hasError("minCost") ? formState.errors.minCost[0] : null}
@@ -294,13 +306,12 @@ const CalculationRange = (props) => {
                   <label htmlFor="" className="buyer_label">
                     Maximum
                   </label>
-                  <TextFieldSelect
+                  <InputField
                     value={formState.values.maxCost}
                     name="maxCost"
                     onChange={handleValuesChange}
-                    // onOptionChange={(e) => {
-                    //   setMaxCostCurrency(e.target.value);
-                    // }}
+                    className="calculation_input"
+
                   />
                   <div className="error-format">
                     {hasError("maxCost") ? formState.errors.maxCost[0] : null}
@@ -312,13 +323,12 @@ const CalculationRange = (props) => {
                   <label htmlFor="" className="buyer_label">
                     Coût certificat
                   </label>
-                  <TextFieldSelect
+                  <InputField
                     value={formState.values.certificate}
                     name="certificate"
                     onChange={handleValuesChange}
-                    // onOptionChange={(e) => {
-                    //   setMaxCostCurrency(e.target.value);
-                    // }}
+                    className="calculation_input"
+
                   />
                   <div className="error-format">
                     {hasError("certificate")
@@ -328,13 +338,11 @@ const CalculationRange = (props) => {
                 </FormControl>
               </div>
             </div>
-            {/* {console.log("wertyuytr", props.Calculation)} */}
             <button
               className={!formState.isValid ? 'AddSlice_button_disabled' : 'AddSlice_button'}
               onClick={props.Calculation ? handleAddRange : handleNewRange}
               disabled={!formState.isValid ? true : false}
             >
-              {/* {console.log("hr", handleAddRange)} */}
               Ajouter la ligne
             </button>
           </div>
@@ -352,36 +360,34 @@ const CalculationRange = (props) => {
             <label htmlFor="" className="buyer_label">
               Minimum
             </label>
-            <TextFieldSelect
+            <InputField
               value={rangeMinCost}
               onChange={(e) => setRangeMinCost(e.target.value)}
-              // onOptionChange={(e) => {
-              //   setMinCostCurrency(e.target.value);
-              // }}
+              className="calculation_input"
+
+
             />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: '1rem' }}>
             <label htmlFor="" className="buyer_label">
               Maximum
             </label>
-            <TextFieldSelect
+            <InputField
               value={rangeMaxCost}
               onChange={(e) => setRangeMaxCost(e.target.value)}
-              // onOptionChange={(e) => {
-              //   setMaxCostCurrency(e.target.value);
-              // }}
+              className="calculation_input"
+
             />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: '1rem' }}>
             <label htmlFor="" className="buyer_label">
               Coût certificat
             </label>
-            <TextFieldSelect
+            <InputField
               value={rangeCertificat}
               onChange={(e) => setRangeCertificat(e.target.value)}
-              // onOptionChange={(e) => {
-              //   setMaxCostCurrency(e.target.value);
-              // }}
+              className="calculation_input"
+
             />
           </FormControl>
           <div style={{ marginTop: '2rem' }}>
