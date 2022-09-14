@@ -503,6 +503,7 @@ export default function HorizontalNonLinearStepper() {
               />
             ) : activeStep === 3 ? (
               <DocumentForm
+                CountryName={step1.country}
                 handleDocByCountryId={handleDocByCountryId}
                 handleUploadDoc={handleUploadDoc}
                 CountryDoc={CountryDoc}
@@ -510,6 +511,7 @@ export default function HorizontalNonLinearStepper() {
                 userData={userData._id}
                 setProductCodes={setProductCodes}
                 productCodes={productCodes}
+                countries={countries}
               />
             ) : (
               ""

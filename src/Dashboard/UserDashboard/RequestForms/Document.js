@@ -9,6 +9,10 @@ import ProductForm from '../../../components/Common/ProductForm';
 
 const Document = (props) => {
   const [countries, setCountries] = useState([]);
+  const [countryName, setCountryName] = useState("");
+  useEffect(() => {
+    handleCountryName();
+  }, []);
 
   useEffect(() => {
     if (props?.createdCodes?.codes) {
@@ -30,38 +34,42 @@ const Document = (props) => {
 
   const addEmptyProduct = (cindex, item) => {
     props.setProductCodes((prev) => {
-      prev[cindex].products = [
-        ...prev[cindex].products,
-        { user: props.userData, code: item.code._id },
-      ];
+      prev[cindex].products = [...prev[cindex].products, { user: props.userData, code: item.code._id }];
       return [...prev];
     });
   };
   const handleAllCountries = async () => {
-    await API('get', '/countries/')
+    await API("get", "/countries/")
       .then((res) => {
         setCountries(res.data.countries);
       })
       .catch((err) => {
-        console.log('errrrr', err);
+        console.log("errrrr", err);
       });
+  };
+  const handleCountryName = () => {
+    setCountryName(
+      props?.countries?.find((item) => {
+        return item._id === props?.CountryName;
+      })
+    );
   };
 
   return (
     <div className="documents_main_div">
       <div className="title_Div_documents">
-        <span className="title_span">Import documents specific to Gabon</span>
+        <span className="title_span">Import documents specific to {countryName?.name}</span>
         <span className="to_complete_pill">To Complete</span>
       </div>
       <div className="divider_line2"></div>
-      <Grid container spacing={2} sx={{ width: '100%' }}>
+      <Grid container spacing={2} sx={{ width: "100%" }}>
         {props?.CountryDoc?.map((item, index) => {
           return (
             <Grid item xs={6}>
-              <label style={{ display: 'flex' }}>
+              <label style={{ display: "flex" }}>
                 {item?.name}
                 <Tooltip title={item?.info} placement="top">
-                  <img style={{ paddingLeft: '5px' }} src={HelperIcon} />
+                  <img style={{ paddingLeft: "5px" }} src={HelperIcon} />
                 </Tooltip>
               </label>
 
