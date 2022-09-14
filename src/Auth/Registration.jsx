@@ -76,8 +76,8 @@ const schema = {
   vatNumber: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      minimum: 13,
-      maximum: 13,
+      minimum: 8,
+      maximum: 8,
     },
   },
 };
@@ -464,22 +464,22 @@ const Registration = () => {
                 </select>
               </div>
             </div>
-            {console.log("ts", formState.values.typeOfSociety)}
+            {/* {console.log("ts", formState.values.typeOfSociety)} */}
             <div className="regist_input_div">
               <div className="regist_col1">
                 <label htmlFor="">VAT number</label>
                 <input
-                  type="string"
+                  type="text"
                   className={
                     hasError("vatNumber") && formState.errors.vatNumber
                       ? "reg_input_red"
                       : "reg_input"
                   }
-                  placeholder="6372890367849"
+                  placeholder="VAT number"
                   required
-                  value={formState.values.vatNumber}
+                  value={formState.values.vatNumber.toUpperCase()}
                   name="vatNumber"
-                  onChange={handlePhnChange}
+                  onChange={handleChange}
                 />
                 <div className="error-format">
                   {hasError("vatNumber") ? formState.errors.vatNumber[0] : null}
