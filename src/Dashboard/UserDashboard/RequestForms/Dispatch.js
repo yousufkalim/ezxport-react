@@ -43,7 +43,6 @@ const Dispatch = (props) => {
     let SelectedPlace = props?.places?.find((item) => {
       return item._id === props?.step3?.placeOfInspection?.InspectionPlace;
     });
-    console.log("🚀 ~ file: Dispatch.js ~ line 46 ~ SelectedPlace ~ SelectedPlace", SelectedPlace);
 
     props.setStep3((prev) => {
       prev.placeOfInspection.companyName = SelectedPlace?.company_name;
