@@ -19,6 +19,7 @@ import FilePicker from '../../components/Common/FilePicker';
 import Icon from '../../assets/Quiz.png';
 import Modal from '../../components/Common/Modal';
 import TextFieldSelect from '../Common/TextFieldSelect';
+import { toast } from 'react-toastify';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,6 +68,7 @@ const AdminNomPays = () => {
   const [boms, setBoms] = useState();
   const [currentRadioValue, setCurrentRadioValue] = useState("");
   const [calculation, setCalculation] = useState();
+  const [currency, setCurrency] = useState("");
   const [file, setFile] = useState("");
   useEffect(() => {
     handleCountryData();
@@ -77,6 +79,7 @@ const AdminNomPays = () => {
   const handleCountryData = async () => {
     await API("get", `/countries/${id}`)
       .then((res) => {
+        setCurrency(res?.data?.country?.currency)
         setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
@@ -88,24 +91,28 @@ const AdminNomPays = () => {
         console.log("---->ERR", err);
       });
   };
+
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
   const handleAddBomModalClose = () => setOpenAddBomModal(false);
   const handleAddDocumentModalClose = () => setOpenAddBomModal(false);
-  const handleCodesFile = async (file) => {
-    setFile(file);
-    console.log("eeeee", file);
+
+  const handleUplaodFile = async () => {
     let formData = new FormData();
     formData.append("file", file);
-    formData.append("country", `${country._id}`); //country ID
+    formData.append("country", `${id}`); 
     await API("post", "/boms/uploadCodes/", formData)
       .then((res) => {
-        console.log("resss", res);
+        handleCountryData()
+        setFile({})
+        setOpen(false)
+        toast.success(res.data.message)
       })
       .catch((err) => {
         console.log("errr", err);
       });
   };
+  const handleCodesFile = (file) => setFile(file)
 
   return (
     <>
@@ -127,7 +134,7 @@ const AdminNomPays = () => {
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Edit" className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
+                  <Button text="Add " className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
@@ -141,7 +148,7 @@ const AdminNomPays = () => {
               <div className="searching_div_country3">
                 <SearchField placeholder="Searching" className="Country_search_input2" />
                 {currentRadioValue === "coefficient" && (
-                  <Button text="Edit" className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
+                        <Button text={currentRadioValue === "coefficient" ? "Edit" : "Add"} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
                 )}
               </div>
             ) : (
@@ -189,12 +196,14 @@ const AdminNomPays = () => {
                     setOpenAddBomModal={setOpenAddBomModal}
                     openAddBomModal={openAddBomModal}
                     handleAddBomModalClose={handleAddBomModalClose}
+                    // handleGetBomByCid={handleGetBomByCid}
                   />
                 </div>
               </TabPanel>
               {/* table 4 */}
               <TabPanel value={value} index={3}>
                 <AdminTab4
+                  handleCountryData={handleCountryData}
                   calculation={calculation}
                   openCalculationModal={openCalculationModal}
                   setOpenCalculationModal={setOpenCalculationModal}
@@ -202,6 +211,7 @@ const AdminNomPays = () => {
                   countryId={id}
                   currentRadioValue={currentRadioValue}
                   setCurrentRadioValue={setCurrentRadioValue}
+                  currency={currency}
                 />
               </TabPanel>
             </Box>
@@ -210,22 +220,24 @@ const AdminNomPays = () => {
       </div>
       <Modal open={open} setOpen={setOpen} title="Update BOMs" handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
-          <div className="luyer_input_field">
+          <div className="luyer_input_field" >
             <label htmlFor="" className="bom_popup_label">
               Download your BOM file
             </label>
-            <Button text="Download current file" className="bom_downloadFile_btn" />
+            <div className="bom_download_File_btn_div">
+              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>Download current file</Link>
+            </div>
           </div>
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
             Upload your BOM file
           </label>
           <FilePicker
-            // index={"1"}
+            index={"01"}
             fileName={file.name}
             name={file.name}
             onChange={(e) => handleCodesFile(e.target.files[0])}
           />
-          <Button text="Submit" className="bom_downloadFile_btn" />
+          <Button text="Submit" className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>
     </>
