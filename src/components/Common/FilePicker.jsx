@@ -16,9 +16,18 @@ const FilePicker = (props) => {
           value={props.value}
         />
         <div className="download_icon_div">
-          {props.fileName ? (
+          {typeof props.fileName === "string" ? (
             props.fileName
-          ) : (
+          ) : typeof props.fileName === "object" ? (
+
+            props?.fileName?.map((item, index) => {
+              return <p>
+                {index + 1}). {item}
+              </p>
+            }
+            )
+          )
+            : (
             <>
               <img src={DownloadIcon} alt="" className="download_icon" />
               <div className="text_div">
