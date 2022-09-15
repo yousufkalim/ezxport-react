@@ -1,14 +1,20 @@
-import React from 'react';
-import { ReactComponent as Arrow } from '../../assets/arrow.svg';
+import React from "react";
+import { ReactComponent as Arrow } from "../../assets/arrow.svg";
+import { useTranslation, Trans } from "react-i18next";
+
 const ValidateButton = (props) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   return (
     <>
       <div className="import_dcuments">
         <p className="ExportDocuments_p">{props.text}</p>
         <div className={props.className} onClick={props.onClick} style={{ cursor: "pointer" }}>
-          <p >Validated documents <Arrow /></p>
+          <p>
+            {t("Validated documents")}
+            <Arrow />
+          </p>
         </div>
-
       </div>
     </>
   );

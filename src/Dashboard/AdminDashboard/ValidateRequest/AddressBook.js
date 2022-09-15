@@ -1,20 +1,24 @@
-import React from 'react';
+import React from "react";
 // import MenuItem from '@mui/material/MenuItem';
 // import Select from '@mui/material/Select';
-import DatePicker from '../../../components/Common/DatePicker';
-import InputField from '../../../components/Common/InputField';
-import moment from 'moment';
+import DatePicker from "../../../components/Common/DatePicker";
+import InputField from "../../../components/Common/InputField";
+import { useTranslation, Trans } from "react-i18next";
+
+import moment from "moment";
 
 const AddressBook = (props) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   return (
     <>
-      <div className="" style={{ marginBottom: '10%', marginTop: '2%' }}>
+      <div className="" style={{ marginBottom: "10%", marginTop: "2%" }}>
         <div>
-          <span className="seller_title">Seller data</span>
+          <span className="seller_title">{t("Seller data")}</span>
 
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Company Name</label>
+              <label className="label_modal">{t("Company Name")}</label>
               <InputField
                 disabled
                 className="company_name_input"
@@ -34,7 +38,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">E-Mail Address</label>
+              <label className="label_modal">{t("E-Mail Address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -43,7 +47,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Telephone</label>
+              <label className="label_modal">{t("Telephone")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -54,7 +58,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Full Address</label>
+              <label className="label_modal">{t("Full Address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -72,8 +76,8 @@ const AddressBook = (props) => {
                   value={props?.requestById?.seller?.zipcode}
                 />
               </div>
-              <div style={{ width: '60%' }}>
-                <label className="label_modal">Town</label>
+              <div style={{ width: "60%" }}>
+                <label className="label_modal">{t("Town")}</label>
                 <InputField
                   className="company_name_input"
                   disabled
@@ -85,11 +89,11 @@ const AddressBook = (props) => {
           </div>
         </div>
         <div className="buyer_data_div">
-          <span className="seller_title">Buyer data</span>
+          <span className="seller_title">{t("Buyer data")}</span>
 
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Company Name</label>
+              <label className="label_modal">{t("Company Name")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -109,7 +113,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">E-Mail Address</label>
+              <label className="label_modal">{t("E-Mail Address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -118,7 +122,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Telephone</label>
+              <label className="label_modal">{t("Telephone")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -129,7 +133,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Full Address</label>
+              <label className="label_modal">{t("Full Address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -138,7 +142,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="steps_3_2inFeilds">
-              <div style={{ width: '35%' }}>
+              <div style={{ width: "35%" }}>
                 <label className="label_modal">Postel Code</label>
                 <InputField
                   className="company_name_input"
@@ -147,8 +151,8 @@ const AddressBook = (props) => {
                   value={props?.requestById?.buyer?.zipcode}
                 />
               </div>
-              <div style={{ width: '60%' }}>
-                <label className="label_modal">Town</label>
+              <div style={{ width: "60%" }}>
+                <label className="label_modal">{t("Town")}</label>
                 <InputField
                   className="company_name_input"
                   disabled
@@ -160,21 +164,21 @@ const AddressBook = (props) => {
           </div>
         </div>
         <div className="buyer_data_div">
-          <span className="seller_title">Place of inspection</span>
+          <span className="seller_title">{t("Place of inspection")}</span>
 
           <div>
-            <label className="label_modal" style={{ marginTop: '1rem' }}>
-              Date on which the goods can be inspected
+            <label className="label_modal" style={{ marginTop: "1rem" }}>
+              {t("Date on which the goods can be inspected")}
             </label>
             <DatePicker
               disabled
               name="InspectionDate"
-              value={moment(props?.requestById?.inspection_date).format('YYYY-MM-DD')}
+              value={moment(props?.requestById?.inspection_date).format("YYYY-MM-DD")}
             />
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Company Name</label>
+              <label className="label_modal">{t("Company Name")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -194,7 +198,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">E-Mail Address</label>
+              <label className="label_modal">{t("E-Mail Address")}</label>
               <InputField
                 disabled
                 className="company_name_input"
@@ -203,7 +207,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Telephone</label>
+              <label className="label_modal">{t("Telephone")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -214,7 +218,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">Full Address</label>
+              <label className="label_modal">{t("Full Address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -223,7 +227,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="steps_3_2inFeilds">
-              <div style={{ width: '35%' }}>
+              <div style={{ width: "35%" }}>
                 <label className="label_modal">Postel Code</label>
                 <InputField
                   className="company_name_input"
@@ -232,8 +236,8 @@ const AddressBook = (props) => {
                   value={props?.requestById?.place?.zipcode}
                 />
               </div>
-              <div style={{ width: '60%' }}>
-                <label className="label_modal">Town</label>
+              <div style={{ width: "60%" }}>
+                <label className="label_modal">{t("Town")}</label>
                 <InputField
                   className="company_name_input"
                   disabled
@@ -245,7 +249,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">contact last name</label>
+              <label className="label_modal">{t("contact last name")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -254,7 +258,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">contact first name</label>
+              <label className="label_modal">{t("contact first name")}</label>
               <InputField
                 className="company_name_input"
                 disabled

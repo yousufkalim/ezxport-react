@@ -6,12 +6,17 @@ import API from '../../api/index';
 import { toast } from 'react-toastify';
 import Spinner from '../../components/Common/Spinner';
 import toaster from '../../utils/toaster';
+import { useTranslation, Trans } from "react-i18next";
+
+
+// import Spinner from '../../components/Common/Spinner';
 
 const Providers = () => {
-
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const user = localStorage.getItem('userData')
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+  const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 
   useEffect(() => {
@@ -36,19 +41,18 @@ const Providers = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div5">
-            <h1 className="list_h1_provider">Service providers</h1>
+            <h1 className="list_h1_provider">{t("Service providers")}</h1>
             <div className="searching_provider">
               <input type="text" className="search_input" placeholder="To Search" />
               <img src={SearchIcon} alt="" className="search_icon" />
             </div>
           </div>
           <ProvidersTable
-              data={providers}
-              getProviders={getProviders}
-              dataLoading={loading}
-              // Icons={false}
-            />
-          
+            data={providers}
+            getProviders={getProviders}
+            dataLoading={loading}
+            // Icons={false}
+          />
         </div>
       </div>
     </>
