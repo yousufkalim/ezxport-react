@@ -19,7 +19,7 @@ const Reference = (props) => {
                 >
                   <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                    &nbsp; Reference{" "}
+                    &nbsp; {t("Reference")}
                   </p>
                 </Link>
               </div>
@@ -27,7 +27,7 @@ const Reference = (props) => {
                 <img src={EzxportIcon} alt="" className="header_center_div" />
               </div>
               <div className="validate_btn_div">
-                <button className="validate_button2">Download the file</button>
+                <button className="validate_button2">{t("Download the file")}</button>
                 &nbsp;
                 <button className="validate_button" onClick={() => history.push("/SendDocuments")}>
                   Validate the file
@@ -47,7 +47,7 @@ const Reference = (props) => {
                 >
                   <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                    &nbsp; Reference
+                    &nbsp; {t("Reference")}
                   </p>
                 </Link>
               </div>
@@ -55,7 +55,9 @@ const Reference = (props) => {
                 <img src={EzxportIcon} alt="" className="header_center_div" />
               </div>
               <div className="validate_btn_div">
-                <button className="validate_button">Validate and receive the completed file</button>
+                <button className="validate_button">
+                  {t("Validate and receive the completed file")}
+                </button>
               </div>
             </div>
           </div>

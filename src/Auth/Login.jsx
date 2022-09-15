@@ -9,6 +9,8 @@ import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import validate from "validate.js";
+import { useTranslation, Trans } from "react-i18next";
+
 const schema = {
   email: {
     presence: { allowEmpty: false, message: "is required" },
@@ -37,6 +39,9 @@ const Login = () => {
     errors: {},
   });
   const [showPassword, setShowPassword] = useState(false);
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -89,8 +94,7 @@ const Login = () => {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   //checks error in the selected field
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
       <Header />
@@ -103,12 +107,10 @@ const Login = () => {
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="E-mail address">E-mail address</label>
+            <label htmlFor="E-mail address">{t("E-mail address")}</label>
             <InputField
               className={
-                hasError("email") && formState.errors.email
-                  ? "input_email_red"
-                  : "input_email"
+                hasError("email") && formState.errors.email ? "input_email_red" : "input_email"
               }
               name="email"
               type="email"

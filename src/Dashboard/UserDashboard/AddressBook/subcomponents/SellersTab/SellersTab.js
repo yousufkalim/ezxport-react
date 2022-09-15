@@ -18,6 +18,7 @@ import Select from '@mui/material/Select';
 import EditIcon from '../../../../../assets/EditIcon.svg';
 import Spinner from '../../../../../components/Common/Spinner';
 import Button from '../../../../../components/Common/Button';
+import { useTranslation, Trans } from "react-i18next";
 
 const title = [
   { heading: 'dashboard.user.addressBook.modal.form.name.label', imgSrc: TitleDownArrow },
@@ -28,19 +29,44 @@ const title = [
   { heading: '' },
 ];
 
-const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
+const schema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+  telephone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+};
 
-    const [formState, setFormState] = useState({
-        isValid: false,
-        values: {companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: ''},
-        errors: {},
-        touched: {}
-      });
+const SellersTab = ({t, open, setOpen, userId, countries }) => {
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      companyName: "",
+      country: "",
+      email: "",
+      telephone: "",
+      address: "",
+      zipcode: "",
+      town: "",
+    },
+    errors: {},
+    touched: {},
+  });
 
-      const [sellers, setSellers] = useState([]);
-      const [seller, setSeller] = useState(null);
-      const [loading, setLoading] = useState(false);
-      const [isEdit, setIsEdit] = useState(false);
+  const [sellers, setSellers] = useState([]);
+  const [seller, setSeller] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
       const user = localStorage.getItem('userData')
       const userData = JSON.parse(user);
@@ -73,10 +99,10 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
         setFormState({...formState, values:{...formState.values, [name]: value}})
       }
 
-      const handleOpenModal = (edit, item) => {
-        setSeller(item);
-        setIsEdit(edit);
-        setOpen(true);
+  const handleOpenModal = (edit, item) => {
+    setSeller(item);
+    setIsEdit(edit);
+    setOpen(true);
 
        if(item){
         const {company_name,
@@ -138,127 +164,131 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
           }).catch(err => toast.success('Something went wrong!'));
       }
 
-      const editSeller = async (data) => {
-        await API('put', `/sellers/${seller._id}`, data).then((res) => {
-            toast.success('Seller updated successfully!');
-            handleCloseModal();
-            fetchSellers();
-          }).catch(err => toast.success('Something went wrong!'));
-      }
+  const editSeller = async (data) => {
+    await API("put", `/sellers/${seller._id}`, data)
+      .then((res) => {
+        toast.success("Seller updated successfully!");
+        handleCloseModal();
+        fetchSellers();
+      })
+      .catch((err) => toast.success("Something went wrong!"));
+  };
 
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        const {companyName: company_name, email, country, town: city, telephone :phone_number, zipcode, address  } = formState.values;
-        const data = {
-          company_name,
-          email,
-          country,
-          city,
-          phone_number,
-          zipcode,
-          address,
-          user: userId
-        }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      companyName: company_name,
+      email,
+      country,
+      town: city,
+      telephone: phone_number,
+      zipcode,
+      address,
+    } = formState.values;
+    const data = {
+      company_name,
+      email,
+      country,
+      city,
+      phone_number,
+      zipcode,
+      address,
+      user: userId,
+    };
 
-        if(isEdit){
-            editSeller(data);
-        }else {
-          createSeller(data);
-        }
-      }
+    if (isEdit) {
+      editSeller(data);
+    } else {
+      createSeller(data);
+    }
+  };
 
-      const hasError = (field) => formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
-      const MODAL_TITLE = isEdit ? 'Edit seller' : seller ? 'View seller' : 'Add seller'
+  const MODAL_TITLE = isEdit ? "Edit seller" : seller ? "View seller" : "Add seller";
 
   return (
     <>
-        <div className="list_table">
+      <div className="list_table">
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
-                <TableRow>
+              <TableRow>
                 {title.map((item) => {
-                    return (
+                  return (
                     <TableCell
-                        align="left"
-                        className="country"
-                        style={{ backgrounColor: '#EAECF0' }}
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
                         {t(item.heading)} &nbsp;
                         <img src={item.imgSrc} alt="" className="title_arrow" />
                     </TableCell>
-                    );
+                  );
                 })}
-                </TableRow>
+              </TableRow>
             </TableHead>
             <TableBody>
-                {loading ? <Spinner /> : sellers?.map((buyer) => (
-                <TableRow
+              {loading ? (
+                <Spinner />
+              ) : (
+                sellers?.map((buyer) => (
+                  <TableRow
                     key={buyer._id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleOpenModal(false, buyer) }
-                >
-                    <TableCell component="th" scope="row" >
-                    <p className="AP_plus_title">{buyer.company_name} </p>
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleOpenModal(false, buyer)}
+                  >
+                    <TableCell component="th" scope="row">
+                      <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.country.name}
-                    <br />
+                    <TableCell align="left" className="country2">
+                      {buyer.country.name}
+                      <br />
                     </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.email}
+                    <TableCell align="left" className="country2">
+                      {buyer.email}
                     </TableCell>
-                    <TableCell align="left" className="country2" >
-                    {buyer.phone_number}
+                    <TableCell align="left" className="country2">
+                      {buyer.phone_number}
                     </TableCell>
-                    <TableCell
-                    align="left"
-                    className="country2"
-                    style={{ cursor: 'pointer' }}
-                    
-                    >
-                    <p className="country2">{buyer.address}</p>
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <p className="country2">{buyer.address}</p>
                     </TableCell>
 
-                    <TableCell
-                    align="left"
-                    className="country2"
-                    style={{ cursor: 'pointer' }}
-                
-                    >
-                    <img
-                                src={EditIcon}
-                                alt=""
-                                className="dltIcon"
-                                style={{ cursor: 'pointer' }}
-                                onClick={(e) => {
-                                    e.stopPropagation(true);
-                                    handleOpenModal(true, buyer)
-                                }}
-                            />
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <img
+                        src={EditIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation(true);
+                          handleOpenModal(true, buyer);
+                        }}
+                      />
                     </TableCell>
-                </TableRow>
-                ))}
+                  </TableRow>
+                ))
+              )}
             </TableBody>
-            </Table>
+          </Table>
         </TableContainer>
         {/* table  */}
-        </div>
-        <Modal
-            open={open}
-            setOpen={setOpen}
-            title={MODAL_TITLE}
-            handleClose={() => handleCloseModal()}
-            Closebtn={true}
-        >
+      </div>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={MODAL_TITLE}
+        handleClose={() => handleCloseModal()}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
-              label="dashboard.user.addressBook.modal.form.name.label"
+              label="Company Name"
               disabled={!isEdit && seller}
-              name='companyName'
+              name="companyName"
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
               onBlur={(e) => handleBlur(e)}
@@ -269,7 +299,7 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("dashboard.user.addressBook.modal.form.country.label")}
+                {t("Select a country")}
               </label>
               <Select
                 id="demo-simple-select"
@@ -297,7 +327,7 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.email.label")}
+                  label="E-mail address"
                   name='email'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
@@ -306,11 +336,12 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                   error={formState.errors.email}
                   value={formState.values.email}
                   type="email"
-                  placeholder="mail@mail.com" />
+                  placeholder="mail@mail.com"
+                />
               </div>
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.telephone.label")}
+                  label="Telephone"
                   name='telephone'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
@@ -319,14 +350,15 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
                   type="number"
-                  placeholder="+33 03 32 32 42 42" />
+                  placeholder="+33 03 32 32 42 42"
+                />
               </div>
             </div>
           </div>
           <div className="luyer_input_field">
             <div className="luyer_input_field">
               <InputField 
-                label={t("dashboard.user.addressBook.modal.form.address.label")}
+                label="Address"
                 name='address'
                 disabled={!isEdit && seller}
                 onChange={(e) => handleChange(e)}
@@ -334,14 +366,16 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
-                type="text" placeholder="97 road of rouvroy" />
+                type="text"
+                placeholder="97 road of rouvroy"
+              />
             </div>
           </div>
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.postalCode.label")}
+                  label="Postal code"
                   name='zipcode'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
@@ -349,11 +383,13 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
-                  type="number" placeholder="34 832" />
+                  type="number"
+                  placeholder="34 832"
+                />
               </div>
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.town.label")}
+                  label="Town"
                   name='town'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
@@ -361,7 +397,9 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
-                  type="text" placeholder="Congo" />
+                  type="text"
+                  placeholder="Congo"
+                />
               </div>
             </div>
           </div>
@@ -370,8 +408,8 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
           }
         </div>
       </Modal>
-  </>
-  )
-}
+    </>
+  );
+};
 
-export default SellersTab
+export default SellersTab;

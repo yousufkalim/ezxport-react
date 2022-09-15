@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import InputField from './InputField';
-import TextFieldSelect from './TextFieldSelect';
-import MenuItem from '@mui/material/MenuItem';
-import FilePicker from './FilePicker';
-import Select from '@mui/material/Select';
+import React, { useState } from "react";
+import InputField from "./InputField";
+import TextFieldSelect from "./TextFieldSelect";
+import MenuItem from "@mui/material/MenuItem";
+import FilePicker from "./FilePicker";
+import Select from "@mui/material/Select";
+import { useTranslation, Trans } from "react-i18next";
 
 const ProductForm = (props) => {
   const [toComplete, setToComplete] = useState();
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const handleDataChange = (e) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
@@ -60,7 +63,7 @@ const ProductForm = (props) => {
         )}
       </div>
       {validateProduct() ? (
-        ''
+        ""
       ) : (
         <span className="to_complete_pill">The product documents are to be completed</span>
       )}
@@ -69,7 +72,7 @@ const ProductForm = (props) => {
       <h3 className="steps_3_h3">
         Code # {props.cindex + 1} Product # {props.index1 + 1}
       </h3>
-      <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? '2.5rem' : '1rem' }}>
+      <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
         Product Name
       </label>
       <InputField
@@ -77,7 +80,7 @@ const ProductForm = (props) => {
         name="name"
         onChange={(e) => handleDataChange(e)}
       />
-      <label className="BomLabel" style={{ marginTop: '1rem' }}>
+      <label className="BomLabel" style={{ marginTop: "1rem" }}>
         Description
       </label>
       <InputField
@@ -86,16 +89,16 @@ const ProductForm = (props) => {
         onChange={(e) => handleDataChange(e)}
       />
       <div>
-        <label className="BomLabel" style={{ marginTop: '1rem' }}>
+        <label className="BomLabel" style={{ marginTop: "1rem" }}>
           Condition
         </label>
         <select
           className="countrydropdown"
-          defaultValue={'default'}
+          defaultValue={"default"}
           name="condition"
           onChange={(e) => handleDataChange(e)}
         >
-          <option value={'default'} disabled>
+          <option value={"default"} disabled>
             select type of Condition
           </option>
           <option value="Bad">Bad</option>
@@ -116,9 +119,9 @@ const ProductForm = (props) => {
         </div>
         <div
           className="steps_4_inspeciton"
-          style={{ display: 'flex', justifyContent: 'space-between' }}
+          style={{ display: "flex", justifyContent: "space-between" }}
         >
-          <div style={{ width: '35%' }}>
+          <div style={{ width: "35%" }}>
             <label className="BomLabel">Unit of measure</label>
             <select
               className="company_name_input"
@@ -133,7 +136,7 @@ const ProductForm = (props) => {
               <option value="foot/feet">Ft</option>
             </select>
           </div>
-          <div style={{ width: '60%' }}>
+          <div style={{ width: "60%" }}>
             <label className="BomLabel">Price</label>
 
             <TextFieldSelect
@@ -146,7 +149,7 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <label className="BomLabel" style={{ marginTop: '1rem' }}>
+      <label className="BomLabel" style={{ marginTop: "1rem" }}>
         Mark
       </label>
       <InputField
@@ -154,7 +157,7 @@ const ProductForm = (props) => {
         name="mark"
         onChange={(e) => handleDataChange(e)}
       />
-      <label className="BomLabel" style={{ marginTop: '1rem' }}>
+      <label className="BomLabel" style={{ marginTop: "1rem" }}>
         Builder
       </label>
       <InputField
@@ -163,26 +166,26 @@ const ProductForm = (props) => {
         onChange={(e) => handleDataChange(e)}
       />
       <div>
-        <label className="BomLabel" style={{ marginTop: '1rem' }}>
-          Country
+        <label className="BomLabel" style={{ marginTop: "1rem" }}>
+          {t("Country")}
         </label>
         <Select
           id="demo-simple-select"
-          defaultValue={'default'}
+          defaultValue={"default"}
           name="country"
           onChange={(e) => handleDataChange(e)}
           className="countrydropdown"
         >
           <MenuItem disabled value="default">
-            Select a country
+            {t("Select a country")}
           </MenuItem>
           {props.countries?.map((item) => {
             return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
           })}
         </Select>
       </div>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-        <div style={{ width: '47%' }}>
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+        <div style={{ width: "47%" }}>
           <label className="BomLabel">Technical sheet</label>
           <div className="to_download_div">
             <FilePicker
@@ -196,7 +199,7 @@ const ProductForm = (props) => {
             />
           </div>
         </div>
-        <div style={{ width: '47%' }}>
+        <div style={{ width: "47%" }}>
           <label className="BomLabel">Test report</label>
           <div className="to_download_div">
             <FilePicker
@@ -211,8 +214,8 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
-        <div style={{ width: '47%' }}>
+      <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
+        <div style={{ width: "47%" }}>
           <label className="BomLabel">Analysis Certificate</label>
           <div className="to_download_div">
             <FilePicker
@@ -226,7 +229,7 @@ const ProductForm = (props) => {
             />
           </div>
         </div>
-        <div style={{ width: '47%' }}>
+        <div style={{ width: "47%" }}>
           <label className="BomLabel">Plan</label>
           <div className="to_download_div">
             <FilePicker
@@ -241,7 +244,7 @@ const ProductForm = (props) => {
           </div>
         </div>
       </div>
-      <div style={{ width: '100%' }}>
+      <div style={{ width: "100%" }}>
         <label className="BomLabel">Other documents</label>
         <div className="to_download_div">
           <FilePicker

@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TitleDownArrow from '../../../../../assets/TitleDownArrow.svg';
-import API from '../../../../../api/index';
-import { toast } from 'react-toastify';
-import Spinner from '../../../../../components/Common/Spinner';
-import EditIcon from '../../../../../assets/EditIcon.svg';
-import BuyerModal from './BuyerModal';
+import React, { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
+import API from "../../../../../api/index";
+import { toast } from "react-toastify";
+import Spinner from "../../../../../components/Common/Spinner";
+import EditIcon from "../../../../../assets/EditIcon.svg";
+import BuyerModal from "./BuyerModal";
+import { useTranslation, Trans } from "react-i18next";
 
 const title = [
-    { heading: 'dashboard.user.addressBook.modal.form.name.label', imgSrc: TitleDownArrow },
-    { heading: 'dashboard.user.addressBook.modal.form.country.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.email.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.telephone.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.address.label' },
-    { heading: '' },
-  ];
+  { heading: "dashboard.user.addressBook.modal.form.name.label", imgSrc: TitleDownArrow },
+  { heading: "dashboard.user.addressBook.modal.form.country.label" },
+  { heading: "dashboard.user.addressBook.modal.form.email.label" },
+  { heading: "dashboard.user.addressBook.modal.form.telephone.label" },
+  { heading: "dashboard.user.addressBook.modal.form.address.label" },
+  { heading: "" },
+];
 
 const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
       const [buyers, setBuyers] = useState([]);
@@ -29,36 +30,49 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
       const [isEdit, setIsEdit] = useState(false);
       const [activeField, setActiveField] = useState("");
 
-      const [formState, setFormState] = useState({
-        isValid: false,
-        values: {companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: ''},
-        errors: {},
-        touched: {}
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      companyName: "",
+      country: "",
+      email: "",
+      telephone: "",
+      address: "",
+      zipcode: "",
+      town: "",
+    },
+    errors: {},
+    touched: {},
+  });
+  
+  const { i18n } = useTranslation();
+  const { language } = i18n;
+
+  const user = localStorage.getItem("userData");
+  const userData = JSON.parse(user);
+
+  useEffect(() => {
+    fetchBuyers();
+  }, []);
+
+  const fetchBuyers = () => {
+    setLoading(true);
+    API("get", `/buyers/getByUser/${userData._id}`)
+      .then((res) => {
+        console.log("Buyers ", res);
+        setBuyers(res.data.buyer);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+        setLoading(false);
       });
+  };
 
-      const user = localStorage.getItem('userData')
-      const userData = JSON.parse(user);
-        
-      useEffect(() => {
-        fetchBuyers();
-      },[])
-
-      const fetchBuyers = () => {
-        setLoading(true);
-        API('get', `/buyers/getByUser/${userData._id}`).then((res) => {
-            setBuyers(res.data.buyer);
-            setLoading(false);
-        }).catch((err) => {
-            toast.error('Something went wrong');
-            setLoading(false);
-
-        })
-      }
-
-      const handleOpenModal = (edit, item) => {
-        setBuyer(item);
-        setIsEdit(edit);
-        setOpen(true);
+  const handleOpenModal = (edit, item) => {
+    setBuyer(item);
+    setIsEdit(edit);
+    setOpen(true);
 
        if(item){
         const {company_name,
@@ -132,28 +146,28 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                         <p className="country2">{buyer.address}</p>
                         </TableCell>
 
-                        <TableCell
-                        align="left"
-                        className="country2"
-                        style={{ cursor: 'pointer' }}
-                    
-                        >
-                        <img
-                                    src={EditIcon}
-                                    alt=""
-                                    className="dltIcon"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={(e) => {
-                                        e.stopPropagation(true);
-                                        handleOpenModal(true, buyer)
-                                    }}
-                                />
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-                </Table>
-            </TableContainer>
+                    <TableCell
+                    align="left"
+                    className="country2"
+                    style={{ cursor: 'pointer' }}
+                
+                    >
+                    <img
+                                src={EditIcon}
+                                alt=""
+                                className="dltIcon"
+                                style={{ cursor: 'pointer' }}
+                                onClick={(e) => {
+                                    e.stopPropagation(true);
+                                    handleOpenModal(true, buyer)
+                                }}
+                            />
+                    </TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            </Table>
+        </TableContainer>
 
             <BuyerModal schema={schema} t={t} setActiveField={setActiveField} activeField={activeField} userId={userId} countries={countries} formState={formState} setFormState={setFormState} isEdit={isEdit} setBuyer={setBuyer} setIsEdit={setIsEdit} buyer={buyer} fetchBuyers={fetchBuyers} setOpen={setOpen} open={open} />
             {/* table  */}

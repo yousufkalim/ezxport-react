@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import InputField from '../../../components/Common/InputField';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import DatePicker from '../../../components/Common/DatePicker';
-import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import InputField from "../../../components/Common/InputField";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import DatePicker from "../../../components/Common/DatePicker";
+// import moment from "moment";
+import { useTranslation, Trans } from "react-i18next";
+
 const Dispatch = (props) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const handleSelectedSeller = () => {
     let SelectedSeller = props?.sellers?.find((item) => {
       return item._id === props?.step3?.sellerData?.seller;
@@ -73,7 +77,7 @@ const Dispatch = (props) => {
   return (
     <div className="dispatch_main_Div">
       <div>
-        <span className="seller_title">Seller data</span>
+        <span className="seller_title">{t("Seller data")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select a seller
@@ -96,10 +100,8 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Company Name</label>
+            <label className="BomLabel">{t("Company Name")}</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"
@@ -110,10 +112,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Country</label>
+            <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
               name="CountryId"
@@ -142,10 +143,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">E-Mail Address</label>
+            <label className="BomLabel">{t("E-Mail Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -156,10 +155,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Telephone</label>
+            <label className="BomLabel">{t("Telephone")}</label>
             <InputField
               className="company_name_input"
               placeholder="xx xx xx xx xx"
@@ -172,10 +170,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Full Address</label>
+            <label className="BomLabel">{t("Full Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -186,10 +182,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="steps_3_2inFeilds">
-            <div style={{ width: '35%' }}>
- 
+            <div style={{ width: "35%" }}>
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -217,7 +212,7 @@ const Dispatch = (props) => {
         </div>
       </div>
       <div className="buyer_data_div">
-        <span className="seller_title">Buyer data</span>
+        <span className="seller_title">{t("Buyer data")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select a buyer
@@ -240,9 +235,7 @@ const Dispatch = (props) => {
           </Select>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
             <label className="BomLabel">Country Name</label>
             <InputField
               className="company_name_input"
@@ -254,9 +247,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
             <label className="BomLabel">Country</label>
             <Select
               className="company_name_input"
@@ -286,10 +278,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">E-Mail Address</label>
+            <label className="BomLabel">{t("E-Mail Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -300,10 +290,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Telephone</label>
+            <label className="BomLabel">{t("Telephone")}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -316,10 +305,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
-  
-            <label className="BomLabel">Full Address</label>
+            <label className="BomLabel">{t("Full Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -330,10 +317,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="steps_3_2inFeilds">
-            <div style={{ width: '35%' }}>
- 
+            <div style={{ width: "35%" }}>
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -346,7 +332,7 @@ const Dispatch = (props) => {
               />
             </div>
             <div style={{ width: "60%" }}>
-              <label className="BomLabel">Town</label>
+              <label className="BomLabel">{t("Town")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -361,7 +347,7 @@ const Dispatch = (props) => {
         </div>
       </div>
       <div className="buyer_data_div">
-        <span className="seller_title">Place of inspection</span>
+        <span className="seller_title">{t("Place of inspection")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Add or select an inspection location
@@ -385,7 +371,7 @@ const Dispatch = (props) => {
         </div>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            Date on which the goods can be inspected
+            {t("Date on which the goods can be inspected")}
           </label>
           <DatePicker
             name="InspectionDate"
@@ -396,10 +382,8 @@ const Dispatch = (props) => {
           />
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Company Name</label>
+            <label className="BomLabel">{t("Company Name")}</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"
@@ -410,9 +394,8 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
             <label className="BomLabel">Country</label>
             <Select
               className="company_name_input"
@@ -433,10 +416,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
-
           <div className="speps_3_feilds">
-
-            <label className="BomLabel">E-Mail Address</label>
+            <label className="BomLabel">{t("E-Mail Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -447,10 +428,9 @@ const Dispatch = (props) => {
               }}
             />
           </div>
- 
+
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Telephone</label>
+            <label className="BomLabel">{t("Telephone")}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -463,10 +443,8 @@ const Dispatch = (props) => {
           </div>
         </div>
         <div className="inspection_textfield">
- 
           <div className="speps_3_feilds">
- 
-            <label className="BomLabel">Full Address</label>
+            <label className="BomLabel">{t("Full Address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -478,8 +456,7 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="steps_3_2inFeilds">
-            <div style={{ width: '35%' }}>
-
+            <div style={{ width: "35%" }}>
               <label className="BomLabel">Postel Code</label>
               <InputField
                 className="company_name_input"
@@ -492,7 +469,7 @@ const Dispatch = (props) => {
               />
             </div>
             <div style={{ width: "60%" }}>
-              <label className="BomLabel">Town</label>
+              <label className="BomLabel">{t("Town")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -507,7 +484,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">contact last name</label>
+            <label className="BomLabel">{t("contact last name")}</label>
             <InputField
               className="company_name_input"
               placeholder="contact name"
@@ -519,11 +496,10 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="speps_3_feilds">
-
-            <label className="BomLabel">contact first name</label>
+            <label className="BomLabel">{t("contact first name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="contact first name"
+              placeholder={t("contact first name")}
               name="contactFirstName"
               value={props?.step3?.placeOfInspection?.contactFirstName}
               onChange={(e) => {

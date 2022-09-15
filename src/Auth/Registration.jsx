@@ -9,6 +9,7 @@ import validate from "validate.js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputField from "../components/Common/InputField";
+import { useTranslation, Trans } from "react-i18next";
 
 const schema = {
   firstName: {
@@ -122,6 +123,9 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState((formState) => ({
@@ -204,11 +208,9 @@ const Registration = () => {
         toast.error(err.response.data.message);
       });
   };
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleShowConfirmPassword = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+  const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <>
@@ -243,7 +245,7 @@ const Registration = () => {
                 </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="firstName">First name</label>
+                <label htmlFor="firstName">{t("First name")}</label>
                 <input
                   type="text"
                   className={
@@ -251,7 +253,7 @@ const Registration = () => {
                       ? "reg_input_red"
                       : "reg_input"
                   }
-                  placeholder="First name"
+                  placeholder={t("First name")}
                   required
                   value={formState.values.firstName}
                   name="firstName"
@@ -268,9 +270,7 @@ const Registration = () => {
                 <input
                   type="text"
                   className={
-                    hasError("email") && formState.errors.email
-                      ? "reg_input_red"
-                      : "reg_input"
+                    hasError("email") && formState.errors.email ? "reg_input_red" : "reg_input"
                   }
                   placeholder="mail@mail.com"
                   required
@@ -283,13 +283,11 @@ const Registration = () => {
                 </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="">Telephone</label>
+                <label htmlFor="">{t("Telephone")}</label>
                 <input
                   type="string"
                   className={
-                    hasError("phone") && formState.errors.phone
-                      ? "reg_input_red"
-                      : "reg_input"
+                    hasError("phone") && formState.errors.phone ? "reg_input_red" : "reg_input"
                   }
                   placeholder="33 07 86 36 02 20"
                   required
@@ -304,7 +302,7 @@ const Registration = () => {
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Full address</label>
+                <label htmlFor="">{t("Full address")}</label>
                 <input
                   type="text"
                   className={
@@ -339,19 +337,15 @@ const Registration = () => {
                     onChange={handlePhnChange}
                   />
                   <div className="error-format">
-                    {hasError("postelCode")
-                      ? formState.errors.postelCode[0]
-                      : null}
+                    {hasError("postelCode") ? formState.errors.postelCode[0] : null}
                   </div>
                 </div>
                 <div className="city_inputs2">
-                  <label htmlFor="">Town</label>
+                  <label htmlFor="">{t("Town")}</label>
                   <input
                     type="text"
                     className={
-                      hasError("town") && formState.errors.town
-                        ? "reg_input_red3"
-                        : "reg_input3"
+                      hasError("town") && formState.errors.town ? "reg_input_red3" : "reg_input3"
                     }
                     placeholder="Abbeville"
                     required
@@ -359,9 +353,7 @@ const Registration = () => {
                     name="town"
                     onChange={handleChange}
                   />
-                  <div className="error-format">
-                    {hasError("town") && formState.errors.town}
-                  </div>
+                  <div className="error-format">{hasError("town") && formState.errors.town}</div>
                 </div>
               </div>
             </div>
@@ -392,8 +384,7 @@ const Registration = () => {
                 <InputField
                   type={showConfirmPassword ? "text" : "password"}
                   className={
-                    hasError("confirmPassword") &&
-                    formState.errors.confirmPassword
+                    hasError("confirmPassword") && formState.errors.confirmPassword
                       ? "reg_input_red"
                       : "reg_input"
                   }
@@ -403,21 +394,17 @@ const Registration = () => {
                   name="confirmPassword"
                   onChange={handleChange}
                   visibleEye
-                  icon2={
-                    showConfirmPassword ? VisibilityIcon : VisibilityOffIcon
-                  }
+                  icon2={showConfirmPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowConfirmPassword}
                 />
                 <div className="error-format">
-                  {hasError("confirmPassword")
-                    ? formState.errors.confirmPassword[0]
-                    : null}
+                  {hasError("confirmPassword") ? formState.errors.confirmPassword[0] : null}
                 </div>
               </div>
             </div>
           </div>
           {/* second input fields  */}
-          <h2 className="user_info">Company information</h2>
+          <h2 className="user_info">{t("Company information")}</h2>
           {/* ///  */}
           <div className="regist_form">
             <div className="regist_input_div">
@@ -426,8 +413,7 @@ const Registration = () => {
                 <input
                   type="text"
                   className={
-                    hasError("companyLastName") &&
-                    formState.errors.companyLastName
+                    hasError("companyLastName") && formState.errors.companyLastName
                       ? "reg_input_red"
                       : "reg_input"
                   }
@@ -438,13 +424,11 @@ const Registration = () => {
                   onChange={handleNameChange}
                 />
                 <div className="error-format">
-                  {hasError("companyLastName")
-                    ? formState.errors.companyLastName[0]
-                    : null}
+                  {hasError("companyLastName") ? formState.errors.companyLastName[0] : null}
                 </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="">Type of society</label>
+                <label htmlFor="">{t("Type of society")}</label>
                 <select
                   name="typeOfSociety"
                   id=""
@@ -467,7 +451,7 @@ const Registration = () => {
             {/* {console.log("ts", formState.values.typeOfSociety)} */}
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">VAT number</label>
+                <label htmlFor="">{t("VAT number")}</label>
                 <input
                   type="text"
                   className={
@@ -498,10 +482,7 @@ const Registration = () => {
               onClick={handleSubmit}
               text="Register"
               disabled={
-                !formState.isValid ||
-                formState.values.typeOfSociety === "default"
-                  ? true
-                  : false
+                !formState.isValid || formState.values.typeOfSociety === "default" ? true : false
               }
             />
           </div>
