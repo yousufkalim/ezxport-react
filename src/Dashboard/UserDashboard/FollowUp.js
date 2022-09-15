@@ -14,10 +14,49 @@ import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as Featured1 } from "../../assets/Featured1.svg";
 import Button from "../../components/Common/Button";
 import { useTranslation, Trans } from "react-i18next";
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from "../../lib/getSortedData";
+
+const nestSortTitles = [
+  {
+    title: 'country',
+    fields: ['name']
+  }
+]
+
+const TITLES = [
+  {
+    name: 'Request',
+    key: 'name',
+    sortIcon: true
+  },
+  {
+    name: 'Date',
+    key: 'createdAt',
+    sortIcon: true
+  },
+  {
+    name: 'Certificate cost',
+    key: 'name',
+    sortIcon: false
+  },
+  {
+    name: 'Service providers',
+    key: 'name',
+    sortIcon: false
+  },
+  {
+    name: 'Statutes',
+    key: 'name',
+    sortIcon: false
+  },
+];
 
 const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [requestedModal, setRequestedModal] = useState(false);
+  const [sort, setSort] = useState({key: "", ascend: true});
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -61,42 +100,20 @@ const FollowUp = () => {
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
-                      {t("Request")}
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
-                      Date
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
-                      {t(" Certificate cost")}
-                    </TableCell>
-
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
-                      {t("Service providers")}
-                    </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
-                      {t("Statutes")}
-                    </TableCell>
+                  {
+                    TITLES.map((item) => (
+                      <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                        {item.name} &nbsp;
+                        {
+                          item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(allRequest,setAllRequest, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
+                          ) : item.sortIcon && (
+                            <img onClick={() => getSortedData(allRequest,setAllRequest, setSort, nestSortTitles, item.key, false)} src={downArrow} alt="" />
+                          )
+                        }
+                      </TableCell>
+                    ))
+                  }
                   </TableRow>
                 </TableHead>
                 <TableBody>

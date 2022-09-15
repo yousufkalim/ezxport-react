@@ -6,7 +6,7 @@ import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
 import {useTranslation} from "react-i18next";
 
 const title = [
-  { heading: "Company Name", imgSrc: TitleDownArrow },
+  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },

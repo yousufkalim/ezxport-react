@@ -8,6 +8,7 @@ import toaster from '../../utils/toaster';
 import { useTranslation, Trans } from "react-i18next";
 
 
+
 // import Spinner from '../../components/Common/Spinner';
 
 const Providers = () => {
@@ -48,6 +49,7 @@ const Providers = () => {
           </div>
           <ProvidersTable
             data={providers}
+            setData={setProviders}
             getProviders={getProviders}
             dataLoading={loading}
             // Icons={false}
