@@ -71,7 +71,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
 
   const trimName = (item) => {
-    return item.trim();
+    return item ? item?.trim() : "";
   };
 
   const getEditData = () => {
