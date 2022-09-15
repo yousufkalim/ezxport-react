@@ -202,7 +202,7 @@ const BuyerModal = ({
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.email.label")}
+                  label="Email"
                   name='email'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
@@ -231,7 +231,7 @@ const BuyerModal = ({
           <div className="luyer_input_field">
             <div className="luyer_input_field">
               <InputField 
-                label={t("dashboard.user.addressBook.modal.form.address.label")}
+                label="Address"
                 name='address'
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}

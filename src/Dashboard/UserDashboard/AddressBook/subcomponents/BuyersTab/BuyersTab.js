@@ -15,11 +15,11 @@ import BuyerModal from "./BuyerModal";
 import { useTranslation, Trans } from "react-i18next";
 
 const title = [
-  { heading: "dashboard.user.addressBook.modal.form.name.label", imgSrc: TitleDownArrow },
-  { heading: "dashboard.user.addressBook.modal.form.country.label" },
-  { heading: "dashboard.user.addressBook.modal.form.email.label" },
-  { heading: "dashboard.user.addressBook.modal.form.telephone.label" },
-  { heading: "dashboard.user.addressBook.modal.form.address.label" },
+  { heading: "Company Name", imgSrc: TitleDownArrow },
+  { heading: "Country" },
+  { heading: "E-mail address" },
+  { heading: "Telephone" },
+  { heading: "Address" },
   { heading: "" },
 ];
 
@@ -128,7 +128,7 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                         <p className="AP_plus_title">{buyer.company_name} </p>
                         </TableCell>
                         <TableCell align="left" className="country2" >
-                        {buyer.country.name}
+                        {buyer?.country?.name}
                         <br />
                         </TableCell>
                         <TableCell align="left" className="country2" >
