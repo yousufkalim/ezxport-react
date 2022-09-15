@@ -1,6 +1,27 @@
 .css-jpln7h-MuiTabs-scroller {
 padding: 13px 0;
 }
+.send_documents_btn{
+background-color: #7F56D9;
+font-size: 1rem;
+color: white;
+width: 11rem;
+height: 3rem;
+border-radius: 10px;
+border: none;
+cursor: pointer;
+}
+
+.send_documents_btn_disabled{
+  background-color: #EAECF0;
+  font-size: 1rem;
+  color: black;
+  width: 11rem;
+  height: 3rem;
+  border-radius: 10px;
+  border: none;
+  }
+
 .badge_missingDocs{
   height: 11px;
    width: 11px; 

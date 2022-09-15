@@ -11,10 +11,13 @@ import { getSortedData } from '../../lib/getSortedData';
 import downArrow from '../../assets/TitleDownArrow.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import Spinner from "../Common/Spinner";
+import { useTranslation, Trans } from "react-i18next";
 
 const nestSortTitles = [];
 
 const AdminTab1 = ({vendor, setVendor, loading}) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const [sort, setSort] = useState({key: "", ascend: true});
 
   console.log("Vendor vendor", vendor);
@@ -26,7 +29,7 @@ const AdminTab1 = ({vendor, setVendor, loading}) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                Service providers 
+              {t("Service providers")}
                 {
                           !sort.ascend ? (
                             <img className='sorting-icon' onClick={() => getSortedData(vendor,setVendor, setSort, nestSortTitles,'name', true)} src={arrow_up} alt="" />

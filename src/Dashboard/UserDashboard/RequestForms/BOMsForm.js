@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import Inputfield from '../../../components/Common/InputField';
-import Button from '../../../components/Common/Button';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import DownArrow from '../../../assets/TitleDownArrow.svg';
-import Paper from '@mui/material/Paper';
-import DeleteIcon from '../../../assets/DeleteIcon.svg';
-import EditIcon from '../../../assets/EditIcon.svg';
-import Modal from '../../../components/Common/Modal';
-import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
-import InputField from '../../../components/Common/InputField';
-import { ReactComponent as Logo } from '../../../assets/logo.svg';
-import { ReactComponent as Featured } from '../../../assets/Featured.svg';
-import API from '../../../api/index';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { toast } from 'react-toastify';
-import { Link, useHistory } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
+import React, { useState, useEffect } from "react";
+import Inputfield from "../../../components/Common/InputField";
+import Button from "../../../components/Common/Button";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import DownArrow from "../../../assets/TitleDownArrow.svg";
+import Paper from "@mui/material/Paper";
+import DeleteIcon from "../../../assets/DeleteIcon.svg";
+import EditIcon from "../../../assets/EditIcon.svg";
+import Modal from "../../../components/Common/Modal";
+import { ReactComponent as Featured1 } from "../../../assets/Featured1.svg";
+import InputField from "../../../components/Common/InputField";
+import { ReactComponent as Logo } from "../../../assets/logo.svg";
+import { ReactComponent as Featured } from "../../../assets/Featured.svg";
+import API from "../../../api/index";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { toast } from "react-toastify";
+import { Link, useHistory } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
-const user = JSON.parse(localStorage.getItem('userData'));
+const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -236,7 +236,13 @@ const BOMsForm = (props) => {
           </Link>
         </div>
       </div>
-      <div className="monetary_value_div">
+
+      <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+      }}>
 
         <div className="codedropdown_div">
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
@@ -290,10 +296,7 @@ const BOMsForm = (props) => {
                 </TableCell>
                 <TableCell align="center" className="country">
                   Monetary value <img src={DownArrow} alt="" />
-                </TableCell>
-                <TableCell align="center" className="country">
-                  certificate required
-                </TableCell>
+                  </TableCell>
 
                 <TableCell align="center" className="country">
                   Actions
@@ -304,14 +307,12 @@ const BOMsForm = (props) => {
               {props.matchedData?.map((item, index) => (
                 <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="center" style={{ width: "20%" }}>
-                    <p className="AP_plus_title">{item?.code}</p>
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>{item?.code}</p>
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p className="AP_plus_title">{item?.monetary_value}</p>
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>{item?.monetary_value}</p>
                   </TableCell>
-                  <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    {item?.certification_required === true ? "true" : "false"}
-                  </TableCell>
+
 
                   <TableCell align="center" className="country2">
                     <img

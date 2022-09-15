@@ -9,6 +9,7 @@ import validate from "validate.js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputField from "../components/Common/InputField";
+import { useTranslation, Trans } from "react-i18next";
 
 const schema = {
   firstName: {
@@ -82,8 +83,8 @@ const schema = {
   vatNumber: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      minimum: 13,
-      maximum: 13,
+      minimum: 8,
+      maximum: 8,
     },
   },
 };
@@ -125,6 +126,10 @@ const Registration = () => {
     touched: {},
     errors: {},
   });
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -205,8 +210,7 @@ const Registration = () => {
   const hasError = (field) =>
     formState.touched[field] && formState.errors[field] ? true : false;
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleShowConfirmPassword = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+  const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <>
@@ -253,7 +257,6 @@ const Registration = () => {
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor=""></label>
                 <InputField
                   type="text"
                   label="E-mail address"
@@ -284,7 +287,7 @@ const Registration = () => {
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Full address</label>
+                <label htmlFor="">{t("Full address")}</label>
                 <input
                   type="text"
                   className={
@@ -321,19 +324,15 @@ const Registration = () => {
                     onChange={handlePhnChange}
                   />
                   <div className="error-format">
-                    {hasError("postelCode")
-                      ? formState.errors.postelCode[0]
-                      : null}
+                    {hasError("postelCode") ? formState.errors.postelCode[0] : null}
                   </div>
                 </div>
                 <div className="city_inputs2">
-                  <label htmlFor="">Town</label>
+                  <label htmlFor="">{t("Town")}</label>
                   <input
                     type="text"
                     className={
-                      hasError("town") && formState.errors.town
-                        ? "reg_input_red3"
-                        : "reg_input3"
+                      hasError("town") && formState.errors.town ? "reg_input_red3" : "reg_input3"
                     }
                     placeholder="Abbeville"
                     required
@@ -345,38 +344,6 @@ const Registration = () => {
                   <div className="error-format">
                     {hasError("town") && formState.errors.town}
                   </div>
-                </div>
-              </div>
-            </div>
-            {/* <div className="regist_input_div">
-              <div className="regist_col1">
-                <InputField
-                  type="text"
-                  label="Full address"
-                  placeholder="90 road of rouvroy"
-                  required
-                  value={formState.values.fullAddress}
-                  onBlur={(e) => handleBlur(e)}
-                  isError={hasError("fullAddress")}
-                  error={formState.errors.fullAddress}
-                  name="fullAddress"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="regist_col2">
-                <div className="city_inputs">
-                  <InputField
-                    type="number"
-                    label="Code postal"
-                    placeholder="80100"
-                    required
-                    isError={hasError("postelCode")}
-                    onBlur={(e) => handleBlur(e)}
-                    error={formState.errors.postelCode}
-                    value={formState.values.postelCode}
-                    name="postelCode"
-                    onChange={handlePhnChange}
-                  />
                 </div>
                 <div className="city_inputs2">
                   <InputField
@@ -391,9 +358,8 @@ const Registration = () => {
                     name="town"
                     onChange={handleChange}
                   />
-                </div>
               </div>
-            </div> */}
+            </div>
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
@@ -426,35 +392,40 @@ const Registration = () => {
                   name="confirmPassword"
                   onChange={handleChange}
                   visibleEye
-                  icon2={
-                    showConfirmPassword ? VisibilityIcon : VisibilityOffIcon
-                  }
+                  icon2={showConfirmPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowConfirmPassword}
                 />
               </div>
             </div>
           </div>
           {/* second input fields  */}
-          <h2 className="user_info">Company information</h2>
+          <h2 className="user_info">{t("Company information")}</h2>
           {/* ///  */}
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
                   type="text"
-                  label="Last name"
-                  isError={hasError("companyLastName")}
-                  onBlur={(e) => handleBlur(e)}
-                  error={formState.errors.companyLastName}
+                  className={
+                    hasError("companyLastName") &&
+                    formState.errors.companyLastName
+                      ? "reg_input_red"
+                      : "reg_input"
+                  }
                   placeholder="Last name"
                   required
                   value={formState.values.companyLastName}
                   name="companyLastName"
                   onChange={handleNameChange}
                 />
+                <div className="error-format">
+                  {hasError("companyLastName")
+                    ? formState.errors.companyLastName[0]
+                    : null}
+                </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="">Type of society</label>
+                <label htmlFor="">{t("Type of society")}</label>
                 <select
                   name="typeOfSociety"
                   id=""
@@ -489,9 +460,9 @@ const Registration = () => {
                   error={formState.errors.vatNumber}
                   placeholder="6372890367849"
                   required
-                  value={formState.values.vatNumber}
+                  value={formState.values.vatNumber.toUpperCase()}
                   name="vatNumber"
-                  onChange={handlePhnChange}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -507,10 +478,7 @@ const Registration = () => {
               onClick={(e) =>handleSubmit(e)}
               text="Register"
               disabled={
-                !formState.isValid ||
-                formState.values.typeOfSociety === "default"
-                  ? true
-                  : false
+                !formState.isValid || formState.values.typeOfSociety === "default" ? true : false
               }
             />
           </div>

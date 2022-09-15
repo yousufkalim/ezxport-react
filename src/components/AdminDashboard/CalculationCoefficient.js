@@ -1,8 +1,12 @@
 import React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputField from "../Common/InputField";
+import { useTranslation, Trans } from "react-i18next";
 
-const CalculationCoefficient = ({ MinThreshold, coefficient, minCost, maxCost }) => {
+const CalculationCoefficient = ({ coefficientChange, currency }) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   return (
     <>
       <div className="Coefficient_main">
@@ -10,34 +14,34 @@ const CalculationCoefficient = ({ MinThreshold, coefficient, minCost, maxCost })
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Minimum threshold
+                {t("Minimum threshold")}
               </label>
-              <InputField value={MinThreshold} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.min_threshold?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Coefficient
+                {t("Coefficient")}
               </label>
 
-              <InputField value={coefficient ? coefficient + " %" : ""} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.coefficient} %`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                minimum cost
+                {t("minimum cost")}
               </label>
-              <InputField value={minCost} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.min_cost?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Coût maximum
+                {t("Maximum cost")}
               </label>
-              <InputField value={maxCost} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.max_cost?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
         </div>

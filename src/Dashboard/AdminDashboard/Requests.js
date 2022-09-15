@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import SearchField from '../../components/Common/SearchField';
-import { useHistory } from 'react-router-dom';
-import API from '../../api';
-import Moment from 'moment';
+import React, { useState, useEffect } from "react";
+import SearchField from "../../components/Common/SearchField";
+import { useHistory } from "react-router-dom";
+import API from "../../api";
+import Moment from "moment";
+import { useTranslation, Trans } from "react-i18next";
 
 // table
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import downArrow from '../../assets/TitleDownArrow.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import { getSortedData } from '../../lib/getSortedData';
@@ -58,20 +59,21 @@ const Requests = () => {
   const [sort, setSort] = useState({key: "", ascend: true});
   const [loading, setLoading] = useState(false);
 
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const history = useHistory(null);
   useEffect(() => {
     handleAllRequest();
   }, []);
   const handleAllRequest = async () => {
     setLoading(true);
-    await API('get', '/requests')
+    await API("get", "/requests")
       .then((res) => {
         setAllRequest(res.data.requets);
         setLoading(false);
       })
       .catch((err) => {
-        toast.error("Error while fetching requests");
-        setLoading(false);
+        console.log("err", err);
       });
   };
 
@@ -81,9 +83,9 @@ const Requests = () => {
       <div className="list_second_div">
         {/* list head  */}
         <div className="List_heading_div">
-          <h1 className="list_rqst_h1">List of requests</h1>
+          <h1 className="list_rqst_h1">{t("List of requests")}</h1>
           <div className="searchingRequest">
-            <SearchField placeholder="Searching" className="rqst_searching" />
+            <SearchField placeholder={t("Searching")} className="rqst_searching" />
           </div>
         </div>
         {/* list table   */}

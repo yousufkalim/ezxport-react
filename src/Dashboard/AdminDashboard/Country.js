@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import API from '../../api/index';
-import Button from '../../components/Common/Button';
-import SearchField from '../../components/Common/SearchField';
-import { Link, useHistory } from 'react-router-dom';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import PlusIcon from '../../assets/PlusIcon.svg';
-import PaginationPage from '../../components/AdminDashboard/Pagination';
-import Modal from '../../components/Common/Modal';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import API from "../../api/index";
+import Button from "../../components/Common/Button";
+import SearchField from "../../components/Common/SearchField";
+import { Link, useHistory } from "react-router-dom";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import PlusIcon from "../../assets/PlusIcon.svg";
+import PaginationPage from "../../components/AdminDashboard/Pagination";
+import Modal from "../../components/Common/Modal";
+import FormControl from "@mui/material/FormControl";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import { toast } from "react-toastify";
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
+import { useTranslation, Trans } from "react-i18next";
 import ConfirmModal from '../../components/Common/ConfirmModal';
 import { getSortedData } from '../../lib/getSortedData';
 import downArrow from '../../assets/TitleDownArrow.svg';
@@ -260,6 +261,9 @@ const Country = () => {
   const [sort, setSort] = useState({key: "", ascend: true});
 
 
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   const handleCountries = async () => {
     setLoading(true);
     await API("get", "/countries/")
@@ -309,10 +313,15 @@ const Country = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div">
-            <h1 className="list_h1_Country">Country</h1>
+            <h1 className="list_h1_Country">{t("Country")}</h1>
             <div className="searching">
-              <SearchField placeholder="Searching" />
-              <Button className="list_reqst_btn4" text={"Add a country"} Imgsrc={PlusIcon} onClick={() => setOpen(true)} />
+              <SearchField placeholder={t("Searching")} />
+              <Button
+                className="list_reqst_btn4"
+                text={t("Add a country")}
+                Imgsrc={PlusIcon}
+                onClick={() => setOpen(true)}
+              />
             </div>
           </div>
           {/* list table   */}
@@ -358,9 +367,11 @@ const Country = () => {
                               padding: 2,
                               cursor: "pointer",
                             }}
-                            onClick={() => history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)}
+                            onClick={() =>
+                          history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
+                        }
                           >
-                            <p className="AP_plus_title">{item.name}</p>
+                            <p className="AP_plus_title">{t(item.name)}</p>
                           </TableCell>
                           <TableCell
                             component="th"
@@ -393,7 +404,13 @@ const Country = () => {
         </div>
       </div>
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleCountryDelete(countryId)} />
-      <Modal open={open} setOpen={setOpen} title="Add a country" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t("Add a country")}
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="add_country_div">
           <div
             style={{
@@ -406,23 +423,23 @@ const Country = () => {
           >
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                Select a country to add
+                {t("Select a country to add")}
               </label>
               <Select id="demo-simple-select" defaultValue={"default"} className="buyer_input">
-                <MenuItem disabled value="default">
-                  {"Select a Country"}
+                <MenuItem disabled value={"default"}>
+                  {t("Select a Country")}
                 </MenuItem>
                 {countryList.map((item) => {
                   return (
                     <MenuItem value={item} onClick={() => setDropdown(item)}>
-                      {item}
+                      {t(item)}
                     </MenuItem>
                   );
                 })}
               </Select>
               <div style={{ marginTop: "1rem" }}>
                 <label htmlFor="" className="buyer_label">
-                  Select currency against selected country
+                  {t("Select currency against selected country")}
                 </label>
                 <Select
                   id="demo-simple-select"
@@ -431,16 +448,20 @@ const Country = () => {
                   onChange={(e) => setCurrency(e.target.value)}
                 >
                   <MenuItem disabled value="default">
-                    {"Select a Currency"}
+                    {t("Select a Currency")}
                   </MenuItem>
-                  <MenuItem value={"USD"}>US Dollar $</MenuItem>
-                  <MenuItem value={"EURO"}>EURO €</MenuItem>
+                  <MenuItem value={"USD"}> {t("US Dollar $")} </MenuItem>
+                  <MenuItem value={"EURO"}>{t("EURO €")}</MenuItem>
                 </Select>
               </div>
             </FormControl>
             <Button
-              text="Add a country"
-              className={dropdown && currency === "default" ? "add_Country_button_disabled" : "add_Country_button"}
+              text={t("Add a country")}
+              className={
+                dropdown && currency === "default"
+                  ? "add_Country_button_disabled"
+                  : "add_Country_button"
+              }
               disabled={dropdown && currency === "default" && true}
               onClick={handleAddCountry}
             />

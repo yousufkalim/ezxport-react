@@ -9,6 +9,8 @@ import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import validate from "validate.js";
+import { useTranslation, Trans } from "react-i18next";
+
 const schema = {
   email: {
     presence: { allowEmpty: false, message: "is required" },
@@ -37,6 +39,18 @@ const Login = () => {
     errors: {},
   });
   const [showPassword, setShowPassword] = useState(false);
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
 
   //checks which field is selected
   const handleChange = (event) => {
@@ -93,8 +107,7 @@ const Login = () => {
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   //checks error in the selected field
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
       <Header />

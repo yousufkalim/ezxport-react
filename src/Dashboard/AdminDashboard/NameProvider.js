@@ -25,28 +25,29 @@ import validate from 'validate.js';
 import downArrow from '../../assets/TitleDownArrow.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import { getSortedData } from '../../lib/getSortedData';
+import { useTranslation, Trans } from "react-i18next";
 
 const schema = {
   fullName: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     length: { minimum: 2 },
   },
   email: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     email: true,
     length: {
       maximum: 64,
     },
   },
   contact: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     email: true,
     length: {
       maximum: 64,
     },
   },
   phone: {
-    presence: { allowEmpty: false, message: 'is required' },
+    presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 10,
       minimum: 10,
@@ -83,7 +84,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -91,10 +92,10 @@ const NameProvider = () => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      fullName: '',
-      contact: '',
-      email: '',
-      phone: '',
+      fullName: "",
+      contact: "",
+      email: "",
+      phone: "",
     },
     touched: {},
     errors: {},
@@ -106,12 +107,15 @@ const NameProvider = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  const [sendingEmail, setSendingEmail] = useState('');
-  const [Contact, setContact] = useState('');
-  const [fullname, setFullname] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
+  // const [sendingEmail, setSendingEmail] = useState('');
+  // const [Contact, setContact] = useState('');
+  // const [fullname, setFullname] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState('');
   const [countries, setCountries] = useState();
   const [sort, setSort] = useState({key: "", ascend: true});
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -159,7 +163,7 @@ const NameProvider = () => {
     setValue(newValue);
   };
   const handleGetVendor = async () => {
-    await API('get', `/vendors/${id}`)
+    await API("get", `/vendors/${id}`)
       .then((res) => {
         setFormState((formState) => ({
           ...formState,
@@ -177,12 +181,12 @@ const NameProvider = () => {
         setCountries(res?.data?.vendor?.countries);
       })
       .catch((err) => {
-        console.log(err, 'errrrrr');
+        console.log(err, "errrrrr");
       });
   };
   const handleClose = () => setOpen(false);
   const handelUpdateVendor = async () => {
-    await API('put', `/vendors/${id}`, {
+    await API("put", `/vendors/${id}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
@@ -191,10 +195,10 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success('Service Provider Updated Successfully');
+        toast.success("Service Provider Updated Successfully");
       })
       .catch((err) => {
-        console.log('ERRRR', err);
+        console.log("ERRRR", err);
         setOpen(false);
         toast.error(err.response.data.message);
       });
@@ -215,25 +219,29 @@ const NameProvider = () => {
             {value === 0 ? (
               <div className="searching2">
                 <Button
-                  text="Change Provider"
+                  text={t("Change Provider")}
                   className="changeProvider"
                   onClick={() => setOpen(true)}
                 />
               </div>
             ) : (
               <div className="searching">
-                <SearchField placeholder="Searching" className="search_name_input" />
-                <Button text="Change Provider" className="changeProvider" />
+                <SearchField placeholder={t("Searching")} className="search_name_input" />
+                <Button text={t("Change Provider")} className="changeProvider" />
               </div>
             )}
           </div>
 
           <div className="list_table">
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleDataChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label="Information" {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label="Associated Countries" {...a11yProps(1)} />
+                  <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
+                  <Tab
+                    className="admin_tab_btn"
+                    label={t("Associated Countries")}
+                    {...a11yProps(1)}
+                  />
                 </Tabs>
               </Box>
 
@@ -241,8 +249,8 @@ const NameProvider = () => {
                 <div className="list_table">
                   <div className="textField_div1">
                     <label htmlFor="" className="label_modal">
-                      Default sending email address
-                    </label>{' '}
+                      {t("Default sending email address")}
+                    </label>{" "}
                     <InputField
                       name="sendingEmail"
                       className="textfield_row1"
@@ -254,7 +262,7 @@ const NameProvider = () => {
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         Contact
-                      </label>{' '}
+                      </label>{" "}
                       <InputField
                         disabled={true}
                         name="Contact"
@@ -264,8 +272,8 @@ const NameProvider = () => {
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Full Name
-                      </label>{' '}
+                        {t("Full Name")}
+                      </label>{" "}
                       <InputField
                         disabled={true}
                         name="fullname"
@@ -275,8 +283,8 @@ const NameProvider = () => {
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Telephone number
-                      </label>{' '}
+                        {t("Telephone number")}
+                      </label>{" "}
                       <InputField
                         disabled={true}
                         name="phoneNumber"
@@ -290,7 +298,7 @@ const NameProvider = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  {' '}
+                  {" "}
                   <>
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -298,11 +306,11 @@ const NameProvider = () => {
                           <TableRow>
                             <TableCell
                               sx={{
-                                color: '#667085',
-                                backgroundColor: '#F9FAFB',
+                                color: "#667085",
+                                backgroundColor: "#F9FAFB",
                               }}
                             >
-                              Country
+                              {t("Country")} 
                               {
                                 !sort.ascend ? (
                                   <img className='sorting-icon' onClick={() => getSortedData(countries,setCountries, setSort, [],'name', true)} src={arrow_up} alt="" />
@@ -321,7 +329,7 @@ const NameProvider = () => {
                                   component="th"
                                   scope="row"
                                   sx={{
-                                    border: '1px solid #E5E5E5;',
+                                    border: "1px solid #E5E5E5;",
                                     padding: 2,
                                   }}
                                 >
@@ -344,70 +352,70 @@ const NameProvider = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title="Update Service Provider"
+        title={t("Update Service Provider")}
         handleClose={handleClose}
         Closebtn={true}
       >
         <div className="edit_vendor_div">
           <label htmlFor="" className="label_modal">
-            Full Name
-          </label>{' '}
+            {t("Full Name")}
+          </label>{" "}
           <InputField
             value={formState.values.fullName}
             name="fullName"
             className={
-              hasError('fullName') && formState.errors.fullName
-                ? 'textfield_row2_red'
-                : 'textfield_row2'
+              hasError("fullName") && formState.errors.fullName
+                ? "textfield_row2_red"
+                : "textfield_row2"
             }
             onChange={handleChange}
           />
           <div className="error-format">
-            {hasError('fullName') ? formState.errors.fullName[0] : null}
+            {hasError("fullName") ? formState.errors.fullName[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            Phone Number
-          </label>{' '}
+            {t("Phone Number")}
+          </label>{" "}
           <InputField
             value={formState.values.phone}
             name="phone"
             className={
-              hasError('phone') && formState.errors.phone ? 'textfield_row2_red' : 'textfield_row2'
+              hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"
             }
             onChange={handlePhnChange}
           />
-          <div className="error-format">{hasError('phone') ? formState.errors.phone[0] : null}</div>
+          <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
           <label htmlFor="" className="label_modal">
             Contact
-          </label>{' '}
+          </label>{" "}
           <InputField
             value={formState.values.contact}
             name="contact"
             className={
-              hasError('contact') && formState.errors.contact
-                ? 'textfield_row2_red'
-                : 'textfield_row2'
+              hasError("contact") && formState.errors.contact
+                ? "textfield_row2_red"
+                : "textfield_row2"
             }
             onChange={handleChange}
           />
           <div className="error-format">
-            {hasError('contact') ? formState.errors.contact[0] : null}
+            {hasError("contact") ? formState.errors.contact[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            Default sending Email address
+            {t("Default sending Email address")}
           </label>
           <InputField
             value={formState.values.email}
             name="email"
             className={
-              hasError('email') && formState.errors.email ? 'textfield_row2_red' : 'textfield_row2'
+              hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError('email') ? formState.errors.email[0] : null}</div>
+          <div className="error-format">{hasError("email") ? formState.errors.email[0] : null}</div>
           <Button
-            text="Update Service Provider"
-            className={formState.isValid ? 'edit_vendor_button' : 'edit_vendor_button_disabled'}
+            text={t("Update Service Provider")}
+            className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
             disabled={!formState.isValid ? true : false}
             onClick={handelUpdateVendor}
           />

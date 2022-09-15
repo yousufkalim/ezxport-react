@@ -4,26 +4,28 @@ import { useHistory } from "react-router-dom";
 import EzxportIcon from "../../../assets/EzxportIcon.svg";
 import { Link } from "react-router-dom";
 import BackArrow from "../../../assets/BackArrow.svg";
-import { useParams } from 'react-router-dom';
-import API from "../../../api/index"
-import { toast } from 'react-toastify';
-import Modal from "../../../components/Common/Modal"
-import Button from "../../../components/Common/Button"
-import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { useParams } from "react-router-dom";
+import API from "../../../api/index";
+import { toast } from "react-toastify";
+import Modal from "../../../components/Common/Modal";
+import Button from "../../../components/Common/Button";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useTranslation, Trans } from "react-i18next";
 
 const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
 
+  const [inputList, setInputList] = useState([]);
+  const [inputListProduct, setInputListProduct] = useState([]);
+  const [validateCountry, setValidateCountry] = useState(false);
+  const [validateProduct, setValidateProduct] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
+  const [comment, setComment] = useState("");
 
-  const [inputList, setInputList] = useState([])
-  const [inputListProduct, setInputListProduct] = useState([])
-  const [validateCountry, setValidateCountry] = useState(false)
-  const [validateProduct, setValidateProduct] = useState(false)
-  const [commentModal, setCommentModal] = useState(false)
-  const [comment, setComment] = useState("")
-
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   const params = useParams();
 
@@ -86,21 +88,20 @@ const Index = () => {
         console.log("handleProductDocsValidate", err);
       });
   };
-
+  // console.log();
   const handleRequestDoc = async () => {
-
-    await API('put', `/requests/ReqmissingDocs/${requestById._id}`,
-      {
+    await API("put", `/requests/ReqmissingDocs/${requestById._id}`, {
       admin_remarks: comment,
-        products: inputListProduct,
+      products: inputListProduct,
       documents: inputList,
-      })
+    })
       .then((res) => {
-        console.log(res, "handleRequestDoc")
-        setCommentModal(false)
-        history.push('/RequestDocuments')
-      }).catch((err) => {
-        console.log("err", err)
+        console.log(res, "handleRequestDoc");
+        setCommentModal(false);
+        history.push("/RequestDocuments");
+      })
+      .catch((err) => {
+        console.log("err", err);
       })
       .catch((err) => {
         console.log("err", err);
@@ -133,7 +134,7 @@ const Index = () => {
                 >
                   <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                    &nbsp; Reference{" "}
+                    &nbsp; {t("Reference")}{" "}
                   </p>
                 </Link>
               </div>
@@ -141,7 +142,7 @@ const Index = () => {
                 <img src={EzxportIcon} alt="" className="header_center_div" />
               </div>
               <div className="validate_btn_div">
-                <button className="validate_button2">Download the file</button>
+                <button className="validate_button2">{t("Download the file")}</button>
                 &nbsp;
                 {validateCountry &&
                 validateProduct &&
@@ -153,7 +154,7 @@ const Index = () => {
                 
                   :
                   <button className="validate_button" onClick={handleModalOpen}>
-                    Request document
+                    {t("Request document")}
                   </button>
                 }
               </div>
@@ -171,7 +172,7 @@ const Index = () => {
                 >
                   <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
-                    &nbsp; Reference{" "}
+                    &nbsp; {t("Reference")}
                   </p>
                 </Link>
               </div>
@@ -179,7 +180,9 @@ const Index = () => {
                 <img src={EzxportIcon} alt="" className="header_center_div" />
               </div>
               <div className="validate_btn_div">
-                <button className="validate_button">Validate and receive the completed file</button>
+                <button className="validate_button">
+                  {t("Validate and receive the completed file")}
+                </button>
               </div>
             </div>
           </div>
@@ -199,20 +202,27 @@ const Index = () => {
         validateProduct={validateProduct}
         setValidateProduct={setValidateProduct}
       />
-      <Modal open={commentModal}
+      <Modal
+        open={commentModal}
         setOpen={setCommentModal}
         title="Please add your comment below"
         handleClose={handleClose}
-        Closebtn={true} >
+        Closebtn={true}
+      >
         <TextareaAutosize
           minRows={10}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="Start writing from here"
-          style={{ width: "100%", padding: "10px", fontSize: "1rem", marginTop: "1rem", borderColor: "#EAECF0" }}
+          style={{
+            width: "100%",
+            padding: "10px",
+            fontSize: "1rem",
+            marginTop: "1rem",
+            borderColor: "#EAECF0",
+          }}
         />
-        <Button text="Submit" className="bom_downloadFile_btn" onClick={handleRequestDoc} />
-
+        <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleRequestDoc} />
       </Modal>
     </>
   );

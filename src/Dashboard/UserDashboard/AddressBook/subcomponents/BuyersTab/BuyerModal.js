@@ -9,26 +9,58 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Button from '../../../../../components/Common/Button';
 import toaster from '../../../../../utils/toaster';
+import { useTranslation, Trans } from "react-i18next";
 
-const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId, buyer,isEdit,setIsEdit, countries, setOpen, setBuyer, formState, setFormState, open}) => {
 
-      const handleBlur = (e) => {
-        e.preventDefault();
-        const {name} = e.target;
-        const errors = validate(formState.values, schema);
-        console.log("Errors ", errors );
-        console.log("Lastest state  ", formState);
-        setFormState((formState) => ({
-          ...formState,
-          errors: errors ?? {},
-          touched: {...formState.touched, [name]: true},
-          isValid: errors ? false : true
-    
-        }))
-      }
+const schema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+  telephone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+};
+
+const BuyerModal = ({
+  fetchBuyers,
+  userId,
+  buyer,
+  isEdit,
+  setIsEdit,
+  countries,
+  setOpen,
+  setBuyer,
+  formState,
+  setFormState,
+  open,
+}) => {
+  const { t, i18n } = useTranslation();
+
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const {name} = e.target;
+    const errors = validate(formState.values, schema);
+    console.log("Errors ", errors );
+    console.log("Lastest state  ", formState);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: {...formState.touched, [name]: true},
+      isValid: errors ? false : true
+
+    }))
+  }
 
       const countryHandler = (e) => {
-        console.log("Country ", e.target.value)
         setFormState((state) => ({
           ...state,
           values: {...state.values, country: e.target.value}
@@ -37,82 +69,99 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
     
       const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}})
+        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
       }
 
-      const handleCloseModal = () => {
+  const handleCloseModal = () => {
+    setOpen(false);
+    setTimeout(() => {
+      setIsEdit(false);
+      resetForm();
+      setBuyer(null);
+    }, 500);
+  };
+
+  const resetForm = () => {
+    setFormState({
+      isValid: false,
+      values: {
+        companyName: "",
+        country: "",
+        email: "",
+        telephone: "",
+        address: "",
+        zipcode: "",
+        town: "",
+      },
+      errors: {},
+      touched: {},
+    });
+  };
+
+  const createBuyer = async (data) => {
+    await API("post", "/buyers", data)
+      .then((res) => {
+        toast.success("Buyer addedd successfully!");
         setOpen(false);
-        setTimeout(() => {
-            setIsEdit(false);
-            resetForm();
-            setBuyer(null);
-        }, 500)
-      }
-    
-      const resetForm = () => {
-        setFormState({
-            isValid: false,
-            values: {companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: ''},
-            errors: {},
-            touched: {}
-        })
-      }
+        fetchBuyers();
+        resetForm();
+      })
+      .catch((err) => toast.success("Something went wrong!"));
+  };
 
-      const createBuyer = async (data) => {
-        await API('post', '/buyers', data).then((res) => {
-            toast.success('Buyer addedd successfully!');
-            setOpen(false);
-            fetchBuyers();
-            resetForm();
-          }).catch(err => toast.success('Something went wrong!'));
-      }
+  const editBuyer = async (data) => {
+    await API("put", `/buyers/${buyer._id}`, data)
+      .then((res) => {
+        toaster('success', "Buyer updated sucessfully");
+        fetchBuyers();
+        handleCloseModal();
+      })
+      .catch((err) => toast.success("Something went wrong!"));
+  };
 
-      const editBuyer = async (data) => {
-        await API('put', `/buyers/${buyer._id}`, data).then((res) => {
-            toaster('success', "Buyer updated sucessfully");
-            fetchBuyers();
-            handleCloseModal()
-          }).catch(err => toast.success('Something went wrong!'));
-      }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const {
+      companyName: company_name,
+      email,
+      country,
+      town: city,
+      telephone: phone_number,
+      zipcode,
+      address,
+    } = formState.values;
+    const data = {
+      company_name,
+      email,
+      country,
+      city,
+      phone_number,
+      zipcode,
+      address,
+      user: userId,
+    };
 
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        const {companyName: company_name, email, country, town: city, telephone :phone_number, zipcode, address  } = formState.values;
-        const data = {
-          company_name,
-          email,
-          country,
-          city,
-          phone_number,
-          zipcode,
-          address,
-          user: userId
-        }
+    if (isEdit) {
+      editBuyer(data);
+    } else {
+      createBuyer(data);
+    }
+  };
 
-        if(isEdit){
-            editBuyer(data);
-        }else {
-            createBuyer(data);
-        }
-      }
-
-
-    const hasError = (field) => formState.touched[field] && formState.errors[field] ? true : false;
-
-    console.log("has Errorr" , formState);
-    const MODAL_TITLE = isEdit ? 'dashboard.user.addressBook.modal.title.edit' : buyer ? 'dashboard.user.addressBook.modal.title.view' : 'dashboard.user.addressBook.modal.title.add'
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
   return (
     <Modal
             open={open}
             setOpen={setOpen}
-            title={t(MODAL_TITLE)}
+            title={MODAL_TITLE}
             handleClose={() => handleCloseModal()}
             Closebtn={true}
         >
-        <div className="buyer_socond">
+               <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
-              label="dashboard.user.addressBook.modal.form.name.label"
+              label="Company Name"
               disabled={!isEdit && buyer}
               name='companyName'
               onChange={(e) => handleChange(e)}
@@ -125,7 +174,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("dashboard.user.addressBook.modal.form.country.label")}
+                {t("Select a country")}
               </label>
               <Select
                 id="demo-simple-select"
@@ -153,7 +202,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.email.label")}
+                  label="Email"
                   name='email'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
@@ -166,7 +215,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
               </div>
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.telephone.label")}
+                  label={t("Telephone")}
                   name='telephone'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
@@ -182,7 +231,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
           <div className="luyer_input_field">
             <div className="luyer_input_field">
               <InputField 
-                label={t("dashboard.user.addressBook.modal.form.address.label")}
+                label="Address"
                 name='address'
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
@@ -197,7 +246,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.postalCode.label")}
+                  label={t("Postal code")}
                   name='zipcode'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
@@ -209,7 +258,7 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
               </div>
               <div className="input_fields">
                 <InputField 
-                  label={t("dashboard.user.addressBook.modal.form.town.label")}
+                  label={t("Town")}
                   name='town'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
@@ -229,4 +278,4 @@ const BuyerModal = ({t, schema, fetchBuyers,setActiveField, activeField, userId,
   )
 }
 
-export default BuyerModal
+export default BuyerModal;

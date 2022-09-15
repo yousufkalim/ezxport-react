@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import UserTable from '../../components/AdminDashboard/UserTable';
-import API from '../../api/index';
+import React, { useEffect, useState } from "react";
+import UserTable from "../../components/AdminDashboard/UserTable";
+import API from "../../api/index";
+import { useTranslation, Trans } from "react-i18next";
 import { getSortedData } from '../../lib/getSortedData';
 
 const HeadTitle = [
@@ -64,12 +65,16 @@ const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [sort, setSort] = useState({key: "", ascend: true});
 
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   useEffect(() => {
     HandleAllUser();
   }, []);
 
   const HandleAllUser = async () => {
-    await API('get', '/users/')
+    await API("get", "/users/")
       .then((res) => {
         setAllUsers(res.data.users);
       })

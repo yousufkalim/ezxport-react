@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import AdminTab1 from './AdminTab1';
-import AdminTab2 from './AdminTab2';
-import AdminTab3 from './AdminTab3';
-import AdminTab4 from './AdminTab4';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import { useParams } from 'react-router-dom';
-import API from '../../api/index';
+import React, { useState, useEffect } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
+import AdminTab1 from "./AdminTab1";
+import AdminTab2 from "./AdminTab2";
+import AdminTab3 from "./AdminTab3";
+import AdminTab4 from "./AdminTab4";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import { useParams } from "react-router-dom";
+import API from "../../api/index";
+import { useTranslation, Trans } from "react-i18next";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -40,7 +42,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -52,6 +54,8 @@ const AdminTabMenu = () => {
   const [document, setDocument] = useState();
   const [boms, setBoms] = useState();
   const [calculation, setCalculation] = useState();
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   useEffect(() => {
     handleCountryData();
   }, []);
@@ -59,7 +63,7 @@ const AdminTabMenu = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
-    await API('get', `/countries/${id}`)
+    await API("get", `/countries/${id}`)
       .then((res) => {
         setVendor(res.data.country.vendors);
         setDocument(res.data.country.documents);
@@ -67,18 +71,18 @@ const AdminTabMenu = () => {
         setCalculation(res.data.country.calculation);
       })
       .catch((err) => {
-        console.log('---->ERR', err);
+        console.log("---->ERR", err);
       });
   };
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: "100%" }}>
         <Box>
           <Tabs value={value} onChange={handleChange} className="tab_menu">
-            <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
-            <Tab className="admin_tab_btn" label="Documents" {...a11yProps(1)} />
-            <Tab className="admin_tab_btn" label="BOMs" {...a11yProps(2)} />
-            <Tab className="admin_tab_btn" label="Calculation" {...a11yProps(3)} />
+            <Tab className="admin_tab_btn" label={t("Service providers")} {...a11yProps(0)} />
+            <Tab className="admin_tab_btn" label={t("Documents")} {...a11yProps(1)} />
+            <Tab className="admin_tab_btn" label={t("BOMs")} {...a11yProps(2)} />
+            <Tab className="admin_tab_btn" label={t("Calculation")} {...a11yProps(3)} />
           </Tabs>
         </Box>
         <br />

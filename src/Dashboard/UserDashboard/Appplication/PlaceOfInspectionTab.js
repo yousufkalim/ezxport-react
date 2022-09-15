@@ -1,51 +1,53 @@
-import React from 'react';
+import React from "react";
+import { useTranslation, Trans } from "react-i18next";
 
 const PlaceOfInspectionTab = ({ place }) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   return (
     <>
       <div className="InformationTab">
         <div className="InformationTab_col">
           <div className="requestDate_tab">
-            <p className="requestData_p">Company Name</p>
+            <p className="requestData_p">{t("Company Name")}</p>
             <p className="requestData_date">{place?.company_name}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">Email</p>
+            <p className="requestData_p">{t("Email")}</p>
             <p className="requestData_date">{place?.email}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">Last Name</p>
+            <p className="requestData_p">{t("Last Name")}</p>
             <p className="requestData_date">{place?.contact_lname}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">Full address</p>
+            <p className="requestData_p">{t("Full address")}</p>
             <p className="requestData_date">{place?.address}</p>
           </div>
         </div>
         <div className="InformationTab_col">
           <div className="requestDate_tab">
-            <p className="requestData_p">Country</p>
-            <p className="requestData_date">{place?.country?.name}</p>
+            <p className="requestData_p">{t("Country")}</p>
+            <p className="requestData_date">{t(place?.country?.name)}</p>
           </div>
 
           <div className="requestDate_tab">
-            <p className="requestData_p">Telephone</p>
+            <p className="requestData_p">{t("Telephone")}</p>
             <p className="requestData_date">{place?.phone_number}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">First Name</p>
+            <p className="requestData_p">{t("First Name")}</p>
             <p className="requestData_date">{place?.contact_fname}</p>
           </div>
-          <div className="requestDate_tab" style={{ display: 'flex' }}>
+          <div className="requestDate_tab" style={{ display: "flex" }}>
             <div className="SellerTab_postalAndTown">
-              <p className="requestData_p">Code postal</p>
+              <p className="requestData_p">{t("Code postal")}</p>
               <p className="requestData_date">{place?.zipcode}</p>
             </div>
             <div className="SellerTab_div SellerTab_postalAndTown">
-              <p className="requestData_p ">Town</p>
+              <p className="requestData_p ">{t("Town")}</p>
               <p className="requestData_date">{place?.city}</p>
             </div>
-
           </div>
         </div>
       </div>

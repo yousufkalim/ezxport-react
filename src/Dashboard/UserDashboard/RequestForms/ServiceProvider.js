@@ -1,35 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import InputField from '../../../components/Common/InputField';
-import API from '../../../api/index';
-import { Grid } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import InputField from "../../../components/Common/InputField";
+import API from "../../../api/index";
+import { Grid } from "@mui/material";
+import { useTranslation, Trans } from "react-i18next";
+
 const ServiceProvider = (props) => {
   const [vendors, setVendors] = useState([]);
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   const VendorByCountryId = async () => {
-    await API('get', `/vendors/getByCountryId/${props.countryId}`)
+    await API("get", `/vendors/getByCountryId/${props.countryId}`)
       .then((res) => {
         setVendors(res.data.vendor);
       })
       .catch((err) => {
-        console.log('VendorByCountryId', err);
+        console.log("VendorByCountryId", err);
       });
   };
   useEffect(() => {
     VendorByCountryId();
   }, []);
   return (
-    <div style={{ width: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ width: "100%" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <span className="aVendor_heading">
           Please select <b>a vendor</b> for this request
         </span>
       </div>
       {/* <div style={{ marginTop: "4rem", height: "15%", display: "flex" }}> */}
-      <Grid container spacing={2} sx={{ marginTop: '4rem' }}>
+      <Grid container spacing={2} sx={{ marginTop: "4rem" }}>
         {vendors?.map((item) => {
           return (
             <Grid item xs={6} className="vendors_div">
               <input
-                type={'radio'}
+                type={"radio"}
                 value={item._id}
                 name="vendorId"
                 onChange={(e) => {
@@ -69,7 +75,7 @@ const ServiceProvider = (props) => {
               />
             </div>
             <div className="steps_2_feild">
-              <label>First Name</label>
+              <label>{t("First Name")}</label>
               <InputField
                 className="last_name_input"
                 name="firstName"
@@ -91,7 +97,7 @@ const ServiceProvider = (props) => {
           </div>
         </>
       ) : (
-        ''
+        ""
       )}
     </div>
   );
