@@ -204,7 +204,7 @@ const SellersTab = ({t,schema, open, setOpen,userId, countries}) => {
                     <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2" >
-                    {buyer.country.name}
+                    {buyer?.country?.name}
                     <br />
                     </TableCell>
                     <TableCell align="left" className="country2" >

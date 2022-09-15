@@ -11,7 +11,9 @@ import Paper from '@mui/material/Paper';
 import ExportIcon from '../../assets/ExportIcon.svg';
 import PaginationPage from './Pagination';
 import { useHistory } from 'react-router-dom';
-import icon from '../../assets/TitleDownArrow.svg';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import upArrow from '../../assets/UpArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
 
 const UserTable = (props) => {
   const history = useHistory();
@@ -45,7 +47,13 @@ const UserTable = (props) => {
                       >
                         {item.list}
                         &nbsp;
-                        <img src={icon} alt="" />
+                        {
+                          !props.sort.ascend && props.sort.key === item.key ? (
+                            <img className='sorting-icon' onClick={() => props.sortData(item.key, true)} src={arrow_up} alt="" />
+                          ) : (
+                            <img onClick={() => props.sortData(item.key, false)} src={downArrow} alt="" />
+                          )
+                        }
                       </TableCell>
                     ))}
                   </TableRow>

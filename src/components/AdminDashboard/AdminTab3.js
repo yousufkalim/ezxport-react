@@ -17,6 +17,7 @@ import MultiSelect from '../../components/Common/MultiSelect';
 import Button from '../Common/Button';
 import { toast } from 'react-toastify';
 import validate from 'validate.js';
+import ConfirmModal from '../Common/ConfirmModal';
 
 const schema = {
   code: {
@@ -36,6 +37,8 @@ const AdminTab3 = (props) => {
   const [id, setId] = useState();
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [bomId, setBomId] = useState("");
 
   // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState('default');
@@ -133,6 +136,8 @@ const AdminTab3 = (props) => {
       .then((res) => {
         console.log('handleBomDelete', res);
         props.handleCountryData();
+        setBomId("");
+        setOpenModal(false);
         toast.success('BOMs deleted successfully');
       })
       .catch((err) => {
@@ -302,7 +307,10 @@ const AdminTab3 = (props) => {
                     alt=""
                     className="dltIcon"
                     style={{ cursor: 'pointer' }}
-                    onClick={() => handleBomDelete(row._id)}
+                    onClick={() => {
+                      setBomId(row._id);
+                      setOpenModal(true);
+                    }}
                   />
 
                   <img
@@ -321,6 +329,9 @@ const AdminTab3 = (props) => {
         </Table>
       </TableContainer>
       <PaginationPage />
+
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleBomDelete(bomId)} />
+
       {/* update modal */}
       <Modal
         open={open}

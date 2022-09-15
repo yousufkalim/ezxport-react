@@ -19,6 +19,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { toast } from 'react-toastify';
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
+import ConfirmModal from '../../components/Common/ConfirmModal';
 
 var countryList = [
   "Afghanistan",
@@ -232,12 +233,15 @@ const Country = () => {
   const [currency, setCurrency] = useState("default");
   const [open, setOpen] = useState(false);
   const [countries, setCounteries] = useState([]);
+  const [countryId, setCountryId] = useState("");
   const history = useHistory();
+  const [openModal, setOpenModal] = useState(false);
+
 
   const handleCountries = async () => {
     await API("get", "/countries/")
       .then((res) => {
-        setCounteries(res.data.countries);
+        setCounteries(res.data.countries?.reverse());
       })
       .catch((err) => {
         console.log(err, "<----");
@@ -267,6 +271,8 @@ const Country = () => {
       .then((res) => {
         console.log("handleCountryDelete", res);
         toast.success("Country Deleted Successfully");
+        setOpenModal(false);
+        setCountryId("");
         handleCountries();
       })
       .catch((err) => {
@@ -327,7 +333,10 @@ const Country = () => {
                         }}
                       >
                         <Delete
-                          onClick={() => handleCountryDelete(item?._id)}
+                          onClick={() => {
+                            setOpenModal(true);
+                            setCountryId(item?._id);
+                          }}
                           style={{
                             cursor: "pointer",
                           }}
@@ -343,6 +352,7 @@ const Country = () => {
           </div>
         </div>
       </div>
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleCountryDelete(countryId)} />
       <Modal open={open} setOpen={setOpen} title="Add a country" handleClose={handleClose} Closebtn={true}>
         <div className="add_country_div">
           <div

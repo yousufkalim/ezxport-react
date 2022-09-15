@@ -97,7 +97,7 @@ const ServiceProviders = () => {
   const handleServiceProvider = async () => {
     await API('get', '/vendors/')
       .then((res) => {
-        setVendors(res?.data?.vendor);
+        setVendors(res?.data?.vendor?.reverse());
       })
       .catch((err) => {
         console.log(err);

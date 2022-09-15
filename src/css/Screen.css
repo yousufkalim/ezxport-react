@@ -91,7 +91,7 @@ label {
   position: absolute;
   font-size: 1.2em;
   right: 2%;
-  top: 28% !important;
+  top: 50% !important;
   cursor: pointer;
 }
 .forgot_p-div {
@@ -160,7 +160,7 @@ label {
   width: auto;
   display: flex;
   justify-content: center;
-  padding: 10px 14px;
+  margin: 10px 0;
 }
 .requestSuccess-div {
   width: auto;
@@ -176,6 +176,11 @@ label {
 .regBtn {
   background: none;
   color: #6941c6;
+}
+.sorting-icon {
+  height: 11px;
+  /* font-size: 14px; */
+  width: 15px;
 }
 @media screen and (max-width: 1000px) {
   .quizIcon.MuiSvgIcon-root {

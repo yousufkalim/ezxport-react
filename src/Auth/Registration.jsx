@@ -65,13 +65,19 @@ const schema = {
   },
   confirmPassword: {
     presence: { allowEmpty: false, message: "is required" },
-    equality: "password",
+    equality: {
+      attribute: "password",
+      message: "is not same as password"
+    },
   },
   companyLastName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 32,
     },
+  },
+  typeOfSociety: {
+    presence: { allowEmpty: false, message: "is required" },
   },
   vatNumber: {
     presence: { allowEmpty: false, message: "is required" },
@@ -122,25 +128,12 @@ const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {},
-    }));
-  }, [formState.values]);
-
   const handleChange = (event) => {
     setFormState((formState) => ({
       ...formState,
       values: {
         ...formState.values,
         [event.target.name]: event.target.value,
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true,
       },
     }));
   };
@@ -154,10 +147,6 @@ const Registration = () => {
           ...formState.values,
           [event.target.name]: event.target.value,
         },
-        touched: {
-          ...formState.touched,
-          [event.target.name]: true,
-        },
       }));
     }
   };
@@ -168,10 +157,6 @@ const Registration = () => {
         values: {
           ...formState.values,
           [event.target.name]: event.target.value,
-        },
-        touched: {
-          ...formState.touched,
-          [event.target.name]: true,
         },
       }));
     }
@@ -204,6 +189,19 @@ const Registration = () => {
         toast.error(err.response.data.message);
       });
   };
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const {name} = e.target;
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: {...formState.touched, [name]: true},
+      isValid: errors ? false : true
+
+    }))
+  }
+
   const hasError = (field) =>
     formState.touched[field] && formState.errors[field] ? true : false;
   const handleShowPassword = () => setShowPassword(!showPassword);
@@ -219,87 +217,69 @@ const Registration = () => {
             <img src={BackArrow} alt="back" className="backArrow" />
           </Link>
         </div>
-        <div className="registration_div">
+        <form autoComplete="off" className="registration_div">
           {/* first input fields  */}
           <h2 className="user_info">User information</h2>
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Last name</label>
-                <input
+                <InputField
+                  label="Last Name"
                   type="text"
-                  className={
-                    hasError("lastName") && formState.errors.lastName
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
                   placeholder="Last name"
+                  onBlur={(e) => handleBlur(e)}
                   value={formState.values.lastName}
                   name="lastName"
+                  isError={hasError("lastName")}
+                  error={formState.errors.lastName}
                   onChange={handleNameChange}
+
                 />
-                <div className="error-format">
-                  {hasError("lastName") ? formState.errors.lastName[0] : null}
-                </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="firstName">First name</label>
-                <input
+                <InputField
                   type="text"
-                  className={
-                    hasError("firstName") && formState.errors.firstName
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                  label="First Name"
                   placeholder="First name"
                   required
+                  onBlur={(e) => handleBlur(e)}
                   value={formState.values.firstName}
+                  isError={hasError("firstName")}
+                  error={formState.errors.firstName}
                   name="firstName"
                   onChange={handleNameChange}
                 />
-                <div className="error-format">
-                  {hasError("firstName") ? formState.errors.firstName[0] : null}
-                </div>
               </div>
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">E-mail address</label>
-                <input
+                <label htmlFor=""></label>
+                <InputField
                   type="text"
-                  className={
-                    hasError("email") && formState.errors.email
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                  label="E-mail address"
                   placeholder="mail@mail.com"
                   required
+                  isError={hasError("email")}
+                  onBlur={(e) => handleBlur(e)}
+                  error={formState.errors.email}
                   value={formState.values.email}
                   name="email"
                   onChange={handleChange}
                 />
-                <div className="error-format">
-                  {hasError("email") ? formState.errors.email[0] : null}
-                </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="">Telephone</label>
-                <input
-                  type="string"
-                  className={
-                    hasError("phone") && formState.errors.phone
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                <InputField
+                  label="Telephone"
+                  type="number"
+                  isError={hasError("phone")}
+                  onBlur={(e) => handleBlur(e)}
+                  error={formState.errors.phone}
                   placeholder="33 07 86 36 02 20"
                   required
                   value={formState.values.phone}
                   name="phone"
                   onChange={handlePhnChange}
                 />
-                <div className="error-format">
-                  {hasError("phone") ? formState.errors.phone[0] : null}
-                </div>
               </div>
             </div>
             <div className="regist_input_div">
@@ -313,6 +293,7 @@ const Registration = () => {
                       : "reg_input"
                   }
                   placeholder="90 road of rouvroy"
+                  onBlur={(e) => handleBlur(e)}
                   required
                   value={formState.values.fullAddress}
                   name="fullAddress"
@@ -336,6 +317,7 @@ const Registration = () => {
                     required
                     value={formState.values.postelCode}
                     name="postelCode"
+                    onBlur={(e) => handleBlur(e)}
                     onChange={handlePhnChange}
                   />
                   <div className="error-format">
@@ -355,9 +337,10 @@ const Registration = () => {
                     }
                     placeholder="Abbeville"
                     required
+                    onBlur={(e) => handleBlur(e)}
                     value={formState.values.town}
                     name="town"
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e)}
                   />
                   <div className="error-format">
                     {hasError("town") && formState.errors.town}
@@ -365,40 +348,80 @@ const Registration = () => {
                 </div>
               </div>
             </div>
+            {/* <div className="regist_input_div">
+              <div className="regist_col1">
+                <InputField
+                  type="text"
+                  label="Full address"
+                  placeholder="90 road of rouvroy"
+                  required
+                  value={formState.values.fullAddress}
+                  onBlur={(e) => handleBlur(e)}
+                  isError={hasError("fullAddress")}
+                  error={formState.errors.fullAddress}
+                  name="fullAddress"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="regist_col2">
+                <div className="city_inputs">
+                  <InputField
+                    type="number"
+                    label="Code postal"
+                    placeholder="80100"
+                    required
+                    isError={hasError("postelCode")}
+                    onBlur={(e) => handleBlur(e)}
+                    error={formState.errors.postelCode}
+                    value={formState.values.postelCode}
+                    name="postelCode"
+                    onChange={handlePhnChange}
+                  />
+                </div>
+                <div className="city_inputs2">
+                  <InputField
+                    type="text"
+                    label="Town"
+                    isError={hasError("town")}
+                    onBlur={(e) => handleBlur(e)}
+                    error={formState.errors.town}
+                    placeholder="Abbeville"
+                    required
+                    value={formState.values.town}
+                    name="town"
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+            </div> */}
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Password</label>
                 <InputField
-                  className={
-                    hasError("password") && formState.errors.password
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                  label="Password"
+                  isError={hasError("password")}
+                  error={formState.errors.password}
                   name="password"
+                  autoComplete="new-password"
+                  onBlur={(e) => handleBlur(e)}
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  onChange={handleChange}
+                  onChange={(e) => handleChange(e)}
                   value={formState.values.password}
                   visibleEye
                   icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowPassword}
                 />
-                <div className="error-format">
-                  {hasError("password") ? formState.errors.password[0] : null}
-                </div>
               </div>
               <div className="regist_col1">
-                <label htmlFor="">Confirming your password</label>
                 <InputField
                   type={showConfirmPassword ? "text" : "password"}
-                  className={
-                    hasError("confirmPassword") &&
-                    formState.errors.confirmPassword
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                  label="Confirming your password"
+                  isError={hasError("confirmPassword")}
+                  onBlur={(e) => handleBlur(e)}
+                  error={formState.errors.confirmPassword}
                   placeholder="Confirm password"
                   required
+                  autoComplete={false}
                   value={formState.values.confirmPassword}
                   name="confirmPassword"
                   onChange={handleChange}
@@ -408,11 +431,6 @@ const Registration = () => {
                   }
                   onClick={handleShowConfirmPassword}
                 />
-                <div className="error-format">
-                  {hasError("confirmPassword")
-                    ? formState.errors.confirmPassword[0]
-                    : null}
-                </div>
               </div>
             </div>
           </div>
@@ -422,26 +440,18 @@ const Registration = () => {
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Last name</label>
-                <input
+                <InputField
                   type="text"
-                  className={
-                    hasError("companyLastName") &&
-                    formState.errors.companyLastName
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                  label="Last name"
+                  isError={hasError("companyLastName")}
+                  onBlur={(e) => handleBlur(e)}
+                  error={formState.errors.companyLastName}
                   placeholder="Last name"
                   required
                   value={formState.values.companyLastName}
                   name="companyLastName"
                   onChange={handleNameChange}
                 />
-                <div className="error-format">
-                  {hasError("companyLastName")
-                    ? formState.errors.companyLastName[0]
-                    : null}
-                </div>
               </div>
               <div className="regist_col1">
                 <label htmlFor="">Type of society</label>
@@ -450,6 +460,7 @@ const Registration = () => {
                   id=""
                   className="reg_input"
                   defaultValue={"default"}
+                  onBlur={(e) => handleBlur(e)}
                   onChange={handleChange}
                   value={formState.values.typeOfSociety}
                 >
@@ -462,28 +473,26 @@ const Registration = () => {
                   <option value="4">Type 4</option>
                   <option value="5">Type 5</option>
                 </select>
+                <div className="error-format">
+                  {hasError("typeOfSociety") && formState.touched.typeOfSociety  ? formState.errors.typeOfSociety[0] : null}
+                </div>
               </div>
             </div>
-            {console.log("ts", formState.values.typeOfSociety)}
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">VAT number</label>
-                <input
-                  type="string"
-                  className={
-                    hasError("vatNumber") && formState.errors.vatNumber
-                      ? "reg_input_red"
-                      : "reg_input"
-                  }
+                <label htmlFor=""></label>
+                <InputField
+                  type="text"
+                  label="VAT number"
+                  isError={hasError("vatNumber")}
+                  onBlur={(e) => handleBlur(e)}
+                  error={formState.errors.vatNumber}
                   placeholder="6372890367849"
                   required
                   value={formState.values.vatNumber}
                   name="vatNumber"
                   onChange={handlePhnChange}
                 />
-                <div className="error-format">
-                  {hasError("vatNumber") ? formState.errors.vatNumber[0] : null}
-                </div>
               </div>
             </div>
           </div>
@@ -495,7 +504,7 @@ const Registration = () => {
                   ? "register_fm"
                   : "register_fm_disabled"
               }
-              onClick={handleSubmit}
+              onClick={(e) =>handleSubmit(e)}
               text="Register"
               disabled={
                 !formState.isValid ||
@@ -505,7 +514,7 @@ const Registration = () => {
               }
             />
           </div>
-        </div>
+        </form>
       </div>
     </>
   );
