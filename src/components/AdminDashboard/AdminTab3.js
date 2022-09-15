@@ -18,6 +18,11 @@ import Button from "../Common/Button";
 import { toast } from "react-toastify";
 import validate from "validate.js";
 import { useTranslation, Trans } from "react-i18next";
+import ConfirmModal from '../Common/ConfirmModal';
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import Spinner from '../Common/Spinner';
 
 const schema = {
   code: {
@@ -30,6 +35,8 @@ const updateSchema = {
   },
 };
 
+const nestSortTitles = [];
+
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
   const [names, setNames] = useState([]);
@@ -37,10 +44,15 @@ const AdminTab3 = (props) => {
   const [id, setId] = useState();
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+  const [bomId, setBomId] = useState("");
 
   // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState("default");
   const [certificate_status, setCertificate_status] = useState("");
+  const [sort, setSort] = useState({key: "", ascend: true});
+
+  const {loading, rows, setBoms} = props;
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -137,6 +149,8 @@ const AdminTab3 = (props) => {
       .then((res) => {
         console.log("handleBomDelete", res);
         props.handleCountryData();
+        setBomId("");
+        setOpenModal(false);
         toast.success("BOMs deleted successfully");
       })
       .catch((err) => {
@@ -236,23 +250,34 @@ const AdminTab3 = (props) => {
         console.log("handleAddBom", err);
       });
   };
+
+  console.log("BOMS ", props.rows);
   return (
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                BOMs code <img src={DownArrow} alt="" />
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                BOMs code
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Status")} <img src={DownArrow} alt="" />
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                Status
+                {
+                          !sort.ascend ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required', true)} src={arrow_up} alt="" />
+                          ) : (
+                            <img onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required',false)} src={downArrow} alt="" />
+                          )
+                        }
               </TableCell>
 
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>Actions</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          {
+            loading ? <Spinner /> : (
+              <TableBody>
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
                 <TableCell
@@ -306,7 +331,10 @@ const AdminTab3 = (props) => {
                     alt=""
                     className="dltIcon"
                     style={{ cursor: "pointer" }}
-                    onClick={() => handleBomDelete(row._id)}
+                    onClick={() => {
+                      setBomId(row._id);
+                      setOpenModal(true);
+                    }}
                   />
 
                   <img
@@ -322,9 +350,14 @@ const AdminTab3 = (props) => {
               </TableRow>
             ))}
           </TableBody>
+            )
+          }
         </Table>
       </TableContainer>
       <PaginationPage />
+
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleBomDelete(bomId)} />
+
       {/* update modal */}
       <Modal
         open={open}

@@ -117,8 +117,9 @@ const Index = () => {
         console.log("err", err);
       });
   };
-  const handleClose = () => setCommentModal(false);
-  const handleModalOpen = () => setCommentModal(true);
+  
+  const handleClose = () => setCommentModal(false)
+  const handleModalOpen = () => setCommentModal(true) 
 
   return (
     <>
@@ -146,15 +147,16 @@ const Index = () => {
                 {validateCountry &&
                 validateProduct &&
                 inputList.length === 0 &&
-                inputListProduct.length === 0 ? (
+                inputListProduct.length === 0 ? 
                   <button className="validate_button" onClick={handleValidByAdmin}>
                     Validate the file
                   </button>
-                ) : (
+                
+                  :
                   <button className="validate_button" onClick={handleModalOpen}>
                     {t("Request document")}
                   </button>
-                )}
+                }
               </div>
             </div>
           </div>

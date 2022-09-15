@@ -1,20 +1,25 @@
-import React, { useState, useEffect } from "react";
-import PaginationPage from "./Pagination";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Modal from "../Common/Modal";
-import InputField from "../Common/InputField";
-import Button from "../Common/Button";
-import API from "../../api/index";
-import { toast } from "react-toastify";
-import DeleteIcon from "../../assets/DeleteIcon.svg";
-import validate from "validate.js";
+import React, { useState, useEffect } from 'react';
+import PaginationPage from './Pagination';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '../Common/Modal';
+import InputField from '../Common/InputField';
+import Button from '../Common/Button';
+import API from '../../api/index';
+import { toast } from 'react-toastify';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import validate from 'validate.js';
 import { useTranslation, Trans } from "react-i18next";
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import Spinner from "../Common/Spinner";
+import ConfirmModal from '../Common/ConfirmModal';
 
 const schema = {
   name: {
@@ -25,7 +30,10 @@ const schema = {
   },
 };
 
+const nestSortTitles = [];
+
 const AdminTab2 = (props) => {
+  const {rows, loading, setDocument} = props;
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -35,6 +43,10 @@ const AdminTab2 = (props) => {
     touched: {},
     errors: {},
   });
+  const [sort, setSort] = useState({key: "", ascend: true});
+  const [openModal, setOpenModal] = useState(false);
+  const [docId, setDocId] = useState("");
+
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -70,6 +82,8 @@ const AdminTab2 = (props) => {
       });
   };
 
+  console.log("Documents ", props.rows);
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState((formState) => ({
@@ -84,6 +98,8 @@ const AdminTab2 = (props) => {
       .then((res) => {
         console.log(res);
         props.handleCountryData();
+        setOpenModal(false);
+        setDocId("");
         toast.success("Document Deleted Successfully");
       })
       .catch((err) => {
@@ -111,8 +127,15 @@ const AdminTab2 = (props) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                Documents <img src={props.img} alt="" />
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                Documents 
+                {
+                          !sort.ascend ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name', true)} src={arrow_up} alt="" />
+                          ) : (
+                            <img onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name',false)} src={downArrow} alt="" />
+                          )
+                        }
               </TableCell>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 {t("Help Information")} <img src={props.img} alt="" />
@@ -123,9 +146,9 @@ const AdminTab2 = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.rows.map((row) => (
-              <TableRow key={row.createData}>
-                <TableCell style={{ width: "20%" }} component="th" scope="row" sx={{ padding: 2 }}>
+            {props.rows.map((row, index) => (
+              <TableRow key={index}>
+                <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
                   <p className="AP_plus_title">{row?.name}</p>
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{ padding: 2 }}>
@@ -137,7 +160,10 @@ const AdminTab2 = (props) => {
                     alt=""
                     className="dltIcon"
                     style={{ cursor: "pointer" }}
-                    onClick={() => handleDocumentDelete(row._id)}
+                    onClick={() => {
+                      setOpenModal(true);
+                      setDocId(row._id);
+                    }}
                   />
                 </TableCell>
               </TableRow>
@@ -146,6 +172,7 @@ const AdminTab2 = (props) => {
         </Table>
       </TableContainer>
       <PaginationPage />
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}

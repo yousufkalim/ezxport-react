@@ -2,42 +2,69 @@ import React, { useEffect, useState } from "react";
 import UserTable from "../../components/AdminDashboard/UserTable";
 import API from "../../api/index";
 import { useTranslation, Trans } from "react-i18next";
+import { getSortedData } from '../../lib/getSortedData';
 
 const HeadTitle = [
   {
-    list: "Last name",
+    list: 'Last name',
+    key: 'last_name',
+    sortIcon: true
   },
   {
-    list: "First name",
+    list: 'First name',
+    key: 'first_name',
+    sortIcon: true
   },
   {
-    list: "E-mail address",
+    list: 'E-mail address',
+    key: 'email'
+
   },
   {
-    list: "Telephone",
+    list: 'Telephone',
+    key:'phone_number'
   },
   {
-    list: "Address",
+    list: 'Address',
+    key: 'address'
   },
   {
-    list: "Postal code",
+    list: 'Postal code',
+    key: 'zipcode'
   },
   {
-    list: "Town",
+    list: 'Town',
+    key: 'city'
+
   },
   {
-    list: "Company name",
+    list: 'Company name',
+    key: 'name'
+
   },
   {
-    list: "Company type",
+    list: 'Company type',
+    key: 'type'
+
   },
   {
-    list: "VAT number",
+    list: 'VAT number',
+    key: 'vat'
+
   },
 ];
 
+const nestSortTitles = [
+  {
+    title: 'company',
+    fields: ['name', 'type', 'vat']
+  }
+]
+
 const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [sort, setSort] = useState({key: "", ascend: true});
+
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -55,9 +82,11 @@ const Users = () => {
         console.log(err);
       });
   };
+
+
   return (
     <>
-      <UserTable headTitle={HeadTitle} title="Users" rows={allUsers} />
+      <UserTable sort={sort} sortData={(field, ascend) => getSortedData( allUsers,setAllUsers, setSort, nestSortTitles, field, ascend)} headTitle={HeadTitle} title="Users" rows={allUsers} />
     </>
   );
 };

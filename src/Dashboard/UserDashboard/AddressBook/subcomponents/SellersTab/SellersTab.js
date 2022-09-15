@@ -242,9 +242,9 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                     <TableCell component="th" scope="row">
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
-                    <TableCell align="left" className="country2">
-                      {buyer?.country?.name}
-                      <br />
+                    <TableCell align="left" className="country2" >
+                    {buyer?.country?.name}
+                    <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
                       {buyer.email}

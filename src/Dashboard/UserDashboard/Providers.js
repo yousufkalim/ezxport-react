@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import SearchIcon from '../../assets/SearchIcon.svg';
 import ProvidersTable from '../../components/UserDashboard/ProvidersTable';
-import TitleDownArrow from '../../assets/TitleDownArrow.svg';
 import API from '../../api/index';
 import { toast } from 'react-toastify';
 import Spinner from '../../components/Common/Spinner';
@@ -29,7 +28,7 @@ const Providers = () => {
       const data = res?.data?.Uservendors?.map(item => item.vendor);
       setProviders(data);
       setLoading(false);
-      toaster('success', "testing");
+      // toaster('success', "testing");
     }).catch((err) => {
       toast.error('Something went wrong!')
       setLoading(false);

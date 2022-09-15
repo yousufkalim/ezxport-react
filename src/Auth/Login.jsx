@@ -59,11 +59,7 @@ const Login = () => {
       values: {
         ...formState.values,
         [event.target.name]: event.target.value,
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true,
-      },
+      }
     }));
   };
   const handleLoggin = async () => {
@@ -91,6 +87,23 @@ const Login = () => {
       });
   };
 
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const {name} = e.target;
+    const errors = validate(formState.values, schema);
+    console.log("Errors ", errors );
+    console.log("Lastest state  ", formState);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: {...formState.touched, [name]: true},
+      isValid: errors ? false : true
+
+    }))
+  }
+
+  console.log("Formm state ", formState);
+
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   //checks error in the selected field
@@ -99,7 +112,7 @@ const Login = () => {
     <>
       <Header />
       <div className="login_mainDiv">
-        <div className="loginCenterDiv">
+        <form autoComplete="off" className="loginCenterDiv">
           {/* HEADING  */}
           <div className="login_icon_div">
             <img src={LoginIcon} alt="" className="login_icons" />
@@ -107,42 +120,37 @@ const Login = () => {
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="E-mail address">{t("E-mail address")}</label>
             <InputField
-              className={
-                hasError("email") && formState.errors.email ? "input_email_red" : "input_email"
-              }
+              label="E-mail address"
+              isError={hasError("email")}
+              error={formState.errors.email}
               name="email"
-              type="email"
+              onBlur={(e) => handleBlur(e)}
+              // role="presentation" 
+              autoComplete="off"
+              type="text"
               placeholder="mail@mail.com"
               value={formState.values.email}
-              onChange={handleChange}
+              onChange={(e) =>handleChange(e)}
             />
-            <div className="error-format">
-              {hasError("email") ? formState.errors.email[0] : null}
-            </div>
           </div>
           {/* PASSWORD  */}
           <div className="email_inputs_div">
-            <label htmlFor="Password">Password</label>
             <InputField
-              className={
-                hasError("password") && formState.errors.password
-                  ? "input_email_red"
-                  : "input_email"
-              }
+              label="Password"
+              isError={hasError("password")}
+              error={formState.errors.password}
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
-              onChange={handleChange}
+              onBlur={(e) => handleBlur(e)}
+              onChange={(e) => handleChange(e)}
+              autoComplete="newPassword"
               value={formState.values.password}
               visibleEye
               icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
-              onClick={handleShowPassword}
+              onClick={() => handleShowPassword()}
             />
-            <div className="error-format">
-              {hasError("password") ? formState.errors.password[0] : null}
-            </div>
             <div className="forgot_p-div">
               <Link to="/forgetpassword" className="forgot_p">
                 Forgot your password ?
@@ -164,7 +172,7 @@ const Login = () => {
               Register
             </Link>
           </div>
-        </div>
+        </form>
       </div>
     </>
   );

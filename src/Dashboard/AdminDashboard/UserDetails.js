@@ -19,6 +19,9 @@ import API from "../../api/index";
 // import { toast } from 'react-toastify';
 import Moment from "moment";
 import { useTranslation, Trans } from "react-i18next";
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -69,6 +72,8 @@ const UserDetails = () => {
   const [vatNumber, setVatNumber] = useState("");
   // user request states
   const [requestById, setRequestById] = useState([]);
+  const [sort, setSort] = useState({key: "", ascend: true});
+  const [requestLoading, setRequestLoading] = useState(false);
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -99,16 +104,20 @@ const UserDetails = () => {
   };
 
   const handleRequestByUserId = async () => {
-    await API("get", `/requests/getByUser/${id}`)
+    setRequestLoading(true);
+    await API('get', `/requests/getByUser/${id}`)
       .then((res) => {
         console.log("🚀 ~ file: UserDetails.js ~ line 107 ~ .then ~ res", res);
         setRequestById(res?.data?.request);
+        setRequestLoading(false);
         // console.log("first", res.data);
       })
       .catch((err) => {
         console.log("err---->", err);
       });
   };
+
+  console.log("Request  ", requestById);
 
   return (
     <>
@@ -246,7 +255,14 @@ const UserDetails = () => {
                                 className="country"
                                 style={{ backgrounColor: "#EAECF0" }}
                               >
-                                {t("Request")}
+                                {t("Request")} &nbsp;
+                                {
+                                  !sort.ascend ? (
+                                    <img className='sorting-icon' onClick={() => getSortedData(requestById,setRequestById, setSort, [],'title', true)} src={arrow_up} alt="" />
+                                  ) : (
+                                    <img onClick={() => getSortedData(requestById,setRequestById, setSort, [],'title', false)} src={downArrow} alt="" />
+                                  )
+                                }
                               </TableCell>
                               <TableCell
                                 align="left"
