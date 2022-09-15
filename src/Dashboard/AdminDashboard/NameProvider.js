@@ -18,13 +18,13 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import AdminTab1 from '../../components/AdminDashboard/AdminTab1';
-import AdminTab2 from '../../components/AdminDashboard/AdminTab2';
-import DownArrow from '../../assets/TitleDownArrow.svg';
 import { useParams } from 'react-router-dom';
 import API from '../../api/index';
 import { toast } from 'react-toastify';
 import validate from 'validate.js';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
 
 const schema = {
   fullName: {
@@ -111,6 +111,7 @@ const NameProvider = () => {
   const [fullname, setFullname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countries, setCountries] = useState();
+  const [sort, setSort] = useState({key: "", ascend: true});
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -301,7 +302,14 @@ const NameProvider = () => {
                                 backgroundColor: '#F9FAFB',
                               }}
                             >
-                              Country <img src={DownArrow} alt="" />
+                              Country
+                              {
+                                !sort.ascend ? (
+                                  <img className='sorting-icon' onClick={() => getSortedData(countries,setCountries, setSort, [],'name', true)} src={arrow_up} alt="" />
+                                ) : (
+                                  <img onClick={() => getSortedData(countries,setCountries, setSort, [],'name',false)} src={downArrow} alt="" />
+                                )
+                              }
                             </TableCell>
                           </TableRow>
                         </TableHead>

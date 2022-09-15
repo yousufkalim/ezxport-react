@@ -18,6 +18,10 @@ import Button from '../Common/Button';
 import { toast } from 'react-toastify';
 import validate from 'validate.js';
 import ConfirmModal from '../Common/ConfirmModal';
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import Spinner from '../Common/Spinner';
 
 const schema = {
   code: {
@@ -29,6 +33,8 @@ const updateSchema = {
     presence: { allowEmpty: false, message: 'is required' },
   },
 };
+
+const nestSortTitles = [];
 
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
@@ -43,6 +49,9 @@ const AdminTab3 = (props) => {
   // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState('default');
   const [certificate_status, setCertificate_status] = useState('');
+  const [sort, setSort] = useState({key: "", ascend: true});
+
+  const {loading, rows, setBoms} = props;
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -237,6 +246,8 @@ const AdminTab3 = (props) => {
         console.log('handleAddBom', err);
       });
   };
+
+  console.log("BOMS ", props.rows);
   return (
     <>
       <TableContainer component={Paper}>
@@ -244,16 +255,25 @@ const AdminTab3 = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                BOMs code <img src={DownArrow} alt="" />
+                BOMs code
               </TableCell>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                Status <img src={DownArrow} alt="" />
+                Status
+                {
+                          !sort.ascend ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required', true)} src={arrow_up} alt="" />
+                          ) : (
+                            <img onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required',false)} src={downArrow} alt="" />
+                          )
+                        }
               </TableCell>
 
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>Actions</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          {
+            loading ? <Spinner /> : (
+              <TableBody>
             {props.rows.map((row) => (
               <TableRow key={row.createData}>
                 <TableCell
@@ -326,6 +346,8 @@ const AdminTab3 = (props) => {
               </TableRow>
             ))}
           </TableBody>
+            )
+          }
         </Table>
       </TableContainer>
       <PaginationPage />

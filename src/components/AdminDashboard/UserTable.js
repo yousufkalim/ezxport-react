@@ -12,7 +12,6 @@ import ExportIcon from '../../assets/ExportIcon.svg';
 import PaginationPage from './Pagination';
 import { useHistory } from 'react-router-dom';
 import downArrow from '../../assets/TitleDownArrow.svg';
-import upArrow from '../../assets/UpArrow.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 
 const UserTable = (props) => {
@@ -48,9 +47,9 @@ const UserTable = (props) => {
                         {item.list}
                         &nbsp;
                         {
-                          !props.sort.ascend && props.sort.key === item.key ? (
+                          item.sortIcon && !props.sort.ascend && props.sort.key === item.key ? (
                             <img className='sorting-icon' onClick={() => props.sortData(item.key, true)} src={arrow_up} alt="" />
-                          ) : (
+                          ) : item.sortIcon && (
                             <img onClick={() => props.sortData(item.key, false)} src={downArrow} alt="" />
                           )
                         }

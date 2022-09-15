@@ -6,12 +6,13 @@ import { getSortedData } from '../../lib/getSortedData';
 const HeadTitle = [
   {
     list: 'Last name',
-    key: 'last_name'
+    key: 'last_name',
+    sortIcon: true
   },
   {
     list: 'First name',
-    key: 'first_name'
-
+    key: 'first_name',
+    sortIcon: true
   },
   {
     list: 'E-mail address',
@@ -77,16 +78,6 @@ const Users = () => {
       });
   };
 
-  const handleSort = (field, ascend, data, setData,setSort ,nestedTitles) => {
-    console.log("handle field ===>  ", field);
-    console.log("handle ascend ===>  ", ascend);
-    console.log("handle data ===>  ", data);
-    console.log("handle data ===>  ", nestedTitles);
-    getSortedData(data, setData,setSort ,nestedTitles,field, ascend, (res) => {
-      console.log("Get sorted data ", res);
-    })
-    // setData(sortedUsers)
-  }
 
   return (
     <>

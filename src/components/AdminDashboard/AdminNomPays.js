@@ -59,6 +59,7 @@ const AdminNomPays = () => {
   const [vendor, setVendor] = useState();
   const [country, setCountry] = useState("");
   const [document, setDocument] = useState();
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
   const [openAddDocument, setOpenAddDocument] = useState(false);
@@ -67,6 +68,7 @@ const AdminNomPays = () => {
   const [currentRadioValue, setCurrentRadioValue] = useState("");
   const [calculation, setCalculation] = useState();
   const [file, setFile] = useState("");
+
   useEffect(() => {
     handleCountryData();
   }, [openCalculationModal]);
@@ -74,6 +76,7 @@ const AdminNomPays = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
+    setLoading(true);
     await API("get", `/countries/${id}`)
       .then((res) => {
         setCountry(res?.data?.country);
@@ -82,15 +85,18 @@ const AdminNomPays = () => {
         setBoms(res?.data?.country?.boms);
         setCalculation(res?.data?.country?.calculation);
         setCurrentRadioValue(res?.data?.country?.calculation?.type);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("---->ERR", err);
+        setLoading(false);
       });
   };
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
   const handleAddBomModalClose = () => setOpenAddBomModal(false);
   const handleAddDocumentModalClose = () => setOpenAddBomModal(false);
+
   const handleCodesFile = async (file) => {
     setFile(file);
     console.log("eeeee", file);
@@ -172,7 +178,7 @@ const AdminNomPays = () => {
 
               <TabPanel value={value} index={0}>
                 <div className="list_table">
-                  <AdminTab1 vendor={vendor} />
+                  <AdminTab1 loading={loading} setVendor={setVendor} vendor={vendor} />
                 </div>
               </TabPanel>
               {/* table 2 */}
@@ -181,6 +187,7 @@ const AdminNomPays = () => {
                   <AdminTab2
                     rows={document}
                     img={DownArrow}
+                    loading={loading} setDocument={setDocument}
                     handleAddDocumentModalClose={handleAddDocumentModalClose}
                     openAddDocument={openAddDocument}
                     setOpenAddDocument={setOpenAddDocument}
@@ -194,6 +201,8 @@ const AdminNomPays = () => {
                 <div className="list_table">
                   <AdminTab3
                     rows={boms}
+                    setBoms={setBoms}
+                    loading={loading}
                     handleCountryData={handleCountryData}
                     setOpenAddBomModal={setOpenAddBomModal}
                     openAddBomModal={openAddBomModal}

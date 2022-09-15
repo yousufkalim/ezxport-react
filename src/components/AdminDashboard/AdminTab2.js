@@ -14,6 +14,11 @@ import API from '../../api/index';
 import { toast } from 'react-toastify';
 import DeleteIcon from '../../assets/DeleteIcon.svg';
 import validate from 'validate.js';
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import Spinner from "../Common/Spinner";
+import ConfirmModal from '../Common/ConfirmModal';
 
 const schema = {
   name: {
@@ -24,7 +29,10 @@ const schema = {
   },
 };
 
+const nestSortTitles = [];
+
 const AdminTab2 = (props) => {
+  const {rows, loading, setDocument} = props;
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -34,6 +42,10 @@ const AdminTab2 = (props) => {
     touched: {},
     errors: {},
   });
+  const [sort, setSort] = useState({key: "", ascend: true});
+  const [openModal, setOpenModal] = useState(false);
+  const [docId, setDocId] = useState("");
+
   // const [name, setName] = useState("");
   // const [info, setInfo] = useState("");
 
@@ -65,6 +77,8 @@ const AdminTab2 = (props) => {
       });
   };
 
+  console.log("Documents ", props.rows);
+
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState((formState) => ({
@@ -79,6 +93,8 @@ const AdminTab2 = (props) => {
       .then((res) => {
         console.log(res);
         props.handleCountryData();
+        setOpenModal(false);
+        setDocId("");
         toast.success('Document Deleted Successfully');
       })
       .catch((err) => {
@@ -107,7 +123,14 @@ const AdminTab2 = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                Documents <img src={props.img} alt="" />
+                Documents 
+                {
+                          !sort.ascend ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name', true)} src={arrow_up} alt="" />
+                          ) : (
+                            <img onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name',false)} src={downArrow} alt="" />
+                          )
+                        }
               </TableCell>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Help Information <img src={props.img} alt="" />
@@ -118,8 +141,8 @@ const AdminTab2 = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.rows.map((row) => (
-              <TableRow key={row.createData}>
+            {props.rows.map((row, index) => (
+              <TableRow key={index}>
                 <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
                   <p className="AP_plus_title">{row?.name}</p>
                 </TableCell>
@@ -132,7 +155,10 @@ const AdminTab2 = (props) => {
                     alt=""
                     className="dltIcon"
                     style={{ cursor: 'pointer' }}
-                    onClick={() => handleDocumentDelete(row._id)}
+                    onClick={() => {
+                      setOpenModal(true);
+                      setDocId(row._id);
+                    }}
                   />
                 </TableCell>
               </TableRow>
@@ -141,6 +167,7 @@ const AdminTab2 = (props) => {
         </Table>
       </TableContainer>
       <PaginationPage />
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}
