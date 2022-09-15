@@ -233,8 +233,7 @@ const ServiceProviders = () => {
                         }
                     </TableCell>
                     <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                      {t("Associated countries")} &nbsp;
-                      <img src={DownArrow} alt="" />
+                      {t("Associated countries")}
                     </TableCell>
                   </TableRow>
                 </TableHead>

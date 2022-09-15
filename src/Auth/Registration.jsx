@@ -360,6 +360,7 @@ const Registration = () => {
                   />
               </div>
             </div>
+            </div>
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
