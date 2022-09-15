@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import SearchIcon from '../../assets/SearchIcon.svg';
-import ProvidersTable from '../../components/UserDashboard/ProvidersTable';
-import TitleDownArrow from '../../assets/TitleDownArrow.svg';
-import API from '../../api/index';
-import { toast } from 'react-toastify';
-import Spinner from '../../components/Common/Spinner';
+import React, { useEffect, useState } from "react";
+import SearchIcon from "../../assets/SearchIcon.svg";
+import ProvidersTable from "../../components/UserDashboard/ProvidersTable";
+// import TitleDownArrow from '../../assets/TitleDownArrow.svg';
+import API from "../../api/index";
+import { toast } from "react-toastify";
+import { useTranslation, Trans } from "react-i18next";
+
+// import Spinner from '../../components/Common/Spinner';
 
 const Providers = () => {
-
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const user = localStorage.getItem('userData')
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+  const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 
   useEffect(() => {
@@ -19,34 +22,35 @@ const Providers = () => {
 
   const getProviders = async () => {
     setLoading(true);
-    await API('get', `/vendors/userVendor/${userData._id}`).then((res) => {
-      const data = res?.data?.Uservendors?.map(item => item.vendor);
-      setProviders(data);
-      setLoading(false);
-    }).catch((err) => {
-      toast.error('Something went wrong!')
-      setLoading(false);
-    });
-  }
+    await API("get", `/vendors/userVendor/${userData._id}`)
+      .then((res) => {
+        const data = res?.data?.Uservendors?.map((item) => item.vendor);
+        setProviders(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong!");
+        setLoading(false);
+      });
+  };
 
   return (
     <>
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div5">
-            <h1 className="list_h1_provider">Service providers</h1>
+            <h1 className="list_h1_provider">{t("Service providers")}</h1>
             <div className="searching_provider">
               <input type="text" className="search_input" placeholder="To Search" />
               <img src={SearchIcon} alt="" className="search_icon" />
             </div>
           </div>
           <ProvidersTable
-              data={providers}
-              getProviders={getProviders}
-              dataLoading={loading}
-              // Icons={false}
-            />
-          
+            data={providers}
+            getProviders={getProviders}
+            dataLoading={loading}
+            // Icons={false}
+          />
         </div>
       </div>
     </>
