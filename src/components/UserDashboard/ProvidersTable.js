@@ -12,8 +12,24 @@ import API from "../../api/index";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
 import { useTranslation, Trans } from "react-i18next";
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from "../../lib/getSortedData";
 
-const tableHeadings = ["Service provider", "Contact", "Associated countries", "Actions"];
+const tableHeadings = [ {
+  name: "Service provider",
+  sortIcon: true,
+  key: 'name'
+}, {
+  name: "Contact"
+}, 
+{
+  name: "Associated countries"
+},
+{
+  name: "Actions"
+}
+];
 
 const ProvidersTable = (props) => {
   const [open, setOpen] = useState(false);
@@ -21,6 +37,9 @@ const ProvidersTable = (props) => {
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
   const [provider, setProvider] = useState(null);
+  const [sort, setSort] = useState({key: "", ascend: true});
+
+  const {data, setData} = props;
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -73,16 +92,23 @@ const ProvidersTable = (props) => {
                         className="country"
                         style={{ backgrounColor: "#EAECF0" }}
                       >
-                        {t(item)} &nbsp;
-                        {/* <img src={item.imgSrc} alt="" className="title_arrow" /> */}
+                        {t(item.name)} &nbsp;
+                        {
+                          item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                            <img className='sorting-icon' onClick={() => getSortedData(data,setData, setSort, [],'name', true)} src={arrow_up} alt="" />
+                          ) : item.sortIcon && (
+                            <img onClick={() => getSortedData(data,setData, setSort, [],'name', false)} src={downArrow} alt="" />
+                          )
+                        }
                       </TableCell>
                     );
                   })}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props?.data.map((item) => (
+                {props?.data.map((item, index) => (
                   <TableRow
+                    key={index}
                     onClick={() => handleModalOpen(false, item)}
                     style={{ cursor: "pointer" }}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -19,10 +19,13 @@ import EditIcon from '../../../../../assets/EditIcon.svg';
 import Spinner from '../../../../../components/Common/Spinner';
 import Button from '../../../../../components/Common/Button';
 import { useTranslation, Trans } from "react-i18next";
+import downArrow from '../../../../../assets/TitleDownArrow.svg';
+import arrow_up from '../../../../../assets/arrow_up.svg';
+import { getSortedData } from "../../../../../lib/getSortedData";
 
 
 const title = [
-  { heading: "Company Name", imgSrc: TitleDownArrow },
+  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -83,6 +86,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
       const [location, setLocation] = useState(null);
       const [loading, setLoading] = useState(false);
       const [isEdit, setIsEdit] = useState(false);
+      const [sort, setSort] = useState({key: "", ascend: true});
         
       useEffect(() => {
         fetchLocations();
@@ -246,7 +250,13 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                         {t(item.heading)} &nbsp;
-                        <img src={item.imgSrc} alt="" className="title_arrow" />
+                        {
+                              item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                                <img className='sorting-icon' onClick={() => getSortedData(locations,setLocations, setSort, [],'company_name', true)} src={arrow_up} alt="" />
+                              ) : item.sortIcon && (
+                                <img onClick={() => getSortedData(locations,setLocations, setSort, [],'company_name',false)} src={downArrow} alt="" />
+                              )
+                            }
                     </TableCell>
                   );
                 })}
