@@ -40,7 +40,7 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
         <div className="company_input_div">
           <div className="company_input_col">
             <label className="email_input_label" htmlFor="">
-              Last name
+              {t("Last name")}
             </label>
             <InputField
               value={formData.name}
@@ -48,7 +48,7 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
               onChange={(e) => handleChange(e)}
               type="text"
               className="company_input"
-              placeholder="Last name"
+              placeholder={t("Last name")}
             />
           </div>
           <div className="company_input_society">

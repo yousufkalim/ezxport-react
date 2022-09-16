@@ -196,12 +196,12 @@ const Registration = () => {
   };
   const handleBlur = (e) => {
     e.preventDefault();
-    const {name} = e.target;
+    const { name } = e.target;
     const errors = validate(formState.values, schema);
     setFormState((formState) => ({
       ...formState,
       errors: errors ?? {},
-      touched: {...formState.touched, [name]: true},
+      touched: { ...formState.touched, [name]: true },
       isValid: errors ? false : true
 
     }))
@@ -358,8 +358,8 @@ const Registration = () => {
                     name="town"
                     onChange={handleChange}
                   />
+                </div>
               </div>
-            </div>
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
@@ -409,11 +409,11 @@ const Registration = () => {
                   type="text"
                   className={
                     hasError("companyLastName") &&
-                    formState.errors.companyLastName
+                      formState.errors.companyLastName
                       ? "reg_input_red"
                       : "reg_input"
                   }
-                  placeholder="Last name"
+                  placeholder={t("Last name")}
                   required
                   value={formState.values.companyLastName}
                   name="companyLastName"
@@ -424,7 +424,7 @@ const Registration = () => {
                     ? formState.errors.companyLastName[0]
                     : null}
                 </div>
-              </div>
+              </div >
               <div className="regist_col1">
                 <label htmlFor="">{t("Type of society")}</label>
                 <select
@@ -446,10 +446,10 @@ const Registration = () => {
                   <option value="5">Type 5</option>
                 </select>
                 <div className="error-format">
-                  {hasError("typeOfSociety") && formState.touched.typeOfSociety  ? formState.errors.typeOfSociety[0] : null}
+                  {hasError("typeOfSociety") && formState.touched.typeOfSociety ? formState.errors.typeOfSociety[0] : null}
                 </div>
               </div>
-            </div>
+            </div >
             <div className="regist_input_div">
               <div className="regist_col1">
                 <label htmlFor=""></label>
@@ -467,24 +467,24 @@ const Registration = () => {
                 />
               </div>
             </div>
-          </div>
+          </div >
           {/* ///  */}
-          <div className="btn_div">
+          <div div className="btn_div" >
             <Button
               className={
                 formState.isValid && formState.values.typeOfSociety != "default"
                   ? "register_fm"
                   : "register_fm_disabled"
               }
-              onClick={(e) =>handleSubmit(e)}
+              onClick={(e) => handleSubmit(e)}
               text="Register"
               disabled={
                 !formState.isValid || formState.values.typeOfSociety === "default" ? true : false
               }
             />
           </div>
-        </form>
-      </div>
+        </form >
+      </div >
     </>
   );
 };

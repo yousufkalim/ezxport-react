@@ -18,7 +18,7 @@ const AddressBook = (props) => {
 
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Company Name")}</label>
+              <label className="label_modal">{t("Company name")}</label>
               <InputField
                 disabled
                 className="company_name_input"
@@ -27,7 +27,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Country</label>
+              <label className="label_modal">{t("Country")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -58,7 +58,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Full Address")}</label>
+              <label className="label_modal">{t("Full address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -68,7 +68,7 @@ const AddressBook = (props) => {
             </div>
             <div className="steps_3_2inFeilds">
               <div className="postel_input">
-                <label className="label_modal">Postel Code</label>
+                <label className="label_modal">{t("Postal code")}</label>
                 <InputField
                   className="company_name_input"
                   disabled
@@ -93,7 +93,7 @@ const AddressBook = (props) => {
 
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Company Name")}</label>
+              <label className="label_modal">{t("Company name")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -102,7 +102,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Country</label>
+              <label className="label_modal">{t("Country")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -113,7 +113,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("E-Mail Address")}</label>
+              <label className="label_modal">{t("E-mail address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -133,7 +133,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Full Address")}</label>
+              <label className="label_modal">{t("Full address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -143,7 +143,7 @@ const AddressBook = (props) => {
             </div>
             <div className="steps_3_2inFeilds">
               <div style={{ width: "35%" }}>
-                <label className="label_modal">Postel Code</label>
+                <label className="label_modal">{t("Postal code")}</label>
                 <InputField
                   className="company_name_input"
                   disabled
@@ -178,7 +178,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Company Name")}</label>
+              <label className="label_modal">{t("Company name")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -187,7 +187,7 @@ const AddressBook = (props) => {
               />
             </div>
             <div className="speps_3_feilds">
-              <label className="label_modal">Country</label>
+              <label className="label_modal">{t("Country")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -198,7 +198,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("E-Mail Address")}</label>
+              <label className="label_modal">{t("E-mail address")}</label>
               <InputField
                 disabled
                 className="company_name_input"
@@ -218,7 +218,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("Full Address")}</label>
+              <label className="label_modal">{t("Full address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -228,7 +228,7 @@ const AddressBook = (props) => {
             </div>
             <div className="steps_3_2inFeilds">
               <div style={{ width: "35%" }}>
-                <label className="label_modal">Postel Code</label>
+                <label className="label_modal">{t("Postal code")}</label>
                 <InputField
                   className="company_name_input"
                   disabled

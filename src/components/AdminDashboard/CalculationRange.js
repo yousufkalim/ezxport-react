@@ -352,7 +352,7 @@ const CalculationRange = (props) => {
       <Modal
         open={editModal}
         setOpen={setEditModal}
-        title="Edit Range"
+        title={t("Edit Range")}
         handleClose={handleEditModalClose}
         Closebtn={true}
       >

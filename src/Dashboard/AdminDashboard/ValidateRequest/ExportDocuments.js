@@ -74,7 +74,9 @@ const ExportDocuments = (props) => {
         </Grid>
 
         <div className="request_documents">
-          <p className="request_documents_title">{`Request other documents for ${props.requestById.country.name}`}</p>
+          <p className="request_documents_title">{`${t("Request other documents for")} ${t(
+            props.requestById.country.name
+          )}`}</p>
           {/* Request other documents  */}
 
           {props.inputList?.map((item, index) => {
@@ -101,7 +103,7 @@ const ExportDocuments = (props) => {
                     name="name"
                     type="text"
                     className="request_documents_input"
-                    placeholder="Enter Document name"
+                    placeholder={t("Enter Document name")}
                     onChange={(e) => handleInputChange(e, index)}
                     value={item.name}
                   />
@@ -112,7 +114,7 @@ const ExportDocuments = (props) => {
 
           <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
             <img src={PlusButton} alt="" onClick={handleAddClick} />
-            <p className="add_ducoment_p">Request another document</p>
+            <p className="add_ducoment_p">{t("Request another document")}</p>
           </div>
         </div>
 
@@ -120,7 +122,7 @@ const ExportDocuments = (props) => {
           return (
             <>
               <ValidateButton
-                text={`${code.code.code} – BOM name`}
+                text={`${code.code.code} – ${t("BOM name")}`}
                 className="Validator_document_btn_div"
               />
               {code?.products?.map((product, pIndex) => {

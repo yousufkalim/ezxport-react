@@ -19,12 +19,12 @@ const AddProduct = (props) => {
           <input
             type="text"
             className="request_documents_input"
-            placeholder="Enter Document name"
+            placeholder={t("Enter Document name")}
           />
         </div>
         <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
           <img src={PlusButton} alt="" onClick={() => props?.setAddProduct(true)} />
-          <p className="add_ducoment_p">Request another document</p>
+          <p className="add_ducoment_p">{t("Request another document")}</p>
         </div>
       </div>
     </>

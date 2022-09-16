@@ -208,7 +208,7 @@ const AdminTab2 = (props) => {
           />
           <div className="error-format">{hasError("info") ? formState.errors.info[0] : null}</div>
           <Button
-            text="Add Document"
+            text={t("Add Documents")}
             disabled={!formState.isValid ? true : false}
             className={formState.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
             onClick={handleAddDocuments}
