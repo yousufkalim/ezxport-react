@@ -101,7 +101,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Company Name")}</label>
+            <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
               placeholder="Country Name"

@@ -702,6 +702,27 @@
   margin-top: 5px;
 }
 
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #6941c6;
+  border-radius: 30px;
+  opacity: 0.8;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #7f5fc7;
+}
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .dashboard_li {
     font-size: 14px;
