@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import Modal from "../../../components/Common/Modal";
 import Button from "../../../components/Common/Button";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useTranslation, Trans } from "react-i18next";
 
 const Index = () => {
   const history = useHistory();
@@ -23,6 +24,9 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [modalBtn, setModalBtn] = useState(false);
   const [comment, setComment] = useState("");
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   const params = useParams();
 
@@ -115,8 +119,9 @@ const Index = () => {
         console.log("err", err);
       });
   };
-  const handleClose = () => setCommentModal(false);
-  const handleModalOpen = () => setCommentModal(true);
+
+  const handleClose = () => setCommentModal(false)
+  const handleModalOpen = () => setCommentModal(true)
 
   return (
     <>
@@ -140,20 +145,19 @@ const Index = () => {
           {countTabe === 2 &&
             <div>
               <Button text="Download the file" className="validate_button2" />
-                &nbsp;
-                {validateCountry &&
+              &nbsp;
+              {validateCountry &&
                 validateProduct &&
                 inputList.length === 0 &&
                 inputListProduct.length === 0 ? (
-                  <Button text="Validate the file" className="validate_button" onClick={handleValidByAdmin} />
-                ) : (
+                <Button text="Validate the file" className="validate_button" onClick={handleValidByAdmin} />
+              ) : (
                 <Button text="Request document" className="validate_button" onClick={handleModalOpen} />
               )}</div>
           }
           {/* </div> */}
         </div>
       </div>
-
 
       <CompanyInformation
         TabeProps={TabeProps}
@@ -190,7 +194,7 @@ const Index = () => {
           }}
         />
         <Button text="Submit" className="bom_downloadFile_btn" onClick={handleRequestDoc} disabled={modalBtn === true && comment === "" && true} />
-      </Modal>
+      </Modal >
     </>
   );
 };

@@ -26,7 +26,7 @@ const AdminCountry = (props) => {
               <SearchField placeholder="Searching_AddService" />
               <Button
                 className="list_reqst_btn2"
-                text={'Add a service provider'}
+                text={t("Add a service provider")}
                 Imgsrc={PlusIcon}
               />
             </div>
@@ -37,11 +37,11 @@ const AdminCountry = (props) => {
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow>
-                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       {props.text} <img src={props.img} alt="" />
                     </TableCell>
-                    {history.location.pathname == '/Admin/Dashboard/Service' && (
-                      <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                    {history.location.pathname == "/Admin/Dashboard/Service" && (
+                      <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                         {props.text2}
                         &nbsp;
                         <img src={props.img} alt="" />
@@ -53,17 +53,17 @@ const AdminCountry = (props) => {
                   {props.rows.map((row) => (
                     <TableRow
                       key={row.createData}
-                      // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
+                    // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
                     >
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                       >
                         <NavLink
                           exact
                           to="/Admin/Dashboard/NomPays"
-                          style={{ textDecoration: 'none', color: 'black' }}
+                          style={{ textDecoration: "none", color: "black" }}
                         >
                           {row.createData}
                         </NavLink>
@@ -72,7 +72,7 @@ const AdminCountry = (props) => {
                       <TableCell
                         component="th"
                         scope="row"
-                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                        sx={{ border: "1px solid #E5E5E5;", padding: 2 }}
                       >
                         {row.createData}
                       </TableCell>

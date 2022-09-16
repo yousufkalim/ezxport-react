@@ -51,32 +51,36 @@ const DocumentByRequest = ({loading, documents}) => {
                     loading ? <Spinner /> : (      
                         <React.Fragment>
                             {
-                                documents.length > 0 && documents.map(({documents, requestId, title}) => (
-                                    <React.Fragment key={requestId}>
-                                        <ListItemButton onClick={(e) =>handleClick(requestId)} sx={{ border: '1px solid #EAECF0' }}>
-                                            <li className="table_li" style={{ marginRight: 'auto', display: 'flex' }}>
-                                            {title}
-                                            </li>
-                                            <img onClick={(e) => downloadZipFile(e , requestId)} src={DownloadIcon} alt="" className="downlaod_img_main" />
-                                            {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
-                                        </ListItemButton>
-                                        <Collapse in={request.open && request.id === requestId} timeout="auto" unmountOnExit>
-                                            {
-                                                documents.length > 0 && documents.map(({_id:docId, doc_id}) => (
-                                                    <ListItemButton
-                                                        sx={{ border: '1px solid #EAECF0', display: 'flex' }}
-                                                    >
-                                                        <li className="table_li2" style={{ marginRight: 'auto', display: 'flex' }}>
-                                                        <img src={RightArrow} alt="" className="rightArrow" />
-                                                            {doc_id.name}
-                                                        </li>
-                                                        <img onClick={(e) => downloadDocument(e ,requestId ,doc_id._id)} src={DownloadIcon} alt="" className="downlaod_img" />                                                    
-                                                    </ListItemButton>
-                                                ))
-                                            }
-                                        </Collapse>
-                                    </React.Fragment>
-                                ))
+                                documents.length > 0 && documents.map(({requestId, title}) => {
+                                    if(documents?.documents){
+                                        return (
+                                            <React.Fragment key={requestId}>
+                                                <ListItemButton onClick={(e) =>handleClick(requestId)} sx={{ border: '1px solid #EAECF0' }}>
+                                                    <li className="table_li" style={{ marginRight: 'auto', display: 'flex' }}>
+                                                    {title}
+                                                    </li>
+                                                    <img onClick={(e) => downloadZipFile(e , requestId)} src={DownloadIcon} alt="" className="downlaod_img_main" />
+                                                    {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
+                                                </ListItemButton>
+                                                <Collapse in={request.open && request.id === requestId} timeout="auto" unmountOnExit>
+                                                    {
+                                                        documents?.documents?.length > 0 && documents?.documents?.map(({_id:docId, doc_id}) => (
+                                                            <ListItemButton
+                                                                sx={{ border: '1px solid #EAECF0', display: 'flex' }}
+                                                            >
+                                                                <li className="table_li2" style={{ marginRight: 'auto', display: 'flex' }}>
+                                                                <img src={RightArrow} alt="" className="rightArrow" />
+                                                                    {doc_id?.name}
+                                                                </li>
+                                                                <img onClick={(e) => downloadDocument(e ,requestId ,doc_id._id)} src={DownloadIcon} alt="" className="downlaod_img" />                                                    
+                                                            </ListItemButton>
+                                                        ))
+                                                    }
+                                                </Collapse>
+                                            </React.Fragment>
+                                        )
+                                    }
+                                })
                             }
                         </React.Fragment>
                     )

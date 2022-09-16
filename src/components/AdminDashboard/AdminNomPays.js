@@ -1,23 +1,23 @@
-import SearchField from '../../components/Common/SearchField';
-import Button from '../../components/Common/Button';
-import BackArrow from '../../assets/BackArrow.svg';
-import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import AdminTab1 from './AdminTab1';
-import AdminTab2 from './AdminTab2';
-import AdminTab3 from './AdminTab3';
-import AdminTab4 from './AdminTab4';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import { useParams } from 'react-router-dom';
-import API from '../../api/index';
-import FilePicker from '../../components/Common/FilePicker';
-import Icon from '../../assets/Quiz.png';
-import Modal from '../../components/Common/Modal';
+import SearchField from "../../components/Common/SearchField";
+import Button from "../../components/Common/Button";
+import BackArrow from "../../assets/BackArrow.svg";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
+import AdminTab1 from "./AdminTab1";
+import AdminTab2 from "./AdminTab2";
+import AdminTab3 from "./AdminTab3";
+import AdminTab4 from "./AdminTab4";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import { useParams } from "react-router-dom";
+import API from "../../api/index";
+import FilePicker from "../../components/Common/FilePicker";
+import { useTranslation, Trans } from "react-i18next";
+import Modal from "../../components/Common/Modal";
 
 import { toast } from 'react-toastify';
 
@@ -51,7 +51,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -62,6 +62,7 @@ const AdminNomPays = () => {
   const [vendor, setVendor] = useState();
   const [country, setCountry] = useState("");
   const [document, setDocument] = useState();
+  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [openCalculationModal, setOpenCalculationModal] = useState(false);
   const [openAddDocument, setOpenAddDocument] = useState(false);
@@ -71,6 +72,11 @@ const AdminNomPays = () => {
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState("");
   const [file, setFile] = useState("");
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
+
   useEffect(() => {
     handleCountryData();
   }, [openCalculationModal]);
@@ -78,6 +84,7 @@ const AdminNomPays = () => {
     setValue(newValue);
   };
   const handleCountryData = async () => {
+    setLoading(true);
     await API("get", `/countries/${id}`)
       .then((res) => {
         setCurrency(res?.data?.country?.currency)
@@ -87,9 +94,11 @@ const AdminNomPays = () => {
         setBoms(res?.data?.country?.boms);
         setCalculation(res?.data?.country?.calculation);
         setCurrentRadioValue(res?.data?.country?.calculation?.type);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("---->ERR", err);
+        setLoading(false);
       });
   };
 
@@ -125,38 +134,48 @@ const AdminNomPays = () => {
               <Link to="/Admin/Dashboard/Country">
                 <img src={BackArrow} alt="" />
               </Link>
-              &nbsp; {country?.name}
+              &nbsp; {t(country?.name)}
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
-                <Button text="Edit" className="Edit_btn" />
+                <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                <Button text={t("Edit")} className="Edit_btn" />
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Searching" className="Country_search_input" />
-                  <Button text="Add " className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
+                <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                <Button
+                  text={t("Edit")}
+                  className="Edit_btn"
+                  onClick={() => setOpenAddDocument(true)}
+                />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-                  <SearchField placeholder="Searching" className="Country_search_input" />
-                  <Button text="Update BOMs" className="update_Boms_btn" onClick={() => setOpen(true)} />
+                  <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                  <Button
+                    text={t("Update BOMs")}
+                    className="update_Boms_btn"
+                    onClick={() => setOpen(true)}
+                  />
                 </div>
 
                 <Button
-                  text="Add BOMs"
+                  text={t("Add BOMs")}
                   className="Edit_btn_bom"
                   onClick={() => setOpenAddBomModal(true)}
                 />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
-
-                <SearchField placeholder="Searching" className="Country_search_input2" />
+                <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
                 {currentRadioValue === "coefficient" && (
-                        <Button text={currentRadioValue === "coefficient" ? "Edit" : "Add"} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
-
+                  <Button
+                    text={t("Edit")}
+                    className="Edit_btn2"
+                    onClick={() => setOpenCalculationModal(true)}
+                  />
                 )}
               </div>
             ) : (
@@ -168,17 +187,17 @@ const AdminNomPays = () => {
             <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label="Service providers" {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label="Documents" {...a11yProps(1)} />
-                  <Tab className="admin_tab_btn" label="BOMs" {...a11yProps(2)} />
-                  <Tab className="admin_tab_btn" label="Calculation" {...a11yProps(3)} />
+                  <Tab className="admin_tab_btn" label={t("Service providers")} {...a11yProps(0)} />
+                  <Tab className="admin_tab_btn" label={t("Documents")} {...a11yProps(1)} />
+                  <Tab className="admin_tab_btn" label={t("BOMs")} {...a11yProps(2)} />
+                  <Tab className="admin_tab_btn" label={t("Calculation")} {...a11yProps(3)} />
                 </Tabs>
               </Box>
               {/* table 1 */}
 
               <TabPanel value={value} index={0}>
                 <div className="list_table">
-                  <AdminTab1 vendor={vendor} />
+                  <AdminTab1 loading={loading} setVendor={setVendor} vendor={vendor} />
                 </div>
               </TabPanel>
               {/* table 2 */}
@@ -187,6 +206,7 @@ const AdminNomPays = () => {
                   <AdminTab2
                     rows={document}
                     img={DownArrow}
+                    loading={loading} setDocument={setDocument}
                     handleAddDocumentModalClose={handleAddDocumentModalClose}
                     openAddDocument={openAddDocument}
                     setOpenAddDocument={setOpenAddDocument}
@@ -200,6 +220,8 @@ const AdminNomPays = () => {
                 <div className="list_table">
                   <AdminTab3
                     rows={boms}
+                    setBoms={setBoms}
+                    loading={loading}
                     handleCountryData={handleCountryData}
                     setOpenAddBomModal={setOpenAddBomModal}
                     openAddBomModal={openAddBomModal}
@@ -226,22 +248,23 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title="Update BOMs" handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t("Update BOMs")}
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field" >
             <label htmlFor="" className="bom_popup_label">
-
-              Download your BOM file
-
+              {t("Download your BOM file")}
             </label>
-            <div className="bom_download_File_btn_div">
-              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>Download current file</Link>
-            </div>
+            <Button text={t("Download current file")} className="bom_downloadFile_btn" />
           </div>
 
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
-            Upload your BOM file
-
+            {t("Upload your BOM file")}
           </label>
           <FilePicker
             index={"01"}
@@ -249,7 +272,7 @@ const AdminNomPays = () => {
             name={file.name}
             onChange={(e) => handleCodesFile(e.target.files[0])}
           />
-          <Button text="Submit" className="bom_downloadFile_btn" onClick={handleUplaodFile} />
+          <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>
     </>

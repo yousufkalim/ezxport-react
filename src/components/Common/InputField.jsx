@@ -14,6 +14,7 @@ const InputField = (props) => {
           </label>
         }
         <input
+          {...props}
           onFocus={props.onFocus}
           onBlur={props.onBlur}
           name={props.name}
@@ -23,6 +24,8 @@ const InputField = (props) => {
           placeholder={props.placeholder}
           onChange={props.onChange}
           disabled={props.disabled}
+          autoComplete={props.autoComplete}
+          role={props.role}
         />
         <img src={props.icon} alt="" className="quizIcon" />
         {props.visibleEye && <props.icon2 className="quizIcon" onClick={props.onClick} />}

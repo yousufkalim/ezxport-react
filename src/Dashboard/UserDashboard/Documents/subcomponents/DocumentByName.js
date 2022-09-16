@@ -11,7 +11,7 @@ import API from '../../../../api/index';
 import { toast } from 'react-toastify';
 import Spinner from '../../../../components/Common/Spinner';
 
-const DocumentByName = ({loading, codes}) => {
+const DocumentByName = ({loading, codes:allCodes}) => {
 
   const [request, setRequest] = useState({open: false, id: ""});
   const [product, setProduct] =  useState({open: false, id: ""});
@@ -66,8 +66,10 @@ return (
                   loading ? <Spinner /> : (      
                       <React.Fragment>
                           {
-                              codes.length > 0 && codes.map(({codes, documents, requestId, title}) => (
-                                  <React.Fragment key={requestId}>
+                              allCodes.length > 0 && allCodes.map(({codes, documents, requestId, title}) => {
+                                if(codes.length){
+                                    return (
+                                        <React.Fragment key={requestId}>
                                       <ListItemButton onClick={() =>handleClick(requestId)} sx={{ border: '1px solid #EAECF0' }}>
                                           <li className="table_li" style={{ marginRight: 'auto', display: 'flex' }}>
                                           {title}
@@ -88,7 +90,7 @@ return (
                                                                   >
                                                                       <li className="table_li2" style={{ marginRight: 'auto', display: 'flex' }}>
                                                                       <img src={RightArrow} alt="" className="rightArrow" />
-                                                                          {code.code}
+                                                                          {code?.code}
                                                                       </li>
                                                                       <img onClick={(e) => downloadCode(e ,requestId ,code._id)} src={DownloadIcon} alt="" className="downlaod_img" />
                                                                       {product.open && product.id === _id ? <ExpandLess /> : <ExpandMore />}
@@ -125,7 +127,9 @@ return (
                                           }
                                       </Collapse>
                                   </React.Fragment>
-                              ))
+                                    )
+                                }
+                              })
                           }
                       </React.Fragment>
                   )

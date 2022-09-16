@@ -1,26 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TitleDownArrow from '../../../../../assets/TitleDownArrow.svg';
-import API from '../../../../../api/index';
-import { toast } from 'react-toastify';
-import Spinner from '../../../../../components/Common/Spinner';
-import EditIcon from '../../../../../assets/EditIcon.svg';
-import BuyerModal from './BuyerModal';
+import React, { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
+import API from "../../../../../api/index";
+import { toast } from "react-toastify";
+import Spinner from "../../../../../components/Common/Spinner";
+import EditIcon from "../../../../../assets/EditIcon.svg";
+import BuyerModal from "./BuyerModal";
+import { useTranslation, Trans } from "react-i18next";
+import downArrow from '../../../../../assets/TitleDownArrow.svg';
+import arrow_up from '../../../../../assets/arrow_up.svg';
+import { getSortedData } from "../../../../../lib/getSortedData";
 
 const title = [
-    { heading: 'dashboard.user.addressBook.modal.form.name.label', imgSrc: TitleDownArrow },
-    { heading: 'dashboard.user.addressBook.modal.form.country.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.email.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.telephone.label' },
-    { heading: 'dashboard.user.addressBook.modal.form.address.label' },
-    { heading: '' },
-  ];
+  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
+  { heading: "Country" },
+  { heading: "E-mail address" },
+  { heading: "Telephone" },
+  { heading: "Address" },
+  { heading: "" },
+];
 
 const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
       const [buyers, setBuyers] = useState([]);
@@ -28,37 +32,51 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
       const [loading, setLoading] = useState(false);
       const [isEdit, setIsEdit] = useState(false);
       const [activeField, setActiveField] = useState("");
+      const [sort, setSort] = useState({key: "", ascend: true});
 
-      const [formState, setFormState] = useState({
-        isValid: false,
-        values: {companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: ''},
-        errors: {},
-        touched: {}
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      companyName: "",
+      country: "",
+      email: "",
+      telephone: "",
+      address: "",
+      zipcode: "",
+      town: "",
+    },
+    errors: {},
+    touched: {},
+  });
+  
+  const { i18n } = useTranslation();
+  const { language } = i18n;
+
+  const user = localStorage.getItem("userData");
+  const userData = JSON.parse(user);
+
+  useEffect(() => {
+    fetchBuyers();
+  }, []);
+
+  const fetchBuyers = () => {
+    setLoading(true);
+    API("get", `/buyers/getByUser/${userData._id}`)
+      .then((res) => {
+        console.log("Buyers ", res);
+        setBuyers(res.data.buyer);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error("Something went wrong");
+        setLoading(false);
       });
+  };
 
-      const user = localStorage.getItem('userData')
-      const userData = JSON.parse(user);
-        
-      useEffect(() => {
-        fetchBuyers();
-      },[])
-
-      const fetchBuyers = () => {
-        setLoading(true);
-        API('get', `/buyers/getByUser/${userData._id}`).then((res) => {
-            setBuyers(res.data.buyer);
-            setLoading(false);
-        }).catch((err) => {
-            toast.error('Something went wrong');
-            setLoading(false);
-
-        })
-      }
-
-      const handleOpenModal = (edit, item) => {
-        setBuyer(item);
-        setIsEdit(edit);
-        setOpen(true);
+  const handleOpenModal = (edit, item) => {
+    setBuyer(item);
+    setIsEdit(edit);
+    setOpen(true);
 
        if(item){
         const {company_name,
@@ -96,7 +114,13 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                             style={{ backgrounColor: '#EAECF0' }}
                         >
                             {t(item.heading)} &nbsp;
-                            <img src={item.imgSrc} alt="" className="title_arrow" />
+                            {
+                              item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                                <img className='sorting-icon' onClick={() => getSortedData(buyers,setBuyers, setSort, [],'company_name', true)} src={arrow_up} alt="" />
+                              ) : item.sortIcon && (
+                                <img onClick={() => getSortedData(buyers,setBuyers, setSort, [],'company_name',false)} src={downArrow} alt="" />
+                              )
+                            }
                         </TableCell>
                         );
                     })}
@@ -114,7 +138,7 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                         <p className="AP_plus_title">{buyer.company_name} </p>
                         </TableCell>
                         <TableCell align="left" className="country2" >
-                        {buyer.country.name}
+                        {buyer?.country?.name}
                         <br />
                         </TableCell>
                         <TableCell align="left" className="country2" >
@@ -132,28 +156,28 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                         <p className="country2">{buyer.address}</p>
                         </TableCell>
 
-                        <TableCell
-                        align="left"
-                        className="country2"
-                        style={{ cursor: 'pointer' }}
-                    
-                        >
-                        <img
-                                    src={EditIcon}
-                                    alt=""
-                                    className="dltIcon"
-                                    style={{ cursor: 'pointer' }}
-                                    onClick={(e) => {
-                                        e.stopPropagation(true);
-                                        handleOpenModal(true, buyer)
-                                    }}
-                                />
-                        </TableCell>
-                    </TableRow>
-                    ))}
-                </TableBody>
-                </Table>
-            </TableContainer>
+                    <TableCell
+                    align="left"
+                    className="country2"
+                    style={{ cursor: 'pointer' }}
+                
+                    >
+                    <img
+                                src={EditIcon}
+                                alt=""
+                                className="dltIcon"
+                                style={{ cursor: 'pointer' }}
+                                onClick={(e) => {
+                                    e.stopPropagation(true);
+                                    handleOpenModal(true, buyer)
+                                }}
+                            />
+                    </TableCell>
+                </TableRow>
+                ))}
+            </TableBody>
+            </Table>
+        </TableContainer>
 
             <BuyerModal schema={schema} t={t} setActiveField={setActiveField} activeField={activeField} userId={userId} countries={countries} formState={formState} setFormState={setFormState} isEdit={isEdit} setBuyer={setBuyer} setIsEdit={setIsEdit} buyer={buyer} fetchBuyers={fetchBuyers} setOpen={setOpen} open={open} />
             {/* table  */}

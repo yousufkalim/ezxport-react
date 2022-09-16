@@ -5,7 +5,7 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import RightArrow from "../../../assets/RightArrow.svg";
-import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
+// import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
 import DownloadIcon from "../../../assets/DownloadIcon.svg";
 import Divider from "@mui/material/Divider";
 import { Grid } from "@mui/material";
@@ -15,6 +15,7 @@ import API from "../../../api/index";
 import { toast } from "react-toastify";
 import Button from "../../../components/Common/Button";
 import { Typography } from "@mui/material";
+import { useTranslation, Trans } from "react-i18next";
 
 const DocumentsTab = ({ userRequest }) => {
   const [open, setOpen] = useState(true);
@@ -23,6 +24,10 @@ const DocumentsTab = ({ userRequest }) => {
   const [allDocuments, setAllDocuments] = useState([]);
   const [countryMissingDocs, setCountryMissingDocs] = useState([]);
   const [productMissingDocs, setProductMissingDocs] = useState([]);
+
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   useEffect(() => {
     handleDocuments();
@@ -154,7 +159,7 @@ const DocumentsTab = ({ userRequest }) => {
     <>
       {userRequest?.missing_docs?.length !== 0 ? (
         <>
-          <Typography>Missing Documents</Typography>
+          <Typography>{t("Missing Documents")}</Typography>
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <Grid container spacing={2}>
             {userRequest?.missing_docs?.map((item, index) => {
@@ -250,7 +255,12 @@ const DocumentsTab = ({ userRequest }) => {
           <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
             {allDocuments.title}
           </li>
-          <img src={DownloadIcon} alt="" className="downlaod_img_main" onClick={() => handleReqDoc()} />
+          <img
+            src={DownloadIcon}
+            alt=""
+            className="downlaod_img_main"
+            onClick={() => handleReqDoc()}
+          />
           {open ? <ExpandLess onClick={handleRequest} /> : <ExpandMore onClick={handleRequest} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -263,15 +273,20 @@ const DocumentsTab = ({ userRequest }) => {
                     {doc?.doc_id?.name}
                   </li>
                   {doc.status === "sent" ? (
-                    <p className="send_p">{doc?.status}</p>
+                    <p className="send_p">{t(doc?.status)}</p>
                   ) : doc.status === "valid" ? (
-                    <p className="send_p_valid">{doc?.status}</p>
+                    <p className="send_p_valid">{t(doc?.status)}</p>
                   ) : doc.status === "invalid" ? (
-                    <p className="send_p_invalid">{doc?.status}</p>
+                    <p className="send_p_invalid">{t(doc?.status)}</p>
                   ) : (
                     ""
                   )}
-                  <img src={DownloadIcon} alt="" className="downlaod_img" onClick={() => handleSpecificDoc(doc?.doc_id?._id)} />
+                  <img
+                    src={DownloadIcon}
+                    alt=""
+                    className="downlaod_img"
+                    onClick={() => handleSpecificDoc(doc?.doc_id?._id)}
+                  />
                 </ListItemButton>
               );
             })}
@@ -284,8 +299,17 @@ const DocumentsTab = ({ userRequest }) => {
                       {code?.code?.code}
                     </li>
                     {/* <p className="send_p">Sent</p> */}
-                    <img src={DownloadIcon} alt="" className="downlaod_img_main" onClick={() => handleCodeDoc(code?.code?._id)} />
-                    {productOpen ? <ExpandLess onClick={handleCode} /> : <ExpandMore onClick={handleCode} />}
+                    <img
+                      src={DownloadIcon}
+                      alt=""
+                      className="downlaod_img_main"
+                      onClick={() => handleCodeDoc(code?.code?._id)}
+                    />
+                    {productOpen ? (
+                      <ExpandLess onClick={handleCode} />
+                    ) : (
+                      <ExpandMore onClick={handleCode} />
+                    )}
                   </ListItemButton>
 
                   <Collapse in={productOpen} timeout="auto" unmountOnExit>
@@ -293,7 +317,10 @@ const DocumentsTab = ({ userRequest }) => {
                       return (
                         <>
                           <ListItemButton sx={{ border: "1px solid #EAECF0" }}>
-                            <li className="table_li4" style={{ marginRight: "auto", display: "flex" }}>
+                            <li
+                              className="table_li4"
+                              style={{ marginRight: "auto", display: "flex" }}
+                            >
                               <img src={RightArrow} alt="" className="rightArrow" />
                               {product?.name}
                             </li>

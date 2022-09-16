@@ -6,40 +6,40 @@ import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
 import {useTranslation} from "react-i18next";
 
 const title = [
-  { heading: 'Company Name', imgSrc: TitleDownArrow },
-  { heading: 'Country' },
-  { heading: 'E-mail address' },
-  { heading: 'Telephone' },
-  { heading: 'Address' },
-  { heading: '' },
+  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
+  { heading: "Country" },
+  { heading: "E-mail address" },
+  { heading: "Telephone" },
+  { heading: "Address" },
+  { heading: "" },
 ];
-
 
 const schema = {
   companyName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 64
+      maximum: 64,
     },
   },
   email: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
-    email: true
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
   },
   telephone: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 10, minimum: 10},
-  }
-
-}
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+};
 
 const AddressBook = () => {
 
-  const {t} = useTranslation();
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,9 +57,9 @@ const AddressBook = () => {
         <div className="list_second_div">
           {/* list head  */}
           <div className="List_heading_div4">
-            <h1 className="list_h1_address">Address Book</h1>
+            <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
-              <SearchField placeholder="Searching" />
+              <SearchField placeholder={t("Searching")} />
               <Button text={buttonTitle} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
@@ -69,7 +69,6 @@ const AddressBook = () => {
           </div>
         </div>
       </div>
-    
     </>
   );
 };
