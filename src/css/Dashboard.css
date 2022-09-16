@@ -214,7 +214,7 @@
 .searching {
   position: relative;
   display: flex;
-  height: 40px;
+  height: 44px;
   justify-content: space-between;
 }
 .searching_provider {
@@ -565,9 +565,9 @@
   font-weight: 500;
   position: absolute;
   right: 0;
-  color: #027A48;
+  color: #027a48;
   right: 40%;
-  background: #ECFDF3;
+  background: #ecfdf3;
   border-radius: 16px;
   padding: 5px 8px;
 }
@@ -576,15 +576,12 @@
   font-weight: 500;
   position: absolute;
   right: 0;
-  color: #C01048;
+  color: #c01048;
   right: 40%;
-  background: #FFF1F3;
+  background: #fff1f3;
   border-radius: 16px;
   padding: 5px 8px;
 }
-
-
-
 
 .send_p2 {
   font-size: 12px;

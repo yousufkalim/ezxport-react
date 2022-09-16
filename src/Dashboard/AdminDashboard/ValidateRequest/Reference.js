@@ -27,7 +27,7 @@
 //                 <img src={EzxportIcon} alt="" className="header_center_div" />
 //               </div>
 //               <div className="validate_btn_div">
-//                 <button className="validate_button2">Download the file</button>
+//                 <button className="validate_button2">{t("Download the file")}</button>
 //                 &nbsp;
 //                 <button className="validate_button" onClick={() => history.push("/SendDocuments")}>
 //                   Validate the file

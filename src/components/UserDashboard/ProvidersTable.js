@@ -12,23 +12,25 @@ import API from "../../api/index";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
 import { useTranslation, Trans } from "react-i18next";
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 
-const tableHeadings = [ {
-  name: "Service provider",
-  sortIcon: true,
-  key: 'name'
-}, {
-  name: "Contact"
-}, 
-{
-  name: "Associated countries"
-},
-{
-  name: "Actions"
-}
+const tableHeadings = [
+  {
+    name: "Service providers",
+    sortIcon: true,
+    key: "name",
+  },
+  {
+    name: "Contact",
+  },
+  {
+    name: "Associated countries",
+  },
+  {
+    name: "Actions",
+  },
 ];
 
 const ProvidersTable = (props) => {
@@ -37,9 +39,9 @@ const ProvidersTable = (props) => {
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
   const [provider, setProvider] = useState(null);
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
-  const {data, setData} = props;
+  const { data, setData } = props;
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -93,13 +95,24 @@ const ProvidersTable = (props) => {
                         style={{ backgrounColor: "#EAECF0" }}
                       >
                         {t(item.name)} &nbsp;
-                        {
-                          item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(data,setData, setSort, [],'name', true)} src={arrow_up} alt="" />
-                          ) : item.sortIcon && (
-                            <img onClick={() => getSortedData(data,setData, setSort, [],'name', false)} src={downArrow} alt="" />
+                        {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                          <img
+                            className="sorting-icon"
+                            onClick={() => getSortedData(data, setData, setSort, [], "name", true)}
+                            src={arrow_up}
+                            alt=""
+                          />
+                        ) : (
+                          item.sortIcon && (
+                            <img
+                              onClick={() =>
+                                getSortedData(data, setData, setSort, [], "name", false)
+                              }
+                              src={downArrow}
+                              alt=""
+                            />
                           )
-                        }
+                        )}
                       </TableCell>
                     );
                   })}

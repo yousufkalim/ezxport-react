@@ -19,8 +19,7 @@ import FilePicker from "../../components/Common/FilePicker";
 import { useTranslation, Trans } from "react-i18next";
 import Modal from "../../components/Common/Modal";
 
-import { toast } from 'react-toastify';
-
+import { toast } from "react-toastify";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -76,7 +75,6 @@ const AdminNomPays = () => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
-
   useEffect(() => {
     handleCountryData();
   }, [openCalculationModal]);
@@ -87,7 +85,7 @@ const AdminNomPays = () => {
     setLoading(true);
     await API("get", `/countries/${id}`)
       .then((res) => {
-        setCurrency(res?.data?.country?.currency)
+        setCurrency(res?.data?.country?.currency);
         setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
         setDocument(res?.data?.country?.documents);
@@ -110,19 +108,19 @@ const AdminNomPays = () => {
   const handleUplaodFile = async () => {
     let formData = new FormData();
     formData.append("file", file);
-    formData.append("country", `${id}`); 
+    formData.append("country", `${id}`);
     await API("post", "/boms/uploadCodes/", formData)
       .then((res) => {
-        handleCountryData()
-        setFile({})
-        setOpen(false)
-        toast.success(res.data.message)
+        handleCountryData();
+        setFile({});
+        setOpen(false);
+        toast.success(res.data.message);
       })
       .catch((err) => {
         console.log("errr", err);
       });
   };
-  const handleCodesFile = (file) => setFile(file)
+  const handleCodesFile = (file) => setFile(file);
 
   return (
     <>
@@ -155,14 +153,14 @@ const AdminNomPays = () => {
                 <div className="searching_div_style">
                   <SearchField placeholder={t("Searching")} className="Country_search_input" />
                   <Button
-                    text={t("Update BOMs")}
+                    text={t("Update")}
                     className="update_Boms_btn"
                     onClick={() => setOpen(true)}
                   />
                 </div>
 
                 <Button
-                  text={t("Add BOMs")}
+                  text={t("Add")}
                   className="Edit_btn_bom"
                   onClick={() => setOpenAddBomModal(true)}
                 />
@@ -206,7 +204,8 @@ const AdminNomPays = () => {
                   <AdminTab2
                     rows={document}
                     img={DownArrow}
-                    loading={loading} setDocument={setDocument}
+                    loading={loading}
+                    setDocument={setDocument}
                     handleAddDocumentModalClose={handleAddDocumentModalClose}
                     openAddDocument={openAddDocument}
                     setOpenAddDocument={setOpenAddDocument}
@@ -251,12 +250,12 @@ const AdminNomPays = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t("Update BOMs")}
+        title={t("Update")}
         handleClose={handleClose}
         Closebtn={true}
       >
         <div className="buyer_socond">
-          <div className="luyer_input_field" >
+          <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
               {t("Download your BOM file")}
             </label>

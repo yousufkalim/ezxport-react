@@ -1,29 +1,29 @@
-import SearchField from '../../components/Common/SearchField';
-import Button from '../../components/Common/Button';
-import InputField from '../../components/Common/InputField';
-import Modal from '../../components/Common/Modal';
-import BackArrow from '../../assets/BackArrow.svg';
-import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import PropTypes from 'prop-types';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { useParams } from 'react-router-dom';
-import API from '../../api/index';
-import { toast } from 'react-toastify';
-import validate from 'validate.js';
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
-import { getSortedData } from '../../lib/getSortedData';
+import SearchField from "../../components/Common/SearchField";
+import Button from "../../components/Common/Button";
+import InputField from "../../components/Common/InputField";
+import Modal from "../../components/Common/Modal";
+import BackArrow from "../../assets/BackArrow.svg";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import PropTypes from "prop-types";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { useParams } from "react-router-dom";
+import API from "../../api/index";
+import { toast } from "react-toastify";
+import validate from "validate.js";
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
+import { getSortedData } from "../../lib/getSortedData";
 import { useTranslation, Trans } from "react-i18next";
 
 const schema = {
@@ -111,7 +111,7 @@ const NameProvider = () => {
   // const [fullname, setFullname] = useState('');
   // const [phoneNumber, setPhoneNumber] = useState('');
   const [countries, setCountries] = useState();
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -218,7 +218,7 @@ const NameProvider = () => {
             {value === 0 ? (
               <div className="searching2">
                 <Button
-                  text={t("Change Provider")}
+                  text={t("Update")}
                   className="changeProvider"
                   onClick={() => setOpen(true)}
                 />
@@ -226,7 +226,7 @@ const NameProvider = () => {
             ) : (
               <div className="searching">
                 <SearchField placeholder={t("Searching")} className="search_name_input" />
-                <Button text={t("Change Provider")} className="changeProvider" />
+                <Button text={t("Update")} className="changeProvider" />
               </div>
             )}
           </div>
@@ -309,14 +309,39 @@ const NameProvider = () => {
                                 backgroundColor: "#F9FAFB",
                               }}
                             >
-                              {t("Country")} 
-                              {
-                                !sort.ascend ? (
-                                  <img className='sorting-icon' onClick={() => getSortedData(countries,setCountries, setSort, [],'name', true)} src={arrow_up} alt="" />
-                                ) : (
-                                  <img onClick={() => getSortedData(countries,setCountries, setSort, [],'name',false)} src={downArrow} alt="" />
-                                )
-                              }
+                              {t("Country")}
+                              {!sort.ascend ? (
+                                <img
+                                  className="sorting-icon"
+                                  onClick={() =>
+                                    getSortedData(
+                                      countries,
+                                      setCountries,
+                                      setSort,
+                                      [],
+                                      "name",
+                                      true
+                                    )
+                                  }
+                                  src={arrow_up}
+                                  alt=""
+                                />
+                              ) : (
+                                <img
+                                  onClick={() =>
+                                    getSortedData(
+                                      countries,
+                                      setCountries,
+                                      setSort,
+                                      [],
+                                      "name",
+                                      false
+                                    )
+                                  }
+                                  src={downArrow}
+                                  alt=""
+                                />
+                              )}
                             </TableCell>
                           </TableRow>
                         </TableHead>
