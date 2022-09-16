@@ -73,7 +73,7 @@ const ProductForm = (props) => {
         Code # {props.cindex + 1} Product # {props.index1 + 1}
       </h3>
       <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
-        Product Name
+        {t("Product Name")}
       </label>
       <InputField
         className="product_name_textfield"
@@ -81,7 +81,7 @@ const ProductForm = (props) => {
         onChange={(e) => handleDataChange(e)}
       />
       <label className="BomLabel" style={{ marginTop: "1rem" }}>
-        Description
+        {t("Description")}
       </label>
       <InputField
         className="product_name_textfield"
@@ -90,7 +90,7 @@ const ProductForm = (props) => {
       />
       <div>
         <label className="BomLabel" style={{ marginTop: "1rem" }}>
-          Condition
+          {t("Condition")}
         </label>
         <select
           className="countrydropdown"
@@ -109,7 +109,7 @@ const ProductForm = (props) => {
       </div>
       <div className="inspection_textfield">
         <div className="steps_4_inspeciton">
-          <label className="BomLabel">Amount</label>
+          <label className="BomLabel">{t("Amount")}</label>
           <InputField
             className="company_name_input"
             placeholder="90 road of rouvroy"
@@ -122,7 +122,7 @@ const ProductForm = (props) => {
           style={{ display: "flex", justifyContent: "space-between" }}
         >
           <div style={{ width: "35%" }}>
-            <label className="BomLabel">Unit of measure</label>
+            <label className="BomLabel">{t("Unit of measure")}</label>
             <select
               className="company_name_input"
               name="unit"
@@ -137,7 +137,7 @@ const ProductForm = (props) => {
             </select>
           </div>
           <div style={{ width: "60%" }}>
-            <label className="BomLabel">Price</label>
+            <label className="BomLabel">{t("Price")}</label>
 
             <TextFieldSelect
               className="company_name_input2"
@@ -150,7 +150,7 @@ const ProductForm = (props) => {
         </div>
       </div>
       <label className="BomLabel" style={{ marginTop: "1rem" }}>
-        Mark
+        {t("Mark")}
       </label>
       <InputField
         className="product_name_textfield"
@@ -158,7 +158,7 @@ const ProductForm = (props) => {
         onChange={(e) => handleDataChange(e)}
       />
       <label className="BomLabel" style={{ marginTop: "1rem" }}>
-        Builder
+        {t("Builder")}
       </label>
       <InputField
         className="product_name_textfield"
@@ -186,7 +186,7 @@ const ProductForm = (props) => {
       </div>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <div style={{ width: "47%" }}>
-          <label className="BomLabel">Technical sheet</label>
+          <label className="BomLabel">{t("Technical sheet")}</label>
           <div className="to_download_div">
             <FilePicker
               multiple
@@ -200,7 +200,7 @@ const ProductForm = (props) => {
           </div>
         </div>
         <div style={{ width: "47%" }}>
-          <label className="BomLabel">Test report</label>
+          <label className="BomLabel">{t("Test report")}</label>
           <div className="to_download_div">
             <FilePicker
               multiple
@@ -216,7 +216,7 @@ const ProductForm = (props) => {
       </div>
       <div style={{ display: "flex", width: "100%", justifyContent: "space-between" }}>
         <div style={{ width: "47%" }}>
-          <label className="BomLabel">Analysis Certificate</label>
+          <label className="BomLabel">{t("Analysis Certificate")}</label>
           <div className="to_download_div">
             <FilePicker
               multiple
@@ -230,7 +230,7 @@ const ProductForm = (props) => {
           </div>
         </div>
         <div style={{ width: "47%" }}>
-          <label className="BomLabel">Plan</label>
+          <label className="BomLabel">{t("Plan")}</label>
           <div className="to_download_div">
             <FilePicker
               multiple
@@ -245,7 +245,7 @@ const ProductForm = (props) => {
         </div>
       </div>
       <div style={{ width: "100%" }}>
-        <label className="BomLabel">Other documents</label>
+        <label className="BomLabel">{t("Other documents")}</label>
         <div className="to_download_div">
           <FilePicker
             multiple

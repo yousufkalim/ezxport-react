@@ -129,7 +129,7 @@ const Index = () => {
               <div className="Reference_heading">
                 <Link
                   to="/Admin/Dashboard/Requests"
-                  style={{ color: "black", textDecoraion: "none" }}
+                  style={{ color: "black", textDecoration: "none" }}
                 >
                   <p className="Reference_h2">
                     <img src={BackArrow} alt="" />
@@ -148,7 +148,7 @@ const Index = () => {
                 inputList.length === 0 &&
                 inputListProduct.length === 0 ? (
                   <button className="validate_button" onClick={handleValidByAdmin}>
-                    Validate the file
+                    {t("Validate the file")}
                   </button>
                 ) : (
                   <button className="validate_button" onClick={handleModalOpen}>

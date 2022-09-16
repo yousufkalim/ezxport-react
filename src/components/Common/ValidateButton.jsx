@@ -11,7 +11,7 @@ const ValidateButton = (props) => {
         <p className="ExportDocuments_p">{props.text}</p>
         <div className={props.className} onClick={props.onClick} style={{ cursor: "pointer" }}>
           <p>
-            {t("Validated documents")}
+            {t("Validated documents")} &nbsp;
             <Arrow />
           </p>
         </div>

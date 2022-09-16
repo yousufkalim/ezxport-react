@@ -65,7 +65,7 @@ const ServiceProvider = (props) => {
         <>
           <div className="steps_2_main">
             <div className="steps_2_feild">
-              <label>Last Name</label>
+              <label>{t("Last Name")}</label>
               <InputField
                 className="last_name_input"
                 name="lastName"

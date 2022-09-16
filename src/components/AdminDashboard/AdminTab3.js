@@ -373,7 +373,7 @@ const AdminTab3 = (props) => {
             select={select}
           />
           <Button
-            text={t("Update BOM")}
+            text={t("Update BOMs")}
             className={
               updateBomCode.isValid && select.length > 0
                 ? "add_vendor_button"
@@ -426,7 +426,7 @@ const AdminTab3 = (props) => {
             {t("Select country for BOMs")}
           </label>
           <MultiSelect
-            name="countries"
+            name={"countries"}
             onChange={handleCountryChange}
             value={select}
             names={names}

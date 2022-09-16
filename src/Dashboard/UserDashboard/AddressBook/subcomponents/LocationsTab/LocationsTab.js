@@ -471,7 +471,7 @@ const LocationsTab = ({ open, setOpen, userId, countries }) => {
               </div>
               <div className="input_fields">
                 <label htmlFor="" className="buyer_label">
-                  Last Name
+                  {t("Last Name")}
                 </label>
                 <InputField
                   className={

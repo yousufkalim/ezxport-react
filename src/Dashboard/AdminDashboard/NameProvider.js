@@ -238,7 +238,7 @@ const NameProvider = () => {
                   <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
                   <Tab
                     className="admin_tab_btn"
-                    label={t("Associated Countries")}
+                    label={t("Associated countries")}
                     {...a11yProps(1)}
                   />
                 </Tabs>
@@ -394,7 +394,7 @@ const NameProvider = () => {
             {hasError("contact") ? formState.errors.contact[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Default sending Email address")}
+            {t("Default sending email address")}
           </label>
           <InputField
             value={formState.values.email}

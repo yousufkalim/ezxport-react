@@ -60,7 +60,7 @@ const Requests = () => {
                     {t("Service providers")}
                   </TableCell>
                   <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    {t(" Statutes")}
+                    {t("Statutes")}
                   </TableCell>
                 </TableRow>
               </TableHead>

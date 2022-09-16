@@ -58,7 +58,7 @@ const ProductInputs = (props) => {
   return (
     <>
       <label className="label_modal" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
-        Product Name
+        {t("Product Name")}
       </label>
       <InputField
         disabled
@@ -67,7 +67,7 @@ const ProductInputs = (props) => {
         value={props?.product?.name}
       />
       <label className="label_modal" style={{ marginTop: "1rem" }}>
-        Description
+        {t("Description")}
       </label>
       <InputField
         disabled
@@ -76,7 +76,7 @@ const ProductInputs = (props) => {
         value={props?.product?.description}
       />
       <label className="label_modal" style={{ marginTop: "1rem" }}>
-        Condition
+        {t("Condition")}
       </label>
       <InputField
         disabled
@@ -86,7 +86,7 @@ const ProductInputs = (props) => {
       />
       <div className="inspection_textfield">
         <div className="amount_input_div" style={{ width: "34%" }}>
-          <label className="label_modal">Amount</label>
+          <label className="label_modal">{t("Amount")}</label>
           <InputField
             className="company_name_input"
             disabled
@@ -105,7 +105,7 @@ const ProductInputs = (props) => {
           }}
         >
           <div style={{ width: "48%" }}>
-            <label className="label_modal">Unit of measure</label>
+            <label className="label_modal">{t("Unit of measure")}</label>
             <InputField
               className="company_name_input"
               disabled
@@ -115,7 +115,7 @@ const ProductInputs = (props) => {
           </div>
           <div style={{ width: "48%" }}>
             <label className="label_modal" style={{ marginBottom: "0rem" }}>
-              Price
+              {t("Price")}
             </label>
             <InputField
               className="company_name_input"
@@ -129,7 +129,7 @@ const ProductInputs = (props) => {
         </div>
       </div>
       <label className="label_modal" style={{ marginTop: "1rem" }}>
-        Mark
+        {t("Mark")}
       </label>
       <InputField
         className="product_name_textfield2"
@@ -138,7 +138,7 @@ const ProductInputs = (props) => {
         value={props?.product?.mark}
       />
       <label className="label_modal" style={{ marginTop: "1rem" }}>
-        Builder
+        {t("Builder")}
       </label>
       <InputField
         className="product_name_textfield2"
@@ -158,7 +158,7 @@ const ProductInputs = (props) => {
       <div className="switch_buttons" style={{ position: "relative" }}>
         <div className="switch_column">
           <SwitchButton
-            text="Technical sheet"
+            text={t("Technical sheet")}
             name="technical_sheet"
             item={props?.product?.technical_sheet}
             label={props?.product?.technical_sheet?.status === "valid" ? "Valid" : "Un-Valid"}
@@ -170,7 +170,7 @@ const ProductInputs = (props) => {
         </div>
         <div className="switch_column">
           <SwitchButton
-            text="Test report"
+            text={t("Test report")}
             name="test_report"
             item={props?.product?.test_report}
             label={props?.product?.test_report?.status === "valid" ? "Valid" : "Un-Valid"}
@@ -187,7 +187,7 @@ const ProductInputs = (props) => {
               style={{ position: "absolute", right: "0" }}
             >
               <p>
-                {t("Validated documents")} <Arrow />
+                {t("Validated documents")} &nbsp; <Arrow />
               </p>
             </div>
           </>
@@ -198,7 +198,8 @@ const ProductInputs = (props) => {
               style={{ position: "absolute", right: "0" }}
             >
               <p>
-                Invalid documents <Arrow />
+                {t("Invalid documents")}
+                <Arrow />
               </p>
             </div>
           </>
@@ -207,7 +208,7 @@ const ProductInputs = (props) => {
       <div className="switch_buttons">
         <div className="switch_column">
           <SwitchButton
-            text="Analysis Certificate"
+            text={t("Analysis Certificate")}
             name="analysis_certificate"
             item={props?.product?.analysis_certificate}
             label={props?.product?.analysis_certificate?.status === "valid" ? "Valid" : "Un-Valid"}
@@ -219,7 +220,7 @@ const ProductInputs = (props) => {
         </div>
         <div className="switch_column">
           <SwitchButton
-            text="Plan"
+            text={t("Plan")}
             name="plan"
             item={props?.product?.plan}
             label={props?.product?.plan?.status === "valid" ? "Valid" : "Un-Valid"}
@@ -233,7 +234,7 @@ const ProductInputs = (props) => {
       <div className="switch_buttons">
         <div className="switch_column">
           <SwitchButton
-            text="Other documents"
+            text={t("Other documents")}
             name="other_docs"
             item={props?.product?.other_docs}
             label={props?.product?.other_docs?.status === "valid" ? "Valid" : "Un-Valid"}
@@ -246,7 +247,7 @@ const ProductInputs = (props) => {
       </div>
 
       <div className="request_documents">
-        <p className="request_documents_title">Ask for other documents for the product</p>
+        <p className="request_documents_title">{t("Ask for other documents for the product")}</p>
         {/* Request other documents  */}
 
         {props.inputListProduct?.map((item, index) => {
@@ -270,7 +271,7 @@ const ProductInputs = (props) => {
                   name="name"
                   type="text"
                   className="request_documents_input"
-                  placeholder="Enter Document name"
+                  placeholder={t("Enter Document name")}
                   onChange={(e) => handleInputChange(e, index)}
                   value={item.name}
                 />
@@ -281,7 +282,7 @@ const ProductInputs = (props) => {
 
         <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
           <img src={PlusButton} alt="" onClick={handleAddClick} />
-          <p className="add_ducoment_p">Request another document</p>
+          <p className="add_ducoment_p">{t("Request another document")}</p>
         </div>
       </div>
     </>

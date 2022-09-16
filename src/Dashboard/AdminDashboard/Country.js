@@ -328,7 +328,7 @@ const Country = () => {
                           history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
                         }
                       >
-                        <p className="AP_plus_title">{t(item.name)}</p>
+                        <p className="AP_plus_title">{item.name}</p>
                       </TableCell>
                       <TableCell
                         component="th"
@@ -382,7 +382,7 @@ const Country = () => {
                 {countryList.map((item) => {
                   return (
                     <MenuItem value={item} onClick={() => setDropdown(item)}>
-                      {t(item)}
+                      {item}
                     </MenuItem>
                   );
                 })}

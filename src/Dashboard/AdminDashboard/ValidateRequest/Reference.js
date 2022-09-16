@@ -30,7 +30,7 @@ const Reference = (props) => {
                 <button className="validate_button2">{t("Download the file")}</button>
                 &nbsp;
                 <button className="validate_button" onClick={() => history.push("/SendDocuments")}>
-                  Validate the file
+                  {t("Validate the file")}
                 </button>
               </div>
             </div>

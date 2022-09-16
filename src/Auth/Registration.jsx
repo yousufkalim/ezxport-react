@@ -227,7 +227,7 @@ const Registration = () => {
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Last name</label>
+                <label htmlFor="">{t("Last name")}</label>
                 <input
                   type="text"
                   className={
@@ -235,7 +235,7 @@ const Registration = () => {
                       ? "reg_input_red"
                       : "reg_input"
                   }
-                  placeholder="Last name"
+                  placeholder={t("Last name")}
                   value={formState.values.lastName}
                   name="lastName"
                   onChange={handleNameChange}
@@ -409,7 +409,7 @@ const Registration = () => {
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor="">Last name</label>
+                <label htmlFor="">{t("Last name")}</label>
                 <input
                   type="text"
                   className={
@@ -417,7 +417,7 @@ const Registration = () => {
                       ? "reg_input_red"
                       : "reg_input"
                   }
-                  placeholder="Last name"
+                  placeholder={t("Last name")}
                   required
                   value={formState.values.companyLastName}
                   name="companyLastName"

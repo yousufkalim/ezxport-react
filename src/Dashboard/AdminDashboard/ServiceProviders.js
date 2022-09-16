@@ -213,7 +213,7 @@ const ServiceProviders = () => {
                 <TableHead>
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
                     <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                      {t("Service provider")} <img src={DownArrow} alt="" />
+                      {t("Service providers")} <img src={DownArrow} alt="" />
                     </TableCell>
                     <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       {t("Associated countries")} &nbsp;
@@ -271,7 +271,7 @@ const ServiceProviders = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t("Add a Service Provider")}
+        title={t("Add a service provider")}
         handleClose={handleClose}
         Closebtn={true}
       >
@@ -326,7 +326,7 @@ const ServiceProviders = () => {
             {hasError("contactEmail") ? formState.errors.contactEmail[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Default sending Email address")}
+            {t("Default sending email address")}
           </label>
           <InputField
             name="sendingEmail"
@@ -353,7 +353,7 @@ const ServiceProviders = () => {
           />
           {/* {console.log("===", select)} */}
           <Button
-            text="Add Service Provider"
+            text={t("Add Service Provider")}
             className={
               formState.isValid && select.length > 0
                 ? "add_vendor_button"
