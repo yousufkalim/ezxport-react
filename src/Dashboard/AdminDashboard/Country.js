@@ -356,7 +356,6 @@ const Country = () => {
                   loading ? <Spinner /> : (
                     <TableBody>
                       {countries?.map((item) => {
-                        console.log("Country name ", item.name);
                         return (
                           <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
                             <TableCell
@@ -429,7 +428,7 @@ const Country = () => {
                 {countryList.map((item) => {
                   return (
                     <MenuItem value={item} onClick={() => setDropdown(item)}>
-                      {t(item)}
+                      {item}
                     </MenuItem>
                   );
                 })}

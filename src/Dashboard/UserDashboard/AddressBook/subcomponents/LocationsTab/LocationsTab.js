@@ -44,135 +44,135 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
   },
   email: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
     email: true
   },
   address: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
   },
   zipcode: {
-    presence: {allowEmpty: false, message: "is required"},
+    presence: { allowEmpty: false, message: "is required" },
   },
   telephone: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 10, minimum: 10},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
   },
   town: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
   },
   lastName: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
   },
   firstName: {
-    presence: {allowEmpty: false, message: "is required"},
-    length: {maximum: 64},
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
   }
 }
-  
-const LocationsTab = ({t, open, setOpen,userId, countries}) => {
 
-    const [formState, setFormState] = useState({
-        isValid: false,
-        values: {companyName: '', firstName: '', lastName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: ''},
-        errors: {},
-        touched: {}
-      });
+const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
 
-      const [locations, setLocations] = useState([]);
-      const [location, setLocation] = useState(null);
-      const [loading, setLoading] = useState(false);
-      const [isEdit, setIsEdit] = useState(false);
-      const [sort, setSort] = useState({key: "", ascend: true});
-        
-      useEffect(() => {
-        fetchLocations();
-      },[])
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: { companyName: '', firstName: '', lastName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: '' },
+    errors: {},
+    touched: {}
+  });
 
-      const fetchLocations = () => {
-        setLoading(true);
-        API('put', `/places/getByUser/${userId}`).then((res) => {
-            setLocations(res.data.place);
-            setLoading(false);
-        }).catch((err) => {
-            toast.error('Something went wrong');
-            setLoading(false);
-        })
-      }
-    
-      const countryHandler = (e) => {
-        setFormState((state) => ({
-          ...state,
-          values: {...state.values, country: e.target.value}
-        }))
-      };
-    
-      const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}})
-      }
+  const [locations, setLocations] = useState([]);
+  const [location, setLocation] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [sort, setSort] = useState({ key: "", ascend: true });
+
+  useEffect(() => {
+    fetchLocations();
+  }, [])
+
+  const fetchLocations = () => {
+    setLoading(true);
+    API('put', `/places/getByUser/${userId}`).then((res) => {
+      setLocations(res.data.place);
+      setLoading(false);
+    }).catch((err) => {
+      toast.error('Something went wrong');
+      setLoading(false);
+    })
+  }
+
+  const countryHandler = (e) => {
+    setFormState((state) => ({
+      ...state,
+      values: { ...state.values, country: e.target.value }
+    }))
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({ ...formState, values: { ...formState.values, [name]: value } })
+  }
 
   const handleOpenModal = (edit, item) => {
     setLocation(item);
     setIsEdit(edit);
     setOpen(true);
 
-       if(item){
-        const {company_name,
-            email,
-            country,
-            city,
-            phone_number,
-            zipcode,
-            address, contact_fname, contact_lname } = item;
-            const values = {
-                companyName: company_name,
-                email,
-                country: country ? country?._id : null,
-                town: city,
-                telephone: phone_number,
-                zipcode,
-                address,
-                firstName: contact_fname,
-                lastName: contact_lname
-            }
-            setFormState({...formState, values: {...values}, isValid: true})
-       }
+    if (item) {
+      const { company_name,
+        email,
+        country,
+        city,
+        phone_number,
+        zipcode,
+        address, contact_fname, contact_lname } = item;
+      const values = {
+        companyName: company_name,
+        email,
+        country: country ? country?._id : null,
+        town: city,
+        telephone: phone_number,
+        zipcode,
+        address,
+        firstName: contact_fname,
+        lastName: contact_lname
       }
+      setFormState({ ...formState, values: { ...values }, isValid: true })
+    }
+  }
 
-      const handleBlur = (e) => {
-        e.preventDefault();
-        const {name} = e.target;
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          errors: errors ?? {},
-          touched: {...formState.touched, [name]: true},
-          isValid: errors ? false : true
-    
-        }))
-      }
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const { name } = e.target;
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: { ...formState.touched, [name]: true },
+      isValid: errors ? false : true
 
-      const handleCloseModal = () => {
-        setOpen(false);
-       setTimeout(() => {
-        setIsEdit(false);
-        resetForm();
-        setLocation(null);
-       }, 500)
-      }
-    
-      const resetForm = () => {
-        setFormState({
-            isValid: false,
-            values: {companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: '', firstName:'', lastName: ''},
-            errors: {},
-            touched: {}
-        })
-      }
+    }))
+  }
+
+  const handleCloseModal = () => {
+    setOpen(false);
+    setTimeout(() => {
+      setIsEdit(false);
+      resetForm();
+      setLocation(null);
+    }, 500)
+  }
+
+  const resetForm = () => {
+    setFormState({
+      isValid: false,
+      values: { companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: '', firstName: '', lastName: '' },
+      errors: {},
+      touched: {}
+    })
+  }
 
   const createLocation = async (data) => {
     await API("post", "/places", data)
@@ -232,8 +232,8 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
   const MODAL_TITLE = isEdit
     ? "Edit inspection location"
     : location
-    ? "View inspection location"
-    : "Add inspection location";
+      ? "View inspection location"
+      : "Add inspection location";
 
   return (
     <>
@@ -249,14 +249,14 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                       className="country"
                       style={{ backgrounColor: "#EAECF0" }}
                     >
-                        {t(item.heading)} &nbsp;
-                        {
-                              item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                                <img className='sorting-icon' onClick={() => getSortedData(locations,setLocations, setSort, [],'company_name', true)} src={arrow_up} alt="" />
-                              ) : item.sortIcon && (
-                                <img onClick={() => getSortedData(locations,setLocations, setSort, [],'company_name',false)} src={downArrow} alt="" />
-                              )
-                            }
+                      {t(item.heading)} &nbsp;
+                      {
+                        item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                          <img className='sorting-icon' onClick={() => getSortedData(locations, setLocations, setSort, [], 'company_name', true)} src={arrow_up} alt="" />
+                        ) : item.sortIcon && (
+                          <img onClick={() => getSortedData(locations, setLocations, setSort, [], 'company_name', false)} src={downArrow} alt="" />
+                        )
+                      }
                     </TableCell>
                   );
                 })}
@@ -345,7 +345,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                 className="buyer_input"
               >
                 {
-                  countries?.map(({name, _id: id}) => (
+                  countries?.map(({ name, _id: id }) => (
                     <MenuItem key={id} value={id}>{name}</MenuItem>
                   ))
                 }
@@ -355,7 +355,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <InputField 
+                <InputField
                   label="E-mail address"
                   name='email'
                   disabled={!isEdit && location}
@@ -369,7 +369,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                 />
               </div>
               <div className="input_fields">
-                <InputField 
+                <InputField
                   label="Telephone"
                   name='telephone'
                   disabled={!isEdit && location}
@@ -386,7 +386,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
           </div>
           <div className="luyer_input_field">
             <div className="luyer_input_field">
-              <InputField 
+              <InputField
                 label="Address"
                 name='address'
                 disabled={!isEdit && location}
@@ -403,7 +403,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <InputField 
+                <InputField
                   label="Postal code"
                   name='zipcode'
                   disabled={!isEdit && location}
@@ -417,7 +417,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                 />
               </div>
               <div className="input_fields">
-                <InputField 
+                <InputField
                   label={t("Town")}
                   name='town'
                   disabled={!isEdit && location}
@@ -435,7 +435,7 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
           <div className="luyer_input_field">
             <div className="second_input_field">
               <div className="input_fields">
-                <InputField 
+                <InputField
                   name='firstName'
                   label="First Name"
                   disabled={!isEdit && location}
@@ -449,6 +449,9 @@ const LocationsTab = ({t, open, setOpen,userId, countries}) => {
                 />
               </div>
               <div className="input_fields">
+                <label htmlFor="" className="buyer_label">
+                  {t("Last Name")}
+                </label>
                 <InputField
                   name='lastName'
                   label={t("Last Name")}

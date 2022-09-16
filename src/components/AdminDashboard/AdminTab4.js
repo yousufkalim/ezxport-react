@@ -128,7 +128,7 @@ const AdminTab4 = (props) => {
       <Modal
         open={props.openCalculationModal}
         setOpen={props.setOpenCalculationModal}
-        title="Update calculation by coefficient"
+        title={t("Update calculation by coefficient")}
         handleClose={props.handleCalculationClose}
         Closebtn={true}
       >

@@ -85,7 +85,7 @@ const ValidateForm = (props) => {
                 <Tabs value={value} onChange={handleChange}>
                   <Tab className="tab_btn1" label={t("Company information")} {...a11yProps(0)} />
                   <Tab className="tab_btn2" label={t("Address Book")} {...a11yProps(1)} />
-                  <Tab className="tab_btn3" label="Export documents" {...a11yProps(2)} />
+                  <Tab className="tab_btn3" label={t("Export documents")} {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <TabPanel value={value} index={0}>
@@ -133,7 +133,7 @@ const ValidateForm = (props) => {
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        {"Full address"}
+                        {t("Full address")}
                       </label>{" "}
                       <InputField
                         className="textfield_row2"
@@ -166,7 +166,7 @@ const ValidateForm = (props) => {
                   <div className="textField_div2">
                     <div className="userdetail_textField_div">
                       <label htmlFor="" className="label_modal">
-                        Last name
+                        {t("Last name")}
                       </label>{" "}
                       <InputField
                         className="textfield_row2"

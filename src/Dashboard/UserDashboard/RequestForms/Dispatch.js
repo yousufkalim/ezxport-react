@@ -171,7 +171,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full Address")}</label>
+            <label className="BomLabel">{t("Full address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -306,7 +306,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full Address")}</label>
+            <label className="BomLabel">{t("Full address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -444,7 +444,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full Address")}</label>
+            <label className="BomLabel">{t("Full address")}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
