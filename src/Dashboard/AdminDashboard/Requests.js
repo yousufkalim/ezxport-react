@@ -48,6 +48,9 @@ const Requests = () => {
                     Request
                   </TableCell>
                   <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
+                    User
+                  </TableCell>
+                  <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
                     Date
                   </TableCell>
                   <TableCell align="left" className="country" style={{ backgrounColor: '#EAECF0' }}>
@@ -75,15 +78,20 @@ const Requests = () => {
                         <p className="country2">{item?.country?.name}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
+                        {item?.user ? <>
+                          {item?.user?.first_name}{" "}{item?.user?.last_name}
+                        </> : "--"}
+                      </TableCell>
+                      <TableCell align="left" className="country2">
                         {Moment(item?.createdAt).format('DD/MM/YYYY')}
                       </TableCell>
                       <TableCell align="left" className="country2">
                         {item?.certification_cost?.value ? (
                           <>
                             {item?.certification_cost?.currency === 'USD'
-                              ? item?.certification_cost?.value + '$'
+                              ? item?.certification_cost?.value + ' $'
                               : item?.certification_cost?.currency === 'EURO' &&
-                                item?.certification_cost?.value + '€'}
+                              item?.certification_cost?.value + ' €'}
                           </>
                         ) : (
                           '--'

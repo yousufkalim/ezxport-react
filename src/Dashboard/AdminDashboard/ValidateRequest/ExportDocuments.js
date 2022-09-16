@@ -7,7 +7,6 @@ import { ReactComponent as Arrow } from '../../../assets/arrow.svg';
 import PlusButton from '../../../assets/PlusButton.svg';
 import { ReactComponent as Delete } from "../../../assets/DeleteIcon.svg"
 const ExportDocuments = (props) => {
-  console.log("🚀 ~ file: ExportDocuments.js ~ line 10 ~ ExportDocuments ~ props", props)
 
   useEffect(() => {
     handleCountryDocuments()
@@ -44,6 +43,8 @@ const ExportDocuments = (props) => {
     <>
       <div className="ExportDocuments" style={{ marginBottom: '5%' }}>
         <ValidateButton
+          text1={props.validateCountry ? "Validated document" : "To be checked"}
+          validateCountry={props.validateCountry}
           text={`Import documents specific to ${props?.requestById?.country?.name}`}
           className={props.validateCountry ? "Validator_document_btn_div" : "Validator_document_btn_div redclass"}
         />

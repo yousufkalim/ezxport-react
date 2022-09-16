@@ -1,5 +1,4 @@
 import React from 'react';
-import PaginationPage from './Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -38,7 +37,6 @@ const AdminTab1 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationPage />
     </>
   );
 };

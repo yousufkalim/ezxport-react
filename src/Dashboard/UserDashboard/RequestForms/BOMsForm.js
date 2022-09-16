@@ -87,33 +87,41 @@ const BOMsForm = (props) => {
   };
 
   const handleDocument = async (file) => {
-    setLoading(true);
-    setImportedFile(file);
-    let formData = new FormData();
-    formData.append("file", file);
-    formData.append("country", `${props.step1.country}`); //country ID
-    await API("post", "/boms/filterCodes", formData)
-      .then((res) => {
-        console.log("RESSS", res);
-        setLoading(false);
-        let arr1 = [];
-        res?.data?.matchedData.map((item) => {
-          arr1.push({
-            code: item?.bom?.code,
-            codeID: item?.bom?._id,
-            monetary_value: monetaryValue || item?.monetary_value,
-            certification_required: item.bom?.certification_required,
+    var filename = file.name.split('.').pop();
+    if (filename === "xlsx") {
+      setLoading(true);
+      setImportedFile(file);
+      let formData = new FormData();
+      formData.append("file", file);
+      formData.append("country", `${props.step1.country}`); //country ID
+      await API("post", "/boms/filterCodes", formData)
+        .then((res) => {
+          console.log("RESSS", res);
+          setLoading(false);
+          let arr1 = [];
+          res?.data?.matchedData.map((item) => {
+            arr1.push({
+              code: item?.bom?.code,
+              codeID: item?.bom?._id,
+              monetary_value: monetaryValue || item?.monetary_value,
+              certification_required: item.bom?.certification_required,
+            });
           });
-        });
 
-        props?.setMatchedData([...props.matchedData, ...arr1]);
-        props?.setUnMatchedData(res?.data?.unMatched);
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err.response.data.message.msg);
-        setImportedFile("");
-      });
+          props?.setMatchedData([...props.matchedData, ...arr1]);
+          props?.setUnMatchedData(res?.data?.unMatched);
+        })
+        .catch((err) => {
+          setLoading(false);
+          toast.error("Country is required for uploading codes");
+          setImportedFile("");
+        });
+    } else {
+      toast.error("Can only upload Excel sheet")
+      setLoading(false);
+      setImportedFile("");
+    }
+
   };
   const handleDelete = (code) => {
     let filtered = props.matchedData.filter((item) => {
@@ -144,6 +152,17 @@ const BOMsForm = (props) => {
         toast.error(err.response.data.message);
       });
   };
+  const handleMonetaryValue = (value) => {
+    const validatedValue = value.replace(/[^0-9]/g, '');
+    if (validatedValue === "0") {
+      if (monetaryValue !== "") {
+        setMonetaryValue(validatedValue)
+      }
+    }
+    else {
+      setMonetaryValue(validatedValue)
+    }
+  }
   return (
     <div style={{ width: "100%" }}>
       <label className="BomLabel">Country</label>
@@ -180,6 +199,7 @@ const BOMsForm = (props) => {
       </Select>
       <label className="BomLabel">Application title</label>
       <Inputfield
+        // label="Application title"
         style={{ width: "100%" }}
         name="title"
         placeholder="Application title"
@@ -267,10 +287,10 @@ const BOMsForm = (props) => {
         <div className="codedropdown_div">
           <label className="BomLabel">Monetary value</label>
           <Inputfield
-            placeholder="5,000"
             value={monetaryValue}
             className="applicationTitle"
-            onChange={(e) => setMonetaryValue(e.target.value)}
+            onChange={(e) =>
+              handleMonetaryValue(e.target.value)}
           />
         </div>
         <div className="codedropdown_div1">

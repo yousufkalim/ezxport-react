@@ -9,7 +9,6 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
-// import PaginationPage from '../../components/AdminDashboard/Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -313,10 +312,9 @@ const UserDetails = () => {
                                 </TableCell>
 
                                 <TableCell align="left" className="country2">
-                                  {item?.vendor?.contact_lname ? (
+                                  {item?.vendor?.vendor ? (
                                     <>
-                                      {item?.vendor?.contact_lname}
-                                      {item?.vendor?.contact_fname}
+                                      {item?.vendor?.vendor?.name}
                                     </>
                                   ) : (
                                     '--'

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PaginationPage from './Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -140,7 +139,6 @@ const AdminTab2 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationPage />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}

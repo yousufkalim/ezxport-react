@@ -5,9 +5,10 @@ const ValidateButton = (props) => {
     <>
       <div className="import_dcuments">
         <p className="ExportDocuments_p">{props.text}</p>
-        <div className={props.className} onClick={props.onClick} style={{ cursor: "pointer" }}>
-          <p >Validated documents <Arrow /></p>
-        </div>
+        {props.text1 && <div className={props.className} onClick={props.onClick} style={{ cursor: "pointer" }}>
+          <p >{props.text1} <Arrow /> </p>
+        </div>}
+
 
       </div>
     </>

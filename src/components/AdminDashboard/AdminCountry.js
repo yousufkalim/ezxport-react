@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PlusIcon from '../../assets/PlusIcon.svg';
-import PaginationPage from './Pagination';
+
 import { useHistory } from 'react-router-dom';
 
 const AdminCountry = (props) => {
@@ -82,7 +82,6 @@ const AdminCountry = (props) => {
               </Table>
             </TableContainer>
 
-            <PaginationPage />
           </div>
         </div>
       </div>

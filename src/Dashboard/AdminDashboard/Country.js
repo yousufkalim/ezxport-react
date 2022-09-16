@@ -12,7 +12,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import PlusIcon from '../../assets/PlusIcon.svg';
-import PaginationPage from '../../components/AdminDashboard/Pagination';
 import Modal from '../../components/Common/Modal';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -338,8 +337,6 @@ const Country = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-
-            <PaginationPage />
           </div>
         </div>
       </div>
