@@ -22,6 +22,7 @@ const Index = () => {
   const [validateCountry, setValidateCountry] = useState(false);
   const [validateProduct, setValidateProduct] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [modalBtn, setModalBtn] = useState(false);
   const [comment, setComment] = useState("");
 
   const { t, i18n } = useTranslation();
@@ -90,6 +91,7 @@ const Index = () => {
   };
   // console.log();
   const handleRequestDoc = async () => {
+    setModalBtn(true)
     await API("put", `/requests/ReqmissingDocs/${requestById._id}`, {
       admin_remarks: comment,
       products: inputListProduct,
@@ -98,14 +100,14 @@ const Index = () => {
       .then((res) => {
         console.log(res, "handleRequestDoc");
         setCommentModal(false);
+        setModalBtn(false)
         history.push("/RequestDocuments");
       })
       .catch((err) => {
+        setModalBtn(false)
         console.log("err", err);
       })
-      .catch((err) => {
-        console.log("err", err);
-      });
+
   };
   const handleValidByAdmin = async () => {
     await API("put", `/requests/validateRequest/${requestById._id}`)
@@ -117,77 +119,46 @@ const Index = () => {
         console.log("err", err);
       });
   };
-  
+
   const handleClose = () => setCommentModal(false)
-  const handleModalOpen = () => setCommentModal(true) 
+  const handleModalOpen = () => setCommentModal(true)
 
   return (
     <>
-      {countTabe === 2 ? (
-        <>
-          <div className="Reference_header">
-            <div className="Reference_center_div">
-              <div className="Reference_heading">
-                <Link
-                  to="/Admin/Dashboard/Requests"
-                  style={{ color: "black", textDecoraion: "none" }}
-                >
-                  <p className="Reference_h2">
-                    <img src={BackArrow} alt="" />
-                    &nbsp; {t("Reference")}{" "}
-                  </p>
-                </Link>
-              </div>
-              <div className="Reference_logo_div">
-                <img src={EzxportIcon} alt="" className="header_center_div" />
-              </div>
-              <div className="validate_btn_div">
-                <button className="validate_button2">{t("Download the file")}</button>
-                &nbsp;
-                {validateCountry &&
+      <div className="Reference_header">
+        <div className="Reference_center_div">
+          <div className="Reference_heading">
+            <Link
+              to="/Admin/Dashboard/Requests"
+              style={{ color: "black", textDecoraion: "none" }}
+            >
+              <p className="Reference_h2">
+                <img src={BackArrow} alt="" />
+                &nbsp; Reference{" "}
+              </p>
+            </Link>
+          </div>
+          <div className="Reference_logo_div">
+            <img src={EzxportIcon} alt="" className="header_center_div" />
+          </div>
+          {/* <div> */}
+          {countTabe === 2 &&
+            <div>
+              <Button text="Download the file" className="validate_button2" />
+              &nbsp;
+              {validateCountry &&
                 validateProduct &&
                 inputList.length === 0 &&
-                inputListProduct.length === 0 ? 
-                  <button className="validate_button" onClick={handleValidByAdmin}>
-                    Validate the file
-                  </button>
-                
-                  :
-                  <button className="validate_button" onClick={handleModalOpen}>
-                    {t("Request document")}
-                  </button>
-                }
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="Reference_header">
-            <div className="Reference_center_div">
-              <div className="Reference_heading">
-                <Link
-                  to="/Admin/Dashboard/Requests"
-                  style={{ color: "black", textDecoration: "none" }}
-                >
-                  <p className="Reference_h2">
-                    <img src={BackArrow} alt="" />
-                    &nbsp; {t("Reference")}
-                  </p>
-                </Link>
-              </div>
-              <div className="Reference_logo_div">
-                <img src={EzxportIcon} alt="" className="header_center_div" />
-              </div>
-              <div className="validate_btn_div">
-                <button className="validate_button">
-                  {t("Validate and receive the completed file")}
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
+                inputListProduct.length === 0 ? (
+                <Button text="Validate the file" className="validate_button" onClick={handleValidByAdmin} />
+              ) : (
+                <Button text="Request document" className="validate_button" onClick={handleModalOpen} />
+              )}</div>
+          }
+          {/* </div> */}
+        </div>
+      </div>
+
       <CompanyInformation
         TabeProps={TabeProps}
         requestById={requestById}
@@ -222,8 +193,8 @@ const Index = () => {
             borderColor: "#EAECF0",
           }}
         />
-        <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleRequestDoc} />
-      </Modal>
+        <Button text="Submit" className="bom_downloadFile_btn" onClick={handleRequestDoc} disabled={modalBtn === true && comment === "" && true} />
+      </Modal >
     </>
   );
 };

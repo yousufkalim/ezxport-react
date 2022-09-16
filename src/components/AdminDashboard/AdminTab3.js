@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PaginationPage from "./Pagination";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -50,9 +49,9 @@ const AdminTab3 = (props) => {
   // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState("default");
   const [certificate_status, setCertificate_status] = useState("");
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
-  const {loading, rows, setBoms} = props;
+  const { loading, rows, setBoms } = props;
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -264,12 +263,12 @@ const AdminTab3 = (props) => {
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 Status
                 {
-                          !sort.ascend ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required', true)} src={arrow_up} alt="" />
-                          ) : (
-                            <img onClick={() => getSortedData(rows,setBoms, setSort, nestSortTitles,'certification_required',false)} src={downArrow} alt="" />
-                          )
-                        }
+                  !sort.ascend ? (
+                    <img className='sorting-icon' onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, 'certification_required', true)} src={arrow_up} alt="" />
+                  ) : (
+                    <img onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, 'certification_required', false)} src={downArrow} alt="" />
+                  )
+                }
               </TableCell>
 
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>Actions</TableCell>
@@ -278,83 +277,82 @@ const AdminTab3 = (props) => {
           {
             loading ? <Spinner /> : (
               <TableBody>
-            {props.rows.map((row) => (
-              <TableRow key={row.createData}>
-                <TableCell
-                  style={{ width: "20%" }}
-                  component="th"
-                  scope="row"
-                  sx={{ padding: 2 }}
-                  align="left"
-                >
-                  <p className="AP_plus_title">{row.code}</p>
-                </TableCell>
-                <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
-                  <p
-                    style={{
-                      background: "#ECFDF3",
-                      borderRadius: "16px",
-                      display: "inline-block",
-                      padding: "2px 5px",
-                      color: "#027A48",
-                    }}
-                  ></p>
-                  {row.certification_required === true ? (
-                    <p
-                      style={{
-                        background: "#ECFDF3",
-                        borderRadius: "16px",
-                        display: "inline-block",
-                        padding: "2px 5px",
-                        color: "#027A48",
-                      }}
+                {props.rows.map((row) => (
+                  <TableRow key={row.createData}>
+                    <TableCell
+                      style={{ width: "20%" }}
+                      component="th"
+                      scope="row"
+                      sx={{ padding: 2 }}
+                      align="left"
                     >
-                      {t("Subject to inspection")}
-                    </p>
-                  ) : (
-                    <p
-                      style={{
-                        background: "#FFFAEB",
-                        borderRadius: "16px",
-                        display: "inline-block",
-                        padding: "2px 5px",
-                        color: "#B54708",
-                      }}
-                    >
-                      {t("Not subject")}
-                    </p>
-                  )}
-                </TableCell>
-                <TableCell align="left" className="country2">
-                  <img
-                    src={DeleteIcon}
-                    alt=""
-                    className="dltIcon"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      setBomId(row._id);
-                      setOpenModal(true);
-                    }}
-                  />
+                      <p className="AP_plus_title">{row.code}</p>
+                    </TableCell>
+                    <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
+                      <p
+                        style={{
+                          background: "#ECFDF3",
+                          borderRadius: "16px",
+                          display: "inline-block",
+                          padding: "2px 5px",
+                          color: "#027A48",
+                        }}
+                      ></p>
+                      {row.certification_required === true ? (
+                        <p
+                          style={{
+                            background: "#ECFDF3",
+                            borderRadius: "16px",
+                            display: "inline-block",
+                            padding: "2px 5px",
+                            color: "#027A48",
+                          }}
+                        >
+                          {t("Subject to inspection")}
+                        </p>
+                      ) : (
+                        <p
+                          style={{
+                            background: "#FFFAEB",
+                            borderRadius: "16px",
+                            display: "inline-block",
+                            padding: "2px 5px",
+                            color: "#B54708",
+                          }}
+                        >
+                          {t("Not subject")}
+                        </p>
+                      )}
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      <img
+                        src={DeleteIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setBomId(row._id);
+                          setOpenModal(true);
+                        }}
+                      />
 
-                  <img
-                    src={EditIcon}
-                    alt=""
-                    className="dltIcon"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => {
-                      handleEditBomClick(row);
-                    }}
-                  />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                      <img
+                        src={EditIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          handleEditBomClick(row);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
             )
           }
         </Table>
       </TableContainer>
-      <PaginationPage />
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleBomDelete(bomId)} />
 

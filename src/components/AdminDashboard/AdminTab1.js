@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PaginationPage from './Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,13 +14,13 @@ import { useTranslation, Trans } from "react-i18next";
 
 const nestSortTitles = [];
 
-const AdminTab1 = ({vendor, setVendor, loading}) => {
+const AdminTab1 = ({ vendor, setVendor, loading }) => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   console.log("Vendor vendor", vendor);
-  
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -29,14 +28,14 @@ const AdminTab1 = ({vendor, setVendor, loading}) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-              {t("Service providers")}
+                {t("Service providers")}
                 {
-                          !sort.ascend ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(vendor,setVendor, setSort, nestSortTitles,'name', true)} src={arrow_up} alt="" />
-                          ) : (
-                            <img onClick={() => getSortedData(vendor,setVendor, setSort, nestSortTitles,'name',false)} src={downArrow} alt="" />
-                          )
-                        }
+                  !sort.ascend ? (
+                    <img className='sorting-icon' onClick={() => getSortedData(vendor, setVendor, setSort, nestSortTitles, 'name', true)} src={arrow_up} alt="" />
+                  ) : (
+                    <img onClick={() => getSortedData(vendor, setVendor, setSort, nestSortTitles, 'name', false)} src={downArrow} alt="" />
+                  )
+                }
               </TableCell>
             </TableRow>
           </TableHead>
@@ -44,27 +43,26 @@ const AdminTab1 = ({vendor, setVendor, loading}) => {
             loading ? (
               <Spinner />
             ) : (
-            <TableBody>
-              {vendor?.map((item, index) => {
-                console.log("NAme ", item)
-                return (
-                  <TableRow key={index}>
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
-                    >
-                      <p className="AP_plus_title">{item.name}</p>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
+              <TableBody>
+                {vendor?.map((item, index) => {
+                  console.log("NAme ", item)
+                  return (
+                    <TableRow key={index}>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{ border: '1px solid #E5E5E5;', padding: 2 }}
+                      >
+                        <p className="AP_plus_title">{item.name}</p>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
             )
           }
         </Table>
       </TableContainer>
-      <PaginationPage />
     </>
   );
 };

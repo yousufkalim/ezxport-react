@@ -9,7 +9,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ExportIcon from "../../assets/ExportIcon.svg";
-import PaginationPage from "./Pagination";
 import { useHistory } from "react-router-dom";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import { useTranslation, Trans } from "react-i18next";
@@ -105,7 +104,6 @@ const UserTable = (props) => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <PaginationPage />
           </div>
         </div>
       </div>

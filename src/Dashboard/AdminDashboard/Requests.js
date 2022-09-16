@@ -56,7 +56,7 @@ const TITLES = [
 
 const Requests = () => {
   const [allRequest, setAllRequest] = useState([]);
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
   const [loading, setLoading] = useState(false);
 
   const { t, i18n } = useTranslation();
@@ -77,7 +77,7 @@ const Requests = () => {
       });
   };
 
-  console.log("All resquests ",allRequest);
+  console.log("All resquests ", allRequest);
   return (
     <div className="list_main_div">
       <div className="list_second_div">
@@ -100,9 +100,9 @@ const Requests = () => {
                         {item.name} &nbsp;
                         {
                           item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(allRequest,setAllRequest, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
+                            <img className='sorting-icon' onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
                           ) : item.sortIcon && (
-                            <img onClick={() => getSortedData(allRequest,setAllRequest, setSort, nestSortTitles, item.key, false)} src={downArrow} alt="" />
+                            <img onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, false)} src={downArrow} alt="" />
                           )
                         }
                       </TableCell>
@@ -111,57 +111,57 @@ const Requests = () => {
                 </TableRow>
               </TableHead>
               {
-                loading ? <Spinner /> : 
-                <TableBody>
-                  {allRequest?.map((item) => {
-                    return (
-                      <TableRow
-                        key={item?._id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
-                        onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}
-                      >
-                        <TableCell component="th" scope="row">
-                          <p className="AP_plus_title">{item?.title}</p>
-                          <p className="country2">{item?.country?.name}</p>
-                        </TableCell>
-                        <TableCell align="left" className="country2">
-                          {Moment(item?.createdAt).format('DD/MM/YYYY')}
-                        </TableCell>
-                        <TableCell align="left" className="country2">
-                          {item?.certification_cost?.value ? (
-                            <>
-                              {item?.certification_cost?.currency === 'USD'
-                                ? item?.certification_cost?.value + '$'
-                                : item?.certification_cost?.currency === 'EURO' &&
+                loading ? <Spinner /> :
+                  <TableBody>
+                    {allRequest?.map((item) => {
+                      return (
+                        <TableRow
+                          key={item?._id}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
+                          onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}
+                        >
+                          <TableCell component="th" scope="row">
+                            <p className="AP_plus_title">{item?.title}</p>
+                            <p className="country2">{item?.country?.name}</p>
+                          </TableCell>
+                          <TableCell align="left" className="country2">
+                            {Moment(item?.createdAt).format('DD/MM/YYYY')}
+                          </TableCell>
+                          <TableCell align="left" className="country2">
+                            {item?.certification_cost?.value ? (
+                              <>
+                                {item?.certification_cost?.currency === 'USD'
+                                  ? item?.certification_cost?.value + '$'
+                                  : item?.certification_cost?.currency === 'EURO' &&
                                   item?.certification_cost?.value + '€'}
-                            </>
-                          ) : (
-                            '--'
-                          )}
-                        </TableCell>
-  
-                        <TableCell align="left" className="country2">
-                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : '--'}
-                        </TableCell>
-                        <TableCell align="left">
-                          {item?.status === 'Validate By Admin' ? (
-                            <p className="clrClass">{item?.status}</p>
-                          ) : item?.status === 'Missing documents' ? (
-                            <p className="missingDocStatus">{item?.status}</p>
-                          ) : item?.status === 'Validated' ? (
-                            <p className="clrClass">{item?.status}</p>
-                          ) : item?.status === 'sent' ? (
-                            <p className="send_status">{item?.status}</p>
-                          ) : item?.status === 'Benig Checked By Expert' ? (
-                            <p className="process_status">{item?.status}</p>
-                          ) : (
-                            '--'
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
+                              </>
+                            ) : (
+                              '--'
+                            )}
+                          </TableCell>
+
+                          <TableCell align="left" className="country2">
+                            {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : '--'}
+                          </TableCell>
+                          <TableCell align="left">
+                            {item?.status === 'Validate By Admin' ? (
+                              <p className="clrClass">{item?.status}</p>
+                            ) : item?.status === 'Missing documents' ? (
+                              <p className="missingDocStatus">{item?.status}</p>
+                            ) : item?.status === 'Validated' ? (
+                              <p className="clrClass">{item?.status}</p>
+                            ) : item?.status === 'sent' ? (
+                              <p className="send_status">{item?.status}</p>
+                            ) : item?.status === 'Benig Checked By Expert' ? (
+                              <p className="process_status">{item?.status}</p>
+                            ) : (
+                              '--'
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
               }
             </Table>
           </TableContainer>

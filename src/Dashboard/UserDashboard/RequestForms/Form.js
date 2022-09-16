@@ -189,6 +189,7 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log("errrrr", err);
+        toast.error(err.response.data.message.msg)
       });
   };
   const handleStep1 = async () => {
@@ -436,10 +437,12 @@ export default function HorizontalNonLinearStepper() {
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (
     <Box sx={{ width: "100%", marginTop: "3rem" }}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />} className="stepperClass">
+      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />} className="stepperClass" >
         {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepLabel onClick={handleStep(index)}>
+          <Step key={label} completed={completed[index]} disabled={true}>
+            <StepLabel
+            // onClick={handleStep(index)}
+            >
               <p
                 className="stepper_content"
                 style={{

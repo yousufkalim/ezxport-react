@@ -12,7 +12,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import PlusIcon from "../../assets/PlusIcon.svg";
-import PaginationPage from "../../components/AdminDashboard/Pagination";
 import Modal from "../../components/Common/Modal";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
@@ -258,7 +257,7 @@ const Country = () => {
   const [countryId, setCountryId] = useState("");
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
 
   const { t, i18n } = useTranslation();
@@ -332,16 +331,16 @@ const Country = () => {
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
                     {
                       TITLES.map((item) => (
-                      <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                        {item.name}
-                        {
-                          item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(countries,setCounteries, setSort, nestSortTitles,item.key, true)} src={arrow_up} alt="" />
-                          ) : item.sortIcon && (
-                            <img onClick={() => getSortedData(countries,setCounteries, setSort, nestSortTitles,item.key,false)} src={downArrow} alt="" />
-                          )
-                        }
-                      </TableCell>
+                        <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                          {item.name}
+                          {
+                            item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                              <img className='sorting-icon' onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
+                            ) : item.sortIcon && (
+                              <img onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, false)} src={downArrow} alt="" />
+                            )
+                          }
+                        </TableCell>
                       ))
                     }
                     {history.location.pathname === "/Admin/Dashboard/Service" && (
@@ -356,50 +355,48 @@ const Country = () => {
                 {
                   loading ? <Spinner /> : (
                     <TableBody>
-                    {countries?.map((item) => {
-                      console.log("Country name ", item.name);
-                      return (
-                        <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={{
-                              padding: 2,
-                              cursor: "pointer",
-                            }}
-                            onClick={() =>
-                          history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
-                        }
-                          >
-                            <p className="AP_plus_title">{t(item.name)}</p>
-                          </TableCell>
-                          <TableCell
-                            component="th"
-                            scope="row"
-                            sx={{
-                              padding: 2,
-                            }}
-                          >
-                            <Delete
-                              onClick={() => {
-                                setOpenModal(true);
-                                setCountryId(item?._id);
-                              }}
-                              style={{
+                      {countries?.map((item) => {
+                        console.log("Country name ", item.name);
+                        return (
+                          <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              sx={{
+                                padding: 2,
                                 cursor: "pointer",
                               }}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      )
-                    })}
-                  </TableBody>
+                              onClick={() =>
+                                history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
+                              }
+                            >
+                              <p className="AP_plus_title">{t(item.name)}</p>
+                            </TableCell>
+                            <TableCell
+                              component="th"
+                              scope="row"
+                              sx={{
+                                padding: 2,
+                              }}
+                            >
+                              <Delete
+                                onClick={() => {
+                                  setOpenModal(true);
+                                  setCountryId(item?._id);
+                                }}
+                                style={{
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        )
+                      })}
+                    </TableBody>
                   )
                 }
               </Table>
             </TableContainer>
-
-            <PaginationPage />
           </div>
         </div>
       </div>

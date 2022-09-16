@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PaginationPage from './Pagination';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -33,7 +32,7 @@ const schema = {
 const nestSortTitles = [];
 
 const AdminTab2 = (props) => {
-  const {rows, loading, setDocument} = props;
+  const { rows, loading, setDocument } = props;
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -43,7 +42,7 @@ const AdminTab2 = (props) => {
     touched: {},
     errors: {},
   });
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
   const [openModal, setOpenModal] = useState(false);
   const [docId, setDocId] = useState("");
 
@@ -128,14 +127,14 @@ const AdminTab2 = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                Documents 
+                Documents
                 {
-                          !sort.ascend ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name', true)} src={arrow_up} alt="" />
-                          ) : (
-                            <img onClick={() => getSortedData(rows,setDocument, setSort, nestSortTitles,'name',false)} src={downArrow} alt="" />
-                          )
-                        }
+                  !sort.ascend ? (
+                    <img className='sorting-icon' onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', true)} src={arrow_up} alt="" />
+                  ) : (
+                    <img onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', false)} src={downArrow} alt="" />
+                  )
+                }
               </TableCell>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 {t("Help Information")} <img src={props.img} alt="" />
@@ -171,7 +170,6 @@ const AdminTab2 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <PaginationPage />
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
       <Modal
         open={props.openAddDocument}

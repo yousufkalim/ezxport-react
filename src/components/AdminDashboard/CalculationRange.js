@@ -103,9 +103,7 @@ const CalculationRange = (props) => {
         },
       }));
     }
-    // if (!validatedValue.match(/[^1-9\0\.*$]/)) {
 
-    // }
   };
   const handleRangeData = async () => {
     await API("get", `/calculations/${props?.id}`)

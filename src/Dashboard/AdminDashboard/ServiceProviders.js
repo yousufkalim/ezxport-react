@@ -10,7 +10,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import PlusIcon from "../../assets/PlusIcon.svg";
-import PaginationPage from "../../components/AdminDashboard/Pagination";
 import API from "../../api/index";
 import Modal from "../../components/Common/Modal";
 import { toast } from "react-toastify";
@@ -59,7 +58,7 @@ const ServiceProviders = () => {
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -223,14 +222,14 @@ const ServiceProviders = () => {
                 <TableHead>
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
                     <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                    {t("Service provider")} &nbsp;
+                      {t("Service provider")} &nbsp;
                       {
-                          !sort.ascend ? (
-                            <img className='sorting-icon' onClick={() => getSortedData(vendors,setVendors, setSort, [],'name', true)} src={arrow_up} alt="" />
-                          ) : (
-                            <img onClick={() => getSortedData(vendors,setVendors, setSort, [],'name',false)} src={downArrow} alt="" />
-                          )
-                        }
+                        !sort.ascend ? (
+                          <img className='sorting-icon' onClick={() => getSortedData(vendors, setVendors, setSort, [], 'name', true)} src={arrow_up} alt="" />
+                        ) : (
+                          <img onClick={() => getSortedData(vendors, setVendors, setSort, [], 'name', false)} src={downArrow} alt="" />
+                        )
+                      }
                     </TableCell>
                     <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                       {t("Associated countries")}
@@ -240,51 +239,50 @@ const ServiceProviders = () => {
                 {
                   loading ? <Spinner /> : (
                     <TableBody>
-                    {vendors?.map((item, index) => (
-                      <TableRow key={index} sx={{ border: "1px solid #EAECF0" }}>
-                        <TableCell
-                          onClick={() => {
-                            history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
-                          }}
-                          component="th"
-                          scope="row"
-                          sx={{
-                            padding: 2,
-                            cursor: "pointer",
-                          }}
-                        >
-                          <p className="AP_plus_title">{item.name}</p>
-                        </TableCell>
-                        <TableCell
-                          component="th"
-                          scope="row"
-                          sx={{
-                            padding: 2,
-                            cursor: "pointer",
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                          }}
-                          onClick={() => {
-                            history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
-                          }}
-                        >
-                          {item.countries.map((country) => {
-                            return (
-                              <p className="AP_plus_title" style={{ paddingLeft: "10px" }}>
-                                {country.name}
-                              </p>
-                            );
-                          })}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
+                      {vendors?.map((item, index) => (
+                        <TableRow key={index} sx={{ border: "1px solid #EAECF0" }}>
+                          <TableCell
+                            onClick={() => {
+                              history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
+                            }}
+                            component="th"
+                            scope="row"
+                            sx={{
+                              padding: 2,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <p className="AP_plus_title">{item.name}</p>
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            sx={{
+                              padding: 2,
+                              cursor: "pointer",
+                              display: "flex",
+                              justifyContent: "flex-start",
+                              alignItems: "flex-start",
+                            }}
+                            onClick={() => {
+                              history.push(`/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`);
+                            }}
+                          >
+                            {item.countries.map((country) => {
+                              return (
+                                <p className="AP_plus_title" style={{ paddingLeft: "10px" }}>
+                                  {country.name}
+                                </p>
+                              );
+                            })}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
                   )
                 }
               </Table>
             </TableContainer>
-            <PaginationPage />
           </div>
         </div>
       </div>

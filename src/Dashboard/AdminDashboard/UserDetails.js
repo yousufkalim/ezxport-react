@@ -72,7 +72,7 @@ const UserDetails = () => {
   const [vatNumber, setVatNumber] = useState("");
   // user request states
   const [requestById, setRequestById] = useState([]);
-  const [sort, setSort] = useState({key: "", ascend: true});
+  const [sort, setSort] = useState({ key: "", ascend: true });
   const [requestLoading, setRequestLoading] = useState(false);
 
   const { t, i18n } = useTranslation();
@@ -258,9 +258,9 @@ const UserDetails = () => {
                                 {t("Request")} &nbsp;
                                 {
                                   !sort.ascend ? (
-                                    <img className='sorting-icon' onClick={() => getSortedData(requestById,setRequestById, setSort, [],'title', true)} src={arrow_up} alt="" />
+                                    <img className='sorting-icon' onClick={() => getSortedData(requestById, setRequestById, setSort, [], 'title', true)} src={arrow_up} alt="" />
                                   ) : (
-                                    <img onClick={() => getSortedData(requestById,setRequestById, setSort, [],'title', false)} src={downArrow} alt="" />
+                                    <img onClick={() => getSortedData(requestById, setRequestById, setSort, [], 'title', false)} src={downArrow} alt="" />
                                   )
                                 }
                               </TableCell>
@@ -318,7 +318,7 @@ const UserDetails = () => {
                                       {item?.certification_cost?.currency === "USD"
                                         ? item?.certification_cost?.value + "$"
                                         : item?.certification_cost?.currency === "EURO" &&
-                                          item?.certification_cost?.value + "€"}
+                                        item?.certification_cost?.value + "€"}
                                     </>
                                   ) : (
                                     "--"
@@ -326,10 +326,9 @@ const UserDetails = () => {
                                 </TableCell>
 
                                 <TableCell align="left" className="country2">
-                                  {item?.vendor?.contact_lname ? (
+                                  {item?.vendor?.vendor ? (
                                     <>
-                                      {item?.vendor?.contact_lname}
-                                      {item?.vendor?.contact_fname}
+                                      {item?.vendor?.vendor?.name}
                                     </>
                                   ) : (
                                     "--"

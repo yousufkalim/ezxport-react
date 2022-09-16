@@ -11,7 +11,6 @@ import { useTranslation, Trans } from "react-i18next";
 const ExportDocuments = (props) => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-  console.log("🚀 ~ file: ExportDocuments.js ~ line 10 ~ ExportDocuments ~ props", props);
 
   useEffect(() => {
     handleCountryDocuments();
@@ -50,12 +49,10 @@ const ExportDocuments = (props) => {
     <>
       <div className="ExportDocuments" style={{ marginBottom: "5%" }}>
         <ValidateButton
+          text1={props.validateCountry ? "Validated document" : "To be checked"}
+          validateCountry={props.validateCountry}
           text={`${t("Import documents specific to")} ${t(props?.requestById?.country?.name)}`}
-          className={
-            props.validateCountry
-              ? "Validator_document_btn_div"
-              : "Validator_document_btn_div redclass"
-          }
+          className={props.validateCountry ? "Validator_document_btn_div" : "Validator_document_btn_div redclass"}
         />
         {/* switch   */}
         <Grid container spacing={2} sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
