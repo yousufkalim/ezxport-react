@@ -219,6 +219,7 @@ const AdminNomPays = () => {
               <TabPanel value={value} index={2}>
                 <div className="list_table">
                   <AdminTab3
+                    countryId={id}
                     rows={boms}
                     setBoms={setBoms}
                     loading={loading}
@@ -260,7 +261,9 @@ const AdminNomPays = () => {
             <label htmlFor="" className="bom_popup_label">
               {t("Download your BOM file")}
             </label>
-            <Button text={t("Download current file")} className="bom_downloadFile_btn" />
+            <div className="bom_download_File_btn_div">
+              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>{t("Download current file")}</Link>
+            </div>
           </div>
 
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
