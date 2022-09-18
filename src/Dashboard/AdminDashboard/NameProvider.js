@@ -260,7 +260,7 @@ const NameProvider = () => {
                   <div className="textField_div2">
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Contact
+                        Contact email
                       </label>{" "}
                       <InputField
                         disabled={true}
@@ -384,7 +384,7 @@ const NameProvider = () => {
           />
           <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
           <label htmlFor="" className="label_modal">
-            Contact
+            Contact email
           </label>{" "}
           <InputField
             value={formState.values.contact}

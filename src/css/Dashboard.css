@@ -149,6 +149,7 @@
   align-items: center;
 }
 .list_reqst_btn {
+  cursor: pointer;
   text-decoration: none;
   border: none;
   color: #fff;
