@@ -102,7 +102,6 @@ const Login = () => {
     }))
   }
 
-  console.log("Formm state ", formState);
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -129,7 +128,7 @@ const Login = () => {
               // role="presentation" 
               autoComplete="off"
               type="text"
-              placeholder="mail@mail.com"
+              placeholder={t("E-mail address")}
               value={formState.values.email}
               onChange={(e) =>handleChange(e)}
             />
@@ -163,10 +162,6 @@ const Login = () => {
             text="To log in"
             disabled={!formState.isValid ? true : false}
           />
-          {console.log(
-            "🚀 ~ file: Login.jsx ~ line 161 ~ Login ~ formState.isValid",
-            formState.isValid
-          )}{" "}
           <div className="register-div">
             <Link to="/registration" className="regBtn">
               Register

@@ -16,7 +16,7 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               <label htmlFor="" className="buyer_label">
                 {t("Minimum threshold")}
               </label>
-              <InputField value={`${coefficientChange?.min_threshold?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.min_threshold?.value || ""} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
@@ -25,7 +25,7 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
                 {t("Coefficient")}
               </label>
 
-              <InputField value={`${coefficientChange?.coefficient} %`} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.coefficient || ""} %`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
@@ -33,7 +33,7 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               <label htmlFor="" className="buyer_label">
                 {t("minimum cost")}
               </label>
-              <InputField value={`${coefficientChange?.min_cost?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.min_cost?.value || ""} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
           <div className="luyer_input_field">
@@ -41,7 +41,7 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               <label htmlFor="" className="buyer_label">
                 {t("Maximum cost")}
               </label>
-              <InputField value={`${coefficientChange?.max_cost?.value} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
+              <InputField value={`${coefficientChange?.max_cost?.value || ""} ${currency === "USD" ? "$" : "€"}`} disabled={true} className="calculation_input" />
             </FormControl>
           </div>
         </div>

@@ -177,7 +177,6 @@ export default function HorizontalNonLinearStepper() {
     });
     await API("post", "/requests/calculateCost", data)
       .then((res) => {
-        console.log("in API");
         if (res.data.status === "Required") {
           setCertificateRequire(true);
           setCertificationCostOfCode(res?.data?.certification_cost);
@@ -233,7 +232,11 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => {
         console.log("handleStep2", err);
-        toast.error(err.response.data.message);
+        if (err.response.data.message.msg === "vendorId required") {
+          toast.error("Vendor is required");
+        } else {
+          toast.error(err.response.data.message.msg);
+        }
       });
   };
   const handleStep3 = async () => {

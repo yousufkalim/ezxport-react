@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
 import Quiz from "../assets/Quiz.png";
 import Header from "../components/Common/Header";
@@ -9,16 +9,40 @@ import { toast } from "react-toastify";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import { useTranslation, Trans } from "react-i18next";
+import validate from "validate.js";
+
+const schema = {
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    email: true,
+    length: {
+      maximum: 64,
+    },
+  },
+};
 
 const ForgetPassword = () => {
-  const [email, setEmail] = useState("");
   const [flag, setFlag] = useState(false);
-
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: {
+      email: "",
+    },
+    touched: {},
+    errors: {},
+  });
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
   const handleResetPassword = async () => {
-    await API("put", `/auth/forgot/${email}`)
+    await API("put", `/auth/forgot/${formState?.values?.email}`)
       .then((res) => {
         setFlag(true);
         if (res.data.success) {
@@ -26,11 +50,35 @@ const ForgetPassword = () => {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Email does not exist");
         setFlag(false);
       });
     setFlag(!flag);
   };
+  const handleChange = (event) => {
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]: event.target.value,
+      }
+    }));
+  };
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const { name } = e.target;
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: { ...formState.touched, [name]: true },
+      isValid: errors ? false : true
+
+    }))
+  }
+
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+
   return (
     <>
       <Header />
@@ -50,23 +98,27 @@ const ForgetPassword = () => {
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="E-mail address">{t("E-mail address")}</label>
             <InputField
-              className="input_email"
-              type="email"
-              placeholder="mail@mail.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              label="E-mail address"
+              isError={hasError("email")}
+              error={formState.errors.email}
+              name="email"
+              onBlur={(e) => handleBlur(e)}
+              // role="presentation" 
+              autoComplete="off"
+              type="text"
+              placeholder={t("E-mail address")}
+              value={formState.values.email}
+              onChange={(e) => handleChange(e)}
             />
           </div>
-          {/* login button  */}
           {!flag ? (
             <div className={"resetPassword-div"}>
               <Button
-                className={email === "" ? "logingbtn_disabled" : "logingbtn"}
+                className={!formState.isValid ? "logingbtn_disabled" : "logingbtn"}
                 onClick={handleResetPassword}
                 text="Reset Password"
-                disabled={email === "" && true}
+                disabled={!formState.isValid ? true : false}
               />
             </div>
           ) : (
@@ -81,7 +133,7 @@ const ForgetPassword = () => {
               className={flag ? "logingbtn" : "regBtn"}
               onClick={handleResetPassword}
               text="resend again"
-              disabled={!flag || email === "" ? true : false}
+              disabled={!flag || formState?.values?.email === "" ? true : false}
             />
           </div>
         </div>

@@ -294,7 +294,7 @@ const AdminTab3 = (props) => {
                 {props.rows.map((row) => (
                   <TableRow key={row.createData}>
                     <TableCell
-                      style={{ width: "20%" }}
+                      // style={{ width: "20%" }}
                       component="th"
                       scope="row"
                       sx={{ padding: 2 }}
@@ -303,7 +303,7 @@ const AdminTab3 = (props) => {
                       <p className="AP_plus_title">{row.code}</p>
                     </TableCell>
                     <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
-                      <p
+                      {/* <p
                         style={{
                           background: "#ECFDF3",
                           borderRadius: "16px",
@@ -311,7 +311,7 @@ const AdminTab3 = (props) => {
                           padding: "2px 5px",
                           color: "#027A48",
                         }}
-                      ></p>
+                      ></p> */}
                       {row.certification_required === true ? (
                         <p
                           style={{

@@ -83,8 +83,8 @@ const schema = {
   vatNumber: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      minimum: 8,
-      maximum: 8,
+      minimum: 13,
+      maximum: 13,
     },
   },
 };
@@ -345,7 +345,7 @@ const Registration = () => {
                     {hasError("town") && formState.errors.town}
                   </div>
                 </div>
-                <div className="city_inputs2">
+                {/* <div className="city_inputs2">
                   <InputField
                     type="text"
                     label="Town"
@@ -358,7 +358,7 @@ const Registration = () => {
                     name="town"
                     onChange={handleChange}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="regist_input_div">

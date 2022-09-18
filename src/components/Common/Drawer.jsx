@@ -139,7 +139,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           <div className="buyer_main">
             <div className="buyer_heading">
               <h2 className="buyer_h2">Are you sure you want to log out?</h2>
-              <ClearIcon onClick={handleClose} />
+              <ClearIcon onClick={handleClose} style={{ cursor: "pointer" }} />
             </div>
             {/* {children} */}
             <div className="logout_popup">
