@@ -26,7 +26,7 @@ const Providers = () => {
   const getProviders = async () => {
     setLoading(true);
     await API('get', `/vendors/userVendor/${userData._id}`).then((res) => {
-      const data = res?.data?.Uservendors?.map(item => item.vendor);
+      const data = res?.data?.Uservendors?.map(item => ({...item.vendor, email: item.contact_email, firstName: item.contact_fname, lastName: item.contact_lname }));
       setProviders(data);
       setLoading(false);
       // toaster('success', "testing");

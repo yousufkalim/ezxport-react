@@ -114,7 +114,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         <Dialog open={open} onClose={handleClose} fullWidth>
           <div className="ApPlus_popup_form">
             <div className="ApPlus_popup_ha">
-              <h3 className="ApPlus_popup_h2">AP Plus</h3>
+              <h3 className="ApPlus_popup_h2">{`${formData?.firstName ?? ''} ${formData?.lastName ?? ''}`}</h3>
               <ClearIcon onClick={handleClose} style={{ cursor: "pointer" }} />
             </div>
             {/* inputs  */}

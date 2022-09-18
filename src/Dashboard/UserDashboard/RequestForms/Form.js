@@ -63,6 +63,7 @@ export default function HorizontalNonLinearStepper() {
   });
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
+  const [unMatchedCodes, setUnMatchedCodes] = useState([]);
   const [codes, setCodes] = useState([]);
   const [certificateRequire, setCertificateRequire] = useState(false);
   const [certificateNotRequire, setCertificateNotRequire] = useState(false);
@@ -475,6 +476,8 @@ export default function HorizontalNonLinearStepper() {
                 setCodes={setCodes}
                 setMatchedData={setMatchedData}
                 setUnMatchedData={setUnMatchedData}
+                setUnMatchedCodes={setUnMatchedCodes}
+                unMatchedCodes={unMatchedCodes}
                 matchedData={matchedData}
                 unMatchedData={unMatchedData}
                 //certificate Require modal

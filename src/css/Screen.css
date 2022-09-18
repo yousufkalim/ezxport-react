@@ -182,6 +182,16 @@ label {
   /* font-size: 14px; */
   width: 15px;
 }
+.languages-container {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.languages-container img {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
   .quizIcon.MuiSvgIcon-root {
     font-size: 1.1em;

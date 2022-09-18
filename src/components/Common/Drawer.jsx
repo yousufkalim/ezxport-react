@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import LILogo5 from "../../assets/LILogo5.svg";
 import LILogo6 from "../../assets/LILogo6.svg";
 import LILogo7 from "../../assets/LILogo7.svg";
+import french from "../../assets/france.png";
+import english from "../../assets/english.png";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useTranslation, Trans } from "react-i18next";
+
 
 // import DialogActions from "@mui/material/DialogActions";
 // import DialogTitle from "@mui/material/DialogTitle";
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [open, setOpen] = React.useState(false);
+  const location = useLocation();
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -34,23 +38,29 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
     window.location = "/";
   };
 
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+  }
+  
   return (
     <>
       <div className="dash_menu">
         <ul className="dashboard_ul">
           {Route.map((item, index) => {
             if (index < Route.length - 2 && role === "user") {
+              const isActive = location.pathname === item.path;
               return (
                 <>
                   <Link
                     exact
                     activeClassName="activeColor"
                     to={item.path}
-                    className={`${activeUploadButton === index + 1 && "activeLi"} dashboard_li `}
+                    className={`${isActive && "activeLi"} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
                     <span
-                      className={`${activeUploadButton === index + 1 && "li_img_white"}  li_img `}
+                      className={`${isActive && "li_img_white"}  li_img `}
                     >
                       {item.icon}
                     </span>
@@ -59,17 +69,19 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 </>
               );
             } else if (role === "admin") {
+              const isActive = location.pathname === item.path;
               return (
                 <>
                   <Link
                     exact
                     activeClassName="activeColor"
                     to={item.path}
-                    className={`${activeUploadButton === index + 1 && "activeLi"} dashboard_li `}
+                    // className={` dashboard_li `}
+                    className={`${isActive && "activeLi"} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
                     <span
-                      className={`${activeUploadButton === index + 1 && "li_img_white"}  li_img `}
+                      className={`${isActive && "li_img_white"}  li_img `}
                     >
                       {item.icon}
                     </span>
@@ -124,9 +136,14 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               />
             </div>
             <p className="user_mail">{user.email}</p>
+            <div className="languages-container">
+              <img src={english} onClick={() => changeLanguage('en')} />
+              <img src={french} onClick={() => changeLanguage('fr')} />
+            </div>
           </div>
         </ul>
       </div>
+      
       {/* logout popup  */}
       <div>
         <Dialog
