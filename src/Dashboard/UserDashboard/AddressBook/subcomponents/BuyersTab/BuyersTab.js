@@ -151,7 +151,6 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
                         align="left"
                         className="country2"
                         style={{ cursor: 'pointer' }}
-                        
                         >
                         <p className="country2">{buyer.address}</p>
                         </TableCell>

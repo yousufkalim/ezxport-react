@@ -65,15 +65,6 @@ const CalculationRange = (props) => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {},
-    }));
-  }, [formState.values]);
-
   const handleValuesChange = (event) => {
     const validatedValue = event.target.value.replace(/[^0-9]/g, "");
     if (validatedValue === "0") {
@@ -84,10 +75,6 @@ const CalculationRange = (props) => {
             ...formState.values,
             [event.target.name]: validatedValue,
           },
-          touched: {
-            ...formState.touched,
-            [event.target.name]: true,
-          },
         }));
       }
     } else {
@@ -96,15 +83,11 @@ const CalculationRange = (props) => {
         values: {
           ...formState.values,
           [event.target.name]: validatedValue,
-        },
-        touched: {
-          ...formState.touched,
-          [event.target.name]: true,
-        },
+        }
       }));
     }
-
   };
+
   const handleRangeData = async () => {
     await API("get", `/calculations/${props?.id}`)
       .then((res) => {
@@ -146,6 +129,19 @@ const CalculationRange = (props) => {
       });
   };
 
+  const handleBlur = (e) => {
+    e.preventDefault();
+    const { name } = e.target;
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      errors: errors ?? {},
+      touched: { ...formState.touched, [name]: true },
+      isValid: errors ? false : true
+
+    }))
+  }
+
   const handleNewRange = async () => {
     await API("post", `/calculations/`, {
       country: props.CountryId,
@@ -170,8 +166,8 @@ const CalculationRange = (props) => {
           isValid: true,
           touched: {}
         }));
-        toast.success("Coefficient Added Successfully");
 
+        toast.success("Coefficient Added Successfully");
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -212,6 +208,7 @@ const CalculationRange = (props) => {
   useEffect(() => {
     handleRangeData();
   }, []);
+
   const handleEditModalClose = () => setEditModal(false);
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
@@ -287,16 +284,17 @@ const CalculationRange = (props) => {
             <div className="AddSlice_inputs_div">
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    {t("Minimum")}
-                  </label>
                   <InputField
+                    label="Minimum"
+                    isError={
+                      hasError("minCost")
+                    }
+                    error={formState.errors.minCost}
                     value={formState.values.minCost}
                     name="minCost"
                     onChange={handleValuesChange}
                     type="tel"
                     className="calculation_input"
-
                   />
                   <div className="error-format">
                     {hasError("minCost") ? formState.errors.minCost[0] : null}
@@ -305,10 +303,12 @@ const CalculationRange = (props) => {
               </div>
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
-                  <label htmlFor="" className="buyer_label">
-                    {t("Maximum")}
-                  </label>
                   <InputField
+                    label="Maximum"
+                    isError={
+                      hasError("maxCost")
+                    }
+                    error={formState.errors.maxCost}
                     value={formState.values.maxCost}
                     name="maxCost"
                     onChange={handleValuesChange}

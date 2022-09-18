@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Inputfield from "../../../components/Common/InputField";
 import Button from "../../../components/Common/Button";
 import Table from "@mui/material/Table";
@@ -22,6 +22,7 @@ import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
+import ConfirmModal from "../../../components/Common/ConfirmModal"
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
@@ -35,6 +36,10 @@ const BOMsForm = (props) => {
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [bomId, setBomId] = useState("");
+
+  const fileRef = useRef(null);
 
   const handleAllRequestByCountryId = async () => {
     await API("get", `/requests/getByCountry/${props?.step1?.country}`)
@@ -42,7 +47,6 @@ const BOMsForm = (props) => {
         setRequestByCountry(res?.data?.requet);
       })
       .catch((err) => {
-        console.log("handleAllRequestByCountryId=>", err);
         toast.error(err.response.data.message.msg);
       });
   };
@@ -96,7 +100,6 @@ const BOMsForm = (props) => {
       formData.append("country", `${props.step1.country}`); //country ID
       await API("post", "/boms/filterCodes", formData)
         .then((res) => {
-          console.log("RESSS", res);
           setLoading(false);
           let arr1 = [];
           res?.data?.matchedData.map((item) => {
@@ -110,6 +113,7 @@ const BOMsForm = (props) => {
 
           props?.setMatchedData([...props.matchedData, ...arr1]);
           props?.setUnMatchedData(res?.data?.unMatched);
+          props.setUnMatchedCodes(res?.data?.unMatched)
         })
         .catch((err) => {
           setLoading(false);
@@ -123,11 +127,21 @@ const BOMsForm = (props) => {
     }
 
   };
+
   const handleDelete = (code) => {
-    let filtered = props.matchedData.filter((item) => {
+    const {matchedData, unMatchedData, setUnMatchedData} = props;
+    const findCode = matchedData.find(item => item.codeID === code.codeID);
+    let filtered = matchedData.filter((item) => {
       return item.codeID !== code.codeID;
     });
+    if(findCode && findCode.certification_required){
+      setUnMatchedData([...unMatchedData, findCode])
+    }
+    // if(props.matchedData.length === 1){
+    //   setImportedFile("")
+    // }
     props.setMatchedData(filtered);
+    setOpenModal(false);
   };
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
@@ -163,6 +177,7 @@ const BOMsForm = (props) => {
       setMonetaryValue(validatedValue)
     }
   }
+
   return (
     <div style={{ width: "100%" }}>
       <label className="BomLabel">Country</label>
@@ -249,7 +264,9 @@ const BOMsForm = (props) => {
           </div>
           <label className="import_Btn" htmlFor="file">
             {importedFile?.name || "Import an XLS file"}
-            <input type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+            <input onClick={(event)=> { 
+               event.target.value = null
+          }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
           </label>
           <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn">
             Download XLS file
@@ -340,7 +357,10 @@ const BOMsForm = (props) => {
                       alt=""
                       className="dltIcon"
                       style={{ cursor: "pointer" }}
-                      onClick={() => handleDelete(item)}
+                      onClick={() => {
+                        setOpenModal(true);
+                        setBomId(item)
+                      }}
                     />
                     <img
                       src={EditIcon}
@@ -349,7 +369,7 @@ const BOMsForm = (props) => {
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         setOpenEditModal(true);
-                        setEditModalData({ item, index });
+                        setEditModalData({ item: {...item}, index });
                       }}
                     />
                   </TableCell>
@@ -400,6 +420,8 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
+
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
       {/* certification required modal */}
       <Modal open={props.certificateRequire} setOpen={props.setCertificateRequire} handleClose={handleCertificateRequire}>
         <div>

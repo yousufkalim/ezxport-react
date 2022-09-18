@@ -332,7 +332,7 @@ const Country = () => {
                     {
                       TITLES.map((item) => (
                         <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                          {item.name}
+                          {item.name} &nbsp;
                           {
                             item.sortIcon && !sort.ascend && sort.key === item.key ? (
                               <img className='sorting-icon' onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
