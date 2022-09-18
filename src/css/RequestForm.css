@@ -30,7 +30,7 @@
   padding: 10px 0;
 }
 .BomLabel {
-  margin-top: 14px;
+  margin-top: 1rem;
   margin-bottom: 5px;
 }
 .stepperClass {
@@ -64,6 +64,12 @@
   outline: none;
   border-color: #d0d5dd;
   /* box-shadow: 0px 1px 2px rgb(16 24 40 / 5%); */
+}
+.add_code_div { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .codedropdown_div {
   width: 40%;
@@ -390,4 +396,46 @@ input[type="radio"]:checked {
   margin-bottom: 0;
   display: flex;
   align-items: center;
+}
+.download_text{
+color: #7F56D9;
+display: inline-block;
+padding-Top: 5px;
+font-Size: 12px;
+font-Weight: 500;
+cursor: pointer;
+}
+.loader_div{
+  margin-right: 8px;
+}
+.download_upload_div{
+  width: 55%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-end;
+}
+
+@media screen and (min-width: 350px) and (max-width: 650px) {
+  .add_code_div{
+    flex-direction: column;
+  }
+  .download_upload_div{
+    flex-direction: column;
+  } 
+  .download_upload_div{
+    width: 100%;
+  }
+  .download_Btn{
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+  .import_Btn{
+    margin-top: 1rem;
+  }
+  .loader_upload_div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
