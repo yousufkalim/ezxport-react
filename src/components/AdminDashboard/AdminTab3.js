@@ -97,30 +97,35 @@ const AdminTab3 = (props) => {
   }, [updateBomCode.values]);
 
   const handleChange = (event) => {
-    setFormState((formState) => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        [event.target.name]: event.target.value,
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true,
-      },
-    }));
+    if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
+      setFormState((formState) => ({
+        ...formState,
+        values: {
+          ...formState.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...formState.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
+
   };
   const handleUpdateBomChange = (event) => {
-    setUpdateBomCode((updateBomCode) => ({
-      ...updateBomCode,
-      values: {
-        ...updateBomCode.values,
-        [event.target.name]: event.target.value,
-      },
-      touched: {
-        ...updateBomCode.touched,
-        [event.target.name]: true,
-      },
-    }));
+    if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
+      setUpdateBomCode((updateBomCode) => ({
+        ...updateBomCode,
+        values: {
+          ...updateBomCode.values,
+          [event.target.name]: event.target.value,
+        },
+        touched: {
+          ...updateBomCode.touched,
+          [event.target.name]: true,
+        },
+      }));
+    }
   };
 
   // useEffect(() => {

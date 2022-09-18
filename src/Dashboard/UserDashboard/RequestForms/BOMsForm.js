@@ -234,55 +234,33 @@ const BOMsForm = (props) => {
             to={"/Files/codeTemplate.xlsx"}
             target="_blank"
             download
-            style={{
-              color: "#7F56D9",
-              display: "inline-block",
-              paddingTop: "5px",
-              fontSize: "12px",
-              fontWeight: "500",
-              cursor: "pointer",
-            }}
+            className="download_text"
           >
             You don't know your product nomenclatures?
           </Link>
         </div>
-        <div
-          style={{
-            width: "55%",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-end",
-          }}
-        >
-          <div
-            style={{
-              marginRight: "7px",
-            }}
-          >
-            {loading ? <CircularProgress color="secondary" /> : ""}
-
-          </div>
-          <label className="import_Btn" htmlFor="file">
+        <div className="download_upload_div">
+          <div className="loader_upload_div">
+            <div className="loader_div">
+              {loading ? <CircularProgress color="secondary" /> : ""}
+            </div>
+            <label className="import_Btn" htmlFor="file">
             {importedFile?.name || "Import an XLS file"}
             <input onClick={(event)=> { 
-               event.target.value = null
-          }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
-          </label>
+                event.target.value = null
+              }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+            </label>
+          </div>
+
           <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn">
             Download XLS file
           </Link>
         </div>
       </div>
 
-      <div style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-      }}>
-
+      <div className="add_code_div">
         <div className="codedropdown_div">
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
+          <label className="BomLabel">
             Code
           </label>
 

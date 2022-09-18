@@ -111,7 +111,7 @@ const InformationTab = (props) => {
           </div>
         </TabPanel>
       </Box>
-      <ProductLists codes={props?.userRequest?.codes} />
+      <ProductLists codes={props?.userRequest?.codes} currency={props?.userRequest?.country?.currency} />
     </>
   );
 };

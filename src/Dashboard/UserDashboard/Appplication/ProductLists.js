@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
 
-const ProductLists = ({ codes }) => {
+const ProductLists = ({ codes, currency }) => {
   const monetary_value = codes?.reduce((n, { monetary_value }) =>
     n + monetary_value, 0
   )
@@ -18,7 +18,7 @@ const ProductLists = ({ codes }) => {
         <div className="ProductLists_heading">
           <p className="ProductLists_title">Product Lists</p>
           <p className="total_value_p">
-            Total value <span> – {monetary_value} –</span> {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}  
+            Total value <span> – {monetary_value} {currency === "USD" ? "$" : "€"} –</span> {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}  
           </p>
         </div>
         {/* table  */}
@@ -32,10 +32,7 @@ const ProductLists = ({ codes }) => {
                     Code &nbsp; &nbsp;
                     <img src={TitleDownArrow} alt="" className="title_arrow" />
                   </TableCell>
-                  <TableCell align="left" className="country">
-                    Denomination &nbsp; &nbsp;
-                    <img src={TitleDownArrow} alt="" className="title_arrow" />
-                  </TableCell>
+
                   <TableCell align="left" className="country">
                     Monetary value
                   </TableCell>
@@ -47,11 +44,9 @@ const ProductLists = ({ codes }) => {
                     <TableCell component="th" scope="row" style={{ width: '22%' }}>
                       <p className="AP_plus_title">{item.code}</p>
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ width: '22%' }}>
-                      <p className="AP_plus_title">--</p>
-                    </TableCell>
+
                     <TableCell align="left" className="country2" style={{ width: '100%' }}>
-                      {item.monetary_value}
+                      {item.monetary_value}{currency === "USD" ? "$" : "€"}
                     </TableCell>
                   </TableRow>
                 ))}
