@@ -10,6 +10,24 @@ import CompanyInformation from "./subcomponents/CompanyInformation";
 import { toast } from "react-toastify";
 import API from "../../../api/index";
 import { useTranslation, Trans } from "react-i18next";
+import { validate } from "validate.js";
+import Button from "../../../components/Common/Button";
+
+const schema = {
+  lastName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  type: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  vatNumber: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+};
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -48,7 +66,12 @@ const Account = () => {
   const [value, setValue] = useState(0);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({ name: "", type: "", vat: "" });
+  const [formState, setFormState] = useState({
+    isValid: false,
+    values: { lastName: "", type: "", vatNumber: "" },
+    touched: {},
+    errors: {}
+  });
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -59,8 +82,18 @@ const Account = () => {
 
   const setData = (data) => {
     const { name, type, vat } = data;
-    setFormData({ name, type, vat });
+    setFormState({...formState, values:{ lastName:name, type, vatNumber: vat }});
   };
+
+
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
   const getUserInformation = async () => {
     const user = localStorage.getItem("userData");
@@ -84,11 +117,11 @@ const Account = () => {
   };
 
   const submitCompanyInfo = async () => {
-    const { name, type, vat } = formData;
+    const { lastName, type, vatNumber } = formState.values;
     const companyObj = {
-      name,
+      name: lastName,
       type,
-      vat,
+      vat: vatNumber,
     };
     const userData = { ...user };
     userData.company = companyObj;
@@ -110,9 +143,7 @@ const Account = () => {
             {value === 1 ? (
               <>
                 <div className="account_container">
-                  <button onClick={(e) => submitCompanyInfo(e)} className="account_btn">
-                    Validate the modification
-                  </button>
+                  <Button disabled={!formState.isValid} text='Validate the modification' onClick={(e) => submitCompanyInfo(e)} className="account_btn" />
                 </div>
               </>
             ) : (
@@ -136,8 +167,8 @@ const Account = () => {
               {/* 2in tag */}
               <TabPanel value={value} index={1}>
                 <CompanyInformation
-                  formData={formData}
-                  setFormData={setFormData}
+                  formState={formState}
+                  setFormState={setFormState}
                   loading={loading}
                 />
               </TabPanel>

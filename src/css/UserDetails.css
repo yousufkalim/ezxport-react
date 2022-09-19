@@ -132,7 +132,7 @@
 }
 .company_input {
   width: 300px;
-  height: 40px;
+  height: 44px;
   width: 95%;
   /* height: 40px; */
   font-size: 16px;
@@ -174,7 +174,7 @@ input:focus {
 }
 .company_input_col {
   width: 50%;
-  margin-top: 15px;
+  margin-top: 9px;
 }
 .List_heading_div2 {
   display: flex;

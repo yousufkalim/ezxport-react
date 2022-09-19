@@ -329,7 +329,7 @@ const Country = () => {
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
                     {TITLES.map((item) => (
                       <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                        {t(item.name)}
+                        {t(item.name)} &nbsp;
                         {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                           <img
                             className="sorting-icon"

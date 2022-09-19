@@ -37,31 +37,39 @@ const schema = {
   companyName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 64
+      maximum: 64,
     },
-  },
-  country: {
-    presence: { allowEmpty: false, message: "is required" },
   },
   email: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 64 },
-    email: true
+    email: true,
   },
-  address: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
-  },
-  zipcode: {
+  country: {
     presence: { allowEmpty: false, message: "is required" },
   },
   telephone: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 10, minimum: 10 },
   },
+  address: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 124,
+    },
+  },
+  zipcode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 5,
+      minimum: 5
+    },
+  },
   town: {
     presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    length: {
+      maximum: 64,
+    },
   },
   lastName: {
     presence: { allowEmpty: false, message: "is required" },
@@ -92,6 +100,15 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
     fetchLocations();
   }, [])
 
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
+
   const fetchLocations = () => {
     setLoading(true);
     API('put', `/places/getByUser/${userId}`).then((res) => {
@@ -112,7 +129,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState({ ...formState, values: { ...formState.values, [name]: value } })
+    setFormState({ ...formState, values: { ...formState.values, [name]: value },touched: {...formState.touched, [name]: true} })
   }
 
   const handleOpenModal = (edit, item) => {
@@ -141,19 +158,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
       }
       setFormState({ ...formState, values: { ...values }, isValid: true })
     }
-  }
-
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const { name } = e.target;
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      errors: errors ?? {},
-      touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
-
-    }))
   }
 
   const handleCloseModal = () => {
@@ -325,7 +329,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               name="companyName"
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
-              onBlur={(e) => handleBlur(e)}
               isError={hasError("companyName")}
               error={formState.errors?.companyName}
               type="text" placeholder="Company 1" />
@@ -339,7 +342,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                 id="demo-simple-select"
                 disabled={!isEdit && location}
                 name='country'
-                onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -360,7 +362,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                   name='email'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -374,7 +376,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                   name='telephone'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("telephone")}
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
@@ -391,7 +393,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                 name='address'
                 disabled={!isEdit && location}
                 onChange={(e) => handleChange(e)}
-                onBlur={(e) => handleBlur(e)}
+
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -408,7 +410,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                   name='zipcode'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -422,7 +424,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                   name='town'
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
@@ -440,7 +442,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                   label="First Name"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("firstName")}
                   error={formState.errors?.firstName}
                   value={formState.values.firstName}
@@ -449,15 +451,12 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                 />
               </div>
               <div className="input_fields">
-                <label htmlFor="" className="buyer_label">
-                  {t("Last Name")}
-                </label>
                 <InputField
                   name='lastName'
                   label={t("Last Name")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("lastName")}
                   error={formState.errors?.lastName}
                   value={formState.values.lastName}
