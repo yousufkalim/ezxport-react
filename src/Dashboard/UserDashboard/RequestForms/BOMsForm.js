@@ -177,6 +177,7 @@ const BOMsForm = (props) => {
   }
 
   return (
+    <div>
     <div style={{ width: "100%" }}>
       <label className="BomLabel">Country</label>
       <Select
@@ -315,7 +316,7 @@ const BOMsForm = (props) => {
       </div>
       {props.matchedData.length === 0 ? (
         ""
-      ) : (
+       ) : (
         <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
           <Table aria-label="simple table">
             <TableHead>
