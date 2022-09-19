@@ -18,38 +18,18 @@ import validate from 'validate.js';
 import Button from '../Common/Button';
 import InputField from '../Common/InputField';
 import { useTranslation, Trans } from "react-i18next";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const schema = {
   minCost: {
     presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 6,
-    },
+
   },
   maxCost: {
     presence: { allowEmpty: false, message: "is required" },
-    format: {
-      message: function(value, attributes, attributeName, options, constraints) {
-        console.log("atttr ", attributes)
-        console.log("atttr ", options)
-        console.log("atttr ", constraints)
-        // if (parseInt(value) < parseInt(attributes['minCost'])) {
-        //   console.log("ERROR ")
-        //   return validate.format("^%{num} is not a valid credit card number");
-          
-        //   // Amex
-        //   if ((/^(34|37).*$/).test(value)) return {is: 15};
-        //   // Visa, Mastercard
-        //   if ((/^(4|5[1-5]).*$/).test(value)) return {is: 16};
-        // }
-      },
-    }
 },
   certificate: {
     presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 6,
-    },
   },
 };
 const CalculationRange = (props) => {
@@ -63,6 +43,9 @@ const CalculationRange = (props) => {
   const [rangeCertificat, setRangeCertificat] = useState();
   const [rangeMinCost, setRangeMinCost] = useState();
   const [rangeMaxCost, setRangeMaxCost] = useState();
+  const [allErrors, setAllErrors] = useState({min: '', max: '', certificate: ''});
+  const [openModal, setOpenModal] = useState(false);
+  const [rangeId, setRangeId] = useState("");
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -70,13 +53,23 @@ const CalculationRange = (props) => {
       minCost: "",
       maxCost: "",
       certificate: "",
-    },
-    touched: {},
-    errors: {},
+    }
   });
 
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
+
+  useEffect(() => {
+    if(formState.values.minCost){
+      const {min, max} = allErrors;
+      const {minCost, maxCost, certificate} = formState.values;
+      if(!min && !max && !allErrors.certificate && minCost && maxCost && certificate) {
+        setFormState({...formState, isValid: true})
+      }else{
+        setFormState({...formState, isValid: false})
+  
+      }
+    }
+  }, [formState.values, allErrors])
 
   const handleValuesChange = (event) => {
     const validatedValue = event.target.value.replace(/[^0-9]/g, "");
@@ -129,8 +122,7 @@ const CalculationRange = (props) => {
             minCost: "",
             maxCost: "",
             certificate: "",
-          }, isValid: true,
-          touched: {}
+          }, isValid: false,
 
         }));
         // setMaxCost("");
@@ -144,16 +136,49 @@ const CalculationRange = (props) => {
 
   const handleBlur = (e) => {
     e.preventDefault();
-    const { name } = e.target;
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      errors: errors ?? {},
-      touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
+    const { name, value } = e.target;
+    const val = parseInt(value);
+    const {minCost, maxCost} = formState.values;
+    const latestValues = rangeData[rangeData?.length - 1];
+    const latestMax = latestValues?.max + 1;
+    const latestCertificate= latestValues?.certificate_cost;
+    console.log("LATEST MAX ", latestValues);
+    console.log("LATEST value ", val);
+    console.log("NAME ", name);
+    console.log("NAME ", val !== latestMax);
 
-    }))
+    if(name === 'minCost'){
+      if (rangeData?.length && val !== latestMax){
+        setAllErrors({...allErrors, min: "Please enter valid minimum cost"})
+      }
+      else if(maxCost && val >= maxCost ){
+        setAllErrors({...allErrors, min: "Minimum cost should be less than maximum cost"});
+      }
+      else {
+        setAllErrors({...allErrors, min: ""});
+      }
+    }
+    else if(name === 'maxCost'){
+      if(val <= minCost ){
+        setAllErrors({...allErrors, max: "Maxminm cost should be greater than minimum cost"});
+      }
+      else {
+        setAllErrors({...allErrors, max: ""});
+      }
+    }
+    else if (name === 'certificate') {
+        if(rangeData?.length && val <= latestCertificate) {
+          setAllErrors({...allErrors, certificate: "Certificate cost should be greater than previous one"});
+        }
+        else {
+          setAllErrors({...allErrors, certificate: ""});
+
+        }
+    }
+
   }
+
+  console.log("FORM state ", formState)
 
   const handleNewRange = async () => {
     await API("post", `/calculations/`, {
@@ -177,7 +202,6 @@ const CalculationRange = (props) => {
             certificate: "",
           },
           isValid: true,
-          touched: {}
         }));
 
         toast.success("Coefficient Added Successfully");
@@ -193,6 +217,8 @@ const CalculationRange = (props) => {
       .then((res) => {
         console.log("handleDeleteCalculation", res);
         handleRangeData();
+        setOpenModal(false);
+        setRangeId('');
         toast.success("Range Deleted successfully");
       })
       .catch((err) => {
@@ -223,7 +249,9 @@ const CalculationRange = (props) => {
   }, []);
 
   const handleEditModalClose = () => setEditModal(false);
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = (name) => (allErrors[name] && allErrors[name] ? true : false);
+
+  console.log("ERRORS ", allErrors);
 
   return (
     <>
@@ -266,7 +294,10 @@ const CalculationRange = (props) => {
                         alt=""
                         className="dltIcon"
                         style={{ cursor: "pointer" }}
-                        onClick={() => handleDeleteCalculation(item._id)}
+                        onClick={() => {
+                          setOpenModal(true);
+                          setRangeId(item._id);
+                        }}
                       />
 
                       <img
@@ -300,9 +331,9 @@ const CalculationRange = (props) => {
                   <InputField
                     label="Minimum"
                     isError={
-                      hasError("minCost")
+                      hasError("min")
                     }
-                    error={formState.errors.minCost}
+                    error={[allErrors.min]}
                     value={formState.values.minCost}
                     name="minCost"
                     onChange={handleValuesChange}
@@ -317,9 +348,9 @@ const CalculationRange = (props) => {
                   <InputField
                     label="Maximum"
                     isError={
-                      hasError("maxCost")
+                      hasError("max")
                     }
-                    error={formState.errors.maxCost}
+                    error={[allErrors.max]}
                     value={formState.values.maxCost}
                     name="maxCost"
                     onChange={handleValuesChange}
@@ -339,7 +370,7 @@ const CalculationRange = (props) => {
                     isError={
                       hasError("certificate")
                     }
-                    error={formState.errors.certificate}
+                    error={[allErrors.certificate]}
                     name="certificate"
                     onChange={handleValuesChange}
                     onBlur={(e) => handleBlur(e)}
@@ -353,13 +384,14 @@ const CalculationRange = (props) => {
             <button
               className={!formState.isValid ? "AddSlice_button_disabled" : "AddSlice_button"}
               onClick={props.Calculation ? handleAddRange : handleNewRange}
-              disabled={!formState.isValid ? true : false}
+              disabled={!formState.isValid}
             >
               Ajouter la ligne
             </button>
           </div>
         </div>
       </div>
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDeleteCalculation(rangeId)} />
       <Modal
         open={editModal}
         setOpen={setEditModal}

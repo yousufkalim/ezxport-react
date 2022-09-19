@@ -24,9 +24,31 @@ const schema = {
     length: { maximum: 64 },
     email: true,
   },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
   telephone: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 10, minimum: 10 },
+  },
+  address: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 124,
+    },
+  },
+  zipcode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 5,
+      minimum: 5
+    },
+  },
+  town: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
   },
 };
 
@@ -45,20 +67,15 @@ const BuyerModal = ({
 }) => {
   const { t, i18n } = useTranslation();
 
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const {name} = e.target;
+
+  useEffect(() => {
     const errors = validate(formState.values, schema);
-    console.log("Errors ", errors );
-    console.log("Lastest state  ", formState);
     setFormState((formState) => ({
       ...formState,
-      errors: errors ?? {},
-      touched: {...formState.touched, [name]: true},
-      isValid: errors ? false : true
-
-    }))
-  }
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
       const countryHandler = (e) => {
         setFormState((state) => ({
@@ -166,7 +183,6 @@ const BuyerModal = ({
               name='companyName'
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
-              onBlur={(e) => handleBlur(e)}
               isError={hasError("companyName")}
               error={formState.errors?.companyName}
               type="text" placeholder="Company 1" />
@@ -180,7 +196,6 @@ const BuyerModal = ({
                 id="demo-simple-select"
                 disabled={!isEdit && buyer}
                 name='country'
-                onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -206,7 +221,6 @@ const BuyerModal = ({
                   name='email'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -216,12 +230,11 @@ const BuyerModal = ({
               <div className="input_fields">
                 <InputField 
                   label={t("Telephone")}
+                  isError={hasError("telephone")}
+                  error={formState.errors.telephone}
                   name='telephone'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
-                  isError={hasError("telephone")}
-                  error={formState.errors.telephone}
                   value={formState.values.telephone}
                   type="number"
                   placeholder="+33 03 32 32 42 42" />
@@ -235,7 +248,6 @@ const BuyerModal = ({
                 name='address'
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
-                onBlur={(e) => handleBlur(e)}
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -250,7 +262,6 @@ const BuyerModal = ({
                   name='zipcode'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -262,7 +273,6 @@ const BuyerModal = ({
                   name='town'
                   disabled={!isEdit && buyer}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
