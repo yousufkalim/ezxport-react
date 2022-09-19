@@ -91,7 +91,7 @@ const BOMsForm = (props) => {
   };
 
   const handleDocument = async (file) => {
-    var filename = file.name.split('.').pop();
+    var filename = file.name.split(".").pop();
     if (filename === "xlsx") {
       setLoading(true);
       setImportedFile(file);
@@ -121,11 +121,10 @@ const BOMsForm = (props) => {
           setImportedFile("");
         });
     } else {
-      toast.error("Can only upload Excel sheet")
+      toast.error("Can only upload Excel sheet");
       setLoading(false);
       setImportedFile("");
     }
-
   };
 
   const handleDelete = (code) => {
@@ -167,11 +166,13 @@ const BOMsForm = (props) => {
       });
   };
   const handleMonetaryValue = (value) => {
-    const validatedValue = value.replace(/[^0-9]/g, '');
+    const validatedValue = value.replace(/[^0-9]/g, "");
     if (validatedValue === "0") {
       if (monetaryValue !== "") {
-        setMonetaryValue(validatedValue)
+        setMonetaryValue(validatedValue);
       }
+    } else {
+      setMonetaryValue(validatedValue);
     }
     else {
       setMonetaryValue(validatedValue)
@@ -198,7 +199,9 @@ const BOMsForm = (props) => {
         })}
       </Select>
 
-      <label className="BomLabel">Create a new request or select an old request to retrieve information</label>
+      <label className="BomLabel">
+        Create a new request or select an old request to retrieve information
+      </label>
       <Select
         id="demo-simple-select"
         defaultValue={"default"}
@@ -260,7 +263,6 @@ const BOMsForm = (props) => {
             }}
           >
             {loading ? <CircularProgress color="secondary" /> : ""}
-
           </div>
           <label className="import_Btn" htmlFor="file">
             {importedFile?.name || "Import an XLS file"}
@@ -274,13 +276,14 @@ const BOMsForm = (props) => {
         </div>
       </div>
 
-      <div style={{
+      <div
+        style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
           width: "100%",
-      }}>
-
+        }}
+      >
         <div className="codedropdown_div">
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             Code
@@ -306,19 +309,16 @@ const BOMsForm = (props) => {
           <Inputfield
             value={monetaryValue}
             className="applicationTitle"
-            onChange={(e) =>
-              handleMonetaryValue(e.target.value)}
+            onChange={(e) => handleMonetaryValue(e.target.value)}
           />
         </div>
         <div className="codedropdown_div1">
-
           <Button
             text="To add"
             className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"}
             onClick={handleAddCodes}
             disabled={code === "default" ? true : false}
           />
-
         </div>
       </div>
       {props.matchedData.length === 0 ? (
@@ -333,7 +333,7 @@ const BOMsForm = (props) => {
                 </TableCell>
                 <TableCell align="center" className="country">
                   Monetary value <img src={DownArrow} alt="" />
-                  </TableCell>
+                </TableCell>
 
                 <TableCell align="center" className="country">
                   Actions
@@ -344,12 +344,21 @@ const BOMsForm = (props) => {
               {props.matchedData?.map((item, index) => (
                 <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="center" style={{ width: "20%" }}>
-                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>{item?.code}</p>
+                    <p
+                      className="AP_plus_title"
+                      style={{ color: item?.certification_required === false && "red" }}
+                    >
+                      {item?.code}
+                    </p>
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>{item?.monetary_value}</p>
+                    <p
+                      className="AP_plus_title"
+                      style={{ color: item?.certification_required === false && "red" }}
+                    >
+                      {item?.monetary_value}
+                    </p>
                   </TableCell>
-
 
                   <TableCell align="center" className="country2">
                     <img
@@ -380,11 +389,21 @@ const BOMsForm = (props) => {
         </TableContainer>
       )}
       {/* Edit codes modal */}
-      <Modal open={openEditModal} setOpen={setOpenEditModal} title="Modify BOM" handleClose={handleEditModal} Closebtn={true}>
+      <Modal
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+        title="Modify BOM"
+        handleClose={handleEditModal}
+        Closebtn={true}
+      >
         <div>
           <div style={{ marginTop: "2.2rem" }}>
             <label className="BomLabel">Code</label>
-            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
+            <InputField
+              className="code_textfield"
+              value={editModalData?.item?.code}
+              disabled={true}
+            />
           </div>
           <div style={{ marginTop: "1rem" }}>
             <label className="BomLabel">Monetary Value</label>
@@ -423,7 +442,11 @@ const BOMsForm = (props) => {
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
       {/* certification required modal */}
-      <Modal open={props.certificateRequire} setOpen={props.setCertificateRequire} handleClose={handleCertificateRequire}>
+      <Modal
+        open={props.certificateRequire}
+        setOpen={props.setCertificateRequire}
+        handleClose={handleCertificateRequire}
+      >
         <div>
           <div
             style={{
@@ -443,16 +466,28 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              Those products for{" "}
-              <span className="bold_text_in_modal">{props.certificationCountryOfCode} require a certification</span>
+              Those products for
+              <span className="bold_text_in_modal">
+                {props.certificationCountryOfCode} require a certification
+              </span>
             </div>
             <div className="space">
-              Le tarif de cette certification est à hauteur de{" "}
-              <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
+              The cost of this certification is up to
+              <span style={{ fontWeight: 900, fontSize: "19px" }}>
+                {props.certificationCostOfCode}$/HT
+              </span>
             </div>
           </div>
-          <Button text="Continue my request on Ezxport" className="to_confirm_btn" onClick={props.handleStep1} />
-          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateRequire} />
+          <Button
+            text="Continue my request on Ezxport"
+            className="to_confirm_btn"
+            onClick={props.handleStep1}
+          />
+          <Button
+            text="Go back to my request"
+            className="delete_bom_btn"
+            onClick={handleCertificateRequire}
+          />
         </div>
       </Modal>
       <Modal
@@ -479,8 +514,10 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              Those products for{" "}
-              <span className="bold_text_in_modal">{props.certificationCountryOfCode} do not require a certification</span>
+              Those products for
+              <span className="bold_text_in_modal">
+                {props.certificationCountryOfCode} do not require a certification
+              </span>
             </div>
             <div className="space" style={{ textAlign: "center" }}>
               You can therefore send your goods without going through an organization.
@@ -491,10 +528,18 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => history.push("/User/Dashboard/ListOfRequests")}
           />
-          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateNotRequire} />
+          <Button
+            text="Go back to my request"
+            className="delete_bom_btn"
+            onClick={handleCertificateNotRequire}
+          />
         </div>
       </Modal>
-      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
+      <Modal
+        open={verificationModal}
+        setOpen={setVerificationModal}
+        handleClose={handleVerification}
+      >
         <div>
           <div
             style={{
@@ -514,13 +559,14 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space" style={{ width: "75%", textAlign: "center" }}>
-              Les nomenclatures listées pour le{" "}
+              The nomenclatures listed for the
               <b>
-                Gabon sont soumises <br />à vérification et certification.
+                Gabon are subject <br />
+                to verification and certification.
               </b>
             </div>
             <div className="space">
-              Le tarif de cette certification est à hauteur de <b>7000€/HT</b>
+              The cost of this certification is up to <b>7000€/HT</b>
             </div>
           </div>
           <Button text="Continue my request on Ezxport" className="to_confirm_btn" />

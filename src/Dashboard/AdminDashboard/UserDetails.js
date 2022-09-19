@@ -19,9 +19,9 @@ import API from "../../api/index";
 // import { toast } from 'react-toastify';
 import Moment from "moment";
 import { useTranslation, Trans } from "react-i18next";
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
-import { getSortedData } from '../../lib/getSortedData';
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
+import { getSortedData } from "../../lib/getSortedData";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -105,7 +105,7 @@ const UserDetails = () => {
 
   const handleRequestByUserId = async () => {
     setRequestLoading(true);
-    await API('get', `/requests/getByUser/${id}`)
+    await API("get", `/requests/getByUser/${id}`)
       .then((res) => {
         console.log("🚀 ~ file: UserDetails.js ~ line 107 ~ .then ~ res", res);
         setRequestById(res?.data?.request);
@@ -256,13 +256,38 @@ const UserDetails = () => {
                                 style={{ backgrounColor: "#EAECF0" }}
                               >
                                 {t("Request")} &nbsp;
-                                {
-                                  !sort.ascend ? (
-                                    <img className='sorting-icon' onClick={() => getSortedData(requestById, setRequestById, setSort, [], 'title', true)} src={arrow_up} alt="" />
-                                  ) : (
-                                    <img onClick={() => getSortedData(requestById, setRequestById, setSort, [], 'title', false)} src={downArrow} alt="" />
-                                  )
-                                }
+                                {!sort.ascend ? (
+                                  <img
+                                    className="sorting-icon"
+                                    onClick={() =>
+                                      getSortedData(
+                                        requestById,
+                                        setRequestById,
+                                        setSort,
+                                        [],
+                                        "title",
+                                        true
+                                      )
+                                    }
+                                    src={arrow_up}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <img
+                                    onClick={() =>
+                                      getSortedData(
+                                        requestById,
+                                        setRequestById,
+                                        setSort,
+                                        [],
+                                        "title",
+                                        false
+                                      )
+                                    }
+                                    src={downArrow}
+                                    alt=""
+                                  />
+                                )}
                               </TableCell>
                               <TableCell
                                 align="left"
@@ -318,7 +343,7 @@ const UserDetails = () => {
                                       {item?.certification_cost?.currency === "USD"
                                         ? item?.certification_cost?.value + "$"
                                         : item?.certification_cost?.currency === "EURO" &&
-                                        item?.certification_cost?.value + "€"}
+                                          item?.certification_cost?.value + "€"}
                                     </>
                                   ) : (
                                     "--"
@@ -326,13 +351,7 @@ const UserDetails = () => {
                                 </TableCell>
 
                                 <TableCell align="left" className="country2">
-                                  {item?.vendor?.vendor ? (
-                                    <>
-                                      {item?.vendor?.vendor?.name}
-                                    </>
-                                  ) : (
-                                    "--"
-                                  )}
+                                  {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
                                 </TableCell>
                                 <TableCell align="left">
                                   <p className="clrClass">{t(item.status)}</p>
@@ -346,7 +365,8 @@ const UserDetails = () => {
                   ) : (
                     <>
                       <h1 style={{ textAlign: "center", color: "#667085" }}>
-                        No request created by {`${lastName} ${firstName}`}
+                        {t("No request created by")}
+                        {`${lastName} ${firstName}`}
                       </h1>
                     </>
                   )}
