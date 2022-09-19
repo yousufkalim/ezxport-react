@@ -17,11 +17,11 @@ import Button from "../Common/Button";
 import { toast } from "react-toastify";
 import validate from "validate.js";
 import { useTranslation, Trans } from "react-i18next";
-import ConfirmModal from '../Common/ConfirmModal';
-import { getSortedData } from '../../lib/getSortedData';
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
-import Spinner from '../Common/Spinner';
+import ConfirmModal from "../Common/ConfirmModal";
+import { getSortedData } from "../../lib/getSortedData";
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
+import Spinner from "../Common/Spinner";
 
 const schema = {
   code: {
@@ -276,18 +276,41 @@ const AdminTab3 = (props) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                BOMs code
-              </TableCell>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>BOMs code</TableCell>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 Status
-                {
-                  !sort.ascend ? (
-                    <img className='sorting-icon' onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, 'certification_required', true)} src={arrow_up} alt="" />
-                  ) : (
-                    <img onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, 'certification_required', false)} src={downArrow} alt="" />
-                  )
-                }
+                {!sort.ascend ? (
+                  <img
+                    className="sorting-icon"
+                    onClick={() =>
+                      getSortedData(
+                        rows,
+                        setBoms,
+                        setSort,
+                        nestSortTitles,
+                        "certification_required",
+                        true
+                      )
+                    }
+                    src={arrow_up}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    onClick={() =>
+                      getSortedData(
+                        rows,
+                        setBoms,
+                        setSort,
+                        nestSortTitles,
+                        "certification_required",
+                        false
+                      )
+                    }
+                    src={downArrow}
+                    alt=""
+                  />
+                )}
               </TableCell>
 
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>Actions</TableCell>
@@ -355,21 +378,20 @@ const AdminTab3 = (props) => {
                         }}
                       />
 
-                      <img
-                        src={EditIcon}
-                        alt=""
-                        className="dltIcon"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          handleEditBomClick(row);
-                        }}
-                      />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            )
-          }
+                    <img
+                      src={EditIcon}
+                      alt=""
+                      className="dltIcon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        handleEditBomClick(row);
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          )}
         </Table>
       </TableContainer>
 
@@ -379,7 +401,7 @@ const AdminTab3 = (props) => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t("Update BOMs")}
+        title={t("Update")}
         handleClose={handleClose}
         Closebtn={true}
       >
@@ -423,7 +445,7 @@ const AdminTab3 = (props) => {
             select={select}
           /> */}
           <Button
-            text={t("Update BOMs")}
+            text={t("Update")}
             className={
               updateBomCode.isValid 
                 ? "add_vendor_button"
@@ -483,7 +505,7 @@ const AdminTab3 = (props) => {
             select={select}
           /> */}
           <Button
-            text={t("Add BOMs")}
+            text={t("Add")}
             className={
               formState.isValid && newCertificate_status != "default"
                 ? "add_vendor_button"

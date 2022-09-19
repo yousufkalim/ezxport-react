@@ -19,25 +19,24 @@ import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
 import { useTranslation, Trans } from "react-i18next";
-import ConfirmModal from '../../components/Common/ConfirmModal';
-import { getSortedData } from '../../lib/getSortedData';
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
+import ConfirmModal from "../../components/Common/ConfirmModal";
+import { getSortedData } from "../../lib/getSortedData";
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../../components/Common/Spinner";
 
 const TITLES = [
   {
-    name: 'Country',
-    key: 'name',
+    name: "Country",
+    key: "name",
     sortIcon: true,
   },
   {
-    name: 'Actions',
-    key: 'actions',
+    name: "Actions",
+    key: "actions",
     sortIcon: false,
-
-  }
-]
+  },
+];
 
 var countryList = [
   "Afghanistan",
@@ -259,7 +258,6 @@ const Country = () => {
   const [openModal, setOpenModal] = useState(false);
   const [sort, setSort] = useState({ key: "", ascend: true });
 
-
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
@@ -329,20 +327,45 @@ const Country = () => {
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
-                    {
-                      TITLES.map((item) => (
-                        <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                          {item.name} &nbsp;
-                          {
-                            item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                              <img className='sorting-icon' onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, true)} src={arrow_up} alt="" />
-                            ) : item.sortIcon && (
-                              <img onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, false)} src={downArrow} alt="" />
-                            )
-                          }
-                        </TableCell>
-                      ))
-                    }
+                    {TITLES.map((item) => (
+                      <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                        {t(item.name)}
+                        {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                          <img
+                            className="sorting-icon"
+                            onClick={() =>
+                              getSortedData(
+                                countries,
+                                setCounteries,
+                                setSort,
+                                nestSortTitles,
+                                item.key,
+                                true
+                              )
+                            }
+                            src={arrow_up}
+                            alt=""
+                          />
+                        ) : (
+                          item.sortIcon && (
+                            <img
+                              onClick={() =>
+                                getSortedData(
+                                  countries,
+                                  setCounteries,
+                                  setSort,
+                                  nestSortTitles,
+                                  item.key,
+                                  false
+                                )
+                              }
+                              src={downArrow}
+                              alt=""
+                            />
+                          )
+                        )}
+                      </TableCell>
+                    ))}
                     {history.location.pathname === "/Admin/Dashboard/Service" && (
                       <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                         {/* {props.text2} */}
@@ -352,54 +375,58 @@ const Country = () => {
                     )}
                   </TableRow>
                 </TableHead>
-                {
-                  loading ? <Spinner /> : (
-                    <TableBody>
-                      {countries?.map((item) => {
-                        return (
-                          <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
-                            <TableCell
-                              component="th"
-                              scope="row"
-                              sx={{
-                                padding: 2,
+                {loading ? (
+                  <Spinner />
+                ) : (
+                  <TableBody>
+                    {countries?.map((item) => {
+                      return (
+                        <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            sx={{
+                              padding: 2,
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
+                            }
+                          >
+                            <p className="AP_plus_title">{t(item.name)}</p>
+                          </TableCell>
+                          <TableCell
+                            component="th"
+                            scope="row"
+                            sx={{
+                              padding: 2,
+                            }}
+                          >
+                            <Delete
+                              onClick={() => {
+                                setOpenModal(true);
+                                setCountryId(item?._id);
+                              }}
+                              style={{
                                 cursor: "pointer",
                               }}
-                              onClick={() =>
-                                history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
-                              }
-                            >
-                              <p className="AP_plus_title">{t(item.name)}</p>
-                            </TableCell>
-                            <TableCell
-                              component="th"
-                              scope="row"
-                              sx={{
-                                padding: 2,
-                              }}
-                            >
-                              <Delete
-                                onClick={() => {
-                                  setOpenModal(true);
-                                  setCountryId(item?._id);
-                                }}
-                                style={{
-                                  cursor: "pointer",
-                                }}
-                              />
-                            </TableCell>
-                          </TableRow>
-                        )
-                      })}
-                    </TableBody>
-                  )
-                }
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                )}
               </Table>
             </TableContainer>
           </div>
         </div>
       </div>
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleCountryDelete(countryId)} />
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleCountryDelete(countryId)}
+      />
       <Modal
         open={open}
         setOpen={setOpen}

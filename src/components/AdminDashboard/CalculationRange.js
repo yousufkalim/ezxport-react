@@ -28,10 +28,23 @@ const schema = {
   },
   maxCost: {
     presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 6,
-    },
-  },
+    format: {
+      message: function(value, attributes, attributeName, options, constraints) {
+        console.log("atttr ", attributes)
+        console.log("atttr ", options)
+        console.log("atttr ", constraints)
+        // if (parseInt(value) < parseInt(attributes['minCost'])) {
+        //   console.log("ERROR ")
+        //   return validate.format("^%{num} is not a valid credit card number");
+          
+        //   // Amex
+        //   if ((/^(34|37).*$/).test(value)) return {is: 15};
+        //   // Visa, Mastercard
+        //   if ((/^(4|5[1-5]).*$/).test(value)) return {is: 16};
+        // }
+      },
+    }
+},
   certificate: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
@@ -293,12 +306,10 @@ const CalculationRange = (props) => {
                     value={formState.values.minCost}
                     name="minCost"
                     onChange={handleValuesChange}
+                    onBlur={(e) => handleBlur(e)}
                     type="tel"
                     className="calculation_input"
                   />
-                  <div className="error-format">
-                    {hasError("minCost") ? formState.errors.minCost[0] : null}
-                  </div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
@@ -312,12 +323,10 @@ const CalculationRange = (props) => {
                     value={formState.values.maxCost}
                     name="maxCost"
                     onChange={handleValuesChange}
+                    onBlur={(e) => handleBlur(e)}
                     className="calculation_input"
 
                   />
-                  <div className="error-format">
-                    {hasError("maxCost") ? formState.errors.maxCost[0] : null}
-                  </div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
@@ -327,14 +336,16 @@ const CalculationRange = (props) => {
                   </label>
                   <InputField
                     value={formState.values.certificate}
+                    isError={
+                      hasError("certificate")
+                    }
+                    error={formState.errors.certificate}
                     name="certificate"
                     onChange={handleValuesChange}
+                    onBlur={(e) => handleBlur(e)}
                     className="calculation_input"
 
                   />
-                  <div className="error-format">
-                    {hasError("certificate") ? formState.errors.certificate[0] : null}
-                  </div>
                 </FormControl>
               </div>
             </div>
