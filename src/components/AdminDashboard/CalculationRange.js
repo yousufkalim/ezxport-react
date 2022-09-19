@@ -75,7 +75,7 @@ const CalculationRange = (props) => {
     const validatedValue = event.target.value.replace(/[^0-9]/g, "");
     if (validatedValue === "0") {
       if (formState.values.minCost !== "") {
-        return setFormState((formState) => ({
+        setFormState((formState) => ({
           ...formState,
           values: {
             ...formState.values,
@@ -84,7 +84,7 @@ const CalculationRange = (props) => {
         }));
       }
     } else {
-      return setFormState((formState) => ({
+      setFormState((formState) => ({
         ...formState,
         values: {
           ...formState.values,
@@ -92,60 +92,13 @@ const CalculationRange = (props) => {
         }
       }));
     }
-  };
 
-  const handleRangeData = async () => {
-    await API("get", `/calculations/${props?.id}`)
-      .then((res) => {
-        console.log(res, "handleRangeData");
-        setRangeData(res?.data?.calculation?.range);
-      })
-      .catch((err) => {
-        console.log(err, "handleRangeData");
-      });
-  };
-  const handleAddRange = async () => {
-    await API("put", `/calculations/addRange/${props.id}`, {
-      range: {
-        min: formState.values.minCost,
-        max: formState.values.maxCost,
-        certificate_cost: formState.values.certificate,
-      },
-    })
-      .then((res) => {
-        console.log("handleAddRange", res);
-        handleRangeData();
-        setFormState((formState) => ({
-          ...formState,
-          values: {
-
-            minCost: "",
-            maxCost: "",
-            certificate: "",
-          }, isValid: false,
-
-        }));
-        // setMaxCost("");
-        // setCertificat("");
-        toast.success("Range added successfully");
-      })
-      .catch((err) => {
-        console.log("handleAddRange", err);
-      });
-  };
-
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
+    const { name, value } = event.target;
     const val = parseInt(value);
     const {minCost, maxCost} = formState.values;
     const latestValues = rangeData[rangeData?.length - 1];
     const latestMax = latestValues?.max + 1;
     const latestCertificate= latestValues?.certificate_cost;
-    console.log("LATEST MAX ", latestValues);
-    console.log("LATEST value ", val);
-    console.log("NAME ", name);
-    console.log("NAME ", val !== latestMax);
 
     if(name === 'minCost'){
       if (rangeData?.length && val !== latestMax){
@@ -175,10 +128,43 @@ const CalculationRange = (props) => {
 
         }
     }
+  };
 
-  }
+  const handleRangeData = async () => {
+    await API("get", `/calculations/${props?.id}`)
+      .then((res) => {
+        setRangeData(res?.data?.calculation?.range);
+      })
+      .catch((err) => {
+        console.log(err, "handleRangeData");
+      });
+  };
+  const handleAddRange = async () => {
+    await API("put", `/calculations/addRange/${props.id}`, {
+      range: {
+        min: formState.values.minCost,
+        max: formState.values.maxCost,
+        certificate_cost: formState.values.certificate,
+      },
+    })
+      .then((res) => {
+        handleRangeData();
+        setFormState((formState) => ({
+          ...formState,
+          values: {
 
-  console.log("FORM state ", formState)
+            minCost: "",
+            maxCost: "",
+            certificate: "",
+          }, isValid: false,
+
+        }));
+        toast.success("Range added successfully");
+      })
+      .catch((err) => {
+        console.log("handleAddRange", err);
+      });
+  };
 
   const handleNewRange = async () => {
     await API("post", `/calculations/`, {
@@ -191,9 +177,7 @@ const CalculationRange = (props) => {
       },
     })
       .then((res) => {
-        console.log("handleAddCoefficient", res);
         props.setOpenCalculationModal(false);
-
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -215,7 +199,6 @@ const CalculationRange = (props) => {
       rangeId: calId,
     })
       .then((res) => {
-        console.log("handleDeleteCalculation", res);
         handleRangeData();
         setOpenModal(false);
         setRangeId('');
@@ -236,7 +219,6 @@ const CalculationRange = (props) => {
     })
       .then((res) => {
         setEditModal(false);
-        console.log("handleUpdateRange", res);
         handleRangeData();
         toast.success("Range updated successfully");
       })
@@ -250,8 +232,6 @@ const CalculationRange = (props) => {
 
   const handleEditModalClose = () => setEditModal(false);
   const hasError = (name) => (allErrors[name] && allErrors[name] ? true : false);
-
-  console.log("ERRORS ", allErrors);
 
   return (
     <>
@@ -336,8 +316,7 @@ const CalculationRange = (props) => {
                     error={[allErrors.min]}
                     value={formState.values.minCost}
                     name="minCost"
-                    onChange={handleValuesChange}
-                    onBlur={(e) => handleBlur(e)}
+                    onChange={(e) => handleValuesChange(e)}
                     type="tel"
                     className="calculation_input"
                   />
@@ -353,8 +332,8 @@ const CalculationRange = (props) => {
                     error={[allErrors.max]}
                     value={formState.values.maxCost}
                     name="maxCost"
-                    onChange={handleValuesChange}
-                    onBlur={(e) => handleBlur(e)}
+                    disabled={!formState.values.maxCost && allErrors.min}
+                    onChange={(e) => handleValuesChange(e)}
                     className="calculation_input"
 
                   />
@@ -372,8 +351,7 @@ const CalculationRange = (props) => {
                     }
                     error={[allErrors.certificate]}
                     name="certificate"
-                    onChange={handleValuesChange}
-                    onBlur={(e) => handleBlur(e)}
+                    onChange={(e) => handleValuesChange(e)}
                     className="calculation_input"
 
                   />

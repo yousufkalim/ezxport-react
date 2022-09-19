@@ -41,7 +41,6 @@ const AdminTab4 = (props) => {
       max_cost: { currency: maxCostCurrency, value: maxCost },
     })
       .then((res) => {
-        console.log("handleCoefficientChange", res);
         props.setOpenCalculationModal(false);
         props.handleCountryData()
         setCoefficientChange(res?.data?.calculation)
@@ -61,7 +60,6 @@ const AdminTab4 = (props) => {
       max_cost: { currency: maxCostCurrency, value: maxCost },
     })
       .then((res) => {
-        console.log("handleAddCoefficient", res);
         props.handleCountryData()
         setCoefficientChange(res?.data?.calculation)
         props.setOpenCalculationModal(false);
@@ -156,9 +154,19 @@ const AdminTab4 = (props) => {
               <InputField
                 className="calculation_input"
                 onChange={(e) => {
-                  !e.target.value.match(/[^0-9]/) && setCoefficient(e.target.value);
+                  let value = e.target.value
+                  if(value.includes('.')){
+                    const afterDecimal = value.split('.')[1];
+                    if(afterDecimal.length <= 2){
+                      setCoefficient(e.target.value);
+                    }
+                  }
+                  else {
+                    setCoefficient(e.target.value);
+                  }
                 }}
                 value={coefficient}
+                type='number'
               />
             </FormControl>
           </div>

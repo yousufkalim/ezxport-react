@@ -13,6 +13,7 @@ const DatePicker = (props) => {
         name={props.name}
         onChange={props.onChange}
         value={props.value}
+        {...props}
       />
     </div>
   );

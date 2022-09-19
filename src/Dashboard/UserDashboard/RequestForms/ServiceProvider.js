@@ -3,12 +3,43 @@ import InputField from "../../../components/Common/InputField";
 import API from "../../../api/index";
 import { Grid } from "@mui/material";
 import { useTranslation, Trans } from "react-i18next";
+import validate from "validate.js";
+
+const schema = {
+  lasstName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  firstName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+};
 
 const ServiceProvider = (props) => {
   const [vendors, setVendors] = useState([]);
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
+  const {step2, setFormState} = props;
+
+  useEffect(() => {
+    const errors = validate(step2.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [step2.values]);
 
   const VendorByCountryId = async () => {
     await API("get", `/vendors/getByCountryId/${props.countryId}`)
@@ -22,6 +53,9 @@ const ServiceProvider = (props) => {
   useEffect(() => {
     VendorByCountryId();
   }, []);
+
+  const hasError = (field) => (step2.touched[field] && step2.errors[field] ? true : false);
+
   return (
     <div style={{ width: "100%" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -61,13 +95,15 @@ const ServiceProvider = (props) => {
           Do you have contact information for this certification company?
         </span>
       </div>
-      {props.step2.contactInfo ? (
+      {step2.values?.contactInfo ? (
         <>
           <div className="steps_2_main">
             <div className="steps_2_feild">
               <label>{t("Last name")}</label>
               <InputField
                 className="last_name_input"
+                isError={hasError("lastName")}
+                error={step2.errors.lastName}
                 placeholder="Last Name"
                 name="lastName"
                 onChange={(e) => {
@@ -79,6 +115,8 @@ const ServiceProvider = (props) => {
               <label>{t("First name")}</label>
               <InputField
                 placeholder="First Name"
+                isError={hasError("firstName")}
+                error={step2.errors.firstName}
                 className="last_name_input"
                 name="firstName"
                 onChange={(e) => {
@@ -91,6 +129,8 @@ const ServiceProvider = (props) => {
             <label>Email Address</label>
             <InputField
               className="last_name_input"
+              isError={hasError("email")}
+              error={step2.errors.email}
               placeholder="mail@mail.com"
               name="email"
               onChange={(e) => {
