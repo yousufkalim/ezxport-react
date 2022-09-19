@@ -174,9 +174,6 @@ const BOMsForm = (props) => {
     } else {
       setMonetaryValue(validatedValue);
     }
-    else {
-      setMonetaryValue(validatedValue)
-    }
   }
 
   return (
