@@ -68,6 +68,7 @@ const ServiceProvider = (props) => {
               <label>{t("Last name")}</label>
               <InputField
                 className="last_name_input"
+                placeholder="Last Name"
                 name="lastName"
                 onChange={(e) => {
                   props.handleChange(e.target.name, e.target.value);
@@ -77,6 +78,7 @@ const ServiceProvider = (props) => {
             <div className="steps_2_feild">
               <label>{t("First name")}</label>
               <InputField
+                placeholder="First Name"
                 className="last_name_input"
                 name="firstName"
                 onChange={(e) => {
@@ -89,6 +91,7 @@ const ServiceProvider = (props) => {
             <label>Email Address</label>
             <InputField
               className="last_name_input"
+              placeholder="mail@mail.com"
               name="email"
               onChange={(e) => {
                 props.handleChange(e.target.name, e.target.value);

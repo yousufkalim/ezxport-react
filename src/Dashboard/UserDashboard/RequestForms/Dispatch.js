@@ -92,7 +92,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Add or select a seller
+              Company Name
             </MenuItem>
             {props?.sellers?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -227,7 +227,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Add or select a Buyer
+              Company name
             </MenuItem>
             {props?.buyers?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -236,10 +236,10 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">Country Name</label>
+            <label className="BomLabel">Company Name</label>
             <InputField
               className="company_name_input"
-              placeholder="Country Name"
+              placeholder="Company Name"
               name="companyName"
               value={props?.step3?.buyerData?.companyName}
               onChange={(e) => {
@@ -362,7 +362,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Add inspection location
+              Place of inspection
             </MenuItem>
             {props?.places?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -386,7 +386,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company Name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="Country Name"
+              placeholder="Company Name"
               name="companyName"
               value={props?.step3?.placeOfInspection?.companyName}
               onChange={(e) => {

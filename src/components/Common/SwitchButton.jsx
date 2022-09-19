@@ -10,11 +10,12 @@ const SwitchButton = (props) => {
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
-        {props?.item?.url?.map((item) => {
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start" }}>
+          {props?.item?.url?.map((item, index) => {
           var filename = item.split("-").slice(-3).reverse().pop();
-          return <p className="switch_p2">{filename}</p>;
+            return <p className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none" }}>{filename}</p>;
         })}
-        {props.pdfText} &nbsp; {props.pdfText2}
+        </div>
         <FormControlLabel
           name={props.name}
           onChange={props.onChange}

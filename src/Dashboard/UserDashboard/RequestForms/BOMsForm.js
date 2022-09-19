@@ -234,14 +234,7 @@ const BOMsForm = (props) => {
             to={"/Files/codeTemplate.xlsx"}
             target="_blank"
             download
-            style={{
-              color: "#7F56D9",
-              display: "inline-block",
-              paddingTop: "5px",
-              fontSize: "12px",
-              fontWeight: "500",
-              cursor: "pointer",
-            }}
+            className="download_text"
           >
             You don't know your product nomenclatures?
           </Link>
@@ -264,9 +257,11 @@ const BOMsForm = (props) => {
           <label className="import_Btn" htmlFor="file">
             {importedFile?.name || "Import an XLS file"}
             <input onClick={(event)=> { 
-               event.target.value = null
-          }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
-          </label>
+                event.target.value = null
+              }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+            </label>
+          </div>
+
           <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn">
             Download XLS file
           </Link>
@@ -282,7 +277,7 @@ const BOMsForm = (props) => {
         }}
       >
         <div className="codedropdown_div">
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
+          <label className="BomLabel">
             Code
           </label>
 
@@ -439,11 +434,7 @@ const BOMsForm = (props) => {
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
       {/* certification required modal */}
-      <Modal
-        open={props.certificateRequire}
-        setOpen={props.setCertificateRequire}
-        handleClose={handleCertificateRequire}
-      >
+      <Modal open={props.certificateRequire} setOpen={props.setCertificateRequire} handleClose={handleCertificateRequire}>
         <div>
           <div
             style={{

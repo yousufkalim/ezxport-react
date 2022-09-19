@@ -92,7 +92,6 @@ const ServiceProviders = () => {
       });
       setId(ids);
     }
-    console.log(ids, "ids");
   }, [select]);
 
   useEffect(() => {
@@ -117,7 +116,11 @@ const ServiceProviders = () => {
         setLoading(false);
       });
   };
-  const handleClose = () => setOpen(false);
+
+  const handleClose = () => {
+    setOpen(false)
+  };
+
   // adding service providers in database
   const handleAddVendor = async () => {
     await API("post", "/vendors/", {
@@ -128,12 +131,19 @@ const ServiceProviders = () => {
       countries: id,
     })
       .then((res) => {
-        console.log("RESSS", res);
+        setSelect([])
+        setFormState({
+          isValid: false,
+          values: {
+            fullname: "", phone_Number: "", sendingEmail: "", contactEmail: "",
+          },
+          errors: {},
+          touched: {}
+        })
         setOpen(false);
-        toast.success("Vendor added Successfully");
+        toast[res?.data?.success ? 'success' : 'error'](res?.data?.message || 'Vendor added successfully');
       })
       .catch((err) => {
-        console.log("ERRRR", err);
         toast.error(err.response.data.message);
       });
   };
@@ -343,7 +353,7 @@ const ServiceProviders = () => {
             {hasError("phone_Number") ? formState.errors.phone_Number[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            Contact
+            Contact email
           </label>{" "}
           <InputField
             name="contactEmail"
@@ -395,8 +405,6 @@ const ServiceProviders = () => {
             onClick={handleAddVendor}
             disabled={!formState.isValid || select.length < 1 ? true : false}
           />
-          {console.log("selc", select.length)}
-          {console.log("selc", !formState.isValid)}
         </div>
       </Modal>
     </>
