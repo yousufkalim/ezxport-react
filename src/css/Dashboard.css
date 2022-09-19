@@ -469,6 +469,12 @@
   font-weight: 500 !important;
   color: #344054 !important;
 }
+.expandable-element-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20%;
+  width: 100%;
+}
 .table_li_name {
   font-weight: 500 !important;
   font-size: 14px !important;
@@ -489,9 +495,10 @@
 }
 .table_li3 {
   line-height: 3.43 !important ;
-  padding-left: 20%;
+  /* padding-left: 20%; */
   font-size: 14px !important;
   color: #667085 !important;
+  width: 80%;
   padding-top: 8px;
 }
 .table_li4 {
@@ -511,7 +518,8 @@
   padding-left: 20% !important;
 }
 .rightArrow {
-  padding-right: 40% !important;
+  /* padding-right: 40% !important; */
+  padding-right: 10px;
 }
 .rightArrow2 {
   padding-right: 40% !important;

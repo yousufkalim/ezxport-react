@@ -5,11 +5,11 @@ import quiz from "../assets/Quiz.png"
 
 const toaster = (type, msg, title) => {
     const icon = type === 'success' ? <Success /> : "test"
-    return toast(<div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+    return toast(<div style={{display: 'flex', alignItems: 'flex-start', gap: '10px'}}>
         <div>{icon}</div>
         <div>
-            <div>{title}</div>
-            <div>{msg}</div>
+            <div className='toaster-title'>{title}</div>
+            <div className='toaster-msg'>{msg}</div>
         </div>
     </div>)
 }

@@ -8,6 +8,7 @@ import API from "../../api/index";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
 import { useTranslation, Trans } from "react-i18next";
+import toaster from "../../utils/toaster";
 
 const questions = [
   {
@@ -61,6 +62,7 @@ const AskQuestion = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { question, request: requestTitle, description: message } = formData;
     const obj = {
       question,
@@ -72,11 +74,14 @@ const AskQuestion = () => {
     await API("post", `/users/sendQuestion/${userData._id}`, obj)
       .then((res) => {
         resetForm();
-        toast.success(res.data.message);
         setSubmitLoading(false);
+        setLoading(false);
+        toaster('success', 'We will get back to you quickly', 'The question was asked to the administrator');
+
       })
       .catch((err) => {
         toast.err("Something went wrong");
+        setLoading(false);
         setSubmitLoading(false);
       });
   };

@@ -35,7 +35,6 @@ const DocumentByName = ({loading, codes:allCodes}) => {
   }
 
   const downloadProduct = async (e, prodId) => {
-      console.log("Document  ", prodId);
       e.stopPropagation();
       await API('get', `/requests/zipFileProduct/${prodId}`).then((res) => {
           window.location.href = res.config.url;
@@ -58,7 +57,7 @@ return (
       <List>
                 <ListItemButton sx={{ border: '1px solid #EAECF0', background: '#f9fafb' }}>
                   <li className="table_li_name" style={{ marginRight: 'auto', display: 'flex' }}>
-                    Folder name &nbsp;
+                    Document name &nbsp;
                     <img src={TitleDownArrow} alt="" className="title_arrow" />
                   </li>
                 </ListItemButton>
@@ -110,11 +109,13 @@ return (
                                                                                           // onClick={() => handleProduct("1122")}
                                                                                           sx={{ border: '1px solid #EAECF0', display: 'flex' }}
                                                                                       >
-                                                                                          <li className="table_li3" style={{ marginRight: 'auto', display: 'flex' }}>
-                                                                                          <img src={RightArrow} alt="" className="rightArrow" />
-                                                                                              {name}
-                                                                                          </li>
-                                                                                          <img onClick={(e) => downloadProduct(e, id)} src={DownloadIcon} alt="" className="downlaod_img" />
+                                                                                          <div className='expandable-element-container'>
+                                                                                            <li className="table_li3">
+                                                                                                <img src={RightArrow} alt="" className="rightArrow" />
+                                                                                                {name}
+                                                                                            </li>
+                                                                                            <img onClick={(e) => downloadProduct(e, id)} src={DownloadIcon} alt="" className="downlaod_img" />
+                                                                                          </div>
                                                                                       </ListItemButton>
                                                                                   )
                                                                               }

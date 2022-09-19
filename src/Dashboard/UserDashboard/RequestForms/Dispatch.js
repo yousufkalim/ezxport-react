@@ -4,64 +4,193 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import DatePicker from "../../../components/Common/DatePicker";
 // import moment from "moment";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { validate } from "validate.js";
+import moment from "moment";
+
+const inspectionSchema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  fullAddress: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  postalCode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 5, minimum: 5 },
+  },
+  town: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+  telephone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+  contactLastName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64},
+  },
+  contactFirstName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64},
+  }
+}
+
+const sellerSchema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  seller: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  fullAddress: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  postalCode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 5, minimum: 5 },
+  },
+  town: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  telephone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+}
+
+const buyerSchema = {
+  companyName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  seller: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  fullAddress: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  postalCode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 5, minimum: 5 },
+  },
+  town: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
+  telephone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 10, minimum: 10 },
+  },
+}
 
 const Dispatch = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const {step3, setStep3} = props;
+  const {buyerData, sellerData, placeOfInspection} = props.step3;
+  const sellerValues = sellerData.values;
+  const buyerValues = buyerData.values;
+  const placeValues = placeOfInspection.values;
+  const {values} = step3.placeOfInspection;
+  const { t } = useTranslation();
   const handleSelectedSeller = () => {
     let SelectedSeller = props?.sellers?.find((item) => {
-      return item._id === props?.step3?.sellerData?.seller;
+      return item._id === props?.step3?.sellerData.values?.seller;
     });
     props.setStep3((prev) => {
-      prev.sellerData.companyName = SelectedSeller?.company_name;
-      prev.sellerData.Country = SelectedSeller?.country?.name;
-      prev.sellerData.CountryId = SelectedSeller?.country?._id;
-      prev.sellerData.email = SelectedSeller?.email;
-      prev.sellerData.telephone = SelectedSeller?.phone_number;
-      prev.sellerData.fullAddress = SelectedSeller?.address;
-      prev.sellerData.postalCode = SelectedSeller?.zipcode;
-      prev.sellerData.town = SelectedSeller?.city;
+      prev.sellerData.values.companyName = SelectedSeller?.company_name;
+      prev.sellerData.values.Country = SelectedSeller?.country?.name;
+      prev.sellerData.values.CountryId = SelectedSeller?.country?._id;
+      prev.sellerData.values.email = SelectedSeller?.email;
+      prev.sellerData.values.telephone = SelectedSeller?.phone_number;
+      prev.sellerData.values.fullAddress = SelectedSeller?.address;
+      prev.sellerData.values.postalCode = SelectedSeller?.zipcode;
+      prev.sellerData.values.town = SelectedSeller?.city;
       return { ...prev };
     });
   };
 
   const handleSelectedBuyer = () => {
     let SelectedBuyer = props?.buyers?.find((item) => {
-      return item._id === props?.step3?.buyerData?.buyer;
+      return item._id === props?.step3?.buyerData?.values?.buyer;
     });
     props.setStep3((prev) => {
-      prev.buyerData.companyName = SelectedBuyer?.company_name;
-      prev.buyerData.Country = SelectedBuyer?.country?.name;
-      prev.buyerData.CountryId = SelectedBuyer?.country?._id;
-      prev.buyerData.email = SelectedBuyer?.email;
-      prev.buyerData.telephone = SelectedBuyer?.phone_number;
-      prev.buyerData.fullAddress = SelectedBuyer?.address;
-      prev.buyerData.postalCode = SelectedBuyer?.zipcode;
-      prev.buyerData.town = SelectedBuyer?.city;
+      prev.buyerData.values.companyName = SelectedBuyer?.company_name;
+      prev.buyerData.values.Country = SelectedBuyer?.country?.name;
+      prev.buyerData.values.CountryId = SelectedBuyer?.country?._id;
+      prev.buyerData.values.email = SelectedBuyer?.email;
+      prev.buyerData.values.telephone = SelectedBuyer?.phone_number;
+      prev.buyerData.values.fullAddress = SelectedBuyer?.address;
+      prev.buyerData.values.postalCode = SelectedBuyer?.zipcode;
+      prev.buyerData.values.town = SelectedBuyer?.city;
       return { ...prev };
     });
   };
 
   const handleSelectedPlace = () => {
     let SelectedPlace = props?.places?.find((item) => {
-      return item._id === props?.step3?.placeOfInspection?.InspectionPlace;
+      return item._id === props?.step3?.placeOfInspection?.values;
     });
 
     props.setStep3((prev) => {
-      prev.placeOfInspection.companyName = SelectedPlace?.company_name;
-      prev.placeOfInspection.Country = SelectedPlace?.country?.name;
-      prev.placeOfInspection.CountryId = SelectedPlace?.country?._id;
-      prev.placeOfInspection.email = SelectedPlace?.email;
-      prev.placeOfInspection.telephone = SelectedPlace?.phone_number;
-      prev.placeOfInspection.fullAddress = SelectedPlace?.address;
-      prev.placeOfInspection.postalCode = SelectedPlace?.zipcode;
-      prev.placeOfInspection.town = SelectedPlace?.city;
-      prev.placeOfInspection.contactLastName = SelectedPlace?.contact_lname;
-      prev.placeOfInspection.contactFirstName = SelectedPlace?.contact_fname;
+      prev.placeOfInspection.values.companyName = SelectedPlace?.company_name;
+      prev.placeOfInspection.values.Country = SelectedPlace?.country?.name;
+      prev.placeOfInspection.values.CountryId = SelectedPlace?.country?._id;
+      prev.placeOfInspection.values.email = SelectedPlace?.email;
+      prev.placeOfInspection.values.telephone = SelectedPlace?.phone_number;
+      prev.placeOfInspection.values.fullAddress = SelectedPlace?.address;
+      prev.placeOfInspection.values.postalCode = SelectedPlace?.zipcode;
+      prev.placeOfInspection.values.town = SelectedPlace?.city;
+      prev.placeOfInspection.values.contactLastName = SelectedPlace?.contact_lname;
+      prev.placeOfInspection.values.contactFirstName = SelectedPlace?.contact_fname;
       return { ...prev };
     });
   };
+
+  useEffect(() => {
+    const {placeOfInspection} = step3;
+    const errors = validate(placeOfInspection.values, inspectionSchema);
+    setStep3({...step3, placeOfInspection: {...placeOfInspection, isValid: errors ? false : true, errors: errors || {}}});
+  }, [step3.placeOfInspection.values]);
+
+  useEffect(() => {
+    const {sellerData} = step3;
+    const errors = validate(sellerData.values, sellerSchema);
+    setStep3({...step3, sellerData: {...sellerData, isValid: errors ? false : true, errors: errors || {}}});
+  }, [step3.sellerData.values]);
+
+  useEffect(() => {
+    const {buyerData} = step3;
+    const errors = validate(buyerData.values, buyerSchema);
+    setStep3({...step3, buyerData: {...buyerData, isValid: errors ? false : true, errors: errors || {}}});
+  }, [step3.buyerData.values]);
 
   useEffect(() => {
     handleSelectedSeller();
@@ -72,7 +201,12 @@ const Dispatch = (props) => {
   }, [props?.step3?.buyerData?.buyer]);
   useEffect(() => {
     handleSelectedPlace();
-  }, [props?.step3?.placeOfInspection?.InspectionPlace]);
+  }, [placeOfInspection?.values.InspectionPlace]);
+
+  const placeError = (field) => (step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false);
+  const sellerError = (field) => (step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false);
+  const buyerError = (field) => (step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false);
+
 
   return (
     <div className="dispatch_main_Div">
@@ -104,9 +238,11 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="Country Name"
+              placeholder="Company Name"
               name="companyName"
-              value={props?.step3?.sellerData?.companyName}
+              error={sellerData.errors.companyName}
+              isError={sellerError('companyName')}
+              value={sellerValues?.companyName}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -119,7 +255,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={props?.step3?.sellerData?.CountryId || "default"}
+              value={sellerValues.CountryId || "default"}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -135,7 +271,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="CL"
               name="Country"
-              value={props?.step3?.sellerData?.Country}
+              value={sellerValues.Country}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -149,7 +285,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
-              value={props?.step3?.sellerData?.email}
+              error={sellerData.errors.email}
+              isError={sellerError('email')}
+              value={sellerValues.email}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -162,7 +300,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="xx xx xx xx xx"
               name="telephone"
-              value={props?.step3?.sellerData?.telephone}
+              error={sellerData.errors.telephone}
+              isError={sellerError('telephone')}
+              value={sellerValues.telephone}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -175,8 +315,10 @@ const Dispatch = (props) => {
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
+              error={sellerData.errors.fullAddress}
+              isError={sellerError('fullAddress')}
               name="fullAddress"
-              value={props?.step3?.sellerData?.fullAddress}
+              value={sellerValues.fullAddress}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -190,7 +332,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
-                value={props?.step3?.sellerData?.postalCode}
+                value={sellerValues.postalCode}
+                error={sellerData.errors.postalCode}
+                isError={sellerError('postalCode')}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
@@ -202,7 +346,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
-                value={props?.step3?.sellerData?.town}
+                error={sellerData.errors.town}
+                isError={sellerError('town')}
+                value={sellerValues.town}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
@@ -241,7 +387,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="Company Name"
               name="companyName"
-              value={props?.step3?.buyerData?.companyName}
+              error={buyerData.errors.companyName}
+              isError={buyerError('companyName')}
+              value={buyerValues?.companyName}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -254,7 +402,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={props?.step3?.buyerData?.CountryId || "default"}
+              value={buyerValues?.CountryId || "default"}
               onChange={(e) => {
                 props?.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -270,7 +418,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="CL"
               name="Country"
-              value={props?.step3?.buyerData?.Country}
+              value={buyerValues?.Country}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -284,7 +432,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
-              value={props?.step3?.buyerData?.email}
+              error={buyerData.errors.email}
+              isError={buyerError('email')}
+              value={buyerValues?.email}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -297,7 +447,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="33 33 44 04 56"
               name="telephone"
-              value={props?.step3?.buyerData?.telephone}
+              error={buyerData.errors.telephone}
+              isError={buyerError('telephone')}
+              value={buyerValues?.telephone}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -311,7 +463,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="90 road of rouvroy"
               name="fullAddress"
-              value={props?.step3?.buyerData?.fullAddress}
+              error={buyerData.errors.fullAddress}
+              isError={buyerError('fullAddress')}
+              value={buyerValues?.fullAddress}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -325,7 +479,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
-                value={props?.step3?.buyerData?.postalCode}
+                value={buyerValues?.postalCode}
+                error={buyerData.errors.postalCode}
+                isError={buyerError('postalCode')}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
@@ -337,7 +493,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
-                value={props?.step3?.buyerData?.town}
+                error={buyerData.errors.town}
+                isError={buyerError('town')}
+                value={buyerValues?.town}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
@@ -375,11 +533,18 @@ const Dispatch = (props) => {
           </label>
           <DatePicker
             name="InspectionDate"
-            value={props?.step3?.placeOfInspection?.InspectionDate} //moment().format("LL")
+            min={moment().clone().add(1,'days').toISOString().split('T')[0]}
+            value={placeValues.InspectionDate} //moment().format("LL")
             onChange={(e) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
+            
           />
+          {
+                placeError('InspectionDate') && (
+                  <div className='input-error'>{placeOfInspection.errors.InspectionDate ?? null}</div>
+                )
+              }
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
@@ -388,7 +553,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="Company Name"
               name="companyName"
-              value={props?.step3?.placeOfInspection?.companyName}
+              // error={placeOfInspection.errors.companyName}
+              // isError={placeError('companyName')}
+              value={placeValues?.companyName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
@@ -401,9 +568,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={props?.step3?.placeOfInspection?.CountryId || "default"}
+              value={placeValues.CountryId || "default"}
               onChange={(e) => {
-                props?.handleInspectionData(e.target.name, e.target.value);
+                props.handleInspectionData(e.target.name, e.target.value);
               }}
             >
               <MenuItem disabled value={"default"}>
@@ -422,7 +589,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
-              value={props?.step3?.placeOfInspection?.email}
+              error={placeOfInspection.errors.email}
+              isError={placeError('email')}
+              value={placeValues?.email}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
@@ -435,7 +604,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="33 33 44 04 56"
               name="telephone"
-              value={props?.step3?.placeOfInspection?.telephone}
+              error={placeOfInspection.errors.telephone}
+              isError={placeError('telephone')}
+              value={placeValues?.telephone}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
@@ -449,7 +620,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="90 road of rouvroy"
               name="fullAddress"
-              value={props?.step3?.placeOfInspection?.fullAddress}
+              error={placeOfInspection.errors.fullAddress}
+              isError={placeError('fullAddress')}
+              value={placeValues?.fullAddress}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
@@ -462,7 +635,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
-                value={props?.step3?.placeOfInspection?.postalCode}
+                error={placeOfInspection.errors.postalCode}
+                isError={placeError('postalCode')}
+                value={placeValues?.postalCode}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
                 }}
@@ -474,7 +649,9 @@ const Dispatch = (props) => {
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
-                value={props?.step3?.placeOfInspection?.town}
+                error={placeOfInspection.errors.town}
+                isError={placeError('town')}
+                value={placeValues?.town}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
                 }}
@@ -489,7 +666,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="contact name"
               name="contactLastName"
-              value={props?.step3?.placeOfInspection?.contactLastName}
+              error={placeOfInspection.errors.contactLastName}
+              isError={placeError('contactLastName')}
+              value={placeValues?.contactLastName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
@@ -501,7 +680,9 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder={t("contact first name")}
               name="contactFirstName"
-              value={props?.step3?.placeOfInspection?.contactFirstName}
+              error={placeOfInspection.errors.contactFirstName}
+              isError={placeError('contactFirstName')}
+              value={placeValues?.contactFirstName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}

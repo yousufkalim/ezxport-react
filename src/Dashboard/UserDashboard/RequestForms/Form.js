@@ -23,6 +23,7 @@ import Modal from '../../../components/Common/Modal';
 import { ReactComponent as Featured } from '../../../assets/Featured.svg';
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
 
+
 const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
@@ -73,49 +74,69 @@ export default function HorizontalNonLinearStepper() {
 
   // step 2 states
   const [step2, setStep2] = useState({
-    vendorId: "",
-    contactInfo: false,
-    lastName: "",
-    firstName: "",
-    email: "",
+    isValid: false,
+    values: {
+      vendorId: "",
+      contactInfo: false,
+      lastName: "",
+      firstName: "",
+      email: "",
+    },
+    touched: {},
+    errors: {}
   });
   // step 3 states
   const [step3, setStep3] = useState({
     sellerData: {
-      seller: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
+      isValid: false,
+      values: {
+        seller: "",
+        companyName: "",
+        Country: "",
+        CountryId: "",
+        email: "",
+        telephone: "",
+        fullAddress: "",
+        postalCode: "",
+        town: "",
+      },
+      errors: {},
+      touched: {}
     },
     buyerData: {
-      buyer: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
+      isValid: false,
+      values: {
+        buyer: "",
+        companyName: "",
+        Country: "",
+        CountryId: "",
+        email: "",
+        telephone: "",
+        fullAddress: "",
+        postalCode: "",
+        town: "",
+      },
+      errors: {},
+      touched: {}
     },
     placeOfInspection: {
-      InspectionPlace: "",
-      InspectionDate: "",
-      companyName: "",
-      Country: "",
-      CountryId: "",
-      email: "",
-      telephone: "",
-      fullAddress: "",
-      postalCode: "",
-      town: "",
-      contactLastName: "",
-      contactFirstName: "",
+      isValid: false,
+      values: {
+        InspectionPlace: "",
+        InspectionDate: "",
+        companyName: "",
+        Country: "",
+        CountryId: "",
+        email: "",
+        telephone: "",
+        fullAddress: "",
+        postalCode: "",
+        town: "",
+        contactLastName: "",
+        contactFirstName: "",
+      },
+      errors: {},
+      touched: {}
     },
   });
   const [sellers, setSeller] = useState([]);
@@ -188,7 +209,6 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        console.log("errrrr", err);
         toast.error(err.response.data.message.msg)
       });
   };
@@ -208,72 +228,73 @@ export default function HorizontalNonLinearStepper() {
     });
     await API("post", "/requests/boms", data)
       .then((res) => {
-        console.log("hanldeEstimateRequest", res);
         handleNext();
         setRequestedId(res?.data?.request?._id);
       })
       .catch((err) => {
-        console.log("hanldeEstimateRequest", err);
         toast.error(err.response.data.message);
       });
   };
   const handleStep2 = async () => {
+    const {vendorId, contactInfo, firstName, lastName,email } = step2.values;
     await API("put", "/requests/userVendor", {
       user: userData._id,
       request: requestId,
-      vendor: step2.vendorId,
-      contact_info: step2.contactInfo,
-      contact_fname: step2.firstName,
-      contact_lname: step2.lastName,
-      contact_email: step2.email,
+      vendor: vendorId,
+      contact_info: contactInfo,
+      contact_fname: firstName,
+      contact_lname: lastName,
+      contact_email: email,
     })
       .then((res) => {
         handleNext();
         toast.success("Service Provider Updated Successfully");
       })
       .catch((err) => {
-        console.log("handleStep2", err);
-        if (err.response.data.message.msg === "vendorId required") {
+        if (err.response?.data?.message?.msg === "vendorId required") {
           toast.error("Vendor is required");
         } else {
-          toast.error(err.response.data.message.msg);
+          toast.error(err?.response?.data?.message?.msg);
         }
       });
   };
   const handleStep3 = async () => {
+    const placeOfInspection = step3.placeOfInspection.values;
+    const sellerData = step3.sellerData.values;
+    const buyerData = step3.buyerData.values;
     await API("put", "/requests/dispatch", {
       request: requestId,
-      inspection_date: step3.placeOfInspection.InspectionDate,
+      inspection_date: placeOfInspection.InspectionDate,
       buyer: {
-        phone_number: step3.buyerData.telephone,
-        company_name: step3.buyerData.companyName,
-        email: step3.buyerData.email,
-        country: step3.buyerData.CountryId,
-        city: step3.buyerData.town,
-        zipcode: step3.buyerData.postalCode,
-        address: step3.buyerData.fullAddress,
+        phone_number: buyerData.telephone,
+        company_name: buyerData.companyName,
+        email: buyerData.email,
+        country: buyerData.CountryId,
+        city: buyerData.town,
+        zipcode: buyerData.postalCode,
+        address: buyerData.fullAddress,
         user: userData._id,
       },
       seller: {
-        phone_number: step3.sellerData.telephone,
-        company_name: step3.sellerData.companyName,
-        email: step3.sellerData.email,
-        country: step3.sellerData.CountryId,
-        city: step3.sellerData.town,
-        zipcode: step3.sellerData.postalCode,
-        address: step3.sellerData.fullAddress,
+        phone_number: sellerData.telephone,
+        company_name: sellerData.companyName,
+        email: sellerData.email,
+        country: sellerData.CountryId,
+        city: sellerData.town,
+        zipcode: sellerData.postalCode,
+        address: sellerData.fullAddress,
         user: userData._id,
       },
       place: {
-        phone_number: step3.placeOfInspection.telephone,
-        company_name: step3.placeOfInspection.companyName,
-        email: step3.placeOfInspection.email,
-        country: step3.placeOfInspection.CountryId,
-        city: step3.placeOfInspection.town,
-        zipcode: step3.placeOfInspection.postalCode,
-        address: step3.placeOfInspection.fullAddress,
-        contact_fname: step3.placeOfInspection.contactFirstName,
-        contact_lname: step3.placeOfInspection.contactLastName,
+        phone_number: placeOfInspection.telephone,
+        company_name: placeOfInspection.companyName,
+        email: placeOfInspection.email,
+        country: placeOfInspection.CountryId,
+        city: placeOfInspection.town,
+        zipcode: placeOfInspection.postalCode,
+        address: placeOfInspection.fullAddress,
+        contact_fname: placeOfInspection.contactFirstName,
+        contact_lname: placeOfInspection.contactLastName,
         user: userData._id,
       },
     })
@@ -283,7 +304,6 @@ export default function HorizontalNonLinearStepper() {
         toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log("handleStep3", err);
         toast.error(err.response.data.message.msg);
       });
   };
@@ -305,18 +325,15 @@ export default function HorizontalNonLinearStepper() {
         history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
-        console.log("err--->", err);
         toast.error(err.response.data.message);
       });
   };
   const handleDocByCountryId = async () => {
     await API("get", `/documents/getByCountry/${step1.country}`)
       .then((res) => {
-        console.log("handleDocByCountryId", res);
         setCountryDoc(res.data.document);
       })
       .catch((err) => {
-        console.log("handleDocByCountryId", err);
         toast.error(err.response.data.message);
       });
   };
@@ -326,14 +343,12 @@ export default function HorizontalNonLinearStepper() {
     formData.append("file", file);
     await API("put", `/requests/documentsUpload/${requestId}`, formData)
       .then((res) => {
-        console.log("handleUploadDoc", res);
         setCountryDoc((prev) => {
           prev[index].fileName = file.name;
           return [...prev];
         });
       })
       .catch((err) => {
-        console.log("handleUploadDoc", err);
         toast.error(err.response.data.message);
       });
   };
@@ -341,33 +356,31 @@ export default function HorizontalNonLinearStepper() {
     setStep1({ ...step1, [name]: value });
   };
   const handleStep2Change = (name, value) => {
-    setStep2({ ...step2, [name]: value });
+    setStep2({...step2, values:{...step2.values, [name]: value}, touched: {...step2.touched, [name]: true}})
+
   };
   const handleSellerData = (name, value) => {
-    setStep3((prev) => {
-      prev.sellerData = { ...prev.sellerData, [name]: value };
-      return { ...prev };
-    });
+    const {sellerData} = step3;
+    const {values} = step3.sellerData;
+    setStep3({...step3, sellerData: {...sellerData, values: {...values, [name]: value}, touched: {...sellerData.touched, [name]: true} }});
   };
   const handleBuyerData = (name, value) => {
-    setStep3((prev) => {
-      prev.buyerData = { ...prev.buyerData, [name]: value };
-      return { ...prev };
-    });
+    const {buyerData} = step3;
+    const {values} = step3.buyerData;
+    setStep3({...step3, buyerData: {...buyerData, values: {...values, [name]: value}, touched: {...buyerData.touched, [name]: true} }});
   };
   const handleInspectionData = (name, value) => {
-    setStep3((prev) => {
-      prev.placeOfInspection = { ...prev.placeOfInspection, [name]: value };
-      return { ...prev };
-    });
+    const {placeOfInspection} = step3;
+    const {values} = step3.placeOfInspection;
+    setStep3({...step3, placeOfInspection: {...placeOfInspection, values: {...values, [name]: value}, touched: {...placeOfInspection.touched, [name]: true} }});
   };
+
   const handleSeller = async () => {
     await API("get", `/sellers/getByUser/${userData._id}`)
       .then((res) => {
         setSeller(res.data.seller);
       })
       .catch((err) => {
-        console.log("handleSeller", err);
         toast.error(err.response.data.message);
       });
   };
@@ -377,7 +390,6 @@ export default function HorizontalNonLinearStepper() {
         setBuyers(res.data.buyer);
       })
       .catch((err) => {
-        console.log("handleBuyer", err);
         toast.error(err.response.data.message);
       });
   };
@@ -387,7 +399,6 @@ export default function HorizontalNonLinearStepper() {
         setPlaces(res.data.place);
       })
       .catch((err) => {
-        console.log("handleBuyer", err);
         toast.error(err.response.data.message);
       });
   };
@@ -497,7 +508,7 @@ export default function HorizontalNonLinearStepper() {
                 setCounteries={setCounteries}
               />
             ) : activeStep === 1 ? (
-              <ServiceproviderForm countryId={step1.country} step2={step2} handleChange={handleStep2Change} />
+              <ServiceproviderForm countryId={step1.country} setFormState={setStep2} step2={step2} handleChange={handleStep2Change} />
             ) : activeStep === 2 ? (
               <DispatchForm
                 step3={step3}
