@@ -192,6 +192,16 @@ label {
   cursor: pointer;
 }
 
+.toaster-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #101828;
+}
+.toaster-msg {
+  font-size: 14px;
+  color: #667085;
+}
+
 @media screen and (max-width: 1000px) {
   .quizIcon.MuiSvgIcon-root {
     font-size: 1.1em;

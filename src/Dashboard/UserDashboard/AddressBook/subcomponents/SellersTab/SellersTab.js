@@ -32,7 +32,6 @@ const title = [
   { heading: "" },
 ];
 
-
 const schema = {
   companyName: {
     presence: { allowEmpty: false, message: "is required" },
@@ -45,9 +44,31 @@ const schema = {
     length: { maximum: 64 },
     email: true,
   },
+  country: {
+    presence: { allowEmpty: false, message: "is required" },
+  },
   telephone: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 10, minimum: 10 },
+  },
+  address: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 124,
+    },
+  },
+  zipcode: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 5,
+      minimum: 5
+    },
+  },
+  town: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
   },
 };
 
@@ -80,6 +101,15 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
         fetchSellers();
       },[])
 
+      useEffect(() => {
+        const errors = validate(formState.values, schema);
+        setFormState((formState) => ({
+          ...formState,
+          isValid: errors ? false : true,
+          errors: errors || {},
+        }));
+      }, [formState.values, setFormState]);
+
       const fetchSellers = () => {
         setLoading(true);
         API('get', `/sellers/getByUser/${userData._id}`).then((res) => {
@@ -101,7 +131,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
     
       const handleChange = (e) => {
         const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}})
+        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
       }
 
   const handleOpenModal = (edit, item) => {
@@ -146,19 +176,6 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
             errors: {},
             touched: {}
         })
-      }
-
-      const handleBlur = (e) => {
-        e.preventDefault();
-        const {name} = e.target;
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          errors: errors ?? {},
-          touched: {...formState.touched, [name]: true},
-          isValid: errors ? false : true
-    
-        }))
       }
 
       const createSeller = async (data) => {
@@ -302,7 +319,6 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
               name="companyName"
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
-              onBlur={(e) => handleBlur(e)}
               isError={hasError("companyName")}
               error={formState.errors?.companyName}
               type="text" placeholder="Company 1" />
@@ -316,7 +332,6 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                 id="demo-simple-select"
                 name='country'
                 disabled={!isEdit && seller}
-                onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -342,7 +357,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                   name='email'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -356,7 +371,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                   name='telephone'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("telephone")}
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
@@ -373,7 +388,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                 name='address'
                 disabled={!isEdit && seller}
                 onChange={(e) => handleChange(e)}
-                onBlur={(e) => handleBlur(e)}
+
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -390,7 +405,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                   name='zipcode'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -404,7 +419,7 @@ const SellersTab = ({t, open, setOpen, userId, countries }) => {
                   name='town'
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-                  onBlur={(e) => handleBlur(e)}
+  
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}

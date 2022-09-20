@@ -19,18 +19,21 @@ const societyType = [
   },
 ];
 
-const CompanyInformation = ({ formData, setFormData, loading }) => {
+const CompanyInformation = ({ formState, setFormState, loading }) => {
+  const {errors} = formState;
+
   const companyTypeHandler = (e) => {
-    setFormData({ ...formData, type: e.target.value });
+    setFormState({...formState, values: { ...formState.values, type: e.target.value }, touched: {...formState.touched, type: true}});
   };
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormState({...formState, values:{ ...formState.values, [name]: value }, touched: {...formState.touched, [name]: true}});
   };
+
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
   if (loading) {
     return <Spinner />;
@@ -43,8 +46,10 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
               {t("Last name")}
             </label>
             <InputField
-              value={formData.name}
-              name="name"
+              value={formState.values?.lastName}
+              error={errors.lastName}
+              isError={hasError('lastName')}
+              name="lastName"
               onChange={(e) => handleChange(e)}
               type="text"
               className="company_input"
@@ -59,7 +64,7 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
               <Select
                 id="demo-simple-select"
                 name="type"
-                value={formData.type}
+                value={formState.values?.type}
                 onChange={(e) => companyTypeHandler(e)}
                 className="buyer_input"
               >
@@ -69,6 +74,11 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
                   </MenuItem>
                 ))}
               </Select>
+              {
+                hasError('type') && (
+                  <div className='input-error'>{errors.type ?? null}</div>
+                )
+              }
             </FormControl>
           </div>
         </div>
@@ -78,8 +88,10 @@ const CompanyInformation = ({ formData, setFormData, loading }) => {
               {t("VAT number")}
             </label>
             <InputField
-              value={formData.vat}
-              name="vat"
+              value={formState.values?.vatNumber}
+              name="vatNumber"
+              error={errors.vatNumber}
+              isError={hasError('vatNumber')}
               onChange={(e) => handleChange(e)}
               type="text"
               className="company_input"
