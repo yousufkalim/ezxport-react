@@ -11,8 +11,8 @@ import Paper from "@mui/material/Paper";
 import ExportIcon from "../../assets/ExportIcon.svg";
 import { useHistory } from "react-router-dom";
 import downArrow from "../../assets/TitleDownArrow.svg";
-import { useTranslation, Trans } from "react-i18next";
 import arrow_up from "../../assets/arrow_up.svg";
+import { useTranslation, Trans } from "react-i18next";
 import API from "../../api";
 import { toast } from "react-toastify";
 

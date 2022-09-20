@@ -77,7 +77,7 @@ const AdminNomPays = () => {
 
   useEffect(() => {
     handleCountryData();
-  }, [openCalculationModal]);
+  }, []);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
