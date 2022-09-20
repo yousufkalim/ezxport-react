@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TextFieldSelect from '../Common/TextFieldSelect';
-import FormControl from '@mui/material/FormControl';
-import DownArrow from '../../assets/TitleDownArrow.svg';
-import DeleteIcon from '../../assets/DeleteIcon.svg';
-import EditIcon from '../../assets/EditIcon.svg';
-import API from '../../api/index';
-import { toast } from 'react-toastify';
-import Modal from '../Common/Modal';
-import validate from 'validate.js';
-import Button from '../Common/Button';
-import InputField from '../Common/InputField';
+import React, { useState, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TextFieldSelect from "../Common/TextFieldSelect";
+import FormControl from "@mui/material/FormControl";
+import DownArrow from "../../assets/TitleDownArrow.svg";
+import DeleteIcon from "../../assets/DeleteIcon.svg";
+import EditIcon from "../../assets/EditIcon.svg";
+import API from "../../api/index";
+import { toast } from "react-toastify";
+import Modal from "../Common/Modal";
+import validate from "validate.js";
+import Button from "../Common/Button";
+import InputField from "../Common/InputField";
 import { useTranslation, Trans } from "react-i18next";
 import ConfirmModal from "../Common/ConfirmModal";
 
 const schema = {
   minCost: {
     presence: { allowEmpty: false, message: "is required" },
-
   },
   maxCost: {
     presence: { allowEmpty: false, message: "is required" },
-},
+  },
   certificate: {
     presence: { allowEmpty: false, message: "is required" },
   },
@@ -43,7 +42,7 @@ const CalculationRange = (props) => {
   const [rangeCertificat, setRangeCertificat] = useState();
   const [rangeMinCost, setRangeMinCost] = useState();
   const [rangeMaxCost, setRangeMaxCost] = useState();
-  const [allErrors, setAllErrors] = useState({min: '', max: '', certificate: ''});
+  const [allErrors, setAllErrors] = useState({ min: "", max: "", certificate: "" });
   const [openModal, setOpenModal] = useState(false);
   const [rangeId, setRangeId] = useState("");
 
@@ -53,23 +52,22 @@ const CalculationRange = (props) => {
       minCost: "",
       maxCost: "",
       certificate: "",
-    }
+    },
   });
 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    if(formState.values.minCost){
-      const {min, max} = allErrors;
-      const {minCost, maxCost, certificate} = formState.values;
-      if(!min && !max && !allErrors.certificate && minCost && maxCost && certificate) {
-        setFormState({...formState, isValid: true})
-      }else{
-        setFormState({...formState, isValid: false})
-  
+    if (formState.values.minCost) {
+      const { min, max } = allErrors;
+      const { minCost, maxCost, certificate } = formState.values;
+      if (!min && !max && !allErrors.certificate && minCost && maxCost && certificate) {
+        setFormState({ ...formState, isValid: true });
+      } else {
+        setFormState({ ...formState, isValid: false });
       }
     }
-  }, [formState.values, allErrors])
+  }, [formState.values, allErrors]);
 
   const handleValuesChange = (event) => {
     const validatedValue = event.target.value.replace(/[^0-9]/g, "");
@@ -77,56 +75,43 @@ const CalculationRange = (props) => {
       if (formState.values.minCost !== "") {
         setFormState((formState) => ({
           ...formState,
-          values: {
-            ...formState.values,
-            [event.target.name]: validatedValue,
-          },
+          values: { ...formState.values, [event.target.name]: validatedValue },
         }));
       }
     } else {
       setFormState((formState) => ({
         ...formState,
-        values: {
-          ...formState.values,
-          [event.target.name]: validatedValue,
-        }
+        values: { ...formState.values, [event.target.name]: validatedValue },
       }));
     }
 
     const { name, value } = event.target;
     const val = parseInt(value);
-    const {minCost, maxCost} = formState.values;
+    const { minCost, maxCost } = formState.values;
     const latestValues = rangeData[rangeData?.length - 1];
     const latestMax = latestValues?.max + 1;
-    const latestCertificate= latestValues?.certificate_cost;
+    const latestCertificate = latestValues?.certificate_cost;
 
-    if(name === 'minCost'){
-      if (rangeData?.length && val !== latestMax){
-        setAllErrors({...allErrors, min: "Please enter valid minimum cost"})
+    if (name === "minCost") {
+      if (rangeData?.length && val !== latestMax) {
+        setAllErrors({ ...allErrors, min: "Please enter valid minimum cost" });
+      } else if (maxCost && val >= maxCost) {
+        setAllErrors({ ...allErrors, min: "Minimum cost should be less than maximum cost" });
+      } else {
+        setAllErrors({ ...allErrors, min: "" });
       }
-      else if(maxCost && val >= maxCost ){
-        setAllErrors({...allErrors, min: "Minimum cost should be less than maximum cost"});
+    } else if (name === "maxCost") {
+      if (val <= minCost) {
+        setAllErrors({ ...allErrors, max: "Maxminm cost should be greater than minimum cost" });
+      } else {
+        setAllErrors({ ...allErrors, max: "" });
       }
-      else {
-        setAllErrors({...allErrors, min: ""});
+    } else if (name === "certificate") {
+      if (rangeData?.length && val <= latestCertificate) {
+        setAllErrors({ ...allErrors, certificate: "Certificate cost should be greater than previous one" });
+      } else {
+        setAllErrors({ ...allErrors, certificate: "" });
       }
-    }
-    else if(name === 'maxCost'){
-      if(val <= minCost ){
-        setAllErrors({...allErrors, max: "Maxminm cost should be greater than minimum cost"});
-      }
-      else {
-        setAllErrors({...allErrors, max: ""});
-      }
-    }
-    else if (name === 'certificate') {
-        if(rangeData?.length && val <= latestCertificate) {
-          setAllErrors({...allErrors, certificate: "Certificate cost should be greater than previous one"});
-        }
-        else {
-          setAllErrors({...allErrors, certificate: ""});
-
-        }
     }
   };
 
@@ -140,6 +125,8 @@ const CalculationRange = (props) => {
       });
   };
   const handleAddRange = async () => {
+    handleRangeData();
+
     await API("put", `/calculations/addRange/${props.id}`, {
       range: {
         min: formState.values.minCost,
@@ -152,12 +139,11 @@ const CalculationRange = (props) => {
         setFormState((formState) => ({
           ...formState,
           values: {
-
             minCost: "",
             maxCost: "",
             certificate: "",
-          }, isValid: false,
-
+          },
+          isValid: false,
         }));
         toast.success("Range added successfully");
       })
@@ -201,7 +187,7 @@ const CalculationRange = (props) => {
       .then((res) => {
         handleRangeData();
         setOpenModal(false);
-        setRangeId('');
+        setRangeId("");
         toast.success("Range Deleted successfully");
       })
       .catch((err) => {
@@ -258,11 +244,11 @@ const CalculationRange = (props) => {
               </TableHead>
               <TableBody>
                 {rangeData?.map((item) => (
-                  <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row" style={{ width: '20%' }}>
+                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row" style={{ width: "20%" }}>
                       <p className="AP_plus_title">{`${item.min} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ width: '20%' }}>
+                    <TableCell align="left" className="country2" style={{ width: "20%" }}>
                       <p className="AP_plus_title">{`${item.max} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -310,9 +296,7 @@ const CalculationRange = (props) => {
                 <FormControl fullWidth>
                   <InputField
                     label="Minimum"
-                    isError={
-                      hasError("min")
-                    }
+                    isError={hasError("min")}
                     error={[allErrors.min]}
                     value={formState.values.minCost}
                     name="minCost"
@@ -326,16 +310,13 @@ const CalculationRange = (props) => {
                 <FormControl fullWidth>
                   <InputField
                     label="Maximum"
-                    isError={
-                      hasError("max")
-                    }
+                    isError={hasError("max")}
                     error={[allErrors.max]}
                     value={formState.values.maxCost}
                     name="maxCost"
                     disabled={!formState.values.maxCost && allErrors.min}
                     onChange={(e) => handleValuesChange(e)}
                     className="calculation_input"
-
                   />
                 </FormControl>
               </div>
@@ -346,19 +327,15 @@ const CalculationRange = (props) => {
                   </label>
                   <InputField
                     value={formState.values.certificate}
-                    isError={
-                      hasError("certificate")
-                    }
+                    isError={hasError("certificate")}
                     error={[allErrors.certificate]}
                     name="certificate"
                     onChange={(e) => handleValuesChange(e)}
                     className="calculation_input"
-
                   />
                 </FormControl>
               </div>
             </div>
-
             <button
               className={!formState.isValid ? "AddSlice_button_disabled" : "AddSlice_button"}
               onClick={props.Calculation ? handleAddRange : handleNewRange}
@@ -370,36 +347,19 @@ const CalculationRange = (props) => {
         </div>
       </div>
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDeleteCalculation(rangeId)} />
-      <Modal
-        open={editModal}
-        setOpen={setEditModal}
-        title={t("Edit Range")}
-        handleClose={handleEditModalClose}
-        Closebtn={true}
-      >
+      <Modal open={editModal} setOpen={setEditModal} title={t("Edit Range")} handleClose={handleEditModalClose} Closebtn={true}>
         <div>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
               {t("Minimum")}
             </label>
-            <InputField
-              value={rangeMinCost}
-              onChange={(e) => setRangeMinCost(e.target.value)}
-              className="calculation_input"
-
-
-            />
+            <InputField value={rangeMinCost} onChange={(e) => setRangeMinCost(e.target.value)} className="calculation_input" />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
               {t("Maximum")}
             </label>
-            <InputField
-              value={rangeMaxCost}
-              onChange={(e) => setRangeMaxCost(e.target.value)}
-              className="calculation_input"
-
-            />
+            <InputField value={rangeMaxCost} onChange={(e) => setRangeMaxCost(e.target.value)} className="calculation_input" />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
@@ -409,15 +369,10 @@ const CalculationRange = (props) => {
               value={rangeCertificat}
               onChange={(e) => setRangeCertificat(e.target.value)}
               className="calculation_input"
-
             />
           </FormControl>
           <div style={{ marginTop: "2rem" }}>
-            <Button
-              text={t("Update")}
-              className="bom_downloadFile_btn"
-              onClick={handleUpdateRange}
-            />
+            <Button text={t("Update")} className="bom_downloadFile_btn" onClick={handleUpdateRange} />
           </div>
         </div>
       </Modal>

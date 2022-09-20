@@ -13,11 +13,22 @@ import { useHistory } from "react-router-dom";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import { useTranslation, Trans } from "react-i18next";
 import arrow_up from "../../assets/arrow_up.svg";
+import API from "../../api";
+import { toast } from "react-toastify";
 
 const UserTable = (props) => {
   const history = useHistory();
   const { t, i18n } = useTranslation();
   const { language } = i18n;
+  const handleSheet = async () => {
+    await API("get", "/users/excelSheet")
+      .then((res) => {
+        window.location.href = res.data.path;
+      })
+      .catch((err) => {
+        toast.error("Some went wrong");
+      });
+  };
 
   return (
     <>
@@ -28,7 +39,7 @@ const UserTable = (props) => {
             <h1 className="list_user_h1">{t(props.title)}</h1>
             <div className="UserTable_right_div">
               <SearchField placeholder={t("Searching")} />
-              <Button className="export_btn" text={t("Export")} Imgsrc={ExportIcon} />
+              <Button className="export_btn" text={t("Export list")} Imgsrc={ExportIcon} onClick={() => handleSheet()} />
             </div>
           </div>
           {/* list table   */}
@@ -49,20 +60,9 @@ const UserTable = (props) => {
                         {t(item.list)}
                         &nbsp;
                         {item.sortIcon && !props.sort.ascend && props.sort.key === item.key ? (
-                          <img
-                            className="sorting-icon"
-                            onClick={() => props.sortData(item.key, true)}
-                            src={arrow_up}
-                            alt=""
-                          />
+                          <img className="sorting-icon" onClick={() => props.sortData(item.key, true)} src={arrow_up} alt="" />
                         ) : (
-                          item.sortIcon && (
-                            <img
-                              onClick={() => props.sortData(item.key, false)}
-                              src={downArrow}
-                              alt=""
-                            />
-                          )
+                          item.sortIcon && <img onClick={() => props.sortData(item.key, false)} src={downArrow} alt="" />
                         )}
                       </TableCell>
                     ))}

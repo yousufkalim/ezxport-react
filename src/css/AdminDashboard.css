@@ -59,6 +59,7 @@
   border: none;
 }
 .export_btn {
+  cursor: pointer;
   background: none;
   display: flex;
   align-items: center;

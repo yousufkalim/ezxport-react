@@ -151,7 +151,7 @@ const BOMsForm = (props) => {
         props.handleChange("title", (res?.data?.tile).toUpperCase());
       })
       .catch((err) => {
-        toast.error(err.response.data.message.msg);
+        toast.error(err.response.data.message);
       });
   };
   const handleSearchTitle = async () => {
