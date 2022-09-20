@@ -18,50 +18,52 @@ import downArrow from '../../assets/TitleDownArrow.svg';
 import arrow_up from '../../assets/arrow_up.svg';
 import { getSortedData } from "../../lib/getSortedData";
 import CreateRequest from "./CreateRequest";
+import Spinner from "../../components/Common/Spinner";
 
 const nestSortTitles = [
   {
-    title: 'country',
-    fields: ['name']
-  }
-]
+    title: "country",
+    fields: ["name"],
+  },
+];
 
 const TITLES = [
   {
-    name: 'Request',
-    key: 'name',
-    sortIcon: true
+    name: "Request",
+    key: "name",
+    sortIcon: true,
   },
   {
-    name: 'Date',
-    key: 'createdAt',
-    sortIcon: true
+    name: "Date",
+    key: "createdAt",
+    sortIcon: true,
   },
   {
-    name: 'Certificate cost',
-    key: 'name',
-    sortIcon: false
+    name: "Certificate cost",
+    key: "name",
+    sortIcon: false,
   },
   {
-    name: 'Service providers',
-    key: 'name',
-    sortIcon: false
+    name: "Service providers",
+    key: "name",
+    sortIcon: false,
   },
   {
-    name: 'Statutes',
-    key: 'name',
-    sortIcon: false
+    name: "Status",
+    key: "name",
+    sortIcon: false,
   },
 ];
 
 const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [requestedModal, setRequestedModal] = useState(false);
-  const [sort, setSort] = useState({key: "", ascend: true});
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")))
+  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let request = localStorage.getItem("Requested");
@@ -77,18 +79,23 @@ const FollowUp = () => {
     localStorage.removeItem("Requested");
   };
   const handleAllRequest = async () => {
+    setLoading(true);
     await API("get", `/requests/getByUser/${userData?._id}`)
       .then((res) => {
         setAllRequest(res.data.request);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("handleAllRequest", err);
+        setLoading(false);
       });
   };
 
   return (
     <>
-      {allRequest?.length !== 0 ? (
+      {loading ? (
+        <Spinner />
+      ) : allRequest?.length !== 0 ? (
         <div className="list_main_div">
           <div className="list_second_div">
             {/* list head  */}
@@ -169,7 +176,7 @@ const FollowUp = () => {
                           ) : item?.status === "Benig Checked By Expert" ? (
                             <p className="process_status">{t(item?.status)}</p>
                           ) : (
-                            <p className="send_status">{t("Send")}</p>
+                            <p className="send_status">{t("Sent")}</p>
                           )}
                         </TableCell>
                       </TableRow>

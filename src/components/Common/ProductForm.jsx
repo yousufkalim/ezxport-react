@@ -55,7 +55,7 @@ const ProductForm = (props) => {
   return (
     <>
       <div className="title_Div_documents">
-        <span className="title_span">{props.item.code.code} – Nomenclature name</span>
+        <span className="title_span">{props.item.code.code}</span>
         {validateProduct() ? (
           <span className="complete_pill">Complete</span>
         ) : (
@@ -69,9 +69,9 @@ const ProductForm = (props) => {
       )}
 
       <div className="divider_line"></div>
-      <h3 className="steps_3_h3">
+      {/* <h3 className="steps_3_h3">
         Code # {props.cindex + 1} Product # {props.index1 + 1}
-      </h3>
+      </h3> */}
       <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
         {t("Product Name")}
       </label>
@@ -101,10 +101,14 @@ const ProductForm = (props) => {
           <option value={"default"} disabled>
             select type of Condition
           </option>
-          <option value="Bad">Bad</option>
-          <option value="Average">Average</option>
-          <option value="Good">Good</option>
-          <option value="Excellent">Excellent</option>
+          <option value="DAMAGED">DAMAGED</option>
+          <option value="NEW">NEW</option>
+          <option value="RECOND">RECOND</option>
+          <option value="SECONDHAND">SECONDHAND</option>
+
+
+
+
         </select>
       </div>
       <div className="inspection_textfield">
@@ -138,14 +142,12 @@ const ProductForm = (props) => {
           </div>
           <div style={{ width: "60%" }}>
             <label className="BomLabel">{t("Price")}</label>
-
-            <TextFieldSelect
-              className="company_name_input2"
+            <InputField
+              className="product_name_textfield"
               name="price"
               onChange={(e) => handleDataChange(e)}
-              selectName="currency"
-              onOptionChange={(e) => handleDataChange(e)}
             />
+
           </div>
         </div>
       </div>

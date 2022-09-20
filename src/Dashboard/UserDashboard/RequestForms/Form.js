@@ -218,6 +218,7 @@ export default function HorizontalNonLinearStepper() {
       user: step1.user,
       title: step1.title,
       codes: [],
+      certification_cost: certificationCostOfCode,
     };
     matchedData.map((item) => {
       data.codes.push({
@@ -236,7 +237,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleStep2 = async () => {
-    const {vendorId, contactInfo, firstName, lastName,email } = step2.values;
+    const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
     await API("put", "/requests/userVendor", {
       user: userData._id,
       request: requestId,
@@ -322,7 +323,7 @@ export default function HorizontalNonLinearStepper() {
     await API("put", "/requests/documents", data)
       .then((res) => {
         localStorage.setItem("Requested", true);
-        history.push("/User/Dashboard/ListOfRequests");
+        // history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -436,7 +437,7 @@ export default function HorizontalNonLinearStepper() {
         handleStep4();
         toast.success(res?.data?.message);
         localStorage.setItem("Requested", true);
-        history.push("/User/Dashboard/ListOfRequests");
+        // history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
