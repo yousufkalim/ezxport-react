@@ -31,7 +31,6 @@ const BOMsForm = (props) => {
   const [verificationModal, setVerificationModal] = useState(false);
   const [code, setCode] = useState("default");
   const [monetaryValue, setMonetaryValue] = useState("");
-  const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [requestByCountry, setRequestByCountry] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
@@ -44,7 +43,7 @@ const BOMsForm = (props) => {
   const handleAllRequestByCountryId = async () => {
     await API("get", `/requests/getByCountry/${props?.step1?.country}`)
       .then((res) => {
-        setRequestByCountry(res?.data?.requet);
+        setRequestByCountry(res?.data?.request);
       })
       .catch((err) => {
         toast.error(err.response.data.message.msg);
@@ -113,7 +112,7 @@ const BOMsForm = (props) => {
 
           props?.setMatchedData([...props.matchedData, ...arr1]);
           props?.setUnMatchedData(res?.data?.unMatched);
-          props.setUnMatchedCodes(res?.data?.unMatched)
+          props.setUnMatchedCodes(res?.data?.unMatched);
         })
         .catch((err) => {
           setLoading(false);
@@ -128,13 +127,13 @@ const BOMsForm = (props) => {
   };
 
   const handleDelete = (code) => {
-    const {matchedData, unMatchedData, setUnMatchedData} = props;
-    const findCode = matchedData.find(item => item.codeID === code.codeID);
+    const { matchedData, unMatchedData, setUnMatchedData } = props;
+    const findCode = matchedData.find((item) => item.codeID === code.codeID);
     let filtered = matchedData.filter((item) => {
       return item.codeID !== code.codeID;
     });
-    if(findCode && findCode.certification_required){
-      setUnMatchedData([...unMatchedData, findCode])
+    if (findCode && findCode.certification_required) {
+      setUnMatchedData([...unMatchedData, findCode]);
     }
     // if(props.matchedData.length === 1){
     //   setImportedFile("")
@@ -174,92 +173,91 @@ const BOMsForm = (props) => {
     } else {
       setMonetaryValue(validatedValue);
     }
-  }
+  };
 
   return (
     <div>
-    <div style={{ width: "100%" }}>
-      <label className="BomLabel">Country</label>
-      <Select
-        name="country"
-        id="demo-simple-select"
-        defaultValue={"123"}
-        onChange={(e) => {
-          props?.handleChange(e.target.name, e.target.value);
-        }}
-        className="countrydropdown"
-      >
-        <MenuItem disabled value="123">
-          Select a Country
-        </MenuItem>
-        {props?.countries?.map((item) => {
-          return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
-        })}
-      </Select>
-
-      <label className="BomLabel">
-        Create a new request or select an old request to retrieve information
-      </label>
-      <Select
-        id="demo-simple-select"
-        defaultValue={"default"}
-        onChange={(e) => {
-          setRetrieveRequestId(e.target.value);
-        }}
-        className="countrydropdown"
-      >
-        <MenuItem value="default">Create a new Request</MenuItem>
-        {requestByCountry?.map((item) => {
-          return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
-        })}
-      </Select>
-      <label className="BomLabel">Application title</label>
-      <Inputfield
-        // label="Application title"
-        style={{ width: "100%" }}
-        name="title"
-        placeholder="Application title"
-        className="applicationTitle2"
-        onChange={(e) => {
-          props.handleChange(e.target.name, e.target.value);
-        }}
-        onBlur={handleSearchTitle}
-        value={props.step1.title}
-      />
-
-      <div className="ProductList_boms" style={{ display: "flex" }}>
-        <div style={{ width: "50%" }}>
-          <span className="title_productList">Product lists</span>
-          <br />
-          <Link
-            to={"/Files/codeTemplate.xlsx"}
-            target="_blank"
-            download
-            className="download_text"
-          >
-            You don't know your product nomenclatures?
-          </Link>
-        </div>
-        <div
-          style={{
-            width: "55%",
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "flex-end",
+      <div style={{ width: "100%" }}>
+        <label className="BomLabel">Country</label>
+        <Select
+          name="country"
+          id="demo-simple-select"
+          defaultValue={"123"}
+          onChange={(e) => {
+            props?.handleChange(e.target.name, e.target.value);
           }}
+          className="countrydropdown"
         >
+          <MenuItem disabled value="123">
+            Select a Country
+          </MenuItem>
+          {props?.countries?.map((item) => {
+            return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+          })}
+        </Select>
+
+        <label className="BomLabel">Create a new request or select an old request to retrieve information</label>
+        <Select
+          id="demo-simple-select"
+          defaultValue={"default"}
+          onChange={(e) => {
+            props?.setRetrieveRequestId(e.target.value);
+          }}
+          className="countrydropdown"
+        >
+          <MenuItem value="default">Create a new Request</MenuItem>
+          {requestByCountry?.map((item) => {
+            return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
+          })}
+        </Select>
+        <label className="BomLabel">Application title</label>
+        <Inputfield
+          // label="Application title"
+          style={{ width: "100%" }}
+          name="title"
+          placeholder="Application title"
+          className="applicationTitle2"
+          onChange={(e) => {
+            props.handleChange(e.target.name, e.target.value);
+          }}
+          onBlur={handleSearchTitle}
+          value={props.step1.title}
+        />
+
+        <div className="ProductList_boms" style={{ display: "flex" }}>
+          <div style={{ width: "50%" }}>
+            <span className="title_productList">Product lists</span>
+            <br />
+            <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_text">
+              You don't know your product nomenclatures?
+            </Link>
+          </div>
           <div
             style={{
-              marginRight: "7px",
+              width: "55%",
+              display: "flex",
+              alignItems: "flex-start",
+              justifyContent: "flex-end",
             }}
           >
-            {loading ? <CircularProgress color="secondary" /> : ""}
-          </div>
-          <label className="import_Btn" htmlFor="file">
-            {importedFile?.name || "Import an XLS file"}
-            <input onClick={(event)=> { 
-                event.target.value = null
-              }} type="file" style={{ display: "none" }} id="file" onChange={(e) => handleDocument(e.target.files[0])} />
+            <div
+              style={{
+                marginRight: "7px",
+              }}
+            >
+              {loading ? <CircularProgress color="secondary" /> : ""}
+            </div>
+            <label className="import_Btn" htmlFor="file">
+              {importedFile?.name || "Import an XLS file"}
+              <input
+                onClick={(event) => {
+                  event.target.value = null;
+                }}
+                type="file"
+                style={{ display: "none" }}
+                id="file"
+                onChange={(e) => handleDocument(e.target.files[0])}
+              />
             </label>
           </div>
 
@@ -269,18 +267,9 @@ const BOMsForm = (props) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
+      <div className="add_code_div">
         <div className="codedropdown_div">
-          <label className="BomLabel">
-            Code
-          </label>
+          <label className="BomLabel">Code</label>
 
           <Select
             name="codes"
@@ -299,11 +288,7 @@ const BOMsForm = (props) => {
         </div>
         <div className="codedropdown_div">
           <label className="BomLabel">Monetary value</label>
-          <Inputfield
-            value={monetaryValue}
-            className="applicationTitle"
-            onChange={(e) => handleMonetaryValue(e.target.value)}
-          />
+          <Inputfield value={monetaryValue} className="applicationTitle" onChange={(e) => handleMonetaryValue(e.target.value)} />
         </div>
         <div className="codedropdown_div1">
           <Button
@@ -316,7 +301,7 @@ const BOMsForm = (props) => {
       </div>
       {props.matchedData.length === 0 ? (
         ""
-       ) : (
+      ) : (
         <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
           <Table aria-label="simple table">
             <TableHead>
@@ -337,18 +322,12 @@ const BOMsForm = (props) => {
               {props.matchedData?.map((item, index) => (
                 <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="center" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
                       {item?.code}
                     </p>
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
                       {item?.monetary_value}
                     </p>
                   </TableCell>
@@ -361,7 +340,7 @@ const BOMsForm = (props) => {
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         setOpenModal(true);
-                        setBomId(item)
+                        setBomId(item);
                       }}
                     />
                     <img
@@ -371,7 +350,7 @@ const BOMsForm = (props) => {
                       style={{ cursor: "pointer" }}
                       onClick={() => {
                         setOpenEditModal(true);
-                        setEditModalData({ item: {...item}, index });
+                        setEditModalData({ item: { ...item }, index });
                       }}
                     />
                   </TableCell>
@@ -382,21 +361,11 @@ const BOMsForm = (props) => {
         </TableContainer>
       )}
       {/* Edit codes modal */}
-      <Modal
-        open={openEditModal}
-        setOpen={setOpenEditModal}
-        title="Modify BOM"
-        handleClose={handleEditModal}
-        Closebtn={true}
-      >
+      <Modal open={openEditModal} setOpen={setOpenEditModal} title="Modify BOM" handleClose={handleEditModal} Closebtn={true}>
         <div>
           <div style={{ marginTop: "2.2rem" }}>
             <label className="BomLabel">Code</label>
-            <InputField
-              className="code_textfield"
-              value={editModalData?.item?.code}
-              disabled={true}
-            />
+            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
           </div>
           <div style={{ marginTop: "1rem" }}>
             <label className="BomLabel">Monetary Value</label>
@@ -456,27 +425,15 @@ const BOMsForm = (props) => {
 
             <div className="space">
               Those products for
-              <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} require a certification
-              </span>
+              <span className="bold_text_in_modal">{props.certificationCountryOfCode} require a certification</span>
             </div>
             <div className="space">
               The cost of this certification is up to
-              <span style={{ fontWeight: 900, fontSize: "19px" }}>
-                {props.certificationCostOfCode}$/HT
-              </span>
+              <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
             </div>
           </div>
-          <Button
-            text="Continue my request on Ezxport"
-            className="to_confirm_btn"
-            onClick={props.handleStep1}
-          />
-          <Button
-            text="Go back to my request"
-            className="delete_bom_btn"
-            onClick={handleCertificateRequire}
-          />
+          <Button text="Continue my request on Ezxport" className="to_confirm_btn" onClick={props.handleStep1} />
+          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateRequire} />
         </div>
       </Modal>
       <Modal
@@ -504,9 +461,7 @@ const BOMsForm = (props) => {
 
             <div className="space">
               Those products for
-              <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} do not require a certification
-              </span>
+              <span className="bold_text_in_modal">{props.certificationCountryOfCode} do not require a certification</span>
             </div>
             <div className="space" style={{ textAlign: "center" }}>
               You can therefore send your goods without going through an organization.
@@ -517,18 +472,10 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => history.push("/User/Dashboard/ListOfRequests")}
           />
-          <Button
-            text="Go back to my request"
-            className="delete_bom_btn"
-            onClick={handleCertificateNotRequire}
-          />
+          <Button text="Go back to my request" className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      <Modal
-        open={verificationModal}
-        setOpen={setVerificationModal}
-        handleClose={handleVerification}
-      >
+      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
         <div>
           <div
             style={{

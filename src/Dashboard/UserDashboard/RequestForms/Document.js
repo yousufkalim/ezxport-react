@@ -10,9 +10,16 @@ import ProductForm from '../../../components/Common/ProductForm';
 const Document = (props) => {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
+  const [validDoc, setValidDoc] = useState(false);
   useEffect(() => {
     handleCountryName();
   }, []);
+
+  useEffect(() => {
+    if (props.CountryDoc) {
+      validateDocuments();
+    }
+  }, [props?.CountryDoc]);
 
   useEffect(() => {
     if (props?.createdCodes?.codes) {
@@ -23,15 +30,24 @@ const Document = (props) => {
       props.setProductCodes(product);
     }
     handleAllCountries();
+    // handleCountryDocValidate();
     props.handleDocByCountryId();
   }, [props?.createdCodes?.codes]);
+
+  const validateDocuments = () => {
+    const filterDocs = props?.CountryDoc?.filter((item) => item.hasOwnProperty("fileName"));
+    if (filterDocs?.length === props.CountryDoc?.length) {
+      setValidDoc(true);
+    } else {
+      setValidDoc(false);
+    }
+  };
   const handleProductChange = (name, value, cindex, index1) => {
     props.setProductCodes((prev) => {
       prev[cindex].products[index1][name] = value;
       return [...prev];
     });
   };
-
   const addEmptyProduct = (cindex, item) => {
     props.setProductCodes((prev) => {
       prev[cindex].products = [...prev[cindex].products, { user: props.userData, code: item.code._id }];
@@ -54,12 +70,11 @@ const Document = (props) => {
       })
     );
   };
-
   return (
     <div className="documents_main_div">
       <div className="title_Div_documents">
         <span className="title_span">Import documents specific to {countryName?.name}</span>
-        <span className="to_complete_pill">To Complete</span>
+        {validDoc ? <span className="complete_pill">Complete</span> : <span className="to_complete_pill">To Complete</span>}
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: "100%" }}>
@@ -72,7 +87,6 @@ const Document = (props) => {
                   <img style={{ paddingLeft: "5px" }} src={HelperIcon} />
                 </Tooltip>
               </label>
-
               <div className="to_download_div">
                 <FilePicker
                   index={index}
@@ -112,6 +126,6 @@ const Document = (props) => {
       })}
     </div>
   );
-};
+};;;;;;;;;;;;;;;;;
 
 export default Document;
