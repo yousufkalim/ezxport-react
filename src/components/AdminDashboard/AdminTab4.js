@@ -116,7 +116,7 @@ const AdminTab4 = (props) => {
       </div>
 
       {props.currentRadioValue === "range" ? (
-        <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} currency={props.currency} />
+        <CalculationRange setOpenCalculationModal={props.setOpenCalculationModal} id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} currency={props.currency} />
       ) : (
         props.currentRadioValue === "coefficient" && (
             <CalculationCoefficient coefficientChange={coefficientChange} currency={props.currency} />

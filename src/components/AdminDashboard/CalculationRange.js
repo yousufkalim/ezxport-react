@@ -19,6 +19,17 @@ import Button from "../Common/Button";
 import InputField from "../Common/InputField";
 import { useTranslation, Trans } from "react-i18next";
 import ConfirmModal from "../Common/ConfirmModal";
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
+import { getSortedData } from "../../lib/getSortedData";
+import Spinner from "../Common/Spinner";
+
+const TITLE = [
+  { heading: "Minimum"},
+  { heading: "Maximum" },
+  { heading: "Certificate Cost", key: 'certificate_cost', sortIcon: true, imgSrc: downArrow },
+  { heading: "Actions" },
+];
 
 const schema = {
   minCost: {
@@ -45,6 +56,8 @@ const CalculationRange = (props) => {
   const [allErrors, setAllErrors] = useState({ min: "", max: "", certificate: "" });
   const [openModal, setOpenModal] = useState(false);
   const [rangeId, setRangeId] = useState("");
+  const [sort, setSort] = useState({key: "", ascend: true});
+  const [loading, setLoading] = useState(false);
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -88,9 +101,14 @@ const CalculationRange = (props) => {
     const { name, value } = event.target;
     const val = parseInt(value);
     const { minCost, maxCost } = formState.values;
-    const latestValues = rangeData[rangeData?.length - 1];
-    const latestMax = latestValues?.max + 1;
-    const latestCertificate = latestValues?.certificate_cost;
+    let latestValues = {};
+    let latestMax = null;
+    let latestCertificate = null;
+    if(rangeData){
+      latestValues = rangeData[rangeData?.length - 1];
+      latestMax = latestValues?.max + 1;
+      latestCertificate = latestValues?.certificate_cost;
+    }
 
     if (name === "minCost") {
       if (rangeData?.length && val !== latestMax) {
@@ -116,12 +134,16 @@ const CalculationRange = (props) => {
   };
 
   const handleRangeData = async () => {
+    setLoading(true);
     await API("get", `/calculations/${props?.id}`)
       .then((res) => {
         setRangeData(res?.data?.calculation?.range);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err, "handleRangeData");
+        setLoading(false);
+
       });
   };
   const handleAddRange = async () => {
@@ -219,7 +241,13 @@ const CalculationRange = (props) => {
   const handleEditModalClose = () => setEditModal(false);
   const hasError = (name) => (allErrors[name] && allErrors[name] ? true : false);
 
-  return (
+  if(loading){
+    return (
+      <Spinner />
+    )
+  }
+  else {
+    return (
     <>
       <div>
         {/* table  */}
@@ -228,18 +256,20 @@ const CalculationRange = (props) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    {t("Minimum")} <img src={DownArrow} alt="" />
-                  </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    {t("Maximum")} <img src={DownArrow} alt="" />
-                  </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    Coût certificat <img src={DownArrow} alt="" />
-                  </TableCell>
-                  <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    Actions <img src={DownArrow} alt="" />
-                  </TableCell>
+                  {
+                    TITLE.map((item) => (
+                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                      {t(item.heading)} &nbsp;
+                            {
+                              item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                                <img className='sorting-icon' onClick={() => getSortedData(rangeData,setRangeData, setSort, [],'certificate_cost', true)} src={arrow_up} alt="" />
+                              ) : item.sortIcon && (
+                                <img onClick={() => getSortedData(rangeData,setRangeData, setSort, [],'certificate_cost', false)} src={downArrow} alt="" />
+                              )
+                            }
+                    </TableCell>
+                    ))
+                  }
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -377,6 +407,7 @@ const CalculationRange = (props) => {
         </div>
       </Modal>
     </>
-  );
+    )
+  }
 };
 export default CalculationRange;

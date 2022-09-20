@@ -25,6 +25,9 @@ import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import { useTranslation, Trans } from "react-i18next";
+import MultiSelect from "../../components/Common/MultiSelect";
+import {COUNTRIES} from "../../lib/data";
+import { Dialog } from "@mui/material";
 
 const schema = {
   fullName: {
@@ -99,6 +102,7 @@ const NameProvider = () => {
     touched: {},
     errors: {},
   });
+  const [select, setSelect] = useState([]);
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
@@ -110,7 +114,7 @@ const NameProvider = () => {
   // const [Contact, setContact] = useState('');
   // const [fullname, setFullname] = useState('');
   // const [phoneNumber, setPhoneNumber] = useState('');
-  const [countries, setCountries] = useState();
+  const [countries, setCountries] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
 
   const { t, i18n } = useTranslation();
@@ -177,13 +181,40 @@ const NameProvider = () => {
         // setContact(res?.data?.vendor?.contact_email);
         // setFullname(res?.data?.vendor?.name);
         // setPhoneNumber(res?.data?.vendor?.phone_number);
-        setCountries(res?.data?.vendor?.countries);
+        const allCountries = res?.data?.vendor?.countries;
+        if(allCountries){
+          setCountries(allCountries);
+          const countryNames = allCountries.map(item => item?.name)
+          setSelect(countryNames);
+          console.log("ALL countries ", res?.data?.vendor?.countries );
+        }
       })
       .catch((err) => {
         console.log(err, "errrrrr");
       });
   };
   const handleClose = () => setOpen(false);
+
+
+  const handelUpdateAssociatedCountries = async () => {
+    await API("put", `/vendors/${id}`, {
+      phone_number: formState.values.phone,
+      name: formState.values.fullName,
+      sending_email: formState.values.email,
+      contact_email: formState.values.contact,
+      countries: select,
+    })
+      .then((res) => {
+        setOpen(false);
+        toast.success("Service Provider Updated Successfully");
+      })
+      .catch((err) => {
+        console.log("ERRRR", err);
+        setOpen(false);
+        toast.error(err.response.data.message);
+      });
+  };
+
   const handelUpdateVendor = async () => {
     await API("put", `/vendors/${id}`, {
       phone_number: formState.values.phone,
@@ -203,6 +234,17 @@ const NameProvider = () => {
       });
   };
 
+  const handleMultiSelectChange = (event) => {
+    console.log("VALUE ", event.target.value);
+    const {
+      target: { value },
+    } = event;
+    setSelect(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
+
   return (
     <>
       <div className="list_main_div">
@@ -215,20 +257,20 @@ const NameProvider = () => {
               </Link>
               &nbsp; {formState.values.fullName}
             </h1>
-            {value === 0 ? (
               <div className="searching2">
+              {
+                value === 1 && (
+                  <div className="searching">
+                    <SearchField placeholder={t("Searching")} className="search_name_input" />
+                  </div>
+                )
+              }
                 <Button
                   text={t("Update")}
                   className="changeProvider"
                   onClick={() => setOpen(true)}
                 />
               </div>
-            ) : (
-              <div className="searching">
-                <SearchField placeholder={t("Searching")} className="search_name_input" />
-                <Button text={t("Update")} className="changeProvider" />
-              </div>
-            )}
           </div>
 
           <div className="list_table">
@@ -309,7 +351,7 @@ const NameProvider = () => {
                                 backgroundColor: "#F9FAFB",
                               }}
                             >
-                              {t("Country")}
+                              {t("Country")} &nbsp;
                               {!sort.ascend ? (
                                 <img
                                   className="sorting-icon"
@@ -372,8 +414,38 @@ const NameProvider = () => {
           </div>
         </div>
       </div>
+
       <Modal
-        open={open}
+        open={open && value === 1}
+        setOpen={setOpen}
+        title={t("Update Service Provider")}
+        className='service-provider-country-modal'
+        handleClose={handleClose}
+        Closebtn={true}
+      >
+        <div className="edit_vendor_div">
+        <label htmlFor="" className="label_modal">
+            {t("Select country to add")}
+          </label>
+          <MultiSelect
+            name="country"
+            onChange={handleMultiSelectChange}
+            value={select}
+            names={COUNTRIES}
+            select={select}
+          />
+          <Button
+            text={t("Update Service Provider")}
+            className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
+            disabled={!formState.isValid ? true : false}
+            onClick={handelUpdateAssociatedCountries}
+          />
+        </div>
+      </Modal>
+
+
+      <Modal
+        open={open && value === 0}
         setOpen={setOpen}
         title={t("Update Service Provider")}
         handleClose={handleClose}

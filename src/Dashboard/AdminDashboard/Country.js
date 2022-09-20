@@ -273,12 +273,16 @@ const Country = () => {
         setLoading(false);
       });
   };
+
   useEffect(() => {
     handleCountries();
-    setDropdown("default");
-  }, [open]);
+  }, []);
 
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setDropdown("default");
+    setCurrency("default");
+    setOpen(false);
+  }
   const handleAddCountry = async () => {
     await API("post", "/countries/", {
       name: dropdown,
@@ -286,6 +290,8 @@ const Country = () => {
     })
       .then(() => {
         setOpen(false);
+        handleClose();
+        handleCountries();
         toast.success("Country Added Successfully");
       })
       .catch((err) => {
@@ -485,7 +491,7 @@ const Country = () => {
                   ? "add_Country_button_disabled"
                   : "add_Country_button"
               }
-              disabled={dropdown && currency === "default" && true}
+              disabled={dropdown === 'default' && currency === "default"}
               onClick={handleAddCountry}
             />
           </div>

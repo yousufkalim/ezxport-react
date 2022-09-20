@@ -12,6 +12,7 @@ const Models = (props) => {
           onClose={props?.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          className={props.className}
         >
           <div className="buyer_main">
             <div className="buyer_heading">
