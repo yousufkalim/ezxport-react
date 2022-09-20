@@ -137,43 +137,28 @@ const AdminNomPays = () => {
             {value === 0 ? (
               <div className="searching_div_country">
                 <SearchField placeholder={t("Searching")} className="Country_search_input" />
-                <Button text={t("Edit")} className="Edit_btn" />
+                {/* <Button text={t("Edit")} className="Edit_btn" /> */}
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField placeholder={t("Searching")} className="Country_search_input" />
-                <Button
-                  text={t("Edit")}
-                  className="Edit_btn"
-                  onClick={() => setOpenAddDocument(true)}
-                />
+                <Button text={t("Add document")} className="add_doc" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
                   <SearchField placeholder={t("Searching")} className="Country_search_input" />
-                  <Button
-                    text={t("Update")}
-                    className="update_Boms_btn"
-                    onClick={() => setOpen(true)}
-                  />
+                  <Button text={t("Add")} className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
                 </div>
-
-                <Button
-                  text={t("Add")}
-                  className="Edit_btn_bom"
-                  onClick={() => setOpenAddBomModal(true)}
-                />
+                <Button text={t("Update")} className="update_Boms_btn" onClick={() => setOpen(true)} />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
-                <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
+                {/* {currentRadioValue !== "coefficient" && (
+                  <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
+                )} */}
                 {currentRadioValue === "coefficient" && (
-                  <Button
-                    text={t("Edit")}
-                    className="Edit_btn2"
-                    onClick={() => setOpenCalculationModal(true)}
-                  />
+                  <Button text={t("Update")} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
                 )}
               </div>
             ) : (
@@ -248,32 +233,23 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t("Update")}
-        handleClose={handleClose}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title={t("Update")} handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
               {t("Download your BOM file")}
             </label>
             <div className="bom_download_File_btn_div">
-              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>{t("Download current file")}</Link>
+              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className="bom_download">
+                {t("Download current file")}
+              </Link>
             </div>
           </div>
 
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
             {t("Upload your BOM file")}
           </label>
-          <FilePicker
-            index={"01"}
-            fileName={file.name}
-            name={file.name}
-            onChange={(e) => handleCodesFile(e.target.files[0])}
-          />
+          <FilePicker index={"01"} fileName={file.name} name={file.name} onChange={(e) => handleCodesFile(e.target.files[0])} />
           <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>
