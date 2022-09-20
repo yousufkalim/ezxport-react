@@ -71,19 +71,13 @@ const CalculationRange = (props) => {
       if (formState.values.minCost !== "") {
         return setFormState((formState) => ({
           ...formState,
-          values: {
-            ...formState.values,
-            [event.target.name]: validatedValue,
-          },
+          values: { ...formState.values, [event.target.name]: validatedValue },
         }));
       }
     } else {
       return setFormState((formState) => ({
         ...formState,
-        values: {
-          ...formState.values,
-          [event.target.name]: validatedValue,
-        }
+        values: { ...formState.values, [event.target.name]: validatedValue },
       }));
     }
   };
@@ -99,6 +93,8 @@ const CalculationRange = (props) => {
       });
   };
   const handleAddRange = async () => {
+    handleRangeData();
+
     await API("put", `/calculations/addRange/${props.id}`, {
       range: {
         min: formState.values.minCost,
@@ -108,17 +104,15 @@ const CalculationRange = (props) => {
     })
       .then((res) => {
         console.log("handleAddRange", res);
-        handleRangeData();
         setFormState((formState) => ({
           ...formState,
           values: {
-
             minCost: "",
             maxCost: "",
             certificate: "",
-          }, isValid: true,
-          touched: {}
-
+          },
+          isValid: true,
+          touched: {},
         }));
         // setMaxCost("");
         // setCertificat("");
@@ -137,10 +131,9 @@ const CalculationRange = (props) => {
       ...formState,
       errors: errors ?? {},
       touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
-
-    }))
-  }
+      isValid: errors ? false : true,
+    }));
+  };
 
   const handleNewRange = async () => {
     await API("post", `/calculations/`, {
@@ -164,7 +157,7 @@ const CalculationRange = (props) => {
             certificate: "",
           },
           isValid: true,
-          touched: {}
+          touched: {},
         }));
 
         toast.success("Coefficient Added Successfully");
@@ -237,11 +230,11 @@ const CalculationRange = (props) => {
               </TableHead>
               <TableBody>
                 {rangeData?.map((item) => (
-                  <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row" style={{ width: '20%' }}>
+                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                    <TableCell component="th" scope="row" style={{ width: "20%" }}>
                       <p className="AP_plus_title">{`${item.min} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ width: '20%' }}>
+                    <TableCell align="left" className="country2" style={{ width: "20%" }}>
                       <p className="AP_plus_title">{`${item.max} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -286,9 +279,7 @@ const CalculationRange = (props) => {
                 <FormControl fullWidth>
                   <InputField
                     label="Minimum"
-                    isError={
-                      hasError("minCost")
-                    }
+                    isError={hasError("minCost")}
                     error={formState.errors.minCost}
                     value={formState.values.minCost}
                     name="minCost"
@@ -296,28 +287,21 @@ const CalculationRange = (props) => {
                     type="tel"
                     className="calculation_input"
                   />
-                  <div className="error-format">
-                    {hasError("minCost") ? formState.errors.minCost[0] : null}
-                  </div>
+                  <div className="error-format">{hasError("minCost") ? formState.errors.minCost[0] : null}</div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <InputField
                     label="Maximum"
-                    isError={
-                      hasError("maxCost")
-                    }
+                    isError={hasError("maxCost")}
                     error={formState.errors.maxCost}
                     value={formState.values.maxCost}
                     name="maxCost"
                     onChange={handleValuesChange}
                     className="calculation_input"
-
                   />
-                  <div className="error-format">
-                    {hasError("maxCost") ? formState.errors.maxCost[0] : null}
-                  </div>
+                  <div className="error-format">{hasError("maxCost") ? formState.errors.maxCost[0] : null}</div>
                 </FormControl>
               </div>
               <div className="AddSlice_input_fields">
@@ -330,15 +314,11 @@ const CalculationRange = (props) => {
                     name="certificate"
                     onChange={handleValuesChange}
                     className="calculation_input"
-
                   />
-                  <div className="error-format">
-                    {hasError("certificate") ? formState.errors.certificate[0] : null}
-                  </div>
+                  <div className="error-format">{hasError("certificate") ? formState.errors.certificate[0] : null}</div>
                 </FormControl>
               </div>
             </div>
-
             <button
               className={!formState.isValid ? "AddSlice_button_disabled" : "AddSlice_button"}
               onClick={props.Calculation ? handleAddRange : handleNewRange}
@@ -349,36 +329,19 @@ const CalculationRange = (props) => {
           </div>
         </div>
       </div>
-      <Modal
-        open={editModal}
-        setOpen={setEditModal}
-        title={t("Edit Range")}
-        handleClose={handleEditModalClose}
-        Closebtn={true}
-      >
+      <Modal open={editModal} setOpen={setEditModal} title={t("Edit Range")} handleClose={handleEditModalClose} Closebtn={true}>
         <div>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
               {t("Minimum")}
             </label>
-            <InputField
-              value={rangeMinCost}
-              onChange={(e) => setRangeMinCost(e.target.value)}
-              className="calculation_input"
-
-
-            />
+            <InputField value={rangeMinCost} onChange={(e) => setRangeMinCost(e.target.value)} className="calculation_input" />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
               {t("Maximum")}
             </label>
-            <InputField
-              value={rangeMaxCost}
-              onChange={(e) => setRangeMaxCost(e.target.value)}
-              className="calculation_input"
-
-            />
+            <InputField value={rangeMaxCost} onChange={(e) => setRangeMaxCost(e.target.value)} className="calculation_input" />
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
@@ -388,15 +351,10 @@ const CalculationRange = (props) => {
               value={rangeCertificat}
               onChange={(e) => setRangeCertificat(e.target.value)}
               className="calculation_input"
-
             />
           </FormControl>
           <div style={{ marginTop: "2rem" }}>
-            <Button
-              text={t("Update")}
-              className="bom_downloadFile_btn"
-              onClick={handleUpdateRange}
-            />
+            <Button text={t("Update")} className="bom_downloadFile_btn" onClick={handleUpdateRange} />
           </div>
         </div>
       </Modal>

@@ -86,7 +86,13 @@ const Users = () => {
 
   return (
     <>
-      <UserTable sort={sort} sortData={(field, ascend) => getSortedData( allUsers,setAllUsers, setSort, nestSortTitles, field, ascend)} headTitle={HeadTitle} title="Users" rows={allUsers} />
+      <UserTable
+        sort={sort}
+        sortData={(field, ascend) => getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)}
+        headTitle={HeadTitle}
+        title="Users"
+        rows={allUsers}
+      />
     </>
   );
 };
