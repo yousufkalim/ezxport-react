@@ -49,9 +49,6 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
     touched: {},
   });
 
-  const { i18n } = useTranslation();
-  const { language } = i18n;
-
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 

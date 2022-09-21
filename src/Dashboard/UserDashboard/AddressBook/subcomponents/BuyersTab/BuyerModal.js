@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "../../../../../components/Common/Button";
 import toaster from "../../../../../utils/toaster";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const schema = {
   companyName: {
@@ -74,7 +74,7 @@ const BuyerModal = ({
       isValid: errors ? false : true,
       errors: errors || {},
     }));
-  }, [formState.values, setFormState]);
+  }, [formState.values]);
 
   const countryHandler = (e) => {
     setFormState((state) => ({
@@ -167,6 +167,8 @@ const BuyerModal = ({
       createBuyer(data);
     }
   };
+
+  console.log("IS VALID ", formState);
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";

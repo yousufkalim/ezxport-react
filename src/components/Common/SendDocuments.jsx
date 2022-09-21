@@ -3,9 +3,11 @@ import EzxportIcon from "../../assets/EzxportIcon.svg";
 import SendIcon from "../../assets/SendIcon.svg";
 import { useHistory } from "react-router-dom";
 import Button from "./Button";
+import { useTranslation } from "react-i18next";
 
 const SendDocuments = () => {
   const history = useHistory(null);
+  const {t} = useTranslation();
   const handleReturn = () => {
     history.push("/Admin/Dashboard/Requests");
   };
