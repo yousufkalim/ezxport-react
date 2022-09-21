@@ -71,7 +71,7 @@ const Users = () => {
     setLoading(true);
     await API("get", "/users/")
       .then((res) => {
-        setAllUsers(res.data.users);
+        setAllUsers(res?.data.users);
         setLoading(false);
       })
       .catch((err) => {

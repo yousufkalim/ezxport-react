@@ -23,9 +23,9 @@ import Modal from "../../../components/Common/Modal";
 import { ReactComponent as Featured } from "../../../assets/Featured.svg";
 import { ReactComponent as Logo } from "../../../assets/logo.svg";
 import { useTranslation, Trans } from "react-i18next";
+import { UpdateStore } from "../../../StoreContext";
 
-
-const userData = JSON.parse(localStorage.getItem('userData'));
+const userData = JSON.parse(localStorage.getItem("userData"));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
@@ -56,6 +56,7 @@ export default function HorizontalNonLinearStepper() {
   const history = useHistory(null);
   // requestId of request created
   const [requestId, setRequestedId] = useState("");
+  const updateStore = UpdateStore();
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -151,8 +152,6 @@ export default function HorizontalNonLinearStepper() {
   const [createdCodes, setCreatedCodes] = useState({});
   const [productCodes, setProductCodes] = useState([]);
 
-  // previous request data
-  const [previousBuyer, setPreviousBuyer] = useState({});
 
   // all useEffect
   useEffect(() => {
@@ -167,7 +166,10 @@ export default function HorizontalNonLinearStepper() {
   const handleRequestById = async () => {
     await API("get", `/requests/${retrieveRequestId}`)
       .then((res) => {
-        console.log("qweerre", res);
+        const request = res.data.request;
+        if (request) {
+          updateStore({ request: request, pastRequest: true });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -186,12 +188,7 @@ export default function HorizontalNonLinearStepper() {
     return completedSteps() === totalSteps();
   };
   const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
+    const newActiveStep = isLastStep() && !allStepsCompleted() ? steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
     setActiveStep(newActiveStep);
   };
   const handleBack = () => {
@@ -485,12 +482,7 @@ export default function HorizontalNonLinearStepper() {
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (
     <Box sx={{ width: "100%", marginTop: "3rem" }}>
-      <Stepper
-        alternativeLabel
-        activeStep={activeStep}
-        connector={<QontoConnector />}
-        className="stepperClass"
-      >
+      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />} className="stepperClass">
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]} disabled={true}>
             <StepLabel>
@@ -550,12 +542,14 @@ export default function HorizontalNonLinearStepper() {
                 countryId={step1.country}
                 setFormState={setStep2}
                 step2={step2}
+                setStep2={setStep2}
                 handleChange={handleStep2Change}
               />
             ) : activeStep === 2 ? (
               <DispatchForm
                 step3={step3}
                 setStep3={setStep3}
+                stepHanlder={setStep3}
                 handleSellerData={handleSellerData}
                 handleBuyerData={handleBuyerData}
                 handleInspectionData={handleInspectionData}
@@ -582,11 +576,7 @@ export default function HorizontalNonLinearStepper() {
 
             <Box sx={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "5%" }}>
               <div style={{ width: "100%", display: activeStep !== 0 && "none" }}>
-                <Button1
-                  onClick={hanldeEstimateRequest}
-                  className="request_Estimate_btn"
-                  text={t("Estimate my request")}
-                />
+                <Button1 onClick={hanldeEstimateRequest} className="request_Estimate_btn" text={t("Estimate my request")} />
               </div>
 
               <div
@@ -604,12 +594,7 @@ export default function HorizontalNonLinearStepper() {
                     display: activeStep === 0 && "none",
                   }}
                 >
-                  <Button1
-                    text={t("Previous step")}
-                    className="import_Btn"
-                    disabled={activeStep === 0}
-                    onClick={handleBack}
-                  />
+                  <Button1 text={t("Previous step")} className="import_Btn" disabled={activeStep === 0} onClick={handleBack} />
                 </div>
                 <div
                   style={{
@@ -621,13 +606,7 @@ export default function HorizontalNonLinearStepper() {
                   <Button1
                     text={activeStep === 3 ? t("Send my file") : t("Next Step")}
                     className="download_Btn"
-                    onClick={
-                      activeStep === 1
-                        ? handleStep2
-                        : activeStep === 2
-                        ? handleStep3
-                        : activeStep === 3 && handleSendFile
-                    }
+                    onClick={activeStep === 1 ? handleStep2 : activeStep === 2 ? handleStep3 : activeStep === 3 && handleSendFile}
                   />
                 </div>
               </div>
@@ -655,16 +634,8 @@ export default function HorizontalNonLinearStepper() {
             </div>
             <div className="space">{t("Select a Platform to Continue your request")}</div>
           </div>
-          <Button1
-            text={t("Continue request on Ezxport Platform")}
-            className="to_confirm_btn"
-            onClick={handleStripe}
-          />
-          <Button1
-            text={t("Continue request on other Platform")}
-            className="delete_bom_btn"
-            onClick={handleSendEmail}
-          />
+          <Button1 text={t("Continue request on Ezxport Platform")} className="to_confirm_btn" onClick={handleStripe} />
+          <Button1 text={t("Continue request on other Platform")} className="delete_bom_btn" onClick={handleSendEmail} />
         </div>
       </Modal>
     </Box>
