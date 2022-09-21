@@ -130,17 +130,13 @@ const AdminTab2 = (props) => {
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
-                    onClick={() =>
-                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)
-                    }
+                    onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)}
                     src={arrow_up}
                     alt=""
                   />
                 ) : (
                   <img
-                    onClick={() =>
-                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)
-                    }
+                    onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)}
                     src={downArrow}
                     alt=""
                   />
@@ -180,15 +176,11 @@ const AdminTab2 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ConfirmModal
-        open={openModal}
-        setOpen={setOpenModal}
-        action={() => handleDocumentDelete(docId)}
-      />
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}
-        title={t("Add Documents")}
+        title={t("Add Document")}
         handleClose={props.handleAddDocumentModalClose}
         Closebtn={true}
       >
@@ -199,11 +191,7 @@ const AdminTab2 = (props) => {
           <InputField
             name="name"
             value={formState.values.name}
-            className={
-              hasError("name") && formState.errors.info
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
-            }
+            className={hasError("name") && formState.errors.info ? "textfield_addvendor_red" : "textfield_addvendor"}
             onChange={handleChange}
           />
           <div className="error-format">{hasError("name") ? formState.errors.name[0] : null}</div>
@@ -213,11 +201,7 @@ const AdminTab2 = (props) => {
           <InputField
             name="info"
             value={formState.values.info}
-            className={
-              hasError("info") && formState.errors.info
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
-            }
+            className={hasError("info") && formState.errors.info ? "textfield_addvendor_red" : "textfield_addvendor"}
             onChange={handleChange}
           />
           <div className="error-format">{hasError("info") ? formState.errors.info[0] : null}</div>
