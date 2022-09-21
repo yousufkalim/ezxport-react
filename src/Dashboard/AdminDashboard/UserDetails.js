@@ -22,6 +22,7 @@ import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
+import Spinner from "../../components/Common/Spinner";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -114,10 +115,9 @@ const UserDetails = () => {
       })
       .catch((err) => {
         console.log("err---->", err);
+        setRequestLoading(false);
       });
   };
-
-  console.log("Request  ", requestById);
 
   return (
     <>
@@ -243,7 +243,9 @@ const UserDetails = () => {
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                <div className="list_table">
+                {
+                  requestLoading ? <Spinner /> : (
+                    <div className="list_table">
                   {requestById?.length !== 0 ? (
                     <>
                       <TableContainer component={Paper}>
@@ -371,6 +373,8 @@ const UserDetails = () => {
                     </>
                   )}
                 </div>
+                  )
+                }
               </TabPanel>
             </Box>
           </div>

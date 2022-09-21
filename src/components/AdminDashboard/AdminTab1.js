@@ -28,7 +28,7 @@ const AdminTab1 = ({ vendor, setVendor, loading }) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                {t("Service providers")}
+                {t("Service providers")} &nbsp;
                 {
                   !sort.ascend ? (
                     <img className='sorting-icon' onClick={() => getSortedData(vendor, setVendor, setSort, nestSortTitles, 'name', true)} src={arrow_up} alt="" />

@@ -18,6 +18,8 @@ import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
+import { createFilter } from "react-search-input";
+import toaster from "../../utils/toaster";
 
 const nestSortTitles = [
   {
@@ -54,13 +56,15 @@ const TITLES = [
   },
 ];
 
+const KEYS_TO_FILTERS = ['title'];
+
 const Requests = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [loading, setLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const history = useHistory(null);
   useEffect(() => {
     handleAllRequest();
@@ -73,11 +77,14 @@ const Requests = () => {
         setLoading(false);
       })
       .catch((err) => {
+        toaster('failed', 'Failed to fetch data!');
+        setLoading(false);
         console.log("err", err);
       });
   };
 
-  console.log("All resquests ", allRequest);
+  const searchedResults = allRequest?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  
   return (
     <div className="list_main_div">
       <div className="list_second_div">
@@ -85,7 +92,7 @@ const Requests = () => {
         <div className="List_heading_div">
           <h1 className="list_rqst_h1">{t("List of requests")}</h1>
           <div className="searchingRequest">
-            <SearchField placeholder={t("Searching")} className="rqst_searching" />
+            <SearchField setSearch={setSearchTerm} />
           </div>
         </div>
         {/* list table   */}
@@ -143,7 +150,7 @@ const Requests = () => {
                 <Spinner />
               ) : (
                 <TableBody>
-                  {allRequest?.map((item) => {
+                  {searchedResults?.map((item) => {
                     return (
                       <TableRow
                         key={item?._id}

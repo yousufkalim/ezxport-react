@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import DownArrow from "../../assets/TitleDownArrow.svg";
 import API from "../../api/index";
 import Button from "../../components/Common/Button";
-import SearchField from "../../components/Common/SearchField";
+import SearchInput from "../../components/Common/SearchField";
 import { Link, useHistory } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -24,6 +24,7 @@ import { getSortedData } from "../../lib/getSortedData";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../../components/Common/Spinner";
+import { createFilter } from "react-search-input";
 
 const TITLES = [
   {
@@ -246,7 +247,10 @@ var countryList = [
   "Zimbabwe",
 ];
 
+const KEYS_TO_FILTERS = ['name']
+
 const nestSortTitles = [];
+
 const Country = () => {
   const [dropdown, setDropdown] = useState("default");
   const [currency, setCurrency] = useState("default");
@@ -257,6 +261,7 @@ const Country = () => {
   const history = useHistory();
   const [openModal, setOpenModal] = useState(false);
   const [sort, setSort] = useState({ key: "", ascend: true });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -311,6 +316,10 @@ const Country = () => {
       });
   };
 
+  const searchedCountries = countries.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
+
   return (
     <>
       <div className="list_main_div">
@@ -318,7 +327,8 @@ const Country = () => {
           <div className="List_heading_div">
             <h1 className="list_h1_Country">{t("Country")}</h1>
             <div className="searching">
-              <SearchField placeholder={t("Searching")} />
+              <SearchInput setSearch={setSearchTerm} />
+              {/* <SearchField placeholder={t("Searching")} /> */}
               <Button
                 className="list_reqst_btn4"
                 text={t("Add a country")}
@@ -385,7 +395,7 @@ const Country = () => {
                   <Spinner />
                 ) : (
                   <TableBody>
-                    {countries?.map((item) => {
+                    {searchedCountries?.map((item) => {
                       return (
                         <TableRow key={item?.name} sx={{ border: "1px solid #EAECF0" }}>
                           <TableCell

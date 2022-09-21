@@ -18,7 +18,7 @@ import API from "../../api/index";
 import FilePicker from "../../components/Common/FilePicker";
 import { useTranslation, Trans } from "react-i18next";
 import Modal from "../../components/Common/Modal";
-
+import { createFilter } from "react-search-input";
 import { toast } from "react-toastify";
 
 function TabPanel(props) {
@@ -54,6 +54,10 @@ function a11yProps(index) {
   };
 }
 
+const PROVIDERS_TO_FILTERS = ['name'];
+const DOCUMENTS_TO_FILTERS = ['name'];
+const CODES_TO_FILTERS = ['code'];
+
 const AdminNomPays = () => {
   const params = useParams();
   const { id } = params;
@@ -71,6 +75,9 @@ const AdminNomPays = () => {
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState("");
   const [file, setFile] = useState("");
+  const [providerSerach, setProviderSearch] = useState("");
+  const [documentSerach, setDocumentSearch] = useState("");
+  const [codeSearch, setCodeSearch] = useState("");
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
@@ -122,6 +129,18 @@ const AdminNomPays = () => {
   };
   const handleCodesFile = (file) => setFile(file);
 
+  const searchedProviders = vendor?.filter(
+    createFilter(providerSerach, PROVIDERS_TO_FILTERS)
+  );
+
+  const searchedDocuments = document?.filter(
+    createFilter(documentSerach, DOCUMENTS_TO_FILTERS)
+  );
+
+  const searchedCodes = boms?.filter(
+    createFilter(codeSearch, CODES_TO_FILTERS)
+  );
+
   return (
     <>
       <div className="list_main_div">
@@ -136,12 +155,12 @@ const AdminNomPays = () => {
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                <SearchField setSearch={setProviderSearch} />
                 <Button text={t("Edit")} className="Edit_btn" />
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
-                <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                <SearchField setSearch={setDocumentSearch} />
                 <Button
                   text={t("Edit")}
                   className="Edit_btn"
@@ -151,7 +170,7 @@ const AdminNomPays = () => {
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-                  <SearchField placeholder={t("Searching")} className="Country_search_input" />
+                  <SearchField setSearch={setCodeSearch} />
                   <Button
                     text={t("Update")}
                     className="update_Boms_btn"
@@ -195,14 +214,14 @@ const AdminNomPays = () => {
 
               <TabPanel value={value} index={0}>
                 <div className="list_table">
-                  <AdminTab1 loading={loading} setVendor={setVendor} vendor={vendor} />
+                  <AdminTab1 loading={loading} setVendor={setVendor} vendor={searchedProviders} />
                 </div>
               </TabPanel>
               {/* table 2 */}
               <TabPanel value={value} index={1}>
                 <div className="list_table">
                   <AdminTab2
-                    rows={document}
+                    rows={searchedDocuments}
                     img={DownArrow}
                     loading={loading}
                     setDocument={setDocument}
@@ -219,7 +238,7 @@ const AdminNomPays = () => {
                 <div className="list_table">
                   <AdminTab3
                     countryId={id}
-                    rows={boms}
+                    rows={searchedCodes}
                     setBoms={setBoms}
                     loading={loading}
                     handleCountryData={handleCountryData}

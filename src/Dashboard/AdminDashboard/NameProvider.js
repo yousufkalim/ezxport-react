@@ -28,6 +28,8 @@ import { useTranslation, Trans } from "react-i18next";
 import MultiSelect from "../../components/Common/MultiSelect";
 import {COUNTRIES} from "../../lib/data";
 import { Dialog } from "@mui/material";
+import { createFilter } from "react-search-input";
+
 
 const schema = {
   fullName: {
@@ -90,6 +92,8 @@ function a11yProps(index) {
   };
 }
 
+const KEYS_TO_FILTERS = ['name'];
+
 const NameProvider = () => {
   const [formState, setFormState] = useState({
     isValid: false,
@@ -103,6 +107,7 @@ const NameProvider = () => {
     errors: {},
   });
   const [select, setSelect] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
@@ -186,7 +191,6 @@ const NameProvider = () => {
           setCountries(allCountries);
           const countryNames = allCountries.map(item => item?.name)
           setSelect(countryNames);
-          console.log("ALL countries ", res?.data?.vendor?.countries );
         }
       })
       .catch((err) => {
@@ -209,7 +213,6 @@ const NameProvider = () => {
         toast.success("Service Provider Updated Successfully");
       })
       .catch((err) => {
-        console.log("ERRRR", err);
         setOpen(false);
         toast.error(err.response.data.message);
       });
@@ -228,7 +231,6 @@ const NameProvider = () => {
         toast.success("Service Provider Updated Successfully");
       })
       .catch((err) => {
-        console.log("ERRRR", err);
         setOpen(false);
         toast.error(err.response.data.message);
       });
@@ -244,6 +246,8 @@ const NameProvider = () => {
       typeof value === "string" ? value.split(",") : value
     );
   };
+
+  const searchedResults = countries?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   return (
     <>
@@ -261,7 +265,7 @@ const NameProvider = () => {
               {
                 value === 1 && (
                   <div className="searching">
-                    <SearchField placeholder={t("Searching")} className="search_name_input" />
+                    <SearchField setSearch={setSearchTerm} />
                   </div>
                 )
               }
@@ -388,7 +392,7 @@ const NameProvider = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {countries?.map((item) => {
+                          {searchedResults?.map((item) => {
                             return (
                               <TableRow key={item.name}>
                                 <TableCell

@@ -63,23 +63,25 @@ const nestSortTitles = [
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState({key: "", ascend: true});
 
-
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
-    HandleAllUser();
+    fetchUsers();
   }, []);
 
-  const HandleAllUser = async () => {
+  const fetchUsers = async () => {
+    setLoading(true);
     await API("get", "/users/")
       .then((res) => {
         setAllUsers(res.data.users);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
 
@@ -88,6 +90,7 @@ const Users = () => {
     <>
       <UserTable
         sort={sort}
+        loading={loading}
         sortData={(field, ascend) => getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)}
         headTitle={HeadTitle}
         title="Users"

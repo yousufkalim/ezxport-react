@@ -23,6 +23,7 @@ import Spinner from "../../components/Common/Spinner";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
+import { createFilter } from "react-search-input";
 
 const schema = {
   fullname: {
@@ -49,6 +50,8 @@ const schema = {
   },
 };
 
+const KEYS_TO_FILTERS = ['name'];
+
 const ServiceProviders = () => {
   const history = useHistory(null);
   const [open, setOpen] = useState(false);
@@ -59,6 +62,7 @@ const ServiceProviders = () => {
   const [select, setSelect] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sort, setSort] = useState({ key: "", ascend: true });
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -147,17 +151,16 @@ const ServiceProviders = () => {
         toast.error(err.response.data.message);
       });
   };
-  // setting data of multiSelect in  state
+
   const handleMultiSelectChange = (event) => {
     const {
       target: { value },
     } = event;
     setSelect(
-      // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
-  // getting Countries names from database
+
   const handleCoutries = async () => {
     await API("get", "/countries/")
       .then((res) => {
@@ -207,6 +210,10 @@ const ServiceProviders = () => {
     }
   };
 
+  const searchedProviders = vendors?.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
+
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
@@ -216,7 +223,7 @@ const ServiceProviders = () => {
           <div className="List_heading_div">
             <h1 className="list_h1">{t("Service providers")}</h1>
             <div className="searching3">
-              <SearchField placeholder={t("Searching")} />
+              <SearchField setSearch={setSearchTerm} />
               <Button
                 className="list_service_btn2"
                 text={t("Add a service provider")}
@@ -261,7 +268,7 @@ const ServiceProviders = () => {
                   <Spinner />
                 ) : (
                   <TableBody>
-                    {vendors?.map((item, index) => (
+                    {searchedProviders?.map((item, index) => (
                       <TableRow key={index} sx={{ border: "1px solid #EAECF0" }}>
                         <TableCell
                           onClick={() => {
