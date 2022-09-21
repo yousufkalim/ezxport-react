@@ -152,12 +152,6 @@ export default function HorizontalNonLinearStepper() {
   const [createdCodes, setCreatedCodes] = useState({});
   const [productCodes, setProductCodes] = useState([]);
 
-  // previous request data
-  const [previousBuyer, setPreviousBuyer] = useState({});
-
-  useEffect(() => {
-    console.log("Updated Step 3 --> ", step3);
-  }, [step3]);
 
   // all useEffect
   useEffect(() => {
