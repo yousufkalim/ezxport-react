@@ -50,7 +50,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toast.error("Something went wrong!");
+        toast.error(t("Something went wrong!"));
       });
   };
 
@@ -99,12 +99,12 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/${data._id}`, editData)
       .then((res) => {
-        toast.success("Servive Provider updated Successfully");
+        toast.success(t("Servive Provider updated Successfully"));
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toast.error("Something went wrong!");
+        toast.error(t("Something went wrong!"));
       });
   };
 
@@ -114,7 +114,9 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         <Dialog open={open} onClose={handleClose} fullWidth>
           <div className="ApPlus_popup_form">
             <div className="ApPlus_popup_ha">
-              <h3 className="ApPlus_popup_h2">{`${formData?.firstName ?? ''} ${formData?.lastName ?? ''}`}</h3>
+              <h3 className="ApPlus_popup_h2">{`${formData?.firstName ?? ""} ${
+                formData?.lastName ?? ""
+              }`}</h3>
               <ClearIcon onClick={handleClose} style={{ cursor: "pointer" }} />
             </div>
             {/* inputs  */}
@@ -138,7 +140,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                 <div className="second_input_field">
                   <div className="input_fields">
                     <label htmlFor="" className="buyer_label">
-                      {t("First Name")}
+                      {t("First name")}
                     </label>
                     <input
                       disabled={!isEdit}
@@ -152,7 +154,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                   </div>
                   <div className="input_fields">
                     <label htmlFor="" className="buyer_label">
-                      {t("Last Name")}
+                      {t("Last name")}
                     </label>
                     <input
                       disabled={!isEdit}
@@ -182,7 +184,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
               </div>
               {isEdit && (
                 <button onClick={(e) => editProvider(e)} className="luyer_button">
-                  To Confirm
+                  {t("To Confirm")}
                 </button>
               )}
             </div>

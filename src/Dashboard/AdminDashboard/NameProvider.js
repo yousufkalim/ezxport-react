@@ -28,6 +28,8 @@ import { useTranslation, Trans } from "react-i18next";
 import MultiSelect from "../../components/Common/MultiSelect";
 import { COUNTRIES } from "../../lib/data";
 import { Dialog } from "@mui/material";
+import { createFilter } from "react-search-input";
+
 
 const schema = {
   fullName: {
@@ -90,6 +92,8 @@ function a11yProps(index) {
   };
 }
 
+const KEYS_TO_FILTERS = ['name'];
+
 const NameProvider = () => {
   const [formState, setFormState] = useState({
     isValid: false,
@@ -103,6 +107,7 @@ const NameProvider = () => {
     errors: {},
   });
   const [select, setSelect] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
@@ -208,7 +213,6 @@ const NameProvider = () => {
         toast.success("Service Provider Updated Successfully");
       })
       .catch((err) => {
-        console.log("ERRRR", err);
         setOpen(false);
         toast.error(err.response.data.message);
       });
@@ -224,10 +228,9 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success("Service Provider Updated Successfully");
+        toast.success(t("Service Provider Updated Successfully"));
       })
       .catch((err) => {
-        console.log("ERRRR", err);
         setOpen(false);
         toast.error(err.response.data.message);
       });
@@ -244,6 +247,8 @@ const NameProvider = () => {
     );
   };
 
+  const searchedResults = countries?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_main_div">
@@ -259,7 +264,7 @@ const NameProvider = () => {
             <div className="searching2">
               {value === 1 && (
                 <div className="searching">
-                  <SearchField placeholder={t("Searching")} className="search_name_input" />
+                  <SearchField setSearch={setSearchTerm} />
                 </div>
               )}
               <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />
@@ -280,27 +285,42 @@ const NameProvider = () => {
                   <div className="textField_div1">
                     <label htmlFor="" className="label_modal">
                       {t("Default sending email address")}
-                    </label>{" "}
-                    <InputField name="sendingEmail" className="textfield_row1" disabled={true} value={formState.values.email} />
+                    </label>
+                    <InputField
+                      name="sendingEmail"
+                      className="textfield_row1"
+                      disabled={true}
+                      value={formState.values.email}
+                    />
                   </div>
                   <div className="textField_div2">
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Contact email
-                      </label>{" "}
+                        {t("Contact email")}
+                      </label>
                       <InputField disabled={true} name="Contact" className="textfield_row2" value={formState.values.contact} />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         {t("Full Name")}
-                      </label>{" "}
-                      <InputField disabled={true} name="fullname" className="textfield_row2" value={formState.values.fullName} />
+                      </label>
+                      <InputField
+                        disabled={true}
+                        name="fullname"
+                        className="textfield_row2"
+                        value={formState.values.fullName}
+                      />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         {t("Telephone number")}
-                      </label>{" "}
-                      <InputField disabled={true} name="phoneNumber" className="textfield_row2" value={formState.values.phone} />
+                      </label>
+                      <InputField
+                        disabled={true}
+                        name="phoneNumber"
+                        className="textfield_row2"
+                        value={formState.values.phone}
+                      />
                     </div>
                   </div>
                 </div>
@@ -308,7 +328,6 @@ const NameProvider = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  {" "}
                   <>
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -339,7 +358,7 @@ const NameProvider = () => {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {countries?.map((item) => {
+                          {searchedResults?.map((item) => {
                             return (
                               <TableRow key={item.name}>
                                 <TableCell
@@ -398,7 +417,7 @@ const NameProvider = () => {
         <div className="edit_vendor_div">
           <label htmlFor="" className="label_modal">
             {t("Full Name")}
-          </label>{" "}
+          </label>
           <InputField
             value={formState.values.fullName}
             name="fullName"
@@ -408,7 +427,7 @@ const NameProvider = () => {
           <div className="error-format">{hasError("fullName") ? formState.errors.fullName[0] : null}</div>
           <label htmlFor="" className="label_modal">
             {t("Phone Number")}
-          </label>{" "}
+          </label>
           <InputField
             value={formState.values.phone}
             name="phone"
@@ -417,8 +436,8 @@ const NameProvider = () => {
           />
           <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
           <label htmlFor="" className="label_modal">
-            Contact email
-          </label>{" "}
+            {t("Contact email")}
+          </label>
           <InputField
             value={formState.values.contact}
             name="contact"

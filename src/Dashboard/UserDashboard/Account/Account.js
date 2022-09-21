@@ -107,7 +107,7 @@ const Account = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error(t("Something went wrong"));
         setLoading(false);
       });
   };
@@ -127,10 +127,10 @@ const Account = () => {
     userData.company = companyObj;
     await API("put", `/users/${userData._id}`, userData)
       .then((res) => {
-        toast.success("company updated successfully");
+        toast.success(t("company updated successfully"));
       })
       .catch((err) => {
-        toast.error("Something went wrong!");
+        toast.error(t("Something went wrong!"));
       });
   };
 
@@ -139,11 +139,13 @@ const Account = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div2">
-            <h1 className="list_h1">Account</h1>
+            <h1 className="list_h1">{t("Account")}</h1>
             {value === 1 ? (
               <>
                 <div className="account_container">
-                  <Button disabled={!formState.isValid} text='Validate the modification' onClick={(e) => submitCompanyInfo(e)} className="account_btn" />
+                  <button onClick={(e) => submitCompanyInfo(e)} className="account_btn">
+                    {t("Validate the modification")}
+                  </button>
                 </div>
               </>
             ) : (
@@ -154,7 +156,7 @@ const Account = () => {
             <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label="User information" {...a11yProps(0)} />
+                  <Tab className="tab_btn1" label={t("User information")} {...a11yProps(0)} />
                   <Tab className="tab_btn3" label={t("Company information")} {...a11yProps(2)} />
                 </Tabs>
               </Box>

@@ -4,6 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 import {I18nextProvider} from "react-i18next";
 import i18next from "./utils/translations";
 import { useTranslation } from "react-i18next";
+import {ErrorBoundary} from 'react-error-boundary'
+import ErrorFallback from "./components/Common/ErrorFallback";
 // Files
 import Index from "./routes/index";
 import "./css/index.css";
@@ -26,17 +28,19 @@ function App() {
   }, [role]);
 
   return (
-    <div className="App">
-      <Suspense fallback="loading">
-        <I18nextProvider i18n={i18next}>
-          {/* toastify Container for Notification */}
-          <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={true} transition={Flip} />
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <div className="App">
+          <Suspense fallback="loading">
+            <I18nextProvider i18n={i18next}>
+              {/* toastify Container for Notification */}
+              <ToastContainer position="bottom-right" autoClose={3000} hideProgressBar={true} transition={Flip} />
 
-          {/* Routes */}
-          <Index role={role} />
-        </I18nextProvider>
-      </Suspense>
-    </div>
+              {/* Routes */}
+              <Index role={role} />
+            </I18nextProvider>
+          </Suspense>
+        </div>
+      </ErrorBoundary>
   );
 }
 

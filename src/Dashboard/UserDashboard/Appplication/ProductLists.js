@@ -1,27 +1,28 @@
-import React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
+import React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
+import { useTranslation, Trans } from "react-i18next";
 
 const ProductLists = ({ codes, currency }) => {
-  console.log("Infor ", codes);
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
   const monetary_value = codes?.code?.reduce((n, { monetary_value }) => n + monetary_value, 0);
   return (
     <>
       <div className="ProductLists">
         <div className="ProductLists_heading">
-          <p className="ProductLists_title">Product Lists</p>
+          <p className="ProductLists_title">{t("Product Lists")}</p>
           <p className="total_value_p">
-            Total value{" "}
+            {t("Total value")} &nbsp;
             <span>
-              {" "}
               – {monetary_value} {currency === "USD" ? "$" : "€"} –
-            </span>{" "}
+            </span>
             {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}
           </p>
         </div>
@@ -38,7 +39,7 @@ const ProductLists = ({ codes, currency }) => {
                   </TableCell>
 
                   <TableCell align="left" className="country">
-                    Monetary value
+                    {t("Monetary value")}
                   </TableCell>
                 </TableRow>
               </TableHead>

@@ -13,12 +13,12 @@ import Spinner from "../../../../../components/Common/Spinner";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import BuyerModal from "./BuyerModal";
 import { useTranslation, Trans } from "react-i18next";
-import downArrow from '../../../../../assets/TitleDownArrow.svg';
-import arrow_up from '../../../../../assets/arrow_up.svg';
+import downArrow from "../../../../../assets/TitleDownArrow.svg";
+import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 
 const title = [
-  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
+  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -26,13 +26,13 @@ const title = [
   { heading: "" },
 ];
 
-const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
-      const [buyers, setBuyers] = useState([]);
-      const [buyer, setBuyer] = useState(null);
-      const [loading, setLoading] = useState(false);
-      const [isEdit, setIsEdit] = useState(false);
-      const [activeField, setActiveField] = useState("");
-      const [sort, setSort] = useState({key: "", ascend: true});
+const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
+  const [buyers, setBuyers] = useState([]);
+  const [buyer, setBuyer] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [activeField, setActiveField] = useState("");
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   const [formState, setFormState] = useState({
     isValid: false,
@@ -48,9 +48,6 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
     errors: {},
     touched: {},
   });
-  
-  const { i18n } = useTranslation();
-  const { language } = i18n;
 
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
@@ -68,7 +65,7 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error(t("Something went wrong"));
         setLoading(false);
       });
   };
@@ -78,111 +75,129 @@ const BuyersTab = ({t,schema, open, setOpen,userId, countries}) => {
     setIsEdit(edit);
     setOpen(true);
 
-       if(item){
-        const {company_name,
-            email,
-            country,
-            city,
-            phone_number,
-            zipcode,
-            address } = item;
-            const values = {
-                companyName: company_name,
-                email,
-                country: country._id,
-                town: city,
-                telephone: phone_number,
-                zipcode,
-                address,
-            }
-            setFormState({...formState, values: {...values}, isValid: true})
-       }
-      }
+    if (item) {
+      const { company_name, email, country, city, phone_number, zipcode, address } = item;
+      const values = {
+        companyName: company_name,
+        email,
+        country: country._id,
+        town: city,
+        telephone: phone_number,
+        zipcode,
+        address,
+      };
+      setFormState({ ...formState, values: { ...values }, isValid: true });
+    }
+  };
 
   return (
     <>
-        <div className="list_table">
-            <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                    {title.map((item) => {
-                        return (
-                        <TableCell
-                            align="left"
-                            className="country"
-                            style={{ backgrounColor: '#EAECF0' }}
-                        >
-                            {t(item.heading)} &nbsp;
-                            {
-                              item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                                <img className='sorting-icon' onClick={() => getSortedData(buyers,setBuyers, setSort, [],'company_name', true)} src={arrow_up} alt="" />
-                              ) : item.sortIcon && (
-                                <img onClick={() => getSortedData(buyers,setBuyers, setSort, [],'company_name',false)} src={downArrow} alt="" />
-                              )
-                            }
-                        </TableCell>
-                        );
-                    })}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {loading ? <Spinner /> : buyers?.map((buyer) => (
-                    <TableRow
-                        key={buyer._id}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        style={{ cursor: 'pointer' }}
-                        onClick={() => handleOpenModal(false, buyer) }
-                    >
-                        <TableCell component="th" scope="row" >
-                        <p className="AP_plus_title">{buyer.company_name} </p>
-                        </TableCell>
-                        <TableCell align="left" className="country2" >
-                        {buyer?.country?.name}
-                        <br />
-                        </TableCell>
-                        <TableCell align="left" className="country2" >
-                        {buyer.email}
-                        </TableCell>
-                        <TableCell align="left" className="country2" >
-                        {buyer.phone_number}
-                        </TableCell>
-                        <TableCell
-                        align="left"
-                        className="country2"
-                        style={{ cursor: 'pointer' }}
-                        >
-                        <p className="country2">{buyer.address}</p>
-                        </TableCell>
-
+      <div className="list_table">
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {title.map((item) => {
+                  return (
                     <TableCell
-                    align="left"
-                    className="country2"
-                    style={{ cursor: 'pointer' }}
-                
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
                     >
-                    <img
-                                src={EditIcon}
-                                alt=""
-                                className="dltIcon"
-                                style={{ cursor: 'pointer' }}
-                                onClick={(e) => {
-                                    e.stopPropagation(true);
-                                    handleOpenModal(true, buyer)
-                                }}
-                            />
+                      {t(item.heading)} &nbsp;
+                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                        <img
+                          className="sorting-icon"
+                          onClick={() =>
+                            getSortedData(buyers, setBuyers, setSort, [], "company_name", true)
+                          }
+                          src={arrow_up}
+                          alt=""
+                        />
+                      ) : (
+                        item.sortIcon && (
+                          <img
+                            onClick={() =>
+                              getSortedData(buyers, setBuyers, setSort, [], "company_name", false)
+                            }
+                            src={downArrow}
+                            alt=""
+                          />
+                        )
+                      )}
                     </TableCell>
-                </TableRow>
-                ))}
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {loading ? (
+                <Spinner />
+              ) : (
+                buyers?.map((buyer) => (
+                  <TableRow
+                    key={buyer._id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleOpenModal(false, buyer)}
+                  >
+                    <TableCell component="th" scope="row">
+                      <p className="AP_plus_title">{buyer.company_name} </p>
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      {buyer?.country?.name}
+                      <br />
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      {buyer.email}
+                    </TableCell>
+                    <TableCell align="left" className="country2">
+                      {buyer.phone_number}
+                    </TableCell>
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <p className="country2">{buyer.address}</p>
+                    </TableCell>
+
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                      <img
+                        src={EditIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => {
+                          e.stopPropagation(true);
+                          handleOpenModal(true, buyer);
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
-            </Table>
+          </Table>
         </TableContainer>
 
-            <BuyerModal schema={schema} t={t} setActiveField={setActiveField} activeField={activeField} userId={userId} countries={countries} formState={formState} setFormState={setFormState} isEdit={isEdit} setBuyer={setBuyer} setIsEdit={setIsEdit} buyer={buyer} fetchBuyers={fetchBuyers} setOpen={setOpen} open={open} />
-            {/* table  */}
-        </div>
+        <BuyerModal
+          schema={schema}
+          t={t}
+          setActiveField={setActiveField}
+          activeField={activeField}
+          userId={userId}
+          countries={countries}
+          formState={formState}
+          setFormState={setFormState}
+          isEdit={isEdit}
+          setBuyer={setBuyer}
+          setIsEdit={setIsEdit}
+          buyer={buyer}
+          fetchBuyers={fetchBuyers}
+          setOpen={setOpen}
+          open={open}
+        />
+        {/* table  */}
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default BuyersTab
+export default BuyersTab;
