@@ -3,7 +3,7 @@ import ChangeSuccessfully from "./ChangeSuccessfully";
 import { toast } from "react-toastify";
 import API from "../api";
 import ForgetLogo from "../assets/ForgetLogo.svg";
-import Quiz from "../assets/Quiz.png";
+// import Quiz from "../assets/Quiz.png";
 import Header from "../components/Common/Header";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
@@ -21,7 +21,6 @@ const ChangePassword = ({ Token, setResetPassword }) => {
   const [success, setSuccess] = useState(false);
 
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   const handleChangePassword = async () => {
     await API("put", `/auth/new-password/${Token}`, {

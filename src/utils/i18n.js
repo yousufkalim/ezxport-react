@@ -531,7 +531,15 @@ i18n
           "Resend again": "Resend again",
           // Appplication
           "File validated": "File validated",
+          "Cost certificate": "Cost certificate",
         },
+        // Common
+        "We asked": "We asked",
+        "the missing documents": "the missing documents",
+        "to the company": "to the company",
+        "Return to Requests": "Return to Requests",
+        "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
+          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com",
       },
       fr: {
         translations: {
@@ -1058,6 +1066,15 @@ i18n
           "Resend again": "Renvoyer à nouveau",
           // Appplication
           "File validated": "Dossier validé",
+          "Cost certificate": "Certificat de coût",
+
+          // Common
+          "We asked": "Nous avons demandé",
+          "the missing documents": "les documents manquants",
+          "to the company": "à la société",
+          "Return to Requests": "Retour aux demandes",
+          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
+            "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse mail @mail.com",
         },
       },
     },

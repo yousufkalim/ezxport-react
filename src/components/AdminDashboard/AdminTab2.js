@@ -126,7 +126,7 @@ const AdminTab2 = (props) => {
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                Documents
+                {t("Documents")}
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"

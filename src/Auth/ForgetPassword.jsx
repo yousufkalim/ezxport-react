@@ -114,7 +114,7 @@ const ForgetPassword = () => {
             />
           </div>
           {!flag ? (
-            <div className={"resetPassword-div"}>
+            <div className="resetPassword-div">
               <Button
                 className={!formState.isValid ? "logingbtn_disabled" : "logingbtn"}
                 onClick={handleResetPassword}

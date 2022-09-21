@@ -6,13 +6,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import DownArrow from "../../assets/TitleDownArrow.svg";
+// import DownArrow from "../../assets/TitleDownArrow.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import EditIcon from "../../assets/EditIcon.svg";
 import API from "../../api/index";
 import Modal from "../../components/Common/Modal";
 import InputField from "../../components/Common/InputField";
-import MultiSelect from "../../components/Common/MultiSelect";
+// import MultiSelect from "../../components/Common/MultiSelect";
 import Button from "../Common/Button";
 import { toast } from "react-toastify";
 import validate from "validate.js";
@@ -277,7 +277,7 @@ const AdminTab3 = (props) => {
             <TableRow>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>BOMs code</TableCell>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                Status
+                {t("Status")}
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"

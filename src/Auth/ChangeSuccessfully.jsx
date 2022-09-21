@@ -6,7 +6,6 @@ import { useTranslation, Trans } from "react-i18next";
 
 const ChangeSuccessfully = ({ setResetPassword }) => {
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   const history = useHistory(null);
   const handleToLogin = () => {

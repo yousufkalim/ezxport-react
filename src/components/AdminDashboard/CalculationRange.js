@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TextFieldSelect from "../Common/TextFieldSelect";
+// import TextFieldSelect from "../Common/TextFieldSelect";
 import FormControl from "@mui/material/FormControl";
 import DownArrow from "../../assets/TitleDownArrow.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
@@ -76,7 +76,6 @@ const CalculationRange = (props) => {
   });
 
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   const handleValuesChange = (event) => {
     const validatedValue = event.target.value.replace(/[^0-9]/g, "");
@@ -239,7 +238,7 @@ const CalculationRange = (props) => {
                     {t("Maximum")} <img src={DownArrow} alt="" />
                   </TableCell>
                   <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                    Coût certificat <img src={DownArrow} alt="" />
+                    {t("Cost certificate")} <img src={DownArrow} alt="" />
                   </TableCell>
                   <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                     {t("Actions")} <img src={DownArrow} alt="" />
@@ -302,7 +301,7 @@ const CalculationRange = (props) => {
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <InputField
-                    label="Minimum"
+                    label={t("Minimum")}
                     isError={hasError("minCost")}
                     error={formState.errors.minCost}
                     value={formState.values.minCost}
@@ -317,7 +316,7 @@ const CalculationRange = (props) => {
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <InputField
-                    label="Maximum"
+                    label={t("Maximum")}
                     isError={hasError("maxCost")}
                     error={formState.errors.maxCost}
                     value={formState.values.maxCost}
@@ -331,7 +330,7 @@ const CalculationRange = (props) => {
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <label htmlFor="" className="buyer_label">
-                    Coût certificat
+                    {t("Cost certificate")}
                   </label>
                   <InputField
                     value={formState.values.certificate}
@@ -351,7 +350,7 @@ const CalculationRange = (props) => {
               onClick={props.Calculation ? handleAddRange : handleNewRange}
               disabled={!formState.isValid ? true : false}
             >
-              Ajouter la ligne
+              {t("Add line")}
             </button>
           </div>
         </div>
@@ -386,7 +385,7 @@ const CalculationRange = (props) => {
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
-              Coût certificat
+              {t("Cost certificate")}
             </label>
             <InputField
               value={rangeCertificat}

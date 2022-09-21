@@ -17,7 +17,6 @@ import arrow_up from "../../assets/arrow_up.svg";
 const UserTable = (props) => {
   const history = useHistory();
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   return (
     <>

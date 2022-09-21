@@ -4,7 +4,6 @@ import { useTranslation, Trans } from "react-i18next";
 
 const AddProduct = (props) => {
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
   return (
     <>
       <div className="request_documents">
