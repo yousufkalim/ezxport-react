@@ -89,7 +89,7 @@ const TabMenu = ({ t, value, handleChange, setOpen, open, title }) => {
         setCountries(res?.data?.countries);
       })
       .catch((err) => {
-        toast.error("Something went wrong!");
+        toast.error(t("Something went wrong!"));
       });
   };
 
@@ -97,15 +97,15 @@ const TabMenu = ({ t, value, handleChange, setOpen, open, title }) => {
     <Box sx={{ width: "100%" }}>
       <Box>
         <Tabs value={value} onChange={handleChange}>
-          <Tab className="tab_btn1" label="Buyers" {...a11yProps(0)} />
-          <Tab className="tab_btn2" label="Sellers" {...a11yProps(1)} />
-          <Tab className="tab_btn3" label="Inspection locations" {...a11yProps(2)} />
+          <Tab className="tab_btn1" label={t("Buyers")} {...a11yProps(0)} />
+          <Tab className="tab_btn2" label={t("Sellers")} {...a11yProps(1)} />
+          <Tab className="tab_btn3" label={t("Inspection locations")} {...a11yProps(2)} />
         </Tabs>
       </Box>
       {/* Buyers Tab */}
       <TabPanel value={value} index={0}>
         <BuyersTab
-          schema={schema}
+          schema={t(schema)}
           t={t}
           userId={userData._id}
           countries={countries}
@@ -118,7 +118,7 @@ const TabMenu = ({ t, value, handleChange, setOpen, open, title }) => {
       {/* Sellers TAB 2  */}
       <TabPanel value={value} index={1}>
         <SellersTab
-          schema={schema}
+          schema={t(schema)}
           t={t}
           userId={userData._id}
           countries={countries}

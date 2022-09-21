@@ -60,7 +60,7 @@ const ServiceProvider = (props) => {
     <div style={{ width: "100%" }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
         <span className="aVendor_heading">
-          Please select <b>a vendor</b> for this request
+          {t("Please select")} <b>{t("a vendor")}</b> {t("for this request")}
         </span>
       </div>
       {/* <div style={{ marginTop: "4rem", height: "15%", display: "flex" }}> */}
@@ -92,7 +92,7 @@ const ServiceProvider = (props) => {
           }}
         />
         <span className="check_company_p">
-          Do you have contact information for this certification company?
+          {t("Do you have contact information for this certification company?")}
         </span>
       </div>
       {step2.values?.contactInfo ? (
@@ -104,7 +104,7 @@ const ServiceProvider = (props) => {
                 className="last_name_input"
                 isError={hasError("lastName")}
                 error={step2.errors.lastName}
-                placeholder="Last Name"
+                placeholder={t("Last name")}
                 name="lastName"
                 onChange={(e) => {
                   props.handleChange(e.target.name, e.target.value);
@@ -114,7 +114,7 @@ const ServiceProvider = (props) => {
             <div className="steps_2_feild">
               <label>{t("First name")}</label>
               <InputField
-                placeholder="First Name"
+                placeholder={t("First name")}
                 isError={hasError("firstName")}
                 error={step2.errors.firstName}
                 className="last_name_input"
@@ -126,7 +126,7 @@ const ServiceProvider = (props) => {
             </div>
           </div>
           <div className="steps_2_feild">
-            <label>Email Address</label>
+            <label>{t("Email Address")}</label>
             <InputField
               className="last_name_input"
               isError={hasError("email")}

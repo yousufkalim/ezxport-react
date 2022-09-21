@@ -59,7 +59,7 @@ const Login = () => {
       values: {
         ...formState.values,
         [event.target.name]: event.target.value,
-      }
+      },
     }));
   };
   const handleLoggin = async () => {
@@ -89,19 +89,17 @@ const Login = () => {
 
   const handleBlur = (e) => {
     e.preventDefault();
-    const {name} = e.target;
+    const { name } = e.target;
     const errors = validate(formState.values, schema);
-    console.log("Errors ", errors );
+    console.log("Errors ", errors);
     console.log("Lastest state  ", formState);
     setFormState((formState) => ({
       ...formState,
       errors: errors ?? {},
-      touched: {...formState.touched, [name]: true},
-      isValid: errors ? false : true
-
-    }))
-  }
-
+      touched: { ...formState.touched, [name]: true },
+      isValid: errors ? false : true,
+    }));
+  };
 
   const handleShowPassword = () => setShowPassword(!showPassword);
 
@@ -115,33 +113,33 @@ const Login = () => {
           {/* HEADING  */}
           <div className="login_icon_div">
             <img src={LoginIcon} alt="" className="login_icons" />
-            <h2 className="login_h2">Login</h2>
+            <h2 className="login_h2">{t("Login")}</h2>
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
             <InputField
-              label="E-mail address"
+              label={t("E-mail address")}
               isError={hasError("email")}
               error={formState.errors.email}
               name="email"
               onBlur={(e) => handleBlur(e)}
-              // role="presentation" 
+              // role="presentation"
               autoComplete="off"
               type="text"
               placeholder={t("E-mail address")}
               value={formState.values.email}
-              onChange={(e) =>handleChange(e)}
+              onChange={(e) => handleChange(e)}
             />
           </div>
           {/* PASSWORD  */}
           <div className="email_inputs_div">
             <InputField
-              label="Password"
+              label={t("Password")}
               isError={hasError("password")}
               error={formState.errors.password}
               name="password"
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder={t("Password")}
               onBlur={(e) => handleBlur(e)}
               onChange={(e) => handleChange(e)}
               autoComplete="newPassword"
@@ -152,19 +150,19 @@ const Login = () => {
             />
             <div className="forgot_p-div">
               <Link to="/forgetpassword" className="forgot_p">
-                Forgot your password ?
+                {t("Forgot your password ?")}
               </Link>
             </div>
           </div>
           <Button
             className={formState.isValid ? "logingbtn" : "logingbtn_disabled"}
             onClick={handleLoggin}
-            text="To log in"
+            text={t("To log in")}
             disabled={!formState.isValid ? true : false}
           />
           <div className="register-div">
             <Link to="/registration" className="regBtn">
-              Register
+              {t("Register")}
             </Link>
           </div>
         </form>

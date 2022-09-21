@@ -1,27 +1,27 @@
 // Init
-import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
-import API from '../api';
+import React, { useEffect, useState } from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import API from "../api";
 
 // unAUTH Routes
-import { toast } from 'react-toastify';
-import Login from '../Auth/Login';
-import ForgetPassword from '../Auth/ForgetPassword';
-import ChangePassword from '../Auth/ChangePassword';
-import Registration from '../Auth/Registration';
-import Account from '../Dashboard/UserDashboard/Account';
+import { toast } from "react-toastify";
+import Login from "../Auth/Login";
+import ForgetPassword from "../Auth/ForgetPassword";
+import ChangePassword from "../Auth/ChangePassword";
+import Registration from "../Auth/Registration";
+// import Account from '../Dashboard/UserDashboard/Account';
 // AUTH Routes
-import UserLayouts from '../Layouts/UserLayouts';
-import AdminLayouts from '../Layouts/AdminLayouts';
-import RequestForm from '../Dashboard/UserDashboard/RequestForm';
-import ValidateRequest from '../Dashboard/AdminDashboard/ValidateRequest/index';
-import SendDocuments from '../components/Common/SendDocuments';
-import RequestDocuments from '../components/Common/RequestDocuments';
+import UserLayouts from "../Layouts/UserLayouts";
+import AdminLayouts from "../Layouts/AdminLayouts";
+import RequestForm from "../Dashboard/UserDashboard/RequestForm";
+import ValidateRequest from "../Dashboard/AdminDashboard/ValidateRequest/index";
+import SendDocuments from "../components/Common/SendDocuments";
+import RequestDocuments from "../components/Common/RequestDocuments";
 
 const queryParams = new URLSearchParams(window.location.search);
-const Reset = queryParams.get('reset');
-const Token = queryParams.get('token');
+const Reset = queryParams.get("reset");
+const Token = queryParams.get("token");
 const Index = ({ role }) => {
   const history = useHistory(null);
   const [resetPassword, setResetPassword] = useState(false);
@@ -33,13 +33,13 @@ const Index = ({ role }) => {
     }
   }, []);
   const handleVerifyToken = async (Token) => {
-    await API('get', `/auth/verify-token/${Token}`)
+    await API("get", `/auth/verify-token/${Token}`)
       .then((res) => {
         setResetPassword(res.data.success);
-        history.push('/changepassword');
+        history.push("/changepassword");
       })
       .catch((err) => {
-        history.push('/');
+        history.push("/");
         toast.error(err.response.data.message);
       });
   };
@@ -57,19 +57,19 @@ const Index = ({ role }) => {
         ) : (
           <>
             {/* Auth routes */}
-            {role === 'user' ? (
+            {role === "user" ? (
               <>
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Route path="/User/RequestForm" component={RequestForm} />
                 <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
                 {/* <Route exact path="/User/Dashboard/Account" component={Account} /> */}
               </>
-            ) : role === 'admin' ? (
+            ) : role === "admin" ? (
               <>
                 <Route path="/Admin/Dashboard" component={AdminLayouts} />
                 <Route path="/Admin/ValidateRequest/:id" component={ValidateRequest} />
                 <Route path="/SendDocuments" component={SendDocuments} />
-                    <Route path="/RequestDocuments" component={RequestDocuments} />
+                <Route path="/RequestDocuments" component={RequestDocuments} />
                 <Redirect from="/" to="/Admin/Dashboard/Country" />
               </>
             ) : (

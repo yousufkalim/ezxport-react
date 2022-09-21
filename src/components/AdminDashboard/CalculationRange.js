@@ -167,7 +167,7 @@ const CalculationRange = (props) => {
           },
           isValid: false,
         }));
-        toast.success("Range added successfully");
+        toast.success(t("Range added successfully"));
       })
       .catch((err) => {
         console.log("handleAddRange", err);
@@ -196,7 +196,7 @@ const CalculationRange = (props) => {
           isValid: true,
         }));
 
-        toast.success("Coefficient Added Successfully");
+        toast.success(t("Coefficient Added Successfully"));
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -210,7 +210,7 @@ const CalculationRange = (props) => {
         handleRangeData();
         setOpenModal(false);
         setRangeId("");
-        toast.success("Range Deleted successfully");
+        toast.success(t("Range Deleted successfully"));
       })
       .catch((err) => {
         console.log("handleDeleteCalculation", err);
@@ -228,7 +228,7 @@ const CalculationRange = (props) => {
       .then((res) => {
         setEditModal(false);
         handleRangeData();
-        toast.success("Range updated successfully");
+        toast.success(t("Range updated successfully"));
       })
       .catch((err) => {
         console.log("handleUpdateRange", err);
@@ -282,7 +282,9 @@ const CalculationRange = (props) => {
                       <p className="AP_plus_title">{`${item.max} ${props.currency === "USD" ? "$" : "€"}`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      <p className="AP_plus_title">{`${item.certificate_cost} ${props.currency === "USD" ? "$" : "€"}`}</p>
+                      <p className="AP_plus_title">{`${item.certificate_cost} ${
+                        props.currency === "USD" ? "$" : "€"
+                      }`}</p>
                     </TableCell>
                     <TableCell align="left" className="country2">
                       <img
@@ -353,7 +355,7 @@ const CalculationRange = (props) => {
               <div className="AddSlice_input_fields">
                 <FormControl fullWidth>
                   <label htmlFor="" className="buyer_label">
-                    Coût certificat
+                    {t("Cost certificate")}
                   </label>
                   <InputField
                     value={formState.values.certificate}
@@ -371,7 +373,7 @@ const CalculationRange = (props) => {
               onClick={props.Calculation ? handleAddRange : handleNewRange}
               disabled={!formState.isValid}
             >
-              Ajouter la ligne
+              {t("Add line")}
             </button>
           </div>
         </div>
@@ -393,7 +395,7 @@ const CalculationRange = (props) => {
           </FormControl>
           <FormControl fullWidth style={{ marginTop: "1rem" }}>
             <label htmlFor="" className="buyer_label">
-              Coût certificat
+              {t("Cost certificate")}
             </label>
             <InputField
               value={rangeCertificat}

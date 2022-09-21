@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import SearchIcon from '../../assets/SearchIcon.svg';
-import ProvidersTable from '../../components/UserDashboard/ProvidersTable';
-import API from '../../api/index';
-import { toast } from 'react-toastify';
-import Spinner from '../../components/Common/Spinner';
-import toaster from '../../utils/toaster';
+import React, { useEffect, useState } from "react";
+import SearchIcon from "../../assets/SearchIcon.svg";
+import ProvidersTable from "../../components/UserDashboard/ProvidersTable";
+import API from "../../api/index";
+import { toast } from "react-toastify";
+import Spinner from "../../components/Common/Spinner";
+import toaster from "../../utils/toaster";
 import { useTranslation, Trans } from "react-i18next";
-
-
 
 // import Spinner from '../../components/Common/Spinner';
 
@@ -25,16 +23,23 @@ const Providers = () => {
 
   const getProviders = async () => {
     setLoading(true);
-    await API('get', `/vendors/userVendor/${userData._id}`).then((res) => {
-      const data = res?.data?.Uservendors?.map(item => ({...item.vendor, email: item.contact_email, firstName: item.contact_fname, lastName: item.contact_lname }));
-      setProviders(data);
-      setLoading(false);
-      // toaster('success', "testing");
-    }).catch((err) => {
-      toast.error('Something went wrong!')
-      setLoading(false);
-    });
-  }
+    await API("get", `/vendors/userVendor/${userData._id}`)
+      .then((res) => {
+        const data = res?.data?.Uservendors?.map((item) => ({
+          ...item.vendor,
+          email: item.contact_email,
+          firstName: item.contact_fname,
+          lastName: item.contact_lname,
+        }));
+        setProviders(data);
+        setLoading(false);
+        // toaster('success', "testing");
+      })
+      .catch((err) => {
+        toast.error(t("Something went wrong!"));
+        setLoading(false);
+      });
+  };
 
   return (
     <>
@@ -43,7 +48,7 @@ const Providers = () => {
           <div className="List_heading_div5">
             <h1 className="list_h1_provider">{t("Service providers")}</h1>
             <div className="searching_provider">
-              <input type="text" className="search_input" placeholder="To Search" />
+              <input type="text" className="search_input" placeholder={t("To Search")} />
               <img src={SearchIcon} alt="" className="search_icon" />
             </div>
           </div>

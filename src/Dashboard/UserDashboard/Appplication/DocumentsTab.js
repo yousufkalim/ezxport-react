@@ -25,7 +25,6 @@ const DocumentsTab = ({ userRequest }) => {
   const [countryMissingDocs, setCountryMissingDocs] = useState([]);
   const [productMissingDocs, setProductMissingDocs] = useState([]);
 
-
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
@@ -101,7 +100,7 @@ const DocumentsTab = ({ userRequest }) => {
       })
       .catch((err) => {
         console.log("handleReqDoc", err);
-        toast.error("File not found");
+        toast.error(t("File not found"));
       });
   };
 
@@ -112,7 +111,7 @@ const DocumentsTab = ({ userRequest }) => {
       })
       .catch((err) => {
         console.log("handleSpecificDoc", err);
-        toast.error("File not found");
+        toast.error(t("File not found"));
       });
   };
   const handleCodeDoc = async (Code_Id) => {
@@ -122,7 +121,7 @@ const DocumentsTab = ({ userRequest }) => {
       })
       .catch((err) => {
         console.log("handleSpecificDoc", err);
-        toast.error("File not found");
+        toast.error(t("File not found"));
       });
   };
   const handleProductDoc = async (Product_Id) => {
@@ -132,29 +131,36 @@ const DocumentsTab = ({ userRequest }) => {
       })
       .catch((err) => {
         console.log("handleProductDoc", err);
-        toast.error("File not found");
+        toast.error(t("File not found"));
       });
   };
   const handleMissingDocUpload = async () => {
     const data = {
-      documents: countryMissingDocs?.map((item) => ({ ...item, files: item?.files?.map(({ file }) => file) })),
-      products: productMissingDocs?.map((item) => ({ ...item, files: item?.files?.map(({ file }) => file) }))
-    }
-    await API('put', `/requests/UploadmissingDocs/${userRequest._id}`, data).then((res) => {
-      toast.success(res.data.message)
-    }).catch((err) => {
-      console.log("handleMissingDocUpload", err)
-    })
-  }
+      documents: countryMissingDocs?.map((item) => ({
+        ...item,
+        files: item?.files?.map(({ file }) => file),
+      })),
+      products: productMissingDocs?.map((item) => ({
+        ...item,
+        files: item?.files?.map(({ file }) => file),
+      })),
+    };
+    await API("put", `/requests/UploadmissingDocs/${userRequest._id}`, data)
+      .then((res) => {
+        toast.success(res.data.message);
+      })
+      .catch((err) => {
+        console.log("handleMissingDocUpload", err);
+      });
+  };
   const handleProdLength = () => {
     userRequest?.codes?.map((code) => {
       code?.products?.map((product) => {
-        const prodLength = productLength + product?.missing_docs?.length
-        setProductLength(prodLength)
-
-      })
-    })
-  }
+        const prodLength = productLength + product?.missing_docs?.length;
+        setProductLength(prodLength);
+      });
+    });
+  };
   return (
     <>
       {userRequest?.missing_docs?.length !== 0 ? (
@@ -190,8 +196,6 @@ const DocumentsTab = ({ userRequest }) => {
               <>
                 <span>{code.code}</span>
                 {code?.products?.map((product, index) => {
-
-
                   return (
                     <>
                       <Grid container spacing={2}>
@@ -227,17 +231,18 @@ const DocumentsTab = ({ userRequest }) => {
           <Button
             text="Send documents"
             className={
-              countryMissingDocs.length === userRequest?.missing_docs?.length
-                && productMissingDocs.length === productLength ?
-                "send_documents_btn"
-                : "send_documents_btn_disabled"}
+              countryMissingDocs.length === userRequest?.missing_docs?.length &&
+              productMissingDocs.length === productLength
+                ? "send_documents_btn"
+                : "send_documents_btn_disabled"
+            }
             onClick={handleMissingDocUpload}
             disabled={
-              countryMissingDocs.length === 0 || productMissingDocs.length === 0
-                ? true : false}
+              countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false
+            }
           />
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
-          <span>Comments by the Admin</span> <br />
+          <span>{t("Comments by the Admin")}</span> <br />
           <TextareaAutosize
             value={userRequest?.admin_remarks}
             disabled
@@ -342,7 +347,6 @@ const DocumentsTab = ({ userRequest }) => {
           </List>
         </Collapse>
       </List>
-
     </>
   );
 };

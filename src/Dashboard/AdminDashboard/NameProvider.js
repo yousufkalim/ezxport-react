@@ -228,7 +228,7 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success("Service Provider Updated Successfully");
+        toast.success(t("Service Provider Updated Successfully"));
       })
       .catch((err) => {
         setOpen(false);
@@ -295,7 +295,7 @@ const NameProvider = () => {
                   <div className="textField_div1">
                     <label htmlFor="" className="label_modal">
                       {t("Default sending email address")}
-                    </label>{" "}
+                    </label>
                     <InputField
                       name="sendingEmail"
                       className="textfield_row1"
@@ -306,8 +306,8 @@ const NameProvider = () => {
                   <div className="textField_div2">
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
-                        Contact email
-                      </label>{" "}
+                        {t("Contact email")}
+                      </label>
                       <InputField
                         disabled={true}
                         name="Contact"
@@ -318,7 +318,7 @@ const NameProvider = () => {
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         {t("Full Name")}
-                      </label>{" "}
+                      </label>
                       <InputField
                         disabled={true}
                         name="fullname"
@@ -329,7 +329,7 @@ const NameProvider = () => {
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
                         {t("Telephone number")}
-                      </label>{" "}
+                      </label>
                       <InputField
                         disabled={true}
                         name="phoneNumber"
@@ -343,7 +343,6 @@ const NameProvider = () => {
 
               <TabPanel value={value} index={1}>
                 <div className="list_table">
-                  {" "}
                   <>
                     <TableContainer component={Paper}>
                       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -458,7 +457,7 @@ const NameProvider = () => {
         <div className="edit_vendor_div">
           <label htmlFor="" className="label_modal">
             {t("Full Name")}
-          </label>{" "}
+          </label>
           <InputField
             value={formState.values.fullName}
             name="fullName"
@@ -474,7 +473,7 @@ const NameProvider = () => {
           </div>
           <label htmlFor="" className="label_modal">
             {t("Phone Number")}
-          </label>{" "}
+          </label>
           <InputField
             value={formState.values.phone}
             name="phone"
@@ -485,8 +484,8 @@ const NameProvider = () => {
           />
           <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
           <label htmlFor="" className="label_modal">
-            Contact email
-          </label>{" "}
+            {t("Contact email")}
+          </label>
           <InputField
             value={formState.values.contact}
             name="contact"

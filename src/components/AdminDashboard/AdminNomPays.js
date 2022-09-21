@@ -80,7 +80,6 @@ const AdminNomPays = () => {
   const [codeSearch, setCodeSearch] = useState("");
 
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   useEffect(() => {
     handleCountryData();
@@ -280,7 +279,14 @@ const AdminNomPays = () => {
               {t("Download your BOM file")}
             </label>
             <div className="bom_download_File_btn_div">
-              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className='bom_download'>{t("Download current file")}</Link>
+              <Link
+                to={"/Files/Admintemplate.xlsx"}
+                target="_blank"
+                download
+                className="bom_download"
+              >
+                {t("Download current file")}
+              </Link>
             </div>
           </div>
 

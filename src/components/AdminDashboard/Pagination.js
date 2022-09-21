@@ -1,7 +1,7 @@
-import React from 'react';
-import Pagination from '@mui/material/Pagination';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import React from "react";
+// import Pagination from '@mui/material/Pagination';
+// import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+// import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const PaginationPage = () => {
   return (

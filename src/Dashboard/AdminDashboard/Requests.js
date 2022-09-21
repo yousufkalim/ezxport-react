@@ -185,15 +185,15 @@ const Requests = () => {
                         </TableCell>
                         <TableCell align="left">
                           {item?.status === "Validate By Admin" ? (
-                            <p className="clrClass">{item?.status}</p>
+                            <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "Missing documents" ? (
-                            <p className="missingDocStatus">{item?.status}</p>
+                            <p className="missingDocStatus">{t(item?.status)}</p>
                           ) : item?.status === "Validated" ? (
-                            <p className="clrClass">{item?.status}</p>
+                            <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "sent" ? (
-                            <p className="send_status">{item?.status}</p>
+                            <p className="send_status">{t(item?.status)}</p>
                           ) : item?.status === "Benig Checked By Expert" ? (
-                            <p className="process_status">{item?.status}</p>
+                            <p className="process_status">{t(item?.status)}</p>
                           ) : (
                             "--"
                           )}

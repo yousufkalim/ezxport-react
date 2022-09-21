@@ -68,7 +68,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     equality: {
       attribute: "password",
-      message: "is not same as password"
+      message: "is not same as password",
     },
   },
   companyLastName: {
@@ -187,7 +187,7 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toast.success("User created successfully");
+        toast.success(t("User created successfully"));
         history.push("/");
       })
       .catch((err) => {
@@ -202,13 +202,11 @@ const Registration = () => {
       ...formState,
       errors: errors ?? {},
       touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
+      isValid: errors ? false : true,
+    }));
+  };
 
-    }))
-  }
-
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
 
@@ -223,28 +221,27 @@ const Registration = () => {
         </div>
         <form autoComplete="off" className="registration_div">
           {/* first input fields  */}
-          <h2 className="user_info">User information</h2>
+          <h2 className="user_info">{t("User information")}</h2>
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
-                  label="Last Name"
+                  label={t("Last name")}
                   type="text"
-                  placeholder="Last name"
+                  placeholder={t("Last name")}
                   onBlur={(e) => handleBlur(e)}
                   value={formState.values.lastName}
                   name="lastName"
                   isError={hasError("lastName")}
                   error={formState.errors.lastName}
                   onChange={handleNameChange}
-
                 />
               </div>
               <div className="regist_col1">
                 <InputField
                   type="text"
-                  label="First Name"
-                  placeholder="First name"
+                  label={t("First name")}
+                  placeholder={t("First name")}
                   required
                   onBlur={(e) => handleBlur(e)}
                   value={formState.values.firstName}
@@ -259,7 +256,7 @@ const Registration = () => {
               <div className="regist_col1">
                 <InputField
                   type="text"
-                  label="E-mail address"
+                  label={t("E-mail address")}
                   placeholder="mail@mail.com"
                   required
                   isError={hasError("email")}
@@ -272,7 +269,7 @@ const Registration = () => {
               </div>
               <div className="regist_col1">
                 <InputField
-                  label="Telephone"
+                  label={t("Telephone")}
                   type="number"
                   isError={hasError("phone")}
                   onBlur={(e) => handleBlur(e)}
@@ -308,7 +305,7 @@ const Registration = () => {
               </div>
               <div className="regist_col2">
                 <div className="city_inputs">
-                  <label htmlFor="">Code postal</label>
+                  <label htmlFor="">{t("Postal code")}</label>
                   <input
                     type="string"
                     className={
@@ -341,9 +338,7 @@ const Registration = () => {
                     name="town"
                     onChange={(e) => handleChange(e)}
                   />
-                  <div className="error-format">
-                    {hasError("town") && formState.errors.town}
-                  </div>
+                  <div className="error-format">{hasError("town") && formState.errors.town}</div>
                 </div>
                 {/* <div className="city_inputs2">
                   <InputField
@@ -364,14 +359,14 @@ const Registration = () => {
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
-                  label="Password"
+                  label={t("Password")}
                   isError={hasError("password")}
                   error={formState.errors.password}
                   name="password"
                   autoComplete="new-password"
                   onBlur={(e) => handleBlur(e)}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Password"
+                  placeholder={t("Password")}
                   onChange={(e) => handleChange(e)}
                   value={formState.values.password}
                   visibleEye
@@ -382,11 +377,11 @@ const Registration = () => {
               <div className="regist_col1">
                 <InputField
                   type={showConfirmPassword ? "text" : "password"}
-                  label="Confirming your password"
+                  label={t("Confirming your password")}
                   isError={hasError("confirmPassword")}
                   onBlur={(e) => handleBlur(e)}
                   error={formState.errors.confirmPassword}
-                  placeholder="Confirm password"
+                  placeholder={t("Confirm password")}
                   required
                   autoComplete={false}
                   value={formState.values.confirmPassword}
@@ -408,8 +403,7 @@ const Registration = () => {
                 <InputField
                   type="text"
                   className={
-                    hasError("companyLastName") &&
-                      formState.errors.companyLastName
+                    hasError("companyLastName") && formState.errors.companyLastName
                       ? "reg_input_red"
                       : "reg_input"
                   }
@@ -420,11 +414,9 @@ const Registration = () => {
                   onChange={handleNameChange}
                 />
                 <div className="error-format">
-                  {hasError("companyLastName")
-                    ? formState.errors.companyLastName[0]
-                    : null}
+                  {hasError("companyLastName") ? formState.errors.companyLastName[0] : null}
                 </div>
-              </div >
+              </div>
               <div className="regist_col1">
                 <label htmlFor="">{t("Type of society")}</label>
                 <select
@@ -437,7 +429,7 @@ const Registration = () => {
                   value={formState.values.typeOfSociety}
                 >
                   <option disabled value="default">
-                    Select your type
+                    {t("Select your type")}
                   </option>
                   <option value="1">Type 1</option>
                   <option value="2">Type 2</option>
@@ -446,16 +438,18 @@ const Registration = () => {
                   <option value="5">Type 5</option>
                 </select>
                 <div className="error-format">
-                  {hasError("typeOfSociety") && formState.touched.typeOfSociety ? formState.errors.typeOfSociety[0] : null}
+                  {hasError("typeOfSociety") && formState.touched.typeOfSociety
+                    ? formState.errors.typeOfSociety[0]
+                    : null}
                 </div>
               </div>
-            </div >
+            </div>
             <div className="regist_input_div">
               <div className="regist_col1">
                 <label htmlFor=""></label>
                 <InputField
                   type="text"
-                  label="VAT number"
+                  label={t("VAT number")}
                   isError={hasError("vatNumber")}
                   onBlur={(e) => handleBlur(e)}
                   error={formState.errors.vatNumber}
@@ -467,9 +461,9 @@ const Registration = () => {
                 />
               </div>
             </div>
-          </div >
+          </div>
           {/* ///  */}
-          <div div className="btn_div" >
+          <div div className="btn_div">
             <Button
               className={
                 formState.isValid && formState.values.typeOfSociety != "default"
@@ -477,14 +471,14 @@ const Registration = () => {
                   : "register_fm_disabled"
               }
               onClick={(e) => handleSubmit(e)}
-              text="Register"
+              text={t("Register")}
               disabled={
                 !formState.isValid || formState.values.typeOfSociety === "default" ? true : false
               }
             />
           </div>
-        </form >
-      </div >
+        </form>
+      </div>
     </>
   );
 };

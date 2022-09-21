@@ -55,17 +55,19 @@ const ProductForm = (props) => {
   return (
     <>
       <div className="title_Div_documents">
-        <span className="title_span">{props.item.code.code} – Nomenclature name</span>
+        <span className="title_span">
+          {props.item.code.code} – {t("Nomenclature name")}
+        </span>
         {validateProduct() ? (
-          <span className="complete_pill">Complete</span>
+          <span className="complete_pill">{t("Complete")}</span>
         ) : (
-          <span className="to_complete_pill">To Complete</span>
+          <span className="to_complete_pill">{t("To Complete")}</span>
         )}
       </div>
       {validateProduct() ? (
         ""
       ) : (
-        <span className="to_complete_pill">The product documents are to be completed</span>
+        <span className="to_complete_pill">{t("The product documents are to be completed")}</span>
       )}
 
       <div className="divider_line"></div>
@@ -99,12 +101,12 @@ const ProductForm = (props) => {
           onChange={(e) => handleDataChange(e)}
         >
           <option value={"default"} disabled>
-            select type of Condition
+            {t("select type of Condition")}
           </option>
-          <option value="Bad">Bad</option>
-          <option value="Average">Average</option>
-          <option value="Good">Good</option>
-          <option value="Excellent">Excellent</option>
+          <option value="Bad">{t("Bad")}</option>
+          <option value="Average">{t("Average")}</option>
+          <option value="Good">{t("Good")}</option>
+          <option value="Excellent">{t("Excellent")}</option>
         </select>
       </div>
       <div className="inspection_textfield">
@@ -177,7 +179,7 @@ const ProductForm = (props) => {
           className="countrydropdown"
         >
           <MenuItem disabled value="default">
-            {t("Select a country")}
+            {t("Select a Country")}
           </MenuItem>
           {props.countries?.map((item) => {
             return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
