@@ -56,6 +56,7 @@ export default function HorizontalNonLinearStepper() {
   const history = useHistory(null);
   // requestId of request created
   const [requestId, setRequestedId] = useState("");
+  const [currency, setCurrency] = useState("");
   const updateStore = UpdateStore();
 
   const { t, i18n } = useTranslation();
@@ -152,8 +153,13 @@ export default function HorizontalNonLinearStepper() {
   const [createdCodes, setCreatedCodes] = useState({});
   const [productCodes, setProductCodes] = useState([]);
 
-
   // all useEffect
+  useEffect(() => {
+    const countryCurrency = countries?.find((country) => {
+      return country?._id === step1?.country;
+    }).currency;
+    setCurrency(countryCurrency);
+  }, [step1?.country]);
   useEffect(() => {
     handleDocByCountryId();
     handleSeller();
@@ -340,7 +346,7 @@ export default function HorizontalNonLinearStepper() {
       codes: [],
     };
     productCodes.map((item) => {
-      item.products.map((item2) => {
+      item?.products?.map((item2) => {
         data.codes.push(item2);
       });
     });
@@ -444,7 +450,7 @@ export default function HorizontalNonLinearStepper() {
     const line_items = [
       {
         price_data: {
-          currency: "USD",
+          currency: currency,
           product_data: {
             name: step1.title,
           },
@@ -457,6 +463,7 @@ export default function HorizontalNonLinearStepper() {
   };
   const getSessionUrl = async (id, line_items) => {
     try {
+      localStorage.setItem("Requested", true);
       const response = await API("post", "/requests/Checkout", {
         line_items: line_items,
         metaData: { id },

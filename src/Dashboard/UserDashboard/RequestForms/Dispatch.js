@@ -328,7 +328,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Country name")}
+              placeholder={t("Company name")}
               name="companyName"
               error={sellerData.errors.companyName}
               isError={sellerError("companyName")}
@@ -636,7 +636,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder={typeof t("Company name")}
+              placeholder={t("Company name")}
               name="companyName"
               // error={placeOfInspection.errors.companyName}
               // isError={placeError('companyName')}

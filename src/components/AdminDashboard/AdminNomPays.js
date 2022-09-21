@@ -91,7 +91,6 @@ const AdminNomPays = () => {
     setLoading(true);
     await API("get", `/countries/${id}`)
       .then((res) => {
-        console.log("🚀 ~ file: AdminNomPays.js ~ line 94 ~ .then ~ res", res);
         setCurrency(res?.data?.country?.currency);
         setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
@@ -129,17 +128,11 @@ const AdminNomPays = () => {
   };
   const handleCodesFile = (file) => setFile(file);
 
-  const searchedProviders = vendor?.filter(
-    createFilter(providerSerach, PROVIDERS_TO_FILTERS)
-  );
+  const searchedProviders = vendor?.filter(createFilter(providerSerach, PROVIDERS_TO_FILTERS));
 
-  const searchedDocuments = document?.filter(
-    createFilter(documentSerach, DOCUMENTS_TO_FILTERS)
-  );
+  const searchedDocuments = document?.filter(createFilter(documentSerach, DOCUMENTS_TO_FILTERS));
 
-  const searchedCodes = boms?.filter(
-    createFilter(codeSearch, CODES_TO_FILTERS)
-  );
+  const searchedCodes = boms?.filter(createFilter(codeSearch, CODES_TO_FILTERS));
 
   return (
     <>
@@ -156,12 +149,11 @@ const AdminNomPays = () => {
             {value === 0 ? (
               <div className="searching_div_country">
                 <SearchField setSearch={setProviderSearch} />
-                <Button text={t("Edit")} className="Edit_btn" />
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField setSearch={setDocumentSearch} />
-                <Button text={t("Edit")} className="Edit_btn" onClick={() => setOpenAddDocument(true)} />
+                <Button text={t("Add document")} className="update_Boms_btn" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
