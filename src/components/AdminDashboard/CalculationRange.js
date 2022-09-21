@@ -132,6 +132,7 @@ const CalculationRange = (props) => {
       }
     }
   };
+  console.log("first", props?.id);
 
   const handleRangeData = async () => {
     setLoading(true);
@@ -143,7 +144,6 @@ const CalculationRange = (props) => {
       .catch((err) => {
         console.log(err, "handleRangeData");
         setLoading(false);
-
       });
   };
   const handleAddRange = async () => {
@@ -185,7 +185,8 @@ const CalculationRange = (props) => {
       },
     })
       .then((res) => {
-        props.setOpenCalculationModal(false);
+        props?.setOpenCalculationModal(false);
+        props?.countryData();
         setFormState((formState) => ({
           ...formState,
           values: {
