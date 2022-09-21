@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import FilePicker from '../../../components/Common/FilePicker';
-import HelperIcon from '../../../assets/Quiz.png';
-import { Grid } from '@mui/material';
-import { Tooltip } from '@mui/material';
-import { ReactComponent as AddProductIcon } from '../../../assets/AddProductIcon.svg';
-import API from '../../../api/index';
-import ProductForm from '../../../components/Common/ProductForm';
+import React, { useState, useEffect } from "react";
+import FilePicker from "../../../components/Common/FilePicker";
+import HelperIcon from "../../../assets/Quiz.png";
+import { Grid } from "@mui/material";
+import { Tooltip } from "@mui/material";
+import { ReactComponent as AddProductIcon } from "../../../assets/AddProductIcon.svg";
+import API from "../../../api/index";
+import ProductForm from "../../../components/Common/ProductForm";
+import { useTranslation, Trans } from "react-i18next";
 
 const Document = (props) => {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
+
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   useEffect(() => {
     handleCountryName();
   }, []);
@@ -34,7 +39,10 @@ const Document = (props) => {
 
   const addEmptyProduct = (cindex, item) => {
     props.setProductCodes((prev) => {
-      prev[cindex].products = [...prev[cindex].products, { user: props.userData, code: item.code._id }];
+      prev[cindex].products = [
+        ...prev[cindex].products,
+        { user: props.userData, code: item.code._id },
+      ];
       return [...prev];
     });
   };
@@ -58,8 +66,10 @@ const Document = (props) => {
   return (
     <div className="documents_main_div">
       <div className="title_Div_documents">
-        <span className="title_span">Import documents specific to {countryName?.name}</span>
-        <span className="to_complete_pill">To Complete</span>
+        <span className="title_span">
+          {t("Import documents specific to")} {countryName?.name}
+        </span>
+        <span className="to_complete_pill">{t("To Complete")}</span>
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: "100%" }}>
@@ -105,7 +115,7 @@ const Document = (props) => {
             })}
             <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex, item)}>
               <AddProductIcon />
-              &nbsp;&nbsp;Add another product
+              &nbsp;&nbsp;{t("Add another product")}
             </div>
           </div>
         );

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import SearchField from '../../../components/Common/SearchField';
-import TabMenu from './TabMenu';
-import Button from '../../../components/Common/Button';
-import TitleDownArrow from '../../../assets/TitleDownArrow.svg';
-import {useTranslation} from "react-i18next";
+import React, { useEffect, useState } from "react";
+import SearchField from "../../../components/Common/SearchField";
+import TabMenu from "./TabMenu";
+import Button from "../../../components/Common/Button";
+import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
+import { useTranslation } from "react-i18next";
 
 const title = [
-  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
+  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -33,8 +33,6 @@ const schema = {
 };
 
 const AddressBook = () => {
-
-
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
 
@@ -49,7 +47,7 @@ const AddressBook = () => {
     setOpen(true);
   };
 
-  const buttonTitle = value === 0 ? 'Add buyer' : value === 1 ? 'Add seller' : 'Add location'
+  const buttonTitle = value === 0 ? "Add buyer" : value === 1 ? "Add seller" : "Add location";
 
   return (
     <>
@@ -60,12 +58,19 @@ const AddressBook = () => {
             <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
               <SearchField placeholder={t("Searching")} />
-              <Button text={buttonTitle} className="list_reqst_btn3" onClick={handleClickOpen} />
+              <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
           {/* list table   */}
           <div className="list_table">
-            <TabMenu t={t} handleChange={handleChange} value={value} setOpen={setOpen} open={open} title={title} />
+            <TabMenu
+              t={t}
+              handleChange={handleChange}
+              value={value}
+              setOpen={setOpen}
+              open={open}
+              title={t("title")}
+            />
           </div>
         </div>
       </div>

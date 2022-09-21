@@ -56,10 +56,10 @@ const Index = () => {
       .then((res) => {
         console.log("handleCountryDocsValidate", res);
         if (checked) {
-          toast.success("Document Validated Successfully");
+          toast.success(t("Document Validated Successfully"));
           handlerequestById();
         } else {
-          toast.warning("Document Un-Validated");
+          toast.warning(t("Document Un-Validated"));
           handlerequestById();
         }
       })
@@ -78,10 +78,10 @@ const Index = () => {
       .then((res) => {
         if (checked) {
           console.log("handleProductDocsValidate", res);
-          toast.success("Document Validated Successfully");
+          toast.success(t("Document Validated Successfully"));
           handlerequestById();
         } else {
-          toast.warning("Document Un-Validated");
+          toast.warning(t("Document Un-Validated"));
           handlerequestById();
         }
       })
@@ -147,7 +147,7 @@ const Index = () => {
               inputList.length === 0 &&
               inputListProduct.length === 0 ? (
                 <Button
-                  text="Validate the file"
+                  text={t("Validate the file")}
                   className="validate_button"
                   onClick={handleValidByAdmin}
                 />

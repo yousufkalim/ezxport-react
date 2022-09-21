@@ -80,7 +80,7 @@ const Dispatch = (props) => {
         <span className="seller_title">{t("Seller data")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            Add or select a seller
+            {t("Add or select a seller")}
           </label>
           <Select
             name="seller"
@@ -92,7 +92,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Company Name
+              {t("Company name")}
             </MenuItem>
             {props?.sellers?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -104,7 +104,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="Country Name"
+              placeholder={t("Country name")}
               name="companyName"
               value={props?.step3?.sellerData?.companyName}
               onChange={(e) => {
@@ -125,7 +125,7 @@ const Dispatch = (props) => {
               }}
             >
               <MenuItem disabled value={"default"}>
-                Select a Country
+                {t("Select a Country")}
               </MenuItem>
               {props?.countries?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
@@ -185,7 +185,7 @@ const Dispatch = (props) => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">Postel Code</label>
+              <label className="BomLabel">{t("Postel Code")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -197,7 +197,7 @@ const Dispatch = (props) => {
               />
             </div>
             <div style={{ width: "60%" }}>
-              <label className="BomLabel">Town</label>
+              <label className="BomLabel">{t("Town")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -215,7 +215,7 @@ const Dispatch = (props) => {
         <span className="seller_title">{t("Buyer data")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            Add or select a buyer
+            {t("Add or select a buyer")}
           </label>
           <Select
             name="buyer"
@@ -227,7 +227,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Company name
+              {t("Company name")}
             </MenuItem>
             {props?.buyers?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -236,10 +236,10 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">Company Name</label>
+            <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="Company Name"
+              placeholder={t("Company name")}
               name="companyName"
               value={props?.step3?.buyerData?.companyName}
               onChange={(e) => {
@@ -249,7 +249,7 @@ const Dispatch = (props) => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">Country</label>
+            <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
               name="CountryId"
@@ -260,7 +260,7 @@ const Dispatch = (props) => {
               }}
             >
               <MenuItem disabled value={"default"}>
-                Select a Country
+                {t("Select a Country")}
               </MenuItem>
               {props?.countries?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
@@ -320,7 +320,7 @@ const Dispatch = (props) => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">Postel Code</label>
+              <label className="BomLabel">{t("Postal Code")}e</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -350,7 +350,7 @@ const Dispatch = (props) => {
         <span className="seller_title">{t("Place of inspection")}</span>
         <div>
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            Add or select an inspection location
+            {t("Add or select an inspection location")}
           </label>
           <Select
             name="InspectionPlace"
@@ -362,7 +362,7 @@ const Dispatch = (props) => {
             className="countrydropdown"
           >
             <MenuItem disabled value="default">
-              Place of inspection
+              {t("Place of inspection")}
             </MenuItem>
             {props?.places?.map((item) => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
@@ -383,10 +383,10 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Company Name")}</label>
+            <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="Company Name"
+              placeholder={typeof t("Company name")}
               name="companyName"
               value={props?.step3?.placeOfInspection?.companyName}
               onChange={(e) => {
@@ -396,7 +396,7 @@ const Dispatch = (props) => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">Country</label>
+            <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
               name="CountryId"
@@ -407,7 +407,7 @@ const Dispatch = (props) => {
               }}
             >
               <MenuItem disabled value={"default"}>
-                Select a Country
+                {t("Select a Country")}
               </MenuItem>
               {props?.countries?.map((item) => {
                 return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
@@ -457,7 +457,7 @@ const Dispatch = (props) => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">Postel Code</label>
+              <label className="BomLabel">{t("Postal Code")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -484,10 +484,10 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("contact last name")}</label>
+            <label className="BomLabel">{t("Contact last name")}</label>
             <InputField
               className="company_name_input"
-              placeholder="contact name"
+              placeholder={t("Contact name")}
               name="contactLastName"
               value={props?.step3?.placeOfInspection?.contactLastName}
               onChange={(e) => {
@@ -496,10 +496,10 @@ const Dispatch = (props) => {
             />
           </div>
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("contact first name")}</label>
+            <label className="BomLabel">{t("Contact first name")}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("contact first name")}
+              placeholder={t("Contact first name")}
               name="contactFirstName"
               value={props?.step3?.placeOfInspection?.contactFirstName}
               onChange={(e) => {

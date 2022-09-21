@@ -50,7 +50,7 @@ const ForgetPassword = () => {
         }
       })
       .catch((err) => {
-        toast.error("Email does not exist");
+        toast.error(t("Email does not exist"));
         setFlag(false);
       });
     setFlag(!flag);
@@ -61,7 +61,7 @@ const ForgetPassword = () => {
       values: {
         ...formState.values,
         [event.target.name]: event.target.value,
-      }
+      },
     }));
   };
   const handleBlur = (e) => {
@@ -72,10 +72,9 @@ const ForgetPassword = () => {
       ...formState,
       errors: errors ?? {},
       touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
-
-    }))
-  }
+      isValid: errors ? false : true,
+    }));
+  };
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
@@ -93,18 +92,20 @@ const ForgetPassword = () => {
           <div className="login_icon_div">
             <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: "5px" }} />
             <br />
-            <h2 className="login_h2">Forgot your password ?</h2>
-            <p className="forget_p">Please enter your email address to reset your password</p>
+            <h2 className="login_h2">{t("Forgot your password ?")}</h2>
+            <p className="forget_p">
+              {t("Please enter your email address to reset your password")}
+            </p>
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
             <InputField
-              label="E-mail address"
+              label={t("E-mail address")}
               isError={hasError("email")}
               error={formState.errors.email}
               name="email"
               onBlur={(e) => handleBlur(e)}
-              // role="presentation" 
+              // role="presentation"
               autoComplete="off"
               type="text"
               placeholder={t("E-mail address")}
@@ -117,14 +118,14 @@ const ForgetPassword = () => {
               <Button
                 className={!formState.isValid ? "logingbtn_disabled" : "logingbtn"}
                 onClick={handleResetPassword}
-                text="Reset Password"
+                text={t("Reset Password")}
                 disabled={!formState.isValid ? true : false}
               />
             </div>
           ) : (
             <div className="requestSuccess-div">
               <button className="regBtn" style={{ cursor: "default !important" }}>
-                Request made successfully
+                {t("Request made successfully")}
               </button>
             </div>
           )}
@@ -132,7 +133,7 @@ const ForgetPassword = () => {
             <Button
               className={flag ? "logingbtn" : "regBtn"}
               onClick={handleResetPassword}
-              text="resend again"
+              text={t("Resend again")}
               disabled={!flag || formState?.values?.email === "" ? true : false}
             />
           </div>

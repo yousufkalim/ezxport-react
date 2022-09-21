@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Modal from '../Common/Modal';
-import InputField from '../Common/InputField';
-import Button from '../Common/Button';
-import API from '../../api/index';
-import { toast } from 'react-toastify';
-import DeleteIcon from '../../assets/DeleteIcon.svg';
-import validate from 'validate.js';
+import React, { useState, useEffect } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import Modal from "../Common/Modal";
+import InputField from "../Common/InputField";
+import Button from "../Common/Button";
+import API from "../../api/index";
+import { toast } from "react-toastify";
+import DeleteIcon from "../../assets/DeleteIcon.svg";
+import validate from "validate.js";
 import { useTranslation, Trans } from "react-i18next";
-import { getSortedData } from '../../lib/getSortedData';
-import downArrow from '../../assets/TitleDownArrow.svg';
-import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from "../../lib/getSortedData";
+import downArrow from "../../assets/TitleDownArrow.svg";
+import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../Common/Spinner";
-import ConfirmModal from '../Common/ConfirmModal';
+import ConfirmModal from "../Common/ConfirmModal";
 
 const schema = {
   name: {
@@ -46,7 +46,6 @@ const AdminTab2 = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [docId, setDocId] = useState("");
 
-
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
@@ -63,7 +62,7 @@ const AdminTab2 = (props) => {
         console.log("handleAddDocuments", res);
         props.handleCountryData();
         props.setOpenAddDocument(false);
-        toast.success("Document Added Successfully");
+        toast.success(t("Document Added Successfully"));
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -99,7 +98,7 @@ const AdminTab2 = (props) => {
         props.handleCountryData();
         setOpenModal(false);
         setDocId("");
-        toast.success("Document Deleted Successfully");
+        toast.success(t("Document Deleted Successfully"));
       })
       .catch((err) => {
         console.log(err);
@@ -126,28 +125,39 @@ const AdminTab2 = (props) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 Documents
-                {
-                  !sort.ascend ? (
-                    <img className='sorting-icon' onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', true)} src={arrow_up} alt="" />
-                  ) : (
-                    <img onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', false)} src={downArrow} alt="" />
-                  )
-                }
+                {!sort.ascend ? (
+                  <img
+                    className="sorting-icon"
+                    onClick={() =>
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)
+                    }
+                    src={arrow_up}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    onClick={() =>
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)
+                    }
+                    src={downArrow}
+                    alt=""
+                  />
+                )}
               </TableCell>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 {t("Help Information")} <img src={props.img} alt="" />
               </TableCell>
               <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                Actions <img src={props.img} alt="" />
+                {t("Actions")} <img src={props.img} alt="" />
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.rows.map((row, index) => (
               <TableRow key={index}>
-                <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
+                <TableCell style={{ width: "20%" }} component="th" scope="row" sx={{ padding: 2 }}>
                   <p className="AP_plus_title">{row?.name}</p>
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{ padding: 2 }}>
@@ -170,7 +180,11 @@ const AdminTab2 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleDocumentDelete(docId)}
+      />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}

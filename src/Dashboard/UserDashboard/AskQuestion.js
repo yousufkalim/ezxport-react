@@ -42,7 +42,7 @@ const AskQuestion = () => {
           setLoading(false);
         })
         .catch((err) => {
-          toast.error("Something went wrong");
+          toast.error(t("Something went wrong"));
         });
     } catch (err) {
       toast.error(err.message);
@@ -76,7 +76,7 @@ const AskQuestion = () => {
         setSubmitLoading(false);
       })
       .catch((err) => {
-        toast.err("Something went wrong");
+        toast.err(t("Something went wrong"));
         setSubmitLoading(false);
       });
   };
@@ -90,14 +90,14 @@ const AskQuestion = () => {
           <div className="list_second_div">
             {/* list head  */}
             <div className="List_heading_div">
-              <h1 className="list_h1">Ask a question</h1>
+              <h1 className="list_h1">{t("Ask a question")}</h1>
             </div>
             {/* list table   */}
             <div className="question_form">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <label htmlFor="" className="question_label">
-                    Your question is related to
+                    {t("Your question is related to")}
                   </label>
                   <Select
                     id="demo-simple-select"
@@ -107,14 +107,14 @@ const AskQuestion = () => {
                     style={{ paddingTop: "3px" }}
                   >
                     {questions.map(({ title }) => (
-                      <MenuItem value={title}>{title}</MenuItem>
+                      <MenuItem value={title}>{t(title)}</MenuItem>
                     ))}
                   </Select>
                   <br />
                 </FormControl>
                 <FormControl fullWidth>
                   <label htmlFor="" className="question_label">
-                    Select request
+                    {t("Select request")}
                   </label>
                   <Select
                     id="demo-simple-select"
@@ -139,7 +139,7 @@ const AskQuestion = () => {
                     aria-label="minimum height"
                     minRows={10}
                     value={formData.description}
-                    placeholder="Description of your request"
+                    placeholder={t("Description of your request")}
                     style={{ padding: "10px", borderRadius: "7px" }}
                   />
                   <br />
@@ -149,7 +149,7 @@ const AskQuestion = () => {
                   onClick={(e) => submitHandler(e)}
                   className="quiz_btn"
                 >
-                  Ask the question
+                  {t("Ask the question")}
                 </button>
               </Box>
             </div>

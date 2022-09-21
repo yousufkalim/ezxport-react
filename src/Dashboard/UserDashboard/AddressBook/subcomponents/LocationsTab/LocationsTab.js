@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TitleDownArrow from '../../../../../assets/TitleDownArrow.svg';
-import InputField from '../../../../../components/Common/InputField';
-import API from '../../../../../api/index';
-import { toast } from 'react-toastify';
-import { validate } from 'validate.js';
-import Modal from '../../../../../components/Common/Modal';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import EditIcon from '../../../../../assets/EditIcon.svg';
-import Spinner from '../../../../../components/Common/Spinner';
-import Button from '../../../../../components/Common/Button';
+import React, { useEffect, useState } from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
+import InputField from "../../../../../components/Common/InputField";
+import API from "../../../../../api/index";
+import { toast } from "react-toastify";
+import { validate } from "validate.js";
+import Modal from "../../../../../components/Common/Modal";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import EditIcon from "../../../../../assets/EditIcon.svg";
+import Spinner from "../../../../../components/Common/Spinner";
+import Button from "../../../../../components/Common/Button";
 import { useTranslation, Trans } from "react-i18next";
-import downArrow from '../../../../../assets/TitleDownArrow.svg';
-import arrow_up from '../../../../../assets/arrow_up.svg';
+import downArrow from "../../../../../assets/TitleDownArrow.svg";
+import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 
-
 const title = [
-  { heading: "Company Name", sortIcon: true, key: 'company_name', imgSrc: TitleDownArrow },
+  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -37,7 +36,7 @@ const schema = {
   companyName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
-      maximum: 64
+      maximum: 64,
     },
   },
   country: {
@@ -46,7 +45,7 @@ const schema = {
   email: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 64 },
-    email: true
+    email: true,
   },
   address: {
     presence: { allowEmpty: false, message: "is required" },
@@ -70,16 +69,25 @@ const schema = {
   firstName: {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 64 },
-  }
-}
+  },
+};
 
 const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
-
   const [formState, setFormState] = useState({
     isValid: false,
-    values: { companyName: '', firstName: '', lastName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: '' },
+    values: {
+      companyName: "",
+      firstName: "",
+      lastName: "",
+      country: "",
+      email: "",
+      telephone: "",
+      address: "",
+      zipcode: "",
+      town: "",
+    },
     errors: {},
-    touched: {}
+    touched: {},
   });
 
   const [locations, setLocations] = useState([]);
@@ -90,30 +98,32 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
 
   useEffect(() => {
     fetchLocations();
-  }, [])
+  }, []);
 
   const fetchLocations = () => {
     setLoading(true);
-    API('put', `/places/getByUser/${userId}`).then((res) => {
-      setLocations(res.data.place);
-      setLoading(false);
-    }).catch((err) => {
-      toast.error('Something went wrong');
-      setLoading(false);
-    })
-  }
+    API("put", `/places/getByUser/${userId}`)
+      .then((res) => {
+        setLocations(res.data.place);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(t("Something went wrong"));
+        setLoading(false);
+      });
+  };
 
   const countryHandler = (e) => {
     setFormState((state) => ({
       ...state,
-      values: { ...state.values, country: e.target.value }
-    }))
+      values: { ...state.values, country: e.target.value },
+    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState({ ...formState, values: { ...formState.values, [name]: value } })
-  }
+    setFormState({ ...formState, values: { ...formState.values, [name]: value } });
+  };
 
   const handleOpenModal = (edit, item) => {
     setLocation(item);
@@ -121,13 +131,17 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
     setOpen(true);
 
     if (item) {
-      const { company_name,
+      const {
+        company_name,
         email,
         country,
         city,
         phone_number,
         zipcode,
-        address, contact_fname, contact_lname } = item;
+        address,
+        contact_fname,
+        contact_lname,
+      } = item;
       const values = {
         companyName: company_name,
         email,
@@ -137,11 +151,11 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
         zipcode,
         address,
         firstName: contact_fname,
-        lastName: contact_lname
-      }
-      setFormState({ ...formState, values: { ...values }, isValid: true })
+        lastName: contact_lname,
+      };
+      setFormState({ ...formState, values: { ...values }, isValid: true });
     }
-  }
+  };
 
   const handleBlur = (e) => {
     e.preventDefault();
@@ -151,10 +165,9 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
       ...formState,
       errors: errors ?? {},
       touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true
-
-    }))
-  }
+      isValid: errors ? false : true,
+    }));
+  };
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -162,36 +175,46 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
       setIsEdit(false);
       resetForm();
       setLocation(null);
-    }, 500)
-  }
+    }, 500);
+  };
 
   const resetForm = () => {
     setFormState({
       isValid: false,
-      values: { companyName: '', country: '', email: '', telephone: '', address: '', zipcode: '', town: '', firstName: '', lastName: '' },
+      values: {
+        companyName: "",
+        country: "",
+        email: "",
+        telephone: "",
+        address: "",
+        zipcode: "",
+        town: "",
+        firstName: "",
+        lastName: "",
+      },
       errors: {},
-      touched: {}
-    })
-  }
+      touched: {},
+    });
+  };
 
   const createLocation = async (data) => {
     await API("post", "/places", data)
       .then((res) => {
-        toast.success("Inspection location addedd successfully!");
+        toast.success(t("Inspection location addedd successfully!"));
         setOpen(false);
         fetchLocations();
       })
-      .catch((err) => toast.success("Something went wrong!"));
+      .catch((err) => toast.success(t("Something went wrong!")));
   };
 
   const editLocation = async (data) => {
     await API("put", `/places/${location._id}`, data)
       .then((res) => {
-        toast.success("Inspection location updated successfully!");
+        toast.success(t("Inspection location updated successfully!"));
         handleCloseModal();
         fetchLocations();
       })
-      .catch((err) => toast.success("Something went wrong!"));
+      .catch((err) => toast.success(t("Something went wrong!")));
   };
 
   const handleSubmit = (e) => {
@@ -232,8 +255,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
   const MODAL_TITLE = isEdit
     ? "Edit inspection location"
     : location
-      ? "View inspection location"
-      : "Add inspection location";
+    ? "View inspection location"
+    : "Add inspection location";
 
   return (
     <>
@@ -250,13 +273,40 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       {t(item.heading)} &nbsp;
-                      {
-                        item.sortIcon && !sort.ascend && sort.key === item.key ? (
-                          <img className='sorting-icon' onClick={() => getSortedData(locations, setLocations, setSort, [], 'company_name', true)} src={arrow_up} alt="" />
-                        ) : item.sortIcon && (
-                          <img onClick={() => getSortedData(locations, setLocations, setSort, [], 'company_name', false)} src={downArrow} alt="" />
+                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                        <img
+                          className="sorting-icon"
+                          onClick={() =>
+                            getSortedData(
+                              locations,
+                              setLocations,
+                              setSort,
+                              [],
+                              "company_name",
+                              true
+                            )
+                          }
+                          src={arrow_up}
+                          alt=""
+                        />
+                      ) : (
+                        item.sortIcon && (
+                          <img
+                            onClick={() =>
+                              getSortedData(
+                                locations,
+                                setLocations,
+                                setSort,
+                                [],
+                                "company_name",
+                                false
+                              )
+                            }
+                            src={downArrow}
+                            alt=""
+                          />
                         )
-                      }
+                      )}
                     </TableCell>
                   );
                 })}
@@ -313,14 +363,14 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={MODAL_TITLE}
+        title={t(MODAL_TITLE)}
         handleClose={() => handleCloseModal()}
         Closebtn={true}
       >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
-              label="Company Name"
+              label="Company name"
               disabled={!isEdit && location}
               name="companyName"
               onChange={(e) => handleChange(e)}
@@ -328,27 +378,29 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               onBlur={(e) => handleBlur(e)}
               isError={hasError("companyName")}
               error={formState.errors?.companyName}
-              type="text" placeholder="Company 1" />
+              type="text"
+              placeholder="Company 1"
+            />
           </div>
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Select a country")}
+                {t("Select a Country")}
               </label>
               <Select
                 id="demo-simple-select"
                 disabled={!isEdit && location}
-                name='country'
+                name="country"
                 onBlur={(e) => handleBlur(e)}
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
               >
-                {
-                  countries?.map(({ name, _id: id }) => (
-                    <MenuItem key={id} value={id}>{name}</MenuItem>
-                  ))
-                }
+                {countries?.map(({ name, _id: id }) => (
+                  <MenuItem key={id} value={id}>
+                    {name}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </div>
@@ -357,7 +409,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               <div className="input_fields">
                 <InputField
                   label="E-mail address"
-                  name='email'
+                  name="email"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -371,7 +423,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               <div className="input_fields">
                 <InputField
                   label="Telephone"
-                  name='telephone'
+                  name="telephone"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -388,7 +440,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
             <div className="luyer_input_field">
               <InputField
                 label="Address"
-                name='address'
+                name="address"
                 disabled={!isEdit && location}
                 onChange={(e) => handleChange(e)}
                 onBlur={(e) => handleBlur(e)}
@@ -405,7 +457,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               <div className="input_fields">
                 <InputField
                   label="Postal code"
-                  name='zipcode'
+                  name="zipcode"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -419,7 +471,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               <div className="input_fields">
                 <InputField
                   label={t("Town")}
-                  name='town'
+                  name="town"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -436,8 +488,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
             <div className="second_input_field">
               <div className="input_fields">
                 <InputField
-                  name='firstName'
-                  label="First Name"
+                  name="firstName"
+                  label={t("First name")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -450,11 +502,11 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               </div>
               <div className="input_fields">
                 <label htmlFor="" className="buyer_label">
-                  {t("Last Name")}
+                  {t("Last name")}
                 </label>
                 <InputField
-                  name='lastName'
-                  label={t("Last Name")}
+                  name="lastName"
+                  label={t("Last name")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   onBlur={(e) => handleBlur(e)}
@@ -467,9 +519,15 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               </div>
             </div>
           </div>
-          {
-            ((!isEdit && !location) || (isEdit && location)) && <Button text="To Confirm" disabled={!formState.isValid} type='submit' onClick={(e => handleSubmit(e))} className="luyer_button" />
-          }
+          {((!isEdit && !location) || (isEdit && location)) && (
+            <Button
+              text={t("To Confirm")}
+              disabled={!formState.isValid}
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+              className="luyer_button"
+            />
+          )}
         </div>
       </Modal>
     </>

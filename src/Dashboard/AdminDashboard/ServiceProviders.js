@@ -112,13 +112,13 @@ const ServiceProviders = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error("Error while fetching service providers");
+        toast.error(t("Error while fetching service providers"));
         setLoading(false);
       });
   };
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen(false);
   };
 
   // adding service providers in database
@@ -131,17 +131,22 @@ const ServiceProviders = () => {
       countries: id,
     })
       .then((res) => {
-        setSelect([])
+        setSelect([]);
         setFormState({
           isValid: false,
           values: {
-            fullname: "", phone_Number: "", sendingEmail: "", contactEmail: "",
+            fullname: "",
+            phone_Number: "",
+            sendingEmail: "",
+            contactEmail: "",
           },
           errors: {},
-          touched: {}
-        })
+          touched: {},
+        });
         setOpen(false);
-        toast[res?.data?.success ? 'success' : 'error'](res?.data?.message || 'Vendor added successfully');
+        toast[res?.data?.success ? "success" : "error"](
+          res?.data?.message || t("Vendor added successfully")
+        );
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -353,7 +358,7 @@ const ServiceProviders = () => {
             {hasError("phone_Number") ? formState.errors.phone_Number[0] : null}
           </div>
           <label htmlFor="" className="label_modal">
-            Contact email
+            {t("Contact email")}
           </label>{" "}
           <InputField
             name="contactEmail"

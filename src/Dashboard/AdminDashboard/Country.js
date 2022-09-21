@@ -33,7 +33,7 @@ const TITLES = [
   },
   {
     name: "Actions",
-    key: "actions",
+    key: "Actions",
     sortIcon: false,
   },
 ];
@@ -269,7 +269,7 @@ const Country = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error("Error while fetching data!");
+        toast.error(t("Error while fetching data!"));
         setLoading(false);
       });
   };
@@ -286,22 +286,22 @@ const Country = () => {
     })
       .then(() => {
         setOpen(false);
-        toast.success("Country Added Successfully");
+        toast.success(t("Country Added Successfully"));
       })
       .catch((err) => {
-        toast.error("Country already exists");
+        toast.error(t("Country already exists"));
       });
   };
   const handleCountryDelete = async (countryId) => {
     await API("delete", `/countries/${countryId}`)
       .then((res) => {
-        toast.success("Country Deleted Successfully");
+        toast.success(t("Country Deleted Successfully"));
         setOpenModal(false);
         setCountryId("");
         handleCountries();
       })
       .catch((err) => {
-        toast.error("Something went wrong");
+        toast.error(t("Something went wrong"));
       });
   };
 

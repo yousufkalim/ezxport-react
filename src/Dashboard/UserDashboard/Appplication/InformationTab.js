@@ -56,7 +56,7 @@ const InformationTab = (props) => {
       <div className="InformationTab">
         <div className="InformationTab_col">
           <div className="requestDate_tab">
-            <p className="requestData_p">Request date</p>
+            <p className="requestData_p">{t("Request date")}</p>
             <p className="requestData_date">
               {moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}
             </p>
@@ -75,7 +75,7 @@ const InformationTab = (props) => {
             </p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">Inspection date</p>
+            <p className="requestData_p">{t("Inspection date")}</p>
             <p className="requestData_date">
               {moment(props?.userRequest?.inspection_date).format("ll")}
             </p>
@@ -84,13 +84,13 @@ const InformationTab = (props) => {
       </div>
       {/* 3 tab menu  */}
       <div className="expeditions_div">
-        <p className="expeditions_p">Expeditions</p>
+        <p className="expeditions_p">{t("Expeditions")}</p>
       </div>
       <Box sx={{ width: "100%" }}>
         <Box>
           <Tabs value={value} onChange={handleChange}>
-            <Tab className="tab_btn1" label="Seller" {...a11yProps(0)} />
-            <Tab className="tab_btn2" label="Buyer" {...a11yProps(1)} />
+            <Tab className="tab_btn1" label={t("Sellers")} {...a11yProps(0)} />
+            <Tab className="tab_btn2" label={t("BuyersCompany Name")} {...a11yProps(1)} />
             <Tab className="tab_btn3" label={t("Place of inspection")} {...a11yProps(2)} />
           </Tabs>
         </Box>
@@ -111,7 +111,10 @@ const InformationTab = (props) => {
           </div>
         </TabPanel>
       </Box>
-      <ProductLists codes={props?.userRequest?.codes} currency={props?.userRequest?.country?.currency} />
+      <ProductLists
+        codes={props?.userRequest?.codes}
+        currency={props?.userRequest?.country?.currency}
+      />
     </>
   );
 };

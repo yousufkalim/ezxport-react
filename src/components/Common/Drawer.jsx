@@ -10,7 +10,6 @@ import Dialog from "@mui/material/Dialog";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useTranslation, Trans } from "react-i18next";
 
-
 // import DialogActions from "@mui/material/DialogActions";
 // import DialogTitle from "@mui/material/DialogTitle";
 
@@ -40,9 +39,9 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
 
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
-    localStorage.setItem('language', lang);
-  }
-  
+    localStorage.setItem("language", lang);
+  };
+
   return (
     <>
       <div className="dash_menu">
@@ -59,11 +58,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     className={`${isActive && "activeLi"} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
-                    <span
-                      className={`${isActive && "li_img_white"}  li_img `}
-                    >
-                      {item.icon}
-                    </span>
+                    <span className={`${isActive && "li_img_white"}  li_img `}>{item.icon}</span>
                     {t(item?.name)}
                   </Link>
                 </>
@@ -80,11 +75,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     className={`${isActive && "activeLi"} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
-                    <span
-                      className={`${isActive && "li_img_white"}  li_img `}
-                    >
-                      {item.icon}
-                    </span>
+                    <span className={`${isActive && "li_img_white"}  li_img `}>{item.icon}</span>
                     {t(item.name)}
                   </Link>
                 </>
@@ -105,7 +96,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 onClick={() => handleActiveUploadButton(6)}
               >
                 <img src={LILogo5} alt="" className="li_img" />
-                Ask a question
+                {t("Ask a question")}
               </Link>
               <Link
                 exact
@@ -114,7 +105,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 onClick={() => handleActiveUploadButton(7)}
               >
                 <img src={LILogo6} alt="" className="li_img" />
-                Account
+                {t("Account")}
               </Link>
             </>
           ) : (
@@ -137,13 +128,13 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
             </div>
             <p className="user_mail">{user.email}</p>
             <div className="languages-container">
-              <img src={english} onClick={() => changeLanguage('en')} />
-              <img src={french} onClick={() => changeLanguage('fr')} />
+              <img src={english} onClick={() => changeLanguage("en")} />
+              <img src={french} onClick={() => changeLanguage("fr")} />
             </div>
           </div>
         </ul>
       </div>
-      
+
       {/* logout popup  */}
       <div>
         <Dialog

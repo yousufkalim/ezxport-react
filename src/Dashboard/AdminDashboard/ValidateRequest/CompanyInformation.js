@@ -143,7 +143,7 @@ const ValidateForm = (props) => {
                     <div className="userdetail_textField_div2">
                       <div className="postel_input">
                         <label htmlFor="" className="label_modal">
-                          Code postal
+                          {t("Postal code")}
                         </label>{" "}
                         <InputField
                           className="userdetail_textField_row"

@@ -16,7 +16,6 @@ function createData(name, calories, fat, carbs, protein, protein2) {
 }
 
 const AdminTab4 = (props) => {
-
   const [thresholdCurrency, setThresholdCurrency] = useState(
     props?.calculation?.min_threshold?.currency
   );
@@ -43,9 +42,9 @@ const AdminTab4 = (props) => {
       .then((res) => {
         console.log("handleCoefficientChange", res);
         props.setOpenCalculationModal(false);
-        props.handleCountryData()
-        setCoefficientChange(res?.data?.calculation)
-        toast.success("Coefficient Updated Successfully");
+        props.handleCountryData();
+        setCoefficientChange(res?.data?.calculation);
+        toast.success(t("Coefficient Updated Successfully"));
       })
       .catch((err) => {
         console.log("handleCoefficientChange", err);
@@ -62,10 +61,10 @@ const AdminTab4 = (props) => {
     })
       .then((res) => {
         console.log("handleAddCoefficient", res);
-        props.handleCountryData()
-        setCoefficientChange(res?.data?.calculation)
+        props.handleCountryData();
+        setCoefficientChange(res?.data?.calculation);
         props.setOpenCalculationModal(false);
-        toast.success("Coefficient Added Successfully");
+        toast.success(t("Coefficient Added Successfully"));
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -118,10 +117,15 @@ const AdminTab4 = (props) => {
       </div>
 
       {props.currentRadioValue === "range" ? (
-        <CalculationRange id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} currency={props.currency} />
+        <CalculationRange
+          id={props?.calculation?._id}
+          CountryId={props.countryId}
+          Calculation={props.calculation}
+          currency={props.currency}
+        />
       ) : (
         props.currentRadioValue === "coefficient" && (
-            <CalculationCoefficient coefficientChange={coefficientChange} currency={props.currency} />
+          <CalculationCoefficient coefficientChange={coefficientChange} currency={props.currency} />
         )
       )}
 

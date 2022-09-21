@@ -2,8 +2,12 @@ import React from "react";
 import ChangedPIcon from "../assets/ChangedPIcon.svg";
 import Header from "../components/Common/Header";
 import { useHistory } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
 const ChangeSuccessfully = ({ setResetPassword }) => {
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
+
   const history = useHistory(null);
   const handleToLogin = () => {
     setResetPassword(false);
@@ -18,14 +22,19 @@ const ChangeSuccessfully = ({ setResetPassword }) => {
 
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
-            <img src={ChangedPIcon} alt="" className="login_icons" style={{ paddingBottom: "5px" }} />
+            <img
+              src={ChangedPIcon}
+              alt=""
+              className="login_icons"
+              style={{ paddingBottom: "5px" }}
+            />
             <br />
-            <h2 className="login_h2">Password changed successfully</h2>
+            <h2 className="login_h2">{t("Password changed successfully")}</h2>
           </div>
 
           {/* login button  */}
           <button onClick={handleToLogin} className="logingbtn" type="button">
-            To log in
+            {t("To log in")}
           </button>
         </div>
       </div>

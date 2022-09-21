@@ -110,7 +110,6 @@ const AdminTab3 = (props) => {
         },
       }));
     }
-
   };
   const handleUpdateBomChange = (event) => {
     if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
@@ -140,7 +139,7 @@ const AdminTab3 = (props) => {
       .then((res) => {
         props.handleCountryData();
         setOpen(false);
-        toast.success("BOMs updated successfully");
+        toast.success(t("BOMs updated successfully"));
       })
       .catch((err) => {
         console.log("handleBomUpdate", err);
@@ -153,7 +152,7 @@ const AdminTab3 = (props) => {
         props.handleCountryData();
         setBomId("");
         setOpenModal(false);
-        toast.success("BOMs deleted successfully");
+        toast.success(t("BOMs deleted successfully"));
       })
       .catch((err) => {
         console.log("handleBomDelete", err);
@@ -245,13 +244,13 @@ const AdminTab3 = (props) => {
             countries: false,
           },
         }));
-        toast.success("BOMs added successfully");
+        toast.success(t("BOMs added successfully"));
       })
       .catch((err) => {
         console.log("handleAddBom", err);
-        setNewCertificate_status("default")
+        setNewCertificate_status("default");
         props.setOpenAddBomModal(false);
-        toast.error(err?.response?.data?.message)
+        toast.error(err?.response?.data?.message);
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -313,25 +312,28 @@ const AdminTab3 = (props) => {
                 )}
               </TableCell>
 
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>Actions</TableCell>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                {t("Actions")}
+              </TableCell>
             </TableRow>
           </TableHead>
-          {
-            loading ? <Spinner /> : (
-              <TableBody>
-                {props.rows.map((row) => (
-                  <TableRow key={row.createData}>
-                    <TableCell
-                      // style={{ width: "20%" }}
-                      component="th"
-                      scope="row"
-                      sx={{ padding: 2 }}
-                      align="left"
-                    >
-                      <p className="AP_plus_title">{row.code}</p>
-                    </TableCell>
-                    <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
-                      {/* <p
+          {loading ? (
+            <Spinner />
+          ) : (
+            <TableBody>
+              {props.rows.map((row) => (
+                <TableRow key={row.createData}>
+                  <TableCell
+                    // style={{ width: "20%" }}
+                    component="th"
+                    scope="row"
+                    sx={{ padding: 2 }}
+                    align="left"
+                  >
+                    <p className="AP_plus_title">{row.code}</p>
+                  </TableCell>
+                  <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
+                    {/* <p
                         style={{
                           background: "#ECFDF3",
                           borderRadius: "16px",
@@ -340,43 +342,43 @@ const AdminTab3 = (props) => {
                           color: "#027A48",
                         }}
                       ></p> */}
-                      {row.certification_required === true ? (
-                        <p
-                          style={{
-                            background: "#ECFDF3",
-                            borderRadius: "16px",
-                            display: "inline-block",
-                            padding: "2px 5px",
-                            color: "#027A48",
-                          }}
-                        >
-                          {t("Subject to inspection")}
-                        </p>
-                      ) : (
-                        <p
-                          style={{
-                            background: "#FFFAEB",
-                            borderRadius: "16px",
-                            display: "inline-block",
-                            padding: "2px 5px",
-                            color: "#B54708",
-                          }}
-                        >
-                          {t("Not subject")}
-                        </p>
-                      )}
-                    </TableCell>
-                    <TableCell align="left" className="country2">
-                      <img
-                        src={DeleteIcon}
-                        alt=""
-                        className="dltIcon"
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          setBomId(row._id);
-                          setOpenModal(true);
+                    {row.certification_required === true ? (
+                      <p
+                        style={{
+                          background: "#ECFDF3",
+                          borderRadius: "16px",
+                          display: "inline-block",
+                          padding: "2px 5px",
+                          color: "#027A48",
                         }}
-                      />
+                      >
+                        {t("Subject to inspection")}
+                      </p>
+                    ) : (
+                      <p
+                        style={{
+                          background: "#FFFAEB",
+                          borderRadius: "16px",
+                          display: "inline-block",
+                          padding: "2px 5px",
+                          color: "#B54708",
+                        }}
+                      >
+                        {t("Not subject")}
+                      </p>
+                    )}
+                  </TableCell>
+                  <TableCell align="left" className="country2">
+                    <img
+                      src={DeleteIcon}
+                      alt=""
+                      className="dltIcon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setBomId(row._id);
+                        setOpenModal(true);
+                      }}
+                    />
 
                     <img
                       src={EditIcon}
@@ -446,11 +448,7 @@ const AdminTab3 = (props) => {
           /> */}
           <Button
             text={t("Update")}
-            className={
-              updateBomCode.isValid 
-                ? "add_vendor_button"
-                : "add_vendor_button_disabled"
-            }
+            className={updateBomCode.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
             disabled={!updateBomCode.isValid ? true : false}
             onClick={() => handleBomUpdate(data._id)}
           />
@@ -512,11 +510,7 @@ const AdminTab3 = (props) => {
                 : "add_vendor_button_disabled"
             }
             onClick={handleAddBom}
-            disabled={
-              !formState.isValid || newCertificate_status === "default"
-                ? true
-                : false
-            }
+            disabled={!formState.isValid || newCertificate_status === "default" ? true : false}
           />
         </div>
       </Modal>
