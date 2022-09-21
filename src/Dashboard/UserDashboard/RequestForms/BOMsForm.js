@@ -22,10 +22,13 @@ import Select from "@mui/material/Select";
 import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
-import ConfirmModal from "../../../components/Common/ConfirmModal"
+import ConfirmModal from "../../../components/Common/ConfirmModal";
+import { Store } from "../../../StoreContext";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
+  const { step1, setStep1, setMatchedData } = props;
+
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [verificationModal, setVerificationModal] = useState(false);
@@ -38,10 +41,45 @@ const BOMsForm = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [bomId, setBomId] = useState("");
 
-  const fileRef = useRef(null);
+  const { request, pastRequest } = Store();
+
+  console.log("Request data ", request);
+
+  useEffect(() => {
+    if (pastRequest) {
+      getSetData();
+    }
+  }, [request]);
+
+  const getSetData = () => {
+    const { title, country, codes } = request;
+    const countryId = country?._id;
+    // handleTitle(countryId);
+    const matched = getMatchedCodes(codes);
+    setStep1({ ...step1, country: countryId });
+    setMatchedData(matched);
+  };
+
+  const getMatchedCodes = (codes) => {
+    const newCodes = [];
+    codes?.forEach((item) => {
+      const { monetary_value } = item;
+      const { code, _id: codeID, certification_required } = item.code;
+      const codeObj = {
+        monetary_value,
+        code,
+        codeID,
+        certification_required,
+      };
+      newCodes.push(codeObj);
+    });
+    return newCodes;
+  };
+
+  console.log("Matched ", props.matchedData);
 
   const handleAllRequestByCountryId = async () => {
-    await API("get", `/requests/getByCountry/${props?.step1?.country}`)
+    await API("get", `/requests/getByCountry/${step1?.country}`)
       .then((res) => {
         setRequestByCountry(res?.data?.request);
       })
@@ -51,12 +89,12 @@ const BOMsForm = (props) => {
   };
   useEffect(() => {
     handleAllRequestByCountryId();
-  }, [props?.step1?.country]);
+  }, [step1?.country]);
   useEffect(() => {
-    if (props?.step1?.country !== "") {
-      handleTitle();
+    if (step1?.country !== "") {
+      handleTitle(step1.country);
     }
-  }, [props?.step1?.country]);
+  }, [step1?.country]);
 
   const handleEditModal = () => setOpenEditModal(false);
   const handleCertificateRequire = () => props.setCertificateRequire(false);
@@ -82,7 +120,7 @@ const BOMsForm = (props) => {
       certification_required: code?.certification_required,
     });
     let filtered = props.unMatchedData.filter((item) => {
-      return item?.code !== code.code;
+      return item?.bom?.code !== code.code;
     });
     props.setUnMatchedData(filtered);
     setCode("default");
@@ -96,9 +134,10 @@ const BOMsForm = (props) => {
       setImportedFile(file);
       let formData = new FormData();
       formData.append("file", file);
-      formData.append("country", `${props.step1.country}`); //country ID
+      formData.append("country", `${step1.country}`); //country ID
       await API("post", "/boms/filterCodes", formData)
         .then((res) => {
+          console.log("🚀 ~ file: BOMsForm.js ~ line 120 ~ .then ~ res", res);
           setLoading(false);
           let arr1 = [];
           res?.data?.matchedData.map((item) => {
@@ -110,7 +149,7 @@ const BOMsForm = (props) => {
             });
           });
 
-          props?.setMatchedData([...props.matchedData, ...arr1]);
+          props?.setMatchedData([...arr1]);
           props?.setUnMatchedData(res?.data?.unMatched);
           props.setUnMatchedCodes(res?.data?.unMatched);
         })
@@ -132,7 +171,7 @@ const BOMsForm = (props) => {
     let filtered = matchedData.filter((item) => {
       return item.codeID !== code.codeID;
     });
-    if (findCode && findCode.certification_required) {
+    if (findCode && findCode.certification_required && !pastRequest) {
       setUnMatchedData([...unMatchedData, findCode]);
     }
     // if(props.matchedData.length === 1){
@@ -144,7 +183,7 @@ const BOMsForm = (props) => {
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
       userId: user._id,
-      countryId: props?.step1?.country,
+      countryId: step1.country,
     })
       .then((res) => {
         props.handleChange("title", (res?.data?.tile).toUpperCase());
@@ -155,7 +194,7 @@ const BOMsForm = (props) => {
   };
   const handleSearchTitle = async () => {
     await API("post", "/requests/searchName/", {
-      title: props?.step1?.title,
+      title: step1?.title,
     })
       .then((res) => {
         props.handleChange("title", res?.data?.tile);
@@ -182,13 +221,14 @@ const BOMsForm = (props) => {
         <Select
           name="country"
           id="demo-simple-select"
-          defaultValue={"123"}
+          // defaultValue={"default"}
+          value={step1?.country || "default"}
           onChange={(e) => {
             props?.handleChange(e.target.name, e.target.value);
           }}
           className="countrydropdown"
         >
-          <MenuItem disabled value="123">
+          <MenuItem disabled value="default">
             Select a Country
           </MenuItem>
           {props?.countries?.map((item) => {
@@ -221,7 +261,7 @@ const BOMsForm = (props) => {
             props.handleChange(e.target.name, e.target.value);
           }}
           onBlur={handleSearchTitle}
-          value={props.step1.title}
+          value={step1.title}
         />
 
         <div className="ProductList_boms" style={{ display: "flex" }}>
@@ -282,7 +322,7 @@ const BOMsForm = (props) => {
               Select a Code
             </MenuItem>
             {props?.unMatchedData?.map((item) => {
-              return <MenuItem value={item}>{item?.code}</MenuItem>;
+              return <MenuItem value={item?.bom}>{item?.bom?.code}</MenuItem>;
             })}
           </Select>
         </div>

@@ -155,6 +155,7 @@ const DocumentsTab = ({ userRequest }) => {
       })
     })
   }
+
   return (
     <>
       {userRequest?.missing_docs?.length !== 0 ? (

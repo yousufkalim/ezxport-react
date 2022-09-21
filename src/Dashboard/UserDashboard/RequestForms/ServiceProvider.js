@@ -3,6 +3,7 @@ import InputField from "../../../components/Common/InputField";
 import API from "../../../api/index";
 import { Grid } from "@mui/material";
 import { useTranslation, Trans } from "react-i18next";
+import { Store } from "../../../StoreContext";
 import validate from "validate.js";
 
 const schema = {
@@ -26,11 +27,12 @@ const schema = {
 };
 
 const ServiceProvider = (props) => {
+  const { request, pastRequest } = Store();
   const [vendors, setVendors] = useState([]);
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-  const {step2, setFormState} = props;
+  const { step2, setFormState, setStep2 } = props;
 
   useEffect(() => {
     const errors = validate(step2.values, schema);
@@ -40,6 +42,22 @@ const ServiceProvider = (props) => {
       errors: errors || {},
     }));
   }, [step2.values]);
+  useEffect(() => {
+    if (pastRequest) {
+      SetVendorData();
+    }
+  }, [request]);
+
+  const SetVendorData = () => {
+    const { vendor } = request;
+    const { contact_email, contact_fname, contact_lname } = vendor;
+    const vendorId = vendor?.vendor?._id;
+
+    setStep2({
+      ...step2,
+      values: { ...step2.values, vendorId: vendorId, lastName: contact_lname, firstName: contact_fname, email: contact_email },
+    });
+  };
 
   const VendorByCountryId = async () => {
     await API("get", `/vendors/getByCountryId/${props.countryId}`)
@@ -67,12 +85,14 @@ const ServiceProvider = (props) => {
       <Grid container spacing={2} sx={{ marginTop: "4rem" }}>
         {vendors?.map((item) => {
           return (
-            <Grid item xs={6} className="vendors_div">
+            <Grid item xs={6} className="vendors_div" key={item?._id}>
               <input
                 type={"radio"}
-                value={item._id}
+                value={item?._id}
+                checked={item?._id === step2?.values?.vendorId}
                 name="vendorId"
                 onChange={(e) => {
+                  console.log("e.target.value", e.target.value);
                   props.handleChange(e.target.name, e.target.value);
                 }}
               />
@@ -91,9 +111,7 @@ const ServiceProvider = (props) => {
             props.handleChange(e.target.name, e.target.checked);
           }}
         />
-        <span className="check_company_p">
-          Do you have contact information for this certification company?
-        </span>
+        <span className="check_company_p">Do you have contact information for this certification company?</span>
       </div>
       {step2.values?.contactInfo ? (
         <>
@@ -105,6 +123,7 @@ const ServiceProvider = (props) => {
                 isError={hasError("lastName")}
                 error={step2.errors.lastName}
                 placeholder="Last Name"
+                value={step2?.values?.lastName}
                 name="lastName"
                 onChange={(e) => {
                   props.handleChange(e.target.name, e.target.value);
@@ -116,6 +135,7 @@ const ServiceProvider = (props) => {
               <InputField
                 placeholder="First Name"
                 isError={hasError("firstName")}
+                value={step2?.values?.firstName}
                 error={step2.errors.firstName}
                 className="last_name_input"
                 name="firstName"
@@ -131,6 +151,7 @@ const ServiceProvider = (props) => {
               className="last_name_input"
               isError={hasError("email")}
               error={step2.errors.email}
+              value={step2?.values?.email}
               placeholder="mail@mail.com"
               name="email"
               onChange={(e) => {

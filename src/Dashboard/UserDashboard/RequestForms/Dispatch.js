@@ -6,6 +6,7 @@ import DatePicker from "../../../components/Common/DatePicker";
 // import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { validate } from "validate.js";
+import { Store } from "../../../StoreContext";
 import moment from "moment";
 
 const inspectionSchema = {
@@ -36,13 +37,13 @@ const inspectionSchema = {
   },
   contactLastName: {
     presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64},
+    length: { maximum: 64 },
   },
   contactFirstName: {
     presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64},
-  }
-}
+    length: { maximum: 64 },
+  },
+};
 
 const sellerSchema = {
   companyName: {
@@ -76,7 +77,7 @@ const sellerSchema = {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 10, minimum: 10 },
   },
-}
+};
 
 const buyerSchema = {
   companyName: {
@@ -110,16 +111,135 @@ const buyerSchema = {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 10, minimum: 10 },
   },
-}
+};
 
 const Dispatch = (props) => {
-  const {step3, setStep3} = props;
-  const {buyerData, sellerData, placeOfInspection} = props.step3;
+  const { step3, setStep3, stepHanlder } = props;
+  const { buyerData, sellerData, placeOfInspection } = props.step3;
   const sellerValues = sellerData.values;
   const buyerValues = buyerData.values;
   const placeValues = placeOfInspection.values;
-  const {values} = step3.placeOfInspection;
+  const { values } = step3.placeOfInspection;
   const { t } = useTranslation();
+  const { request, pastRequest } = Store();
+
+  useEffect(() => {
+    const { placeOfInspection } = step3;
+    const errors = validate(placeOfInspection.values, inspectionSchema);
+    setStep3({ ...step3, placeOfInspection: { ...placeOfInspection, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.placeOfInspection.values]);
+
+  useEffect(() => {
+    const { sellerData } = step3;
+    const errors = validate(sellerData.values, sellerSchema);
+    setStep3({ ...step3, sellerData: { ...sellerData, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.sellerData.values]);
+
+  useEffect(() => {
+    const { buyerData } = step3;
+    const errors = validate(buyerData.values, buyerSchema);
+    setStep3({ ...step3, buyerData: { ...buyerData, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.buyerData.values]);
+
+  useEffect(() => {
+    handleSelectedSeller();
+  }, [props?.step3?.sellerData.seller]);
+
+  useEffect(() => {
+    handleSelectedBuyer();
+  }, [props?.step3?.buyerData?.buyer]);
+  useEffect(() => {
+    handleSelectedPlace();
+  }, [placeOfInspection?.values.InspectionPlace]);
+
+  useEffect(() => {
+    if (pastRequest) {
+      getData();
+    }
+  }, [request]);
+
+  const getData = () => {
+    setSeller();
+    setBuyer();
+    setPlace();
+  };
+
+  const setSeller = () => {
+    console.log("request", request);
+    const { seller } = request;
+    const { address, city, company_name, email, phone_number, zipcode, country, _id } = seller;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      sellerData: {
+        ...prev.sellerData,
+        values: {
+          ...prev.sellerData.values,
+          seller: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+        },
+      },
+    }));
+  };
+
+  const setBuyer = () => {
+    const { buyer } = request;
+    const { address, city, company_name, email, phone_number, zipcode, country, _id } = buyer;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      buyerData: {
+        ...prev.buyerData,
+        values: {
+          ...prev.buyerData.values,
+          buyer: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+        },
+      },
+    }));
+  };
+
+  const setPlace = () => {
+    const { place } = request;
+    const { inspection_date } = request;
+
+    const { address, city, company_name, email, phone_number, zipcode, country, contact_fname, contact_lname, _id } = place;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      placeOfInspection: {
+        ...prev.placeOfInspection,
+        values: {
+          ...prev.placeOfInspection.values,
+          InspectionPlace: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          country: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+          InspectionDate: moment(inspection_date).format("YYYY-MM-DD"),
+          contactLastName: contact_lname,
+          contactFirstName: contact_fname,
+        },
+      },
+    }));
+  };
+
   const handleSelectedSeller = () => {
     let SelectedSeller = props?.sellers?.find((item) => {
       return item._id === props?.step3?.sellerData.values?.seller;
@@ -174,39 +294,9 @@ const Dispatch = (props) => {
     });
   };
 
-  useEffect(() => {
-    const {placeOfInspection} = step3;
-    const errors = validate(placeOfInspection.values, inspectionSchema);
-    setStep3({...step3, placeOfInspection: {...placeOfInspection, isValid: errors ? false : true, errors: errors || {}}});
-  }, [step3.placeOfInspection.values]);
-
-  useEffect(() => {
-    const {sellerData} = step3;
-    const errors = validate(sellerData.values, sellerSchema);
-    setStep3({...step3, sellerData: {...sellerData, isValid: errors ? false : true, errors: errors || {}}});
-  }, [step3.sellerData.values]);
-
-  useEffect(() => {
-    const {buyerData} = step3;
-    const errors = validate(buyerData.values, buyerSchema);
-    setStep3({...step3, buyerData: {...buyerData, isValid: errors ? false : true, errors: errors || {}}});
-  }, [step3.buyerData.values]);
-
-  useEffect(() => {
-    handleSelectedSeller();
-  }, [props?.step3?.sellerData.seller]);
-
-  useEffect(() => {
-    handleSelectedBuyer();
-  }, [props?.step3?.buyerData?.buyer]);
-  useEffect(() => {
-    handleSelectedPlace();
-  }, [placeOfInspection?.values.InspectionPlace]);
-
   const placeError = (field) => (step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false);
   const sellerError = (field) => (step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false);
   const buyerError = (field) => (step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false);
-
 
   return (
     <div className="dispatch_main_Div">
@@ -241,7 +331,7 @@ const Dispatch = (props) => {
               placeholder="Company Name"
               name="companyName"
               error={sellerData.errors.companyName}
-              isError={sellerError('companyName')}
+              isError={sellerError("companyName")}
               value={sellerValues?.companyName}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -286,7 +376,7 @@ const Dispatch = (props) => {
               placeholder="mail@gmail.com"
               name="email"
               error={sellerData.errors.email}
-              isError={sellerError('email')}
+              isError={sellerError("email")}
               value={sellerValues.email}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -301,7 +391,7 @@ const Dispatch = (props) => {
               placeholder="xx xx xx xx xx"
               name="telephone"
               error={sellerData.errors.telephone}
-              isError={sellerError('telephone')}
+              isError={sellerError("telephone")}
               value={sellerValues.telephone}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -316,7 +406,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               placeholder="90 road of rouvroy"
               error={sellerData.errors.fullAddress}
-              isError={sellerError('fullAddress')}
+              isError={sellerError("fullAddress")}
               name="fullAddress"
               value={sellerValues.fullAddress}
               onChange={(e) => {
@@ -334,7 +424,7 @@ const Dispatch = (props) => {
                 name="postalCode"
                 value={sellerValues.postalCode}
                 error={sellerData.errors.postalCode}
-                isError={sellerError('postalCode')}
+                isError={sellerError("postalCode")}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
@@ -347,7 +437,7 @@ const Dispatch = (props) => {
                 placeholder="Abbeville"
                 name="town"
                 error={sellerData.errors.town}
-                isError={sellerError('town')}
+                isError={sellerError("town")}
                 value={sellerValues.town}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
@@ -388,7 +478,7 @@ const Dispatch = (props) => {
               placeholder="Company Name"
               name="companyName"
               error={buyerData.errors.companyName}
-              isError={buyerError('companyName')}
+              isError={buyerError("companyName")}
               value={buyerValues?.companyName}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -433,7 +523,7 @@ const Dispatch = (props) => {
               placeholder="mail@gmail.com"
               name="email"
               error={buyerData.errors.email}
-              isError={buyerError('email')}
+              isError={buyerError("email")}
               value={buyerValues?.email}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -448,7 +538,7 @@ const Dispatch = (props) => {
               placeholder="33 33 44 04 56"
               name="telephone"
               error={buyerData.errors.telephone}
-              isError={buyerError('telephone')}
+              isError={buyerError("telephone")}
               value={buyerValues?.telephone}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -464,7 +554,7 @@ const Dispatch = (props) => {
               placeholder="90 road of rouvroy"
               name="fullAddress"
               error={buyerData.errors.fullAddress}
-              isError={buyerError('fullAddress')}
+              isError={buyerError("fullAddress")}
               value={buyerValues?.fullAddress}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -481,7 +571,7 @@ const Dispatch = (props) => {
                 name="postalCode"
                 value={buyerValues?.postalCode}
                 error={buyerData.errors.postalCode}
-                isError={buyerError('postalCode')}
+                isError={buyerError("postalCode")}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
@@ -494,7 +584,7 @@ const Dispatch = (props) => {
                 placeholder="Abbeville"
                 name="town"
                 error={buyerData.errors.town}
-                isError={buyerError('town')}
+                isError={buyerError("town")}
                 value={buyerValues?.town}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
@@ -533,18 +623,13 @@ const Dispatch = (props) => {
           </label>
           <DatePicker
             name="InspectionDate"
-            min={moment().clone().add(1,'days').toISOString().split('T')[0]}
+            min={moment().clone().add(1, "days").toISOString().split("T")[0]}
             value={placeValues.InspectionDate} //moment().format("LL")
             onChange={(e) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
-            
           />
-          {
-                placeError('InspectionDate') && (
-                  <div className='input-error'>{placeOfInspection.errors.InspectionDate ?? null}</div>
-                )
-              }
+          {placeError("InspectionDate") && <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>}
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
@@ -590,7 +675,7 @@ const Dispatch = (props) => {
               placeholder="mail@gmail.com"
               name="email"
               error={placeOfInspection.errors.email}
-              isError={placeError('email')}
+              isError={placeError("email")}
               value={placeValues?.email}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -605,7 +690,7 @@ const Dispatch = (props) => {
               placeholder="33 33 44 04 56"
               name="telephone"
               error={placeOfInspection.errors.telephone}
-              isError={placeError('telephone')}
+              isError={placeError("telephone")}
               value={placeValues?.telephone}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -621,7 +706,7 @@ const Dispatch = (props) => {
               placeholder="90 road of rouvroy"
               name="fullAddress"
               error={placeOfInspection.errors.fullAddress}
-              isError={placeError('fullAddress')}
+              isError={placeError("fullAddress")}
               value={placeValues?.fullAddress}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -636,7 +721,7 @@ const Dispatch = (props) => {
                 placeholder="33678"
                 name="postalCode"
                 error={placeOfInspection.errors.postalCode}
-                isError={placeError('postalCode')}
+                isError={placeError("postalCode")}
                 value={placeValues?.postalCode}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
@@ -650,7 +735,7 @@ const Dispatch = (props) => {
                 placeholder="Abbeville"
                 name="town"
                 error={placeOfInspection.errors.town}
-                isError={placeError('town')}
+                isError={placeError("town")}
                 value={placeValues?.town}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
@@ -667,7 +752,7 @@ const Dispatch = (props) => {
               placeholder="contact name"
               name="contactLastName"
               error={placeOfInspection.errors.contactLastName}
-              isError={placeError('contactLastName')}
+              isError={placeError("contactLastName")}
               value={placeValues?.contactLastName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -681,7 +766,7 @@ const Dispatch = (props) => {
               placeholder={t("contact first name")}
               name="contactFirstName"
               error={placeOfInspection.errors.contactFirstName}
-              isError={placeError('contactFirstName')}
+              isError={placeError("contactFirstName")}
               value={placeValues?.contactFirstName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -692,6 +777,6 @@ const Dispatch = (props) => {
       </div>
     </div>
   );
-};
+};;;;;;;;;;;;;;;;
 
 export default Dispatch;

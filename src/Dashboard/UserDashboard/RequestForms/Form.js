@@ -22,32 +22,32 @@ import { toast } from 'react-toastify';
 import Modal from '../../../components/Common/Modal';
 import { ReactComponent as Featured } from '../../../assets/Featured.svg';
 import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { UpdateStore } from "../../../StoreContext";
 
-
-const userData = JSON.parse(localStorage.getItem('userData'));
+const userData = JSON.parse(localStorage.getItem("userData"));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
-    left: 'calc(-50% + 16px)',
-    right: 'calc(50% + 16px)',
+    left: "calc(-50% + 16px)",
+    right: "calc(50% + 16px)",
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#7F56D9',
+      borderColor: "#7F56D9",
     },
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: '#7F56D9',
+      borderColor: "#7F56D9",
     },
   },
   [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    borderColor: theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
     borderTopWidth: 3,
     borderRadius: 1,
   },
 }));
-const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
+const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -55,6 +55,7 @@ export default function HorizontalNonLinearStepper() {
   const history = useHistory(null);
   // requestId of request created
   const [requestId, setRequestedId] = useState("");
+  const updateStore = UpdateStore();
 
   //step 1 states
   const [step1, setStep1] = useState({
@@ -150,6 +151,10 @@ export default function HorizontalNonLinearStepper() {
   // previous request data
   const [previousBuyer, setPreviousBuyer] = useState({});
 
+  useEffect(() => {
+    console.log("Updated Step 3 --> ", step3);
+  }, [step3]);
+
   // all useEffect
   useEffect(() => {
     handleDocByCountryId();
@@ -163,7 +168,10 @@ export default function HorizontalNonLinearStepper() {
   const handleRequestById = async () => {
     await API("get", `/requests/${retrieveRequestId}`)
       .then((res) => {
-        console.log("qweerre", res);
+        const request = res.data.request;
+        if (request) {
+          updateStore({ request: request, pastRequest: true });
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -182,12 +190,7 @@ export default function HorizontalNonLinearStepper() {
     return completedSteps() === totalSteps();
   };
   const handleNext = () => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? // It's the last step, but not all steps have been completed,
-          // find the first step that has been completed
-          steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
+    const newActiveStep = isLastStep() && !allStepsCompleted() ? steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
     setActiveStep(newActiveStep);
   };
   const handleBack = () => {
@@ -539,12 +542,14 @@ export default function HorizontalNonLinearStepper() {
                 countryId={step1.country}
                 setFormState={setStep2}
                 step2={step2}
+                setStep2={setStep2}
                 handleChange={handleStep2Change}
               />
             ) : activeStep === 2 ? (
               <DispatchForm
                 step3={step3}
                 setStep3={setStep3}
+                stepHanlder={setStep3}
                 handleSellerData={handleSellerData}
                 handleBuyerData={handleBuyerData}
                 handleInspectionData={handleInspectionData}
