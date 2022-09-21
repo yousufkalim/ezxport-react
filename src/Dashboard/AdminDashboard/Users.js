@@ -88,7 +88,7 @@ const Users = () => {
         sortData={(field, ascend) =>
           getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)
         }
-        headTitle={t(HeadTitle)}
+        headTitle={HeadTitle}
         title={t("Users")}
         rows={allUsers}
       />

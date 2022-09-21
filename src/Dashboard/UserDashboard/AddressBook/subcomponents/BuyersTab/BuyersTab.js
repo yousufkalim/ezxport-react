@@ -83,12 +83,15 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
         country: country._id,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
       };
+
       setFormState({ ...formState, values: { ...values }, isValid: true });
     }
   };
+
+  console.log("Current state ==> ", buyers);
 
   return (
     <>
@@ -178,7 +181,6 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
         </TableContainer>
 
         <BuyerModal
-          schema={schema}
           t={t}
           setActiveField={setActiveField}
           activeField={activeField}

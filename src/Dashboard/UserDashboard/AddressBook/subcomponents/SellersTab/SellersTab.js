@@ -156,7 +156,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
         country: country?._id,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
       };
       setFormState({ ...formState, values: { ...values }, isValid: true });

@@ -11,7 +11,7 @@ import EditIcon from "../../assets/EditIcon.svg";
 import API from "../../api/index";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";

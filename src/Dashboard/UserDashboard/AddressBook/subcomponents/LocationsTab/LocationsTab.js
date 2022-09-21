@@ -165,7 +165,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
         country: country ? country?._id : null,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
         firstName: contact_fname,
         lastName: contact_lname,

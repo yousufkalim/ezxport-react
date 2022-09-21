@@ -5,17 +5,18 @@ import API from "../../api/index";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
 import toaster from "../../utils/toaster";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import { createFilter } from "react-search-input";
 
-// import Spinner from '../../components/Common/Spinner';
+const KEYS_TO_FILTERS = ['code'];
 
 const Providers = () => {
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     getProviders();
@@ -41,6 +42,8 @@ const Providers = () => {
       });
   };
 
+  const searchedResults = providers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_main_div">
@@ -53,7 +56,7 @@ const Providers = () => {
             </div>
           </div>
           <ProvidersTable
-            data={providers}
+            data={searchedResults}
             setData={setProviders}
             getProviders={getProviders}
             dataLoading={loading}
