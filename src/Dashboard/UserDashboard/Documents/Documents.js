@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import SearchIcon from '../../../assets/SearchIcon.svg';
-import Box from '@mui/material/Box';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import PropTypes from 'prop-types';
-import Typography from '@mui/material/Typography';
-import API from '../../../api/index';
-import { toast } from 'react-toastify';
-import Spinner from '../../../components/Common/Spinner';
-import DocumentByRequest from './subcomponents/DocumentByRequest';
-import DocumentByName from './subcomponents/DocumentByName';
+import React, { useEffect, useState } from "react";
+import SearchIcon from "../../../assets/SearchIcon.svg";
+import Box from "@mui/material/Box";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import PropTypes from "prop-types";
+import Typography from "@mui/material/Typography";
+import API from "../../../api/index";
+import { toast } from "react-toastify";
+import Spinner from "../../../components/Common/Spinner";
+import DocumentByRequest from "./subcomponents/DocumentByRequest";
+import DocumentByName from "./subcomponents/DocumentByName";
+import { useTranslation, Trans } from "react-i18next";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,7 +41,7 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -50,49 +51,53 @@ const Documents = () => {
   const [codes, setCodes] = useState([]);
   const [documents, setDocuments] = useState([]);
 
-  const userData = localStorage.getItem('userData');
+  const { t, i18n } = useTranslation();
+
+  const userData = localStorage.getItem("userData");
   const user = JSON.parse(userData);
 
   useEffect(() => {
     getAllRequests();
-  },[]);
+  }, []);
 
   const getAllRequests = () => {
     setLoading(true);
-    API('get', `/requests/returnMultipleFormatedRequest/${user._id}`).then((res) => {
-      const allRequests = res.data?.Request;
-      const allCodes = allRequests.filter(item => item.codes.length > 0 );
-      const allDocuments = allRequests.filter(item => item.documents.length > 0 );
-      setLoading(false);
-      setDocuments(allDocuments);
-      setCodes(allCodes);
-    }).catch(err => {
-      toast.error('Something went wrong!');
-      setLoading();
-    });
-  }
+    API("get", `/requests/returnMultipleFormatedRequest/${user._id}`)
+      .then((res) => {
+        const allRequests = res.data?.Request;
+        const allCodes = allRequests.filter((item) => item.codes.length > 0);
+        const allDocuments = allRequests.filter((item) => item.documents.length > 0);
+        setLoading(false);
+        setDocuments(allDocuments);
+        setCodes(allCodes);
+      })
+      .catch((err) => {
+        toast.error(t("Something went wrong!"));
+        setLoading();
+      });
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
+
   return (
     <>
       <div className="list_main_div">
         <div className="list_second_div">
           <div className="List_heading_div">
-            <h1 className="list_h1_doc">Documents</h1>
+            <h1 className="list_h1_doc">{t("Documents")}</h1>
             <div className="searching4">
-              <input type="text" className="search_input2" placeholder="To Research" />
+              <input type="text" className="search_input2" placeholder={t("To Research")} />
               <img src={SearchIcon} alt="" className="search_icon2" />
             </div>
           </div>
           <div className="list_table">
-            <Box sx={{ width: '100%' }}>
+            <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label="By Request" {...a11yProps(0)} />
-                  <Tab className="tab_btn3" label="By Nomenclature" {...a11yProps(2)} />
+                  <Tab className="tab_btn1" label={t("By Request")} {...a11yProps(0)} />
+                  <Tab className="tab_btn3" label={t("By Nomenclature")} {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <br />

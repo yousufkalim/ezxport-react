@@ -9,7 +9,7 @@ const PlaceOfInspectionTab = ({ place }) => {
       <div className="InformationTab">
         <div className="InformationTab_col">
           <div className="requestDate_tab">
-            <p className="requestData_p">{t("Company Name")}</p>
+            <p className="requestData_p">{t("Company name")}</p>
             <p className="requestData_date">{place?.company_name}</p>
           </div>
           <div className="requestDate_tab">
@@ -17,7 +17,7 @@ const PlaceOfInspectionTab = ({ place }) => {
             <p className="requestData_date">{place?.email}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">{t("Last Name")}</p>
+            <p className="requestData_p">{t("Last name")}</p>
             <p className="requestData_date">{place?.contact_lname}</p>
           </div>
           <div className="requestDate_tab">
@@ -41,7 +41,7 @@ const PlaceOfInspectionTab = ({ place }) => {
           </div>
           <div className="requestDate_tab" style={{ display: "flex" }}>
             <div className="SellerTab_postalAndTown">
-              <p className="requestData_p">{t("Code postal")}</p>
+              <p className="requestData_p">{t("Postal code")}</p>
               <p className="requestData_date">{place?.zipcode}</p>
             </div>
             <div className="SellerTab_div SellerTab_postalAndTown">

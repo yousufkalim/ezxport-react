@@ -23,6 +23,7 @@ import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import Spinner from "../../components/Common/Spinner";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -119,10 +120,9 @@ const UserDetails = () => {
         setLoading(false);
 
         console.log("err---->", err);
+        setRequestLoading(false);
       });
   };
-
-  console.log("Request  ", requestById);
 
   return (
     <>
@@ -231,39 +231,68 @@ const UserDetails = () => {
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                {loading ? (
-                  <Spinner />
-                ) : (
-                  <div className="list_table">
-                    {requestById?.length !== 0 ? (
-                      <>
-                        <TableContainer component={Paper}>
-                          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                            <TableHead>
-                              <TableRow>
-                                <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                                  {t("Request")} &nbsp;
-                                  {!sort.ascend ? (
-                                    <img
-                                      className="sorting-icon"
-                                      onClick={() => getSortedData(requestById, setRequestById, setSort, [], "title", true)}
-                                      src={arrow_up}
-                                      alt=""
-                                    />
-                                  ) : (
-                                    <img
-                                      onClick={() => getSortedData(requestById, setRequestById, setSort, [], "title", false)}
-                                      src={downArrow}
-                                      alt=""
-                                    />
-                                  )}
-                                </TableCell>
-                                <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                                  Date
-                                </TableCell>
-                                <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
-                                  {t("Certificate cost")}
-                                </TableCell>
+                {
+                  requestLoading ? <Spinner /> : (
+                    <div className="list_table">
+                  {requestById?.length !== 0 ? (
+                    <>
+                      <TableContainer component={Paper}>
+                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                          <TableHead>
+                            <TableRow>
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: "#EAECF0" }}
+                              >
+                                {t("Request")} &nbsp;
+                                {!sort.ascend ? (
+                                  <img
+                                    className="sorting-icon"
+                                    onClick={() =>
+                                      getSortedData(
+                                        requestById,
+                                        setRequestById,
+                                        setSort,
+                                        [],
+                                        "title",
+                                        true
+                                      )
+                                    }
+                                    src={arrow_up}
+                                    alt=""
+                                  />
+                                ) : (
+                                  <img
+                                    onClick={() =>
+                                      getSortedData(
+                                        requestById,
+                                        setRequestById,
+                                        setSort,
+                                        [],
+                                        "title",
+                                        false
+                                      )
+                                    }
+                                    src={downArrow}
+                                    alt=""
+                                  />
+                                )}
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: "#EAECF0" }}
+                              >
+                                Date
+                              </TableCell>
+                              <TableCell
+                                align="left"
+                                className="country"
+                                style={{ backgrounColor: "#EAECF0" }}
+                              >
+                                {t("Certificate cost")}
+                              </TableCell>
 
                                 <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                                   {t("Service providers")}
@@ -303,28 +332,29 @@ const UserDetails = () => {
                                     )}
                                   </TableCell>
 
-                                  <TableCell align="left" className="country2">
-                                    {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
-                                  </TableCell>
-                                  <TableCell align="left">
-                                    <p className="clrClass">{t(item.status)}</p>
-                                  </TableCell>
-                                </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </TableContainer>
-                      </>
-                    ) : (
-                      <>
-                        <h1 style={{ textAlign: "center", color: "#667085" }}>
-                          {t("No request created by")}
-                          {` ${lastName} ${firstName}`}
-                        </h1>
-                      </>
-                    )}
-                  </div>
-                )}
+                                <TableCell align="left" className="country2">
+                                  {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
+                                </TableCell>
+                                <TableCell align="left">
+                                  <p className="clrClass">{t(item.status)}</p>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </>
+                  ) : (
+                    <>
+                      <h1 style={{ textAlign: "center", color: "#667085" }}>
+                        {t("No request created by")}
+                        {`${lastName} ${firstName}`}
+                      </h1>
+                    </>
+                  )}
+                </div>
+                  )
+                }
               </TabPanel>
             </Box>
           </div>

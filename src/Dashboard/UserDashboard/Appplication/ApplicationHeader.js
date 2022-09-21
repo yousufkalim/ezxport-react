@@ -17,13 +17,13 @@ const ApplicationHeader = (props) => {
           {props.status === "sent" ? (
             <p className="send_p2">{t("Sent")}</p>
           ) : props.status === "Validate By Admin" || props.status === "Validated" ? (
-            <p className="send_p5">File validated</p>
+            <p className="send_p5">{t("File validated")}</p>
           ) : props.status === "missing documents" || props.status === "Missing Documents" ? (
-            <p className="send_p4">{t("Missing documents")}</p>
+            <p className="send_p4">{t("Missing Documents")}</p>
           ) : props.status === "Benig Checked By Expert" ? (
-            <p className="send_p3">Receipt being processed</p>
+            <p className="send_p3">{t("File validated")}</p>
           ) : (
-            <p className="send_p6">Contract to be signed</p>
+            <p className="send_p6">{t("Contract to be signed")}</p>
           )}
         </p>
       </div>

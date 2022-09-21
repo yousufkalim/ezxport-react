@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../Common/Button";
 import SearchField from "../Common/SearchField";
 import Table from "@mui/material/Table";
@@ -15,11 +15,19 @@ import arrow_up from "../../assets/arrow_up.svg";
 import { useTranslation, Trans } from "react-i18next";
 import API from "../../api";
 import { toast } from "react-toastify";
+import { createFilter } from "react-search-input";
+import Spinner from "../Common/Spinner";
+
+const KEYS_TO_FILTERS = ['last_name', 'first_name']
 
 const UserTable = (props) => {
+
+  const {loading, rows} = props;
+
+  const [searchTerm, setSearchTerm] = useState("");
+
   const history = useHistory();
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const handleSheet = async () => {
     await API("get", "/users/excelSheet")
       .then((res) => {
@@ -30,15 +38,17 @@ const UserTable = (props) => {
       });
   };
 
-  return (
-    <>
+  const searchedResults = rows?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
+    return (
+      <>
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
           <div className="UserTable">
             <h1 className="list_user_h1">{t(props.title)}</h1>
             <div className="UserTable_right_div">
-              <SearchField placeholder={t("Searching")} />
+              <SearchField setSearch={setSearchTerm} />
               <Button className="export_btn" text={t("Export list")} Imgsrc={ExportIcon} onClick={() => handleSheet()} />
             </div>
           </div>
@@ -69,7 +79,7 @@ const UserTable = (props) => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {props.rows.map((row) => (
+                  {loading ? <Spinner /> : searchedResults?.map((row) => (
                     <TableRow
                       onClick={() => {
                         history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
@@ -117,7 +127,6 @@ const UserTable = (props) => {
         </div>
       </div>
     </>
-  );
-};
-
+    )
+  }
 export default UserTable;

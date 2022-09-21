@@ -3,12 +3,14 @@ import ChangeSuccessfully from "./ChangeSuccessfully";
 import { toast } from "react-toastify";
 import API from "../api";
 import ForgetLogo from "../assets/ForgetLogo.svg";
-import Quiz from "../assets/Quiz.png";
+// import Quiz from "../assets/Quiz.png";
 import Header from "../components/Common/Header";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { useTranslation, Trans } from "react-i18next";
+
 // import InputField from "../Components/InputField";
 // import { NavLink } from "react-router-dom";
 
@@ -17,6 +19,9 @@ const ChangePassword = ({ Token, setResetPassword }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const { t, i18n } = useTranslation();
+
   const handleChangePassword = async () => {
     await API("put", `/auth/new-password/${Token}`, {
       newPassword: password,
@@ -36,8 +41,7 @@ const ChangePassword = ({ Token, setResetPassword }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleShowPassword = () => setShowPassword(!showPassword);
-  const handleShowConfirmPassword = () =>
-    setShowConfirmPassword(!showConfirmPassword);
+  const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
   return (
     <>
       {!success ? (
@@ -56,15 +60,15 @@ const ChangePassword = ({ Token, setResetPassword }) => {
                   style={{ paddingBottom: "5px" }}
                 />
                 <br />
-                <h2 className="login_h2">New Password</h2>
+                <h2 className="login_h2">{t("New Password")}</h2>
               </div>
               {/* PASSWORD */}
               <div className="email_inputs_div">
-                <label htmlFor="">New Password</label>
+                <label htmlFor="">{t("New Password")}</label>
                 <InputField
                   className="input_email"
                   type={showPassword ? "text" : "password"}
-                  placeholder="New Password"
+                  placeholder={t("New Password")}
                   required
                   value={password}
                   visibleEye
@@ -75,17 +79,15 @@ const ChangePassword = ({ Token, setResetPassword }) => {
               </div>
               {/*C PASSWORD  */}
               <div className="email_inputs_div">
-                <label htmlFor="">Confirm password</label>
+                <label htmlFor="">{t("Confirm password")}</label>
                 <InputField
                   className="input_email"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm password"
+                  placeholder={t("Confirm password")}
                   required
                   value={confirmPassword}
                   visibleEye
-                  icon2={
-                    showConfirmPassword ? VisibilityIcon : VisibilityOffIcon
-                  }
+                  icon2={showConfirmPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowConfirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -94,7 +96,7 @@ const ChangePassword = ({ Token, setResetPassword }) => {
               <Button
                 className="logingbtn"
                 onClick={handleChangePassword}
-                text="Change the password"
+                text={t("Change the password")}
               />
             </div>
           </div>

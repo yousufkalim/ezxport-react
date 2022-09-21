@@ -1,16 +1,15 @@
-import React, {useEffect, useState} from 'react'
-import { validate } from 'validate.js';
-import API from '../../../../../api/index';
-import { toast } from 'react-toastify';
-import InputField from '../../../../../components/Common/InputField';
-import Modal from '../../../../../components/Common/Modal';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Button from '../../../../../components/Common/Button';
-import toaster from '../../../../../utils/toaster';
-import { useTranslation, Trans } from "react-i18next";
-
+import React, { useEffect, useState } from "react";
+import { validate } from "validate.js";
+import API from "../../../../../api/index";
+import { toast } from "react-toastify";
+import InputField from "../../../../../components/Common/InputField";
+import Modal from "../../../../../components/Common/Modal";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Button from "../../../../../components/Common/Button";
+import toaster from "../../../../../utils/toaster";
+import { useTranslation } from "react-i18next";
 
 const schema = {
   companyName: {
@@ -75,19 +74,23 @@ const BuyerModal = ({
       isValid: errors ? false : true,
       errors: errors || {},
     }));
-  }, [formState.values, setFormState]);
+  }, [formState.values]);
 
-      const countryHandler = (e) => {
-        setFormState((state) => ({
-          ...state,
-          values: {...state.values, country: e.target.value}
-        }))
-      };
-    
-      const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
-      }
+  const countryHandler = (e) => {
+    setFormState((state) => ({
+      ...state,
+      values: { ...state.values, country: e.target.value },
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      values: { ...formState.values, [name]: value },
+      touched: { ...formState.touched, [name]: true },
+    });
+  };
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -118,22 +121,22 @@ const BuyerModal = ({
   const createBuyer = async (data) => {
     await API("post", "/buyers", data)
       .then((res) => {
-        toast.success("Buyer addedd successfully!");
+        toast.success(t("Buyer addedd successfully!"));
         setOpen(false);
         fetchBuyers();
         resetForm();
       })
-      .catch((err) => toast.success("Something went wrong!"));
+      .catch((err) => toast.success(t("Something went wrong!")));
   };
 
   const editBuyer = async (data) => {
     await API("put", `/buyers/${buyer._id}`, data)
       .then((res) => {
-        toaster('success', "Buyer updated sucessfully");
+        toaster("success", t("Buyer updated sucessfully"));
         fetchBuyers();
         handleCloseModal();
       })
-      .catch((err) => toast.success("Something went wrong!"));
+      .catch((err) => toast.success(t("Something went wrong!")));
   };
 
   const handleSubmit = (e) => {
@@ -164,6 +167,8 @@ const BuyerModal = ({
       createBuyer(data);
     }
   };
+
+  console.log("IS VALID ", formState);
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
