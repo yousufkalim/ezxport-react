@@ -18,6 +18,7 @@ import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import CreateRequest from "./CreateRequest";
+import Spinner from "../../components/Common/Spinner";
 
 const nestSortTitles = [
   {
@@ -62,6 +63,7 @@ const FollowUp = () => {
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let request = localStorage.getItem("Requested");
@@ -77,18 +79,23 @@ const FollowUp = () => {
     localStorage.removeItem("Requested");
   };
   const handleAllRequest = async () => {
+    setLoading(true);
     await API("get", `/requests/getByUser/${userData?._id}`)
       .then((res) => {
         setAllRequest(res.data.request);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("handleAllRequest", err);
+        setLoading(false);
       });
   };
 
   return (
     <>
-      {allRequest?.length !== 0 ? (
+      {loading ? (
+        <Spinner />
+      ) : allRequest?.length !== 0 ? (
         <div className="list_main_div">
           <div className="list_second_div">
             {/* list head  */}

@@ -15,9 +15,16 @@ const Document = (props) => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
+  const [validDoc, setValidDoc] = useState(false);
   useEffect(() => {
     handleCountryName();
   }, []);
+
+  useEffect(() => {
+    if (props.CountryDoc) {
+      validateDocuments();
+    }
+  }, [props?.CountryDoc]);
 
   useEffect(() => {
     if (props?.createdCodes?.codes) {
@@ -28,15 +35,24 @@ const Document = (props) => {
       props.setProductCodes(product);
     }
     handleAllCountries();
+    // handleCountryDocValidate();
     props.handleDocByCountryId();
   }, [props?.createdCodes?.codes]);
+
+  const validateDocuments = () => {
+    const filterDocs = props?.CountryDoc?.filter((item) => item.hasOwnProperty("fileName"));
+    if (filterDocs?.length === props.CountryDoc?.length) {
+      setValidDoc(true);
+    } else {
+      setValidDoc(false);
+    }
+  };
   const handleProductChange = (name, value, cindex, index1) => {
     props.setProductCodes((prev) => {
       prev[cindex].products[index1][name] = value;
       return [...prev];
     });
   };
-
   const addEmptyProduct = (cindex, item) => {
     props.setProductCodes((prev) => {
       prev[cindex].products = [
@@ -62,7 +78,6 @@ const Document = (props) => {
       })
     );
   };
-
   return (
     <div className="documents_main_div">
       <div className="title_Div_documents">
@@ -82,7 +97,6 @@ const Document = (props) => {
                   <img style={{ paddingLeft: "5px" }} src={HelperIcon} />
                 </Tooltip>
               </label>
-
               <div className="to_download_div">
                 <FilePicker
                   index={index}
@@ -122,6 +136,6 @@ const Document = (props) => {
       })}
     </div>
   );
-};
+};;;;;;;;;;;;;;;;;
 
 export default Document;

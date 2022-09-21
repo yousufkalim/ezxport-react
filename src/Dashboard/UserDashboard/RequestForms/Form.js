@@ -75,7 +75,7 @@ export default function HorizontalNonLinearStepper() {
   const [certificationCostOfCode, setCertificationCostOfCode] = useState("");
   const [certificationCountryOfCode, setCertificationCountryOfCode] = useState("");
   const [countries, setCounteries] = useState();
-
+  const [retrieveRequestId, setRetrieveRequestId] = useState("");
   // step 2 states
   const [step2, setStep2] = useState({
     isValid: false,
@@ -87,7 +87,7 @@ export default function HorizontalNonLinearStepper() {
       email: "",
     },
     touched: {},
-    errors: {}
+    errors: {},
   });
   // step 3 states
   const [step3, setStep3] = useState({
@@ -105,7 +105,7 @@ export default function HorizontalNonLinearStepper() {
         town: "",
       },
       errors: {},
-      touched: {}
+      touched: {},
     },
     buyerData: {
       isValid: false,
@@ -121,7 +121,7 @@ export default function HorizontalNonLinearStepper() {
         town: "",
       },
       errors: {},
-      touched: {}
+      touched: {},
     },
     placeOfInspection: {
       isValid: false,
@@ -140,7 +140,7 @@ export default function HorizontalNonLinearStepper() {
         contactFirstName: "",
       },
       errors: {},
-      touched: {}
+      touched: {},
     },
   });
   const [sellers, setSeller] = useState([]);
@@ -150,6 +150,29 @@ export default function HorizontalNonLinearStepper() {
   const [CountryDoc, setCountryDoc] = useState([]);
   const [createdCodes, setCreatedCodes] = useState({});
   const [productCodes, setProductCodes] = useState([]);
+
+  // previous request data
+  const [previousBuyer, setPreviousBuyer] = useState({});
+
+  // all useEffect
+  useEffect(() => {
+    handleDocByCountryId();
+    handleSeller();
+    handleBuyer();
+    handlePlaces();
+  }, []);
+  useEffect(() => {
+    handleRequestById();
+  }, [retrieveRequestId]);
+  const handleRequestById = async () => {
+    await API("get", `/requests/${retrieveRequestId}`)
+      .then((res) => {
+        console.log("qweerre", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const totalSteps = () => {
     return steps.length;
   };
@@ -213,7 +236,7 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data.message.msg)
+        toast.error(err.response.data.message.msg);
       });
   };
   const handleStep1 = async () => {
@@ -222,6 +245,7 @@ export default function HorizontalNonLinearStepper() {
       user: step1.user,
       title: step1.title,
       codes: [],
+      certification_cost: certificationCostOfCode,
     };
     matchedData.map((item) => {
       data.codes.push({
@@ -240,7 +264,7 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleStep2 = async () => {
-    const {vendorId, contactInfo, firstName, lastName,email } = step2.values;
+    const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
     await API("put", "/requests/userVendor", {
       user: userData._id,
       request: requestId,
@@ -326,7 +350,7 @@ export default function HorizontalNonLinearStepper() {
     await API("put", "/requests/documents", data)
       .then((res) => {
         localStorage.setItem("Requested", true);
-        history.push("/User/Dashboard/ListOfRequests");
+        // history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -360,23 +384,35 @@ export default function HorizontalNonLinearStepper() {
     setStep1({ ...step1, [name]: value });
   };
   const handleStep2Change = (name, value) => {
-    setStep2({...step2, values:{...step2.values, [name]: value}, touched: {...step2.touched, [name]: true}})
-
+    setStep2({ ...step2, values: { ...step2.values, [name]: value }, touched: { ...step2.touched, [name]: true } });
   };
   const handleSellerData = (name, value) => {
-    const {sellerData} = step3;
-    const {values} = step3.sellerData;
-    setStep3({...step3, sellerData: {...sellerData, values: {...values, [name]: value}, touched: {...sellerData.touched, [name]: true} }});
+    const { sellerData } = step3;
+    const { values } = step3.sellerData;
+    setStep3({
+      ...step3,
+      sellerData: { ...sellerData, values: { ...values, [name]: value }, touched: { ...sellerData.touched, [name]: true } },
+    });
   };
   const handleBuyerData = (name, value) => {
-    const {buyerData} = step3;
-    const {values} = step3.buyerData;
-    setStep3({...step3, buyerData: {...buyerData, values: {...values, [name]: value}, touched: {...buyerData.touched, [name]: true} }});
+    const { buyerData } = step3;
+    const { values } = step3.buyerData;
+    setStep3({
+      ...step3,
+      buyerData: { ...buyerData, values: { ...values, [name]: value }, touched: { ...buyerData.touched, [name]: true } },
+    });
   };
   const handleInspectionData = (name, value) => {
-    const {placeOfInspection} = step3;
-    const {values} = step3.placeOfInspection;
-    setStep3({...step3, placeOfInspection: {...placeOfInspection, values: {...values, [name]: value}, touched: {...placeOfInspection.touched, [name]: true} }});
+    const { placeOfInspection } = step3;
+    const { values } = step3.placeOfInspection;
+    setStep3({
+      ...step3,
+      placeOfInspection: {
+        ...placeOfInspection,
+        values: { ...values, [name]: value },
+        touched: { ...placeOfInspection.touched, [name]: true },
+      },
+    });
   };
 
   const handleSeller = async () => {
@@ -440,19 +476,12 @@ export default function HorizontalNonLinearStepper() {
         handleStep4();
         toast.success(res?.data?.message);
         localStorage.setItem("Requested", true);
-        history.push("/User/Dashboard/ListOfRequests");
+        // history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
         toast.error(err.response.data.message);
       });
   };
-
-  useEffect(() => {
-    handleDocByCountryId();
-    handleSeller();
-    handleBuyer();
-    handlePlaces();
-  }, []);
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (
     <Box sx={{ width: "100%", marginTop: "3rem" }}>
@@ -464,9 +493,7 @@ export default function HorizontalNonLinearStepper() {
       >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]} disabled={true}>
-            <StepLabel
-            // onClick={handleStep(index)}
-            >
+            <StepLabel>
               <p
                 className="stepper_content"
                 style={{
@@ -514,12 +541,17 @@ export default function HorizontalNonLinearStepper() {
                 certificateNotRequire={certificateNotRequire}
                 setCertificateNotRequire={setCertificateNotRequire}
                 handleStep1={handleStep1}
-                // handleAllRequestByCountryId={handleAllRequestByCountryId}
                 countries={countries}
                 setCounteries={setCounteries}
+                setRetrieveRequestId={setRetrieveRequestId}
               />
             ) : activeStep === 1 ? (
-              <ServiceproviderForm countryId={step1.country} setFormState={setStep2} step2={step2} handleChange={handleStep2Change} />
+              <ServiceproviderForm
+                countryId={step1.country}
+                setFormState={setStep2}
+                step2={step2}
+                handleChange={handleStep2Change}
+              />
             ) : activeStep === 2 ? (
               <DispatchForm
                 step3={step3}

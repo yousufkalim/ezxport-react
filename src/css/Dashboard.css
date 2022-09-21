@@ -354,6 +354,20 @@
   font-weight: 500;
   margin-left: 4%;
 }
+
+.add_doc{
+  width: 50%;
+  background-color: #7f56d9;
+  color: #fff;
+  border: 1px solid #7f56d9;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 4%;
+}
 .Edit_btn_bom {
   width: 138px;
 }

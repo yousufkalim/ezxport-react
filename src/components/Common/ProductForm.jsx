@@ -71,9 +71,9 @@ const ProductForm = (props) => {
       )}
 
       <div className="divider_line"></div>
-      <h3 className="steps_3_h3">
+      {/* <h3 className="steps_3_h3">
         Code # {props.cindex + 1} Product # {props.index1 + 1}
-      </h3>
+      </h3> */}
       <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
         {t("Product Name")}
       </label>
@@ -140,14 +140,12 @@ const ProductForm = (props) => {
           </div>
           <div style={{ width: "60%" }}>
             <label className="BomLabel">{t("Price")}</label>
-
-            <TextFieldSelect
-              className="company_name_input2"
+            <InputField
+              className="product_name_textfield"
               name="price"
               onChange={(e) => handleDataChange(e)}
-              selectName="currency"
-              onOptionChange={(e) => handleDataChange(e)}
             />
+
           </div>
         </div>
       </div>

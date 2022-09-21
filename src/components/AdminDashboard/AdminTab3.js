@@ -75,8 +75,7 @@ const AdminTab3 = (props) => {
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
-  const updateHasError = (field) =>
-    updateBomCode.touched[field] && updateBomCode.errors[field] ? true : false;
+  const updateHasError = (field) => (updateBomCode.touched[field] && updateBomCode.errors[field] ? true : false);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -111,40 +110,40 @@ const AdminTab3 = (props) => {
       }));
     }
   };
-  const handleUpdateBomChange = (event) => {
-    if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
-      setUpdateBomCode((updateBomCode) => ({
-        ...updateBomCode,
-        values: {
-          ...updateBomCode.values,
-          [event.target.name]: event.target.value,
-        },
-        touched: {
-          ...updateBomCode.touched,
-          [event.target.name]: true,
-        },
-      }));
-    }
-  };
+  // const handleUpdateBomChange = (event) => {
+  //   if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
+  //     setUpdateBomCode((updateBomCode) => ({
+  //       ...updateBomCode,
+  //       values: {
+  //         ...updateBomCode.values,
+  //         [event.target.name]: event.target.value,
+  //       },
+  //       touched: {
+  //         ...updateBomCode.touched,
+  //         [event.target.name]: true,
+  //       },
+  //     }));
+  //   }
+  // };
 
   // useEffect(() => {
   //   handleCoutries();
   // }, []);
-  const handleBomUpdate = async (BomId) => {
-    await API("put", `/boms/${BomId}`, {
-      code: updateBomCode.values.bomCode,
-      certification_required: certificate_status,
-      countries: [props?.countryId],
-    })
-      .then((res) => {
-        props.handleCountryData();
-        setOpen(false);
-        toast.success(t("BOMs updated successfully"));
-      })
-      .catch((err) => {
-        console.log("handleBomUpdate", err);
-      });
-  };
+  // const handleBomUpdate = async (BomId) => {
+  //   await API("put", `/boms/${BomId}`, {
+  //     code: updateBomCode.values.bomCode,
+  //     certification_required: certificate_status,
+  //     countries: [props?.countryId],
+  //   })
+  //     .then((res) => {
+  //       props.handleCountryData();
+  //       setOpen(false);
+  //       toast.success("BOMs updated successfully");
+  //     })
+  //     .catch((err) => {
+  //       console.log("handleBomUpdate", err);
+  //     });
+  // };
 
   const handleBomDelete = async (BomId) => {
     await API("delete", `/boms/${BomId}`)
@@ -163,42 +162,6 @@ const AdminTab3 = (props) => {
     // setSelect([]);
   };
 
-  // const handleCountryChange = (event) => {
-  //   const {
-  //     target: { value },
-  //   } = event;
-  //   setSelect(
-  //     On autofill we get a stringified value.
-  //     typeof value === "string" ? value.split(",") : value
-  //   );
-  // };
-  // const handleCoutries = async () => {
-  //   await API("get", "/countries/")
-  //     .then((res) => {
-  //       let country_name = [];
-  //       setOptions(res?.data?.countries);
-  //       res.data.countries.map((item) => {
-  //         country_name.push(item.name);
-  //       });
-  //       setNames(country_name);
-  //     })
-  //     .catch((err) => {
-  //       console.log("handleCoutries", err);
-  //     });
-  // };
-  // useEffect(() => {
-  //   let ids = [];
-  //   if (options?.length > 0 && select?.length > 0) {
-  //     options?.map((item) => {
-  //       select?.map((item2) => {
-  //         if (item.name === item2) {
-  //           ids.push(item._id);
-  //         }
-  //       });
-  //     });
-  //     setId(ids);
-  //   }
-  // }, [select]);
   const handleEditBomClick = (bomcode) => {
     setOpen(true);
     setData(bomcode);
@@ -210,20 +173,11 @@ const AdminTab3 = (props) => {
       },
     }));
     setCertificate_status(bomcode.certification_required);
-    // let countries = [];
-    // options?.map((item) => {
-    //   bomcode?.countries.map((item2) => {
-    //     if (item._id === item2) {
-    //       countries.push(item.name);
-    //     }
-    //   });
-    // });
-    // setSelect(countries);
   };
   const handleAddBom = async () => {
     await API("post", "/boms", {
       code: formState.values.code,
-      certification_required: newCertificate_status,
+      certification_required: true,
       countries: [props?.countryId],
     })
       .then((res) => {
@@ -281,31 +235,13 @@ const AdminTab3 = (props) => {
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
-                    onClick={() =>
-                      getSortedData(
-                        rows,
-                        setBoms,
-                        setSort,
-                        nestSortTitles,
-                        "certification_required",
-                        true
-                      )
-                    }
+                    onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, "certification_required", true)}
                     src={arrow_up}
                     alt=""
                   />
                 ) : (
                   <img
-                    onClick={() =>
-                      getSortedData(
-                        rows,
-                        setBoms,
-                        setSort,
-                        nestSortTitles,
-                        "certification_required",
-                        false
-                      )
-                    }
+                    onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, "certification_required", false)}
                     src={downArrow}
                     alt=""
                   />
@@ -380,7 +316,7 @@ const AdminTab3 = (props) => {
                       }}
                     />
 
-                    <img
+                    {/* <img
                       src={EditIcon}
                       alt=""
                       className="dltIcon"
@@ -388,7 +324,7 @@ const AdminTab3 = (props) => {
                       onClick={() => {
                         handleEditBomClick(row);
                       }}
-                    />
+                    /> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -400,13 +336,7 @@ const AdminTab3 = (props) => {
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleBomDelete(bomId)} />
 
       {/* update modal */}
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t("Update")}
-        handleClose={handleClose}
-        Closebtn={true}
-      >
+      {/* <Modal open={open} setOpen={setOpen} title={t("Update")} handleClose={handleClose} Closebtn={true}>
         <div style={{ height: "20%" }}>
           <label htmlFor="" className="label_modal">
             BOMs code
@@ -415,15 +345,11 @@ const AdminTab3 = (props) => {
             name="bomCode"
             value={updateBomCode.values.bomCode}
             className={
-              updateHasError("bomCode") && updateBomCode.errors.bomCode
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              updateHasError("bomCode") && updateBomCode.errors.bomCode ? "textfield_addvendor_red" : "textfield_addvendor"
             }
             onChange={handleUpdateBomChange}
           />
-          <div className="error-format">
-            {updateHasError("bomCode") ? updateBomCode.errors.bomCode[0] : null}
-          </div>
+          <div className="error-format">{updateHasError("bomCode") ? updateBomCode.errors.bomCode[0] : null}</div>
           <label htmlFor="" className="label_modal">
             {t("Status")}
           </label>{" "}
@@ -446,14 +372,14 @@ const AdminTab3 = (props) => {
             names={names}
             select={select}
           /> */}
-          <Button
+      {/* <Button
             text={t("Update")}
             className={updateBomCode.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
             disabled={!updateBomCode.isValid ? true : false}
             onClick={() => handleBomUpdate(data._id)}
           />
-        </div>
-      </Modal>
+        </div> */}
+      {/* </Modal>  */}
       {/* Add modal */}
       <Modal
         open={props.openAddBomModal}
@@ -469,15 +395,11 @@ const AdminTab3 = (props) => {
           <InputField
             name="code"
             value={formState.values.code}
-            className={
-              hasError("code") && formState.errors.code
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
-            }
+            className={hasError("code") && formState.errors.code ? "textfield_addvendor_red" : "textfield_addvendor"}
             onChange={handleChange}
           />
           <div className="error-format">{hasError("code") ? formState.errors.code[0] : null}</div>
-          <label htmlFor="" className="label_modal">
+          {/* <label htmlFor="" className="label_modal">
             {t("Status")}
           </label>{" "}
           <select
@@ -491,7 +413,7 @@ const AdminTab3 = (props) => {
             </option>
             <option value={false}>{t("Not subject")}</option>
             <option value={true}>{t("Subject to inspection")}</option>
-          </select>
+          </select> */}
           {/* <label htmlFor="" className="label_modal">
             {t("Select country for BOMs")}
           </label>
@@ -504,18 +426,14 @@ const AdminTab3 = (props) => {
           /> */}
           <Button
             text={t("Add")}
-            className={
-              formState.isValid && newCertificate_status != "default"
-                ? "add_vendor_button"
-                : "add_vendor_button_disabled"
-            }
+            className={formState.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
             onClick={handleAddBom}
-            disabled={!formState.isValid || newCertificate_status === "default" ? true : false}
+            disabled={!formState.isValid ? true : false}
           />
         </div>
       </Modal>
     </>
   );
-};
+};;
 
 export default AdminTab3;

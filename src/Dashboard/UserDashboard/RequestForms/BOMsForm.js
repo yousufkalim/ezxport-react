@@ -32,12 +32,12 @@ const BOMsForm = (props) => {
   const [verificationModal, setVerificationModal] = useState(false);
   const [code, setCode] = useState("default");
   const [monetaryValue, setMonetaryValue] = useState("");
-  const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [requestByCountry, setRequestByCountry] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [bomId, setBomId] = useState("");
 
   const { t, i18n } = useTranslation();
@@ -48,7 +48,7 @@ const BOMsForm = (props) => {
   const handleAllRequestByCountryId = async () => {
     await API("get", `/requests/getByCountry/${props?.step1?.country}`)
       .then((res) => {
-        setRequestByCountry(res?.data?.requet);
+        setRequestByCountry(res?.data?.request);
       })
       .catch((err) => {
         toast.error(err.response.data.message.msg);
@@ -279,14 +279,7 @@ const BOMsForm = (props) => {
         </div>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
+      <div className="add_code_div">
         <div className="codedropdown_div">
           <label className="BomLabel">Code</label>
 
@@ -345,18 +338,12 @@ const BOMsForm = (props) => {
               {props.matchedData?.map((item, index) => (
                 <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="center" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
                       {item?.code}
                     </p>
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
+                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
                       {item?.monetary_value}
                     </p>
                   </TableCell>
@@ -400,11 +387,7 @@ const BOMsForm = (props) => {
         <div>
           <div style={{ marginTop: "2.2rem" }}>
             <label className="BomLabel">Code</label>
-            <InputField
-              className="code_textfield"
-              value={editModalData?.item?.code}
-              disabled={true}
-            />
+            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
           </div>
           <div style={{ marginTop: "1rem" }}>
             <label className="BomLabel">{t("Monetary value")}</label>
@@ -536,11 +519,7 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
-      <Modal
-        open={verificationModal}
-        setOpen={setVerificationModal}
-        handleClose={handleVerification}
-      >
+      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
         <div>
           <div
             style={{

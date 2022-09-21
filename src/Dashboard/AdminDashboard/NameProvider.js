@@ -26,7 +26,7 @@ import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import { useTranslation, Trans } from "react-i18next";
 import MultiSelect from "../../components/Common/MultiSelect";
-import {COUNTRIES} from "../../lib/data";
+import { COUNTRIES } from "../../lib/data";
 import { Dialog } from "@mui/material";
 import { createFilter } from "react-search-input";
 
@@ -187,10 +187,11 @@ const NameProvider = () => {
         // setFullname(res?.data?.vendor?.name);
         // setPhoneNumber(res?.data?.vendor?.phone_number);
         const allCountries = res?.data?.vendor?.countries;
-        if(allCountries){
+        if (allCountries) {
           setCountries(allCountries);
-          const countryNames = allCountries.map(item => item?.name)
+          const countryNames = allCountries.map((item) => item?.name);
           setSelect(countryNames);
+          console.log("ALL countries ", res?.data?.vendor?.countries);
         }
       })
       .catch((err) => {
@@ -198,7 +199,6 @@ const NameProvider = () => {
       });
   };
   const handleClose = () => setOpen(false);
-
 
   const handelUpdateAssociatedCountries = async () => {
     await API("put", `/vendors/${id}`, {
@@ -261,20 +261,14 @@ const NameProvider = () => {
               </Link>
               &nbsp; {formState.values.fullName}
             </h1>
-              <div className="searching2">
-              {
-                value === 1 && (
-                  <div className="searching">
-                    <SearchField setSearch={setSearchTerm} />
-                  </div>
-                )
-              }
-                <Button
-                  text={t("Update")}
-                  className="changeProvider"
-                  onClick={() => setOpen(true)}
-                />
-              </div>
+            <div className="searching2">
+              {value === 1 && (
+                <div className="searching">
+                  <SearchField setSearch={setSearchTerm} />
+                </div>
+              )}
+              <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />
+            </div>
           </div>
 
           <div className="list_table">
@@ -282,11 +276,7 @@ const NameProvider = () => {
               <Box>
                 <Tabs value={value} onChange={handleDataChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
-                  <Tab
-                    className="admin_tab_btn"
-                    label={t("Associated countries")}
-                    {...a11yProps(1)}
-                  />
+                  <Tab className="admin_tab_btn" label={t("Associated countries")} {...a11yProps(1)} />
                 </Tabs>
               </Box>
 
@@ -308,12 +298,7 @@ const NameProvider = () => {
                       <label htmlFor="" className="label_modal">
                         {t("Contact email")}
                       </label>
-                      <InputField
-                        disabled={true}
-                        name="Contact"
-                        className="textfield_row2"
-                        value={formState.values.contact}
-                      />
+                      <InputField disabled={true} name="Contact" className="textfield_row2" value={formState.values.contact} />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
@@ -358,31 +343,13 @@ const NameProvider = () => {
                               {!sort.ascend ? (
                                 <img
                                   className="sorting-icon"
-                                  onClick={() =>
-                                    getSortedData(
-                                      countries,
-                                      setCountries,
-                                      setSort,
-                                      [],
-                                      "name",
-                                      true
-                                    )
-                                  }
+                                  onClick={() => getSortedData(countries, setCountries, setSort, [], "name", true)}
                                   src={arrow_up}
                                   alt=""
                                 />
                               ) : (
                                 <img
-                                  onClick={() =>
-                                    getSortedData(
-                                      countries,
-                                      setCountries,
-                                      setSort,
-                                      [],
-                                      "name",
-                                      false
-                                    )
-                                  }
+                                  onClick={() => getSortedData(countries, setCountries, setSort, [], "name", false)}
                                   src={downArrow}
                                   alt=""
                                 />
@@ -422,21 +389,15 @@ const NameProvider = () => {
         open={open && value === 1}
         setOpen={setOpen}
         title={t("Update Service Provider")}
-        className='service-provider-country-modal'
+        className="service-provider-country-modal"
         handleClose={handleClose}
         Closebtn={true}
       >
         <div className="edit_vendor_div">
-        <label htmlFor="" className="label_modal">
+          <label htmlFor="" className="label_modal">
             {t("Select country to add")}
           </label>
-          <MultiSelect
-            name="country"
-            onChange={handleMultiSelectChange}
-            value={select}
-            names={COUNTRIES}
-            select={select}
-          />
+          <MultiSelect name="country" onChange={handleMultiSelectChange} value={select} names={COUNTRIES} select={select} />
           <Button
             text={t("Update Service Provider")}
             className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
@@ -445,7 +406,6 @@ const NameProvider = () => {
           />
         </div>
       </Modal>
-
 
       <Modal
         open={open && value === 0}
@@ -461,25 +421,17 @@ const NameProvider = () => {
           <InputField
             value={formState.values.fullName}
             name="fullName"
-            className={
-              hasError("fullName") && formState.errors.fullName
-                ? "textfield_row2_red"
-                : "textfield_row2"
-            }
+            className={hasError("fullName") && formState.errors.fullName ? "textfield_row2_red" : "textfield_row2"}
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("fullName") ? formState.errors.fullName[0] : null}
-          </div>
+          <div className="error-format">{hasError("fullName") ? formState.errors.fullName[0] : null}</div>
           <label htmlFor="" className="label_modal">
             {t("Phone Number")}
           </label>
           <InputField
             value={formState.values.phone}
             name="phone"
-            className={
-              hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"
-            }
+            className={hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"}
             onChange={handlePhnChange}
           />
           <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
@@ -489,25 +441,17 @@ const NameProvider = () => {
           <InputField
             value={formState.values.contact}
             name="contact"
-            className={
-              hasError("contact") && formState.errors.contact
-                ? "textfield_row2_red"
-                : "textfield_row2"
-            }
+            className={hasError("contact") && formState.errors.contact ? "textfield_row2_red" : "textfield_row2"}
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("contact") ? formState.errors.contact[0] : null}
-          </div>
+          <div className="error-format">{hasError("contact") ? formState.errors.contact[0] : null}</div>
           <label htmlFor="" className="label_modal">
             {t("Default sending email address")}
           </label>
           <InputField
             value={formState.values.email}
             name="email"
-            className={
-              hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"
-            }
+            className={hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"}
             onChange={handleChange}
           />
           <div className="error-format">{hasError("email") ? formState.errors.email[0] : null}</div>

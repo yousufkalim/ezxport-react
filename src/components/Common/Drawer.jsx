@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import LILogo5 from "../../assets/LILogo5.svg";
-import LILogo6 from "../../assets/LILogo6.svg";
+import { ReactComponent as LILogo5 } from "../../assets/LILogo5.svg";
+import { ReactComponent as LILogo6 } from "../../assets/LILogo6.svg";
 import LILogo7 from "../../assets/LILogo7.svg";
 import french from "../../assets/france.png";
 import english from "../../assets/english.png";
@@ -49,6 +49,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           {Route.map((item, index) => {
             if (index < Route.length - 2 && role === "user") {
               const isActive = location.pathname === item.path;
+
               return (
                 <>
                   <Link
@@ -65,6 +66,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               );
             } else if (role === "admin") {
               const isActive = location.pathname === item.path;
+
               return (
                 <>
                   <Link
@@ -95,7 +97,9 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 className={`${activeUploadButton === 6 && "activeLi "} dashboard_li `}
                 onClick={() => handleActiveUploadButton(6)}
               >
-                <img src={LILogo5} alt="" className="li_img" />
+                <span className={`${activeUploadButton === 6 && "li_img_white"}  li_img `}>
+                  <LILogo5 />
+                </span>
                 {t("Ask a question")}
               </Link>
               <Link
@@ -104,7 +108,9 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 className={`${activeUploadButton === 7 && "activeLi"} dashboard_li `}
                 onClick={() => handleActiveUploadButton(7)}
               >
-                <img src={LILogo6} alt="" className="li_img" />
+                <span className={`${activeUploadButton === 7 && "li_img_white"}  li_img `}>
+                  <LILogo6 />
+                </span>
                 {t("Account")}
               </Link>
             </>
