@@ -44,6 +44,8 @@ const ApplicationTab = (props) => {
       'aria-controls': `simple-tabpanel-${index}`,
     };
   }
+  console.log("Documents ", props.userRequest);
+
   return (
     <>
       <div className="list_table">
