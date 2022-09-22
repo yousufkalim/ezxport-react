@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import InputField from "../../../../../components/Common/InputField";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { validate } from "validate.js";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,10 +18,11 @@ import Select from "@mui/material/Select";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import Spinner from "../../../../../components/Common/Spinner";
 import Button from "../../../../../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
+// import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import toaster from "../../../../../utils/toaster";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -61,7 +62,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 5,
-      minimum: 5
+      minimum: 5,
     },
   },
   town: {
@@ -101,47 +102,50 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
     fetchSellers();
   }, []);
 
-      useEffect(() => {
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          isValid: errors ? false : true,
-          errors: errors || {},
-        }));
-      }, [formState.values, setFormState]);
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
-      useEffect(() => {
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          isValid: errors ? false : true,
-          errors: errors || {},
-        }));
-      }, [formState.values, setFormState]);
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
-      const fetchSellers = () => {
-        setLoading(true);
-        API('get', `/sellers/getByUser/${userData._id}`).then((res) => {
-            setSellers(res.data.seller);
-            setLoading(false);
-        }).catch((err) => {
-            toast.error(t("Something went wrong"));
-            setLoading(false);
+  const fetchSellers = () => {
+    setLoading(true);
+    API("get", `/sellers/getByUser/${userData._id}`)
+      .then((res) => {
+        setSellers(res.data.seller);
+        setLoading(false);
+      })
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
+  };
 
-        })
-      }
-    
-      const countryHandler = (e) => {
-        setFormState((state) => ({
-          ...state,
-          values: {...state.values, country: e.target.value}
-        }))
-      };
-    
-      const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
-      }
+  const countryHandler = (e) => {
+    setFormState((state) => ({
+      ...state,
+      values: { ...state.values, country: e.target.value },
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      values: { ...formState.values, [name]: value },
+      touched: { ...formState.touched, [name]: true },
+    });
+  };
 
   const handleOpenModal = (edit, item) => {
     setSeller(item);
@@ -189,22 +193,24 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
     });
   };
 
-      const createSeller = async (data) => {
-        await API('post', '/sellers', data).then((res) => {
-            toast.success('Seller addedd successfully!');
-            setOpen(false);
-            fetchSellers();
-          }).catch(err => toast.success('Something went wrong!'));
-      }
+  const createSeller = async (data) => {
+    await API("post", "/sellers", data)
+      .then((res) => {
+        toaster("success", "Seller added successfully!", "Adding Seller");
+        setOpen(false);
+        fetchSellers();
+      })
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+  };
 
   const editSeller = async (data) => {
     await API("put", `/sellers/${seller._id}`, data)
       .then((res) => {
-        toast.success(t("Seller updated successfully!"));
+        toaster("success", "Seller updated successfully!", "Update Seller");
         handleCloseModal();
         fetchSellers();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {
@@ -381,7 +387,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="email"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -395,7 +400,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="telephone"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("telephone")}
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
@@ -412,7 +416,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                 name="address"
                 disabled={!isEdit && seller}
                 onChange={(e) => handleChange(e)}
-
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -429,7 +432,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="zipcode"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -443,7 +445,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="town"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
@@ -455,7 +456,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
           </div>
           {((!isEdit && !seller) || (isEdit && seller)) && (
             <Button
-              text={t("To Confirm")}
+              text="To Confirm"
               disabled={!formState.isValid}
               type="submit"
               onClick={(e) => handleSubmit(e)}

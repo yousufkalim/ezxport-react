@@ -50,7 +50,7 @@ const schema = {
   },
 };
 
-const KEYS_TO_FILTERS = ['name'];
+const KEYS_TO_FILTERS = ["name"];
 
 const ServiceProviders = () => {
   const history = useHistory(null);
@@ -161,9 +161,7 @@ const ServiceProviders = () => {
     const {
       target: { value },
     } = event;
-    setSelect(
-      typeof value === "string" ? value.split(",") : value
-    );
+    setSelect(typeof value === "string" ? value.split(",") : value);
   };
 
   const handleCoutries = async () => {
@@ -215,9 +213,7 @@ const ServiceProviders = () => {
     }
   };
 
-  const searchedProviders = vendors?.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const searchedProviders = vendors?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
@@ -228,7 +224,7 @@ const ServiceProviders = () => {
           <div className="List_heading_div">
             <h1 className="list_h1">{t("Service providers")}</h1>
             <div className="searching3">
-              <SearchField setSearch={setSearchTerm} />
+              <SearchField placeholder="Search" setSearch={setSearchTerm} />
               <Button
                 className="list_service_btn2"
                 text={t("Add a service provider")}

@@ -406,6 +406,7 @@ const BOMsForm = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
+
               {allCodes?.map((item, index) => {
                 return (
                   <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }} key={item?.codeID}>
@@ -419,6 +420,7 @@ const BOMsForm = (props) => {
                         {item?.monetary_value}
                       </p>
                     </TableCell>
+
 
                     <TableCell align="center" className="country2">
                       <img
@@ -460,7 +462,11 @@ const BOMsForm = (props) => {
         <div>
           <div style={{ marginTop: "2.2rem" }}>
             <label className="BomLabel">Code</label>
-            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
+            <InputField
+              className="code_textfield"
+              value={editModalData?.item?.code}
+              disabled={true}
+            />
           </div>
           <div style={{ marginTop: "1rem" }}>
             <label className="BomLabel">{t("Monetary value")}</label>
@@ -476,7 +482,7 @@ const BOMsForm = (props) => {
             />
           </div>
           <Button
-            text={t("To Confirm")}
+            text="To Confirm"
             className="to_confirm_btn"
             onClick={() => {
               setAllCodes((prev) => {
@@ -574,7 +580,11 @@ const BOMsForm = (props) => {
           <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
+      <Modal
+        open={verificationModal}
+        setOpen={setVerificationModal}
+        handleClose={handleVerification}
+      >
         <div>
           <div
             style={{

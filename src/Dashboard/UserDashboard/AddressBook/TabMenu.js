@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import BuyersTab from "./subcomponents/BuyersTab";
 import SellersTab from "./subcomponents/SellersTab";
 import LocationsTab from "./subcomponents/LocationsTab";
+import toaster from "../../../utils/toaster";
 
 const schema = {
   companyName: {
@@ -88,9 +89,7 @@ const TabMenu = ({ t, value, handleChange, setOpen, open, title }) => {
       .then((res) => {
         setCountries(res?.data?.countries);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong!"));
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   return (

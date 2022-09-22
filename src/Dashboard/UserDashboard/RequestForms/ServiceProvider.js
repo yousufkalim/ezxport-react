@@ -32,8 +32,8 @@ const ServiceProvider = (props) => {
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-  const { step2, setFormState, setStep2 } = props;
 
+  const { step2, setFormState, setStep2 } = props;
   useEffect(() => {
     const errors = validate(step2.values, schema);
     setFormState((formState) => ({
