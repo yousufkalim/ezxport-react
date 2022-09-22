@@ -2,7 +2,7 @@ import React from "react";
 import Spinner from "../../../../components/Common/Spinner";
 import InputField from "../../../../components/Common/InputField";
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const societyType = [
   {
@@ -20,17 +20,25 @@ const societyType = [
 ];
 
 const CompanyInformation = ({ formState, setFormState, loading }) => {
-  const {errors} = formState;
+  const { errors } = formState;
 
   const companyTypeHandler = (e) => {
-    setFormState({...formState, values: { ...formState.values, type: e.target.value }, touched: {...formState.touched, type: true}});
+    setFormState({
+      ...formState,
+      values: { ...formState.values, type: e.target.value },
+      touched: { ...formState.touched, type: true },
+    });
   };
 
   const { t } = useTranslation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState({...formState, values:{ ...formState.values, [name]: value }, touched: {...formState.touched, [name]: true}});
+    setFormState({
+      ...formState,
+      values: { ...formState.values, [name]: value },
+      touched: { ...formState.touched, [name]: true },
+    });
   };
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
@@ -48,7 +56,7 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
             <InputField
               value={formState.values?.lastName}
               error={errors.lastName}
-              isError={hasError('lastName')}
+              isError={hasError("lastName")}
               name="lastName"
               onChange={(e) => handleChange(e)}
               type="text"
@@ -74,11 +82,7 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
                   </MenuItem>
                 ))}
               </Select>
-              {
-                hasError('type') && (
-                  <div className='input-error'>{errors.type ?? null}</div>
-                )
-              }
+              {hasError("type") && <div className="input-error">{errors.type ?? null}</div>}
             </FormControl>
           </div>
         </div>
@@ -91,7 +95,7 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
               value={formState.values?.vatNumber}
               name="vatNumber"
               error={errors.vatNumber}
-              isError={hasError('vatNumber')}
+              isError={hasError("vatNumber")}
               onChange={(e) => handleChange(e)}
               type="text"
               className="company_input"

@@ -1,9 +1,9 @@
 // Init
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { baseUrl } from '../config';
+import axios from "axios";
+import toaster from "../utils/toaster";
+import { baseUrl } from "../config";
 
-const api = async (method = 'get', uri, body) => {
+const api = async (method = "get", uri, body) => {
   // API Call
   const url = baseUrl + uri;
   return new Promise((resolve, reject) => {
@@ -11,10 +11,10 @@ const api = async (method = 'get', uri, body) => {
       .then((res) => resolve(res))
       .catch((err) => {
         if (err?.response?.status === 403) {
-          window.location = '/login';
+          window.location = "/login";
         } else {
-          console.log('API Error --------> ', err?.response?.status);
-          toast.error(err?.response?.data ? err.response.data : err?.message);
+          toaster("Failed", err?.response?.data ? err.response.data : err?.message);
+
           reject(err);
         }
       });

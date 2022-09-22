@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Form from "./RequestForms/Form";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const RequestForm = () => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   return (
     <div style={{ height: "100vh", display: "flex", justifyContent: "space-between" }}>

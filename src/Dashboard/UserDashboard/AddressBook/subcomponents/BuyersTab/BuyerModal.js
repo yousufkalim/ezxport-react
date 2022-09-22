@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { validate } from "validate.js";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
 import InputField from "../../../../../components/Common/InputField";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -64,7 +63,7 @@ const BuyerModal = ({
   setFormState,
   open,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);

@@ -6,11 +6,11 @@ import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import API from "../../../api/index";
-import { toast } from "react-toastify";
-import Spinner from "../../../components/Common/Spinner";
+// import Spinner from "../../../components/Common/Spinner";
 import DocumentByRequest from "./subcomponents/DocumentByRequest";
 import DocumentByName from "./subcomponents/DocumentByName";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../../utils/toaster";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -51,7 +51,7 @@ const Documents = () => {
   const [codes, setCodes] = useState([]);
   const [documents, setDocuments] = useState([]);
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const userData = localStorage.getItem("userData");
   const user = JSON.parse(userData);
@@ -72,7 +72,8 @@ const Documents = () => {
         setCodes(allCodes);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
+
         setLoading();
       });
   };

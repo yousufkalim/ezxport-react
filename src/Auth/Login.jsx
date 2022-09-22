@@ -3,13 +3,13 @@ import LoginIcon from "../assets/LoginIcon.svg";
 import { Link } from "react-router-dom";
 import Header from "../components/Common/Header";
 import API from "../api/index";
-import { toast } from "react-toastify";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import validate from "validate.js";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../utils/toaster";
 
 const schema = {
   email: {
@@ -40,8 +40,7 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -83,7 +82,7 @@ const Login = () => {
       })
 
       .catch((err) => {
-        toast.error(err?.response?.data?.message?.msg);
+        toaster("Failed", err?.response?.data?.message?.msg);
       });
   };
 

@@ -16,9 +16,8 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
-// import { toast } from 'react-toastify';
 import Moment from "moment";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
@@ -78,8 +77,7 @@ const UserDetails = () => {
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [requestLoading, setRequestLoading] = useState(false);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleUserData();
@@ -114,7 +112,6 @@ const UserDetails = () => {
         setLoading(false);
         setRequestById(res?.data?.request);
         setRequestLoading(false);
-        // console.log("first", res.data);
       })
       .catch((err) => {
         setLoading(false);
@@ -145,7 +142,12 @@ const UserDetails = () => {
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
 
-                  <Tab className="admin_tab_btn" label={t("Requests")} {...a11yProps(1)} onClick={handleRequestByUserId} />
+                  <Tab
+                    className="admin_tab_btn"
+                    label={t("Requests")}
+                    {...a11yProps(1)}
+                    onClick={handleRequestByUserId}
+                  />
                 </Tabs>
               </Box>
 
@@ -185,20 +187,32 @@ const UserDetails = () => {
                       <label htmlFor="" className="label_modal">
                         {t("Full address")}
                       </label>{" "}
-                      <InputField disabled={true} className="textfield_row2" value={completeAddress} />
+                      <InputField
+                        disabled={true}
+                        className="textfield_row2"
+                        value={completeAddress}
+                      />
                     </div>
                     <div className="userdetail_textField_div2">
                       <div className="postel_input">
                         <label htmlFor="" className="label_modal">
                           {t("Postal code")}
                         </label>{" "}
-                        <InputField disabled={true} className="userdetail_textField_row" value={postalCode} />
+                        <InputField
+                          disabled={true}
+                          className="userdetail_textField_row"
+                          value={postalCode}
+                        />
                       </div>
                       <div style={{ width: "60%" }}>
                         <label htmlFor="" className="label_modal">
                           {t("Town")}
                         </label>{" "}
-                        <InputField disabled={true} className="userdetail_textField_row" value={town} />
+                        <InputField
+                          disabled={true}
+                          className="userdetail_textField_row"
+                          value={town}
+                        />
                       </div>
                     </div>
                   </div>
@@ -231,73 +245,82 @@ const UserDetails = () => {
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                {
-                  requestLoading ? <Spinner /> : (
-                    <div className="list_table">
-                  {requestById?.length !== 0 ? (
-                    <>
-                      <TableContainer component={Paper}>
-                        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                          <TableHead>
-                            <TableRow>
-                              <TableCell
-                                align="left"
-                                className="country"
-                                style={{ backgrounColor: "#EAECF0" }}
-                              >
-                                {t("Request")} &nbsp;
-                                {!sort.ascend ? (
-                                  <img
-                                    className="sorting-icon"
-                                    onClick={() =>
-                                      getSortedData(
-                                        requestById,
-                                        setRequestById,
-                                        setSort,
-                                        [],
-                                        "title",
-                                        true
-                                      )
-                                    }
-                                    src={arrow_up}
-                                    alt=""
-                                  />
-                                ) : (
-                                  <img
-                                    onClick={() =>
-                                      getSortedData(
-                                        requestById,
-                                        setRequestById,
-                                        setSort,
-                                        [],
-                                        "title",
-                                        false
-                                      )
-                                    }
-                                    src={downArrow}
-                                    alt=""
-                                  />
-                                )}
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="country"
-                                style={{ backgrounColor: "#EAECF0" }}
-                              >
-                                Date
-                              </TableCell>
-                              <TableCell
-                                align="left"
-                                className="country"
-                                style={{ backgrounColor: "#EAECF0" }}
-                              >
-                                {t("Certificate cost")}
-                              </TableCell>
+                {requestLoading ? (
+                  <Spinner />
+                ) : (
+                  <div className="list_table">
+                    {requestById?.length !== 0 ? (
+                      <>
+                        <TableContainer component={Paper}>
+                          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                              <TableRow>
+                                <TableCell
+                                  align="left"
+                                  className="country"
+                                  style={{ backgrounColor: "#EAECF0" }}
+                                >
+                                  {t("Request")} &nbsp;
+                                  {!sort.ascend ? (
+                                    <img
+                                      className="sorting-icon"
+                                      onClick={() =>
+                                        getSortedData(
+                                          requestById,
+                                          setRequestById,
+                                          setSort,
+                                          [],
+                                          "title",
+                                          true
+                                        )
+                                      }
+                                      src={arrow_up}
+                                      alt=""
+                                    />
+                                  ) : (
+                                    <img
+                                      onClick={() =>
+                                        getSortedData(
+                                          requestById,
+                                          setRequestById,
+                                          setSort,
+                                          [],
+                                          "title",
+                                          false
+                                        )
+                                      }
+                                      src={downArrow}
+                                      alt=""
+                                    />
+                                  )}
+                                </TableCell>
+                                <TableCell
+                                  align="left"
+                                  className="country"
+                                  style={{ backgrounColor: "#EAECF0" }}
+                                >
+                                  Date
+                                </TableCell>
+                                <TableCell
+                                  align="left"
+                                  className="country"
+                                  style={{ backgrounColor: "#EAECF0" }}
+                                >
+                                  {t("Certificate cost")}
+                                </TableCell>
 
-                                <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                                <TableCell
+                                  align="left"
+                                  className="country"
+                                  style={{ backgrounColor: "#EAECF0" }}
+                                >
                                   {t("Service providers")}
                                 </TableCell>
-                                <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                                <TableCell
+                                  align="left"
+                                  className="country"
+                                  style={{ backgrounColor: "#EAECF0" }}
+                                >
                                   {t("Status")}
                                 </TableCell>
                               </TableRow>
@@ -332,29 +355,32 @@ const UserDetails = () => {
                                     )}
                                   </TableCell>
 
-                                <TableCell align="left" className="country2">
-                                  {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
-                                </TableCell>
-                                <TableCell align="left">
-                                  <p className="clrClass">{t(item.status)}</p>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    </>
-                  ) : (
-                    <>
-                      <h1 style={{ textAlign: "center", color: "#667085" }}>
-                        {t("No request created by")}
-                        {`${lastName} ${firstName}`}
-                      </h1>
-                    </>
-                  )}
-                </div>
-                  )
-                }
+                                  <TableCell align="left" className="country2">
+                                    {item?.vendor?.vendor ? (
+                                      <>{item?.vendor?.vendor?.name}</>
+                                    ) : (
+                                      "--"
+                                    )}
+                                  </TableCell>
+                                  <TableCell align="left">
+                                    <p className="clrClass">{t(item.status)}</p>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
+                      </>
+                    ) : (
+                      <>
+                        <h1 style={{ textAlign: "center", color: "#667085" }}>
+                          {t("No request created by")}
+                          {`${lastName} ${firstName}`}
+                        </h1>
+                      </>
+                    )}
+                  </div>
+                )}
               </TabPanel>
             </Box>
           </div>

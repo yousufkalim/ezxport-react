@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "../components/Common/Header";
 import { Link, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
-import { toast } from "react-toastify";
 import Button from "../components/Common/Button";
 import validate from "validate.js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputField from "../components/Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation, i18n } from "react-i18next";
+import toaster from "../utils/toaster";
 
 const schema = {
   firstName: {
@@ -92,21 +92,6 @@ const schema = {
 const Registration = () => {
   const history = useHistory();
 
-  // const [form, setForm] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   email: "",
-  //   phone: "",
-  //   fullAddress: "",
-  //   postelCode: "",
-  //   town: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   companyLastName: "",
-  //   typeOfSociety: "",
-  //   vatNumber: "",
-  // });
-
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -128,7 +113,6 @@ const Registration = () => {
   });
 
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -166,9 +150,6 @@ const Registration = () => {
       }));
     }
   };
-  // const handleFormData = (name, value) => {
-  //   setForm({ ...form, [name]: value });
-  // };
   const handleSubmit = async () => {
     await API("post", "/users/", {
       first_name: formState.values.firstName,
@@ -187,11 +168,12 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toast.success(t("User created successfully"));
+        toaster("success", "User created successfully", "Createed User");
+
         history.push("/");
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
   const handleBlur = (e) => {

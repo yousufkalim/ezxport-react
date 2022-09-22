@@ -1,11 +1,10 @@
 import { Dialog } from "@mui/material";
 import React from "react";
 import Button from "./Button";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ConfirmModal = ({ open, setOpen, action }) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const handleClose = () => {
     setOpen(false);

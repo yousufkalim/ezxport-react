@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import SearchIcon from "../../../assets/SearchIcon.svg";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -7,11 +6,10 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import UserInformation from "./subcomponents/UserInformation";
 import CompanyInformation from "./subcomponents/CompanyInformation";
-import { toast } from "react-toastify";
 import API from "../../../api/index";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { validate } from "validate.js";
-import Button from "../../../components/Common/Button";
+import toaster from "../../../utils/toaster";
 
 const schema = {
   lastName: {
@@ -70,11 +68,10 @@ const Account = () => {
     isValid: false,
     values: { lastName: "", type: "", vatNumber: "" },
     touched: {},
-    errors: {}
+    errors: {},
   });
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     getUserInformation();
@@ -82,9 +79,8 @@ const Account = () => {
 
   const setData = (data) => {
     const { name, type, vat } = data;
-    setFormState({...formState, values:{ lastName:name, type, vatNumber: vat }});
+    setFormState({ ...formState, values: { lastName: name, type, vatNumber: vat } });
   };
-
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -107,7 +103,8 @@ const Account = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong"));
+        toaster("Failed", "Something went wrong");
+
         setLoading(false);
       });
   };
@@ -127,10 +124,10 @@ const Account = () => {
     userData.company = companyObj;
     await API("put", `/users/${userData._id}`, userData)
       .then((res) => {
-        toast.success(t("company updated successfully"));
+        toaster("success", "company updated successfully", "Createed company");
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
       });
   };
 

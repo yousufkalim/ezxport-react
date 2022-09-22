@@ -19,16 +19,15 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
-import { toast } from "react-toastify";
 import validate from "validate.js";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import MultiSelect from "../../components/Common/MultiSelect";
 import { COUNTRIES } from "../../lib/data";
-import { Dialog } from "@mui/material";
 import { createFilter } from "react-search-input";
+import toaster from "../../utils/toaster";
 
 const schema = {
   fullName: {
@@ -114,15 +113,10 @@ const NameProvider = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  // const [sendingEmail, setSendingEmail] = useState('');
-  // const [Contact, setContact] = useState('');
-  // const [fullname, setFullname] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
   const [countries, setCountries] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -181,10 +175,6 @@ const NameProvider = () => {
             phone: res?.data?.vendor?.phone_number,
           },
         }));
-        // setSendingEmail);
-        // setContact(res?.data?.vendor?.contact_email);
-        // setFullname(res?.data?.vendor?.name);
-        // setPhoneNumber(res?.data?.vendor?.phone_number);
         const allCountries = res?.data?.vendor?.countries;
         if (allCountries) {
           setCountries(allCountries);
@@ -209,11 +199,11 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success("Service Provider Updated Successfully");
+        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
       })
       .catch((err) => {
         setOpen(false);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 
@@ -227,11 +217,11 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success(t("Service Provider Updated Successfully"));
+        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
       })
       .catch((err) => {
         setOpen(false);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 

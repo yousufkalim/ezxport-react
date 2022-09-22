@@ -5,12 +5,11 @@ import { useHistory } from "react-router-dom";
 import API from "../api";
 
 // unAUTH Routes
-import { toast } from "react-toastify";
+import toaster from "../utils/toaster";
 import Login from "../Auth/Login";
 import ForgetPassword from "../Auth/ForgetPassword";
 import ChangePassword from "../Auth/ChangePassword";
 import Registration from "../Auth/Registration";
-// import Account from '../Dashboard/UserDashboard/Account';
 // AUTH Routes
 import UserLayouts from "../Layouts/UserLayouts";
 import AdminLayouts from "../Layouts/AdminLayouts";
@@ -40,7 +39,7 @@ const Index = ({ role }) => {
       })
       .catch((err) => {
         history.push("/");
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
   return (

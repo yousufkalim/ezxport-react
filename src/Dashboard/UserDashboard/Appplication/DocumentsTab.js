@@ -5,17 +5,16 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import RightArrow from "../../../assets/RightArrow.svg";
-// import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
 import DownloadIcon from "../../../assets/DownloadIcon.svg";
 import Divider from "@mui/material/Divider";
 import { Grid } from "@mui/material";
 import FilePicker from "../../../components/Common/FilePicker";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api/index";
-import { toast } from "react-toastify";
 import Button from "../../../components/Common/Button";
 import { Typography } from "@mui/material";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../../utils/toaster";
 
 const DocumentsTab = ({ userRequest }) => {
   const [open, setOpen] = useState(true);
@@ -25,8 +24,7 @@ const DocumentsTab = ({ userRequest }) => {
   const [countryMissingDocs, setCountryMissingDocs] = useState([]);
   const [productMissingDocs, setProductMissingDocs] = useState([]);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleDocuments();
@@ -98,10 +96,7 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        console.log("handleReqDoc", err);
-        toast.error(t("File not found"));
-      });
+      .catch((err) => toaster("Failed", "File not found"));
   };
 
   const handleSpecificDoc = async (Doc_Id) => {
@@ -109,30 +104,21 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        console.log("handleSpecificDoc", err);
-        toast.error(t("File not found"));
-      });
+      .catch((err) => toaster("Failed", "File not found"));
   };
   const handleCodeDoc = async (Code_Id) => {
     await API("get", `/requests/zipFileCode/${userRequest._id}/${Code_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        console.log("handleSpecificDoc", err);
-        toast.error(t("File not found"));
-      });
+      .catch((err) => toaster("Failed", "File not found"));
   };
   const handleProductDoc = async (Product_Id) => {
     await API("get", `/requests/zipFileProduct/${Product_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        console.log("handleProductDoc", err);
-        toast.error(t("File not found"));
-      });
+      .catch((err) => toaster("Failed", "File not found"));
   };
   const handleMissingDocUpload = async () => {
     const data = {
@@ -147,11 +133,9 @@ const DocumentsTab = ({ userRequest }) => {
     };
     await API("put", `/requests/UploadmissingDocs/${userRequest._id}`, data)
       .then((res) => {
-        toast.success(res.data.message);
+        toaster("success", res.data.message);
       })
-      .catch((err) => {
-        console.log("handleMissingDocUpload", err);
-      });
+      .catch((err) => toaster("Failed", "File not found"));
   };
   const handleProdLength = () => {
     userRequest?.codes?.map((code) => {
@@ -232,12 +216,15 @@ const DocumentsTab = ({ userRequest }) => {
           <Button
             text="Send documents"
             className={
-              countryMissingDocs.length === userRequest?.missing_docs?.length && productMissingDocs.length === productLength
+              countryMissingDocs.length === userRequest?.missing_docs?.length &&
+              productMissingDocs.length === productLength
                 ? "send_documents_btn"
                 : "send_documents_btn_disabled"
             }
             onClick={handleMissingDocUpload}
-            disabled={countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false}
+            disabled={
+              countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false
+            }
           />
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <span>{t("Comments by the Admin")}</span> <br />
@@ -258,7 +245,12 @@ const DocumentsTab = ({ userRequest }) => {
           <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
             {allDocuments.title}
           </li>
-          <img src={DownloadIcon} alt="" className="downlaod_img_main" onClick={() => handleReqDoc()} />
+          <img
+            src={DownloadIcon}
+            alt=""
+            className="downlaod_img_main"
+            onClick={() => handleReqDoc()}
+          />
           {open ? <ExpandLess onClick={handleRequest} /> : <ExpandMore onClick={handleRequest} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
@@ -279,7 +271,12 @@ const DocumentsTab = ({ userRequest }) => {
                   ) : (
                     ""
                   )}
-                  <img src={DownloadIcon} alt="" className="downlaod_img" onClick={() => handleSpecificDoc(doc?.doc_id?._id)} />
+                  <img
+                    src={DownloadIcon}
+                    alt=""
+                    className="downlaod_img"
+                    onClick={() => handleSpecificDoc(doc?.doc_id?._id)}
+                  />
                 </ListItemButton>
               );
             })}
@@ -292,8 +289,17 @@ const DocumentsTab = ({ userRequest }) => {
                       {code?.code?.code}
                     </li>
                     {/* <p className="send_p">Sent</p> */}
-                    <img src={DownloadIcon} alt="" className="downlaod_img_main" onClick={() => handleCodeDoc(code?.code?._id)} />
-                    {productOpen ? <ExpandLess onClick={handleCode} /> : <ExpandMore onClick={handleCode} />}
+                    <img
+                      src={DownloadIcon}
+                      alt=""
+                      className="downlaod_img_main"
+                      onClick={() => handleCodeDoc(code?.code?._id)}
+                    />
+                    {productOpen ? (
+                      <ExpandLess onClick={handleCode} />
+                    ) : (
+                      <ExpandMore onClick={handleCode} />
+                    )}
                   </ListItemButton>
 
                   <Collapse in={productOpen} timeout="auto" unmountOnExit>
@@ -301,7 +307,10 @@ const DocumentsTab = ({ userRequest }) => {
                       return (
                         <>
                           <ListItemButton sx={{ border: "1px solid #EAECF0" }}>
-                            <li className="table_li4" style={{ marginRight: "auto", display: "flex" }}>
+                            <li
+                              className="table_li4"
+                              style={{ marginRight: "auto", display: "flex" }}
+                            >
                               <img src={RightArrow} alt="" className="rightArrow" />
                               {product?.name}
                             </li>

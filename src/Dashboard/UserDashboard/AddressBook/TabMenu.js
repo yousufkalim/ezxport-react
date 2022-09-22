@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import API from "../../../api/index";
-import { toast } from "react-toastify";
 import BuyersTab from "./subcomponents/BuyersTab";
 import SellersTab from "./subcomponents/SellersTab";
 import LocationsTab from "./subcomponents/LocationsTab";

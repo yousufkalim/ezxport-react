@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "../../assets/SearchIcon.svg";
 import ProvidersTable from "../../components/UserDashboard/ProvidersTable";
 import API from "../../api/index";
-import { toast } from "react-toastify";
-import Spinner from "../../components/Common/Spinner";
 import toaster from "../../utils/toaster";
-import { useTranslation, Trans } from "react-i18next";
-
-// import Spinner from '../../components/Common/Spinner';
+import { useTranslation } from "react-i18next";
 
 const Providers = () => {
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 
@@ -36,7 +31,7 @@ const Providers = () => {
         // toaster('success', "testing");
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
         setLoading(false);
       });
   };

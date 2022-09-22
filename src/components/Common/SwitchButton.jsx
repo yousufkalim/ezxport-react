@@ -1,20 +1,24 @@
 import React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const SwitchButton = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start" }}>
           {props?.item?.url?.map((item, index) => {
-          var filename = item.split("-").slice(-3).reverse().pop();
-            return <p className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none" }}>{filename}</p>;
-        })}
+            var filename = item.split("-").slice(-3).reverse().pop();
+            return (
+              <p className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none" }}>
+                {filename}
+              </p>
+            );
+          })}
         </div>
         <FormControlLabel
           name={props.name}

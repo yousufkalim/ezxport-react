@@ -1,43 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchField from "../../../components/Common/SearchField";
 import TabMenu from "./TabMenu";
 import Button from "../../../components/Common/Button";
 import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
 import { useTranslation } from "react-i18next";
 
-const title = [
-  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
-  { heading: "Country" },
-  { heading: "E-mail address" },
-  { heading: "Telephone" },
-  { heading: "Address" },
-  { heading: "" },
-];
+// const title = [
+//   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
+//   { heading: "Country" },
+//   { heading: "E-mail address" },
+//   { heading: "Telephone" },
+//   { heading: "Address" },
+//   { heading: "" },
+// ];
 
-const schema = {
-  companyName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 64,
-    },
-  },
-  email: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
-    email: true,
-  },
-  telephone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 10, minimum: 10 },
-  },
-};
+// const schema = {
+//   companyName: {
+//     presence: { allowEmpty: false, message: "is required" },
+//     length: {
+//       maximum: 64,
+//     },
+//   },
+//   email: {
+//     presence: { allowEmpty: false, message: "is required" },
+//     length: { maximum: 64 },
+//     email: true,
+//   },
+//   telephone: {
+//     presence: { allowEmpty: false, message: "is required" },
+//     length: { maximum: 10, minimum: 10 },
+//   },
+// };
 
 const AddressBook = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

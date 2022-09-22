@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ForgetLogo from "../assets/ForgetLogo.svg";
-import Quiz from "../assets/Quiz.png";
 import Header from "../components/Common/Header";
 import { Link } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
 import API from "../api";
-import { toast } from "react-toastify";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import validate from "validate.js";
+import toaster from "../utils/toaster";
 
 const schema = {
   email: {
@@ -23,8 +22,8 @@ const schema = {
 
 const ForgetPassword = () => {
   const [flag, setFlag] = useState(false);
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -46,11 +45,11 @@ const ForgetPassword = () => {
       .then((res) => {
         setFlag(true);
         if (res.data.success) {
-          toast.success(res.data.message);
+          toaster("success", res.data.message);
         }
       })
       .catch((err) => {
-        toast.error(t("Email does not exist"));
+        toaster("Failed", "Email does not exist");
         setFlag(false);
       });
     setFlag(!flag);

@@ -3,7 +3,7 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import API from "../../api/index";
 import Button from "../../components/Common/Button";
 import SearchInput from "../../components/Common/SearchField";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -16,9 +16,8 @@ import Modal from "../../components/Common/Modal";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { toast } from "react-toastify";
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../../components/Common/ConfirmModal";
 import { getSortedData } from "../../lib/getSortedData";
 import downArrow from "../../assets/TitleDownArrow.svg";
@@ -26,6 +25,8 @@ import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../../components/Common/Spinner";
 import { createFilter } from "react-search-input";
 import { COUNTRIES } from "../../lib/data.js";
+import toaster from "../../utils/toaster";
+
 const TITLES = [
   {
     name: "Country",
@@ -55,8 +56,7 @@ const Country = () => {
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [searchTerm, setSearchTerm] = useState("");
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const handleCountries = async () => {
     setLoading(true);
@@ -66,7 +66,7 @@ const Country = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error(t("Error while fetching data!"));
+        toaster("Failed", "Error while fetching data!");
         setLoading(false);
       });
   };
@@ -89,22 +89,23 @@ const Country = () => {
         setOpen(false);
         handleClose();
         handleCountries();
-        toast.success(t("Country Added Successfully"));
+        toaster("success", "Country Added Successfully", "Added Country");
       })
       .catch((err) => {
-        toast.error(t("Country already exists"));
+        toaster("Failed", "Country already exists");
       });
   };
   const handleCountryDelete = async (countryId) => {
     await API("delete", `/countries/${countryId}`)
       .then((res) => {
-        toast.success(t("Country Deleted Successfully"));
+        toaster("success", "Country Deleted Successfully", "Deleted Country");
+
         setOpenModal(false);
         setCountryId("");
         handleCountries();
       })
       .catch((err) => {
-        toast.error(t("Something went wrong"));
+        toaster("Failed", "Something went wrong");
       });
   };
 
@@ -119,7 +120,12 @@ const Country = () => {
             <div className="searching">
               <SearchInput placeholder="Search" setSearch={setSearchTerm} />
               {/* <SearchField placeholder={t("Searching")} /> */}
-              <Button className="list_reqst_btn4" text={t("Add a country")} Imgsrc={PlusIcon} onClick={() => setOpen(true)} />
+              <Button
+                className="list_reqst_btn4"
+                text={t("Add a country")}
+                Imgsrc={PlusIcon}
+                onClick={() => setOpen(true)}
+              />
             </div>
           </div>
           {/* list table   */}
@@ -134,14 +140,32 @@ const Country = () => {
                         {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                           <img
                             className="sorting-icon"
-                            onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, true)}
+                            onClick={() =>
+                              getSortedData(
+                                countries,
+                                setCounteries,
+                                setSort,
+                                nestSortTitles,
+                                item.key,
+                                true
+                              )
+                            }
                             src={arrow_up}
                             alt=""
                           />
                         ) : (
                           item.sortIcon && (
                             <img
-                              onClick={() => getSortedData(countries, setCounteries, setSort, nestSortTitles, item.key, false)}
+                              onClick={() =>
+                                getSortedData(
+                                  countries,
+                                  setCounteries,
+                                  setSort,
+                                  nestSortTitles,
+                                  item.key,
+                                  false
+                                )
+                              }
                               src={downArrow}
                               alt=""
                             />
@@ -172,7 +196,9 @@ const Country = () => {
                               padding: 2,
                               cursor: "pointer",
                             }}
-                            onClick={() => history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)}
+                            onClick={() =>
+                              history.push(`/Admin/Dashboard/Country/NomPays/${item?._id}`)
+                            }
                           >
                             <p className="AP_plus_title">{t(item.name)}</p>
                           </TableCell>
@@ -203,8 +229,18 @@ const Country = () => {
           </div>
         </div>
       </div>
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleCountryDelete(countryId)} />
-      <Modal open={open} setOpen={setOpen} title={t("Add a country")} handleClose={handleClose} Closebtn={true}>
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleCountryDelete(countryId)}
+      />
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t("Add a country")}
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="add_country_div">
           <div
             style={{
@@ -251,9 +287,11 @@ const Country = () => {
             </FormControl>
             <Button
               text={t("Add a country")}
-
-              className={dropdown && currency === "default" ? "add_Country_button_disabled" : "add_Country_button"}
-
+              className={
+                dropdown && currency === "default"
+                  ? "add_Country_button_disabled"
+                  : "add_Country_button"
+              }
               disabled={dropdown === "default" && currency === "default"}
               onClick={handleAddCountry}
             />

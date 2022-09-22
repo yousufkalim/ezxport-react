@@ -3,13 +3,13 @@ import React from "react";
 // import Select from '@mui/material/Select';
 import DatePicker from "../../../components/Common/DatePicker";
 import InputField from "../../../components/Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import moment from "moment";
 
 const AddressBook = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="" style={{ marginBottom: "10%", marginTop: "2%" }}>
