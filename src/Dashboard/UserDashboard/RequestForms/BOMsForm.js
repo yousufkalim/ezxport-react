@@ -368,12 +368,18 @@ const BOMsForm = (props) => {
               {props.matchedData?.map((item, index) => (
                 <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell align="center" style={{ width: "20%" }}>
-                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
+                    <p
+                      className="AP_plus_title"
+                      style={{ color: item?.certification_required === false && "red" }}
+                    >
                       {item?.code}
                     </p>
                   </TableCell>
                   <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
+                    <p
+                      className="AP_plus_title"
+                      style={{ color: item?.certification_required === false && "red" }}
+                    >
                       {item?.monetary_value}
                     </p>
                   </TableCell>
@@ -417,7 +423,11 @@ const BOMsForm = (props) => {
         <div>
           <div style={{ marginTop: "2.2rem" }}>
             <label className="BomLabel">Code</label>
-            <InputField className="code_textfield" value={editModalData?.item?.code} disabled={true} />
+            <InputField
+              className="code_textfield"
+              value={editModalData?.item?.code}
+              disabled={true}
+            />
           </div>
           <div style={{ marginTop: "1rem" }}>
             <label className="BomLabel">{t("Monetary value")}</label>
@@ -433,7 +443,7 @@ const BOMsForm = (props) => {
             />
           </div>
           <Button
-            text={t("To Confirm")}
+            text="To Confirm"
             className="to_confirm_btn"
             onClick={() => {
               props.setMatchedData((prev) => {
@@ -531,7 +541,11 @@ const BOMsForm = (props) => {
           <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
-      <Modal open={verificationModal} setOpen={setVerificationModal} handleClose={handleVerification}>
+      <Modal
+        open={verificationModal}
+        setOpen={setVerificationModal}
+        handleClose={handleVerification}
+      >
         <div>
           <div
             style={{

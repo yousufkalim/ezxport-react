@@ -16,6 +16,7 @@ import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import toaster from "../../../../../utils/toaster";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -64,10 +65,8 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
         setBuyers(res.data.buyer);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong"));
-        setLoading(false);
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
   };
 
   const handleOpenModal = (edit, item) => {

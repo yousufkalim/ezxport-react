@@ -114,6 +114,7 @@ const buyerSchema = {
 };
 
 const Dispatch = (props) => {
+
   const { step3, setStep3, stepHanlder } = props;
   const { buyerData, sellerData, placeOfInspection } = props.step3;
   const sellerValues = sellerData.values;
@@ -294,6 +295,7 @@ const Dispatch = (props) => {
     });
   };
 
+
   const placeError = (field) => (step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false);
   const sellerError = (field) => (step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false);
   const buyerError = (field) => (step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false);
@@ -370,7 +372,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-Mail Address")}</label>
+            <label className="BomLabel">{t("E-mail address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -417,7 +419,7 @@ const Dispatch = (props) => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postel Code")}</label>
+              <label className="BomLabel">{t("Postal code")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -517,7 +519,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-Mail Address")}</label>
+            <label className="BomLabel">{t("E-mail address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -564,7 +566,7 @@ const Dispatch = (props) => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postal Code")}e</label>
+              <label className="BomLabel">{t("Postal code")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -629,6 +631,7 @@ const Dispatch = (props) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
           />
+
           {placeError("InspectionDate") && <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>}
         </div>
         <div className="inspection_textfield">
@@ -669,7 +672,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-Mail Address")}</label>
+            <label className="BomLabel">{t("E-mail address")}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -715,7 +718,7 @@ const Dispatch = (props) => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postal Code")}</label>
+              <label className="BomLabel">{t("Postal code")}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"

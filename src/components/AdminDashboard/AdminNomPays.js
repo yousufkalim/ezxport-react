@@ -54,9 +54,9 @@ function a11yProps(index) {
   };
 }
 
-const PROVIDERS_TO_FILTERS = ['name'];
-const DOCUMENTS_TO_FILTERS = ['name'];
-const CODES_TO_FILTERS = ['code'];
+const PROVIDERS_TO_FILTERS = ["name"];
+const DOCUMENTS_TO_FILTERS = ["name"];
+const CODES_TO_FILTERS = ["code"];
 
 const AdminNomPays = () => {
   const params = useParams();
@@ -158,10 +158,15 @@ const AdminNomPays = () => {
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
+
                   <SearchField setSearch={setCodeSearch} />
                   <Button text={t("Add")} className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
                 </div>
-                <Button text={t("Update")} className="update_Boms_btn" onClick={() => setOpen(true)} />
+                <Button
+                  text={t("Update")}
+                  className="update_Boms_btn"
+                  onClick={() => setOpen(true)}
+                />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
@@ -169,7 +174,11 @@ const AdminNomPays = () => {
                   <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
                 )} */}
                 {currentRadioValue === "coefficient" && (
-                  <Button text={t("Update")} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
+                  <Button
+                    text={t("Update")}
+                    className="Edit_btn2"
+                    onClick={() => setOpenCalculationModal(true)}
+                  />
                 )}
               </div>
             ) : (
@@ -244,7 +253,13 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title={t("Update")} handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t("Update")}
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
@@ -260,7 +275,12 @@ const AdminNomPays = () => {
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
             {t("Upload your BOM file")}
           </label>
-          <FilePicker index={"01"} fileName={file.name} name={file.name} onChange={(e) => handleCodesFile(e.target.files[0])} />
+          <FilePicker
+            index={"01"}
+            fileName={file.name}
+            name={file.name}
+            onChange={(e) => handleCodesFile(e.target.files[0])}
+          />
           <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>

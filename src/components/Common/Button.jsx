@@ -1,6 +1,9 @@
-import React from 'react';
+import React from "react";
+import { useTranslation, Trans } from "react-i18next";
 
 const Button = (props) => {
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <button
@@ -11,7 +14,7 @@ const Button = (props) => {
       >
         <img src={props.Imgsrc} alt="" />
         &nbsp;
-        {props.text}
+        {t(props.text)}
       </button>
     </>
   );
