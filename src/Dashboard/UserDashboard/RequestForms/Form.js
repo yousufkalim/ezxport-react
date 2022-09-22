@@ -78,6 +78,8 @@ export default function HorizontalNonLinearStepper() {
   const [certificationCountryOfCode, setCertificationCountryOfCode] = useState("");
   const [countries, setCounteries] = useState();
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
+  const [allCodes, setAllCodes] = useState([]);
+
   // step 2 states
   const [step2, setStep2] = useState({
     isValid: false,
@@ -220,7 +222,7 @@ export default function HorizontalNonLinearStepper() {
       title: step1.title,
       codes: [],
     };
-    matchedData.map((item) => {
+    allCodes?.map((item) => {
       data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
@@ -250,7 +252,7 @@ export default function HorizontalNonLinearStepper() {
       codes: [],
       certification_cost: certificationCostOfCode,
     };
-    matchedData.map((item) => {
+    allCodes?.map((item) => {
       data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
@@ -450,7 +452,7 @@ export default function HorizontalNonLinearStepper() {
     const line_items = [
       {
         price_data: {
-          currency: currency,
+          currency: "USD",
           product_data: {
             name: step1.title,
           },
@@ -543,6 +545,8 @@ export default function HorizontalNonLinearStepper() {
                 countries={countries}
                 setCounteries={setCounteries}
                 setRetrieveRequestId={setRetrieveRequestId}
+                allCodes={allCodes}
+                setAllCodes={setAllCodes}
               />
             ) : activeStep === 1 ? (
               <ServiceproviderForm

@@ -28,7 +28,7 @@ import { useTranslation, Trans } from "react-i18next";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
-  const { step1, setStep1, setMatchedData } = props;
+  const { step1, setStep1, setMatchedData, allCodes, setAllCodes } = props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -42,7 +42,8 @@ const BOMsForm = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [bomId, setBomId] = useState("");
-
+  const [adminCodes, setAdminCodes] = useState([]);
+  // const [allCodes, setAllCodes] = useState([]);
   const { request, pastRequest } = Store();
 
   console.log("Request data ", request);
@@ -66,9 +67,10 @@ const BOMsForm = (props) => {
     const newCodes = [];
     codes?.forEach((item) => {
       const { monetary_value } = item;
-      const { code, _id: codeID, certification_required } = item.code;
+      const { code, _id: codeID, certification_required, admin_code } = item.code;
       const codeObj = {
         monetary_value,
+        admin_code,
         code,
         codeID,
         certification_required,
@@ -78,7 +80,6 @@ const BOMsForm = (props) => {
     return newCodes;
   };
 
-  console.log("Matched ", props.matchedData);
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
@@ -95,6 +96,7 @@ const BOMsForm = (props) => {
   };
   useEffect(() => {
     handleAllRequestByCountryId();
+    getBomByCountryId();
   }, [step1?.country]);
   useEffect(() => {
     if (step1?.country !== "") {
@@ -118,20 +120,31 @@ const BOMsForm = (props) => {
   useEffect(() => {
     handleGetAllCountry();
   }, []);
+
   const handleAddCodes = () => {
-    props.matchedData.push({
+    console.log("CODE ID ", code);
+    const obj = {
+      admin_code: code.admin_code,
       code: code?.code,
       codeID: code?._id,
       monetary_value: monetaryValue || "--",
       certification_required: code?.certification_required,
+    };
+    // props.matchedData.push(obj);
+    console.log("CODE Obj ", obj);
+    console.log("CODE ALL codes ", obj);
+    console.log("Admin ALL codes ", adminCodes);
+    setAllCodes([obj]);
+    let filtered = adminCodes?.filter((item) => {
+      return item?._id !== code?._id;
     });
-    let filtered = props.unMatchedData.filter((item) => {
-      return item?.bom?.code !== code.code;
-    });
-    props.setUnMatchedData(filtered);
+    // props.setUnMatchedData(filtered);
+    setAdminCodes(filtered);
     setCode("default");
     setMonetaryValue("");
   };
+
+  console.log("ALL codes ", allCodes);
 
   const handleDocument = async (file) => {
     var filename = file.name.split(".").pop();
@@ -146,8 +159,10 @@ const BOMsForm = (props) => {
           console.log("🚀 ~ file: BOMsForm.js ~ line 120 ~ .then ~ res", res);
           setLoading(false);
           let arr1 = [];
+          let arr2 = [];
           res?.data?.matchedData.map((item) => {
             arr1.push({
+              admin_code: item.bom.admin_code,
               code: item?.bom?.code,
               codeID: item?.bom?._id,
               monetary_value: monetaryValue || item?.monetary_value,
@@ -155,9 +170,20 @@ const BOMsForm = (props) => {
             });
           });
 
-          props?.setMatchedData([...arr1]);
-          props?.setUnMatchedData(res?.data?.unMatched);
-          props.setUnMatchedCodes(res?.data?.unMatched);
+          res?.data?.unMatched.map((item) => {
+            arr2.push({
+              admin_code: item.bom.admin_code,
+              code: item?.bom?.code,
+              codeID: item?.bom?._id,
+              monetary_value: monetaryValue || item?.monetary_value,
+              certification_required: item.bom?.certification_required,
+            });
+          });
+
+          // props?.setMatchedData([...arr1]);
+          // props?.setUnMatchedData(res?.data?.unMatched);
+          // props.setUnMatchedCodes(res?.data?.unMatched);
+          setAllCodes([...arr1, ...arr2]);
         })
         .catch((err) => {
           setLoading(false);
@@ -172,20 +198,26 @@ const BOMsForm = (props) => {
   };
 
   const handleDelete = (code) => {
+    console.log("CODE ID ", code);
+    console.log("ALL codes ", allCodes);
     const { matchedData, unMatchedData, setUnMatchedData } = props;
-    const findCode = matchedData.find((item) => item.codeID === code.codeID);
-    let filtered = matchedData.filter((item) => {
+    const findCode = allCodes.find((item) => item.codeID === code.codeID);
+    let filtered = allCodes.filter((item) => {
       return item.codeID !== code.codeID;
     });
     if (findCode && findCode.certification_required && !pastRequest) {
-      setUnMatchedData([...unMatchedData, findCode]);
+      // setUnMatchedData([...unMatchedData, findCode]);
+      setAdminCodes([...adminCodes, findCode]);
     }
     // if(props.matchedData.length === 1){
     //   setImportedFile("")
     // }
-    props.setMatchedData(filtered);
+    // props.setMatchedData(filtered);
+    setAllCodes(filtered);
     setOpenModal(false);
   };
+
+  console.log("Admin codes ", adminCodes);
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
       userId: user._id,
@@ -219,7 +251,16 @@ const BOMsForm = (props) => {
       setMonetaryValue(validatedValue);
     }
   };
-
+  const getBomByCountryId = async () => {
+    await API("get", `/boms/getByCountryId/${step1.country}`)
+      .then((res) => {
+        console.log("first", res);
+        setAdminCodes(res?.data?.bom);
+      })
+      .catch((err) => {
+        console.log("first2", err);
+      });
+  };
   return (
     <div>
       <div style={{ width: "100%" }}>
@@ -327,8 +368,8 @@ const BOMsForm = (props) => {
             <MenuItem disabled value="default">
               {t("Select a Code")}
             </MenuItem>
-            {props?.unMatchedData?.map((item) => {
-              return <MenuItem value={item?.bom}>{item?.bom?.code}</MenuItem>;
+            {adminCodes?.map((item) => {
+              return <MenuItem value={item}>{item?.code}</MenuItem>;
             })}
           </Select>
         </div>
@@ -345,7 +386,7 @@ const BOMsForm = (props) => {
           />
         </div>
       </div>
-      {props.matchedData.length === 0 ? (
+      {allCodes?.length === 0 ? (
         ""
       ) : (
         <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
@@ -353,10 +394,10 @@ const BOMsForm = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell align="center" className="country">
-                  Code <img src={DownArrow} alt="" />
+                  {t("Code")}
                 </TableCell>
                 <TableCell align="center" className="country">
-                  {t("Monetary value")} <img src={DownArrow} alt="" />
+                  {t("Monetary value")}
                 </TableCell>
 
                 <TableCell align="center" className="country">
@@ -365,49 +406,47 @@ const BOMsForm = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {props.matchedData?.map((item, index) => (
-                <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell align="center" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
-                      {item?.code}
-                    </p>
-                  </TableCell>
-                  <TableCell align="center" className="country2" style={{ width: "20%" }}>
-                    <p
-                      className="AP_plus_title"
-                      style={{ color: item?.certification_required === false && "red" }}
-                    >
-                      {item?.monetary_value}
-                    </p>
-                  </TableCell>
 
-                  <TableCell align="center" className="country2">
-                    <img
-                      src={DeleteIcon}
-                      alt=""
-                      className="dltIcon"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setOpenModal(true);
-                        setBomId(item);
-                      }}
-                    />
-                    <img
-                      src={EditIcon}
-                      alt=""
-                      className="dltIcon"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        setOpenEditModal(true);
-                        setEditModalData({ item: { ...item }, index });
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
+              {allCodes?.map((item, index) => {
+                return (
+                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }} key={item?.codeID}>
+                    <TableCell align="center" style={{ width: "20%" }}>
+                      <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
+                        {item?.code}
+                      </p>
+                    </TableCell>
+                    <TableCell align="center" className="country2" style={{ width: "20%" }}>
+                      <p className="AP_plus_title" style={{ color: item?.certification_required === false && "red" }}>
+                        {item?.monetary_value}
+                      </p>
+                    </TableCell>
+
+
+                    <TableCell align="center" className="country2">
+                      <img
+                        src={DeleteIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setOpenModal(true);
+                          setBomId(item);
+                        }}
+                      />
+                      <img
+                        src={EditIcon}
+                        alt=""
+                        className="dltIcon"
+                        style={{ cursor: "pointer" }}
+                        onClick={() => {
+                          setOpenEditModal(true);
+                          setEditModalData({ item: { ...item }, index });
+                        }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>
@@ -446,7 +485,7 @@ const BOMsForm = (props) => {
             text="To Confirm"
             className="to_confirm_btn"
             onClick={() => {
-              props.setMatchedData((prev) => {
+              setAllCodes((prev) => {
                 prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
                 return [...prev];
               });
@@ -581,6 +620,6 @@ const BOMsForm = (props) => {
       </Modal>
     </div>
   );
-};
+};;
 
 export default BOMsForm;
