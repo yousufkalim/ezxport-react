@@ -40,7 +40,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 5,
-      minimum: 5
+      minimum: 5,
     },
   },
   town: {
@@ -65,7 +65,6 @@ const BuyerModal = ({
   open,
 }) => {
   const { t, i18n } = useTranslation();
-
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -121,22 +120,22 @@ const BuyerModal = ({
   const createBuyer = async (data) => {
     await API("post", "/buyers", data)
       .then((res) => {
-        toast.success(t("Buyer addedd successfully!"));
+        toaster("success", "Buyer added successfully!", "Adding Buyer");
         setOpen(false);
         fetchBuyers();
         resetForm();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const editBuyer = async (data) => {
     await API("put", `/buyers/${buyer._id}`, data)
       .then((res) => {
-        toaster("success", t("Buyer updated sucessfully"));
+        toaster("success", "Buyer updated sucessfully", "Update Buyer");
         fetchBuyers();
         handleCloseModal();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {
@@ -174,123 +173,137 @@ const BuyerModal = ({
   const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
   return (
     <Modal
-            open={open}
-            setOpen={setOpen}
-            title={MODAL_TITLE}
-            handleClose={() => handleCloseModal()}
-            Closebtn={true}
-        >
-               <div className="buyer_socond">
-          <div className="luyer_input_field">
-            <InputField
-              label="Company Name"
+      open={open}
+      setOpen={setOpen}
+      title={MODAL_TITLE}
+      handleClose={() => handleCloseModal()}
+      Closebtn={true}
+    >
+      <div className="buyer_socond">
+        <div className="luyer_input_field">
+          <InputField
+            label="Company name"
+            disabled={!isEdit && buyer}
+            name="companyName"
+            onChange={(e) => handleChange(e)}
+            value={formState.values.companyName}
+            isError={hasError("companyName")}
+            error={formState.errors?.companyName}
+            type="text"
+            placeholder="Company 1"
+          />
+        </div>
+        <div className="luyer_input_field">
+          <FormControl fullWidth>
+            <label htmlFor="" className="buyer_label">
+              {t("Select a Country")}
+            </label>
+            <Select
+              id="demo-simple-select"
               disabled={!isEdit && buyer}
-              name='companyName'
-              onChange={(e) => handleChange(e)}
-              value={formState.values.companyName}
-              isError={hasError("companyName")}
-              error={formState.errors?.companyName}
-              type="text" placeholder="Company 1" />
-          </div>
-          <div className="luyer_input_field">
-            <FormControl fullWidth>
-              <label htmlFor="" className="buyer_label">
-                {t("Select a country")}
-              </label>
-              <Select
-                id="demo-simple-select"
-                disabled={!isEdit && buyer}
-                name='country'
-                value={formState.values.country}
-                onChange={(e) => countryHandler(e)}
-                className="buyer_input"
-              >
-                {
-                  countries?.map(({name, _id: id}) => (
-                    <MenuItem key={id} value={id}>{name}</MenuItem>
-                  ))
-                }
-              </Select>
-              {
-                hasError('country') && (
-                  <div className='input-error'>{formState.errors.country ?? null}</div>
-                )
-              }
-            </FormControl>
-          </div>
-          <div className="luyer_input_field">
-            <div className="second_input_field">
-              <div className="input_fields">
-                <InputField 
-                  label="Email"
-                  name='email'
-                  disabled={!isEdit && buyer}
-                  onChange={(e) => handleChange(e)}
-                  isError={hasError("email")}
-                  error={formState.errors.email}
-                  value={formState.values.email}
-                  type="email"
-                  placeholder="mail@mail.com" />
-              </div>
-              <div className="input_fields">
-                <InputField 
-                  label={t("Telephone")}
-                  isError={hasError("telephone")}
-                  error={formState.errors.telephone}
-                  name='telephone'
-                  disabled={!isEdit && buyer}
-                  onChange={(e) => handleChange(e)}
-                  value={formState.values.telephone}
-                  type="number"
-                  placeholder="+33 03 32 32 42 42" />
-              </div>
-            </div>
-          </div>
-          <div className="luyer_input_field">
-            <div className="luyer_input_field">
-              <InputField 
-                label="Address"
-                name='address'
+              name="country"
+              value={formState.values.country}
+              onChange={(e) => countryHandler(e)}
+              className="buyer_input"
+            >
+              {countries?.map(({ name, _id: id }) => (
+                <MenuItem key={id} value={id}>
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+            {hasError("country") && (
+              <div className="input-error">{formState.errors.country ?? null}</div>
+            )}
+          </FormControl>
+        </div>
+        <div className="luyer_input_field">
+          <div className="second_input_field">
+            <div className="input_fields">
+              <InputField
+                label="Email"
+                name="email"
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
-                isError={hasError("address")}
-                error={formState.errors.address}
-                value={formState.values.address}
-                type="text" placeholder="97 road of rouvroy" />
+                isError={hasError("email")}
+                error={formState.errors.email}
+                value={formState.values.email}
+                type="email"
+                placeholder="mail@mail.com"
+              />
+            </div>
+            <div className="input_fields">
+              <InputField
+                label={t("Telephone")}
+                isError={hasError("telephone")}
+                error={formState.errors.telephone}
+                name="telephone"
+                disabled={!isEdit && buyer}
+                onChange={(e) => handleChange(e)}
+                value={formState.values.telephone}
+                type="number"
+                placeholder="+33 03 32 32 42 42"
+              />
             </div>
           </div>
-          <div className="luyer_input_field">
-            <div className="second_input_field">
-              <div className="input_fields">
-                <InputField 
-                  label={t("Postal code")}
-                  name='zipcode'
-                  disabled={!isEdit && buyer}
-                  onChange={(e) => handleChange(e)}
-                  isError={hasError("zipcode")}
-                  error={formState.errors.zipcode}
-                  value={formState.values.zipcode}
-                  type="number" placeholder="34 832" />
-              </div>
-              <div className="input_fields">
-                <InputField 
-                  label={t("Town")}
-                  name='town'
-                  disabled={!isEdit && buyer}
-                  onChange={(e) => handleChange(e)}
-                  isError={hasError("town")}
-                  error={formState.errors?.town}
-                  value={formState.values.town}
-                  type="text" placeholder="Congo" />
-              </div>
-            </div>
-          </div>
-          {
-            ((!isEdit && !buyer) || (isEdit && buyer)) && <Button text="To Confirm" disabled={!formState.isValid} type='submit' onClick={(e => handleSubmit(e))} className="luyer_button" />
-          }
         </div>
-      </Modal>
-  )
-}
+        <div className="luyer_input_field">
+          <div className="luyer_input_field">
+            <InputField
+              label="Address"
+              name="address"
+              disabled={!isEdit && buyer}
+              onChange={(e) => handleChange(e)}
+              isError={hasError("address")}
+              error={formState.errors.address}
+              value={formState.values.address}
+              type="text"
+              placeholder="97 road of rouvroy"
+            />
+          </div>
+        </div>
+        <div className="luyer_input_field">
+          <div className="second_input_field">
+            <div className="input_fields">
+              <InputField
+                label={t("Postal code")}
+                name="zipcode"
+                disabled={!isEdit && buyer}
+                onChange={(e) => handleChange(e)}
+                isError={hasError("zipcode")}
+                error={formState.errors.zipcode}
+                value={formState.values.zipcode}
+                type="number"
+                placeholder="34 832"
+              />
+            </div>
+            <div className="input_fields">
+              <InputField
+                label={t("Town")}
+                name="town"
+                disabled={!isEdit && buyer}
+                onChange={(e) => handleChange(e)}
+                isError={hasError("town")}
+                error={formState.errors?.town}
+                value={formState.values.town}
+                type="text"
+                placeholder="Congo"
+              />
+            </div>
+          </div>
+        </div>
+        {((!isEdit && !buyer) || (isEdit && buyer)) && (
+          <Button
+            text="To Confirm"
+            disabled={!formState.isValid}
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+            className="luyer_button"
+          />
+        )}
+      </div>
+    </Modal>
+  );
+};
 
 export default BuyerModal;

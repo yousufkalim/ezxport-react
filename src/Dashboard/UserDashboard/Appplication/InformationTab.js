@@ -90,7 +90,7 @@ const InformationTab = (props) => {
         <Box>
           <Tabs value={value} onChange={handleChange}>
             <Tab className="tab_btn1" label={t("Sellers")} {...a11yProps(0)} />
-            <Tab className="tab_btn2" label={t("BuyersCompany Name")} {...a11yProps(1)} />
+            <Tab className="tab_btn2" label={t("Buyers")} {...a11yProps(1)} />
             <Tab className="tab_btn3" label={t("Place of inspection")} {...a11yProps(2)} />
           </Tabs>
         </Box>

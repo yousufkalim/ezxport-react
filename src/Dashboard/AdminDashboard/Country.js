@@ -496,7 +496,7 @@ var countryList = [
   { name: "Zimbabwe" },
 ];
 
-const KEYS_TO_FILTERS = ['name']
+const KEYS_TO_FILTERS = ["name"];
 
 const nestSortTitles = [];
 
@@ -536,7 +536,7 @@ const Country = () => {
     setDropdown("default");
     setCurrency("default");
     setOpen(false);
-  }
+  };
   const handleAddCountry = async () => {
     await API("post", "/countries/", {
       name: dropdown,
@@ -565,9 +565,7 @@ const Country = () => {
       });
   };
 
-  const searchedCountries = countries.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const searchedCountries = countries.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   return (
     <>
@@ -576,7 +574,7 @@ const Country = () => {
           <div className="List_heading_div">
             <h1 className="list_h1_Country">{t("Country")}</h1>
             <div className="searching">
-              <SearchInput setSearch={setSearchTerm} />
+              <SearchInput placeholder="Search" setSearch={setSearchTerm} />
               {/* <SearchField placeholder={t("Searching")} /> */}
               <Button
                 className="list_reqst_btn4"
@@ -750,7 +748,7 @@ const Country = () => {
                   ? "add_Country_button_disabled"
                   : "add_Country_button"
               }
-              disabled={dropdown === 'default' && currency === "default"}
+              disabled={dropdown === "default" && currency === "default"}
               onClick={handleAddCountry}
             />
           </div>

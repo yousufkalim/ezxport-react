@@ -57,7 +57,7 @@ const AddressBook = () => {
           <div className="List_heading_div4">
             <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
-              <SearchField placeholder={t("Searching")} />
+              <SearchField placeholder="Search" />
               <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
