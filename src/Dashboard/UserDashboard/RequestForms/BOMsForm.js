@@ -23,10 +23,13 @@ import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmModal from "../../../components/Common/ConfirmModal";
+import { Store } from "../../../StoreContext";
 import { useTranslation, Trans } from "react-i18next";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
+  const { step1, setStep1, setMatchedData } = props;
+
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const [verificationModal, setVerificationModal] = useState(false);
@@ -40,13 +43,49 @@ const BOMsForm = (props) => {
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [bomId, setBomId] = useState("");
 
+  const { request, pastRequest } = Store();
+
+  console.log("Request data ", request);
+
+  useEffect(() => {
+    if (pastRequest) {
+      getSetData();
+    }
+  }, [request]);
+
+  const getSetData = () => {
+    const { title, country, codes } = request;
+    const countryId = country?._id;
+    // handleTitle(countryId);
+    const matched = getMatchedCodes(codes);
+    setStep1({ ...step1, country: countryId });
+    setMatchedData(matched);
+  };
+
+  const getMatchedCodes = (codes) => {
+    const newCodes = [];
+    codes?.forEach((item) => {
+      const { monetary_value } = item;
+      const { code, _id: codeID, certification_required } = item.code;
+      const codeObj = {
+        monetary_value,
+        code,
+        codeID,
+        certification_required,
+      };
+      newCodes.push(codeObj);
+    });
+    return newCodes;
+  };
+
+  console.log("Matched ", props.matchedData);
   const { t, i18n } = useTranslation();
   const { language } = i18n;
 
   const fileRef = useRef(null);
 
   const handleAllRequestByCountryId = async () => {
-    await API("get", `/requests/getByCountry/${props?.step1?.country}`)
+    await API("get", `/requests/getByCountry/${step1?.country}`)
       .then((res) => {
         setRequestByCountry(res?.data?.request);
       })
@@ -56,12 +95,12 @@ const BOMsForm = (props) => {
   };
   useEffect(() => {
     handleAllRequestByCountryId();
-  }, [props?.step1?.country]);
+  }, [step1?.country]);
   useEffect(() => {
-    if (props?.step1?.country !== "") {
-      handleTitle();
+    if (step1?.country !== "") {
+      handleTitle(step1.country);
     }
-  }, [props?.step1?.country]);
+  }, [step1?.country]);
 
   const handleEditModal = () => setOpenEditModal(false);
   const handleCertificateRequire = () => props.setCertificateRequire(false);
@@ -87,7 +126,7 @@ const BOMsForm = (props) => {
       certification_required: code?.certification_required,
     });
     let filtered = props.unMatchedData.filter((item) => {
-      return item?.code !== code.code;
+      return item?.bom?.code !== code.code;
     });
     props.setUnMatchedData(filtered);
     setCode("default");
@@ -101,9 +140,10 @@ const BOMsForm = (props) => {
       setImportedFile(file);
       let formData = new FormData();
       formData.append("file", file);
-      formData.append("country", `${props.step1.country}`); //country ID
+      formData.append("country", `${step1.country}`);
       await API("post", "/boms/filterCodes", formData)
         .then((res) => {
+          console.log("🚀 ~ file: BOMsForm.js ~ line 120 ~ .then ~ res", res);
           setLoading(false);
           let arr1 = [];
           res?.data?.matchedData.map((item) => {
@@ -115,7 +155,7 @@ const BOMsForm = (props) => {
             });
           });
 
-          props?.setMatchedData([...props.matchedData, ...arr1]);
+          props?.setMatchedData([...arr1]);
           props?.setUnMatchedData(res?.data?.unMatched);
           props.setUnMatchedCodes(res?.data?.unMatched);
         })
@@ -137,7 +177,7 @@ const BOMsForm = (props) => {
     let filtered = matchedData.filter((item) => {
       return item.codeID !== code.codeID;
     });
-    if (findCode && findCode.certification_required) {
+    if (findCode && findCode.certification_required && !pastRequest) {
       setUnMatchedData([...unMatchedData, findCode]);
     }
     // if(props.matchedData.length === 1){
@@ -149,7 +189,7 @@ const BOMsForm = (props) => {
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
       userId: user._id,
-      countryId: props?.step1?.country,
+      countryId: step1.country,
     })
       .then((res) => {
         props.handleChange("title", (res?.data?.tile).toUpperCase());
@@ -160,7 +200,7 @@ const BOMsForm = (props) => {
   };
   const handleSearchTitle = async () => {
     await API("post", "/requests/searchName/", {
-      title: props?.step1?.title,
+      title: step1?.title,
     })
       .then((res) => {
         props.handleChange("title", res?.data?.tile);
@@ -187,13 +227,14 @@ const BOMsForm = (props) => {
         <Select
           name="country"
           id="demo-simple-select"
-          defaultValue={"123"}
+          // defaultValue={"default"}
+          value={step1?.country || "default"}
           onChange={(e) => {
             props?.handleChange(e.target.name, e.target.value);
           }}
           className="countrydropdown"
         >
-          <MenuItem disabled value="123">
+          <MenuItem disabled value="default">
             {t("Select a Country")}
           </MenuItem>
           {props?.countries?.map((item) => {
@@ -201,9 +242,7 @@ const BOMsForm = (props) => {
           })}
         </Select>
 
-        <label className="BomLabel">
-          {t("Create a new request or select an old request to retrieve information")}
-        </label>
+        <label className="BomLabel">{t("Create a new request or select an old request to retrieve information")}</label>
         <Select
           id="demo-simple-select"
           defaultValue={"default"}
@@ -228,19 +267,14 @@ const BOMsForm = (props) => {
             props.handleChange(e.target.name, e.target.value);
           }}
           onBlur={handleSearchTitle}
-          value={props.step1.title}
+          value={step1.title}
         />
 
         <div className="ProductList_boms" style={{ display: "flex" }}>
           <div style={{ width: "50%" }}>
             <span className="title_productList">{t("Product Lists")}</span>
             <br />
-            <Link
-              to={"/Files/codeTemplate.xlsx"}
-              target="_blank"
-              download
-              className="download_text"
-            >
+            <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_text">
               {t("You don't know your product nomenclatures?")}
             </Link>
           </div>
@@ -294,17 +328,13 @@ const BOMsForm = (props) => {
               {t("Select a Code")}
             </MenuItem>
             {props?.unMatchedData?.map((item) => {
-              return <MenuItem value={item}>{item?.code}</MenuItem>;
+              return <MenuItem value={item?.bom}>{item?.bom?.code}</MenuItem>;
             })}
           </Select>
         </div>
         <div className="codedropdown_div">
           <label className="BomLabel">{t("Monetary value")}</label>
-          <Inputfield
-            value={monetaryValue}
-            className="applicationTitle"
-            onChange={(e) => handleMonetaryValue(e.target.value)}
-          />
+          <Inputfield value={monetaryValue} className="applicationTitle" onChange={(e) => handleMonetaryValue(e.target.value)} />
         </div>
         <div className="codedropdown_div1">
           <Button
@@ -436,11 +466,7 @@ const BOMsForm = (props) => {
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
       {/* certification required modal */}
-      <Modal
-        open={props.certificateRequire}
-        setOpen={props.setCertificateRequire}
-        handleClose={handleCertificateRequire}
-      >
+      <Modal open={props.certificateRequire} setOpen={props.setCertificateRequire} handleClose={handleCertificateRequire}>
         <div>
           <div
             style={{
@@ -467,21 +493,11 @@ const BOMsForm = (props) => {
             </div>
             <div className="space">
               {t("The cost of this certification is up to")}
-              <span style={{ fontWeight: 900, fontSize: "19px" }}>
-                {props.certificationCostOfCode}$/HT
-              </span>
+              <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
             </div>
           </div>
-          <Button
-            text={t("Continue my request on Ezxport")}
-            className="to_confirm_btn"
-            onClick={props.handleStep1}
-          />
-          <Button
-            text={t("Go back to my request")}
-            className="delete_bom_btn"
-            onClick={handleCertificateRequire}
-          />
+          <Button text={t("Continue my request on Ezxport")} className="to_confirm_btn" onClick={props.handleStep1} />
+          <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateRequire} />
         </div>
       </Modal>
       <Modal
@@ -522,11 +538,7 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => history.push("/User/Dashboard/ListOfRequests")}
           />
-          <Button
-            text={t("Go back to my request")}
-            className="delete_bom_btn"
-            onClick={handleCertificateNotRequire}
-          />
+          <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateNotRequire} />
         </div>
       </Modal>
       <Modal

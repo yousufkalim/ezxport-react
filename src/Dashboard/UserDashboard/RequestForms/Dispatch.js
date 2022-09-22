@@ -6,6 +6,7 @@ import DatePicker from "../../../components/Common/DatePicker";
 // import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { validate } from "validate.js";
+import { Store } from "../../../StoreContext";
 import moment from "moment";
 
 const inspectionSchema = {
@@ -113,13 +114,133 @@ const buyerSchema = {
 };
 
 const Dispatch = (props) => {
-  const { step3, setStep3 } = props;
+
+  const { step3, setStep3, stepHanlder } = props;
   const { buyerData, sellerData, placeOfInspection } = props.step3;
   const sellerValues = sellerData.values;
   const buyerValues = buyerData.values;
   const placeValues = placeOfInspection.values;
   const { values } = step3.placeOfInspection;
   const { t } = useTranslation();
+  const { request, pastRequest } = Store();
+
+  useEffect(() => {
+    const { placeOfInspection } = step3;
+    const errors = validate(placeOfInspection.values, inspectionSchema);
+    setStep3({ ...step3, placeOfInspection: { ...placeOfInspection, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.placeOfInspection.values]);
+
+  useEffect(() => {
+    const { sellerData } = step3;
+    const errors = validate(sellerData.values, sellerSchema);
+    setStep3({ ...step3, sellerData: { ...sellerData, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.sellerData.values]);
+
+  useEffect(() => {
+    const { buyerData } = step3;
+    const errors = validate(buyerData.values, buyerSchema);
+    setStep3({ ...step3, buyerData: { ...buyerData, isValid: errors ? false : true, errors: errors || {} } });
+  }, [step3.buyerData.values]);
+
+  useEffect(() => {
+    handleSelectedSeller();
+  }, [props?.step3?.sellerData.seller]);
+
+  useEffect(() => {
+    handleSelectedBuyer();
+  }, [props?.step3?.buyerData?.buyer]);
+  useEffect(() => {
+    handleSelectedPlace();
+  }, [placeOfInspection?.values.InspectionPlace]);
+
+  useEffect(() => {
+    if (pastRequest) {
+      getData();
+    }
+  }, [request]);
+
+  const getData = () => {
+    setSeller();
+    setBuyer();
+    setPlace();
+  };
+
+  const setSeller = () => {
+    console.log("request", request);
+    const { seller } = request;
+    const { address, city, company_name, email, phone_number, zipcode, country, _id } = seller;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      sellerData: {
+        ...prev.sellerData,
+        values: {
+          ...prev.sellerData.values,
+          seller: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+        },
+      },
+    }));
+  };
+
+  const setBuyer = () => {
+    const { buyer } = request;
+    const { address, city, company_name, email, phone_number, zipcode, country, _id } = buyer;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      buyerData: {
+        ...prev.buyerData,
+        values: {
+          ...prev.buyerData.values,
+          buyer: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+        },
+      },
+    }));
+  };
+
+  const setPlace = () => {
+    const { place } = request;
+    const { inspection_date } = request;
+
+    const { address, city, company_name, email, phone_number, zipcode, country, contact_fname, contact_lname, _id } = place;
+    const countryId = country?._id;
+    stepHanlder((prev) => ({
+      ...prev,
+      placeOfInspection: {
+        ...prev.placeOfInspection,
+        values: {
+          ...prev.placeOfInspection.values,
+          InspectionPlace: _id,
+          companyName: company_name,
+          CountryId: countryId,
+          country: countryId,
+          email: email,
+          telephone: phone_number,
+          fullAddress: address,
+          postalCode: zipcode,
+          town: city,
+          InspectionDate: moment(inspection_date).format("YYYY-MM-DD"),
+          contactLastName: contact_lname,
+          contactFirstName: contact_fname,
+        },
+      },
+    }));
+  };
+
   const handleSelectedSeller = () => {
     let SelectedSeller = props?.sellers?.find((item) => {
       return item._id === props?.step3?.sellerData.values?.seller;
@@ -174,54 +295,10 @@ const Dispatch = (props) => {
     });
   };
 
-  useEffect(() => {
-    const { placeOfInspection } = step3;
-    const errors = validate(placeOfInspection.values, inspectionSchema);
-    setStep3({
-      ...step3,
-      placeOfInspection: {
-        ...placeOfInspection,
-        isValid: errors ? false : true,
-        errors: errors || {},
-      },
-    });
-  }, [step3.placeOfInspection.values]);
 
-  useEffect(() => {
-    const { sellerData } = step3;
-    const errors = validate(sellerData.values, sellerSchema);
-    setStep3({
-      ...step3,
-      sellerData: { ...sellerData, isValid: errors ? false : true, errors: errors || {} },
-    });
-  }, [step3.sellerData.values]);
-
-  useEffect(() => {
-    const { buyerData } = step3;
-    const errors = validate(buyerData.values, buyerSchema);
-    setStep3({
-      ...step3,
-      buyerData: { ...buyerData, isValid: errors ? false : true, errors: errors || {} },
-    });
-  }, [step3.buyerData.values]);
-
-  useEffect(() => {
-    handleSelectedSeller();
-  }, [props?.step3?.sellerData.seller]);
-
-  useEffect(() => {
-    handleSelectedBuyer();
-  }, [props?.step3?.buyerData?.buyer]);
-  useEffect(() => {
-    handleSelectedPlace();
-  }, [placeOfInspection?.values.InspectionPlace]);
-
-  const placeError = (field) =>
-    step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false;
-  const sellerError = (field) =>
-    step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false;
-  const buyerError = (field) =>
-    step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false;
+  const placeError = (field) => (step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false);
+  const sellerError = (field) => (step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false);
+  const buyerError = (field) => (step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false);
 
   return (
     <div className="dispatch_main_Div">
@@ -253,7 +330,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Country name")}
+              placeholder={t("Company name")}
               name="companyName"
               error={sellerData.errors.companyName}
               isError={sellerError("companyName")}
@@ -554,16 +631,15 @@ const Dispatch = (props) => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
           />
-          {placeError("InspectionDate") && (
-            <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>
-          )}
+
+          {placeError("InspectionDate") && <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>}
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
             <label className="BomLabel">{t("Company name")}</label>
             <InputField
               className="company_name_input"
-              placeholder={typeof t("Company name")}
+              placeholder={t("Company name")}
               name="companyName"
               // error={placeOfInspection.errors.companyName}
               // isError={placeError('companyName')}
@@ -704,6 +780,6 @@ const Dispatch = (props) => {
       </div>
     </div>
   );
-};
+};;;;;;;;;;;;;;;;
 
 export default Dispatch;

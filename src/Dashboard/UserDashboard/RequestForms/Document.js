@@ -84,7 +84,11 @@ const Document = (props) => {
         <span className="title_span">
           {t("Import documents specific to")} {countryName?.name}
         </span>
-        <span className="to_complete_pill">{t("To Complete")}</span>
+        {validDoc ? (
+          <span className="complete_pill">{t("Complete")}</span>
+        ) : (
+          <span className="to_complete_pill">{t("To Complete")}</span>
+        )}
       </div>
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: "100%" }}>

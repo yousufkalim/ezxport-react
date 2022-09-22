@@ -56,7 +56,7 @@ const ProductForm = (props) => {
     <>
       <div className="title_Div_documents">
         <span className="title_span">
-          {props.item.code.code} – {t("Nomenclature name")}
+          {props.item.code.code} 
         </span>
         {validateProduct() ? (
           <span className="complete_pill">{t("Complete")}</span>
@@ -103,10 +103,10 @@ const ProductForm = (props) => {
           <option value={"default"} disabled>
             {t("select type of Condition")}
           </option>
-          <option value="Bad">{t("Bad")}</option>
-          <option value="Average">{t("Average")}</option>
-          <option value="Good">{t("Good")}</option>
-          <option value="Excellent">{t("Excellent")}</option>
+          <option value="DAMAGED">{t("DAMAGED")}</option>
+          <option value="NEW">{t("NEW")}</option>
+          <option value="RECOND">{t("RECOND")}</option>
+          <option value="SECONDHAND">{t("SECONDHAND")}</option>
         </select>
       </div>
       <div className="inspection_textfield">
@@ -179,7 +179,7 @@ const ProductForm = (props) => {
           <MenuItem disabled value="default">
             {t("Select a Country")}
           </MenuItem>
-          {props.countries?.map((item) => {
+          {props?.countries?.map((item) => {
             return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
           })}
         </Select>

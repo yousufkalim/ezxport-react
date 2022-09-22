@@ -57,9 +57,7 @@ const InformationTab = (props) => {
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Request date")}</p>
-            <p className="requestData_date">
-              {moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}
-            </p>
+            <p className="requestData_date">{moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}</p>
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Country")}</p>
@@ -76,9 +74,7 @@ const InformationTab = (props) => {
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Inspection date")}</p>
-            <p className="requestData_date">
-              {moment(props?.userRequest?.inspection_date).format("ll")}
-            </p>
+            <p className="requestData_date">{moment(props?.userRequest?.inspection_date).format("ll")}</p>
           </div>
         </div>
       </div>
@@ -111,10 +107,7 @@ const InformationTab = (props) => {
           </div>
         </TabPanel>
       </Box>
-      <ProductLists
-        codes={props?.userRequest?.codes}
-        currency={props?.userRequest?.country?.currency}
-      />
+      <ProductLists codes={props?.userRequest?.codes} currency={props?.userRequest?.country?.currency} />
     </>
   );
 };

@@ -148,27 +148,19 @@ const AdminNomPays = () => {
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField placeholder="Search" setSearch={setProviderSearch} />
-                <Button text={t("Edit")} className="Edit_btn" />
+                <SearchField setSearch={setProviderSearch} />
               </div>
             ) : value === 1 ? (
-              <div placeholder="Search" className="searching_div_country">
-                <SearchField placeholder="Search" setSearch={setDocumentSearch} />
-                <Button
-                  text={t("Edit")}
-                  className="Edit_btn"
-                  onClick={() => setOpenAddDocument(true)}
-                />
+              <div className="searching_div_country">
+                <SearchField setSearch={setDocumentSearch} />
+                <Button text={t("Add document")} className="update_Boms_btn" onClick={() => setOpenAddDocument(true)} />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-                  <SearchField placeholder="Search" setSearch={setCodeSearch} />
-                  <Button
-                    text={t("Update")}
-                    className="update_Boms_btn"
-                    onClick={() => setOpen(true)}
-                  />
+
+                  <SearchField setSearch={setCodeSearch} />
+                  <Button text={t("Add")} className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
                 </div>
                 <Button
                   text={t("Update")}
@@ -274,12 +266,7 @@ const AdminNomPays = () => {
               {t("Download your BOM file")}
             </label>
             <div className="bom_download_File_btn_div">
-              <Link
-                to={"/Files/Admintemplate.xlsx"}
-                target="_blank"
-                download
-                className="bom_download"
-              >
+              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className="bom_download">
                 {t("Download current file")}
               </Link>
             </div>
