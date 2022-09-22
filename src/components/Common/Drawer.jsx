@@ -8,7 +8,7 @@ import english from "../../assets/english.png";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 // import DialogActions from "@mui/material/DialogActions";
 // import DialogTitle from "@mui/material/DialogTitle";
@@ -17,7 +17,8 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { language } = i18n;
 
   const handleClickOpen = () => {
     setOpen(true);
