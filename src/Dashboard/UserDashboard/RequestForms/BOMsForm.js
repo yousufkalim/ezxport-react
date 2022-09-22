@@ -140,7 +140,7 @@ const BOMsForm = (props) => {
       setImportedFile(file);
       let formData = new FormData();
       formData.append("file", file);
-      formData.append("country", `${step1.country}`); //country ID
+      formData.append("country", `${step1.country}`);
       await API("post", "/boms/filterCodes", formData)
         .then((res) => {
           console.log("🚀 ~ file: BOMsForm.js ~ line 120 ~ .then ~ res", res);
