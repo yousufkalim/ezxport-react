@@ -1,17 +1,17 @@
-import React from 'react';
-import Button from '../Common/Button';
-import SearchField from '../Common/SearchField';
-import { NavLink } from 'react-router-dom';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import PlusIcon from '../../assets/PlusIcon.svg';
+import React from "react";
+import Button from "../Common/Button";
+import SearchField from "../Common/SearchField";
+import { NavLink } from "react-router-dom";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import PlusIcon from "../../assets/PlusIcon.svg";
 
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const AdminCountry = (props) => {
   const history = useHistory();
@@ -23,7 +23,7 @@ const AdminCountry = (props) => {
           <div className="List_heading_div">
             <h1 className="list_h1">{props.title}</h1>
             <div className="searching">
-              <SearchField placeholder="Searching_AddService" />
+              <SearchField placeholder="Search" />
               <Button
                 className="list_reqst_btn2"
                 text={t("Add a service provider")}
@@ -53,7 +53,7 @@ const AdminCountry = (props) => {
                   {props.rows.map((row) => (
                     <TableRow
                       key={row.createData}
-                    // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
+                      // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
                     >
                       <TableCell
                         component="th"
@@ -81,7 +81,6 @@ const AdminCountry = (props) => {
                 </TableBody>
               </Table>
             </TableContainer>
-
           </div>
         </div>
       </div>
