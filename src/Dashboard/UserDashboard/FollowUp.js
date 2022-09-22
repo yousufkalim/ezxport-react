@@ -70,6 +70,8 @@ const FollowUp = () => {
     if (request === "true") {
       setRequestedModal(true);
     }
+  }, []);
+  useEffect(() => {
     handleAllRequest();
   }, [userData]);
 

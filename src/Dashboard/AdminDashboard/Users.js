@@ -71,7 +71,7 @@ const Users = () => {
     setLoading(true);
     await API("get", "/users/")
       .then((res) => {
-        setAllUsers(res.data.users);
+        setAllUsers(res?.data.users);
         setLoading(false);
       })
       .catch((err) => {
@@ -85,9 +85,8 @@ const Users = () => {
       <UserTable
         sort={sort}
         loading={loading}
-        sortData={(field, ascend) =>
-          getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)
-        }
+
+        sortData={(field, ascend) => getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)}
         headTitle={HeadTitle}
         title={t("Users")}
         rows={allUsers}

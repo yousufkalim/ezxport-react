@@ -12,7 +12,7 @@ import { useTranslation, Trans } from "react-i18next";
 const ProductLists = ({ codes, currency }) => {
   const { t, i18n } = useTranslation();
   const { language } = i18n;
-  const monetary_value = codes?.reduce((n, { monetary_value }) => n + monetary_value, 0);
+  const monetary_value = codes?.code?.reduce((n, { monetary_value }) => n + monetary_value, 0);
   return (
     <>
       <div className="ProductLists">
@@ -23,11 +23,7 @@ const ProductLists = ({ codes, currency }) => {
             <span>
               – {monetary_value} {currency === "USD" ? "$" : "€"} –
             </span>
-            {codes?.length > 1 ? (
-              <span> {codes?.length} codes</span>
-            ) : (
-              <span> {codes?.length} code</span>
-            )}
+            {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}
           </p>
         </div>
         {/* table  */}
@@ -48,7 +44,7 @@ const ProductLists = ({ codes, currency }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {codes?.map((item) => (
+                {codes?.code?.map((item) => (
                   <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                     <TableCell component="th" scope="row" style={{ width: "22%" }}>
                       <p className="AP_plus_title">{item.code}</p>

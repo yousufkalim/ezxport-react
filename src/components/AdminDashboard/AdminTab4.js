@@ -115,7 +115,14 @@ const AdminTab4 = (props) => {
       </div>
 
       {props.currentRadioValue === "range" ? (
-        <CalculationRange setOpenCalculationModal={props.setOpenCalculationModal} id={props?.calculation?._id} CountryId={props.countryId} Calculation={props.calculation} currency={props.currency} />
+        <CalculationRange
+          setOpenCalculationModal={props.setOpenCalculationModal}
+          id={props?.calculation?._id}
+          CountryId={props.countryId}
+          Calculation={props.calculation}
+          currency={props.currency}
+          countryData={props.handleCountryData}
+        />
       ) : (
         props.currentRadioValue === "coefficient" && (
           <CalculationCoefficient coefficientChange={coefficientChange} currency={props.currency} />
@@ -153,19 +160,18 @@ const AdminTab4 = (props) => {
               <InputField
                 className="calculation_input"
                 onChange={(e) => {
-                  let value = e.target.value
-                  if(value.includes('.')){
-                    const afterDecimal = value.split('.')[1];
-                    if(afterDecimal.length <= 2){
+                  let value = e.target.value;
+                  if (value.includes(".")) {
+                    const afterDecimal = value.split(".")[1];
+                    if (afterDecimal.length <= 2) {
                       setCoefficient(e.target.value);
                     }
-                  }
-                  else {
+                  } else {
                     setCoefficient(e.target.value);
                   }
                 }}
                 value={coefficient}
-                type='number'
+                type="number"
               />
             </FormControl>
           </div>
@@ -207,11 +213,7 @@ const AdminTab4 = (props) => {
                 : "bom_downloadFile_btn"
             }
             onClick={props.calculation ? handleCoefficientChange : handleAddCoefficient}
-            disabled={
-              MinThreshold === "" || minCost === "" || maxCost === "" || coefficient === ""
-                ? true
-                : false
-            }
+            disabled={MinThreshold === "" || minCost === "" || maxCost === "" || coefficient === "" ? true : false}
           />
         </div>
       </Modal>
