@@ -113,7 +113,7 @@ const ServiceProviders = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", "Error while fetching service providers");
+        toaster("Failed", t("Error while fetching service providers"));
 
         setLoading(false);
       });
@@ -146,12 +146,12 @@ const ServiceProviders = () => {
           touched: {},
         });
         setOpen(false);
-        toaster[res?.data?.success ? "success" : "error"](
+        toaster[res?.data?.success ? "success" : t("error")](
           res?.data?.message || t("Vendor added successfully")
         );
       })
       .catch((err) => {
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
 
@@ -225,7 +225,7 @@ const ServiceProviders = () => {
           <div className="List_heading_div">
             <h1 className="list_h1">{t("Service providers")}</h1>
             <div className="searching3">
-              <SearchField placeholder="Search" setSearch={setSearchTerm} />
+              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
               <Button
                 className="list_service_btn2"
                 text={t("Add a service provider")}

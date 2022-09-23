@@ -97,7 +97,8 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
 
   const handleSpecificDoc = async (Doc_Id) => {
@@ -105,21 +106,25 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleCodeDoc = async (Code_Id) => {
     await API("get", `/requests/zipFileCode/${userRequest._id}/${Code_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleProductDoc = async (Product_Id) => {
     await API("get", `/requests/zipFileProduct/${Product_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
+
   };
   const handleMissingDocUpload = async () => {
     const data = {
@@ -137,7 +142,8 @@ const DocumentsTab = ({ userRequest }) => {
         toaster("success", "Documents uploaded");
         history.push("/User/Dashboard/ListOfRequests")
       })
-      .catch((err) => toaster("failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleProdLength = () => {
     userRequest?.codes?.map((code) => {

@@ -76,7 +76,7 @@ const Requests = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("failed", "Failed to fetch data!");
+        toaster("Failed", t("Failed to fetch data!"));
         setLoading(false);
         console.log("err", err);
       });
@@ -91,7 +91,7 @@ const Requests = () => {
         <div className="List_heading_div">
           <h1 className="list_rqst_h1">{t("List of requests")}</h1>
           <div className="searchingRequest">
-            <SearchField placeholder="Search" setSearch={setSearchTerm} />
+            <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
           </div>
         </div>
         {/* list table   */}
@@ -171,7 +171,8 @@ const Requests = () => {
                             <>
                               {item?.certification_cost?.currency === "USD"
                                 ? item?.certification_cost?.value + "$"
-                                : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
+                                : item?.certification_cost?.currency === "EURO" &&
+                                  item?.certification_cost?.value + "€"}
                             </>
                           ) : (
                             "--"

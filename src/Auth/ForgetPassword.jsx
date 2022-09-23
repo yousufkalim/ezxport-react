@@ -49,7 +49,7 @@ const ForgetPassword = () => {
         }
       })
       .catch((err) => {
-        toaster("Failed", "Email does not exist");
+        toaster("Failed", t("Email does not exist"));
         setFlag(false);
       });
     setFlag(!flag);
@@ -61,6 +61,7 @@ const ForgetPassword = () => {
         ...formState.values,
         [event.target.name]: event.target.value,
       },
+      touched: {...formState.touched, [event.target.name]: true }
     }));
   };
   const handleBlur = (e) => {

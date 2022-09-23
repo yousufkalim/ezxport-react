@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Common/Header";
 import { Link, useHistory } from "react-router-dom";
 import BackArrow from "../assets/BackArrow.svg";
@@ -112,41 +112,56 @@ const Registration = () => {
     errors: {},
   });
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleChange = (event) => {
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
     setFormState((formState) => ({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value,
+        [name]: value,
       },
+      touched: { ...formState.touched, [name]: true },
     }));
   };
 
   // handle change for phone number
   const handlePhnChange = (event) => {
-    if (!event.target.value.match(/[^0-9]/)) {
+    const {name, value} = event.target;
+    if (!value.match(/[^0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
           ...formState.values,
-          [event.target.name]: event.target.value,
+          [name]: value,
         },
+        touched: { ...formState.touched, [name]: true },
       }));
     }
   };
   const handleNameChange = (event) => {
-    if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
+    const {name, value} = event.target;
+    if (!value.match(/[^a-zA-Z0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
           ...formState.values,
-          [event.target.name]: event.target.value,
+          [name]: value,
         },
+        touched: { ...formState.touched, [name]: true },
       }));
     }
   };
@@ -168,24 +183,13 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toaster("success", "User created successfully", "Createed User");
+        toaster("success", t("User created successfully"), t("Createed User"));
 
         history.push("/");
       })
       .catch((err) => {
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
-  };
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const { name } = e.target;
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      errors: errors ?? {},
-      touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true,
-    }));
   };
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
@@ -211,7 +215,6 @@ const Registration = () => {
                   label={t("Last name")}
                   type="text"
                   placeholder={t("Last name")}
-                  onBlur={(e) => handleBlur(e)}
                   value={formState.values.lastName}
                   name="lastName"
                   isError={hasError("lastName")}
@@ -225,7 +228,6 @@ const Registration = () => {
                   label={t("First name")}
                   placeholder={t("First name")}
                   required
-                  onBlur={(e) => handleBlur(e)}
                   value={formState.values.firstName}
                   isError={hasError("firstName")}
                   error={formState.errors.firstName}
@@ -242,7 +244,6 @@ const Registration = () => {
                   placeholder="mail@mail.com"
                   required
                   isError={hasError("email")}
-                  onBlur={(e) => handleBlur(e)}
                   error={formState.errors.email}
                   value={formState.values.email}
                   name="email"
@@ -254,7 +255,6 @@ const Registration = () => {
                   label={t("Telephone")}
                   type="number"
                   isError={hasError("phone")}
-                  onBlur={(e) => handleBlur(e)}
                   error={formState.errors.phone}
                   placeholder="33 07 86 36 02 20"
                   required
@@ -275,7 +275,6 @@ const Registration = () => {
                       : "reg_input"
                   }
                   placeholder="90 road of rouvroy"
-                  onBlur={(e) => handleBlur(e)}
                   required
                   value={formState.values.fullAddress}
                   name="fullAddress"
@@ -299,7 +298,6 @@ const Registration = () => {
                     required
                     value={formState.values.postelCode}
                     name="postelCode"
-                    onBlur={(e) => handleBlur(e)}
                     onChange={handlePhnChange}
                   />
                   <div className="error-format">
@@ -315,7 +313,6 @@ const Registration = () => {
                     }
                     placeholder="Abbeville"
                     required
-                    onBlur={(e) => handleBlur(e)}
                     value={formState.values.town}
                     name="town"
                     onChange={(e) => handleChange(e)}
@@ -327,7 +324,6 @@ const Registration = () => {
                     type="text"
                     label="Town"
                     isError={hasError("town")}
-                    onBlur={(e) => handleBlur(e)}
                     error={formState.errors.town}
                     placeholder="Abbeville"
                     required
@@ -346,7 +342,6 @@ const Registration = () => {
                   error={formState.errors.password}
                   name="password"
                   autoComplete="new-password"
-                  onBlur={(e) => handleBlur(e)}
                   type={showPassword ? "text" : "password"}
                   placeholder={t("Password")}
                   onChange={(e) => handleChange(e)}
@@ -361,7 +356,6 @@ const Registration = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   label={t("Confirming your password")}
                   isError={hasError("confirmPassword")}
-                  onBlur={(e) => handleBlur(e)}
                   error={formState.errors.confirmPassword}
                   placeholder={t("Confirm password")}
                   required
@@ -382,6 +376,7 @@ const Registration = () => {
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
+              <label htmlFor="">{t("Last name")}</label>
                 <InputField
                   type="text"
                   className={
@@ -406,7 +401,6 @@ const Registration = () => {
                   id=""
                   className="reg_input"
                   defaultValue={"default"}
-                  onBlur={(e) => handleBlur(e)}
                   onChange={handleChange}
                   value={formState.values.typeOfSociety}
                 >
@@ -428,12 +422,10 @@ const Registration = () => {
             </div>
             <div className="regist_input_div">
               <div className="regist_col1">
-                <label htmlFor=""></label>
                 <InputField
                   type="text"
-                  label={t("VAT number")}
+                  label="VAT number"
                   isError={hasError("vatNumber")}
-                  onBlur={(e) => handleBlur(e)}
                   error={formState.errors.vatNumber}
                   placeholder="6372890367849"
                   required

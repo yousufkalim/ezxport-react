@@ -17,6 +17,7 @@ import RequestForm from "../Dashboard/UserDashboard/RequestForm";
 import ValidateRequest from "../Dashboard/AdminDashboard/ValidateRequest/index";
 import SendDocuments from "../components/Common/SendDocuments";
 import RequestDocuments from "../components/Common/RequestDocuments";
+import { useTranslation } from "react-i18next";
 
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get("reset");
@@ -24,6 +25,8 @@ const Token = queryParams.get("token");
 const Index = ({ role }) => {
   const history = useHistory(null);
   const [resetPassword, setResetPassword] = useState(false);
+  const { t } = useTranslation();
+
   useEffect(() => {
     if (Reset) {
       if (Token) {
@@ -39,7 +42,8 @@ const Index = ({ role }) => {
       })
       .catch((err) => {
         history.push("/");
-        toaster("Failed", err?.response?.data?.message);
+
+        toaster("Failed", t(err.response.data.message));
       });
   };
   return (

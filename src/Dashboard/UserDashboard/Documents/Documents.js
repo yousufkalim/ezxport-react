@@ -11,6 +11,7 @@ import DocumentByRequest from "./subcomponents/DocumentByRequest";
 import DocumentByName from "./subcomponents/DocumentByName";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
+import SearchField from "../../../components/Common/SearchField";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +51,7 @@ const Documents = () => {
   const [loading, setLoading] = useState(false);
   const [codes, setCodes] = useState([]);
   const [documents, setDocuments] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const { t } = useTranslation();
 
@@ -66,15 +68,19 @@ const Documents = () => {
       .then((res) => {
         const allRequests = res.data?.Request;
         if (allRequests?.length) {
-          const allCodes = allRequests?.filter((item) => item?.codes.length > 0);
-          const allDocuments = allRequests?.filter((item) => item?.documents.length > 0);
+          const allCodes = allRequests?.filter(
+            (item) => item?.codes.length > 0
+          );
+          const allDocuments = allRequests?.filter(
+            (item) => item?.documents.length > 0
+          );
           setDocuments(allDocuments);
           setCodes(allCodes);
         }
         setLoading(false);
       })
       .catch((err) => {
-        toaster("failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
         setLoading(false);
       });
   };
@@ -90,27 +96,44 @@ const Documents = () => {
           <div className="List_heading_div">
             <h1 className="list_h1_doc">{t("Documents")}</h1>
             <div className="searching4">
-              <input type="text" className="search_input2" placeholder={t("To Research")} />
-              <img src={SearchIcon} alt="" className="search_icon2" />
+              <SearchField setSearch={setSearchTerm} />
             </div>
           </div>
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label={t("By Request")} {...a11yProps(0)} />
-                  <Tab className="tab_btn3" label={t("By Nomenclature")} {...a11yProps(2)} />
+                  <Tab
+                    className="tab_btn1"
+                    label={t("By Request")}
+                    {...a11yProps(0)}
+                  />
+                  <Tab
+                    className="tab_btn3"
+                    label={t("By Nomenclature")}
+                    {...a11yProps(2)}
+                  />
                 </Tabs>
               </Box>
               <br />
               <TabPanel value={value} index={0}>
                 {/* List  */}
-                <DocumentByRequest documents={documents} loading={loading} />
+                <DocumentByRequest
+                  searchTerm={searchTerm}
+                  documents={documents}
+                  setDocuments={setDocuments}
+                  loading={loading}
+                />
               </TabPanel>
 
               {/* 2in tag */}
               <TabPanel value={value} index={1}>
-                <DocumentByName codes={codes} loading={loading} />
+                <DocumentByName
+                  searchTerm={searchTerm}
+                  codes={codes}
+                  setCodes={setCodes}
+                  loading={loading}
+                />
               </TabPanel>
             </Box>
           </div>

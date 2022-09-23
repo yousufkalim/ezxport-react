@@ -89,7 +89,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
@@ -137,13 +137,18 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/userVendors/${data.userVendorId}`, editData)
       .then((res) => {
-        toaster("success", "User created successfully");
+        toaster(
+          "success",
+          t("service provider updated successfully"),
+          t("Update Service Provider")
+        );
+
 
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 

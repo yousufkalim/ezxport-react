@@ -109,7 +109,7 @@ const AdminTab3 = (props) => {
         props.handleCountryData();
         setBomId("");
         setOpenModal(false);
-        toaster("success", "BOMs deleted successfully", "Deleted BOMs");
+        toaster("success", t("BOMs deleted successfully"), t("Deleted BOMs"));
       })
       .catch((err) => {
         console.log("handleBomDelete", err);
@@ -156,13 +156,13 @@ const AdminTab3 = (props) => {
             countries: false,
           },
         }));
-        toaster("success", "BOMs added successfully", "Adding BOMs");
+        toaster("success", t("BOMs added successfully"), t("Adding BOMs"));
       })
       .catch((err) => {
         console.log("handleAddBom", err);
         setNewCertificate_status("default");
         props.setOpenAddBomModal(false);
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
 
         setFormState((formState) => ({
           ...formState,

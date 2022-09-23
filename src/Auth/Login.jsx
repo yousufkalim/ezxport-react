@@ -49,13 +49,15 @@ const Login = () => {
     }));
   }, [formState.values]);
 
-  const handleChange = (event) => {
+  const handleChange = (e) => {
+    const {name, value} = e.target;
     setFormState((formState) => ({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value,
+        [name]: value,
       },
+      touched: { ...formState.touched, [name]: true },
     }));
   };
   const handleLoggin = async () => {
@@ -64,7 +66,6 @@ const Login = () => {
         email: formState.values.email,
         password: formState.values.password,
       })
-
         .then((res) => {
           if (res?.data?.role === "user") {
             localStorage.setItem("userData", JSON.stringify(res.data.user));
@@ -75,35 +76,21 @@ const Login = () => {
             localStorage.setItem("userData", JSON.stringify(res.data.admin));
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("role", JSON.stringify(res.data.role));
-  
+
             window.location = "/admin/Dashboard/Country";
           }
         })
         .catch((err) => {
-          toaster('failed', 'Email or password is incorrect' );
+          toaster("Failed", t("Email or password is incorrect"));
         });
-    }catch(err){
-      toaster('failed', 'Something went wrong')
+    } catch (err) {
+      toaster("Failed", t("Something went wrong"));
     }
-  };
-
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const { name } = e.target;
-    const errors = validate(formState.values, schema);
-    console.log("Errors ", errors);
-    console.log("Lastest state  ", formState);
-    setFormState((formState) => ({
-      ...formState,
-      errors: errors ?? {},
-      touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true,
-    }));
   };
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
-  
+
   return (
     <>
       <Header />
@@ -121,7 +108,6 @@ const Login = () => {
               isError={hasError("email")}
               error={formState.errors.email}
               name="email"
-              onBlur={(e) => handleBlur(e)}
               // role="presentation"
               autoComplete="off"
               type="text"
@@ -139,7 +125,6 @@ const Login = () => {
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder={t("Password")}
-              onBlur={(e) => handleBlur(e)}
               onChange={(e) => handleChange(e)}
               autoComplete="newPassword"
               value={formState.values.password}

@@ -10,6 +10,7 @@ const toaster = (type, msg, title) => {
       <div>{icon}</div>
       <div>
         <div className="toaster-title">{title}</div>
+
         <div className="toaster-msg">{message}</div>
       </div>
     </div>

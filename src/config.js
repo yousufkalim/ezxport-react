@@ -1,5 +1,7 @@
+
 let baseUrl = 'http://localhost:5000/api';
 let mediaUrl = "http://localhost:5000/"
+
 // let baseUrl = "https://ezxport.loca.lt/api";
 // let mediaUrl = "https://ezxport.loca.lt/"
 

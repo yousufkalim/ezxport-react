@@ -1,8 +1,11 @@
-import React from 'react';
-import Dialog from '@mui/material/Dialog';
-import ClearIcon from '@mui/icons-material/Clear';
+import React from "react";
+import Dialog from "@mui/material/Dialog";
+import ClearIcon from "@mui/icons-material/Clear";
+import { useTranslation } from "react-i18next";
 
 const Models = (props) => {
+  const { t } = useTranslation();
+
   return (
     <>
       <div>
@@ -16,14 +19,14 @@ const Models = (props) => {
         >
           <div className="buyer_main">
             <div className="buyer_heading">
-              <h2 className="buyer_h2">{props?.title}</h2>
+              <h2 className="buyer_h2">{t(props?.title)}</h2>
               {props?.Closebtn && (
                 <ClearIcon
                   onClick={() => {
                     props?.setOpen(false);
                     props?.handleClose();
                   }}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 />
               )}
             </div>

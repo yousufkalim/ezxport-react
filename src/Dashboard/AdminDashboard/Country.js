@@ -66,7 +66,7 @@ const Country = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", "Error while fetching data!");
+        toaster("Failed", t("Error while fetching data!"));
         setLoading(false);
       });
   };
@@ -89,23 +89,23 @@ const Country = () => {
         setOpen(false);
         handleClose();
         handleCountries();
-        toaster("success", "Country Added Successfully", "Added Country");
+        toaster("success", t("Country Added Successfully"), t("Added Country"));
       })
       .catch((err) => {
-        toaster("Failed", "Country already exists");
+        toaster("Failed", t("Country already exists"));
       });
   };
   const handleCountryDelete = async (countryId) => {
     await API("delete", `/countries/${countryId}`)
       .then((res) => {
-        toaster("success", "Country Deleted Successfully", "Deleted Country");
+        toaster("success", t("Country Deleted Successfully"), t("Deleted Country"));
 
         setOpenModal(false);
         setCountryId("");
         handleCountries();
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
@@ -118,7 +118,7 @@ const Country = () => {
           <div className="List_heading_div">
             <h1 className="list_h1_Country">{t("Country")}</h1>
             <div className="searching">
-              <SearchInput placeholder="Search" setSearch={setSearchTerm} />
+              <SearchInput placeholder={t("Search")} setSearch={setSearchTerm} />
               {/* <SearchField placeholder={t("Searching")} /> */}
               <Button
                 className="list_reqst_btn4"
@@ -287,7 +287,11 @@ const Country = () => {
             </FormControl>
             <Button
               text={t("Add a country")}
-              className={dropdown === "default" && currency === "default" ? "add_Country_button_disabled" : "add_Country_button"}
+              className={
+                dropdown === "default" && currency === "default"
+                  ? "add_Country_button_disabled"
+                  : "add_Country_button"
+              }
               disabled={dropdown === "default" || currency === "default"}
               onClick={handleAddCountry}
             />

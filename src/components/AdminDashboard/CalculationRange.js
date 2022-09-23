@@ -24,7 +24,12 @@ import toaster from "../../utils/toaster";
 const TITLE = [
   { heading: "Minimum" },
   { heading: "Maximum" },
-  { heading: "Certificate Cost", key: "certificate_cost", sortIcon: true, imgSrc: downArrow },
+  {
+    heading: "Certificate Cost",
+    key: "certificate_cost",
+    sortIcon: true,
+    imgSrc: downArrow,
+  },
   { heading: "Actions" },
 ];
 
@@ -46,7 +51,11 @@ const CalculationRange = (props) => {
   const [rangeCertificat, setRangeCertificat] = useState();
   const [rangeMinCost, setRangeMinCost] = useState();
   const [rangeMaxCost, setRangeMaxCost] = useState();
-  const [allErrors, setAllErrors] = useState({ min: "", max: "", certificate: "" });
+  const [allErrors, setAllErrors] = useState({
+    min: "",
+    max: "",
+    certificate: "",
+  });
   const [openModal, setOpenModal] = useState(false);
   const [rangeId, setRangeId] = useState("");
   const [sort, setSort] = useState({ key: "", ascend: true });
@@ -67,7 +76,14 @@ const CalculationRange = (props) => {
     if (formState.values.minCost) {
       const { min, max } = allErrors;
       const { minCost, maxCost, certificate } = formState.values;
-      if (!min && !max && !allErrors.certificate && minCost && maxCost && certificate) {
+      if (
+        !min &&
+        !max &&
+        !allErrors.certificate &&
+        minCost &&
+        maxCost &&
+        certificate
+      ) {
         setFormState({ ...formState, isValid: true });
       } else {
         setFormState({ ...formState, isValid: false });
@@ -107,13 +123,19 @@ const CalculationRange = (props) => {
       if (rangeData?.length && val !== latestMax) {
         setAllErrors({ ...allErrors, min: "Please enter valid minimum cost" });
       } else if (maxCost && val >= maxCost) {
-        setAllErrors({ ...allErrors, min: "Minimum cost should be less than maximum cost" });
+        setAllErrors({
+          ...allErrors,
+          min: "Minimum cost should be less than maximum cost",
+        });
       } else {
         setAllErrors({ ...allErrors, min: "" });
       }
     } else if (name === "maxCost") {
       if (val <= minCost) {
-        setAllErrors({ ...allErrors, max: "Maxminm cost should be greater than minimum cost" });
+        setAllErrors({
+          ...allErrors,
+          max: "Maxminm cost should be greater than minimum cost",
+        });
       } else {
         setAllErrors({ ...allErrors, max: "" });
       }
@@ -163,7 +185,7 @@ const CalculationRange = (props) => {
           },
           isValid: false,
         }));
-        toaster("success", "Range added successfully", "Adding Range");
+        toaster("success", t("Range added successfully"), t("Adding Range"));
       })
       .catch((err) => {
         console.log("handleAddRange", err);
@@ -193,7 +215,9 @@ const CalculationRange = (props) => {
           isValid: true,
         }));
 
-        toaster("success", "Coefficient Added Successfully", "Adding Coefficient");
+
+        toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
+
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -207,7 +231,7 @@ const CalculationRange = (props) => {
         handleRangeData();
         setOpenModal(false);
         setRangeId("");
-        toaster("success", "Range Deleted successfully", "Deleted Range");
+        toaster("success", t("Range Deleted successfully"), t("Deleted Range"));
       })
       .catch((err) => {
         console.log("handleDeleteCalculation", err);
@@ -225,7 +249,7 @@ const CalculationRange = (props) => {
       .then((res) => {
         setEditModal(false);
         handleRangeData();
-        toaster("success", "Range updated successfully", "Updated Range");
+        toaster("success", t("Range updated successfully"), t("Updated Range"));
       })
       .catch((err) => {
         console.log("handleUpdateRange", err);
@@ -236,7 +260,8 @@ const CalculationRange = (props) => {
   }, []);
 
   const handleEditModalClose = () => setEditModal(false);
-  const hasError = (name) => (allErrors[name] && allErrors[name] ? true : false);
+  const hasError = (name) =>
+    allErrors[name] && allErrors[name] ? true : false;
 
   if (loading) {
     return <Spinner />;
@@ -257,7 +282,9 @@ const CalculationRange = (props) => {
                         style={{ backgrounColor: "#EAECF0" }}
                       >
                         {t(item.heading)} &nbsp;
-                        {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                        {item.sortIcon &&
+                        !sort.ascend &&
+                        sort.key === item.key ? (
                           <img
                             className="sorting-icon"
                             onClick={() =>
@@ -297,21 +324,31 @@ const CalculationRange = (props) => {
                 </TableHead>
                 <TableBody>
                   {rangeData?.map((item) => (
-                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                      <TableCell component="th" scope="row" style={{ width: "20%" }}>
+                    <TableRow
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        style={{ width: "20%" }}
+                      >
                         <p className="AP_plus_title">{`${item.min} ${
                           props.currency === "USD" ? "$" : "€"
                         }`}</p>
                       </TableCell>
-                      <TableCell align="left" className="country2" style={{ width: "20%" }}>
+                      <TableCell
+                        align="left"
+                        className="country2"
+                        style={{ width: "20%" }}
+                      >
                         <p className="AP_plus_title">{`${item.max} ${
                           props.currency === "USD" ? "$" : "€"
                         }`}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
-                        <p className="AP_plus_title">{`${item.certificate_cost} ${
-                          props.currency === "USD" ? "$" : "€"
-                        }`}</p>
+                        <p className="AP_plus_title">{`${
+                          item.certificate_cost
+                        } ${props.currency === "USD" ? "$" : "€"}`}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
                         <img
@@ -396,7 +433,11 @@ const CalculationRange = (props) => {
                 </div>
               </div>
               <button
-                className={!formState.isValid ? "AddSlice_button_disabled" : "AddSlice_button"}
+                className={
+                  !formState.isValid
+                    ? "AddSlice_button_disabled"
+                    : "AddSlice_button"
+                }
                 onClick={props.Calculation ? handleAddRange : handleNewRange}
                 disabled={!formState.isValid}
               >

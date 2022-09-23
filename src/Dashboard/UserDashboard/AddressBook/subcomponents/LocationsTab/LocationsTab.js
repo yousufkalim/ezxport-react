@@ -132,7 +132,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         setLocations(res.data.place);
         setLoading(false);
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
     setLoading(false);
   };
 
@@ -216,30 +216,30 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     await API("post", "/places", data)
       .then((res) => {
         toaster(
-          t,
           "success",
-          "Inspection location addedd successfully!",
-          "Adding Inspection location"
+          t("Inspection location addedd successfully!"),
+          t("Adding Inspection location")
+
         );
         setOpen(false);
         fetchLocations();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const editLocation = async (data) => {
     await API("put", `/places/${location._id}`, data)
       .then((res) => {
         toaster(
-          t,
           "success",
-          "Inspection location updated successfully!",
-          "Update Inspection location"
+          t("Inspection location updated successfully!"),
+          t("Update Inspection location")
+
         );
         handleCloseModal();
         fetchLocations();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const handleSubmit = (e) => {
