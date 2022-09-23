@@ -15,7 +15,7 @@ const Application = () => {
   const handleRequest = async () => {
     await API("get", `/requests/${id}`)
       .then((res) => {
-        setUserRequest(res.data.request);
+        setUserRequest(res?.data?.request);
       })
       .catch((err) => {
         console.log("errr", err);
@@ -27,7 +27,7 @@ const Application = () => {
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
-          <ApplicationHeader title={userRequest.title} status={userRequest.status} />
+          <ApplicationHeader title={userRequest?.title} status={userRequest?.status} />
           <ApplicationTab userRequest={userRequest} />
         </div>
       </div>

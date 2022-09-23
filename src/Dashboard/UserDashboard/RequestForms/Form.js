@@ -333,7 +333,7 @@ export default function HorizontalNonLinearStepper() {
         setCreatedCodes(res.data.request);
         toaster("success", res.data.message);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", err?.response?.data?.message?.msg));
   };
   const handleSendFile = () => setPlatformSelect(true);
 

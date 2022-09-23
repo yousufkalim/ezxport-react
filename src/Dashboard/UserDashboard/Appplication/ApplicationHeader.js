@@ -13,7 +13,7 @@ const ApplicationHeader = (props) => {
             <ArrowBackIcon className="leftArrowIcon" />
           </Link>
           &nbsp; {t(props.title)}
-          {props.status === "sent" ? (
+          {/* {props.status === "sent" ? (
             <p className="send_p2">{t("Sent")}</p>
           ) : props.status === "Validate By Admin" || props.status === "Validated" ? (
             <p className="send_p5">{t("File validated")}</p>
@@ -23,6 +23,17 @@ const ApplicationHeader = (props) => {
             <p className="send_p3">{t("File validated")}</p>
           ) : (
             <p className="send_p6">{t("Contract to be signed")}</p>
+          )} */}
+          {props?.status === "Sent" ? (
+            <p className="send_p2">{t(props?.status)}</p>
+          ) : props?.status === "Missing documents" ? (
+            <p className="send_p4">{t(props?.status)}</p>
+          ) : props?.status === "Validated" ? (
+            <p className="send_p3">{t(props?.status)}</p>
+          ) : props?.status === "Being Checked By Expert" ? (
+            <p className="send_p6">{t(props?.status)}</p>
+          ) : (
+            "--"
           )}
         </p>
       </div>

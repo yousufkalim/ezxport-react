@@ -182,18 +182,16 @@ const Requests = () => {
                           {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
                         </TableCell>
                         <TableCell align="left">
-                          {item?.status === "Validate By Admin" ? (
-                            <p className="clrClass">{t(item?.status)}</p>
+                          {item?.status === "Sent" ? (
+                            <p className="send_status">{t(item?.status)}</p>
                           ) : item?.status === "Missing documents" ? (
                             <p className="missingDocStatus">{t(item?.status)}</p>
                           ) : item?.status === "Validated" ? (
                             <p className="clrClass">{t(item?.status)}</p>
-                          ) : item?.status === "sent" ? (
-                            <p className="send_status">{t(item?.status)}</p>
-                          ) : item?.status === "Benig Checked By Expert" ? (
+                          ) : item?.status === "Being checked by an expert" ? (
                             <p className="process_status">{t(item?.status)}</p>
                           ) : (
-                            item?.status
+                            "--"
                           )}
                         </TableCell>
                       </TableRow>

@@ -113,42 +113,19 @@ const FollowUp = () => {
                   <TableHead>
                     <TableRow>
                       {TITLES.map((item) => (
-                        <TableCell
-                          align="left"
-                          className="country"
-                          style={{ backgrounColor: "#EAECF0" }}
-                          key={item?.name}
-                        >
+                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }} key={item?.name}>
                           {t(item.name)} &nbsp;
                           {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                             <img
                               className="sorting-icon"
-                              onClick={() =>
-                                getSortedData(
-                                  allRequest,
-                                  setAllRequest,
-                                  setSort,
-                                  nestSortTitles,
-                                  item.key,
-                                  true
-                                )
-                              }
+                              onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, true)}
                               src={arrow_up}
                               alt=""
                             />
                           ) : (
                             item.sortIcon && (
                               <img
-                                onClick={() =>
-                                  getSortedData(
-                                    allRequest,
-                                    setAllRequest,
-                                    setSort,
-                                    nestSortTitles,
-                                    item.key,
-                                    false
-                                  )
-                                }
+                                onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, false)}
                                 src={downArrow}
                                 alt=""
                               />
@@ -178,8 +155,7 @@ const FollowUp = () => {
                             <>
                               {item?.certification_cost?.currency === "USD"
                                 ? item?.certification_cost?.value + "$"
-                                : item?.certification_cost?.currency === "EURO" &&
-                                  item?.certification_cost?.value + "€"}
+                                : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
                             </>
                           ) : (
                             "--"
@@ -190,10 +166,9 @@ const FollowUp = () => {
                           {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
                         </TableCell>
                         <TableCell align="left">
-                          {item?.status === "Validate By Admin" ? (
+                          {/* {item?.status === "Validate By Admin" ? (
                             <p className="clrClass">{t(item?.status)}</p>
-                          ) : item?.status === "Missing documents" ||
-                            item?.status === "Missing Documents" ? (
+                          ) : item?.status === "Missing documents" || item?.status === "Missing Documents" ? (
                             <p className="missingDocStatus">{t(item?.status)}</p>
                           ) : item?.status === "Validated" ? (
                             <p className="clrClass">{t(item?.status)}</p>
@@ -203,6 +178,18 @@ const FollowUp = () => {
                             <p className="process_status">{t(item?.status)}</p>
                           ) : (
                             <p className="send_status">{t("Send")}</p>
+                          )} */}
+
+                          {item?.status === "Sent" ? (
+                            <p className="send_status">{t(item?.status)}</p>
+                          ) : item?.status === "Missing documents" ? (
+                            <p className="missingDocStatus">{t(item?.status)}</p>
+                          ) : item?.status === "Validated" ? (
+                            <p className="clrClass">{t(item?.status)}</p>
+                          ) : item?.status === "Being checked by an expert" ? (
+                            <p className="process_status">{t(item?.status)}</p>
+                          ) : (
+                            "--"
                           )}
                         </TableCell>
                       </TableRow>
@@ -236,17 +223,11 @@ const FollowUp = () => {
               <Featured1 />
             </div>
 
-            <div
-              className="space"
-              style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}
-            >
+            <div className="space" style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}>
               Votre demande été effectuée <br />
               avec succès
             </div>
-            <div
-              className="space"
-              style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}
-            >
+            <div className="space" style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}>
               Nous allons procéder au traitement de votre dossier
               <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
               pouvez retrouver votre demande dans le tableau de

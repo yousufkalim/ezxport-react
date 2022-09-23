@@ -22,11 +22,7 @@ const ProductLists = ({ codes, currency }) => {
             <span>
               – {monetary_value} {currency === "USD" ? "$" : "€"} –
             </span>
-            {codes?.length > 1 ? (
-              <span> {codes?.length} codes</span>
-            ) : (
-              <span> {codes?.length} code</span>
-            )}
+            {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}
           </p>
         </div>
         {/* table  */}
@@ -47,18 +43,20 @@ const ProductLists = ({ codes, currency }) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {codes?.code?.map((item) => (
-                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                    <TableCell component="th" scope="row" style={{ width: "22%" }}>
-                      <p className="AP_plus_title">{item.code}</p>
-                    </TableCell>
+                {codes?.code?.map((item) => {
+                  return (
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row" style={{ width: "22%" }}>
+                        <p className="AP_plus_title">{item.code}</p>
+                      </TableCell>
 
-                    <TableCell align="left" className="country2" style={{ width: "100%" }}>
-                      {item.monetary_value}
-                      {currency === "USD" ? "$" : "€"}
-                    </TableCell>
-                  </TableRow>
-                ))}
+                      <TableCell align="left" className="country2" style={{ width: "100%" }}>
+                        {item.monetary_value}
+                        {currency === "USD" ? "$" : "€"}
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </TableContainer>
