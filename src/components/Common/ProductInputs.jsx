@@ -152,7 +152,7 @@ const ProductInputs = (props) => {
         className="product_name_textfield2"
         disabled
         name="country"
-        value={props?.product?.country?.name}
+        value={props?.product?.country}
       />
       <div className="switch_buttons" style={{ position: "relative" }}>
         <div className="switch_column">

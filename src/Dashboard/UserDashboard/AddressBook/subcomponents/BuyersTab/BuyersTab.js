@@ -64,7 +64,6 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) 
     setLoading(true);
     API("get", `/buyers/getByUser/${userData._id}`)
       .then((res) => {
-        console.log("Buyers ", res);
         setBuyers(res.data.buyer);
         setLoading(false);
       })
@@ -107,27 +106,19 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) 
               <TableRow>
                 {title.map((item) => {
                   return (
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                       {t(item.heading)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
-                          onClick={() =>
-                            getSortedData(buyers, setBuyers, setSort, [], "company_name", true)
-                          }
+                          onClick={() => getSortedData(buyers, setBuyers, setSort, [], "company_name", true)}
                           src={arrow_up}
                           alt=""
                         />
                       ) : (
                         item.sortIcon && (
                           <img
-                            onClick={() =>
-                              getSortedData(buyers, setBuyers, setSort, [], "company_name", false)
-                            }
+                            onClick={() => getSortedData(buyers, setBuyers, setSort, [], "company_name", false)}
                             src={downArrow}
                             alt=""
                           />
@@ -153,7 +144,7 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) 
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {buyer?.country?.name}
+                      {buyer?.country}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">

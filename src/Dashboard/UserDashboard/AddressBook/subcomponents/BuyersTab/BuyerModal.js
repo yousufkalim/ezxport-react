@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import Button from "../../../../../components/Common/Button";
 import toaster from "../../../../../utils/toaster";
 import { useTranslation } from "react-i18next";
+import { COUNTRIES } from "../../../../../lib/data";
 
 const schema = {
   companyName: {
@@ -56,7 +57,7 @@ const BuyerModal = ({
   buyer,
   isEdit,
   setIsEdit,
-  countries,
+  // countries,
   setOpen,
   setBuyer,
   formState,
@@ -139,15 +140,7 @@ const BuyerModal = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      companyName: company_name,
-      email,
-      country,
-      town: city,
-      telephone: phone_number,
-      zipcode,
-      address,
-    } = formState.values;
+    const { companyName: company_name, email, country, town: city, telephone: phone_number, zipcode, address } = formState.values;
     const data = {
       company_name,
       email,
@@ -166,22 +159,14 @@ const BuyerModal = ({
     }
   };
 
-  console.log("IS VALID ", formState);
-
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
   return (
-    <Modal
-      open={open}
-      setOpen={setOpen}
-      title={MODAL_TITLE}
-      handleClose={() => handleCloseModal()}
-      Closebtn={true}
-    >
+    <Modal open={open} setOpen={setOpen} title={MODAL_TITLE} handleClose={() => handleCloseModal()} Closebtn={true}>
       <div className="buyer_socond">
         <div className="luyer_input_field">
           <InputField
-            label="Company name"
+            label="Company Name"
             disabled={!isEdit && buyer}
             name="companyName"
             onChange={(e) => handleChange(e)}
@@ -195,7 +180,7 @@ const BuyerModal = ({
         <div className="luyer_input_field">
           <FormControl fullWidth>
             <label htmlFor="" className="buyer_label">
-              {t("Select a Country")}
+              {t("Select a country")}
             </label>
             <Select
               id="demo-simple-select"
@@ -205,15 +190,15 @@ const BuyerModal = ({
               onChange={(e) => countryHandler(e)}
               className="buyer_input"
             >
-              {countries?.map(({ name, _id: id }) => (
-                <MenuItem key={id} value={id}>
-                  {name}
-                </MenuItem>
-              ))}
+              {COUNTRIES?.map((item, index) => {
+                return (
+                  <MenuItem value={item} key={index}>
+                    {item}
+                  </MenuItem>
+                );
+              })}
             </Select>
-            {hasError("country") && (
-              <div className="input-error">{formState.errors.country ?? null}</div>
-            )}
+            {hasError("country") && <div className="input-error">{formState.errors.country ?? null}</div>}
           </FormControl>
         </div>
         <div className="luyer_input_field">

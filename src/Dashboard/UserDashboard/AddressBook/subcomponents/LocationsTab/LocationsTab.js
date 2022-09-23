@@ -20,6 +20,7 @@ import Button from "../../../../../components/Common/Button";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { COUNTRIES } from "../../../../../lib/data";
 import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
@@ -153,17 +154,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     setOpen(true);
 
     if (item) {
-      const {
-        company_name,
-        email,
-        country,
-        city,
-        phone_number,
-        zipcode,
-        address,
-        contact_fname,
-        contact_lname,
-      } = item;
+      const { company_name, email, country, city, phone_number, zipcode, address, contact_fname, contact_lname } = item;
       const values = {
         companyName: company_name,
         email,
@@ -210,11 +201,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const createLocation = async (data) => {
     await API("post", "/places", data)
       .then((res) => {
-        toaster(
-          "success",
-          "Inspection location addedd successfully!",
-          "Adding Inspection location"
-        );
+        toaster("success", "Inspection location addedd successfully!", "Adding Inspection location");
         setOpen(false);
         fetchLocations();
       })
@@ -224,11 +211,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const editLocation = async (data) => {
     await API("put", `/places/${location._id}`, data)
       .then((res) => {
-        toaster(
-          "success",
-          "Inspection location updated successfully!",
-          "Update Inspection location"
-        );
+        toaster("success", "Inspection location updated successfully!", "Update Inspection location");
         handleCloseModal();
         fetchLocations();
       })
@@ -270,11 +253,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
-  const MODAL_TITLE = isEdit
-    ? "Edit inspection location"
-    : location
-    ? "View inspection location"
-    : "Add inspection location";
+  const MODAL_TITLE = isEdit ? "Edit inspection location" : location ? "View inspection location" : "Add inspection location";
 
   const searchedResults = locations.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
@@ -287,41 +266,19 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               <TableRow>
                 {title.map((item) => {
                   return (
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                       {t(item.heading)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
-                          onClick={() =>
-                            getSortedData(
-                              locations,
-                              setLocations,
-                              setSort,
-                              [],
-                              "company_name",
-                              true
-                            )
-                          }
+                          onClick={() => getSortedData(locations, setLocations, setSort, [], "company_name", true)}
                           src={arrow_up}
                           alt=""
                         />
                       ) : (
                         item.sortIcon && (
                           <img
-                            onClick={() =>
-                              getSortedData(
-                                locations,
-                                setLocations,
-                                setSort,
-                                [],
-                                "company_name",
-                                false
-                              )
-                            }
+                            onClick={() => getSortedData(locations, setLocations, setSort, [], "company_name", false)}
                             src={downArrow}
                             alt=""
                           />
@@ -347,7 +304,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       <p className="AP_plus_title">{item.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {item?.country?.name}
+                      {item?.country}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -380,13 +337,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         </TableContainer>
         {/* table  */}
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t(MODAL_TITLE)}
-        handleClose={() => handleCloseModal()}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title={t(MODAL_TITLE)} handleClose={() => handleCloseModal()} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
@@ -414,11 +365,13 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
               >
-                {countries?.map(({ name, _id: id }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {COUNTRIES?.map((item, index) => {
+                  return (
+                    <MenuItem value={item} key={index}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </div>
@@ -527,15 +480,15 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               </div>
             </div>
           </div>
-          {((!isEdit && !location) || (isEdit && location)) && (
-            <Button
-              text="To Confirm"
-              disabled={!formState.isValid}
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-              className="luyer_button"
-            />
-          )}
+          {/* {((!isEdit && !location) || (isEdit && location)) && ( */}
+          <Button
+            text={t("To Confirm")}
+            // disabled={!formState.isValid}
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+            className="luyer_button"
+          />
+          {/* )} */}
         </div>
       </Modal>
     </>

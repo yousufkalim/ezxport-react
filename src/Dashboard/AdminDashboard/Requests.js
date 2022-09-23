@@ -171,8 +171,7 @@ const Requests = () => {
                             <>
                               {item?.certification_cost?.currency === "USD"
                                 ? item?.certification_cost?.value + "$"
-                                : item?.certification_cost?.currency === "EURO" &&
-                                  item?.certification_cost?.value + "€"}
+                                : item?.certification_cost?.currency === "EURO" && item?.certification_cost?.value + "€"}
                             </>
                           ) : (
                             "--"
@@ -194,7 +193,7 @@ const Requests = () => {
                           ) : item?.status === "Benig Checked By Expert" ? (
                             <p className="process_status">{t(item?.status)}</p>
                           ) : (
-                            "--"
+                            item?.status
                           )}
                         </TableCell>
                       </TableRow>

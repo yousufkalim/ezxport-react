@@ -4,6 +4,7 @@ import TextFieldSelect from "./TextFieldSelect";
 import MenuItem from "@mui/material/MenuItem";
 import FilePicker from "./FilePicker";
 import Select from "@mui/material/Select";
+import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
 const ProductForm = (props) => {
@@ -176,8 +177,8 @@ const ProductForm = (props) => {
           <MenuItem disabled value="default">
             {t("Select a Country")}
           </MenuItem>
-          {props?.countries?.map((item) => {
-            return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+          {COUNTRIES?.map((item, index) => {
+            return <MenuItem value={item} key={index}>{item}</MenuItem>;
           })}
         </Select>
       </div>

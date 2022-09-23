@@ -95,8 +95,13 @@ const BOMsForm = (props) => {
   };
   useEffect(() => {
     handleAllRequestByCountryId();
-    getBomByCountryId();
   }, [step1?.country]);
+  useEffect(() => {
+    if (step1?.country !== "") {
+      getBomByCountryId();
+    }
+  }, [step1?.country]);
+
   useEffect(() => {
     if (step1?.country !== "") {
       handleTitle(step1.country);
@@ -154,7 +159,6 @@ const BOMsForm = (props) => {
       formData.append("country", `${step1.country}`);
       await API("post", "/boms/filterCodes", formData)
         .then((res) => {
-          console.log("🚀 ~ file: BOMsForm.js ~ line 120 ~ .then ~ res", res);
           setLoading(false);
           let arr1 = [];
           let arr2 = [];
@@ -197,8 +201,6 @@ const BOMsForm = (props) => {
   };
 
   const handleDelete = (code) => {
-    console.log("CODE ID ", code);
-    console.log("ALL codes ", allCodes);
     const { matchedData, unMatchedData, setUnMatchedData } = props;
     const findCode = allCodes.find((item) => item.codeID === code.codeID);
     let filtered = allCodes.filter((item) => {
@@ -248,6 +250,8 @@ const BOMsForm = (props) => {
     }
   };
   const getBomByCountryId = async () => {
+    console.log(step1?.country, "qwerty");
+
     await API("get", `/boms/getByCountryId/${step1.country}`)
       .then((res) => {
         console.log("first", res);

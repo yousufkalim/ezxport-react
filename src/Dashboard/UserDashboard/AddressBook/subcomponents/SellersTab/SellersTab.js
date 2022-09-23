@@ -20,6 +20,7 @@ import Button from "../../../../../components/Common/Button";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { COUNTRIES } from "../../../../../lib/data";
 import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
@@ -216,15 +217,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      companyName: company_name,
-      email,
-      country,
-      town: city,
-      telephone: phone_number,
-      zipcode,
-      address,
-    } = formState.values;
+    const { companyName: company_name, email, country, town: city, telephone: phone_number, zipcode, address } = formState.values;
     const data = {
       company_name,
       email,
@@ -258,27 +251,19 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               <TableRow>
                 {title.map((item) => {
                   return (
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                       {t(item.heading)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
-                          onClick={() =>
-                            getSortedData(sellers, setSellers, setSort, [], "company_name", true)
-                          }
+                          onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", true)}
                           src={arrow_up}
                           alt=""
                         />
                       ) : (
                         item.sortIcon && (
                           <img
-                            onClick={() =>
-                              getSortedData(sellers, setSellers, setSort, [], "company_name", false)
-                            }
+                            onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", false)}
                             src={downArrow}
                             alt=""
                           />
@@ -304,7 +289,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {buyer?.country?.name}
+                      {buyer?.country}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -337,13 +322,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         </TableContainer>
         {/* table  */}
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t(MODAL_TITLE)}
-        handleClose={() => handleCloseModal()}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title={t(MODAL_TITLE)} handleClose={() => handleCloseModal()} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
@@ -371,15 +350,16 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
               >
-                {countries?.map(({ name, _id: id }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {COUNTRIES?.map((item, index) => {
+                  return (
+                    <MenuItem value={item} key={index}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
+                {/* COUNTRIES */}
               </Select>
-              {hasError("country") && (
-                <div className="input-error">{formState.errors.country ?? null}</div>
-              )}
+              {hasError("country") && <div className="input-error">{formState.errors.country ?? null}</div>}
             </FormControl>
           </div>
           <div className="luyer_input_field">
@@ -457,15 +437,15 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               </div>
             </div>
           </div>
-          {((!isEdit && !seller) || (isEdit && seller)) && (
-            <Button
-              text="To Confirm"
-              disabled={!formState.isValid}
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-              className="luyer_button"
-            />
-          )}
+          {/* {((!isEdit && !seller) || (isEdit && seller)) && ( */}
+          <Button
+            text={t("To Confirm")}
+            // disabled={!formState.isValid}
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+            className="luyer_button"
+          />
+          {/* )} */}
         </div>
       </Modal>
     </>

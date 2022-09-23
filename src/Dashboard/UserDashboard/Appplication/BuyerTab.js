@@ -23,7 +23,7 @@ const BuyerTab = ({ buyer }) => {
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Country")}</p>
-            <p className="requestData_date">{t(buyer?.country?.name)}</p>
+            <p className="requestData_date">{t(buyer?.country)}</p>
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Telephone")}</p>
