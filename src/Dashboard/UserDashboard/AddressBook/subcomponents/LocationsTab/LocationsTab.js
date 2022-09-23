@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import InputField from "../../../../../components/Common/InputField";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
 import { validate } from "validate.js";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -23,6 +22,8 @@ import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 import { COUNTRIES } from "../../../../../lib/data";
+import toaster from "../../../../../utils/toaster";
+
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
   { heading: "Country" },
@@ -124,10 +125,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
         setLocations(res.data.place);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong"));
-        setLoading(false);
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
   };
 
   const countryHandler = (e) => {
@@ -199,21 +198,21 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
   const createLocation = async (data) => {
     await API("post", "/places", data)
       .then((res) => {
-        toast.success(t("Inspection location addedd successfully!"));
+        toaster("success", "Inspection location addedd successfully!", "Adding Inspection location");
         setOpen(false);
         fetchLocations();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const editLocation = async (data) => {
     await API("put", `/places/${location._id}`, data)
       .then((res) => {
-        toast.success(t("Inspection location updated successfully!"));
+        toaster("success", "Inspection location updated successfully!", "Update Inspection location");
         handleCloseModal();
         fetchLocations();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {

@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import InputField from "../../../../../components/Common/InputField";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { validate } from "validate.js";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,11 +18,12 @@ import Select from "@mui/material/Select";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import Spinner from "../../../../../components/Common/Spinner";
 import Button from "../../../../../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
+// import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 import { COUNTRIES } from "../../../../../lib/data";
+import toaster from "../../../../../utils/toaster";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -198,21 +199,21 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
   const createSeller = async (data) => {
     await API("post", "/sellers", data)
       .then((res) => {
-        toast.success("Seller addedd successfully!");
+        toaster("success", "Seller added successfully!", "Adding Seller");
         setOpen(false);
         fetchSellers();
       })
-      .catch((err) => toast.success("Something went wrong!"));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const editSeller = async (data) => {
     await API("put", `/sellers/${seller._id}`, data)
       .then((res) => {
-        toast.success(t("Seller updated successfully!"));
+        toaster("success", "Seller updated successfully!", "Update Seller");
         handleCloseModal();
         fetchSellers();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {

@@ -190,7 +190,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("contact last name")}</label>
+              <label className="label_modal">{t("Contact last name")}</label>
               <InputField
                 className="company_name_input"
                 disabled

@@ -3,7 +3,6 @@ import { useTranslation, Trans } from "react-i18next";
 
 const PlaceOfInspectionTab = ({ place }) => {
   const { t, i18n } = useTranslation();
-  const { language } = i18n;
   return (
     <>
       <div className="InformationTab">
@@ -36,7 +35,7 @@ const PlaceOfInspectionTab = ({ place }) => {
             <p className="requestData_date">{place?.phone_number}</p>
           </div>
           <div className="requestDate_tab">
-            <p className="requestData_p">{t("First Name")}</p>
+            <p className="requestData_p">{t("First name")}</p>
             <p className="requestData_date">{place?.contact_fname}</p>
           </div>
           <div className="requestDate_tab" style={{ display: "flex" }}>

@@ -121,22 +121,22 @@ const BuyerModal = ({
   const createBuyer = async (data) => {
     await API("post", "/buyers", data)
       .then((res) => {
-        toast.success(t("Buyer addedd successfully!"));
+        toaster("success", "Buyer added successfully!", "Adding Buyer");
         setOpen(false);
         fetchBuyers();
         resetForm();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const editBuyer = async (data) => {
     await API("put", `/buyers/${buyer._id}`, data)
       .then((res) => {
-        toaster("success", t("Buyer updated sucessfully"));
+        toaster("success", "Buyer updated sucessfully", "Update Buyer");
         fetchBuyers();
         handleCloseModal();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {
