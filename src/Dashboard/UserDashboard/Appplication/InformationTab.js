@@ -9,7 +9,7 @@ import BuyerTab from "./BuyerTab";
 import PlaceOfInspectionTab from "./PlaceOfInspectionTab";
 import moment from "moment";
 import ProductLists from "./ProductLists";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const InformationTab = (props) => {
   const [value, setValue] = useState(0);
@@ -18,8 +18,7 @@ const InformationTab = (props) => {
     setValue(newValue);
   };
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -57,7 +56,9 @@ const InformationTab = (props) => {
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Request date")}</p>
-            <p className="requestData_date">{moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}</p>
+            <p className="requestData_date">
+              {moment(props?.userRequest?.createdAt).format("DD/MM/YYYY")}
+            </p>
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Country")}</p>
@@ -74,7 +75,9 @@ const InformationTab = (props) => {
           </div>
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Inspection date")}</p>
-            <p className="requestData_date">{moment(props?.userRequest?.inspection_date).format("ll")}</p>
+            <p className="requestData_date">
+              {moment(props?.userRequest?.inspection_date).format("ll")}
+            </p>
           </div>
         </div>
       </div>
@@ -107,7 +110,10 @@ const InformationTab = (props) => {
           </div>
         </TabPanel>
       </Box>
-      <ProductLists codes={props?.userRequest?.codes} currency={props?.userRequest?.country?.currency} />
+      <ProductLists
+        codes={props?.userRequest?.codes}
+        currency={props?.userRequest?.country?.currency}
+      />
     </>
   );
 };

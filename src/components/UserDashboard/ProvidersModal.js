@@ -4,8 +4,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 import FormControl from "@mui/material/FormControl";
 import MultiSelect from "../../components/Common/MultiSelect";
 import API from "../../api/index";
-import { toast } from "react-toastify";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../utils/toaster";
 
 const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const [formData, setFormData] = useState({
@@ -17,8 +17,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const [allCountries, setAllCountries] = useState([]);
   const [countryNames, setCountryNames] = useState([]);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCountries();
@@ -50,7 +49,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
       });
   };
 
@@ -99,12 +98,13 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/${data._id}`, editData)
       .then((res) => {
-        toast.success(t("Servive Provider updated Successfully"));
+        toaster("success", "User created successfully");
+
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
       });
   };
 

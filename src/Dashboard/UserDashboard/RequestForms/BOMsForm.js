@@ -19,12 +19,12 @@ import { ReactComponent as Featured } from "../../../assets/Featured.svg";
 import API from "../../../api/index";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { toast } from "react-toastify";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmModal from "../../../components/Common/ConfirmModal";
 import { Store } from "../../../StoreContext";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../../utils/toaster";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
@@ -80,8 +80,8 @@ const BOMsForm = (props) => {
     return newCodes;
   };
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
 
   const fileRef = useRef(null);
 
@@ -90,9 +90,8 @@ const BOMsForm = (props) => {
       .then((res) => {
         setRequestByCountry(res?.data?.request);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message.msg);
-      });
+
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   useEffect(() => {
     handleAllRequestByCountryId();
@@ -113,9 +112,8 @@ const BOMsForm = (props) => {
       .then((res) => {
         props.setCounteries(res.data.countries);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message.msg);
-      });
+
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   useEffect(() => {
     handleGetAllCountry();
@@ -187,11 +185,12 @@ const BOMsForm = (props) => {
         })
         .catch((err) => {
           setLoading(false);
-          toast.error(t("Country is required for uploading codes"));
+          toaster("Failed", "Country is required for uploading codes");
+
           setImportedFile("");
         });
     } else {
-      toast.error(t("Can only upload Excel sheet"));
+      toaster("Failed", "Can only upload Excel sheet");
       setLoading(false);
       setImportedFile("");
     }
@@ -226,9 +225,8 @@ const BOMsForm = (props) => {
       .then((res) => {
         props.handleChange("title", (res?.data?.tile).toUpperCase());
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleSearchTitle = async () => {
     await API("post", "/requests/searchName/", {
@@ -237,9 +235,7 @@ const BOMsForm = (props) => {
       .then((res) => {
         props.handleChange("title", res?.data?.tile);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleMonetaryValue = (value) => {
     const validatedValue = value.replace(/[^0-9]/g, "");
@@ -283,7 +279,9 @@ const BOMsForm = (props) => {
           })}
         </Select>
 
-        <label className="BomLabel">{t("Create a new request or select an old request to retrieve information")}</label>
+        <label className="BomLabel">
+          {t("Create a new request or select an old request to retrieve information")}
+        </label>
         <Select
           id="demo-simple-select"
           defaultValue={"default"}
@@ -315,7 +313,12 @@ const BOMsForm = (props) => {
           <div style={{ width: "50%" }}>
             <span className="title_productList">{t("Product Lists")}</span>
             <br />
-            <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_text">
+            <Link
+              to={"/Files/codeTemplate.xlsx"}
+              target="_blank"
+              download
+              className="download_text"
+            >
               {t("You don't know your product nomenclatures?")}
             </Link>
           </div>
@@ -375,7 +378,11 @@ const BOMsForm = (props) => {
         </div>
         <div className="codedropdown_div">
           <label className="BomLabel">{t("Monetary value")}</label>
-          <Inputfield value={monetaryValue} className="applicationTitle" onChange={(e) => handleMonetaryValue(e.target.value)} />
+          <Inputfield
+            value={monetaryValue}
+            className="applicationTitle"
+            onChange={(e) => handleMonetaryValue(e.target.value)}
+          />
         </div>
         <div className="codedropdown_div1">
           <Button
@@ -505,7 +512,11 @@ const BOMsForm = (props) => {
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
       {/* certification required modal */}
-      <Modal open={props.certificateRequire} setOpen={props.setCertificateRequire} handleClose={handleCertificateRequire}>
+      <Modal
+        open={props.certificateRequire}
+        setOpen={props.setCertificateRequire}
+        handleClose={handleCertificateRequire}
+      >
         <div>
           <div
             style={{
@@ -532,11 +543,21 @@ const BOMsForm = (props) => {
             </div>
             <div className="space">
               {t("The cost of this certification is up to")}
-              <span style={{ fontWeight: 900, fontSize: "19px" }}>{props.certificationCostOfCode}$/HT</span>
+              <span style={{ fontWeight: 900, fontSize: "19px" }}>
+                {props.certificationCostOfCode}$/HT
+              </span>
             </div>
           </div>
-          <Button text={t("Continue my request on Ezxport")} className="to_confirm_btn" onClick={props.handleStep1} />
-          <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateRequire} />
+          <Button
+            text={t("Continue my request on Ezxport")}
+            className="to_confirm_btn"
+            onClick={props.handleStep1}
+          />
+          <Button
+            text={t("Go back to my request")}
+            className="delete_bom_btn"
+            onClick={handleCertificateRequire}
+          />
         </div>
       </Modal>
       <Modal
@@ -577,7 +598,11 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => history.push("/User/Dashboard/ListOfRequests")}
           />
-          <Button text={t("Go back to my request")} className="delete_bom_btn" onClick={handleCertificateNotRequire} />
+          <Button
+            text={t("Go back to my request")}
+            className="delete_bom_btn"
+            onClick={handleCertificateNotRequire}
+          />
         </div>
       </Modal>
       <Modal

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserTable from "../../components/AdminDashboard/UserTable";
 import API from "../../api/index";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { getSortedData } from "../../lib/getSortedData";
 
 const HeadTitle = [
@@ -85,8 +85,9 @@ const Users = () => {
       <UserTable
         sort={sort}
         loading={loading}
-
-        sortData={(field, ascend) => getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)}
+        sortData={(field, ascend) =>
+          getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)
+        }
         headTitle={HeadTitle}
         title={t("Users")}
         rows={allUsers}

@@ -3,14 +3,11 @@ import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
 import Button1 from "../../../components/Common/Button";
 import Typography from "@mui/material/Typography";
 import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
 import { styled } from "@mui/material/styles";
-import PropTypes from "prop-types";
-import Check from "@mui/icons-material/Check";
 import { StepLabel } from "@mui/material";
 import BOMsForm from "./BOMsForm";
 import DispatchForm from "./Dispatch";
@@ -18,12 +15,12 @@ import DocumentForm from "./Document";
 import ServiceproviderForm from "./ServiceProvider";
 import { useHistory } from "react-router-dom";
 import API from "../../../api/index";
-import { toast } from "react-toastify";
 import Modal from "../../../components/Common/Modal";
 import { ReactComponent as Featured } from "../../../assets/Featured.svg";
 import { ReactComponent as Logo } from "../../../assets/logo.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { UpdateStore } from "../../../StoreContext";
+import toaster from "../../../utils/toaster";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -59,8 +56,7 @@ export default function HorizontalNonLinearStepper() {
   const [currency, setCurrency] = useState("");
   const updateStore = UpdateStore();
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   //step 1 states
   const [step1, setStep1] = useState({
@@ -196,7 +192,10 @@ export default function HorizontalNonLinearStepper() {
     return completedSteps() === totalSteps();
   };
   const handleNext = () => {
-    const newActiveStep = isLastStep() && !allStepsCompleted() ? steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
     setActiveStep(newActiveStep);
   };
   const handleBack = () => {
@@ -240,9 +239,8 @@ export default function HorizontalNonLinearStepper() {
           setCertificationCountryOfCode(res?.data?.country);
         }
       })
-      .catch((err) => {
-        toast.error(err.response.data.message.msg);
-      });
+
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleStep1 = async () => {
     let data = {
@@ -264,9 +262,8 @@ export default function HorizontalNonLinearStepper() {
         handleNext();
         setRequestedId(res?.data?.request?._id);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleStep2 = async () => {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
@@ -281,13 +278,13 @@ export default function HorizontalNonLinearStepper() {
     })
       .then((res) => {
         handleNext();
-        toast.success(t("Service Provider Updated Successfully"));
+        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
       })
       .catch((err) => {
         if (err.response?.data?.message?.msg === "vendorId required") {
-          toast.error(t("Vendor is required"));
+          toaster("Failed", "Vendor is required");
         } else {
-          toast.error(err?.response?.data?.message?.msg);
+          toaster("Failed", err.response.data.message.msg);
         }
       });
   };
@@ -334,11 +331,9 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         handleNext();
         setCreatedCodes(res.data.request);
-        toast.success(res.data.message);
+        toaster("success", res.data.message);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message.msg);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleSendFile = () => setPlatformSelect(true);
 
@@ -357,18 +352,14 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
         // history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleDocByCountryId = async () => {
     await API("get", `/documents/getByCountry/${step1.country}`)
       .then((res) => {
         setCountryDoc(res.data.document);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
@@ -381,22 +372,28 @@ export default function HorizontalNonLinearStepper() {
           return [...prev];
         });
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
   };
   const handleStep2Change = (name, value) => {
-    setStep2({ ...step2, values: { ...step2.values, [name]: value }, touched: { ...step2.touched, [name]: true } });
+    setStep2({
+      ...step2,
+      values: { ...step2.values, [name]: value },
+      touched: { ...step2.touched, [name]: true },
+    });
   };
   const handleSellerData = (name, value) => {
     const { sellerData } = step3;
     const { values } = step3.sellerData;
     setStep3({
       ...step3,
-      sellerData: { ...sellerData, values: { ...values, [name]: value }, touched: { ...sellerData.touched, [name]: true } },
+      sellerData: {
+        ...sellerData,
+        values: { ...values, [name]: value },
+        touched: { ...sellerData.touched, [name]: true },
+      },
     });
   };
   const handleBuyerData = (name, value) => {
@@ -404,7 +401,11 @@ export default function HorizontalNonLinearStepper() {
     const { values } = step3.buyerData;
     setStep3({
       ...step3,
-      buyerData: { ...buyerData, values: { ...values, [name]: value }, touched: { ...buyerData.touched, [name]: true } },
+      buyerData: {
+        ...buyerData,
+        values: { ...values, [name]: value },
+        touched: { ...buyerData.touched, [name]: true },
+      },
     });
   };
   const handleInspectionData = (name, value) => {
@@ -425,27 +426,21 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         setSeller(res.data.seller);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleBuyer = async () => {
     await API("get", `/buyers/getByUser/${userData._id}`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handlePlaces = async () => {
     await API("put", `/places/getByUser/${userData._id}`)
       .then((res) => {
         setPlaces(res.data.place);
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleStripe = () => {
     handleStep4();
@@ -480,18 +475,21 @@ export default function HorizontalNonLinearStepper() {
     await API("put", `/requests/sendEmail/${requestId}`)
       .then((res) => {
         handleStep4();
-        toast.success(res?.data?.message);
+        toaster("success", res.data.message);
         localStorage.setItem("Requested", true);
         // history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (
     <Box sx={{ width: "100%", marginTop: "3rem" }}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />} className="stepperClass">
+      <Stepper
+        alternativeLabel
+        activeStep={activeStep}
+        connector={<QontoConnector />}
+        className="stepperClass"
+      >
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]} disabled={true}>
             <StepLabel>
@@ -587,7 +585,11 @@ export default function HorizontalNonLinearStepper() {
 
             <Box sx={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "5%" }}>
               <div style={{ width: "100%", display: activeStep !== 0 && "none" }}>
-                <Button1 onClick={hanldeEstimateRequest} className="request_Estimate_btn" text={t("Estimate my request")} />
+                <Button1
+                  onClick={hanldeEstimateRequest}
+                  className="request_Estimate_btn"
+                  text={t("Estimate my request")}
+                />
               </div>
 
               <div
@@ -605,7 +607,12 @@ export default function HorizontalNonLinearStepper() {
                     display: activeStep === 0 && "none",
                   }}
                 >
-                  <Button1 text={t("Previous step")} className="import_Btn" disabled={activeStep === 0} onClick={handleBack} />
+                  <Button1
+                    text={t("Previous step")}
+                    className="import_Btn"
+                    disabled={activeStep === 0}
+                    onClick={handleBack}
+                  />
                 </div>
                 <div
                   style={{
@@ -617,7 +624,13 @@ export default function HorizontalNonLinearStepper() {
                   <Button1
                     text={activeStep === 3 ? t("Send my file") : t("Next Step")}
                     className="download_Btn"
-                    onClick={activeStep === 1 ? handleStep2 : activeStep === 2 ? handleStep3 : activeStep === 3 && handleSendFile}
+                    onClick={
+                      activeStep === 1
+                        ? handleStep2
+                        : activeStep === 2
+                        ? handleStep3
+                        : activeStep === 3 && handleSendFile
+                    }
                   />
                 </div>
               </div>
@@ -645,8 +658,16 @@ export default function HorizontalNonLinearStepper() {
             </div>
             <div className="space">{t("Select a Platform to Continue your request")}</div>
           </div>
-          <Button1 text={t("Continue request on Ezxport Platform")} className="to_confirm_btn" onClick={handleStripe} />
-          <Button1 text={t("Continue request on other Platform")} className="delete_bom_btn" onClick={handleSendEmail} />
+          <Button1
+            text={t("Continue request on Ezxport Platform")}
+            className="to_confirm_btn"
+            onClick={handleStripe}
+          />
+          <Button1
+            text={t("Continue request on other Platform")}
+            className="delete_bom_btn"
+            onClick={handleSendEmail}
+          />
         </div>
       </Modal>
     </Box>

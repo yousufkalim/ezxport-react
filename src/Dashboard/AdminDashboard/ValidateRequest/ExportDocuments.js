@@ -6,11 +6,10 @@ import { Grid } from "@mui/material";
 // import { ReactComponent as Arrow } from "../../../assets/arrow.svg";
 import PlusButton from "../../../assets/PlusButton.svg";
 import { ReactComponent as Delete } from "../../../assets/DeleteIcon.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ExportDocuments = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleCountryDocuments();

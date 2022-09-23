@@ -1,9 +1,8 @@
 import React from "react";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const BuyerTab = ({ buyer }) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   return (
     <>
       <div className="InformationTab">

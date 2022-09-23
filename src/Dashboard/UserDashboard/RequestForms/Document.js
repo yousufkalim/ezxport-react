@@ -6,14 +6,13 @@ import { Tooltip } from "@mui/material";
 import { ReactComponent as AddProductIcon } from "../../../assets/AddProductIcon.svg";
 import API from "../../../api/index";
 import ProductForm from "../../../components/Common/ProductForm";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const Document = (props) => {
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const [validDoc, setValidDoc] = useState(false);
   useEffect(() => {
@@ -140,6 +139,6 @@ const Document = (props) => {
       })}
     </div>
   );
-};;;;;;;;;;;;;;;;;
+};
 
 export default Document;

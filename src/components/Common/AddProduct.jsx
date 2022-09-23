@@ -1,9 +1,9 @@
 import React from "react";
 import PlusButton from "../../assets/PlusButton.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const AddProduct = (props) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <div className="request_documents">

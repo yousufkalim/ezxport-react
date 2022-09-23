@@ -1,26 +1,21 @@
 import React, { useState } from "react";
 import ChangeSuccessfully from "./ChangeSuccessfully";
-import { toast } from "react-toastify";
 import API from "../api";
 import ForgetLogo from "../assets/ForgetLogo.svg";
-// import Quiz from "../assets/Quiz.png";
 import Header from "../components/Common/Header";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useTranslation, Trans } from "react-i18next";
-
-// import InputField from "../Components/InputField";
-// import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import toaster from "../utils/toaster";
 
 const ChangePassword = ({ Token, setResetPassword }) => {
-  // const history = useHistory(null);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const handleChangePassword = async () => {
     await API("put", `/auth/new-password/${Token}`, {
@@ -29,13 +24,11 @@ const ChangePassword = ({ Token, setResetPassword }) => {
     })
       .then((res) => {
         if (res.data.success) {
-          toast.success(res.data.message);
+          toaster("success", res.data.message);
           setSuccess(true);
         }
       })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      .catch((err) => toaster("Failed", err.response.data.message));
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

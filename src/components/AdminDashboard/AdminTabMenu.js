@@ -11,7 +11,7 @@ import AdminTab4 from "./AdminTab4";
 import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,8 +54,8 @@ const AdminTabMenu = () => {
   const [document, setDocument] = useState();
   const [boms, setBoms] = useState();
   const [calculation, setCalculation] = useState();
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   useEffect(() => {
     handleCountryData();
   }, []);

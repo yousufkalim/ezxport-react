@@ -17,7 +17,6 @@ import Select from "@mui/material/Select";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import Spinner from "../../../../../components/Common/Spinner";
 import Button from "../../../../../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";

@@ -13,7 +13,7 @@ import Modal from "../../components/Common/Modal";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as Featured1 } from "../../assets/Featured1.svg";
 import Button from "../../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
@@ -61,8 +61,7 @@ const FollowUp = () => {
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -187,36 +186,34 @@ const FollowUp = () => {
                           )}
                         </TableCell>
 
-                      <TableCell align="left" className="country2">
-                        {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
-                      </TableCell>
-                      <TableCell align="left">
-                        {item?.status === "Validate By Admin" ? (
-                          <p className="clrClass">{t(item?.status)}</p>
-                        ) : item?.status === "Missing documents" ||
-                          item?.status === "Missing Documents" ? (
-                          <p className="missingDocStatus">{t(item?.status)}</p>
-                        ) : item?.status === "Validated" ? (
-                          <p className="clrClass">{t(item?.status)}</p>
-                        ) : item?.status === "sent" ? (
-                          <p className="send_status">{t(item?.status)}</p>
-                        ) : item?.status === "Benig Checked By Expert" ? (
-                          <p className="process_status">{t(item?.status)}</p>
-                        ) : (
-                                    <p className="send_status">{t("Send")}</p>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                        <TableCell align="left" className="country2">
+                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
+                        </TableCell>
+                        <TableCell align="left">
+                          {item?.status === "Validate By Admin" ? (
+                            <p className="clrClass">{t(item?.status)}</p>
+                          ) : item?.status === "Missing documents" ||
+                            item?.status === "Missing Documents" ? (
+                            <p className="missingDocStatus">{t(item?.status)}</p>
+                          ) : item?.status === "Validated" ? (
+                            <p className="clrClass">{t(item?.status)}</p>
+                          ) : item?.status === "sent" ? (
+                            <p className="send_status">{t(item?.status)}</p>
+                          ) : item?.status === "Benig Checked By Expert" ? (
+                            <p className="process_status">{t(item?.status)}</p>
+                          ) : (
+                            <p className="send_status">{t("Send")}</p>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </div>
           </div>
         </div>
-      </div>
-      )
-        :
-        (
+      ) : (
         <CreateRequest />
       )}
 
@@ -239,11 +236,17 @@ const FollowUp = () => {
               <Featured1 />
             </div>
 
-            <div className="space" style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}>
+            <div
+              className="space"
+              style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}
+            >
               Votre demande été effectuée <br />
               avec succès
             </div>
-            <div className="space" style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}>
+            <div
+              className="space"
+              style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}
+            >
               Nous allons procéder au traitement de votre dossier
               <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
               pouvez retrouver votre demande dans le tableau de
