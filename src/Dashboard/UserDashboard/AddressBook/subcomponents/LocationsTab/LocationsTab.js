@@ -20,7 +20,9 @@ import Button from "../../../../../components/Common/Button";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
+
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -30,6 +32,8 @@ const title = [
   { heading: "Address" },
   { heading: "" },
 ];
+
+const KEYS_TO_FILTERS = ['company_name'];
 
 const schema = {
   companyName: {
@@ -79,7 +83,7 @@ const schema = {
   },
 };
 
-const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
+const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -166,7 +170,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
         country: country ? country?._id : null,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
         firstName: contact_fname,
         lastName: contact_lname,
@@ -272,6 +276,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
     ? "View inspection location"
     : "Add inspection location";
 
+  const searchedResults = locations.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_table">
@@ -330,7 +336,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               {loading ? (
                 <Spinner />
               ) : (
-                locations?.map((item) => (
+                searchedResults?.map((item) => (
                   <TableRow
                     key={item._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

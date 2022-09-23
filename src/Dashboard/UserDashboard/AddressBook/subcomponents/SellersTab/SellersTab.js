@@ -20,6 +20,7 @@ import Button from "../../../../../components/Common/Button";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
 const title = [
@@ -30,6 +31,8 @@ const title = [
   { heading: "Address" },
   { heading: "" },
 ];
+
+const KEYS_TO_FILTERS = ['company_name'];
 
 const schema = {
   companyName: {
@@ -71,7 +74,7 @@ const schema = {
   },
 };
 
-const SellersTab = ({ t, open, setOpen, userId, countries }) => {
+const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -158,7 +161,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
         country: country?._id,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
       };
       setFormState({ ...formState, values: { ...values }, isValid: true });
@@ -244,6 +247,8 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
 
   const MODAL_TITLE = isEdit ? "Edit seller" : seller ? "View seller" : "Add seller";
 
+  const searchedResults = sellers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_table">
@@ -288,7 +293,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
               {loading ? (
                 <Spinner />
               ) : (
-                sellers?.map((buyer) => (
+                searchedResults?.map((buyer) => (
                   <TableRow
                     key={buyer._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

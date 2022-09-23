@@ -287,12 +287,8 @@ const Country = () => {
             </FormControl>
             <Button
               text={t("Add a country")}
-              className={
-                dropdown && currency === "default"
-                  ? "add_Country_button_disabled"
-                  : "add_Country_button"
-              }
-              disabled={dropdown === "default" && currency === "default"}
+              className={dropdown === "default" && currency === "default" ? "add_Country_button_disabled" : "add_Country_button"}
+              disabled={dropdown === "default" || currency === "default"}
               onClick={handleAddCountry}
             />
           </div>
