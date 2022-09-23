@@ -36,7 +36,7 @@ const AdminTab4 = (props) => {
         props.setOpenCalculationModal(false);
         props.handleCountryData();
         setCoefficientChange(res?.data?.calculation);
-        toaster("success", "Coefficient Updated Successfully", "Update Coefficient");
+        toaster("success", t("Coefficient Updated Successfully"), t("Update Coefficient"));
       })
       .catch((err) => {
         console.log("handleCoefficientChange", err);
@@ -55,7 +55,7 @@ const AdminTab4 = (props) => {
         props.handleCountryData();
         setCoefficientChange(res?.data?.calculation);
         props.setOpenCalculationModal(false);
-        toaster("success", "Coefficient Added Successfully", "Adding Coefficient");
+        toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);

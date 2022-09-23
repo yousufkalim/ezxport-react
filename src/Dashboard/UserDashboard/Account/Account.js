@@ -103,7 +103,7 @@ const Account = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong");
+        toaster("Failed", t("Something went wrong!"));
 
         setLoading(false);
       });
@@ -124,10 +124,10 @@ const Account = () => {
     userData.company = companyObj;
     await API("put", `/users/${userData._id}`, userData)
       .then((res) => {
-        toaster("success", "company updated successfully", "Createed company");
+        toaster("success", t("company updated successfully"), t("Createed company"));
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
