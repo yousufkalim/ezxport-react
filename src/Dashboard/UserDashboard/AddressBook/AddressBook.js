@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchField from "../../../components/Common/SearchField";
 // import TabMenu from "./TabMenu";
 import Button from "../../../components/Common/Button";
@@ -20,7 +20,6 @@ import LocationsTab from "./subcomponents/LocationsTab";
 //   { heading: "Address" },
 //   { heading: "" },
 // ];
-
 
 const schema = {
   companyName: {
@@ -53,7 +52,6 @@ const schema = {
   },
 };
 
-
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
 
@@ -72,7 +70,7 @@ const TabPanel = (props) => {
       )}
     </div>
   );
-}
+};
 
 TabPanel.propTypes = {
   children: PropTypes.node,
@@ -86,7 +84,6 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
 
 const AddressBook = () => {
   const [open, setOpen] = useState(false);
@@ -131,61 +128,61 @@ const AddressBook = () => {
           <div className="List_heading_div4">
             <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
-              <SearchField setSearch={setSearchTerm}  />
+              <SearchField setSearch={setSearchTerm} />
 
               <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
           {/* list table   */}
           <div className="list_table">
-          <Box sx={{ width: "100%" }}>
-            <Box>
-              <Tabs value={value} onChange={handleChange}>
-                <Tab className="tab_btn1" label={t("Buyers")} {...a11yProps(0)} />
-                <Tab className="tab_btn2" label={t("Sellers")} {...a11yProps(1)} />
-                <Tab className="tab_btn3" label={t("Inspection locations")} {...a11yProps(2)} />
-              </Tabs>
+            <Box sx={{ width: "100%" }}>
+              <Box>
+                <Tabs value={value} onChange={handleChange}>
+                  <Tab className="tab_btn1" label={t("Buyers")} {...a11yProps(0)} />
+                  <Tab className="tab_btn2" label={t("Sellers")} {...a11yProps(1)} />
+                  <Tab className="tab_btn3" label={t("Inspection locations")} {...a11yProps(2)} />
+                </Tabs>
+              </Box>
+              {/* Buyers Tab */}
+              <TabPanel value={value} index={0}>
+                <BuyersTab
+                  t={t}
+                  searchTerm={searchTerm}
+                  userId={userData._id}
+                  countries={countries}
+                  setOpen={setOpen}
+                  open={open}
+                  value={value}
+                />
+              </TabPanel>
+
+              {/* Sellers TAB 2  */}
+              <TabPanel value={value} index={1}>
+                <SellersTab
+                  schema={t(schema)}
+                  t={t}
+                  searchTerm={searchTerm}
+                  userId={userData._id}
+                  countries={countries}
+                  setOpen={setOpen}
+                  open={open}
+                  value={value}
+                />
+              </TabPanel>
+
+              {/* Locations TAB 3  */}
+              <TabPanel value={value} index={2}>
+                <LocationsTab
+                  t={t}
+                  searchTerm={searchTerm}
+                  userId={userData._id}
+                  countries={countries}
+                  setOpen={setOpen}
+                  open={open}
+                  value={value}
+                />
+              </TabPanel>
             </Box>
-            {/* Buyers Tab */}
-            <TabPanel value={value} index={0}>
-              <BuyersTab
-                t={t}
-                searchTerm={searchTerm}
-                userId={userData._id}
-                countries={countries}
-                setOpen={setOpen}
-                open={open}
-                value={value}
-              />
-            </TabPanel>
-
-            {/* Sellers TAB 2  */}
-            <TabPanel value={value} index={1}>
-              <SellersTab
-                schema={t(schema)}
-                t={t}
-                searchTerm={searchTerm}
-                userId={userData._id}
-                countries={countries}
-                setOpen={setOpen}
-                open={open}
-                value={value}
-              />
-            </TabPanel>
-
-            {/* Locations TAB 3  */}
-            <TabPanel value={value} index={2}>
-              <LocationsTab
-                t={t}
-                searchTerm={searchTerm}
-                userId={userData._id}
-                countries={countries}
-                setOpen={setOpen}
-                open={open}
-                value={value}
-              />
-            </TabPanel>
-          </Box>
             {/* <TabMenu
               t={t}
               handleChange={handleChange}
