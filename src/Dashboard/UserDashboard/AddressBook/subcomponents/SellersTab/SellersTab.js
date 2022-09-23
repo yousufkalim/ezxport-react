@@ -22,6 +22,7 @@ import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { COUNTRIES } from "../../../../../lib/data";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -61,7 +62,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 5,
-      minimum: 5
+      minimum: 5,
     },
   },
   town: {
@@ -101,47 +102,52 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
     fetchSellers();
   }, []);
 
-      useEffect(() => {
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          isValid: errors ? false : true,
-          errors: errors || {},
-        }));
-      }, [formState.values, setFormState]);
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
-      useEffect(() => {
-        const errors = validate(formState.values, schema);
-        setFormState((formState) => ({
-          ...formState,
-          isValid: errors ? false : true,
-          errors: errors || {},
-        }));
-      }, [formState.values, setFormState]);
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values, setFormState]);
 
-      const fetchSellers = () => {
-        setLoading(true);
-        API('get', `/sellers/getByUser/${userData._id}`).then((res) => {
-            setSellers(res.data.seller);
-            setLoading(false);
-        }).catch((err) => {
-            toast.error(t("Something went wrong"));
-            setLoading(false);
+  const fetchSellers = () => {
+    setLoading(true);
+    API("get", `/sellers/getByUser/${userData._id}`)
+      .then((res) => {
+        setSellers(res.data.seller);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(t("Something went wrong"));
+        setLoading(false);
+      });
+  };
 
-        })
-      }
-    
-      const countryHandler = (e) => {
-        setFormState((state) => ({
-          ...state,
-          values: {...state.values, country: e.target.value}
-        }))
-      };
-    
-      const handleChange = (e) => {
-        const {name, value} = e.target;
-        setFormState({...formState, values:{...formState.values, [name]: value}, touched: {...formState.touched, [name]: true}})
-      }
+  const countryHandler = (e) => {
+    setFormState((state) => ({
+      ...state,
+      values: { ...state.values, country: e.target.value },
+    }));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormState({
+      ...formState,
+      values: { ...formState.values, [name]: value },
+      touched: { ...formState.touched, [name]: true },
+    });
+  };
 
   const handleOpenModal = (edit, item) => {
     setSeller(item);
@@ -189,13 +195,15 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
     });
   };
 
-      const createSeller = async (data) => {
-        await API('post', '/sellers', data).then((res) => {
-            toast.success('Seller addedd successfully!');
-            setOpen(false);
-            fetchSellers();
-          }).catch(err => toast.success('Something went wrong!'));
-      }
+  const createSeller = async (data) => {
+    await API("post", "/sellers", data)
+      .then((res) => {
+        toast.success("Seller addedd successfully!");
+        setOpen(false);
+        fetchSellers();
+      })
+      .catch((err) => toast.success("Something went wrong!"));
+  };
 
   const editSeller = async (data) => {
     await API("put", `/sellers/${seller._id}`, data)
@@ -209,15 +217,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {
-      companyName: company_name,
-      email,
-      country,
-      town: city,
-      telephone: phone_number,
-      zipcode,
-      address,
-    } = formState.values;
+    const { companyName: company_name, email, country, town: city, telephone: phone_number, zipcode, address } = formState.values;
     const data = {
       company_name,
       email,
@@ -249,27 +249,19 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
               <TableRow>
                 {title.map((item) => {
                   return (
-                    <TableCell
-                      align="left"
-                      className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
                       {t(item.heading)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
-                          onClick={() =>
-                            getSortedData(sellers, setSellers, setSort, [], "company_name", true)
-                          }
+                          onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", true)}
                           src={arrow_up}
                           alt=""
                         />
                       ) : (
                         item.sortIcon && (
                           <img
-                            onClick={() =>
-                              getSortedData(sellers, setSellers, setSort, [], "company_name", false)
-                            }
+                            onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", false)}
                             src={downArrow}
                             alt=""
                           />
@@ -295,7 +287,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {buyer?.country?.name}
+                      {buyer?.country}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -328,13 +320,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
         </TableContainer>
         {/* table  */}
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t(MODAL_TITLE)}
-        handleClose={() => handleCloseModal()}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title={t(MODAL_TITLE)} handleClose={() => handleCloseModal()} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
@@ -362,15 +348,16 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
               >
-                {countries?.map(({ name, _id: id }) => (
-                  <MenuItem key={id} value={id}>
-                    {name}
-                  </MenuItem>
-                ))}
+                {COUNTRIES?.map((item, index) => {
+                  return (
+                    <MenuItem value={item} key={index}>
+                      {item}
+                    </MenuItem>
+                  );
+                })}
+                {/* COUNTRIES */}
               </Select>
-              {hasError("country") && (
-                <div className="input-error">{formState.errors.country ?? null}</div>
-              )}
+              {hasError("country") && <div className="input-error">{formState.errors.country ?? null}</div>}
             </FormControl>
           </div>
           <div className="luyer_input_field">
@@ -381,7 +368,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="email"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -395,7 +381,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="telephone"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("telephone")}
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
@@ -412,7 +397,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                 name="address"
                 disabled={!isEdit && seller}
                 onChange={(e) => handleChange(e)}
-
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -429,7 +413,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="zipcode"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -443,7 +426,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
                   name="town"
                   disabled={!isEdit && seller}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
@@ -453,15 +435,15 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
               </div>
             </div>
           </div>
-          {((!isEdit && !seller) || (isEdit && seller)) && (
-            <Button
-              text={t("To Confirm")}
-              disabled={!formState.isValid}
-              type="submit"
-              onClick={(e) => handleSubmit(e)}
-              className="luyer_button"
-            />
-          )}
+          {/* {((!isEdit && !seller) || (isEdit && seller)) && ( */}
+          <Button
+            text={t("To Confirm")}
+            // disabled={!formState.isValid}
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+            className="luyer_button"
+          />
+          {/* )} */}
         </div>
       </Modal>
     </>

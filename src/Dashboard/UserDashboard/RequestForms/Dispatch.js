@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { validate } from "validate.js";
 import { Store } from "../../../StoreContext";
 import moment from "moment";
+import { COUNTRIES } from "../../../lib/data";
 
 const inspectionSchema = {
   companyName: {
@@ -143,14 +144,16 @@ const Dispatch = (props) => {
 
   useEffect(() => {
     handleSelectedSeller();
-  }, [props?.step3?.sellerData.seller]);
+  }, [props?.step3?.sellerData.values?.seller]);
 
   useEffect(() => {
     handleSelectedBuyer();
-  }, [props?.step3?.buyerData?.buyer]);
+  }, [props?.step3?.buyerData?.values?.buyer]);
+
   useEffect(() => {
+    console.log("Code enters  inspecion");
     handleSelectedPlace();
-  }, [placeOfInspection?.values.InspectionPlace]);
+  }, [placeOfInspection?.values?.InspectionPlace]);
 
   useEffect(() => {
     if (pastRequest) {
@@ -246,7 +249,7 @@ const Dispatch = (props) => {
     });
     props.setStep3((prev) => {
       prev.sellerData.values.companyName = SelectedSeller?.company_name;
-      prev.sellerData.values.Country = SelectedSeller?.country?.name;
+      prev.sellerData.values.Country = SelectedSeller?.country;
       prev.sellerData.values.CountryId = SelectedSeller?.country?._id;
       prev.sellerData.values.email = SelectedSeller?.email;
       prev.sellerData.values.telephone = SelectedSeller?.phone_number;
@@ -263,7 +266,7 @@ const Dispatch = (props) => {
     });
     props.setStep3((prev) => {
       prev.buyerData.values.companyName = SelectedBuyer?.company_name;
-      prev.buyerData.values.Country = SelectedBuyer?.country?.name;
+      prev.buyerData.values.Country = SelectedBuyer?.country;
       prev.buyerData.values.CountryId = SelectedBuyer?.country?._id;
       prev.buyerData.values.email = SelectedBuyer?.email;
       prev.buyerData.values.telephone = SelectedBuyer?.phone_number;
@@ -281,7 +284,7 @@ const Dispatch = (props) => {
 
     props.setStep3((prev) => {
       prev.placeOfInspection.values.companyName = SelectedPlace?.company_name;
-      prev.placeOfInspection.values.Country = SelectedPlace?.country?.name;
+      prev.placeOfInspection.values.Country = SelectedPlace?.country;
       prev.placeOfInspection.values.CountryId = SelectedPlace?.country?._id;
       prev.placeOfInspection.values.email = SelectedPlace?.email;
       prev.placeOfInspection.values.telephone = SelectedPlace?.phone_number;
@@ -353,8 +356,8 @@ const Dispatch = (props) => {
               <MenuItem disabled value={"default"}>
                 {t("Select a Country")}
               </MenuItem>
-              {props?.countries?.map((item) => {
-                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              {COUNTRIES?.map((item) => {
+                return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
             {/* <InputField
@@ -500,8 +503,8 @@ const Dispatch = (props) => {
               <MenuItem disabled value={"default"}>
                 {t("Select a Country")}
               </MenuItem>
-              {props?.countries?.map((item) => {
-                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              {COUNTRIES?.map((item) => {
+                return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
             {/* <InputField
@@ -661,8 +664,8 @@ const Dispatch = (props) => {
               <MenuItem disabled value={"default"}>
                 {t("Select a Country")}
               </MenuItem>
-              {props?.countries?.map((item) => {
-                return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+              {COUNTRIES?.map((item) => {
+                return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
           </div>

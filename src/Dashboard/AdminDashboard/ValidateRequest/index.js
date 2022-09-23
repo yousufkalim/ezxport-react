@@ -41,7 +41,7 @@ const Index = () => {
   const handlerequestById = async () => {
     await API("get", `/requests/${id}`)
       .then((res) => {
-        setRequestById(res.data.request);
+        setRequestById(res?.data?.request);
       })
       .catch((err) => {
         console.log(err, "errrrrr");

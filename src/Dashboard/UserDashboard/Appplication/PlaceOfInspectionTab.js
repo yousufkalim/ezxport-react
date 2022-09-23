@@ -28,7 +28,7 @@ const PlaceOfInspectionTab = ({ place }) => {
         <div className="InformationTab_col">
           <div className="requestDate_tab">
             <p className="requestData_p">{t("Country")}</p>
-            <p className="requestData_date">{t(place?.country?.name)}</p>
+            <p className="requestData_date">{t(place?.country)}</p>
           </div>
 
           <div className="requestDate_tab">
