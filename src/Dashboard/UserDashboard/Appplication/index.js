@@ -28,7 +28,7 @@ const Application = () => {
         <div className="list_second_div">
           {/* list head  */}
           <ApplicationHeader title={userRequest?.title} status={userRequest?.status} />
-          <ApplicationTab userRequest={userRequest} />
+          <ApplicationTab userRequest={userRequest} handleRequest={handleRequest}/>
         </div>
       </div>
     </>
