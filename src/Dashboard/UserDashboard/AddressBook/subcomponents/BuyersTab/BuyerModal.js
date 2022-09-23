@@ -138,9 +138,19 @@ const BuyerModal = ({
       .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
+  console.log("Current state ", formState);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { companyName: company_name, email, country, town: city, telephone: phone_number, zipcode, address } = formState.values;
+    const {
+      companyName: company_name,
+      email,
+      country,
+      town: city,
+      telephone: phone_number,
+      zipcode,
+      address,
+    } = formState.values;
     const data = {
       company_name,
       email,
@@ -159,10 +169,21 @@ const BuyerModal = ({
     }
   };
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
-  const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+  const MODAL_TITLE = isEdit
+    ? "Edit buyer"
+    : buyer
+    ? "View buyer"
+    : "Add buyer";
   return (
-    <Modal open={open} setOpen={setOpen} title={MODAL_TITLE} handleClose={() => handleCloseModal()} Closebtn={true}>
+    <Modal
+      open={open}
+      setOpen={setOpen}
+      title={MODAL_TITLE}
+      handleClose={() => handleCloseModal()}
+      Closebtn={true}
+    >
       <div className="buyer_socond">
         <div className="luyer_input_field">
           <InputField
@@ -198,7 +219,11 @@ const BuyerModal = ({
                 );
               })}
             </Select>
-            {hasError("country") && <div className="input-error">{formState.errors.country ?? null}</div>}
+            {hasError("country") && (
+              <div className="input-error">
+                {formState.errors.country ?? null}
+              </div>
+            )}
           </FormControl>
         </div>
         <div className="luyer_input_field">
