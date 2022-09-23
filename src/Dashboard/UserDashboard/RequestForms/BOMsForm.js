@@ -95,7 +95,7 @@ const BOMsForm = (props) => {
         setRequestByCountry(res?.data?.request);
       })
 
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   useEffect(() => {
     handleAllRequestByCountryId();
@@ -123,7 +123,7 @@ const BOMsForm = (props) => {
         props.setCounteries(res.data.countries);
       })
 
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   useEffect(() => {
     handleGetAllCountry();
@@ -194,12 +194,12 @@ const BOMsForm = (props) => {
         })
         .catch((err) => {
           setLoading(false);
-          toaster("Failed", "Country is required for uploading codes");
+          toaster("Failed", t("Country is required for uploading codes"));
 
           setImportedFile("");
         });
     } else {
-      toaster("Failed", "Can only upload Excel sheet");
+      toaster("Failed", t("Can only upload Excel sheet"));
       setLoading(false);
       setImportedFile("");
     }
@@ -237,7 +237,7 @@ const BOMsForm = (props) => {
         props.handleChange("title", (res?.data?.tile).toUpperCase());
       })
 
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleSearchTitle = async () => {
     await API("post", "/requests/searchName/", {
@@ -246,7 +246,7 @@ const BOMsForm = (props) => {
       .then((res) => {
         props.handleChange("title", res?.data?.tile);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleMonetaryValue = (value) => {
     const validatedValue = value.replace(/[^0-9]/g, "");
@@ -443,29 +443,22 @@ const BOMsForm = (props) => {
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     key={index}
+
                   >
                     <TableCell align="center" style={{ width: "20%" }}>
                       <p
                         className="AP_plus_title"
-                        style={{
-                          color:
-                            item?.certification_required === false && "red",
-                        }}
+
+                        style={{ color: item?.certification_required === false && "red" }}
                       >
                         {item?.code}
                       </p>
                     </TableCell>
-                    <TableCell
-                      align="center"
-                      className="country2"
-                      style={{ width: "20%" }}
-                    >
+
+                    <TableCell align="center" className="country2" style={{ width: "20%" }}>
                       <p
                         className="AP_plus_title"
-                        style={{
-                          color:
-                            item?.certification_required === false && "red",
-                        }}
+                        style={{ color: item?.certification_required === false && "red" }}
                       >
                         {item?.monetary_value}
                       </p>

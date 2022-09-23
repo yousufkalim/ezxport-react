@@ -183,12 +183,12 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toaster("success", "User created successfully", "Createed User");
+        toaster("success", t("User created successfully"), t("Createed User"));
 
         history.push("/");
       })
       .catch((err) => {
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
 

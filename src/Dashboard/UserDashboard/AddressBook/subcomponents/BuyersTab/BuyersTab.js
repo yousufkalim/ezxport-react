@@ -34,6 +34,7 @@ const title = [
 
 const KEYS_TO_FILTERS = ["company_name"];
 
+
 const BuyersTab = ({
   t,
   schema,
@@ -79,7 +80,7 @@ const BuyersTab = ({
         setBuyers(res.data.buyer);
         setLoading(false);
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
     setLoading(false);
   };
 
@@ -112,6 +113,7 @@ const BuyersTab = ({
     }
   };
 
+
   const searchedResults = buyers.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS)
   );
@@ -137,6 +139,7 @@ const BuyersTab = ({
                         <img
                           className="sorting-icon"
                           onClick={() =>
+
                             getSortedData(
                               buyers,
                               setBuyers,
@@ -153,6 +156,7 @@ const BuyersTab = ({
                         item.sortIcon && (
                           <img
                             onClick={() =>
+
                               getSortedData(
                                 buyers,
                                 setBuyers,

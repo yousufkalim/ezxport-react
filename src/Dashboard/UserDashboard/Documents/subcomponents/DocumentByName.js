@@ -39,7 +39,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const downloadProduct = async (e, prodId) => {
@@ -48,7 +48,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const downloadZipFile = async (e, reqId) => {
@@ -57,7 +57,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const searchedResults = allCodes.filter(
@@ -108,10 +108,8 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
                         onClick={() => handleClick(requestId)}
                         sx={{ border: "1px solid #EAECF0" }}
                       >
-                        <li
-                          className="table_li"
-                          style={{ marginRight: "auto", display: "flex" }}
-                        >
+
+                        <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
                         <img
@@ -145,16 +143,10 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
                                   >
                                     <li
                                       className="table_li2"
-                                      style={{
-                                        marginRight: "auto",
-                                        display: "flex",
-                                      }}
+
+                                      style={{ marginRight: "auto", display: "flex" }}
                                     >
-                                      <img
-                                        src={RightArrow}
-                                        alt=""
-                                        className="rightArrow"
-                                      />
+                                      <img src={RightArrow} alt="" className="rightArrow" />
                                       {code?.code}
                                     </li>
                                     <img

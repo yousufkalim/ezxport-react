@@ -125,7 +125,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         setSellers(res.data.seller);
         setLoading(false);
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
     setLoading(false);
   };
 
@@ -202,21 +202,21 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const createSeller = async (data) => {
     await API("post", "/sellers", data)
       .then((res) => {
-        toaster("success", "Seller added successfully!", "Adding Seller");
+        toaster("success", t("Seller added successfully!"), t("Adding Seller"));
         setOpen(false);
         fetchSellers();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const editSeller = async (data) => {
     await API("put", `/sellers/${seller._id}`, data)
       .then((res) => {
-        toaster("success", "Seller updated successfully!", "Update Seller");
+        toaster("success", t("Seller updated successfully!"), t("Update Seller"));
         handleCloseModal();
         fetchSellers();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const handleSubmit = (e) => {
@@ -282,6 +282,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                         <img
                           className="sorting-icon"
                           onClick={() =>
+
                             getSortedData(
                               sellers,
                               setSellers,
@@ -298,6 +299,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                         item.sortIcon && (
                           <img
                             onClick={() =>
+
                               getSortedData(
                                 sellers,
                                 setSellers,
@@ -417,6 +419,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 {/* COUNTRIES */}
               </Select>
               {hasError("country") && (
+
                 <div className="input-error">
                   {formState.errors.country ?? null}
                 </div>

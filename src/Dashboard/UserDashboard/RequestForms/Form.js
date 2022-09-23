@@ -240,7 +240,7 @@ export default function HorizontalNonLinearStepper() {
         }
       })
 
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleStep1 = async () => {
     let data = {
@@ -263,7 +263,7 @@ export default function HorizontalNonLinearStepper() {
         setRequestedId(res?.data?.request?._id);
       })
 
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleStep2 = async () => {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
@@ -278,13 +278,17 @@ export default function HorizontalNonLinearStepper() {
     })
       .then((res) => {
         handleNext();
-        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
+        toaster(
+          "success",
+          t("Service Provider Updated Successfully"),
+          t("Updated Service Provider")
+        );
       })
       .catch((err) => {
         if (err.response?.data?.message?.msg === "vendorId required") {
-          toaster("Failed", "Vendor is required");
+          toaster("Failed", t("Vendor is required"));
         } else {
-          toaster("Failed", err.response.data.message.msg);
+          toaster("Failed", t(err.response.data.message).msg);
         }
       });
   };
@@ -333,7 +337,7 @@ export default function HorizontalNonLinearStepper() {
         setCreatedCodes(res.data.request);
         toaster("success", res.data.message);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleSendFile = () => setPlatformSelect(true);
 
@@ -352,14 +356,14 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
         // history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleDocByCountryId = async () => {
     await API("get", `/documents/getByCountry/${step1.country}`)
       .then((res) => {
         setCountryDoc(res.data.document);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
@@ -372,7 +376,7 @@ export default function HorizontalNonLinearStepper() {
           return [...prev];
         });
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
@@ -426,21 +430,21 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         setSeller(res.data.seller);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleBuyer = async () => {
     await API("get", `/buyers/getByUser/${userData._id}`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handlePlaces = async () => {
     await API("put", `/places/getByUser/${userData._id}`)
       .then((res) => {
         setPlaces(res.data.place);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleStripe = () => {
     handleStep4();
@@ -479,7 +483,7 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
         // history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (

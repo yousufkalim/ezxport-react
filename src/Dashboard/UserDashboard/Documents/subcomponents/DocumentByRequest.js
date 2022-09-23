@@ -39,7 +39,7 @@ const DocumentByRequest = ({
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const downloadDocument = async (e, reqId, docId) => {
@@ -48,7 +48,7 @@ const DocumentByRequest = ({
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const searchedResults = documents.filter(
@@ -113,10 +113,8 @@ const DocumentByRequest = ({
                         onClick={(e) => handleClick(requestId)}
                         sx={{ border: "1px solid #EAECF0" }}
                       >
-                        <li
-                          className="table_li"
-                          style={{ marginRight: "auto", display: "flex" }}
-                        >
+
+                        <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
                         <img
@@ -170,6 +168,7 @@ const DocumentByRequest = ({
                               </ListItemButton>
                             )
                           )}
+
                       </Collapse>
                     </React.Fragment>
                   );

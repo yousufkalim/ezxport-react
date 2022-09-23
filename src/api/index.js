@@ -15,6 +15,7 @@ const api = async (method = "get", uri, body) => {
         } else {
           toaster(
             "Failed",
+
             err?.response?.data
               ? err.response.data.message
               : "Something went wrong"

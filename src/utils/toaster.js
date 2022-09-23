@@ -3,7 +3,7 @@ import { ReactComponent as Success } from "../assets/success-icon.svg";
 import { ReactComponent as Failed } from "../assets/failed.svg";
 
 const toaster = (type, msg, title) => {
-  console.log("MSG ", msg);
+
   const message = typeof msg === "string" ? msg : "Something went wrong";
   const icon =
     type === "success" ? <Success /> : type === "failed" && <Failed />;
@@ -12,6 +12,7 @@ const toaster = (type, msg, title) => {
       <div>{icon}</div>
       <div>
         <div className="toaster-title">{title}</div>
+
         <div className="toaster-msg">{message}</div>
       </div>
     </div>

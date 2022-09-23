@@ -92,7 +92,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
@@ -158,11 +158,12 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
           t("Update Service Provider")
         );
 
+
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 

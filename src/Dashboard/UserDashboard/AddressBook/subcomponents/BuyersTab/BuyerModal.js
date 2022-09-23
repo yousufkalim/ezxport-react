@@ -120,22 +120,22 @@ const BuyerModal = ({
   const createBuyer = async (data) => {
     await API("post", "/buyers", data)
       .then((res) => {
-        toaster("success", "Buyer added successfully!", "Adding Buyer");
+        toaster("success", t("Buyer added successfully!"), t("Adding Buyer"));
         setOpen(false);
         fetchBuyers();
         resetForm();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const editBuyer = async (data) => {
     await API("put", `/buyers/${buyer._id}`, data)
       .then((res) => {
-        toaster("success", "Buyer updated sucessfully", "Update Buyer");
+        toaster("success", t("Buyer updated sucessfully"), t("Update Buyer"));
         fetchBuyers();
         handleCloseModal();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   console.log("Current state ", formState);
@@ -187,7 +187,7 @@ const BuyerModal = ({
       <div className="buyer_socond">
         <div className="luyer_input_field">
           <InputField
-            label="Company Name"
+            label="Company name"
             disabled={!isEdit && buyer}
             name="companyName"
             onChange={(e) => handleChange(e)}
@@ -201,7 +201,7 @@ const BuyerModal = ({
         <div className="luyer_input_field">
           <FormControl fullWidth>
             <label htmlFor="" className="buyer_label">
-              {t("Select a country")}
+              {t("Select a Country")}
             </label>
             <Select
               id="demo-simple-select"
@@ -220,6 +220,7 @@ const BuyerModal = ({
               })}
             </Select>
             {hasError("country") && (
+
               <div className="input-error">
                 {formState.errors.country ?? null}
               </div>

@@ -148,13 +148,13 @@ const AdminNomPays = () => {
             </h1>
             {value === 0 ? (
               <div className="searching_div_country">
-                <SearchField setSearch={setProviderSearch} />
+                <SearchField placeholder="Search" setSearch={setProviderSearch} />
               </div>
             ) : value === 1 ? (
               <div className="searching_div_country">
-                <SearchField setSearch={setDocumentSearch} />
+                <SearchField placeholder="Search" setSearch={setDocumentSearch} />
                 <Button
-                  text={t("Add document")}
+                  text={t("Add Documents")}
                   className="update_Boms_btn"
                   onClick={() => setOpenAddDocument(true)}
                 />
@@ -162,7 +162,7 @@ const AdminNomPays = () => {
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-                  <SearchField setSearch={setCodeSearch} />
+                  <SearchField placeholder="Search" setSearch={setCodeSearch} />
                   <Button
                     text={t("Add")}
                     className="Edit_btn_bom"
@@ -178,7 +178,7 @@ const AdminNomPays = () => {
             ) : value === 3 ? (
               <div className="searching_div_country3">
                 {/* {currentRadioValue !== "coefficient" && (
-                  <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
+                  <SearchField placeholder="Search" placeholder={t("Searching")} className="Country_search_Calculation" />
                 )} */}
                 {currentRadioValue === "coefficient" && (
                   <Button
