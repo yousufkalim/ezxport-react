@@ -1,4 +1,4 @@
-let baseUrl = 'http://localhost:5000/api';
+let baseUrl = "http://localhost:5000/api";
 // let baseUrl = "https://ezxport.loca.lt/api";
 
 if (window.location.host === "ezxport-dev.falconweb.app") {

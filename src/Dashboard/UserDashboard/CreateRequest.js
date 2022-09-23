@@ -16,7 +16,9 @@ const CreateRequest = () => {
             {t("Make your first certification request on Ezxport")}
           </p>
           <Link to="/User/RequestForm">
-            <button className="create_request_btn">{t("Create a first request")}</button>
+            <button className="create_request_btn">
+              {t("Create a first request")}
+            </button>
           </Link>
         </div>
       </div>

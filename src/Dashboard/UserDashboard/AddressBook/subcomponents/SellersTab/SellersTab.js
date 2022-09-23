@@ -118,15 +118,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     }));
   }, [formState.values, setFormState]);
 
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {},
-    }));
-  }, [formState.values, setFormState]);
-
   const fetchSellers = () => {
     setLoading(true);
     API("get", `/sellers/getByUser/${userData._id}`)

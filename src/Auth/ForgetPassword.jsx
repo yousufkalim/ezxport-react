@@ -61,6 +61,7 @@ const ForgetPassword = () => {
         ...formState.values,
         [event.target.name]: event.target.value,
       },
+      touched: {...formState.touched, [event.target.name]: true }
     }));
   };
   const handleBlur = (e) => {

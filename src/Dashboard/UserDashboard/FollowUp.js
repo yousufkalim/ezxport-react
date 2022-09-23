@@ -59,7 +59,9 @@ const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [requestedModal, setRequestedModal] = useState(false);
   const [sort, setSort] = useState({ key: "", ascend: true });
-  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
 
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -103,7 +105,9 @@ const FollowUp = () => {
             <div className="List_heading_div">
               <h1 className="list_h1">{t("List of requests")}</h1>
               <Link to="/User/RequestForm">
-                <button className="list_reqst_btn">{t("Create a request")}</button>
+                <button className="list_reqst_btn">
+                  {t("Create a request")}
+                </button>
               </Link>
             </div>
             {/* list table   */}
@@ -120,7 +124,9 @@ const FollowUp = () => {
                           key={item?.name}
                         >
                           {t(item.name)} &nbsp;
-                          {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                          {item.sortIcon &&
+                          !sort.ascend &&
+                          sort.key === item.key ? (
                             <img
                               className="sorting-icon"
                               onClick={() =>
@@ -163,8 +169,14 @@ const FollowUp = () => {
                       <TableRow
                         style={{ cursor: "pointer" }}
                         key={item?._id}
-                        onClick={() => history.push(`/User/Dashboard/Application/${item._id}`)}
-                        sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                        onClick={() =>
+                          history.push(
+                            `/User/Dashboard/Application/${item._id}`
+                          )
+                        }
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
                       >
                         <TableCell component="th" scope="row">
                           <p className="request_title">{item?.title}</p>
@@ -178,7 +190,8 @@ const FollowUp = () => {
                             <>
                               {item?.certification_cost?.currency === "USD"
                                 ? item?.certification_cost?.value + "$"
-                                : item?.certification_cost?.currency === "EURO" &&
+                                : item?.certification_cost?.currency ===
+                                    "EURO" &&
                                   item?.certification_cost?.value + "€"}
                             </>
                           ) : (
@@ -187,14 +200,20 @@ const FollowUp = () => {
                         </TableCell>
 
                         <TableCell align="left" className="country2">
-                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
+                          {item?.vendor?.vendor ? (
+                            <>{item?.vendor?.vendor?.name}</>
+                          ) : (
+                            "--"
+                          )}
                         </TableCell>
                         <TableCell align="left">
                           {item?.status === "Validate By Admin" ? (
                             <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "Missing documents" ||
                             item?.status === "Missing Documents" ? (
-                            <p className="missingDocStatus">{t(item?.status)}</p>
+                            <p className="missingDocStatus">
+                              {t(item?.status)}
+                            </p>
                           ) : item?.status === "Validated" ? (
                             <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "sent" ? (
@@ -217,7 +236,11 @@ const FollowUp = () => {
         <CreateRequest />
       )}
 
-      <Modal open={requestedModal} setOpen={setRequestedModal} handleClose={handleRequested}>
+      <Modal
+        open={requestedModal}
+        setOpen={setRequestedModal}
+        handleClose={handleRequested}
+      >
         <div>
           <div
             style={{
@@ -238,22 +261,36 @@ const FollowUp = () => {
 
             <div
               className="space"
-              style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}
+              style={{
+                textAlign: "center",
+                fontSize: "2rem",
+                fontWeight: "600",
+              }}
             >
               Votre demande été effectuée <br />
               avec succès
             </div>
             <div
               className="space"
-              style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}
+              style={{
+                fontSize: "1.2rem",
+                width: "90%",
+                color: "#667085",
+                textAlign: "center",
+              }}
             >
               Nous allons procéder au traitement de votre dossier
-              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous <br />
+              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous{" "}
+              <br />
               pouvez retrouver votre demande dans le tableau de
               <br /> <b>suivi des demandes.</b>
             </div>
           </div>
-          <Button text="D’accord" className="to_confirm_btn" onClick={handleRequested} />
+          <Button
+            text="D’accord"
+            className="to_confirm_btn"
+            onClick={handleRequested}
+          />
         </div>
       </Modal>
     </>

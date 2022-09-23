@@ -49,13 +49,15 @@ const Login = () => {
     }));
   }, [formState.values]);
 
-  const handleChange = (event) => {
+  const handleChange = (e) => {
+    const {name, value} = e.target;
     setFormState((formState) => ({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value,
+        [name]: value,
       },
+      touched: { ...formState.touched, [name]: true },
     }));
   };
   const handleLoggin = async () => {
@@ -87,20 +89,6 @@ const Login = () => {
     }
   };
 
-  const handleBlur = (e) => {
-    e.preventDefault();
-    const { name } = e.target;
-    const errors = validate(formState.values, schema);
-    console.log("Errors ", errors);
-    console.log("Lastest state  ", formState);
-    setFormState((formState) => ({
-      ...formState,
-      errors: errors ?? {},
-      touched: { ...formState.touched, [name]: true },
-      isValid: errors ? false : true,
-    }));
-  };
-
   const handleShowPassword = () => setShowPassword(!showPassword);
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   
@@ -121,7 +109,6 @@ const Login = () => {
               isError={hasError("email")}
               error={formState.errors.email}
               name="email"
-              onBlur={(e) => handleBlur(e)}
               // role="presentation"
               autoComplete="off"
               type="text"
@@ -139,7 +126,6 @@ const Login = () => {
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder={t("Password")}
-              onBlur={(e) => handleBlur(e)}
               onChange={(e) => handleChange(e)}
               autoComplete="newPassword"
               value={formState.values.password}

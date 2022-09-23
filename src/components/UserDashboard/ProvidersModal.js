@@ -152,7 +152,11 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/${data._id}`, editData)
       .then((res) => {
-        toaster("success", "User created successfully");
+        toaster(
+          "success",
+          t("service provider updated successfully"),
+          t("Update Service Provider")
+        );
 
         getProviders();
         setOpen(false);
