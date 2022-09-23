@@ -7,10 +7,8 @@ import API from "../../api/index";
 import { useTranslation } from "react-i18next";
 import toaster from "../../utils/toaster";
 
-
 import { validate } from "validate.js";
 import InputField from "../Common/InputField";
-
 
 const schema = {
   firstName: {
@@ -29,23 +27,21 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 64 },
     email: true,
-  }
+  },
 };
-
-
 
 const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const [formData, setFormData] = useState({
     isValid: false,
-   values: {
-    name: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    countries: [],
-   },
-   errors: {},
-   touched: {}
+    values: {
+      name: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      countries: [],
+    },
+    errors: {},
+    touched: {},
   });
   const [allCountries, setAllCountries] = useState([]);
   const [countryNames, setCountryNames] = useState([]);
@@ -55,7 +51,6 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   useEffect(() => {
     fetchCountries();
   }, []);
-
 
   useEffect(() => {
     const errors = validate(formData.values, schema);
