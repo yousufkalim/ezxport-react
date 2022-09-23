@@ -2,10 +2,10 @@ import React from "react";
 import SearchInput from "react-search-input";
 import "../../css/Component/SearchInput.css";
 import SearchIcon from "../../assets/SearchIcon.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const SearchField = ({ setSearch, search, className, placeholder }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const handleSearch = (text) => {
     setSearch(text);

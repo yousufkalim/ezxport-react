@@ -12,11 +12,11 @@ import ExportIcon from "../../assets/ExportIcon.svg";
 import { useHistory } from "react-router-dom";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import API from "../../api";
-import { toast } from "react-toastify";
 import { createFilter } from "react-search-input";
 import Spinner from "../Common/Spinner";
+import toaster from "../../utils/toaster";
 
 const KEYS_TO_FILTERS = ["last_name", "first_name"];
 
@@ -33,7 +33,7 @@ const UserTable = (props) => {
         window.location.href = res.data.path;
       })
       .catch((err) => {
-        toast.error("Some went wrong");
+        toaster("Failed", "Some went wrong");
       });
   };
 

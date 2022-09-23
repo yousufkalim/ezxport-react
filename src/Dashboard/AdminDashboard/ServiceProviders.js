@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import DownArrow from "../../assets/TitleDownArrow.svg";
 import Button from "../../components/Common/Button";
 import SearchField from "../../components/Common/SearchField";
 import Table from "@mui/material/Table";
@@ -12,13 +11,12 @@ import Paper from "@mui/material/Paper";
 import PlusIcon from "../../assets/PlusIcon.svg";
 import API from "../../api/index";
 import Modal from "../../components/Common/Modal";
-import { toast } from "react-toastify";
 import InputField from "../../components/Common/InputField";
 import MultiSelect from "../../components/Common/MultiSelect";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import validate from "validate.js";
-import { useTranslation, Trans } from "react-i18next";
-
+import { useTranslation } from "react-i18next";
+import toaster from "../../utils/toaster";
 import Spinner from "../../components/Common/Spinner";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
@@ -75,8 +73,7 @@ const ServiceProviders = () => {
     touched: {},
     errors: {},
   });
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   // useEffect for invoking func
   useEffect(() => {
@@ -116,7 +113,8 @@ const ServiceProviders = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error(t("Error while fetching service providers"));
+        toaster("Failed", "Error while fetching service providers");
+
         setLoading(false);
       });
   };
@@ -148,12 +146,12 @@ const ServiceProviders = () => {
           touched: {},
         });
         setOpen(false);
-        toast[res?.data?.success ? "success" : "error"](
+        toaster[res?.data?.success ? "success" : "error"](
           res?.data?.message || t("Vendor added successfully")
         );
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 

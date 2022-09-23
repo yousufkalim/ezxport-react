@@ -3,7 +3,7 @@ import SearchField from "../../components/Common/SearchField";
 import { useHistory } from "react-router-dom";
 import API from "../../api";
 import Moment from "moment";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 // table
 import Table from "@mui/material/Table";
@@ -16,7 +16,6 @@ import Paper from "@mui/material/Paper";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
-import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
 import { createFilter } from "react-search-input";
 import toaster from "../../utils/toaster";

@@ -1,11 +1,10 @@
 import React from "react";
 import FormControl from "@mui/material/FormControl";
 import InputField from "../Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const CalculationCoefficient = ({ coefficientChange, currency }) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   return (
     <>
@@ -34,7 +33,11 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               </label>
 
               <InputField
-                value={coefficientChange?.coefficient ? `${coefficientChange?.coefficient} %` : t("Coefficient")}
+                value={
+                  coefficientChange?.coefficient
+                    ? `${coefficientChange?.coefficient} %`
+                    : t("Coefficient")
+                }
                 disabled={true}
                 className="calculation_input"
               />

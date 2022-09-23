@@ -1,10 +1,9 @@
 import React from "react";
 import DownloadIcon from "../../assets/Featured_icon.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const FilePicker = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   return (
     <div className="filepicker_main_div">
@@ -23,15 +22,14 @@ const FilePicker = (props) => {
           {typeof props.fileName === "string" ? (
             props.fileName
           ) : typeof props.fileName === "object" ? (
-
             props?.fileName?.map((item, index) => {
-              return <p>
-                {index + 1}). {item}
-              </p>
-            }
-            )
-          )
-            : (
+              return (
+                <p>
+                  {index + 1}). {item}
+                </p>
+              );
+            })
+          ) : (
             <>
               <img src={DownloadIcon} alt="" className="download_icon" />
               <div className="text_div">

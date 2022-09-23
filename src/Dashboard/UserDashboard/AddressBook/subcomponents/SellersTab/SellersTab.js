@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import InputField from "../../../../../components/Common/InputField";
 import API from "../../../../../api/index";
-// import { toast } from "react-toastify";
 import { validate } from "validate.js";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,11 +17,11 @@ import Select from "@mui/material/Select";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import Spinner from "../../../../../components/Common/Spinner";
 import Button from "../../../../../components/Common/Button";
-// import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 import { COUNTRIES } from "../../../../../lib/data";
+import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
 const title = [
@@ -33,6 +32,8 @@ const title = [
   { heading: "Address" },
   { heading: "" },
 ];
+
+const KEYS_TO_FILTERS = ['company_name'];
 
 const schema = {
   companyName: {
@@ -74,7 +75,7 @@ const schema = {
   },
 };
 
-const SellersTab = ({ t, open, setOpen, userId, countries }) => {
+const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -161,7 +162,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
         country: country?._id,
         town: city,
         telephone: phone_number,
-        zipcode,
+        zipcode: zipcode?.toString(),
         address,
       };
       setFormState({ ...formState, values: { ...values }, isValid: true });
@@ -239,6 +240,8 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
 
   const MODAL_TITLE = isEdit ? "Edit seller" : seller ? "View seller" : "Add seller";
 
+  const searchedResults = sellers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_table">
@@ -275,7 +278,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
               {loading ? (
                 <Spinner />
               ) : (
-                sellers?.map((buyer) => (
+                searchedResults?.map((buyer) => (
                   <TableRow
                     key={buyer._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

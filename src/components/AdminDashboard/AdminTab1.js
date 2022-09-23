@@ -10,15 +10,13 @@ import { getSortedData } from "../../lib/getSortedData";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../Common/Spinner";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const nestSortTitles = [];
 
 const AdminTab1 = ({ vendor, setVendor, loading }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [sort, setSort] = useState({ key: "", ascend: true });
-
-  console.log("Vendor vendor", vendor);
 
   return (
     <>
@@ -26,15 +24,26 @@ const AdminTab1 = ({ vendor, setVendor, loading }) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
                 {t("Service providers")} &nbsp;
-                {
-                  !sort.ascend ? (
-                    <img className='sorting-icon' onClick={() => getSortedData(vendor, setVendor, setSort, nestSortTitles, 'name', true)} src={arrow_up} alt="" />
-                  ) : (
-                    <img onClick={() => getSortedData(vendor, setVendor, setSort, nestSortTitles, 'name', false)} src={downArrow} alt="" />
-                  )
-                }
+                {!sort.ascend ? (
+                  <img
+                    className="sorting-icon"
+                    onClick={() =>
+                      getSortedData(vendor, setVendor, setSort, nestSortTitles, "name", true)
+                    }
+                    src={arrow_up}
+                    alt=""
+                  />
+                ) : (
+                  <img
+                    onClick={() =>
+                      getSortedData(vendor, setVendor, setSort, nestSortTitles, "name", false)
+                    }
+                    src={downArrow}
+                    alt=""
+                  />
+                )}
               </TableCell>
             </TableRow>
           </TableHead>

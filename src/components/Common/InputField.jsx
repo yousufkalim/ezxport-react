@@ -14,7 +14,7 @@ const InputField = (props) => {
           </label>
         }
         <input
-          {...props}
+          // {...props}
           onFocus={props.onFocus}
           onBlur={props.onBlur}
           name={props.name}

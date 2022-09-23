@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import API from "../../../api/index";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import AddressBook from "./AddressBook";
 import ExportDocuments from "./ExportDocuments";
 
@@ -52,8 +52,7 @@ const ValidateForm = (props) => {
   const { id } = params;
   const [value, setValue] = useState(0);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   // const [lastName, setLastName] = useState('');
   // const [firstName, setFirstName] = useState('');

@@ -1,10 +1,9 @@
 import React from "react";
 import InputField from "../../../../components/Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const UserInformation = () => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const userData = localStorage.getItem("userData");
   const user = JSON.parse(userData);
 

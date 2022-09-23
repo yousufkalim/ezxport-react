@@ -6,17 +6,16 @@ import { Link } from "react-router-dom";
 import BackArrow from "../../../assets/BackArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../../api/index";
-import { toast } from "react-toastify";
 import Modal from "../../../components/Common/Modal";
 import Button from "../../../components/Common/Button";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../../utils/toaster";
 
 const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
-
   const [inputList, setInputList] = useState([]);
   const [inputListProduct, setInputListProduct] = useState([]);
   const [validateCountry, setValidateCountry] = useState(false);
@@ -25,12 +24,10 @@ const Index = () => {
   const [modalBtn, setModalBtn] = useState(false);
   const [comment, setComment] = useState("");
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
-
+  const { t } = useTranslation();
   const params = useParams();
-
   const { id } = params;
+
   useEffect(() => {
     handlerequestById();
   }, []);
@@ -56,10 +53,12 @@ const Index = () => {
       .then((res) => {
         console.log("handleCountryDocsValidate", res);
         if (checked) {
-          toast.success(t("Document Validated Successfully"));
+          toaster("success", "Document Validated Successfully", "Validated Document");
+
           handlerequestById();
         } else {
-          toast.warning(t("Document Un-Validated"));
+          toaster("warning", "Document Un-Validated");
+
           handlerequestById();
         }
       })
@@ -78,10 +77,12 @@ const Index = () => {
       .then((res) => {
         if (checked) {
           console.log("handleProductDocsValidate", res);
-          toast.success(t("Document Validated Successfully"));
+          toaster("success", "Document Validated Successfully", "Validated Document");
+
           handlerequestById();
         } else {
-          toast.warning(t("Document Un-Validated"));
+          toaster("warning", "Document Un-Validated");
+
           handlerequestById();
         }
       })

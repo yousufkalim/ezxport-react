@@ -4,25 +4,67 @@ import ClearIcon from "@mui/icons-material/Clear";
 import FormControl from "@mui/material/FormControl";
 import MultiSelect from "../../components/Common/MultiSelect";
 import API from "../../api/index";
-import { toast } from "react-toastify";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../utils/toaster";
+
+
+import { validate } from "validate.js";
+import InputField from "../Common/InputField";
+
+
+const schema = {
+  firstName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  lastName: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 64,
+    },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: { maximum: 64 },
+    email: true,
+  }
+};
+
+
 
 const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const [formData, setFormData] = useState({
+    isValid: false,
+   values: {
+    name: "",
     firstName: "",
     lastName: "",
     email: "",
     countries: [],
+   },
+   errors: {},
+   touched: {}
   });
   const [allCountries, setAllCountries] = useState([]);
   const [countryNames, setCountryNames] = useState([]);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCountries();
   }, []);
+
+
+  useEffect(() => {
+    const errors = validate(formData.values, schema);
+    setFormData((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formData.values, setFormData]);
 
   useEffect(() => {
     if (data) {
@@ -30,12 +72,13 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         ?.map((item) => allCountries.find((country) => country?._id === item))
         .map((c) => c?.name);
       const splitName = data?.name?.split(" ");
-      setFormData({
+      setFormData({...formData, values: {...formData.values,
+        name: data.name,
         firstName: splitName[0],
         lastName: splitName[1],
         email: data?.sending_email,
         countries: count,
-      });
+      }});
     }
   }, [data]);
 
@@ -50,7 +93,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
       });
   };
 
@@ -59,7 +102,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, values: {...formData.values, [name]: value }, touched: {...formData.touched, [name]: true}});
   };
 
   const handleChangeCountry = (e) => {
@@ -67,7 +110,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
       target: { value },
     } = e;
 
-    setFormData({ ...formData, countries: typeof value === "string" ? value.split(",") : value });
+    setFormData({ ...formData, values: {...formData.values, countries: typeof value === "string" ? value.split(",") : value}, touched: {...formData.touched, country: true} });
   };
 
   const trimName = (item) => {
@@ -75,7 +118,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
 
   const getEditData = () => {
-    const { firstName, lastName, email, countries } = formData;
+    const { firstName, lastName, email, countries } = formData.values;
     const { contact_email, phone_number } = data;
     const countryIds = countries
       ?.map((item) => allCountries.find((el) => el.name === item))
@@ -99,14 +142,19 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/${data._id}`, editData)
       .then((res) => {
-        toast.success(t("Servive Provider updated Successfully"));
+        toaster("success", "User created successfully");
+
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
       });
   };
+
+  const hasError = (field) => (formData.touched[field] && formData.errors[field] ? true : false);
+
+  const {values, errors} = formData;
 
   return (
     <>
@@ -114,9 +162,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         <Dialog open={open} onClose={handleClose} fullWidth>
           <div className="ApPlus_popup_form">
             <div className="ApPlus_popup_ha">
-              <h3 className="ApPlus_popup_h2">{`${formData?.firstName ?? ""} ${
-                formData?.lastName ?? ""
-              }`}</h3>
+              <h3 className="ApPlus_popup_h2">{values.name}</h3>
               <ClearIcon onClick={handleClose} style={{ cursor: "pointer" }} />
             </div>
             {/* inputs  */}
@@ -129,38 +175,38 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                   <MultiSelect
                     disabled={!isEdit}
                     name="country"
-                    onChange={handleChangeCountry}
-                    value={formData.countries}
+                    onChange={(e) => handleChangeCountry(e)}
+                    value={values?.countries ?? []}
                     names={countryNames}
-                    select={formData.countries}
+                    select={values?.countries}
                   />
                 </FormControl>
               </div>
               <div className="luyer_input_field">
                 <div className="second_input_field">
                   <div className="input_fields">
-                    <label htmlFor="" className="buyer_label">
-                      {t("First name")}
-                    </label>
-                    <input
+                    <InputField
                       disabled={!isEdit}
+                      label="First name"
                       name="firstName"
+                      error={errors.firstName}
+                      isError={hasError('firstName')}
                       onChange={(e) => handleChange(e)}
-                      value={formData.firstName}
+                      value={values?.firstName}
                       type="text"
                       className="buyer_input"
                       placeholder={t("First name")}
                     />
                   </div>
                   <div className="input_fields">
-                    <label htmlFor="" className="buyer_label">
-                      {t("Last name")}
-                    </label>
-                    <input
+                    <InputField
                       disabled={!isEdit}
                       name="lastName"
+                      label="Last name"
+                      error={errors.lastName}
+                      isError={hasError('lastName')}
                       onChange={(e) => handleChange(e)}
-                      value={formData.lastName}
+                      value={values?.lastName}
                       type="text"
                       className="buyer_input"
                       placeholder={t("First name")}
@@ -168,14 +214,14 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                   </div>
                 </div>
                 <div className="luyer_input_field">
-                  <label htmlFor="" className="buyer_label">
-                    {t("E-mail address")}
-                  </label>
-                  <input
+                  <InputField
+                    label="E-mail address"
                     disabled={!isEdit}
                     name="email"
+                    error={errors.email}
+                      isError={hasError('email')}
                     onChange={(e) => handleChange(e)}
-                    value={formData.email}
+                    value={values?.email}
                     type="email"
                     className="buyer_input"
                     placeholder={t("E-mail address")}

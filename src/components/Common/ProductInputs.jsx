@@ -5,11 +5,10 @@ import SwitchButton from "../Common/SwitchButton";
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
 import PlusButton from "../../assets/PlusButton.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ProductInputs = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleProductDocuments();

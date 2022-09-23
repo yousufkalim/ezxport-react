@@ -64,6 +64,7 @@ label {
 
 .primary-button:disabled {
   color: #344054 !important;
+  background-color: rgb(187, 186, 186, 0.5);
 }
 
 .input_field_error {

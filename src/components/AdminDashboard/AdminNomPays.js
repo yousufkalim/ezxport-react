@@ -16,10 +16,10 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
 import FilePicker from "../../components/Common/FilePicker";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Modal from "../../components/Common/Modal";
 import { createFilter } from "react-search-input";
-import { toast } from "react-toastify";
+import toaster from "../../utils/toaster";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,7 +71,7 @@ const AdminNomPays = () => {
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState("");
+  const [currentRadioValue, setCurrentRadioValue] = useState("coefficient");
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState("");
   const [file, setFile] = useState("");
@@ -79,7 +79,7 @@ const AdminNomPays = () => {
   const [documentSerach, setDocumentSearch] = useState("");
   const [codeSearch, setCodeSearch] = useState("");
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleCountryData();
@@ -97,7 +97,7 @@ const AdminNomPays = () => {
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
         setCalculation(res?.data?.country?.calculation);
-        setCurrentRadioValue(res?.data?.country?.calculation?.type);
+        // setCurrentRadioValue(res?.data?.country?.calculation?.type);
         setLoading(false);
       })
       .catch((err) => {
@@ -120,7 +120,7 @@ const AdminNomPays = () => {
         handleCountryData();
         setFile({});
         setOpen(false);
-        toast.success(res.data.message);
+        toaster("success", res.data.message);
       })
       .catch((err) => {
         console.log("errr", err);
@@ -153,14 +153,21 @@ const AdminNomPays = () => {
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField setSearch={setDocumentSearch} />
-                <Button text={t("Add document")} className="update_Boms_btn" onClick={() => setOpenAddDocument(true)} />
+                <Button
+                  text={t("Add document")}
+                  className="update_Boms_btn"
+                  onClick={() => setOpenAddDocument(true)}
+                />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
-
                   <SearchField setSearch={setCodeSearch} />
-                  <Button text={t("Add")} className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
+                  <Button
+                    text={t("Add")}
+                    className="Edit_btn_bom"
+                    onClick={() => setOpenAddBomModal(true)}
+                  />
                 </div>
                 <Button
                   text={t("Update")}
@@ -266,7 +273,12 @@ const AdminNomPays = () => {
               {t("Download your BOM file")}
             </label>
             <div className="bom_download_File_btn_div">
-              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className="bom_download">
+              <Link
+                to={"/Files/Admintemplate.xlsx"}
+                target="_blank"
+                download
+                className="bom_download"
+              >
                 {t("Download current file")}
               </Link>
             </div>

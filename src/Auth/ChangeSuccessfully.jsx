@@ -2,10 +2,10 @@ import React from "react";
 import ChangedPIcon from "../assets/ChangedPIcon.svg";
 import Header from "../components/Common/Header";
 import { useHistory } from "react-router-dom";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ChangeSuccessfully = ({ setResetPassword }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const history = useHistory(null);
   const handleToLogin = () => {
