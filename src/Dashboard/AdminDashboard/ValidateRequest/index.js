@@ -48,16 +48,16 @@ const Index = () => {
   const handleCountryDocsValidate = async (checked, id) => {
     await API("put", `/requests/validateDoc/${requestById._id}`, {
       doc_id: id,
-      status: checked ? "valid" : "invalid",
+      status: checked ? "Valid" : "Invalid",
     })
       .then((res) => {
         console.log("handleCountryDocsValidate", res);
         if (checked) {
-          toaster("success", "Document Validated Successfully", "Validated Document");
+          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
 
           handlerequestById();
         } else {
-          toaster("warning", "Document Un-Validated");
+          toaster(t("warning"), t("Document Un-Validated"));
 
           handlerequestById();
         }
@@ -71,17 +71,17 @@ const Index = () => {
     const DocName = name;
     await API("put", `/requests/validateProductDoc/${id}`, {
       [DocName]: {
-        status: checked ? "valid" : "invalid",
+        status: checked ? "Valid" : "Invalid",
       },
     })
       .then((res) => {
         if (checked) {
           console.log("handleProductDocsValidate", res);
-          toaster("success", "Document Validated Successfully", "Validated Document");
+          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
 
           handlerequestById();
         } else {
-          toaster("warning", "Document Un-Validated");
+          toaster(t("warning"), t("Document Un-Validated"));
 
           handlerequestById();
         }

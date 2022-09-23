@@ -49,7 +49,7 @@ const ForgetPassword = () => {
         }
       })
       .catch((err) => {
-        toaster("Failed", "Email does not exist");
+        toaster("Failed", t("Email does not exist"));
         setFlag(false);
       });
     setFlag(!flag);

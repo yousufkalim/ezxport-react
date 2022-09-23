@@ -60,7 +60,7 @@ const AdminTab2 = (props) => {
         console.log("handleAddDocuments", res);
         props.handleCountryData();
         props.setOpenAddDocument(false);
-        toaster("success", "Document Added Successfully");
+        toaster("success", t("Document Added Successfully"));
 
         setFormState((formState) => ({
           ...formState,
@@ -75,11 +75,9 @@ const AdminTab2 = (props) => {
       .catch((err) => {
         console.log("handleAddDocuments", err);
         props.setOpenAddDocument(false);
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
-
-  console.log("Documents ", props.rows);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -97,11 +95,11 @@ const AdminTab2 = (props) => {
         props.handleCountryData();
         setOpenModal(false);
         setDocId("");
-        toaster("success", "Document Deleted Successfully", "Deleted Document");
+        toaster("success", t("Document Deleted Successfully"), t("Deleted Document"));
       })
       .catch((err) => {
         console.log(err);
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
   const handleChange = (event) => {
@@ -187,7 +185,7 @@ const AdminTab2 = (props) => {
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}
-        title={t("Add Document")}
+        title={t("Add Documents")}
         handleClose={props.handleAddDocumentModalClose}
         Closebtn={true}
       >

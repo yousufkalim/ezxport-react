@@ -28,7 +28,7 @@ const ChangePassword = ({ Token, setResetPassword }) => {
           setSuccess(true);
         }
       })
-      .catch((err) => toaster("Failed", err.response.data.message));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);

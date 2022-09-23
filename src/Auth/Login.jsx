@@ -66,7 +66,6 @@ const Login = () => {
         email: formState.values.email,
         password: formState.values.password,
       })
-
         .then((res) => {
           if (res?.data?.role === "user") {
             localStorage.setItem("userData", JSON.stringify(res.data.user));
@@ -77,21 +76,21 @@ const Login = () => {
             localStorage.setItem("userData", JSON.stringify(res.data.admin));
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("role", JSON.stringify(res.data.role));
-  
+
             window.location = "/admin/Dashboard/Country";
           }
         })
         .catch((err) => {
-          toaster('failed', 'Email or password is incorrect' );
+          toaster("Failed", t("Email or password is incorrect"));
         });
-    }catch(err){
-      toaster('failed', 'Something went wrong')
+    } catch (err) {
+      toaster("Failed", t("Something went wrong"));
     }
   };
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
-  
+
   return (
     <>
       <Header />

@@ -7,8 +7,7 @@ import { useTranslation } from "react-i18next";
 import { createFilter } from "react-search-input";
 import SearchField from "../../components/Common/SearchField";
 
-const KEYS_TO_FILTERS = ['name'];
-
+const KEYS_TO_FILTERS = ["name"];
 
 const Providers = () => {
   const [providers, setProviders] = useState([]);
@@ -31,13 +30,13 @@ const Providers = () => {
           email: item.contact_email,
           firstName: item.contact_fname,
           lastName: item.contact_lname,
+          userVendorId: item._id,
         }));
         setProviders(data);
         setLoading(false);
-        // toaster('success', "testing");
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
         setLoading(false);
       });
   };
@@ -51,7 +50,7 @@ const Providers = () => {
           <div className="List_heading_div5">
             <h1 className="list_h1_provider">{t("Service providers")}</h1>
             <div className="searching_provider">
-              <SearchField setSearch={setSearchTerm} />
+              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
             </div>
           </div>
           <ProvidersTable

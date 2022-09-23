@@ -15,8 +15,9 @@ import Button from "../../../components/Common/Button";
 import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
-
+import { useHistory } from "react-router-dom";
 const DocumentsTab = ({ userRequest }) => {
+  let history = useHistory(null)
   const [open, setOpen] = useState(true);
   const [productLength, setProductLength] = useState(0);
   const [productOpen, setProductOpen] = useState(true);
@@ -79,7 +80,7 @@ const DocumentsTab = ({ userRequest }) => {
         setAllDocuments(res?.data?.Request);
       })
       .catch((err) => {
-        console.log("handleDocuments", err);
+        // console.log("handleDocuments", err);
       });
   };
 
@@ -96,7 +97,8 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
 
   const handleSpecificDoc = async (Doc_Id) => {
@@ -104,21 +106,25 @@ const DocumentsTab = ({ userRequest }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleCodeDoc = async (Code_Id) => {
     await API("get", `/requests/zipFileCode/${userRequest._id}/${Code_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleProductDoc = async (Product_Id) => {
     await API("get", `/requests/zipFileProduct/${Product_Id}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
+
   };
   const handleMissingDocUpload = async () => {
     const data = {
@@ -133,9 +139,11 @@ const DocumentsTab = ({ userRequest }) => {
     };
     await API("put", `/requests/UploadmissingDocs/${userRequest._id}`, data)
       .then((res) => {
-        toaster("success", res.data.message);
+        toaster("success", "Documents uploaded");
+        history.push("/User/Dashboard/ListOfRequests")
       })
-      .catch((err) => toaster("Failed", "File not found"));
+
+      .catch((err) => toaster("Failed", t("File not found")));
   };
   const handleProdLength = () => {
     userRequest?.codes?.map((code) => {
@@ -145,7 +153,6 @@ const DocumentsTab = ({ userRequest }) => {
       });
     });
   };
-
   return (
     <>
       {userRequest?.missing_docs?.length !== 0 ? (
@@ -160,6 +167,7 @@ const DocumentsTab = ({ userRequest }) => {
               const names = findName?.files?.map((item) => item.name);
               return (
                 <Grid item xs={6} key={item._id}>
+                  <label style={{ display: "flex" }}>{item?.name}</label>
                   <div className="to_download_div">
                     <FilePicker
                       multiple
@@ -179,7 +187,7 @@ const DocumentsTab = ({ userRequest }) => {
           {userRequest?.codes?.map((code) => {
             return (
               <>
-                <span>{code.code}</span>
+                {code?.products?.filter(_ => _.missing_docs.length > 0).length > 0 && <span>Product's Code: {code?.code?.code }</span>}
                 {code?.products?.map((product, index) => {
                   return (
                     <>
@@ -215,16 +223,13 @@ const DocumentsTab = ({ userRequest }) => {
           })}
           <Button
             text="Send documents"
-            className={
-              countryMissingDocs.length === userRequest?.missing_docs?.length &&
-              productMissingDocs.length === productLength
-                ? "send_documents_btn"
-                : "send_documents_btn_disabled"
-            }
+            className="send_documents_btn"
+            
+              // countryMissingDocs.length === userRequest?.missing_docs?.length && productMissingDocs.length === productLength
+                // ? 
+                // : "send_documents_btn_disabled"
             onClick={handleMissingDocUpload}
-            disabled={
-              countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false
-            }
+            // disabled={countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false}
           />
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <span>{t("Comments by the Admin")}</span> <br />
@@ -245,90 +250,74 @@ const DocumentsTab = ({ userRequest }) => {
           <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
             {allDocuments.title}
           </li>
-          <img
-            src={DownloadIcon}
-            alt=""
-            className="downlaod_img_main"
-            onClick={() => handleReqDoc()}
-          />
+          <img src={DownloadIcon} alt="" className="downlaod_img_main" onClick={() => handleReqDoc()} />
           {open ? <ExpandLess onClick={handleRequest} /> : <ExpandMore onClick={handleRequest} />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            {allDocuments?.documents?.map((doc) => {
-              return (
-                <ListItemButton sx={{ border: "1px solid #EAECF0", position: "relative" }}>
-                  <li className="table_li2" style={{ marginRight: "auto", display: "flex" }}>
-                    <img src={RightArrow} alt="" className="rightArrow" />
-                    {doc?.doc_id?.name}
-                  </li>
-                  {doc.status === "sent" ? (
-                    <p className="send_p">{t(doc?.status)}</p>
-                  ) : doc.status === "valid" ? (
-                    <p className="send_p_valid">{t(doc?.status)}</p>
-                  ) : doc.status === "invalid" ? (
-                    <p className="send_p_invalid">{t(doc?.status)}</p>
-                  ) : (
-                    ""
-                  )}
-                  <img
-                    src={DownloadIcon}
-                    alt=""
-                    className="downlaod_img"
-                    onClick={() => handleSpecificDoc(doc?.doc_id?._id)}
-                  />
-                </ListItemButton>
-              );
-            })}
-            {allDocuments?.codes?.map((code) => {
-              return (
-                <>
-                  <ListItemButton sx={{ border: "1px solid #EAECF0", display: "flex" }}>
+            {
+              allDocuments?.documents?.map((doc) => {
+                return (
+                  <ListItemButton sx={{ border: "1px solid #EAECF0", position: "relative" }}>
                     <li className="table_li2" style={{ marginRight: "auto", display: "flex" }}>
                       <img src={RightArrow} alt="" className="rightArrow" />
-                      {code?.code?.code}
+                      {doc?.doc_id?.name}
                     </li>
-                    {/* <p className="send_p">Sent</p> */}
-                    <img
-                      src={DownloadIcon}
-                      alt=""
-                      className="downlaod_img_main"
-                      onClick={() => handleCodeDoc(code?.code?._id)}
-                    />
-                    {productOpen ? (
-                      <ExpandLess onClick={handleCode} />
+                    { doc.status === "Valid" ? (
+                      <p className="send_p_valid">{t(doc?.status)}</p>
+                    ) : doc.status === "Invalid" ? (
+                      <p className="send_p_invalid">{t(doc?.status)}</p>
                     ) : (
-                      <ExpandMore onClick={handleCode} />
+                      <p className="send_p">{t("Sent")}</p>
                     )}
+                    <img src={DownloadIcon} alt="" className="downlaod_img" onClick={() => handleSpecificDoc(doc?.doc_id?._id)} />
                   </ListItemButton>
+                )
+              })
+            }
+            {
+              allDocuments?.codes?.map((code) => {
+                return (
+                  <>
+                    <ListItemButton sx={{ border: "1px solid #EAECF0", display: "flex" }}>
+                      <li className="table_li2" style={{ marginRight: "auto", display: "flex" }}>
+                        <img src={RightArrow} alt="" className="rightArrow" />
+                        {code?.code?.code}
+                      </li>
+                      <img
+                        src={DownloadIcon}
+                        alt=""
+                        className="downlaod_img_main"
+                        onClick={() => handleCodeDoc(code?.code?._id)}
+                      />
+                      {productOpen ? <ExpandLess onClick={handleCode} /> : <ExpandMore onClick={handleCode} />}
+                    </ListItemButton>
 
-                  <Collapse in={productOpen} timeout="auto" unmountOnExit>
-                    {code?.products?.map((product) => {
-                      return (
-                        <>
-                          <ListItemButton sx={{ border: "1px solid #EAECF0" }}>
-                            <li
-                              className="table_li4"
-                              style={{ marginRight: "auto", display: "flex" }}
-                            >
-                              <img src={RightArrow} alt="" className="rightArrow" />
-                              {product?.name}
-                            </li>
-                            {/* <p className="send_p">Sent</p> */}
-                            <img
-                              src={DownloadIcon}
-                              alt=""
-                              className="downlaod_img"
-                              onClick={() => handleProductDoc(product?._id)}
-                            />
-                          </ListItemButton>
-                        </>
-                      );
-                    })}
-                  </Collapse>
-                </>
-              );
-            })}
+                    <Collapse in={productOpen} timeout="auto" unmountOnExit>
+                      {code?.products?.map((product) => {
+
+                        return (
+                          <>
+                            <ListItemButton sx={{ border: "1px solid #EAECF0" }}>
+                              <li className="table_li4" style={{ marginRight: "auto", display: "flex" }}>
+                                <img src={RightArrow} alt="" className="rightArrow" />
+                                {product?.name}
+                              </li>
+                              <img
+                                src={DownloadIcon}
+                                alt=""
+                                className="downlaod_img"
+                                onClick={() => handleProductDoc(product?._id)}
+                              />
+                            </ListItemButton>
+                          </>
+                        );
+                      })}
+                    </Collapse>
+                  </>
+                )
+              })
+            }
           </List>
         </Collapse>
       </List>

@@ -23,7 +23,7 @@ const AdminCountry = (props) => {
           <div className="List_heading_div">
             <h1 className="list_h1">{props.title}</h1>
             <div className="searching">
-              <SearchField placeholder="Search" />
+              <SearchField placeholder={t("Search")} />
               <Button
                 className="list_reqst_btn2"
                 text={t("Add a service provider")}
