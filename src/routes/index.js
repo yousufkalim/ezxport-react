@@ -39,7 +39,7 @@ const Index = ({ role }) => {
       })
       .catch((err) => {
         history.push("/");
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", err?.response?.data?.message);
       });
   };
   return (
