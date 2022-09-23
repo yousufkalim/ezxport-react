@@ -30,10 +30,10 @@ const Providers = () => {
           email: item.contact_email,
           firstName: item.contact_fname,
           lastName: item.contact_lname,
+          userVendorId: item._id,
         }));
         setProviders(data);
         setLoading(false);
-        // toaster('success', "testing");
       })
       .catch((err) => {
         toaster("Failed", t("Something went wrong!"));

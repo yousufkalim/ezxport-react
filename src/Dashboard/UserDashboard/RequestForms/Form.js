@@ -337,6 +337,7 @@ export default function HorizontalNonLinearStepper() {
         setCreatedCodes(res.data.request);
         toaster("success", res.data.message);
       })
+
       .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleSendFile = () => setPlatformSelect(true);
@@ -359,10 +360,11 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleDocByCountryId = async () => {
-    await API("get", `/documents/getByCountry/${step1.country}`)
+    await API("get", `/documents/getByCountry/${step1?.country}`)
       .then((res) => {
-        setCountryDoc(res.data.document);
+        setCountryDoc(res?.data?.documents);
       })
+
       .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };
   const handleUploadDoc = async (file, docId, index) => {
@@ -481,7 +483,7 @@ export default function HorizontalNonLinearStepper() {
         handleStep4();
         toaster("success", res.data.message);
         localStorage.setItem("Requested", true);
-        // history.push("/User/Dashboard/ListOfRequests");
+        history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => toaster("Failed", t(err.response.data.message).msg));
   };

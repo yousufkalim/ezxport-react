@@ -16,7 +16,7 @@ const ExportDocuments = (props) => {
   }, [props?.requestById]);
   const handleCountryDocuments = () => {
     let temp = props?.requestById?.documents?.filter((item) => {
-      return item.status === "valid";
+      return item.status === "Valid";
     });
     if (props?.requestById?.documents?.length === temp.length) {
       props.setValidateCountry(true);
@@ -48,8 +48,7 @@ const ExportDocuments = (props) => {
     <>
       <div className="ExportDocuments" style={{ marginBottom: "5%" }}>
         <ValidateButton
-          text1={t(props.validateCountry ? "Validated document" : "To be checked")}
-          validateCountry={props.validateCountry}
+          text1={props.validateCountry ? t("Validated document") : t("To be checked")          }
           text={`${t("Import documents specific to")} ${t(props?.requestById?.country?.name)}`}
           className={
             props.validateCountry
@@ -68,8 +67,8 @@ const ExportDocuments = (props) => {
                   onChange={(e) =>
                     props.handleCountryDocsValidate(e.target.checked, item?.doc_id?._id)
                   }
-                  label={item.status === "valid" ? "Valid" : "Un-Valid"}
-                  checked={item.status === "valid" ? true : false}
+                  label={item.status === "Valid" ? "Valid" : "InValid"}
+                  checked={item.status === "Valid" ? true : false}
                 />
               </Grid>
             );

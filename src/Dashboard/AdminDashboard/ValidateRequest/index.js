@@ -48,7 +48,7 @@ const Index = () => {
   const handleCountryDocsValidate = async (checked, id) => {
     await API("put", `/requests/validateDoc/${requestById._id}`, {
       doc_id: id,
-      status: checked ? "valid" : "invalid",
+      status: checked ? "Valid" : "Invalid",
     })
       .then((res) => {
         console.log("handleCountryDocsValidate", res);
@@ -71,7 +71,7 @@ const Index = () => {
     const DocName = name;
     await API("put", `/requests/validateProductDoc/${id}`, {
       [DocName]: {
-        status: checked ? "valid" : "invalid",
+        status: checked ? "Valid" : "Invalid",
       },
     })
       .then((res) => {
