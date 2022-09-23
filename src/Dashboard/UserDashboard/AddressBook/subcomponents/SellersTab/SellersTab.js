@@ -25,7 +25,12 @@ import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
 const title = [
-  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
+  {
+    heading: "Company name",
+    sortIcon: true,
+    key: "company_name",
+    imgSrc: TitleDownArrow,
+  },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -155,11 +160,19 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     setOpen(true);
 
     if (item) {
-      const { company_name, email, country, city, phone_number, zipcode, address } = item;
+      const {
+        company_name,
+        email,
+        country,
+        city,
+        phone_number,
+        zipcode,
+        address,
+      } = item;
       const values = {
         companyName: company_name,
         email,
-        country: country?._id,
+        country: country,
         town: city,
         telephone: phone_number,
         zipcode: zipcode?.toString(),
@@ -244,11 +257,18 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     }
   };
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
-  const MODAL_TITLE = isEdit ? "Edit seller" : seller ? "View seller" : "Add seller";
+  const MODAL_TITLE = isEdit
+    ? "Edit seller"
+    : seller
+    ? "View seller"
+    : "Add seller";
 
-  const searchedResults = sellers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  const searchedResults = sellers.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
 
   return (
     <>
@@ -265,11 +285,21 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       {t(item.heading)} &nbsp;
-                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                      {item.sortIcon &&
+                      !sort.ascend &&
+                      sort.key === item.key ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
-                            getSortedData(sellers, setSellers, setSort, [], "company_name", true)
+
+                            getSortedData(
+                              sellers,
+                              setSellers,
+                              setSort,
+                              [],
+                              "company_name",
+                              true
+                            )
                           }
                           src={arrow_up}
                           alt=""
@@ -278,7 +308,15 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                         item.sortIcon && (
                           <img
                             onClick={() =>
-                              getSortedData(sellers, setSellers, setSort, [], "company_name", false)
+
+                              getSortedData(
+                                sellers,
+                                setSellers,
+                                setSort,
+                                [],
+                                "company_name",
+                                false
+                              )
                             }
                             src={downArrow}
                             alt=""
@@ -314,11 +352,19 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                     <TableCell align="left" className="country2">
                       {buyer.phone_number}
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                    <TableCell
+                      align="left"
+                      className="country2"
+                      style={{ cursor: "pointer" }}
+                    >
                       <p className="country2">{buyer.address}</p>
                     </TableCell>
 
-                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                    <TableCell
+                      align="left"
+                      className="country2"
+                      style={{ cursor: "pointer" }}
+                    >
                       <img
                         src={EditIcon}
                         alt=""
@@ -382,7 +428,10 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 {/* COUNTRIES */}
               </Select>
               {hasError("country") && (
-                <div className="input-error">{formState.errors.country ?? null}</div>
+
+                <div className="input-error">
+                  {formState.errors.country ?? null}
+                </div>
               )}
             </FormControl>
           </div>
@@ -461,15 +510,15 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               </div>
             </div>
           </div>
-          {/* {((!isEdit && !seller) || (isEdit && seller)) && ( */}
-          <Button
-            text={t("To Confirm")}
-            // disabled={!formState.isValid}
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-            className="luyer_button"
-          />
-          {/* )} */}
+          {((!isEdit && !seller) || (isEdit && seller)) && (
+            <Button
+              text={t("To Confirm")}
+              disabled={!formState.isValid}
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+              className="luyer_button"
+            />
+          )}
         </div>
       </Modal>
     </>

@@ -138,6 +138,8 @@ const BuyerModal = ({
       .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
+  console.log("Current state ", formState);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const {
@@ -167,8 +169,13 @@ const BuyerModal = ({
     }
   };
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
-  const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
+  const MODAL_TITLE = isEdit
+    ? "Edit buyer"
+    : buyer
+    ? "View buyer"
+    : "Add buyer";
   return (
     <Modal
       open={open}
@@ -213,7 +220,10 @@ const BuyerModal = ({
               })}
             </Select>
             {hasError("country") && (
-              <div className="input-error">{formState.errors.country ?? null}</div>
+
+              <div className="input-error">
+                {formState.errors.country ?? null}
+              </div>
             )}
           </FormControl>
         </div>

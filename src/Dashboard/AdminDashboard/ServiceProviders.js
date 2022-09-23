@@ -53,8 +53,8 @@ const KEYS_TO_FILTERS = ["name"];
 const ServiceProviders = () => {
   const history = useHistory(null);
   const [open, setOpen] = useState(false);
-  const [names, setNames] = useState([]);
   const [vendors, setVendors] = useState();
+  const [names, setNames] = useState([]);
   const [id, setId] = useState();
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
@@ -211,9 +211,12 @@ const ServiceProviders = () => {
     }
   };
 
-  const searchedProviders = vendors?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  const searchedProviders = vendors?.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
   return (
     <>
       <div className="list_main_div">
@@ -234,16 +237,29 @@ const ServiceProviders = () => {
           {/* list table   */}
           <div className="list_table">
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+              <Table
+                sx={{ minWidth: 650 }}
+                size="small"
+                aria-label="a dense table"
+              >
                 <TableHead>
                   <TableRow sx={{ border: "1px solid #EAECF0" }}>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                    <TableCell
+                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
+                    >
                       {t("Service providers")} &nbsp;
                       {!sort.ascend ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
-                            getSortedData(vendors, setVendors, setSort, [], "name", true)
+                            getSortedData(
+                              vendors,
+                              setVendors,
+                              setSort,
+                              [],
+                              "name",
+                              true
+                            )
                           }
                           src={arrow_up}
                           alt=""
@@ -251,14 +267,23 @@ const ServiceProviders = () => {
                       ) : (
                         <img
                           onClick={() =>
-                            getSortedData(vendors, setVendors, setSort, [], "name", false)
+                            getSortedData(
+                              vendors,
+                              setVendors,
+                              setSort,
+                              [],
+                              "name",
+                              false
+                            )
                           }
                           src={downArrow}
                           alt=""
                         />
                       )}
                     </TableCell>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
+                    <TableCell
+                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
+                    >
                       {t("Associated countries")}
                     </TableCell>
                   </TableRow>
@@ -268,7 +293,10 @@ const ServiceProviders = () => {
                 ) : (
                   <TableBody>
                     {searchedProviders?.map((item, index) => (
-                      <TableRow key={index} sx={{ border: "1px solid #EAECF0" }}>
+                      <TableRow
+                        key={index}
+                        sx={{ border: "1px solid #EAECF0" }}
+                      >
                         <TableCell
                           onClick={() => {
                             history.push(
@@ -302,7 +330,10 @@ const ServiceProviders = () => {
                         >
                           {item.countries.map((country) => {
                             return (
-                              <p className="AP_plus_title" style={{ paddingLeft: "10px" }}>
+                              <p
+                                className="AP_plus_title"
+                                style={{ paddingLeft: "10px" }}
+                              >
                                 {country.name}
                               </p>
                             );

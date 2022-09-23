@@ -25,7 +25,12 @@ import { createFilter } from "react-search-input";
 import toaster from "../../../../../utils/toaster";
 
 const title = [
-  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
+  {
+    heading: "Company name",
+    sortIcon: true,
+    key: "company_name",
+    imgSrc: TitleDownArrow,
+  },
   { heading: "Country" },
   { heading: "E-mail address" },
   { heading: "Telephone" },
@@ -167,7 +172,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
       const values = {
         companyName: company_name,
         email,
-        country: country ? country?._id : null,
+        country: country ? country : null,
         town: city,
         telephone: phone_number,
         zipcode: zipcode?.toString(),
@@ -214,6 +219,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
           "success",
           t("Inspection location addedd successfully!"),
           t("Adding Inspection location")
+
         );
         setOpen(false);
         fetchLocations();
@@ -228,6 +234,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
           "success",
           t("Inspection location updated successfully!"),
           t("Update Inspection location")
+
         );
         handleCloseModal();
         fetchLocations();
@@ -268,7 +275,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     }
   };
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   const MODAL_TITLE = isEdit
     ? "Edit inspection location"
@@ -276,7 +284,9 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     ? "View inspection location"
     : "Add inspection location";
 
-  const searchedResults = locations.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  const searchedResults = locations.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
 
   return (
     <>
@@ -293,7 +303,9 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       {t(item.heading)} &nbsp;
-                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                      {item.sortIcon &&
+                      !sort.ascend &&
+                      sort.key === item.key ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
@@ -356,11 +368,19 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                     <TableCell align="left" className="country2">
                       {item.phone_number}
                     </TableCell>
-                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                    <TableCell
+                      align="left"
+                      className="country2"
+                      style={{ cursor: "pointer" }}
+                    >
                       <p className="country2">{item.address}</p>
                     </TableCell>
 
-                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
+                    <TableCell
+                      align="left"
+                      className="country2"
+                      style={{ cursor: "pointer" }}
+                    >
                       <img
                         src={EditIcon}
                         alt=""
@@ -529,15 +549,15 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               </div>
             </div>
           </div>
-          {/* {((!isEdit && !location) || (isEdit && location)) && ( */}
-          <Button
-            text={t("To Confirm")}
-            // disabled={!formState.isValid}
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-            className="luyer_button"
-          />
-          {/* )} */}
+          {((!isEdit && !location) || (isEdit && location)) && (
+            <Button
+              text={t("To Confirm")}
+              disabled={!formState.isValid}
+              type="submit"
+              onClick={(e) => handleSubmit(e)}
+              className="luyer_button"
+            />
+          )}
         </div>
       </Modal>
     </>

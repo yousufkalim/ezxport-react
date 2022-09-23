@@ -106,17 +106,25 @@ const NameProvider = () => {
   });
   const [select, setSelect] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [names, setNames] = useState([]);
+  const [id, setId] = useState();
+  const [options, setOptions] = useState();
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   const params = useParams();
-  const { id } = params;
+  const { id: userId } = params;
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [countries, setCountries] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
 
   const { t } = useTranslation();
+
+  useEffect(() => {
+    handleCoutries();
+  }, []);
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -126,6 +134,21 @@ const NameProvider = () => {
       errors: errors || {},
     }));
   }, [formState.values]);
+
+  const handleCoutries = async () => {
+    await API("get", "/countries/")
+      .then((res) => {
+        let country_name = [];
+        setOptions(res?.data?.countries);
+        res.data.countries.map((item) => {
+          country_name.push(item.name);
+        });
+        setNames(country_name);
+      })
+      .catch((err) => {
+        console.log("errrrr", err);
+      });
+  };
 
   const handlePhnChange = (event) => {
     if (!event.target.value.match(/[^0-9]/)) {
@@ -164,7 +187,7 @@ const NameProvider = () => {
     setValue(newValue);
   };
   const handleGetVendor = async () => {
-    await API("get", `/vendors/${id}`)
+    await API("get", `/vendors/${userId}`)
       .then((res) => {
         setFormState((formState) => ({
           ...formState,
@@ -189,13 +212,27 @@ const NameProvider = () => {
   };
   const handleClose = () => setOpen(false);
 
+  useEffect(() => {
+    let ids = [];
+    if (options?.length > 0 && select?.length > 0) {
+      options?.map((item) => {
+        select?.map((item2) => {
+          if (item.name === item2) {
+            ids.push(item._id);
+          }
+        });
+      });
+      setId(ids);
+    }
+  }, [select]);
+
   const handelUpdateAssociatedCountries = async () => {
-    await API("put", `/vendors/${id}`, {
+    await API("put", `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
       contact_email: formState.values.contact,
-      countries: select,
+      countries: id,
     })
       .then((res) => {
         setOpen(false);
@@ -203,6 +240,7 @@ const NameProvider = () => {
           "success",
           t("Service Provider Updated Successfully"),
           t("Updated Service Provider")
+
         );
       })
       .catch((err) => {
@@ -212,7 +250,7 @@ const NameProvider = () => {
   };
 
   const handelUpdateVendor = async () => {
-    await API("put", `/vendors/${id}`, {
+    await API("put", `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
@@ -225,6 +263,7 @@ const NameProvider = () => {
           "success",
           t("Service Provider Updated Successfully"),
           t("Updated Service Provider")
+
         );
       })
       .catch((err) => {
@@ -244,7 +283,9 @@ const NameProvider = () => {
     );
   };
 
-  const searchedResults = countries?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+  const searchedResults = countries?.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
 
   return (
     <>
@@ -264,15 +305,27 @@ const NameProvider = () => {
                   <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
                 </div>
               )}
-              <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />
+              <Button
+                text={t("Update")}
+                className="changeProvider"
+                onClick={() => setOpen(true)}
+              />
             </div>
           </div>
 
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
-                <Tabs value={value} onChange={handleDataChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
+                <Tabs
+                  value={value}
+                  onChange={handleDataChange}
+                  className="tab_menu"
+                >
+                  <Tab
+                    className="admin_tab_btn"
+                    label={t("Information")}
+                    {...a11yProps(0)}
+                  />
                   <Tab
                     className="admin_tab_btn"
                     label={t("Associated countries")}
@@ -336,7 +389,11 @@ const NameProvider = () => {
                 <div className="list_table">
                   <>
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                      <Table
+                        sx={{ minWidth: 650 }}
+                        size="small"
+                        aria-label="a dense table"
+                      >
                         <TableHead>
                           <TableRow>
                             <TableCell
@@ -425,12 +482,16 @@ const NameProvider = () => {
             name="country"
             onChange={handleMultiSelectChange}
             value={select}
-            names={COUNTRIES}
+            names={names}
             select={select}
           />
           <Button
             text={t("Update Service Provider")}
-            className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
+            className={
+              formState.isValid
+                ? "edit_vendor_button"
+                : "edit_vendor_button_disabled"
+            }
             disabled={!formState.isValid ? true : false}
             onClick={handelUpdateAssociatedCountries}
           />
@@ -468,11 +529,15 @@ const NameProvider = () => {
             value={formState.values.phone}
             name="phone"
             className={
-              hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"
+              hasError("phone") && formState.errors.phone
+                ? "textfield_row2_red"
+                : "textfield_row2"
             }
             onChange={handlePhnChange}
           />
-          <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
+          <div className="error-format">
+            {hasError("phone") ? formState.errors.phone[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             {t("Contact email")}
           </label>
@@ -496,14 +561,22 @@ const NameProvider = () => {
             value={formState.values.email}
             name="email"
             className={
-              hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"
+              hasError("email") && formState.errors.email
+                ? "textfield_row2_red"
+                : "textfield_row2"
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("email") ? formState.errors.email[0] : null}</div>
+          <div className="error-format">
+            {hasError("email") ? formState.errors.email[0] : null}
+          </div>
           <Button
             text={t("Update Service Provider")}
-            className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
+            className={
+              formState.isValid
+                ? "edit_vendor_button"
+                : "edit_vendor_button_disabled"
+            }
             disabled={!formState.isValid ? true : false}
             onClick={handelUpdateVendor}
           />

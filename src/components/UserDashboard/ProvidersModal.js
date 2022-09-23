@@ -162,7 +162,8 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
       });
   };
 
-  const hasError = (field) => (formData.touched[field] && formData.errors[field] ? true : false);
+  const hasError = (field) =>
+    formData.touched[field] && formData.errors[field] ? true : false;
 
   const { values, errors } = formData;
 
@@ -239,7 +240,10 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                 </div>
               </div>
               {isEdit && (
-                <button onClick={(e) => editProvider(e)} className="luyer_button">
+                <button
+                  onClick={(e) => editProvider(e)}
+                  className="luyer_button"
+                >
                   {t("To Confirm")}
                 </button>
               )}
