@@ -3,13 +3,13 @@ import React from "react";
 // import Select from '@mui/material/Select';
 import DatePicker from "../../../components/Common/DatePicker";
 import InputField from "../../../components/Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 import moment from "moment";
 
 const AddressBook = (props) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="" style={{ marginBottom: "10%", marginTop: "2%" }}>
@@ -38,7 +38,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("E-Mail Address")}</label>
+              <label className="label_modal">{t("E-mail address")}</label>
               <InputField
                 className="company_name_input"
                 disabled
@@ -249,7 +249,7 @@ const AddressBook = (props) => {
           </div>
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
-              <label className="label_modal">{t("contact last name")}</label>
+              <label className="label_modal">{t("Contact last name")}</label>
               <InputField
                 className="company_name_input"
                 disabled

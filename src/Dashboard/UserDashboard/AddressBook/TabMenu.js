@@ -1,3 +1,4 @@
+
 // import React, { useEffect, useState } from "react";
 // import Tabs from "@mui/material/Tabs";
 // import Tab from "@mui/material/Tab";
@@ -7,6 +8,7 @@
 // import BuyersTab from "./subcomponents/BuyersTab";
 // import SellersTab from "./subcomponents/SellersTab";
 // import LocationsTab from "./subcomponents/LocationsTab";
+
 
 // const TabMenu = ({ t, value, handleChange, setOpen, open, title }) => {
 //   const user = localStorage.getItem("userData");
@@ -63,3 +65,4 @@
 // };
 
 // export default TabMenu;
+

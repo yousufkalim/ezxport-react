@@ -6,22 +6,19 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import DownArrow from "../../assets/TitleDownArrow.svg";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
-import EditIcon from "../../assets/EditIcon.svg";
 import API from "../../api/index";
 import Modal from "../../components/Common/Modal";
 import InputField from "../../components/Common/InputField";
-// import MultiSelect from "../../components/Common/MultiSelect";
 import Button from "../Common/Button";
-import { toast } from "react-toastify";
 import validate from "validate.js";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ConfirmModal from "../Common/ConfirmModal";
 import { getSortedData } from "../../lib/getSortedData";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import Spinner from "../Common/Spinner";
+import toaster from "../../utils/toaster";
 
 const schema = {
   code: {
@@ -38,15 +35,10 @@ const nestSortTitles = [];
 
 const AdminTab3 = (props) => {
   const [open, setOpen] = useState(false);
-  // const [names, setNames] = useState([]);
   const [data, setData] = useState({});
-  // const [id, setId] = useState();
-  // const [options, setOptions] = useState();
-  // const [select, setSelect] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [bomId, setBomId] = useState("");
 
-  // const [bomCode, setBomCode] = useState("");
   const [newCertificate_status, setNewCertificate_status] = useState("default");
   const [certificate_status, setCertificate_status] = useState("");
   const [sort, setSort] = useState({ key: "", ascend: true });
@@ -70,12 +62,12 @@ const AdminTab3 = (props) => {
     errors: {},
   });
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
-  const updateHasError = (field) => (updateBomCode.touched[field] && updateBomCode.errors[field] ? true : false);
+  const updateHasError = (field) =>
+    updateBomCode.touched[field] && updateBomCode.errors[field] ? true : false;
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -110,40 +102,6 @@ const AdminTab3 = (props) => {
       }));
     }
   };
-  // const handleUpdateBomChange = (event) => {
-  //   if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
-  //     setUpdateBomCode((updateBomCode) => ({
-  //       ...updateBomCode,
-  //       values: {
-  //         ...updateBomCode.values,
-  //         [event.target.name]: event.target.value,
-  //       },
-  //       touched: {
-  //         ...updateBomCode.touched,
-  //         [event.target.name]: true,
-  //       },
-  //     }));
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   handleCoutries();
-  // }, []);
-  // const handleBomUpdate = async (BomId) => {
-  //   await API("put", `/boms/${BomId}`, {
-  //     code: updateBomCode.values.bomCode,
-  //     certification_required: certificate_status,
-  //     countries: [props?.countryId],
-  //   })
-  //     .then((res) => {
-  //       props.handleCountryData();
-  //       setOpen(false);
-  //       toast.success("BOMs updated successfully");
-  //     })
-  //     .catch((err) => {
-  //       console.log("handleBomUpdate", err);
-  //     });
-  // };
 
   const handleBomDelete = async (BomId) => {
     await API("delete", `/boms/${BomId}`)
@@ -151,7 +109,7 @@ const AdminTab3 = (props) => {
         props.handleCountryData();
         setBomId("");
         setOpenModal(false);
-        toast.success(t("BOMs deleted successfully"));
+        toaster("success", "BOMs deleted successfully", "Deleted BOMs");
       })
       .catch((err) => {
         console.log("handleBomDelete", err);
@@ -198,13 +156,14 @@ const AdminTab3 = (props) => {
             countries: false,
           },
         }));
-        toast.success(t("BOMs added successfully"));
+        toaster("success", "BOMs added successfully", "Adding BOMs");
       })
       .catch((err) => {
         console.log("handleAddBom", err);
         setNewCertificate_status("default");
         props.setOpenAddBomModal(false);
-        toast.error(err?.response?.data?.message);
+        toaster("Failed", err.response.data.message);
+
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -235,13 +194,31 @@ const AdminTab3 = (props) => {
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
-                    onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, "certification_required", true)}
+                    onClick={() =>
+                      getSortedData(
+                        rows,
+                        setBoms,
+                        setSort,
+                        nestSortTitles,
+                        "certification_required",
+                        true
+                      )
+                    }
                     src={arrow_up}
                     alt=""
                   />
                 ) : (
                   <img
-                    onClick={() => getSortedData(rows, setBoms, setSort, nestSortTitles, "certification_required", false)}
+                    onClick={() =>
+                      getSortedData(
+                        rows,
+                        setBoms,
+                        setSort,
+                        nestSortTitles,
+                        "certification_required",
+                        false
+                      )
+                    }
                     src={downArrow}
                     alt=""
                   />
@@ -395,7 +372,11 @@ const AdminTab3 = (props) => {
           <InputField
             name="code"
             value={formState.values.code}
-            className={hasError("code") && formState.errors.code ? "textfield_addvendor_red" : "textfield_addvendor"}
+            className={
+              hasError("code") && formState.errors.code
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
             onChange={handleChange}
           />
           <div className="error-format">{hasError("code") ? formState.errors.code[0] : null}</div>
@@ -434,6 +415,6 @@ const AdminTab3 = (props) => {
       </Modal>
     </>
   );
-};;
+};
 
 export default AdminTab3;

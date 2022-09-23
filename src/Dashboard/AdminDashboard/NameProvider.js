@@ -19,17 +19,15 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
-import { toast } from "react-toastify";
 import validate from "validate.js";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import MultiSelect from "../../components/Common/MultiSelect";
 import { COUNTRIES } from "../../lib/data";
-import { Dialog } from "@mui/material";
 import { createFilter } from "react-search-input";
-
+import toaster from "../../utils/toaster";
 
 const schema = {
   fullName: {
@@ -92,7 +90,7 @@ function a11yProps(index) {
   };
 }
 
-const KEYS_TO_FILTERS = ['name'];
+const KEYS_TO_FILTERS = ["name"];
 
 const NameProvider = () => {
   const [formState, setFormState] = useState({
@@ -115,15 +113,10 @@ const NameProvider = () => {
   const { id } = params;
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  // const [sendingEmail, setSendingEmail] = useState('');
-  // const [Contact, setContact] = useState('');
-  // const [fullname, setFullname] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
   const [countries, setCountries] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -182,10 +175,6 @@ const NameProvider = () => {
             phone: res?.data?.vendor?.phone_number,
           },
         }));
-        // setSendingEmail);
-        // setContact(res?.data?.vendor?.contact_email);
-        // setFullname(res?.data?.vendor?.name);
-        // setPhoneNumber(res?.data?.vendor?.phone_number);
         const allCountries = res?.data?.vendor?.countries;
         if (allCountries) {
           setCountries(allCountries);
@@ -210,11 +199,11 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success("Service Provider Updated Successfully");
+        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
       })
       .catch((err) => {
         setOpen(false);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 
@@ -228,11 +217,11 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toast.success(t("Service Provider Updated Successfully"));
+        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
       })
       .catch((err) => {
         setOpen(false);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 
@@ -264,7 +253,7 @@ const NameProvider = () => {
             <div className="searching2">
               {value === 1 && (
                 <div className="searching">
-                  <SearchField setSearch={setSearchTerm} />
+                  <SearchField placeholder="Search" setSearch={setSearchTerm} />
                 </div>
               )}
               <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />
@@ -276,7 +265,11 @@ const NameProvider = () => {
               <Box>
                 <Tabs value={value} onChange={handleDataChange} className="tab_menu">
                   <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label={t("Associated countries")} {...a11yProps(1)} />
+                  <Tab
+                    className="admin_tab_btn"
+                    label={t("Associated countries")}
+                    {...a11yProps(1)}
+                  />
                 </Tabs>
               </Box>
 
@@ -298,7 +291,12 @@ const NameProvider = () => {
                       <label htmlFor="" className="label_modal">
                         {t("Contact email")}
                       </label>
-                      <InputField disabled={true} name="Contact" className="textfield_row2" value={formState.values.contact} />
+                      <InputField
+                        disabled={true}
+                        name="Contact"
+                        className="textfield_row2"
+                        value={formState.values.contact}
+                      />
                     </div>
                     <div className="textField_row2_div">
                       <label htmlFor="" className="label_modal">
@@ -343,13 +341,31 @@ const NameProvider = () => {
                               {!sort.ascend ? (
                                 <img
                                   className="sorting-icon"
-                                  onClick={() => getSortedData(countries, setCountries, setSort, [], "name", true)}
+                                  onClick={() =>
+                                    getSortedData(
+                                      countries,
+                                      setCountries,
+                                      setSort,
+                                      [],
+                                      "name",
+                                      true
+                                    )
+                                  }
                                   src={arrow_up}
                                   alt=""
                                 />
                               ) : (
                                 <img
-                                  onClick={() => getSortedData(countries, setCountries, setSort, [], "name", false)}
+                                  onClick={() =>
+                                    getSortedData(
+                                      countries,
+                                      setCountries,
+                                      setSort,
+                                      [],
+                                      "name",
+                                      false
+                                    )
+                                  }
                                   src={downArrow}
                                   alt=""
                                 />
@@ -397,7 +413,13 @@ const NameProvider = () => {
           <label htmlFor="" className="label_modal">
             {t("Select country to add")}
           </label>
-          <MultiSelect name="country" onChange={handleMultiSelectChange} value={select} names={COUNTRIES} select={select} />
+          <MultiSelect
+            name="country"
+            onChange={handleMultiSelectChange}
+            value={select}
+            names={COUNTRIES}
+            select={select}
+          />
           <Button
             text={t("Update Service Provider")}
             className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
@@ -421,17 +443,25 @@ const NameProvider = () => {
           <InputField
             value={formState.values.fullName}
             name="fullName"
-            className={hasError("fullName") && formState.errors.fullName ? "textfield_row2_red" : "textfield_row2"}
+            className={
+              hasError("fullName") && formState.errors.fullName
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("fullName") ? formState.errors.fullName[0] : null}</div>
+          <div className="error-format">
+            {hasError("fullName") ? formState.errors.fullName[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             {t("Phone Number")}
           </label>
           <InputField
             value={formState.values.phone}
             name="phone"
-            className={hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"}
+            className={
+              hasError("phone") && formState.errors.phone ? "textfield_row2_red" : "textfield_row2"
+            }
             onChange={handlePhnChange}
           />
           <div className="error-format">{hasError("phone") ? formState.errors.phone[0] : null}</div>
@@ -441,17 +471,25 @@ const NameProvider = () => {
           <InputField
             value={formState.values.contact}
             name="contact"
-            className={hasError("contact") && formState.errors.contact ? "textfield_row2_red" : "textfield_row2"}
+            className={
+              hasError("contact") && formState.errors.contact
+                ? "textfield_row2_red"
+                : "textfield_row2"
+            }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("contact") ? formState.errors.contact[0] : null}</div>
+          <div className="error-format">
+            {hasError("contact") ? formState.errors.contact[0] : null}
+          </div>
           <label htmlFor="" className="label_modal">
             {t("Default sending email address")}
           </label>
           <InputField
             value={formState.values.email}
             name="email"
-            className={hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"}
+            className={
+              hasError("email") && formState.errors.email ? "textfield_row2_red" : "textfield_row2"
+            }
             onChange={handleChange}
           />
           <div className="error-format">{hasError("email") ? formState.errors.email[0] : null}</div>

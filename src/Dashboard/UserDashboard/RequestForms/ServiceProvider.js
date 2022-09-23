@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../../components/Common/InputField";
 import API from "../../../api/index";
 import { Grid } from "@mui/material";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { Store } from "../../../StoreContext";
 import validate from "validate.js";
 
@@ -30,10 +30,9 @@ const ServiceProvider = (props) => {
   const { request, pastRequest } = Store();
   const [vendors, setVendors] = useState([]);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
-  const { step2, setFormState, setStep2 } = props;
+  const { t } = useTranslation();
 
+  const { step2, setFormState, setStep2 } = props;
   useEffect(() => {
     const errors = validate(step2.values, schema);
     setFormState((formState) => ({
@@ -55,7 +54,13 @@ const ServiceProvider = (props) => {
 
     setStep2({
       ...step2,
-      values: { ...step2.values, vendorId: vendorId, lastName: contact_lname, firstName: contact_fname, email: contact_email },
+      values: {
+        ...step2.values,
+        vendorId: vendorId,
+        lastName: contact_lname,
+        firstName: contact_fname,
+        email: contact_email,
+      },
     });
   };
 
@@ -111,7 +116,9 @@ const ServiceProvider = (props) => {
             props.handleChange(e.target.name, e.target.checked);
           }}
         />
-        <span className="check_company_p">{t("Do you have contact information for this certification company?")}</span>
+        <span className="check_company_p">
+          {t("Do you have contact information for this certification company?")}
+        </span>
       </div>
       {step2.values?.contactInfo ? (
         <>

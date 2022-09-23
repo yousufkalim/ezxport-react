@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ApplicationHeader from "./ApplicationHeader";
 import ApplicationTab from "./ApplicationTab";
-import ProductLists from "./ProductLists";
 import API from "../../../api/index";
 import { useParams } from "react-router-dom";
 

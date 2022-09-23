@@ -5,9 +5,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../api/index";
-import { toast } from "react-toastify";
 import Spinner from "../../components/Common/Spinner";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import toaster from "../../utils/toaster";
 
 const questions = [
@@ -27,8 +26,7 @@ const AskQuestion = () => {
   const [submitLoading, setSubmitLoading] = useState(false);
   const userData = JSON.parse(user);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     getUserRequest();
@@ -42,11 +40,10 @@ const AskQuestion = () => {
           setRequests(res.data.request);
           setLoading(false);
         })
-        .catch((err) => {
-          toast.error(t("Something went wrong"));
-        });
+
+        .catch((err) => toaster("Failed", "Something went wrong"));
     } catch (err) {
-      toast.error(err.message);
+      toaster("Failed", err.message);
       setLoading(false);
     }
   };
@@ -76,11 +73,15 @@ const AskQuestion = () => {
         resetForm();
         setSubmitLoading(false);
         setLoading(false);
-        toaster('success', 'We will get back to you quickly', 'The question was asked to the administrator');
-
+        toaster(
+          "success",
+          "We will get back to you quickly",
+          "The question was asked to the administrator"
+        );
       })
       .catch((err) => {
-        toast.err(t("Something went wrong"));
+        toaster("Failed", "Something went wrong");
+
         setLoading(false);
         setSubmitLoading(false);
       });

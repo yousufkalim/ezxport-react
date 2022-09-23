@@ -8,15 +8,16 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
 import Spinner from "../../../../../components/Common/Spinner";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import BuyerModal from "./BuyerModal";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 import { createFilter } from "react-search-input";
+import toaster from "../../../../../utils/toaster";
+
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -67,10 +68,8 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) 
         setBuyers(res.data.buyer);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong"));
-        setLoading(false);
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
   };
 
   const handleOpenModal = (edit, item) => {

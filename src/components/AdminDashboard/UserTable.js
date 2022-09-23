@@ -12,17 +12,16 @@ import ExportIcon from "../../assets/ExportIcon.svg";
 import { useHistory } from "react-router-dom";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import API from "../../api";
-import { toast } from "react-toastify";
 import { createFilter } from "react-search-input";
 import Spinner from "../Common/Spinner";
+import toaster from "../../utils/toaster";
 
-const KEYS_TO_FILTERS = ['last_name', 'first_name']
+const KEYS_TO_FILTERS = ["last_name", "first_name"];
 
 const UserTable = (props) => {
-
-  const {loading, rows} = props;
+  const { loading, rows } = props;
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -34,22 +33,27 @@ const UserTable = (props) => {
         window.location.href = res.data.path;
       })
       .catch((err) => {
-        toast.error("Some went wrong");
+        toaster("Failed", "Some went wrong");
       });
   };
 
   const searchedResults = rows?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
-    return (
-      <>
+  return (
+    <>
       <div className="list_main_div">
         <div className="list_second_div">
           {/* list head  */}
           <div className="UserTable">
             <h1 className="list_user_h1">{t(props.title)}</h1>
             <div className="UserTable_right_div">
-              <SearchField setSearch={setSearchTerm} />
-              <Button className="export_btn" text={t("Export list")} Imgsrc={ExportIcon} onClick={() => handleSheet()} />
+              <SearchField placeholder="Search" setSearch={setSearchTerm} />
+              <Button
+                className="export_btn"
+                text={t("Export list")}
+                Imgsrc={ExportIcon}
+                onClick={() => handleSheet()}
+              />
             </div>
           </div>
           {/* list table   */}
@@ -70,56 +74,71 @@ const UserTable = (props) => {
                         {t(item.list)}
                         &nbsp;
                         {item.sortIcon && !props.sort.ascend && props.sort.key === item.key ? (
-                          <img className="sorting-icon" onClick={() => props.sortData(item.key, true)} src={arrow_up} alt="" />
+                          <img
+                            className="sorting-icon"
+                            onClick={() => props.sortData(item.key, true)}
+                            src={arrow_up}
+                            alt=""
+                          />
                         ) : (
-                          item.sortIcon && <img onClick={() => props.sortData(item.key, false)} src={downArrow} alt="" />
+                          item.sortIcon && (
+                            <img
+                              onClick={() => props.sortData(item.key, false)}
+                              src={downArrow}
+                              alt=""
+                            />
+                          )
                         )}
                       </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {loading ? <Spinner /> : searchedResults?.map((row) => (
-                    <TableRow
-                      onClick={() => {
-                        history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
-                      }}
-                      key={row.name}
-                      sx={{ cursor: "pointer", border: "1px solid #E5E5E5;" }}
-                    >
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.last_name}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.first_name}</p>
-                      </TableCell>
+                  {loading ? (
+                    <Spinner />
+                  ) : (
+                    searchedResults?.map((row) => (
+                      <TableRow
+                        onClick={() => {
+                          history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
+                        }}
+                        key={row.name}
+                        sx={{ cursor: "pointer", border: "1px solid #E5E5E5;" }}
+                      >
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.last_name}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.first_name}</p>
+                        </TableCell>
 
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.email}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.phone_number}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.address}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.zip_code || row.zipcode}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.city}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.company.name}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.company.type}</p>
-                      </TableCell>
-                      <TableCell component="th" scope="row" align="left" className="table_cell">
-                        <p className="AP_plus_title">{row.company.vat}</p>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.email}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.phone_number}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.address}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.zip_code || row.zipcode}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.city}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.company.name}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.company.type}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row" align="left" className="table_cell">
+                          <p className="AP_plus_title">{row.company.vat}</p>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
                 </TableBody>
               </Table>
             </TableContainer>
@@ -127,6 +146,6 @@ const UserTable = (props) => {
         </div>
       </div>
     </>
-    )
-  }
+  );
+};
 export default UserTable;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchField from "../../../components/Common/SearchField";
 // import TabMenu from "./TabMenu";
 import Button from "../../../components/Common/Button";
@@ -12,14 +12,14 @@ import { toast } from "react-toastify";
 import SellersTab from "./subcomponents/SellersTab";
 import LocationsTab from "./subcomponents/LocationsTab";
 
-const title = [
-  { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
-  { heading: "Country" },
-  { heading: "E-mail address" },
-  { heading: "Telephone" },
-  { heading: "Address" },
-  { heading: "" },
-];
+// const title = [
+//   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
+//   { heading: "Country" },
+//   { heading: "E-mail address" },
+//   { heading: "Telephone" },
+//   { heading: "Address" },
+//   { heading: "" },
+// ];
 
 
 const schema = {
@@ -52,6 +52,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
   },
 };
+
 
 const TabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -96,8 +97,7 @@ const AddressBook = () => {
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCountries();
@@ -132,6 +132,7 @@ const AddressBook = () => {
             <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
               <SearchField setSearch={setSearchTerm}  />
+
               <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>

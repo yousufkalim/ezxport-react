@@ -4,12 +4,12 @@ import TextFieldSelect from "./TextFieldSelect";
 import MenuItem from "@mui/material/MenuItem";
 import FilePicker from "./FilePicker";
 import Select from "@mui/material/Select";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ProductForm = (props) => {
   const [toComplete, setToComplete] = useState();
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
+
   const handleDataChange = (e) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
@@ -55,9 +55,7 @@ const ProductForm = (props) => {
   return (
     <>
       <div className="title_Div_documents">
-        <span className="title_span">
-          {props.item.code.code} 
-        </span>
+        <span className="title_span">{props.item.code.code}</span>
         {validateProduct() ? (
           <span className="complete_pill">{t("Complete")}</span>
         ) : (
@@ -145,7 +143,6 @@ const ProductForm = (props) => {
               name="price"
               onChange={(e) => handleDataChange(e)}
             />
-
           </div>
         </div>
       </div>

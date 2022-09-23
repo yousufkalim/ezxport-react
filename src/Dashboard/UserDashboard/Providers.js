@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "../../assets/SearchIcon.svg";
 import ProvidersTable from "../../components/UserDashboard/ProvidersTable";
 import API from "../../api/index";
-import { toast } from "react-toastify";
-import Spinner from "../../components/Common/Spinner";
 import toaster from "../../utils/toaster";
 import { useTranslation } from "react-i18next";
 import { createFilter } from "react-search-input";
 import SearchField from "../../components/Common/SearchField";
 
 const KEYS_TO_FILTERS = ['name'];
+
 
 const Providers = () => {
   const [providers, setProviders] = useState([]);
@@ -38,7 +37,7 @@ const Providers = () => {
         // toaster('success', "testing");
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
         setLoading(false);
       });
   };

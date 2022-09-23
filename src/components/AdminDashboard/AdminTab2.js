@@ -10,15 +10,14 @@ import Modal from "../Common/Modal";
 import InputField from "../Common/InputField";
 import Button from "../Common/Button";
 import API from "../../api/index";
-import { toast } from "react-toastify";
 import DeleteIcon from "../../assets/DeleteIcon.svg";
 import validate from "validate.js";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import { getSortedData } from "../../lib/getSortedData";
 import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
-import Spinner from "../Common/Spinner";
 import ConfirmModal from "../Common/ConfirmModal";
+import toaster from "../../utils/toaster";
 
 const schema = {
   name: {
@@ -46,8 +45,7 @@ const AdminTab2 = (props) => {
   const [openModal, setOpenModal] = useState(false);
   const [docId, setDocId] = useState("");
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   // const [name, setName] = useState("");
   // const [info, setInfo] = useState("");
@@ -62,7 +60,8 @@ const AdminTab2 = (props) => {
         console.log("handleAddDocuments", res);
         props.handleCountryData();
         props.setOpenAddDocument(false);
-        toast.success(t("Document Added Successfully"));
+        toaster("success", "Document Added Successfully");
+
         setFormState((formState) => ({
           ...formState,
           values: {
@@ -76,7 +75,7 @@ const AdminTab2 = (props) => {
       .catch((err) => {
         console.log("handleAddDocuments", err);
         props.setOpenAddDocument(false);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
 
@@ -98,11 +97,11 @@ const AdminTab2 = (props) => {
         props.handleCountryData();
         setOpenModal(false);
         setDocId("");
-        toast.success(t("Document Deleted Successfully"));
+        toaster("success", "Document Deleted Successfully", "Deleted Document");
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data.message);
+        toaster("Failed", err.response.data.message);
       });
   };
   const handleChange = (event) => {
@@ -130,13 +129,17 @@ const AdminTab2 = (props) => {
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
-                    onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)}
+                    onClick={() =>
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)
+                    }
                     src={arrow_up}
                     alt=""
                   />
                 ) : (
                   <img
-                    onClick={() => getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)}
+                    onClick={() =>
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)
+                    }
                     src={downArrow}
                     alt=""
                   />
@@ -176,7 +179,11 @@ const AdminTab2 = (props) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDocumentDelete(docId)} />
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleDocumentDelete(docId)}
+      />
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}
@@ -191,7 +198,11 @@ const AdminTab2 = (props) => {
           <InputField
             name="name"
             value={formState.values.name}
-            className={hasError("name") && formState.errors.info ? "textfield_addvendor_red" : "textfield_addvendor"}
+            className={
+              hasError("name") && formState.errors.info
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
             onChange={handleChange}
           />
           <div className="error-format">{hasError("name") ? formState.errors.name[0] : null}</div>
@@ -201,7 +212,11 @@ const AdminTab2 = (props) => {
           <InputField
             name="info"
             value={formState.values.info}
-            className={hasError("info") && formState.errors.info ? "textfield_addvendor_red" : "textfield_addvendor"}
+            className={
+              hasError("info") && formState.errors.info
+                ? "textfield_addvendor_red"
+                : "textfield_addvendor"
+            }
             onChange={handleChange}
           />
           <div className="error-format">{hasError("info") ? formState.errors.info[0] : null}</div>

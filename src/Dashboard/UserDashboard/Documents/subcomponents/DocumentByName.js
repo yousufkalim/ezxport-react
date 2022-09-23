@@ -8,15 +8,15 @@ import DownloadIcon from "../../../../assets/DownloadIcon.svg";
 import RightArrow from "../../../../assets/RightArrow.svg";
 import TitleDownArrow from "../../../../assets/TitleDownArrow.svg";
 import API from "../../../../api/index";
-import { toast } from "react-toastify";
 import Spinner from "../../../../components/Common/Spinner";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../../../../utils/toaster";
 
 const DocumentByName = ({ loading, codes: allCodes }) => {
   const [request, setRequest] = useState({ open: false, id: "" });
   const [product, setProduct] = useState({ open: false, id: "" });
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const handleClick = (id) => {
     setRequest({ open: !request.open, id: request.open ? "" : id });
@@ -32,21 +32,16 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        toast.error(t("File not found!"));
-      });
+      .catch((err) => toaster("Failed", "File not found!"));
   };
 
   const downloadProduct = async (e, prodId) => {
-    console.log("Document  ", prodId);
     e.stopPropagation();
     await API("get", `/requests/zipFileProduct/${prodId}`)
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        toast.error(t("File not found!"));
-      });
+      .catch((err) => toaster("Failed", "File not found!"));
   };
 
   const downloadZipFile = async (e, reqId) => {
@@ -55,9 +50,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => {
-        toast.error(t("File not found!"));
-      });
+      .catch((err) => toaster("Failed", "File not found!"));
   };
 
   return (
@@ -142,8 +135,11 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                           }
                       </React.Fragment>
                   )
+
                 }
-                
+              })}
+          </React.Fragment>
+        )}
       </List>
     </div>
   );

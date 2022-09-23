@@ -7,11 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 const ProductLists = ({ codes, currency }) => {
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
   const monetary_value = codes?.code?.reduce((n, { monetary_value }) => n + monetary_value, 0);
   return (
     <>
@@ -23,7 +22,11 @@ const ProductLists = ({ codes, currency }) => {
             <span>
               – {monetary_value} {currency === "USD" ? "$" : "€"} –
             </span>
-            {codes?.length > 1 ? <span> {codes?.length} codes</span> : <span> {codes?.length} code</span>}
+            {codes?.length > 1 ? (
+              <span> {codes?.length} codes</span>
+            ) : (
+              <span> {codes?.length} code</span>
+            )}
           </p>
         </div>
         {/* table  */}

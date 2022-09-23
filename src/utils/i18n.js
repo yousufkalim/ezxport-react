@@ -313,7 +313,7 @@ i18n
           "Buyer data": "Buyer data",
           "Place of inspection": "Place of inspection",
           "Date on which the goods can be inspected": "Date on which the goods can be inspected",
-          "contact last name": "contact last name",
+          "Contact last name": "Contact last name",
           "contact first name": "contact first name",
           "Download the file": "Download the file",
           "Request document": "Request document",
@@ -439,10 +439,13 @@ i18n
           Good: "Good",
           Excellent: "Excellent",
           "Something went wrong!": "Something went wrong!",
+          "Email Address": "Email Address",
+          "Country name": "Country name",
 
           // Service providers
           "To Search": "To Search",
           "To Confirm": "To Confirm",
+          Search: "Search",
           "Certificate cost": "Certificate cost",
           // Address Book
           Buyers: "Buyers",
@@ -845,7 +848,7 @@ i18n
           "Place of inspection": "Lieu de contrôle",
           "Date on which the goods can be inspected":
             "Date à laquelle les marchandises peuvent être inspectées",
-          "contact last name": "Nom de famille du contact",
+          "Contact last name": "Nom de famille du contact",
           "contact first name": "Prénom du contact",
           "Download the file": "Télécharger le fichier",
           "Request document": "Demander un document",
@@ -971,10 +974,14 @@ i18n
           Good: "Bien",
           Excellent: "Excellent",
           "Something went wrong!": "Quelque chose s'est mal passé !",
+          "Email Address": "Adresse e-mail",
+          "Country name": "Nom du pays",
 
           // Service providers
           "To Search": "Chercher",
           "To Confirm": "Confirmer",
+          Search: "Chercher",
+
           // Address Book
           Buyers: "Acheteurs",
           Sellers: "Les vendeurs",

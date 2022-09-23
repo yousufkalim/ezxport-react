@@ -64,6 +64,7 @@ const Login = () => {
         email: formState.values.email,
         password: formState.values.password,
       })
+
         .then((res) => {
           if (res?.data?.role === "user") {
             localStorage.setItem("userData", JSON.stringify(res.data.user));

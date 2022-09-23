@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import ProvidersModal from "../../components/UserDashboard/ProvidersModal";
 import EditIcon from "../../assets/EditIcon.svg";
 import API from "../../api/index";
-import { toast } from "react-toastify";
+import toaster from "../../utils/toaster";
 import Spinner from "../../components/Common/Spinner";
 import { useTranslation } from "react-i18next";
 import downArrow from "../../assets/TitleDownArrow.svg";
@@ -43,8 +43,7 @@ const ProvidersTable = (props) => {
 
   const { data, setData } = props;
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchCountries();
@@ -58,7 +57,8 @@ const ProvidersTable = (props) => {
         setLoading(false);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        toaster("Failed", "Something went wrong!");
+
         setLoading(false);
       });
   };

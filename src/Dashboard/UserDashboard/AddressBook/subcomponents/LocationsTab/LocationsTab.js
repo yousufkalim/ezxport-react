@@ -9,7 +9,6 @@ import Paper from "@mui/material/Paper";
 import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
 import InputField from "../../../../../components/Common/InputField";
 import API from "../../../../../api/index";
-import { toast } from "react-toastify";
 import { validate } from "validate.js";
 import Modal from "../../../../../components/Common/Modal";
 import MenuItem from "@mui/material/MenuItem";
@@ -18,11 +17,12 @@ import Select from "@mui/material/Select";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import Spinner from "../../../../../components/Common/Spinner";
 import Button from "../../../../../components/Common/Button";
-import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
 import { createFilter } from "react-search-input";
+import toaster from "../../../../../utils/toaster";
+
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -64,7 +64,7 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 5,
-      minimum: 5
+      minimum: 5,
     },
   },
   town: {
@@ -127,10 +127,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         setLocations(res.data.place);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong"));
-        setLoading(false);
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
   };
 
   const countryHandler = (e) => {
@@ -142,8 +140,12 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormState({ ...formState, values: { ...formState.values, [name]: value },touched: {...formState.touched, [name]: true} })
-  }
+    setFormState({
+      ...formState,
+      values: { ...formState.values, [name]: value },
+      touched: { ...formState.touched, [name]: true },
+    });
+  };
 
   const handleOpenModal = (edit, item) => {
     setLocation(item);
@@ -208,21 +210,29 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const createLocation = async (data) => {
     await API("post", "/places", data)
       .then((res) => {
-        toast.success(t("Inspection location addedd successfully!"));
+        toaster(
+          "success",
+          "Inspection location addedd successfully!",
+          "Adding Inspection location"
+        );
         setOpen(false);
         fetchLocations();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const editLocation = async (data) => {
     await API("put", `/places/${location._id}`, data)
       .then((res) => {
-        toast.success(t("Inspection location updated successfully!"));
+        toaster(
+          "success",
+          "Inspection location updated successfully!",
+          "Update Inspection location"
+        );
         handleCloseModal();
         fetchLocations();
       })
-      .catch((err) => toast.success(t("Something went wrong!")));
+      .catch((err) => toaster("Failed", "Something went wrong!"));
   };
 
   const handleSubmit = (e) => {
@@ -399,7 +409,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               <Select
                 id="demo-simple-select"
                 disabled={!isEdit && location}
-                name='country'
+                name="country"
                 value={formState.values.country}
                 onChange={(e) => countryHandler(e)}
                 className="buyer_input"
@@ -420,7 +430,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   name="email"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("email")}
                   error={formState.errors.email}
                   value={formState.values.email}
@@ -434,7 +443,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   name="telephone"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("telephone")}
                   error={formState.errors.telephone}
                   value={formState.values.telephone}
@@ -451,7 +459,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 name="address"
                 disabled={!isEdit && location}
                 onChange={(e) => handleChange(e)}
-
                 isError={hasError("address")}
                 error={formState.errors.address}
                 value={formState.values.address}
@@ -468,7 +475,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   name="zipcode"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("zipcode")}
                   error={formState.errors.zipcode}
                   value={formState.values.zipcode}
@@ -482,7 +488,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   name="town"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("town")}
                   error={formState.errors?.town}
                   value={formState.values.town}
@@ -500,7 +505,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   label={t("First name")}
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("firstName")}
                   error={formState.errors?.firstName}
                   value={formState.values.firstName}
@@ -514,7 +518,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   label="Last name"
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
-  
                   isError={hasError("lastName")}
                   error={formState.errors?.lastName}
                   value={formState.values.lastName}
@@ -526,7 +529,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
           </div>
           {((!isEdit && !location) || (isEdit && location)) && (
             <Button
-              text={t("To Confirm")}
+              text="To Confirm"
               disabled={!formState.isValid}
               type="submit"
               onClick={(e) => handleSubmit(e)}

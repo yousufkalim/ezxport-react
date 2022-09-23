@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import CalculationRange from "./CalculationRange";
 import FormControl from "@mui/material/FormControl";
-// import TextField from "@mui/material/TextField";
-// import TextFieldSelect from "../Common/TextFieldSelect";
 import Modal from "../Common/Modal";
 import Button from "../Common/Button";
 import API from "../../api/index";
-import { toast } from "react-toastify";
 import CalculationCoefficient from "./CalculationCoefficient";
 import InputField from "../Common/InputField";
-import { useTranslation, Trans } from "react-i18next";
-
-function createData(name, calories, fat, carbs, protein, protein2) {
-  return { name, calories, fat, carbs, protein, protein2 };
-}
+import { useTranslation } from "react-i18next";
+import toaster from "../../utils/toaster";
 
 const AdminTab4 = (props) => {
   const [thresholdCurrency, setThresholdCurrency] = useState(
@@ -42,7 +36,7 @@ const AdminTab4 = (props) => {
         props.setOpenCalculationModal(false);
         props.handleCountryData();
         setCoefficientChange(res?.data?.calculation);
-        toast.success(t("Coefficient Updated Successfully"));
+        toaster("success", "Coefficient Updated Successfully", "Update Coefficient");
       })
       .catch((err) => {
         console.log("handleCoefficientChange", err);
@@ -58,10 +52,10 @@ const AdminTab4 = (props) => {
       max_cost: { currency: maxCostCurrency, value: maxCost },
     })
       .then((res) => {
-        props.handleCountryData()
-        setCoefficientChange(res?.data?.calculation)
+        props.handleCountryData();
+        setCoefficientChange(res?.data?.calculation);
         props.setOpenCalculationModal(false);
-        toast.success(t("Coefficient Added Successfully"));
+        toaster("success", "Coefficient Added Successfully", "Adding Coefficient");
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -212,7 +206,11 @@ const AdminTab4 = (props) => {
                 : "bom_downloadFile_btn"
             }
             onClick={props.calculation ? handleCoefficientChange : handleAddCoefficient}
-            disabled={MinThreshold === "" || minCost === "" || maxCost === "" || coefficient === "" ? true : false}
+            disabled={
+              MinThreshold === "" || minCost === "" || maxCost === "" || coefficient === ""
+                ? true
+                : false
+            }
           />
         </div>
       </Modal>

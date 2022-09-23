@@ -16,10 +16,10 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
 import FilePicker from "../../components/Common/FilePicker";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import Modal from "../../components/Common/Modal";
 import { createFilter } from "react-search-input";
-import { toast } from "react-toastify";
+import toaster from "../../utils/toaster";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -54,9 +54,9 @@ function a11yProps(index) {
   };
 }
 
-const PROVIDERS_TO_FILTERS = ['name'];
-const DOCUMENTS_TO_FILTERS = ['name'];
-const CODES_TO_FILTERS = ['code'];
+const PROVIDERS_TO_FILTERS = ["name"];
+const DOCUMENTS_TO_FILTERS = ["name"];
+const CODES_TO_FILTERS = ["code"];
 
 const AdminNomPays = () => {
   const params = useParams();
@@ -79,7 +79,7 @@ const AdminNomPays = () => {
   const [documentSerach, setDocumentSearch] = useState("");
   const [codeSearch, setCodeSearch] = useState("");
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     handleCountryData();
@@ -120,7 +120,7 @@ const AdminNomPays = () => {
         handleCountryData();
         setFile({});
         setOpen(false);
-        toast.success(res.data.message);
+        toaster("success", res.data.message);
       })
       .catch((err) => {
         console.log("errr", err);
@@ -153,15 +153,27 @@ const AdminNomPays = () => {
             ) : value === 1 ? (
               <div className="searching_div_country">
                 <SearchField setSearch={setDocumentSearch} />
-                <Button text={t("Add document")} className="update_Boms_btn" onClick={() => setOpenAddDocument(true)} />
+                <Button
+                  text={t("Add document")}
+                  className="update_Boms_btn"
+                  onClick={() => setOpenAddDocument(true)}
+                />
               </div>
             ) : value === 2 ? (
               <div className="searching_div_country2">
                 <div className="searching_div_style">
                   <SearchField setSearch={setCodeSearch} />
-                  <Button text={t("Add")} className="Edit_btn_bom" onClick={() => setOpenAddBomModal(true)} />
+                  <Button
+                    text={t("Add")}
+                    className="Edit_btn_bom"
+                    onClick={() => setOpenAddBomModal(true)}
+                  />
                 </div>
-                <Button text={t("Update")} className="update_Boms_btn" onClick={() => setOpen(true)} />
+                <Button
+                  text={t("Update")}
+                  className="update_Boms_btn"
+                  onClick={() => setOpen(true)}
+                />
               </div>
             ) : value === 3 ? (
               <div className="searching_div_country3">
@@ -169,7 +181,11 @@ const AdminNomPays = () => {
                   <SearchField placeholder={t("Searching")} className="Country_search_Calculation" />
                 )} */}
                 {currentRadioValue === "coefficient" && (
-                  <Button text={t("Update")} className="Edit_btn2" onClick={() => setOpenCalculationModal(true)} />
+                  <Button
+                    text={t("Update")}
+                    className="Edit_btn2"
+                    onClick={() => setOpenCalculationModal(true)}
+                  />
                 )}
               </div>
             ) : (
@@ -244,14 +260,25 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen} title={t("Update")} handleClose={handleClose} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t("Update")}
+        handleClose={handleClose}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
               {t("Download your BOM file")}
             </label>
             <div className="bom_download_File_btn_div">
-              <Link to={"/Files/Admintemplate.xlsx"} target="_blank" download className="bom_download">
+              <Link
+                to={"/Files/Admintemplate.xlsx"}
+                target="_blank"
+                download
+                className="bom_download"
+              >
                 {t("Download current file")}
               </Link>
             </div>
@@ -260,7 +287,12 @@ const AdminNomPays = () => {
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
             {t("Upload your BOM file")}
           </label>
-          <FilePicker index={"01"} fileName={file.name} name={file.name} onChange={(e) => handleCodesFile(e.target.files[0])} />
+          <FilePicker
+            index={"01"}
+            fileName={file.name}
+            name={file.name}
+            onChange={(e) => handleCodesFile(e.target.files[0])}
+          />
           <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>
