@@ -2,6 +2,7 @@ import React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import { useTranslation } from "react-i18next";
+import { mediaUrl } from "../../config";
 
 const SwitchButton = (props) => {
   const { t } = useTranslation();
@@ -14,9 +15,9 @@ const SwitchButton = (props) => {
           {props?.item?.url?.map((item, index) => {
             var filename = item.split("-").slice(-3).reverse().pop();
             return (
-              <p className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none" }}>
+              <a className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none", textDecoration: "none" }} target="_blank" href={`${mediaUrl}${item}`}>
                 {filename}
-              </p>
+              </a>
             );
           })}
         </div>
