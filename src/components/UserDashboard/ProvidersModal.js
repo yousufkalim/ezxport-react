@@ -68,17 +68,18 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
 
   useEffect(() => {
     if (data) {
-      const count = data?.countries
-        ?.map((item) => allCountries.find((country) => country?._id === item))
-        .map((c) => c?.name);
-      const splitName = data?.name?.split(" ");
-      setFormData({...formData, values: {...formData.values,
-        name: data.name,
-        firstName: splitName[0],
-        lastName: splitName[1],
-        email: data?.sending_email,
-        countries: count,
-      }});
+      const count = data?.countries?.map((item) => allCountries.find((country) => country?._id === item)).map((c) => c?.name);
+      setFormData({
+        ...formData,
+        values: {
+          ...formData.values,
+          name: data.name,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data?.email,
+          countries: count,
+        },
+      });
     }
   }, [data]);
 
@@ -102,7 +103,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setFormData({ ...formData, values: {...formData.values, [name]: value }, touched: {...formData.touched, [name]: true}});
+    setFormData({ ...formData, values: { ...formData.values, [name]: value }, touched: { ...formData.touched, [name]: true } });
   };
 
   const handleChangeCountry = (e) => {
@@ -110,7 +111,11 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
       target: { value },
     } = e;
 
-    setFormData({ ...formData, values: {...formData.values, countries: typeof value === "string" ? value.split(",") : value}, touched: {...formData.touched, country: true} });
+    setFormData({
+      ...formData,
+      values: { ...formData.values, countries: typeof value === "string" ? value.split(",") : value },
+      touched: { ...formData.touched, country: true },
+    });
   };
 
   const trimName = (item) => {
@@ -120,18 +125,13 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const getEditData = () => {
     const { firstName, lastName, email, countries } = formData.values;
     const { contact_email, phone_number } = data;
-    const countryIds = countries
-      ?.map((item) => allCountries.find((el) => el.name === item))
-      .map((country) => country._id);
+    const countryIds = countries?.map((item) => allCountries.find((el) => el.name === item)).map((country) => country._id);
     const fname = trimName(firstName);
     const lname = trimName(lastName);
-    const name = fname.concat(` ${lname}`);
     const obj = {
-      name,
-      countries: countryIds,
-      sending_email: email,
-      contact_email: contact_email,
-      phone_number: phone_number,
+      contact_email: email,
+      contact_fname: fname,
+      contact_lname: lname,
     };
 
     return obj;
@@ -140,7 +140,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const editProvider = async (e) => {
     e.preventDefault();
     const editData = getEditData();
-    await API("put", `/vendors/${data._id}`, editData)
+    await API("put", `/vendors/userVendors/${data.userVendorId}`, editData)
       .then((res) => {
         toaster("success", "User created successfully");
 
@@ -154,7 +154,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
 
   const hasError = (field) => (formData.touched[field] && formData.errors[field] ? true : false);
 
-  const {values, errors} = formData;
+  const { values, errors } = formData;
 
   return (
     <>
@@ -173,7 +173,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                     {t("Associated countries")}
                   </label>
                   <MultiSelect
-                    disabled={!isEdit}
+                    disabled={true}
                     name="country"
                     onChange={(e) => handleChangeCountry(e)}
                     value={values?.countries ?? []}
@@ -190,7 +190,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       label="First name"
                       name="firstName"
                       error={errors.firstName}
-                      isError={hasError('firstName')}
+                      isError={hasError("firstName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.firstName}
                       type="text"
@@ -204,7 +204,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       name="lastName"
                       label="Last name"
                       error={errors.lastName}
-                      isError={hasError('lastName')}
+                      isError={hasError("lastName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.lastName}
                       type="text"
@@ -219,7 +219,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                     disabled={!isEdit}
                     name="email"
                     error={errors.email}
-                      isError={hasError('email')}
+                    isError={hasError("email")}
                     onChange={(e) => handleChange(e)}
                     value={values?.email}
                     type="email"
