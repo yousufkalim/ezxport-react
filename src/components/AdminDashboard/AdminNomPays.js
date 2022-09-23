@@ -71,7 +71,7 @@ const AdminNomPays = () => {
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState("");
+  const [currentRadioValue, setCurrentRadioValue] = useState("coefficient");
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState("");
   const [file, setFile] = useState("");
@@ -97,7 +97,7 @@ const AdminNomPays = () => {
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
         setCalculation(res?.data?.country?.calculation);
-        setCurrentRadioValue(res?.data?.country?.calculation?.type);
+        // setCurrentRadioValue(res?.data?.country?.calculation?.type);
         setLoading(false);
       })
       .catch((err) => {

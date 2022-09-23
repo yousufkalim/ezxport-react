@@ -3,13 +3,13 @@ import LoginIcon from "../assets/LoginIcon.svg";
 import { Link } from "react-router-dom";
 import Header from "../components/Common/Header";
 import API from "../api/index";
-import { toast } from "react-toastify";
 import InputField from "../components/Common/InputField";
 import Button from "../components/Common/Button";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import validate from "validate.js";
-import { useTranslation, Trans } from "react-i18next";
+import { useTranslation } from "react-i18next";
+import toaster from "../utils/toaster";
 
 const schema = {
   email: {
@@ -27,8 +27,6 @@ const schema = {
   },
 };
 const Login = () => {
-  // ts@admin.com
-  // 12345678
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -40,8 +38,7 @@ const Login = () => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -52,7 +49,6 @@ const Login = () => {
     }));
   }, [formState.values]);
 
-  //checks which field is selected
   const handleChange = (event) => {
     setFormState((formState) => ({
       ...formState,
@@ -63,28 +59,31 @@ const Login = () => {
     }));
   };
   const handleLoggin = async () => {
-    await API("post", "/auth/login", {
-      email: formState.values.email,
-      password: formState.values.password,
-    })
-      .then((res) => {
-        if (res?.data?.role === "user") {
-          localStorage.setItem("userData", JSON.stringify(res.data.user));
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("role", JSON.stringify(res.data.role));
-          window.location = "/User/Dashboard/ListOfRequests";
-        } else if (res?.data?.role === "admin") {
-          localStorage.setItem("userData", JSON.stringify(res.data.admin));
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("role", JSON.stringify(res.data.role));
-
-          window.location = "/admin/Dashboard/Country";
-        }
+    try {
+      await API("post", "/auth/login", {
+        email: formState.values.email,
+        password: formState.values.password,
       })
-
-      .catch((err) => {
-        toast.error(err?.response?.data?.message?.msg);
-      });
+        .then((res) => {
+          if (res?.data?.role === "user") {
+            localStorage.setItem("userData", JSON.stringify(res.data.user));
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("role", JSON.stringify(res.data.role));
+            window.location = "/User/Dashboard/ListOfRequests";
+          } else if (res?.data?.role === "admin") {
+            localStorage.setItem("userData", JSON.stringify(res.data.admin));
+            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("role", JSON.stringify(res.data.role));
+  
+            window.location = "/admin/Dashboard/Country";
+          }
+        })
+        .catch((err) => {
+          toaster('failed', 'Email or password is incorrect' );
+        });
+    }catch(err){
+      toaster('failed', 'Something went wrong')
+    }
   };
 
   const handleBlur = (e) => {
@@ -102,9 +101,8 @@ const Login = () => {
   };
 
   const handleShowPassword = () => setShowPassword(!showPassword);
-
-  //checks error in the selected field
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  
   return (
     <>
       <Header />

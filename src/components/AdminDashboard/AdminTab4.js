@@ -27,8 +27,7 @@ const AdminTab4 = (props) => {
   const [maxCost, setMaxCost] = useState(props?.calculation?.max_cost?.value);
   const [coefficientChange, setCoefficientChange] = useState(props?.calculation);
 
-  const { t, i18n } = useTranslation();
-  const { language } = i18n;
+  const { t } = useTranslation();
 
   const handleCoefficientChange = async () => {
     await API("put", `/calculations/${props?.calculation?._id}`, {

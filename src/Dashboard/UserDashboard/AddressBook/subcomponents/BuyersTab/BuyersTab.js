@@ -16,6 +16,7 @@ import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { createFilter } from "react-search-input";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -26,7 +27,9 @@ const title = [
   { heading: "" },
 ];
 
-const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
+const KEYS_TO_FILTERS = ['company_name'];
+
+const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) => {
   const [buyers, setBuyers] = useState([]);
   const [buyer, setBuyer] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -91,6 +94,9 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
     }
   };
 
+  const searchedResults = buyers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
+
   console.log("Current state ==> ", buyers);
 
   return (
@@ -137,7 +143,7 @@ const BuyersTab = ({ t, schema, open, setOpen, userId, countries }) => {
               {loading ? (
                 <Spinner />
               ) : (
-                buyers?.map((buyer) => (
+                searchedResults?.map((buyer) => (
                   <TableRow
                     key={buyer._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

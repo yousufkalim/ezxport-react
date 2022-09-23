@@ -7,8 +7,9 @@ import Spinner from "../../components/Common/Spinner";
 import toaster from "../../utils/toaster";
 import { useTranslation } from "react-i18next";
 import { createFilter } from "react-search-input";
+import SearchField from "../../components/Common/SearchField";
 
-const KEYS_TO_FILTERS = ['code'];
+const KEYS_TO_FILTERS = ['name'];
 
 const Providers = () => {
   const [providers, setProviders] = useState([]);
@@ -51,8 +52,7 @@ const Providers = () => {
           <div className="List_heading_div5">
             <h1 className="list_h1_provider">{t("Service providers")}</h1>
             <div className="searching_provider">
-              <input type="text" className="search_input" placeholder={t("To Search")} />
-              <img src={SearchIcon} alt="" className="search_icon" />
+              <SearchField setSearch={setSearchTerm} />
             </div>
           </div>
           <ProvidersTable

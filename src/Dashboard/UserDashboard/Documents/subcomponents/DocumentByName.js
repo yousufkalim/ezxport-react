@@ -65,7 +65,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       <List>
                 <ListItemButton sx={{ border: '1px solid #EAECF0', background: '#f9fafb' }}>
                   <li className="table_li_name" style={{ marginRight: 'auto', display: 'flex' }}>
-                    Document name &nbsp;
+                    {t("Product Name")} &nbsp;
                     <img src={TitleDownArrow} alt="" className="title_arrow" />
                   </li>
                 </ListItemButton>

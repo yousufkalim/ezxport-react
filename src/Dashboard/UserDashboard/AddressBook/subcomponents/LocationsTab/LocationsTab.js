@@ -22,6 +22,7 @@ import { useTranslation, Trans } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
+import { createFilter } from "react-search-input";
 
 const title = [
   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
@@ -31,6 +32,8 @@ const title = [
   { heading: "Address" },
   { heading: "" },
 ];
+
+const KEYS_TO_FILTERS = ['company_name'];
 
 const schema = {
   companyName: {
@@ -80,7 +83,7 @@ const schema = {
   },
 };
 
-const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
+const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
@@ -263,6 +266,8 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
     ? "View inspection location"
     : "Add inspection location";
 
+  const searchedResults = locations.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
   return (
     <>
       <div className="list_table">
@@ -321,7 +326,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries }) => {
               {loading ? (
                 <Spinner />
               ) : (
-                locations?.map((item) => (
+                searchedResults?.map((item) => (
                   <TableRow
                     key={item._id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
