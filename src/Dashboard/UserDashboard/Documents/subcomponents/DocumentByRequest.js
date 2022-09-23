@@ -27,7 +27,7 @@ const DocumentByRequest = ({ loading, documents }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("failed", "File not found!"));
   };
 
   const downloadDocument = async (e, reqId, docId) => {
@@ -36,7 +36,7 @@ const DocumentByRequest = ({ loading, documents }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("failed", "File not found!"));
   };
 
   return (
@@ -52,15 +52,12 @@ const DocumentByRequest = ({ loading, documents }) => {
           <Spinner />
         ) : (
           <React.Fragment>
-            {documents.length > 0 &&
-              documents.map(({ requestId, title }) => {
+            {documents?.length > 0 &&
+              documents?.map(({ requestId, title }) => {
                 if (documents?.documents) {
                   return (
                     <React.Fragment key={requestId}>
-                      <ListItemButton
-                        onClick={(e) => handleClick(requestId)}
-                        sx={{ border: "1px solid #EAECF0" }}
-                      >
+                      <ListItemButton onClick={(e) => handleClick(requestId)} sx={{ border: "1px solid #EAECF0" }}>
                         <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
@@ -72,18 +69,11 @@ const DocumentByRequest = ({ loading, documents }) => {
                         />
                         {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
                       </ListItemButton>
-                      <Collapse
-                        in={request.open && request.id === requestId}
-                        timeout="auto"
-                        unmountOnExit
-                      >
+                      <Collapse in={request.open && request.id === requestId} timeout="auto" unmountOnExit>
                         {documents?.documents?.length > 0 &&
                           documents?.documents?.map(({ _id: docId, doc_id }) => (
                             <ListItemButton sx={{ border: "1px solid #EAECF0", display: "flex" }}>
-                              <li
-                                className="table_li2"
-                                style={{ marginRight: "auto", display: "flex" }}
-                              >
+                              <li className="table_li2" style={{ marginRight: "auto", display: "flex" }}>
                                 <img src={RightArrow} alt="" className="rightArrow" />
                                 {doc_id?.name}
                               </li>

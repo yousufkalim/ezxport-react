@@ -60,21 +60,22 @@ const Documents = () => {
     getAllRequests();
   }, []);
 
-  const getAllRequests = () => {
+  const getAllRequests = async () => {
     setLoading(true);
-    API("get", `/requests/returnMultipleFormatedRequest/${user._id}`)
+    await API("get", `/requests/returnMultipleFormatedRequest/${user._id}`)
       .then((res) => {
         const allRequests = res.data?.Request;
-        const allCodes = allRequests.filter((item) => item.codes.length > 0);
-        const allDocuments = allRequests.filter((item) => item.documents.length > 0);
+        if (allRequests?.length) {
+          const allCodes = allRequests?.filter((item) => item?.codes.length > 0);
+          const allDocuments = allRequests?.filter((item) => item?.documents.length > 0);
+          setDocuments(allDocuments);
+          setCodes(allCodes);
+        }
         setLoading(false);
-        setDocuments(allDocuments);
-        setCodes(allCodes);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
-
-        setLoading();
+        toaster("failed", "Something went wrong!");
+        setLoading(false);
       });
   };
 

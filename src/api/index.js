@@ -13,8 +13,7 @@ const api = async (method = "get", uri, body) => {
         if (err?.response?.status === 403) {
           window.location = "/login";
         } else {
-          toaster("Failed", err?.response?.data ? err.response.data : err?.message);
-
+          toaster("Failed", err?.response?.data ? err.response.data.message : "Something went wrong");
           reject(err);
         }
       });
