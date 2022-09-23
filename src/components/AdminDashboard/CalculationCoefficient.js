@@ -3,7 +3,7 @@ import FormControl from "@mui/material/FormControl";
 import InputField from "../Common/InputField";
 import { useTranslation } from "react-i18next";
 
-const CalculationCoefficient = ({ coefficientChange, currency }) => {
+const CalculationCoefficient = ({ values, currency }) => {
   const { t } = useTranslation();
 
   return (
@@ -17,8 +17,10 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               </label>
               <InputField
                 value={
-                  coefficientChange?.min_threshold?.value
-                    ? `${coefficientChange?.min_threshold?.value} ${currency === "USD" ? "$" : "€"}`
+                  values?.MinThreshold
+                    ? `${values?.MinThreshold} ${
+                        currency === "USD" ? "$" : "€"
+                      }`
                     : t("Minimum threshold")
                 }
                 disabled={true}
@@ -34,8 +36,8 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
 
               <InputField
                 value={
-                  coefficientChange?.coefficient
-                    ? `${coefficientChange?.coefficient} %`
+                  values?.coefficient
+                    ? `${values?.coefficient} %`
                     : t("Coefficient")
                 }
                 disabled={true}
@@ -50,8 +52,8 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               </label>
               <InputField
                 value={
-                  coefficientChange?.min_cost?.value
-                    ? `${coefficientChange?.min_cost?.value} ${currency === "USD" ? "$" : "€"}`
+                  values?.minCost
+                    ? `${values?.minCost} ${currency === "USD" ? "$" : "€"}`
                     : t("Minimum cost")
                 }
                 disabled={true}
@@ -66,8 +68,8 @@ const CalculationCoefficient = ({ coefficientChange, currency }) => {
               </label>
               <InputField
                 value={
-                  coefficientChange?.max_cost?.value
-                    ? `${coefficientChange?.max_cost?.value} ${currency === "USD" ? "$" : "€"}`
+                  values?.maxCost
+                    ? `${values?.maxCost} ${currency === "USD" ? "$" : "€"}`
                     : t("Maximum cost")
                 }
                 disabled={true}

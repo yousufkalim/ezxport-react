@@ -11,10 +11,17 @@ import API from "../../../../api/index";
 import Spinner from "../../../../components/Common/Spinner";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../../utils/toaster";
+import { createFilter } from "react-search-input";
+import { getSortedData } from "../../../../lib/getSortedData";
+import downArrow from "../../../../assets/TitleDownArrow.svg";
+import arrow_up from "../../../../assets/arrow_up.svg";
 
-const DocumentByName = ({ loading, codes: allCodes }) => {
+const KEYS_TO_FILTERS = ["title"];
+
+const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
   const [request, setRequest] = useState({ open: false, id: "" });
   const [product, setProduct] = useState({ open: false, id: "" });
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   const { t } = useTranslation();
 
@@ -53,21 +60,47 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .catch((err) => toaster("Failed", t("File not found!")));
   };
 
+  const searchedResults = allCodes.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
+
   return (
     <div>
       <List>
-        <ListItemButton sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}>
-          <li className="table_li_name" style={{ marginRight: "auto", display: "flex" }}>
+        <ListItemButton
+          sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}
+        >
+          <li
+            className="table_li_name"
+            style={{ marginRight: "auto", display: "flex" }}
+          >
             {t("Product Name")} &nbsp;
-            <img src={TitleDownArrow} alt="" className="title_arrow" />
+            {!sort.ascend ? (
+              <img
+                className="sorting-icon"
+                onClick={() =>
+                  getSortedData(allCodes, setCodes, setSort, [], "title", true)
+                }
+                src={arrow_up}
+                alt=""
+              />
+            ) : (
+              <img
+                onClick={() =>
+                  getSortedData(allCodes, setCodes, setSort, [], "title", false)
+                }
+                src={downArrow}
+                alt=""
+              />
+            )}
           </li>
         </ListItemButton>
         {loading ? (
           <Spinner />
         ) : (
           <React.Fragment>
-            {allCodes?.length > 0 &&
-              allCodes?.map(({ codes, documents, requestId, title }) => {
+            {searchedResults?.length > 0 &&
+              searchedResults?.map(({ codes, documents, requestId, title }) => {
                 if (codes?.length) {
                   return (
                     <React.Fragment key={requestId}>
@@ -75,6 +108,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                         onClick={() => handleClick(requestId)}
                         sx={{ border: "1px solid #EAECF0" }}
                       >
+
                         <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
@@ -84,7 +118,11 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                           alt=""
                           className="downlaod_img_main"
                         />
-                        {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
+                        {request.open && request.id === requestId ? (
+                          <ExpandLess />
+                        ) : (
+                          <ExpandMore />
+                        )}
                       </ListItemButton>
                       <Collapse
                         in={request.open && request.id === requestId}
@@ -98,17 +136,23 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                                 <React.Fragment>
                                   <ListItemButton
                                     onClick={() => handleProduct(_id)}
-                                    sx={{ border: "1px solid #EAECF0", display: "flex" }}
+                                    sx={{
+                                      border: "1px solid #EAECF0",
+                                      display: "flex",
+                                    }}
                                   >
                                     <li
                                       className="table_li2"
+
                                       style={{ marginRight: "auto", display: "flex" }}
                                     >
                                       <img src={RightArrow} alt="" className="rightArrow" />
                                       {code?.code}
                                     </li>
                                     <img
-                                      onClick={(e) => downloadCode(e, requestId, code._id)}
+                                      onClick={(e) =>
+                                        downloadCode(e, requestId, code._id)
+                                      }
                                       src={DownloadIcon}
                                       alt=""
                                       className="downlaod_img"
@@ -132,15 +176,24 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                                       {products.length > 0 && (
                                         <ListItemButton
                                           // onClick={() => handleProduct("1122")}
-                                          sx={{ border: "1px solid #EAECF0", display: "flex" }}
+                                          sx={{
+                                            border: "1px solid #EAECF0",
+                                            display: "flex",
+                                          }}
                                         >
                                           <div className="expandable-element-container">
                                             <li className="table_li3">
-                                              <img src={RightArrow} alt="" className="rightArrow" />
+                                              <img
+                                                src={RightArrow}
+                                                alt=""
+                                                className="rightArrow"
+                                              />
                                               {name}
                                             </li>
                                             <img
-                                              onClick={(e) => downloadProduct(e, id)}
+                                              onClick={(e) =>
+                                                downloadProduct(e, id)
+                                              }
                                               src={DownloadIcon}
                                               alt=""
                                               className="downlaod_img"

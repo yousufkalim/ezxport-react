@@ -95,10 +95,21 @@ const ProvidersTable = (props) => {
                         style={{ backgrounColor: "#EAECF0" }}
                       >
                         {t(item.name)} &nbsp;
-                        {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                        {item.sortIcon &&
+                        !sort.ascend &&
+                        sort.key === item.key ? (
                           <img
                             className="sorting-icon"
-                            onClick={() => getSortedData(data, setData, setSort, [], "name", true)}
+                            onClick={() =>
+                              getSortedData(
+                                data,
+                                setData,
+                                setSort,
+                                [],
+                                "name",
+                                true
+                              )
+                            }
                             src={arrow_up}
                             alt=""
                           />
@@ -106,7 +117,14 @@ const ProvidersTable = (props) => {
                           item.sortIcon && (
                             <img
                               onClick={() =>
-                                getSortedData(data, setData, setSort, [], "name", false)
+                                getSortedData(
+                                  data,
+                                  setData,
+                                  setSort,
+                                  [],
+                                  "name",
+                                  false
+                                )
                               }
                               src={downArrow}
                               alt=""
@@ -136,7 +154,9 @@ const ProvidersTable = (props) => {
                       <p className="AP_plus_title">
                         {countries?.length &&
                           item?.countries?.map((country, index) => {
-                            const count = countries?.find((el) => el._id === country);
+                            const count = countries?.find(
+                              (el) => el._id === country
+                            );
                             return (
                               <span key={item.name}>
                                 {count.name}

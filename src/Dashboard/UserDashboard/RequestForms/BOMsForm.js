@@ -67,7 +67,12 @@ const BOMsForm = (props) => {
     const newCodes = [];
     codes?.forEach((item) => {
       const { monetary_value } = item;
-      const { code, _id: codeID, certification_required, admin_code } = item.code;
+      const {
+        code,
+        _id: codeID,
+        certification_required,
+        admin_code,
+      } = item.code;
       const codeObj = {
         monetary_value,
         admin_code,
@@ -109,7 +114,8 @@ const BOMsForm = (props) => {
 
   const handleEditModal = () => setOpenEditModal(false);
   const handleCertificateRequire = () => props.setCertificateRequire(false);
-  const handleCertificateNotRequire = () => props.setCertificateNotRequire(false);
+  const handleCertificateNotRequire = () =>
+    props.setCertificateNotRequire(false);
   const handleVerification = () => setVerificationModal(false);
   const handleGetAllCountry = async () => {
     await API("get", "/countries/")
@@ -136,7 +142,7 @@ const BOMsForm = (props) => {
     console.log("CODE Obj ", obj);
     console.log("CODE ALL codes ", obj);
     console.log("Admin ALL codes ", adminCodes);
-    setAllCodes([obj]);
+    setAllCodes([...allCodes, obj]);
     let filtered = adminCodes?.filter((item) => {
       return item?._id !== code?._id;
     });
@@ -184,7 +190,7 @@ const BOMsForm = (props) => {
           // props?.setMatchedData([...arr1]);
           // props?.setUnMatchedData(res?.data?.unMatched);
           // props.setUnMatchedCodes(res?.data?.unMatched);
-          setAllCodes([...arr1, ...arr2]);
+          setAllCodes([...allCodes, ...arr1, ...arr2]);
         })
         .catch((err) => {
           setLoading(false);
@@ -205,6 +211,10 @@ const BOMsForm = (props) => {
     let filtered = allCodes.filter((item) => {
       return item.codeID !== code.codeID;
     });
+    console.log("ALL codes ==> ", allCodes);
+    console.log("Single codes ==> ", code);
+    console.log("Filtered codes ==> ", filtered);
+    console.log("FIND codes ==> ", findCode);
     if (findCode && findCode.certification_required && !pastRequest) {
       // setUnMatchedData([...unMatchedData, findCode]);
       setAdminCodes([...adminCodes, findCode]);
@@ -283,7 +293,9 @@ const BOMsForm = (props) => {
         </Select>
 
         <label className="BomLabel">
-          {t("Create a new request or select an old request to retrieve information")}
+          {t(
+            "Create a new request or select an old request to retrieve information"
+          )}
         </label>
         <Select
           id="demo-simple-select"
@@ -354,7 +366,12 @@ const BOMsForm = (props) => {
             </label>
           </div>
 
-          <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn">
+          <Link
+            to={"/Files/codeTemplate.xlsx"}
+            target="_blank"
+            download
+            className="download_Btn"
+          >
             {t("Download XLS file")}
           </Link>
         </div>
@@ -390,7 +407,9 @@ const BOMsForm = (props) => {
         <div className="codedropdown_div1">
           <Button
             text={t("To add")}
-            className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"}
+            className={
+              code === "default" ? "to_add_btn_disabled" : "to_add_btn"
+            }
             onClick={handleAddCodes}
             disabled={code === "default" ? true : false}
           />
@@ -399,7 +418,10 @@ const BOMsForm = (props) => {
       {allCodes?.length === 0 ? (
         ""
       ) : (
-        <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
+        <TableContainer
+          component={Paper}
+          style={{ width: "100%", marginTop: "2%" }}
+        >
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -420,16 +442,19 @@ const BOMsForm = (props) => {
                 return (
                   <TableRow
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    key={item?.codeID}
+                    key={index}
+
                   >
                     <TableCell align="center" style={{ width: "20%" }}>
                       <p
                         className="AP_plus_title"
+
                         style={{ color: item?.certification_required === false && "red" }}
                       >
                         {item?.code}
                       </p>
                     </TableCell>
+
                     <TableCell align="center" className="country2" style={{ width: "20%" }}>
                       <p
                         className="AP_plus_title"
@@ -503,7 +528,8 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => {
               setAllCodes((prev) => {
-                prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
+                prev[editModalData.index].monetary_value =
+                  editModalData?.item?.monetary_value;
                 return [...prev];
               });
               setOpenEditModal(false);
@@ -520,7 +546,11 @@ const BOMsForm = (props) => {
         </div>
       </Modal>
 
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleDelete(bomId)}
+      />
       {/* certification required modal */}
       <Modal
         open={props.certificateRequire}
@@ -548,7 +578,8 @@ const BOMsForm = (props) => {
             <div className="space">
               {t("Those products for")} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} {t("require a certification")}
+                {props.certificationCountryOfCode}{" "}
+                {t("require a certification")}
               </span>
             </div>
             <div className="space">
@@ -596,11 +627,14 @@ const BOMsForm = (props) => {
             <div className="space">
               {t("Those products for")} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} {t("do not require a certification")}
+                {props.certificationCountryOfCode}{" "}
+                {t("do not require a certification")}
               </span>
             </div>
             <div className="space" style={{ textAlign: "center" }}>
-              {t("You can therefore send your goods without going through an organization.")}
+              {t(
+                "You can therefore send your goods without going through an organization."
+              )}
             </div>
           </div>
           <Button
@@ -638,7 +672,10 @@ const BOMsForm = (props) => {
               <Featured />
             </div>
 
-            <div className="space" style={{ width: "75%", textAlign: "center" }}>
+            <div
+              className="space"
+              style={{ width: "75%", textAlign: "center" }}
+            >
               {t("The nomenclatures listed for the")}
               <b>
                 {t("Gabon are subject")} <br />
@@ -649,8 +686,14 @@ const BOMsForm = (props) => {
               {t("The cost of this certification is up to")} <b>7000€/HT</b>
             </div>
           </div>
-          <Button text={t("Continue my request on Ezxport")} className="to_confirm_btn" />
-          <Button text={t("Go back to my request")} className="delete_bom_btn" />
+          <Button
+            text={t("Continue my request on Ezxport")}
+            className="to_confirm_btn"
+          />
+          <Button
+            text={t("Go back to my request")}
+            className="delete_bom_btn"
+          />
         </div>
       </Modal>
     </div>

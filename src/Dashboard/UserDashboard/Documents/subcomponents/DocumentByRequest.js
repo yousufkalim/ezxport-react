@@ -11,9 +11,21 @@ import API from "../../../../api/index";
 import Spinner from "../../../../components/Common/Spinner";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../../utils/toaster";
+import { createFilter } from "react-search-input";
+import { getSortedData } from "../../../../lib/getSortedData";
+import downArrow from "../../../../assets/TitleDownArrow.svg";
+import arrow_up from "../../../../assets/arrow_up.svg";
 
-const DocumentByRequest = ({ loading, documents }) => {
+const KEYS_TO_FILTERS = ["title"];
+
+const DocumentByRequest = ({
+  loading,
+  documents,
+  setDocuments,
+  searchTerm,
+}) => {
   const [request, setRequest] = useState({ open: false, id: "" });
+  const [sort, setSort] = useState({ key: "", ascend: true });
 
   const { t } = useTranslation();
 
@@ -39,21 +51,61 @@ const DocumentByRequest = ({ loading, documents }) => {
       .catch((err) => toaster("Failed", t("File not found!")));
   };
 
+  const searchedResults = documents.filter(
+    createFilter(searchTerm, KEYS_TO_FILTERS)
+  );
+
   return (
     <div>
       <List>
-        <ListItemButton sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}>
-          <li className="table_li_name" style={{ marginRight: "auto", display: "flex" }}>
+        <ListItemButton
+          sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}
+        >
+          <li
+            className="table_li_name"
+            style={{ marginRight: "auto", display: "flex" }}
+          >
             {t("Folder name")} &nbsp;
-            <img src={TitleDownArrow} alt="" className="title_arrow" />
+            {!sort.ascend ? (
+              <img
+                className="sorting-icon"
+                onClick={() =>
+                  getSortedData(
+                    documents,
+                    setDocuments,
+                    setSort,
+                    [],
+                    "title",
+                    true
+                  )
+                }
+                src={arrow_up}
+                alt=""
+              />
+            ) : (
+              <img
+                onClick={() =>
+                  getSortedData(
+                    documents,
+                    setDocuments,
+                    setSort,
+                    [],
+                    "title",
+                    false
+                  )
+                }
+                src={downArrow}
+                alt=""
+              />
+            )}
           </li>
         </ListItemButton>
         {loading ? (
           <Spinner />
         ) : (
           <React.Fragment>
-            {documents?.length > 0 &&
-              documents?.map(({ requestId, title }) => {
+            {searchedResults?.length > 0 &&
+              searchedResults?.map(({ requestId, title }) => {
                 if (documents?.documents) {
                   return (
                     <React.Fragment key={requestId}>
@@ -61,6 +113,7 @@ const DocumentByRequest = ({ loading, documents }) => {
                         onClick={(e) => handleClick(requestId)}
                         sx={{ border: "1px solid #EAECF0" }}
                       >
+
                         <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
@@ -70,31 +123,52 @@ const DocumentByRequest = ({ loading, documents }) => {
                           alt=""
                           className="downlaod_img_main"
                         />
-                        {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
+                        {request.open && request.id === requestId ? (
+                          <ExpandLess />
+                        ) : (
+                          <ExpandMore />
+                        )}
                       </ListItemButton>
                       <Collapse
                         in={request.open && request.id === requestId}
                         timeout="auto"
                         unmountOnExit
                       >
-                        {documents?.documents?.length > 0 &&
-                          documents?.documents?.map(({ _id: docId, doc_id }) => (
-                            <ListItemButton sx={{ border: "1px solid #EAECF0", display: "flex" }}>
-                              <li
-                                className="table_li2"
-                                style={{ marginRight: "auto", display: "flex" }}
+                        {searchedResults?.documents?.length > 0 &&
+                          searchedResults?.documents?.map(
+                            ({ _id: docId, doc_id }) => (
+                              <ListItemButton
+                                sx={{
+                                  border: "1px solid #EAECF0",
+                                  display: "flex",
+                                }}
                               >
-                                <img src={RightArrow} alt="" className="rightArrow" />
-                                {doc_id?.name}
-                              </li>
-                              <img
-                                onClick={(e) => downloadDocument(e, requestId, doc_id._id)}
-                                src={DownloadIcon}
-                                alt=""
-                                className="downlaod_img"
-                              />
-                            </ListItemButton>
-                          ))}
+                                <li
+                                  className="table_li2"
+                                  style={{
+                                    marginRight: "auto",
+                                    display: "flex",
+                                  }}
+                                >
+                                  <img
+                                    src={RightArrow}
+                                    alt=""
+                                    className="rightArrow"
+                                  />
+                                  {doc_id?.name}
+                                </li>
+                                <img
+                                  onClick={(e) =>
+                                    downloadDocument(e, requestId, doc_id._id)
+                                  }
+                                  src={DownloadIcon}
+                                  alt=""
+                                  className="downlaod_img"
+                                />
+                              </ListItemButton>
+                            )
+                          )}
+
                       </Collapse>
                     </React.Fragment>
                   );
