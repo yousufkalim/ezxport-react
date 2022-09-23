@@ -163,7 +163,7 @@ const CalculationRange = (props) => {
           },
           isValid: false,
         }));
-        toaster("success", "Range added successfully", "Adding Range");
+        toaster("success", t("Range added successfully"), t("Adding Range"));
       })
       .catch((err) => {
         console.log("handleAddRange", err);
@@ -193,7 +193,7 @@ const CalculationRange = (props) => {
           isValid: true,
         }));
 
-        toaster("success", "Coefficient Added Successfully", "Adding Coefficient");
+        toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -207,7 +207,7 @@ const CalculationRange = (props) => {
         handleRangeData();
         setOpenModal(false);
         setRangeId("");
-        toaster("success", "Range Deleted successfully", "Deleted Range");
+        toaster("success", t("Range Deleted successfully"), t("Deleted Range"));
       })
       .catch((err) => {
         console.log("handleDeleteCalculation", err);
@@ -225,7 +225,7 @@ const CalculationRange = (props) => {
       .then((res) => {
         setEditModal(false);
         handleRangeData();
-        toaster("success", "Range updated successfully", "Updated Range");
+        toaster("success", t("Range updated successfully"), t("Updated Range"));
       })
       .catch((err) => {
         console.log("handleUpdateRange", err);

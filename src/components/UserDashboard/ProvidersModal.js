@@ -7,10 +7,8 @@ import API from "../../api/index";
 import { useTranslation } from "react-i18next";
 import toaster from "../../utils/toaster";
 
-
 import { validate } from "validate.js";
 import InputField from "../Common/InputField";
-
 
 const schema = {
   firstName: {
@@ -29,23 +27,21 @@ const schema = {
     presence: { allowEmpty: false, message: "is required" },
     length: { maximum: 64 },
     email: true,
-  }
+  },
 };
-
-
 
 const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const [formData, setFormData] = useState({
     isValid: false,
-   values: {
-    name: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    countries: [],
-   },
-   errors: {},
-   touched: {}
+    values: {
+      name: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      countries: [],
+    },
+    errors: {},
+    touched: {},
   });
   const [allCountries, setAllCountries] = useState([]);
   const [countryNames, setCountryNames] = useState([]);
@@ -55,7 +51,6 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   useEffect(() => {
     fetchCountries();
   }, []);
-
 
   useEffect(() => {
     const errors = validate(formData.values, schema);
@@ -72,13 +67,17 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         ?.map((item) => allCountries.find((country) => country?._id === item))
         .map((c) => c?.name);
       const splitName = data?.name?.split(" ");
-      setFormData({...formData, values: {...formData.values,
-        name: data.name,
-        firstName: splitName[0],
-        lastName: splitName[1],
-        email: data?.sending_email,
-        countries: count,
-      }});
+      setFormData({
+        ...formData,
+        values: {
+          ...formData.values,
+          name: data.name,
+          firstName: splitName[0],
+          lastName: splitName[1],
+          email: data?.sending_email,
+          countries: count,
+        },
+      });
     }
   }, [data]);
 
@@ -93,7 +92,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
         setCountryNames(country_name);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
@@ -102,7 +101,11 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setFormData({ ...formData, values: {...formData.values, [name]: value }, touched: {...formData.touched, [name]: true}});
+    setFormData({
+      ...formData,
+      values: { ...formData.values, [name]: value },
+      touched: { ...formData.touched, [name]: true },
+    });
   };
 
   const handleChangeCountry = (e) => {
@@ -110,7 +113,14 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
       target: { value },
     } = e;
 
-    setFormData({ ...formData, values: {...formData.values, countries: typeof value === "string" ? value.split(",") : value}, touched: {...formData.touched, country: true} });
+    setFormData({
+      ...formData,
+      values: {
+        ...formData.values,
+        countries: typeof value === "string" ? value.split(",") : value,
+      },
+      touched: { ...formData.touched, country: true },
+    });
   };
 
   const trimName = (item) => {
@@ -142,19 +152,19 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
     const editData = getEditData();
     await API("put", `/vendors/${data._id}`, editData)
       .then((res) => {
-        toaster("success", "User created successfully");
+        toaster("success", t("User created successfully", t("Created User")));
 
         getProviders();
         setOpen(false);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
   const hasError = (field) => (formData.touched[field] && formData.errors[field] ? true : false);
 
-  const {values, errors} = formData;
+  const { values, errors } = formData;
 
   return (
     <>
@@ -190,7 +200,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       label="First name"
                       name="firstName"
                       error={errors.firstName}
-                      isError={hasError('firstName')}
+                      isError={hasError("firstName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.firstName}
                       type="text"
@@ -204,7 +214,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       name="lastName"
                       label="Last name"
                       error={errors.lastName}
-                      isError={hasError('lastName')}
+                      isError={hasError("lastName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.lastName}
                       type="text"
@@ -219,7 +229,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                     disabled={!isEdit}
                     name="email"
                     error={errors.email}
-                      isError={hasError('email')}
+                    isError={hasError("email")}
                     onChange={(e) => handleChange(e)}
                     value={values?.email}
                     type="email"

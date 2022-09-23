@@ -57,7 +57,7 @@ const ProvidersTable = (props) => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
 
         setLoading(false);
       });

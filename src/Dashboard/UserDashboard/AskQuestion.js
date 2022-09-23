@@ -41,7 +41,7 @@ const AskQuestion = () => {
           setLoading(false);
         })
 
-        .catch((err) => toaster("Failed", "Something went wrong"));
+        .catch((err) => toaster("Failed", t("Something went wrong!")));
     } catch (err) {
       toaster("Failed", err.message);
       setLoading(false);
@@ -75,12 +75,12 @@ const AskQuestion = () => {
         setLoading(false);
         toaster(
           "success",
-          "We will get back to you quickly",
-          "The question was asked to the administrator"
+          t("We will get back to you quickly"),
+          t("The question was asked to the administrator")
         );
       })
       .catch((err) => {
-        toaster("Failed", "Something went wrong");
+        toaster("Failed", t("Something went wrong!"));
 
         setLoading(false);
         setSubmitLoading(false);

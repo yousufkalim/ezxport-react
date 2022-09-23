@@ -53,11 +53,11 @@ const Index = () => {
       .then((res) => {
         console.log("handleCountryDocsValidate", res);
         if (checked) {
-          toaster("success", "Document Validated Successfully", "Validated Document");
+          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
 
           handlerequestById();
         } else {
-          toaster("warning", "Document Un-Validated");
+          toaster(t("warning"), t("Document Un-Validated"));
 
           handlerequestById();
         }
@@ -77,11 +77,11 @@ const Index = () => {
       .then((res) => {
         if (checked) {
           console.log("handleProductDocsValidate", res);
-          toaster("success", "Document Validated Successfully", "Validated Document");
+          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
 
           handlerequestById();
         } else {
-          toaster("warning", "Document Un-Validated");
+          toaster(t("warning"), t("Document Un-Validated"));
 
           handlerequestById();
         }

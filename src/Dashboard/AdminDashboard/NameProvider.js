@@ -199,11 +199,15 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
+        toaster(
+          "success",
+          t("Service Provider Updated Successfully"),
+          t("Updated Service Provider")
+        );
       })
       .catch((err) => {
         setOpen(false);
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
 
@@ -217,11 +221,15 @@ const NameProvider = () => {
     })
       .then((res) => {
         setOpen(false);
-        toaster("success", "Service Provider Updated Successfully", "Updated Service Provider");
+        toaster(
+          "success",
+          t("Service Provider Updated Successfully"),
+          t("Updated Service Provider")
+        );
       })
       .catch((err) => {
         setOpen(false);
-        toaster("Failed", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
       });
   };
 
@@ -253,7 +261,7 @@ const NameProvider = () => {
             <div className="searching2">
               {value === 1 && (
                 <div className="searching">
-                  <SearchField placeholder="Search" setSearch={setSearchTerm} />
+                  <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
                 </div>
               )}
               <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />

@@ -33,7 +33,7 @@ const UserTable = (props) => {
         window.location.href = res.data.path;
       })
       .catch((err) => {
-        toaster("Failed", "Some went wrong");
+        toaster("Failed", t("Something went wrong!"));
       });
   };
 
@@ -47,7 +47,7 @@ const UserTable = (props) => {
           <div className="UserTable">
             <h1 className="list_user_h1">{t(props.title)}</h1>
             <div className="UserTable_right_div">
-              <SearchField placeholder="Search" setSearch={setSearchTerm} />
+              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
               <Button
                 className="export_btn"
                 text={t("Export list")}

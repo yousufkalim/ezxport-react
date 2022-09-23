@@ -33,7 +33,7 @@ const title = [
   { heading: "" },
 ];
 
-const KEYS_TO_FILTERS = ['company_name'];
+const KEYS_TO_FILTERS = ["company_name"];
 
 const schema = {
   companyName: {
@@ -129,7 +129,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         setSellers(res.data.seller);
         setLoading(false);
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
     setLoading(false);
   };
 
@@ -198,26 +198,34 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
   const createSeller = async (data) => {
     await API("post", "/sellers", data)
       .then((res) => {
-        toaster("success", "Seller added successfully!", "Adding Seller");
+        toaster("success", t("Seller added successfully!"), t("Adding Seller"));
         setOpen(false);
         fetchSellers();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const editSeller = async (data) => {
     await API("put", `/sellers/${seller._id}`, data)
       .then((res) => {
-        toaster("success", "Seller updated successfully!", "Update Seller");
+        toaster("success", t("Seller updated successfully!"), t("Update Seller"));
         handleCloseModal();
         fetchSellers();
       })
-      .catch((err) => toaster("Failed", "Something went wrong!"));
+      .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { companyName: company_name, email, country, town: city, telephone: phone_number, zipcode, address } = formState.values;
+    const {
+      companyName: company_name,
+      email,
+      country,
+      town: city,
+      telephone: phone_number,
+      zipcode,
+      address,
+    } = formState.values;
     const data = {
       company_name,
       email,
@@ -251,19 +259,27 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               <TableRow>
                 {title.map((item) => {
                   return (
-                    <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }}>
+                    <TableCell
+                      align="left"
+                      className="country"
+                      style={{ backgrounColor: "#EAECF0" }}
+                    >
                       {t(item.heading)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
-                          onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", true)}
+                          onClick={() =>
+                            getSortedData(sellers, setSellers, setSort, [], "company_name", true)
+                          }
                           src={arrow_up}
                           alt=""
                         />
                       ) : (
                         item.sortIcon && (
                           <img
-                            onClick={() => getSortedData(sellers, setSellers, setSort, [], "company_name", false)}
+                            onClick={() =>
+                              getSortedData(sellers, setSellers, setSort, [], "company_name", false)
+                            }
                             src={downArrow}
                             alt=""
                           />
@@ -322,7 +338,13 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
         </TableContainer>
         {/* table  */}
       </div>
-      <Modal open={open} setOpen={setOpen} title={t(MODAL_TITLE)} handleClose={() => handleCloseModal()} Closebtn={true}>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title={t(MODAL_TITLE)}
+        handleClose={() => handleCloseModal()}
+        Closebtn={true}
+      >
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <InputField
@@ -359,7 +381,9 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 })}
                 {/* COUNTRIES */}
               </Select>
-              {hasError("country") && <div className="input-error">{formState.errors.country ?? null}</div>}
+              {hasError("country") && (
+                <div className="input-error">{formState.errors.country ?? null}</div>
+              )}
             </FormControl>
           </div>
           <div className="luyer_input_field">

@@ -74,7 +74,7 @@ const Documents = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("failed", "Something went wrong!");
+        toaster("Failed", t("Something went wrong!"));
         setLoading(false);
       });
   };

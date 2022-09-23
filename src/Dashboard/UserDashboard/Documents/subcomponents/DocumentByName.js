@@ -32,7 +32,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const downloadProduct = async (e, prodId) => {
@@ -41,7 +41,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   const downloadZipFile = async (e, reqId) => {
@@ -50,7 +50,7 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
       .then((res) => {
         window.location.href = res.config.url;
       })
-      .catch((err) => toaster("Failed", "File not found!"));
+      .catch((err) => toaster("Failed", t("File not found!")));
   };
 
   return (
@@ -71,7 +71,10 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                 if (codes?.length) {
                   return (
                     <React.Fragment key={requestId}>
-                      <ListItemButton onClick={() => handleClick(requestId)} sx={{ border: "1px solid #EAECF0" }}>
+                      <ListItemButton
+                        onClick={() => handleClick(requestId)}
+                        sx={{ border: "1px solid #EAECF0" }}
+                      >
                         <li className="table_li" style={{ marginRight: "auto", display: "flex" }}>
                           {title}
                         </li>
@@ -83,7 +86,11 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                         />
                         {request.open && request.id === requestId ? <ExpandLess /> : <ExpandMore />}
                       </ListItemButton>
-                      <Collapse in={request.open && request.id === requestId} timeout="auto" unmountOnExit>
+                      <Collapse
+                        in={request.open && request.id === requestId}
+                        timeout="auto"
+                        unmountOnExit
+                      >
                         {codes.length > 0 &&
                           codes.map(({ code, _id, products }) => (
                             <React.Fragment>
@@ -93,7 +100,10 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                                     onClick={() => handleProduct(_id)}
                                     sx={{ border: "1px solid #EAECF0", display: "flex" }}
                                   >
-                                    <li className="table_li2" style={{ marginRight: "auto", display: "flex" }}>
+                                    <li
+                                      className="table_li2"
+                                      style={{ marginRight: "auto", display: "flex" }}
+                                    >
                                       <img src={RightArrow} alt="" className="rightArrow" />
                                       {code?.code}
                                     </li>
@@ -103,11 +113,19 @@ const DocumentByName = ({ loading, codes: allCodes }) => {
                                       alt=""
                                       className="downlaod_img"
                                     />
-                                    {product.open && product.id === _id ? <ExpandLess /> : <ExpandMore />}
+                                    {product.open && product.id === _id ? (
+                                      <ExpandLess />
+                                    ) : (
+                                      <ExpandMore />
+                                    )}
                                   </ListItemButton>
                                 </React.Fragment>
                               )}
-                              <Collapse in={product.open && product.id === _id} timeout="auto" unmountOnExit>
+                              <Collapse
+                                in={product.open && product.id === _id}
+                                timeout="auto"
+                                unmountOnExit
+                              >
                                 {products.length > 0 &&
                                   products.map(({ name, _id: id }) => (
                                     <React.Fragment>
