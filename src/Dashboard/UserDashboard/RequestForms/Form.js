@@ -355,11 +355,11 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
   const handleDocByCountryId = async () => {
-    await API("get", `/documents/getByCountry/${step1.country}`)
+    await API("get", `/documents/getByCountry/${step1?.country}`)
       .then((res) => {
-        setCountryDoc(res.data.document);
+        setCountryDoc(res?.data?.documents);
       })
-      .catch((err) => toaster("Failed", err.response.data.message.msg));
+      .catch((err) => toaster("Failed", err?.response?.data?.message?.msg));
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
@@ -477,7 +477,7 @@ export default function HorizontalNonLinearStepper() {
         handleStep4();
         toaster("success", res.data.message);
         localStorage.setItem("Requested", true);
-        // history.push("/User/Dashboard/ListOfRequests");
+        history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => toaster("Failed", err.response.data.message.msg));
   };
