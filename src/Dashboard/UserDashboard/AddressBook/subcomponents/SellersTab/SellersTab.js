@@ -128,10 +128,8 @@ const SellersTab = ({ t, open, setOpen, userId, countries }) => {
         setSellers(res.data.seller);
         setLoading(false);
       })
-      .catch((err) => {
-        toast.error(t("Something went wrong"));
-        setLoading(false);
-      });
+      .catch((err) => toaster("Failed", "Something went wrong!"));
+    setLoading(false);
   };
 
   const countryHandler = (e) => {
