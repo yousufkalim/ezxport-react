@@ -11,8 +11,9 @@ import { useTranslation } from 'react-i18next';
 
 const ProductLists = ({ codes, currency }) => {
   const { t } = useTranslation();
-  const monetary_value = codes?.code?.reduce((n, { monetary_value }) => n + monetary_value, 0);
-  console.log('Codes ', codes);
+
+  const monetary_value = codes?.reduce((n, { monetary_value }) => n + monetary_value, 0);
+
   return (
     <>
       <div className='ProductLists'>
@@ -50,9 +51,11 @@ const ProductLists = ({ codes, currency }) => {
               <TableBody>
                 {codes?.map((item) => {
                   return (
-                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell component='th' scope='row' style={{ width: '22%' }}>
-                        <p className='AP_plus_title'>{item.code.code}</p>
+
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row" style={{ width: "22%" }}>
+                        <p className="AP_plus_title">{item?.code?.code}</p>
+
                       </TableCell>
 
                       <TableCell align='left' className='country2' style={{ width: '100%' }}>
