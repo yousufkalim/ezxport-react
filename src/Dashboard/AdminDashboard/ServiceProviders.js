@@ -43,7 +43,6 @@ const schema = {
   },
   contactEmail: {
     presence: { allowEmpty: false, message: 'is required' },
-    email: true,
     length: {
       maximum: 64,
     },
@@ -278,6 +277,9 @@ const ServiceProviders = () => {
                     <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                       {t('Associated countries')}
                     </TableCell>
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Actions')}
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 {loading ? (
@@ -310,6 +312,7 @@ const ServiceProviders = () => {
                             display: 'flex',
                             justifyContent: 'flex-start',
                             alignItems: 'flex-start',
+                            borderBottom: 'none',
                           }}
                           onClick={() => {
                             history.push(
@@ -395,7 +398,7 @@ const ServiceProviders = () => {
             {hasError('phone_Number') ? formState.errors.phone_Number[0] : null}
           </div>
           <label htmlFor='' className='label_modal'>
-            {t('Contact email')}
+            {t('Contact Last Name')}
           </label>{' '}
           <InputField
             name='contactEmail'

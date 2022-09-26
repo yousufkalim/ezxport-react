@@ -1,55 +1,54 @@
-import SearchField from "../../components/Common/SearchField";
-import Button from "../../components/Common/Button";
-import InputField from "../../components/Common/InputField";
-import Modal from "../../components/Common/Modal";
-import BackArrow from "../../assets/BackArrow.svg";
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import { useParams } from "react-router-dom";
-import API from "../../api/index";
-import validate from "validate.js";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import { getSortedData } from "../../lib/getSortedData";
-import { useTranslation } from "react-i18next";
-import MultiSelect from "../../components/Common/MultiSelect";
-import { COUNTRIES } from "../../lib/data";
-import { createFilter } from "react-search-input";
-import toaster from "../../utils/toaster";
+import SearchField from '../../components/Common/SearchField';
+import Button from '../../components/Common/Button';
+import InputField from '../../components/Common/InputField';
+import Modal from '../../components/Common/Modal';
+import BackArrow from '../../assets/BackArrow.svg';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import { useParams } from 'react-router-dom';
+import API from '../../api/index';
+import validate from 'validate.js';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
+import { useTranslation } from 'react-i18next';
+import MultiSelect from '../../components/Common/MultiSelect';
+import { COUNTRIES } from '../../lib/data';
+import { createFilter } from 'react-search-input';
+import toaster from '../../utils/toaster';
 
 const schema = {
   fullName: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { minimum: 2 },
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     email: true,
     length: {
       maximum: 64,
     },
   },
   contact: {
-    presence: { allowEmpty: false, message: "is required" },
-    email: true,
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 64,
     },
   },
   phone: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 10,
       minimum: 10,
@@ -62,7 +61,7 @@ function TabPanel(props) {
 
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
@@ -86,39 +85,41 @@ TabPanel.propTypes = {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
-const KEYS_TO_FILTERS = ["name"];
+const KEYS_TO_FILTERS = ['name'];
 
 const NameProvider = () => {
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      fullName: "",
-      contact: "",
-      email: "",
-      phone: "",
+      fullName: '',
+      contact: '',
+      email: '',
+      phone: '',
     },
     touched: {},
     errors: {},
   });
+
+  console.log('latest state ', formState);
+
   const [select, setSelect] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [names, setNames] = useState([]);
   const [id, setId] = useState();
   const [options, setOptions] = useState();
 
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
   const params = useParams();
   const { id: userId } = params;
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [sort, setSort] = useState({ key: '', ascend: true });
 
   const { t } = useTranslation();
 
@@ -136,7 +137,7 @@ const NameProvider = () => {
   }, [formState.values]);
 
   const handleCoutries = async () => {
-    await API("get", "/countries/")
+    await API('get', '/countries/')
       .then((res) => {
         let country_name = [];
         setOptions(res?.data?.countries);
@@ -146,7 +147,7 @@ const NameProvider = () => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        console.log('errrrr', err);
       });
   };
 
@@ -187,7 +188,7 @@ const NameProvider = () => {
     setValue(newValue);
   };
   const handleGetVendor = async () => {
-    await API("get", `/vendors/${userId}`)
+    await API('get', `/vendors/${userId}`)
       .then((res) => {
         setFormState((formState) => ({
           ...formState,
@@ -203,11 +204,11 @@ const NameProvider = () => {
           setCountries(allCountries);
           const countryNames = allCountries.map((item) => item?.name);
           setSelect(countryNames);
-          console.log("ALL countries ", res?.data?.vendor?.countries);
+          console.log('ALL countries ', res?.data?.vendor?.countries);
         }
       })
       .catch((err) => {
-        console.log(err, "errrrrr");
+        console.log(err, 'errrrrr');
       });
   };
   const handleClose = () => setOpen(false);
@@ -227,7 +228,7 @@ const NameProvider = () => {
   }, [select]);
 
   const handelUpdateAssociatedCountries = async () => {
-    await API("put", `/vendors/${userId}`, {
+    await API('put', `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
@@ -237,20 +238,19 @@ const NameProvider = () => {
       .then((res) => {
         setOpen(false);
         toaster(
-          "success",
-          t("Service Provider Updated Successfully"),
-          t("Updated Service Provider")
-
+          'success',
+          t('Service Provider Updated Successfully'),
+          t('Updated Service Provider')
         );
       })
       .catch((err) => {
         setOpen(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
   const handelUpdateVendor = async () => {
-    await API("put", `/vendors/${userId}`, {
+    await API('put', `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
@@ -260,124 +260,109 @@ const NameProvider = () => {
       .then((res) => {
         setOpen(false);
         toaster(
-          "success",
-          t("Service Provider Updated Successfully"),
-          t("Updated Service Provider")
-
+          'success',
+          t('Service Provider Updated Successfully'),
+          t('Updated Service Provider')
         );
       })
       .catch((err) => {
         setOpen(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
   const handleMultiSelectChange = (event) => {
-    console.log("VALUE ", event.target.value);
+    console.log('VALUE ', event.target.value);
     const {
       target: { value },
     } = event;
     setSelect(
       // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
+      typeof value === 'string' ? value.split(',') : value
     );
   };
 
-  const searchedResults = countries?.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const searchedResults = countries?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   return (
     <>
-      <div className="list_main_div">
-        <div className="list_second_div">
+      <div className='list_main_div'>
+        <div className='list_second_div'>
           {/* list head  */}
-          <div className="List_heading_div">
-            <h1 className="list_h1">
-              <Link to="/Admin/Dashboard/Service">
-                <img src={BackArrow} alt="" />
+          <div className='List_heading_div'>
+            <h1 className='list_h1'>
+              <Link to='/Admin/Dashboard/Service'>
+                <img src={BackArrow} alt='' />
               </Link>
               &nbsp; {formState.values.fullName}
             </h1>
-            <div className="searching2">
+            <div className='searching2'>
               {value === 1 && (
-                <div className="searching">
-                  <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
+                <div className='searching'>
+                  <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
                 </div>
               )}
-              <Button
-                text={t("Update")}
-                className="changeProvider"
-                onClick={() => setOpen(true)}
-              />
+              <Button text={t('Update')} className='changeProvider' onClick={() => setOpen(true)} />
             </div>
           </div>
 
-          <div className="list_table">
-            <Box sx={{ width: "100%" }}>
+          <div className='list_table'>
+            <Box sx={{ width: '100%' }}>
               <Box>
-                <Tabs
-                  value={value}
-                  onChange={handleDataChange}
-                  className="tab_menu"
-                >
+                <Tabs value={value} onChange={handleDataChange} className='tab_menu'>
+                  <Tab className='admin_tab_btn' label={t('Information')} {...a11yProps(0)} />
                   <Tab
-                    className="admin_tab_btn"
-                    label={t("Information")}
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    className="admin_tab_btn"
-                    label={t("Associated countries")}
+                    className='admin_tab_btn'
+                    label={t('Associated countries')}
                     {...a11yProps(1)}
                   />
                 </Tabs>
               </Box>
 
               <TabPanel value={value} index={0}>
-                <div className="list_table">
-                  <div className="textField_div1">
-                    <label htmlFor="" className="label_modal">
-                      {t("Default sending email address")}
+                <div className='list_table'>
+                  <div className='textField_div1'>
+                    <label htmlFor='' className='label_modal'>
+                      {t('Default sending email address')}
                     </label>
                     <InputField
-                      name="sendingEmail"
-                      className="textfield_row1"
+                      name='sendingEmail'
+                      className='textfield_row1'
                       disabled={true}
                       value={formState.values.email}
                     />
                   </div>
-                  <div className="textField_div2">
-                    <div className="textField_row2_div">
-                      <label htmlFor="" className="label_modal">
-                        {t("Contact email")}
+                  <div className='textField_div2'>
+                    <div className='textField_row2_div'>
+                      <label htmlFor='' className='label_modal'>
+                        {t('Contact Last Name')}
                       </label>
                       <InputField
                         disabled={true}
-                        name="Contact"
-                        className="textfield_row2"
+                        name='Contact'
+                        className='textfield_row2'
                         value={formState.values.contact}
                       />
                     </div>
-                    <div className="textField_row2_div">
-                      <label htmlFor="" className="label_modal">
-                        {t("Full Name")}
+                    <div className='textField_row2_div'>
+                      <label htmlFor='' className='label_modal'>
+                        {t('Full Name')}
                       </label>
                       <InputField
                         disabled={true}
-                        name="fullname"
-                        className="textfield_row2"
+                        name='fullname'
+                        className='textfield_row2'
                         value={formState.values.fullName}
                       />
                     </div>
-                    <div className="textField_row2_div">
-                      <label htmlFor="" className="label_modal">
-                        {t("Telephone number")}
+                    <div className='textField_row2_div'>
+                      <label htmlFor='' className='label_modal'>
+                        {t('Telephone number')}
                       </label>
                       <InputField
                         disabled={true}
-                        name="phoneNumber"
-                        className="textfield_row2"
+                        name='phoneNumber'
+                        className='textfield_row2'
                         value={formState.values.phone}
                       />
                     </div>
@@ -386,38 +371,34 @@ const NameProvider = () => {
               </TabPanel>
 
               <TabPanel value={value} index={1}>
-                <div className="list_table">
+                <div className='list_table'>
                   <>
                     <TableContainer component={Paper}>
-                      <Table
-                        sx={{ minWidth: 650 }}
-                        size="small"
-                        aria-label="a dense table"
-                      >
+                      <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
                         <TableHead>
                           <TableRow>
                             <TableCell
                               sx={{
-                                color: "#667085",
-                                backgroundColor: "#F9FAFB",
+                                color: '#667085',
+                                backgroundColor: '#F9FAFB',
                               }}
                             >
-                              {t("Country")} &nbsp;
+                              {t('Country')} &nbsp;
                               {!sort.ascend ? (
                                 <img
-                                  className="sorting-icon"
+                                  className='sorting-icon'
                                   onClick={() =>
                                     getSortedData(
                                       countries,
                                       setCountries,
                                       setSort,
                                       [],
-                                      "name",
+                                      'name',
                                       true
                                     )
                                   }
                                   src={arrow_up}
-                                  alt=""
+                                  alt=''
                                 />
                               ) : (
                                 <img
@@ -427,12 +408,12 @@ const NameProvider = () => {
                                       setCountries,
                                       setSort,
                                       [],
-                                      "name",
+                                      'name',
                                       false
                                     )
                                   }
                                   src={downArrow}
-                                  alt=""
+                                  alt=''
                                 />
                               )}
                             </TableCell>
@@ -443,14 +424,14 @@ const NameProvider = () => {
                             return (
                               <TableRow key={item.name}>
                                 <TableCell
-                                  component="th"
-                                  scope="row"
+                                  component='th'
+                                  scope='row'
                                   sx={{
-                                    border: "1px solid #E5E5E5;",
+                                    border: '1px solid #E5E5E5;',
                                     padding: 2,
                                   }}
                                 >
-                                  <p className="AP_plus_title">{item.name}</p>
+                                  <p className='AP_plus_title'>{item.name}</p>
                                 </TableCell>
                               </TableRow>
                             );
@@ -469,29 +450,25 @@ const NameProvider = () => {
       <Modal
         open={open && value === 1}
         setOpen={setOpen}
-        title={t("Update Service Provider")}
-        className="service-provider-country-modal"
+        title={t('Update Service Provider')}
+        className='service-provider-country-modal'
         handleClose={handleClose}
         Closebtn={true}
       >
-        <div className="edit_vendor_div">
-          <label htmlFor="" className="label_modal">
-            {t("Select country to add")}
+        <div className='edit_vendor_div'>
+          <label htmlFor='' className='label_modal'>
+            {t('Select country to add')}
           </label>
           <MultiSelect
-            name="country"
+            name='country'
             onChange={handleMultiSelectChange}
             value={select}
             names={names}
             select={select}
           />
           <Button
-            text={t("Update Service Provider")}
-            className={
-              formState.isValid
-                ? "edit_vendor_button"
-                : "edit_vendor_button_disabled"
-            }
+            text={t('Update Service Provider')}
+            className={formState.isValid ? 'edit_vendor_button' : 'edit_vendor_button_disabled'}
             disabled={!formState.isValid ? true : false}
             onClick={handelUpdateAssociatedCountries}
           />
@@ -501,83 +478,71 @@ const NameProvider = () => {
       <Modal
         open={open && value === 0}
         setOpen={setOpen}
-        title={t("Update Service Provider")}
+        title={t('Update Service Provider')}
         handleClose={handleClose}
         Closebtn={true}
       >
-        <div className="edit_vendor_div">
-          <label htmlFor="" className="label_modal">
-            {t("Full Name")}
+        <div className='edit_vendor_div'>
+          <label htmlFor='' className='label_modal'>
+            {t('Full Name')}
           </label>
           <InputField
             value={formState.values.fullName}
-            name="fullName"
+            name='fullName'
+            isError={hasError('fullName')}
+            error={formState.errors.fullName}
             className={
-              hasError("fullName") && formState.errors.fullName
-                ? "textfield_row2_red"
-                : "textfield_row2"
+              hasError('fullName') && formState.errors.fullName
+                ? 'textfield_row2_red'
+                : 'textfield_row2'
             }
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("fullName") ? formState.errors.fullName[0] : null}
-          </div>
-          <label htmlFor="" className="label_modal">
-            {t("Phone Number")}
+          <label htmlFor='' className='label_modal'>
+            {t('Phone Number')}
           </label>
           <InputField
             value={formState.values.phone}
-            name="phone"
+            name='phone'
+            isError={hasError('phone')}
+            error={formState.errors.phone}
             className={
-              hasError("phone") && formState.errors.phone
-                ? "textfield_row2_red"
-                : "textfield_row2"
+              hasError('phone') && formState.errors.phone ? 'textfield_row2_red' : 'textfield_row2'
             }
             onChange={handlePhnChange}
           />
-          <div className="error-format">
-            {hasError("phone") ? formState.errors.phone[0] : null}
-          </div>
-          <label htmlFor="" className="label_modal">
-            {t("Contact email")}
+          <label htmlFor='' className='label_modal'>
+            {t('Contact Last Name')}
           </label>
           <InputField
             value={formState.values.contact}
-            name="contact"
+            name='contact'
+            isError={hasError('contact')}
+            error={formState.errors.contact}
             className={
-              hasError("contact") && formState.errors.contact
-                ? "textfield_row2_red"
-                : "textfield_row2"
+              hasError('contact') && formState.errors.contact
+                ? 'textfield_row2_red'
+                : 'textfield_row2'
             }
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("contact") ? formState.errors.contact[0] : null}
-          </div>
-          <label htmlFor="" className="label_modal">
-            {t("Default sending email address")}
+          <label htmlFor='' className='label_modal'>
+            {t('Default sending email address')}
           </label>
           <InputField
             value={formState.values.email}
-            name="email"
+            name='email'
+            isError={hasError('email')}
+            error={formState.errors.email}
             className={
-              hasError("email") && formState.errors.email
-                ? "textfield_row2_red"
-                : "textfield_row2"
+              hasError('email') && formState.errors.email ? 'textfield_row2_red' : 'textfield_row2'
             }
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("email") ? formState.errors.email[0] : null}
-          </div>
           <Button
-            text={t("Update Service Provider")}
-            className={
-              formState.isValid
-                ? "edit_vendor_button"
-                : "edit_vendor_button_disabled"
-            }
-            disabled={!formState.isValid ? true : false}
+            text={t('Update Service Provider')}
+            className={formState.isValid ? 'edit_vendor_button' : 'edit_vendor_button_disabled'}
+            disabled={!formState.isValid}
             onClick={handelUpdateVendor}
           />
         </div>
