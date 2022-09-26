@@ -16,6 +16,8 @@ const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
+  console.log("🚀 ~ file: index.js ~ line 19 ~ Index ~ requestById", requestById)
+  
   const [inputList, setInputList] = useState([]);
   const [inputListProduct, setInputListProduct] = useState([]);
   const [validateCountry, setValidateCountry] = useState(false);
@@ -131,7 +133,7 @@ const Index = () => {
             <Link to="/Admin/Dashboard/Requests" style={{ color: "black", textDecoration: "none" }}>
               <p className="Reference_h2">
                 <img src={BackArrow} alt="" />
-                &nbsp; {t("Reference")}{" "}
+                &nbsp; {requestById?.title}
               </p>
             </Link>
           </div>
@@ -143,22 +145,27 @@ const Index = () => {
             <div>
               <Button text={t("Download the file")} className="validate_button2" />
               &nbsp;
-              {validateCountry &&
-              validateProduct &&
-              inputList.length === 0 &&
-              inputListProduct.length === 0 ? (
-                <Button
+              <Button
                   text={t("Validate the file")}
                   className="validate_button"
                   onClick={handleValidByAdmin}
                 />
-              ) : (
+              &nbsp;
+
+              {inputList?.length !== 0 ? (
                 <Button
                   text={t("Request document")}
                   className="validate_button"
                   onClick={handleModalOpen}
                 />
-              )}
+              ) : inputListProduct?.length !== 0 ? (
+                <Button
+                  text={t("Request document")}
+                  className="validate_button"
+                  onClick={handleModalOpen}
+                />
+              ) : ""}
+             
             </div>
           )}
           {/* </div> */}

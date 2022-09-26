@@ -7,8 +7,42 @@ import { ReactComponent as AddProductIcon } from "../../../assets/AddProductIcon
 import API from "../../../api/index";
 import ProductForm from "../../../components/Common/ProductForm";
 import { useTranslation } from "react-i18next";
+import { Store } from "../../../StoreContext";
 
 const Document = (props) => {
+  const {setProductCodes, productCodes} = props;
+  console.log("Products ", productCodes);
+  const { request, pastRequest , previousCodes} = Store();
+  console.log("🚀 ~ request", previousCodes);
+  const [formUpdate, setFormUpdate] = useState(false);
+
+  useEffect(() => {
+      if (pastRequest && previousCodes.length && productCodes.length && formUpdate) {
+        const product = productCodes.map((item) => {
+          const findCode = previousCodes.find(a => a.codeID === item.code._id);
+          if(findCode){
+            const products = findCode.products?.map((b) => {
+              const obj = b;
+              delete obj?._id;
+              delete obj?.__v;
+              delete obj?.updatedAt;
+              delete obj?.missing_docs;
+              delete obj?.createdAt;
+              console.log("Object modified ", obj);
+              // obj['price'] = obj?.price?.value;
+              return obj
+            })
+            return {...item, products: products};
+            // const obj = {...item, code: }
+          }
+          return item;
+        });
+        console.log("Modified array ", product);
+        setProductCodes(product);
+        setFormUpdate(false);
+    }
+  }, [pastRequest,previousCodes, formUpdate ]);
+
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
 
@@ -28,10 +62,11 @@ const Document = (props) => {
   useEffect(() => {
     if (props?.createdCodes?.codes) {
       let product = props.createdCodes.codes.map((item) => {
-        item.products = [{ user: props.userData, code: item.code._id }];
+        item.products = [{ user: props.userData, code: item?.code?._id }];
         return item;
       });
       props.setProductCodes(product);
+      setFormUpdate(true);
     }
     handleAllCountries();
     // handleCountryDocValidate();
@@ -120,6 +155,7 @@ const Document = (props) => {
             {item?.products?.map((product, index1) => {
               return (
                 <ProductForm
+                  key={index1}
                   handleProductChange={handleProductChange}
                   item={item}
                   cindex={cindex}

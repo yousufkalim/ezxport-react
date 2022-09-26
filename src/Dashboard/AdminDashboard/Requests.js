@@ -34,6 +34,11 @@ const TITLES = [
     sortIcon: true,
   },
   {
+    name: "Users",
+    key: "name",
+    sortIcon: true,
+  },
+  {
     name: "Date",
     key: "createdAt",
     sortIcon: true,
@@ -162,6 +167,9 @@ const Requests = () => {
                         <TableCell component="th" scope="row">
                           <p className="AP_plus_title">{item?.title}</p>
                           <p className="country2">{item?.country?.name}</p>
+                        </TableCell>
+                        <TableCell component="th" scope="row">
+                          <p className="AP_plus_title">{item?.user.first_name} {item?.user.last_name}</p>
                         </TableCell>
                         <TableCell align="left" className="country2">
                           {Moment(item?.createdAt).format("DD/MM/YYYY")}

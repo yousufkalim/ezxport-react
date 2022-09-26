@@ -46,27 +46,12 @@ function a11yProps(index) {
   };
 }
 const ValidateForm = (props) => {
-  console.log("🚀 ~ file: CompanyInformation.js ~ line 49 ~ ValidateForm ~ props", props);
   // user data states
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
 
   const { t } = useTranslation();
-
-  // const [lastName, setLastName] = useState('');
-  // const [firstName, setFirstName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [phoneNumber, setPhoneNumber] = useState('');
-  // const [completeAddress, setCompleteAddress] = useState('');
-  // const [postalCode, setPostalCode] = useState('');
-  // const [town, setTown] = useState('');
-  // const [name, setName] = useState('');
-  // const [societyType, setSocietyType] = useState('');
-  // const [vatNumber, setVatNumber] = useState('');
-  // // user request states
-  // const [requestById, setRequestById] = useState({});
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

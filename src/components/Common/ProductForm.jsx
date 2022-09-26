@@ -8,6 +8,9 @@ import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
 const ProductForm = (props) => {
+  console.log("Form item ", props.item);
+  console.log("products ", props?.product?.country?.trim());
+  const { product } = props;
   const [toComplete, setToComplete] = useState();
   const { t } = useTranslation();
 
@@ -79,6 +82,7 @@ const ProductForm = (props) => {
       <InputField
         className="product_name_textfield"
         name="name"
+        value={product?.name}
         onChange={(e) => handleDataChange(e)}
       />
       <label className="BomLabel" style={{ marginTop: "1rem" }}>
@@ -87,6 +91,7 @@ const ProductForm = (props) => {
       <InputField
         className="product_name_textfield"
         name="description"
+        value={product?.description}
         onChange={(e) => handleDataChange(e)}
       />
       <div>
@@ -95,8 +100,9 @@ const ProductForm = (props) => {
         </label>
         <select
           className="countrydropdown"
-          defaultValue={"default"}
+          // defaultValue={"default"}
           name="condition"
+          value={product?.condition || "default"}
           onChange={(e) => handleDataChange(e)}
         >
           <option value={"default"} disabled>
@@ -115,6 +121,7 @@ const ProductForm = (props) => {
             className="company_name_input"
             placeholder="90 road of rouvroy"
             name="amount"
+            value={product?.amount}
             onChange={(e) => handleDataChange(e)}
           />
         </div>
@@ -127,6 +134,7 @@ const ProductForm = (props) => {
             <select
               className="company_name_input"
               name="unit"
+              value={product?.unit}
               onChange={(e) => handleDataChange(e)}
             >
               <option value="millimeter">Mm</option>
@@ -137,11 +145,13 @@ const ProductForm = (props) => {
               <option value="foot/feet">Ft</option>
             </select>
           </div>
+          {console.log("first", product?.price?.value)}
           <div style={{ width: "60%" }}>
             <label className="BomLabel">{t("Price")}</label>
             <InputField
               className="product_name_textfield"
               name="price"
+              value={product?.price?.value}
               onChange={(e) => handleDataChange(e)}
             />
           </div>
@@ -153,6 +163,7 @@ const ProductForm = (props) => {
       <InputField
         className="product_name_textfield"
         name="mark"
+        value={product?.mark}
         onChange={(e) => handleDataChange(e)}
       />
       <label className="BomLabel" style={{ marginTop: "1rem" }}>
@@ -161,6 +172,7 @@ const ProductForm = (props) => {
       <InputField
         className="product_name_textfield"
         name="builder"
+        value={product?.builder}
         onChange={(e) => handleDataChange(e)}
       />
       <div>
@@ -169,8 +181,8 @@ const ProductForm = (props) => {
         </label>
         <Select
           id="demo-simple-select"
-          defaultValue={"default"}
           name="country"
+          value={product?.country}
           onChange={(e) => handleDataChange(e)}
           className="countrydropdown"
         >
