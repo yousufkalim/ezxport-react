@@ -56,10 +56,87 @@
   text-decoration: none;
   font-weight: 500;
 }
+.user_route_container {
+  position: relative;
+}
+
+
+
+
+.user_routes {
+}
+.user_tour {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 100%;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  width: 300px;
+  filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.2));
+  
+}
+.user_tour_title_container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: #344054;
+  font-size: 12px;
+  font-weight: 700 !important;
+  margin-bottom: 10px;
+}
+.user_tour_title{
+}
+.user_tour_description{
+  color: #667085;
+  font-size: 12px;
+}
+.user_tour_buttons{
+  width: 100%;
+  display: flex;
+  gap:15px;
+  margin-top: 10px;
+}
+.user_tour_previous {
+  width: 50%;
+  background-color: #fff;
+  color: #7f56d9;
+  font-size: 16px;
+  border: 1px solid #7f56d9;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.user_tour_next {
+  flex-basis: 50%;
+  width:50%;
+  background-color: #7f56d9;
+  color: #fff;
+  font-size: 16px;
+  border: 1px solid #7f56d9;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+  font-weight: 500 !important;
+  cursor: pointer;
+  padding: 0 10px;
+}
+.user_tour_show_next {
+  width: 100%;
+  flex-basis: 100%;
+  padding: 10px;
+}
+
+
+
 .activeLi {
   background: #7f56d9;
   border-radius: 6px;
   padding: 8px 12px;
+  padding: 8px;
 }
 
 .deshboard_user {
