@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import ClearIcon from "@mui/icons-material/Clear";
 import { useTranslation, Trans } from "react-i18next";
+import UserTour from "../UserDashboard/UserTour";
 
 // import DialogActions from "@mui/material/DialogActions";
 // import DialogTitle from "@mui/material/DialogTitle";
@@ -51,18 +52,21 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               const isActive = location.pathname === item.path;
 
               return (
-                <>
+                <div className='user_route_container'>
                   <Link
                     exact
                     activeClassName="activeColor"
                     to={item.path}
-                    className={`${isActive && "activeLi"} dashboard_li `}
+                    className={`${isActive && "activeLi"} dashboard_li user_routes`}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
                     <span className={`${isActive && "li_img_white"}  li_img `}>{item.icon}</span>
                     {t(item?.name)}
                   </Link>
-                </>
+                  {/* { isActive &&
+                    <UserTour pathname={location.pathname} tour={item.tour} index={index} />
+                  }  */}
+                </div>
               );
             } else if (role === "admin") {
               const isActive = location.pathname === item.path;
@@ -80,6 +84,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     <span className={`${isActive && "li_img_white"}  li_img `}>{item.icon}</span>
                     {t(item.name)}
                   </Link>
+                  
                 </>
               );
             }
