@@ -24,12 +24,12 @@ const ConfirmModal = ({ open, setOpen, action }) => {
           <h2 className="buyer_h2">{t("Are you sure to delete?")}</h2>
         </div>
         <div className="confirm_modal_buttons">
-          <Button text={t("Yes")} className="confirm_modal_btn" onClick={(id) => action(id)} />
           <Button
             text={t("No")}
             className="confirm_modal_btn confirm_modal_btn_no"
             onClick={() => handleClose()}
           />
+          <Button text={t("Yes")} className="confirm_modal_btn" onClick={(id) => action(id)} />
         </div>
       </div>
     </Dialog>
