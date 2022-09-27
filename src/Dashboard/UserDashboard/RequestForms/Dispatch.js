@@ -191,7 +191,7 @@ const Dispatch = (props) => {
           ...prev.sellerData.values,
           seller: _id,
           companyName: company_name,
-          Country:country,
+          Country: country,
           CountryId: countryId,
           email: email,
           telephone: phone_number,
@@ -215,7 +215,7 @@ const Dispatch = (props) => {
           ...prev.buyerData.values,
           buyer: _id,
           companyName: company_name,
-          Country:country,
+          Country: country,
           CountryId: countryId,
           email: email,
           telephone: phone_number,
@@ -780,7 +780,7 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Contact last name")}</label>
+            <label className="BomLabel">{t("Contact Last Name")}</label>
             <InputField
               className="company_name_input"
               placeholder={t("Contact name")}

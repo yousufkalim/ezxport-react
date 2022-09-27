@@ -52,7 +52,10 @@ i18n
             "Minimum cost should be less than maximum cost",
           "Maxminm cost should be greater than minimum cost":
             "Maxminm cost should be greater than minimum cost",
-          "": "",
+          "Sending email is required": "Sending email is required",
+          "Fullname is required": "Fullname is required",
+          "Phone number is required": "Phone number is required",
+          "Contact email is required": "Contact email is required",
           "": "",
           "": "",
 
@@ -359,7 +362,7 @@ i18n
           "Buyer data": "Buyer data",
           "Place of inspection": "Place of inspection",
           "Date on which the goods can be inspected": "Date on which the goods can be inspected",
-          "Contact last name": "Contact last name",
+          "Contact Last Name": "Contact Last Name",
           "contact first name": "contact first name",
           "Download the file": "Download the file",
           "Request document": "Request document",
@@ -736,6 +739,10 @@ i18n
             "Le coût minimum doit être inférieur au coût maximum",
           "Maxminm cost should be greater than minimum cost":
             "Le coût maximal doit être supérieur au coût minimal",
+          "Sending email is required": "L'envoi d'un e-mail est obligatoire",
+          "Fullname is required": "Le nom complet est requis",
+          "Phone number is required": "Le numéro de téléphone est requis",
+          "Contact email is required": "L'e-mail de contact est requis",
 
           Country: "Pays",
           Searching: "Recherche",
@@ -1039,7 +1046,7 @@ i18n
           "Place of inspection": "Lieu de contrôle",
           "Date on which the goods can be inspected":
             "Date à laquelle les marchandises peuvent être inspectées",
-          "Contact last name": "Nom de famille du contact",
+          "Contact Last Name": "Nom de famille du contact",
           "contact first name": "Prénom du contact",
           "Download the file": "Télécharger le fichier",
           "Request document": "Demander un document",
