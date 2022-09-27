@@ -58,6 +58,7 @@ i18n
           "Fullname is required": "Fullname is required",
           "Phone number is required": "Phone number is required",
           "Contact email is required": "Contact email is required",
+          "Code is required":"Code is required",
 
           Country: "Country",
           Searching: "Searching",
@@ -745,6 +746,8 @@ i18n
           "Fullname is required": "Le nom complet est requis",
           "Phone number is required": "Le numéro de téléphone est requis",
           "Contact email is required": "L'e-mail de contact est requis",
+          "Code is required":"Le code est requis",
+
 
           Country: "Pays",
           Searching: "Recherche",
