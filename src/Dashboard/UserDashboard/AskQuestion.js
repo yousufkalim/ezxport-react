@@ -43,7 +43,7 @@ const AskQuestion = () => {
 
         .catch((err) => toaster("Failed", t("Something went wrong!")));
     } catch (err) {
-      toaster("Failed", err.message);
+      toaster("Failed", t(err.message));
       setLoading(false);
     }
   };
@@ -110,7 +110,6 @@ const AskQuestion = () => {
                     name="question"
                     value={formData.question}
                     onChange={(e) => handleChange(e)}
-                    style={{ paddingTop: "3px" }}
                   >
                     {questions.map(({ title }) => (
                       <MenuItem value={title}>{t(title)}</MenuItem>
@@ -127,7 +126,6 @@ const AskQuestion = () => {
                     name="request"
                     value={formData.request}
                     onChange={(e) => handleChange(e)}
-                    style={{ paddingTop: "3px" }}
                   >
                     {requests.map((item) => (
                       <MenuItem value={item.title}>{item.title}</MenuItem>

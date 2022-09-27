@@ -69,13 +69,8 @@ const BOMsForm = (props) => {
     const newCodes = [];
     codes?.forEach((item) => {
       const { monetary_value } = item;
-      console.log("CODE ID ", item);
-      const {
-        code,
-        _id: codeID,
-        certification_required,
-        admin_code,
-      } = item.code;
+      const { code, _id: codeID, certification_required, admin_code } = item.code;
+
       const codeObj = {
         monetary_value,
         admin_code,
@@ -98,7 +93,7 @@ const BOMsForm = (props) => {
         setRequestByCountry(res?.data?.request);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   useEffect(() => {
     handleAllRequestByCountryId();
@@ -117,16 +112,15 @@ const BOMsForm = (props) => {
 
   const handleEditModal = () => setOpenEditModal(false);
   const handleCertificateRequire = () => props.setCertificateRequire(false);
-  const handleCertificateNotRequire = () =>
-    props.setCertificateNotRequire(false);
-  // const handleVerification = () => setVerificationModal(false);
+  const handleCertificateNotRequire = () => props.setCertificateNotRequire(false);
+  const handleVerification = () => setVerificationModal(false);
   const handleGetAllCountry = async () => {
     await API("get", "/countries/")
       .then((res) => {
         props.setCounteries(res.data.countries);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   useEffect(() => {
     handleGetAllCountry();
@@ -227,19 +221,19 @@ const BOMsForm = (props) => {
       countryId: step1.country,
     })
       .then((res) => {
-        props.handleChange("title", (res?.data?.tile).toUpperCase());
+        props.handleChange("title", t(res?.data?.tile).toUpperCase());
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleSearchTitle = async () => {
     await API("post", "/requests/searchName/", {
       title: step1?.title,
     })
       .then((res) => {
-        props.handleChange("title", res?.data?.tile);
+        props.handleChange("title", t(res?.data?.tile));
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleMonetaryValue = (value) => {
     const validatedValue = value.replace(/[^0-9]/g, "");
@@ -283,9 +277,7 @@ const BOMsForm = (props) => {
         </Select>
 
         <label className="BomLabel">
-          {t(
-            "Create a new request or select an old request to retrieve information"
-          )}
+          {t("Create a new request or select an old request to retrieve information")}
         </label>
         <Select
           id="demo-simple-select"
@@ -315,7 +307,7 @@ const BOMsForm = (props) => {
         />
 
         <div className="ProductList_boms" style={{ display: "flex" }}>
-          <div style={{ width: "50%" }}>
+          <div style={{ marginRight: "auto" }}>
             <span className="title_productList">{t("Product Lists")}</span>
             <br />
             <Link
@@ -329,7 +321,6 @@ const BOMsForm = (props) => {
           </div>
           <div
             style={{
-              width: "55%",
               display: "flex",
               alignItems: "flex-start",
               justifyContent: "flex-end",
@@ -355,13 +346,7 @@ const BOMsForm = (props) => {
               />
             </label>
           </div>
-
-          <Link
-            to={"/Files/codeTemplate.xlsx"}
-            target="_blank"
-            download
-            className="download_Btn"
-          >
+          <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn2">
             {t("Download XLS file")}
           </Link>
         </div>
@@ -370,7 +355,6 @@ const BOMsForm = (props) => {
       <div className="add_code_div">
         <div className="codedropdown_div">
           <label className="BomLabel">Code</label>
-
           <Select
             name="codes"
             id="demo-simple-select"
@@ -397,9 +381,7 @@ const BOMsForm = (props) => {
         <div className="codedropdown_div1">
           <Button
             text={t("To add")}
-            className={
-              code === "default" ? "to_add_btn_disabled" : "to_add_btn"
-            }
+            className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"}
             onClick={handleAddCodes}
             disabled={code === "default" ? true : false}
           />
@@ -408,10 +390,7 @@ const BOMsForm = (props) => {
       {allCodes?.length === 0 ? (
         ""
       ) : (
-        <TableContainer
-          component={Paper}
-          style={{ width: "100%", marginTop: "2%" }}
-        >
+        <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
@@ -430,15 +409,10 @@ const BOMsForm = (props) => {
             <TableBody>
               {allCodes?.map((item, index) => {
                 return (
-                  <TableRow
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    key={index}
-
-                  >
+                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }} key={index}>
                     <TableCell align="center" style={{ width: "20%" }}>
                       <p
                         className="AP_plus_title"
-
                         style={{ color: item?.certification_required === false && "red" }}
                       >
                         {item?.code}
@@ -519,8 +493,7 @@ const BOMsForm = (props) => {
             className="to_confirm_btn"
             onClick={() => {
               setAllCodes((prev) => {
-                prev[editModalData.index].monetary_value =
-                  editModalData?.item?.monetary_value;
+                prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
                 return [...prev];
               });
               setOpenEditModal(false);
@@ -536,6 +509,7 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
+
 
       <ConfirmModal
         open={openModal}
@@ -569,13 +543,13 @@ const BOMsForm = (props) => {
             <div className="space">
               {t("Those products for")} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode}{" "}
-                {t("require a certification")}
+                {props.certificationCountryOfCode} {t("require a certification")}
               </span>
             </div>
             <div className="space">
               {t("The cost of this certification is up to")}
               <span style={{ fontWeight: 900, fontSize: "19px" }}>
+
                 {props.certificationCostOfCode} {currency === "USD"  ? "$" : "Є"}/HT
               </span>
             </div>
@@ -618,14 +592,11 @@ const BOMsForm = (props) => {
             <div className="space">
               {t("Those products for")} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode}{" "}
-                {t("do not require a certification")}
+                {props.certificationCountryOfCode} {t("do not require a certification")}
               </span>
             </div>
             <div className="space" style={{ textAlign: "center" }}>
-              {t(
-                "You can therefore send your goods without going through an organization."
-              )}
+              {t("You can therefore send your goods without going through an organization.")}
             </div>
           </div>
           <Button
@@ -640,6 +611,7 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
+
 
     </div>
   );

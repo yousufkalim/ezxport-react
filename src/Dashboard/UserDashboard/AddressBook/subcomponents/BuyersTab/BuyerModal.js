@@ -169,13 +169,8 @@ const BuyerModal = ({
     }
   };
 
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
-  const MODAL_TITLE = isEdit
-    ? "Edit buyer"
-    : buyer
-    ? "View buyer"
-    : "Add buyer";
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const MODAL_TITLE = isEdit ? "Edit buyer" : buyer ? "View buyer" : "Add buyer";
   return (
     <Modal
       open={open}
@@ -193,7 +188,7 @@ const BuyerModal = ({
             onChange={(e) => handleChange(e)}
             value={formState.values.companyName}
             isError={hasError("companyName")}
-            error={formState.errors?.companyName}
+            error={[t(formState.errors?.companyName)]}
             type="text"
             placeholder="Company 1"
           />
@@ -220,10 +215,7 @@ const BuyerModal = ({
               })}
             </Select>
             {hasError("country") && (
-
-              <div className="input-error">
-                {formState.errors.country ?? null}
-              </div>
+              <div className="input-error">{formState.errors.country ?? null}</div>
             )}
           </FormControl>
         </div>
@@ -236,7 +228,7 @@ const BuyerModal = ({
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
                 isError={hasError("email")}
-                error={formState.errors.email}
+                error={[t(formState.errors.email)]}
                 value={formState.values.email}
                 type="email"
                 placeholder="mail@mail.com"
@@ -246,7 +238,7 @@ const BuyerModal = ({
               <InputField
                 label={t("Telephone")}
                 isError={hasError("telephone")}
-                error={formState.errors.telephone}
+                error={[t(formState.errors.telephone)]}
                 name="telephone"
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
@@ -265,7 +257,7 @@ const BuyerModal = ({
               disabled={!isEdit && buyer}
               onChange={(e) => handleChange(e)}
               isError={hasError("address")}
-              error={formState.errors.address}
+              error={[t(formState.errors.address)]}
               value={formState.values.address}
               type="text"
               placeholder="97 road of rouvroy"
@@ -281,7 +273,7 @@ const BuyerModal = ({
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
                 isError={hasError("zipcode")}
-                error={formState.errors.zipcode}
+                error={[t(formState.errors.zipcode)]}
                 value={formState.values.zipcode}
                 type="number"
                 placeholder="34 832"
@@ -294,7 +286,7 @@ const BuyerModal = ({
                 disabled={!isEdit && buyer}
                 onChange={(e) => handleChange(e)}
                 isError={hasError("town")}
-                error={formState.errors?.town}
+                error={[t(formState.errors?.town)]}
                 value={formState.values.town}
                 type="text"
                 placeholder="Congo"

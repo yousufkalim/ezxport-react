@@ -52,9 +52,7 @@
   font-family: "Inter" !important;
 }
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
-
   font-family: "Inter" !important;
-
 }
 .css-wmokj3-MuiTableCell-root {
   font-family: "Inter" !important;
@@ -264,7 +262,7 @@ input:focus {
 }
 @media screen and (min-width: 901px) and (max-width: 1200px) {
   .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-    margin-top: 15px !important;
+    margin-top: 9px !important;
   }
 
   .left_back_side {
@@ -284,12 +282,10 @@ input:focus {
     font-size: 14px;
   }
   .import_Btn {
-    width: 55%;
     font-size: 13px;
   }
   .download_Btn {
     font-size: 13px;
-    width: 44%;
   }
   label {
     font-size: 12px;

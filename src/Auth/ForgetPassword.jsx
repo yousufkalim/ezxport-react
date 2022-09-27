@@ -45,7 +45,7 @@ const ForgetPassword = () => {
       .then((res) => {
         setFlag(true);
         if (res.data.success) {
-          toaster("success", res.data.message);
+          toaster("success", t(res.data.message));
         }
       })
       .catch((err) => {
@@ -61,7 +61,7 @@ const ForgetPassword = () => {
         ...formState.values,
         [event.target.name]: event.target.value,
       },
-      touched: {...formState.touched, [event.target.name]: true }
+      touched: { ...formState.touched, [event.target.name]: true },
     }));
   };
   const handleBlur = (e) => {
@@ -102,7 +102,7 @@ const ForgetPassword = () => {
             <InputField
               label={t("E-mail address")}
               isError={hasError("email")}
-              error={formState.errors.email}
+              error={[t(formState.errors.email)]}
               name="email"
               onBlur={(e) => handleBlur(e)}
               // role="presentation"

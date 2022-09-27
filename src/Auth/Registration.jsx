@@ -127,7 +127,7 @@ const Registration = () => {
   }, [formState.values]);
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormState((formState) => ({
       ...formState,
       values: {
@@ -140,7 +140,7 @@ const Registration = () => {
 
   // handle change for phone number
   const handlePhnChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     if (!value.match(/[^0-9]/)) {
       setFormState((formState) => ({
         ...formState,
@@ -153,7 +153,7 @@ const Registration = () => {
     }
   };
   const handleNameChange = (event) => {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     if (!value.match(/[^a-zA-Z0-9]/)) {
       setFormState((formState) => ({
         ...formState,
@@ -218,7 +218,7 @@ const Registration = () => {
                   value={formState.values.lastName}
                   name="lastName"
                   isError={hasError("lastName")}
-                  error={formState.errors.lastName}
+                  error={[t(formState.errors.lastName)]}
                   onChange={handleNameChange}
                 />
               </div>
@@ -230,7 +230,7 @@ const Registration = () => {
                   required
                   value={formState.values.firstName}
                   isError={hasError("firstName")}
-                  error={formState.errors.firstName}
+                  error={[t(formState.errors.firstName)]}
                   name="firstName"
                   onChange={handleNameChange}
                 />
@@ -244,7 +244,7 @@ const Registration = () => {
                   placeholder="mail@mail.com"
                   required
                   isError={hasError("email")}
-                  error={formState.errors.email}
+                  error={[t(formState.errors.email)]}
                   value={formState.values.email}
                   name="email"
                   onChange={handleChange}
@@ -255,7 +255,7 @@ const Registration = () => {
                   label={t("Telephone")}
                   type="number"
                   isError={hasError("phone")}
-                  error={formState.errors.phone}
+                  error={[t(formState.errors.phone)]}
                   placeholder="33 07 86 36 02 20"
                   required
                   value={formState.values.phone}
@@ -270,7 +270,7 @@ const Registration = () => {
                 <input
                   type="text"
                   className={
-                    hasError("fullAddress") && formState.errors.fullAddress
+                    hasError("fullAddress") && [t(formState.errors.fullAddress)]
                       ? "reg_input_red"
                       : "reg_input"
                   }
@@ -281,7 +281,7 @@ const Registration = () => {
                   onChange={handleChange}
                 />
                 <div className="error-format">
-                  {hasError("fullAddress") && formState.errors.fullAddress}
+                  {hasError("fullAddress") && [t(formState.errors.fullAddress)]}
                 </div>
               </div>
               <div className="regist_col2">
@@ -290,7 +290,7 @@ const Registration = () => {
                   <input
                     type="string"
                     className={
-                      hasError("postelCode") && formState.errors.postelCode
+                      hasError("postelCode") && [t(formState.errors.postelCode)]
                         ? "reg_input_red2"
                         : "reg_input2"
                     }
@@ -301,7 +301,7 @@ const Registration = () => {
                     onChange={handlePhnChange}
                   />
                   <div className="error-format">
-                    {hasError("postelCode") ? formState.errors.postelCode[0] : null}
+                    {hasError("postelCode") ? t(formState.errors.postelCode[0]) : null}
                   </div>
                 </div>
                 <div className="city_inputs2">
@@ -309,7 +309,9 @@ const Registration = () => {
                   <input
                     type="text"
                     className={
-                      hasError("town") && formState.errors.town ? "reg_input_red3" : "reg_input3"
+                      hasError("town") && [t(formState.errors.town)]
+                        ? "reg_input_red3"
+                        : "reg_input3"
                     }
                     placeholder="Abbeville"
                     required
@@ -317,7 +319,9 @@ const Registration = () => {
                     name="town"
                     onChange={(e) => handleChange(e)}
                   />
-                  <div className="error-format">{hasError("town") && formState.errors.town}</div>
+                  <div className="error-format">
+                    {hasError("town") && [t(formState.errors.town)]}
+                  </div>
                 </div>
                 {/* <div className="city_inputs2">
                   <InputField
@@ -339,7 +343,7 @@ const Registration = () => {
                 <InputField
                   label={t("Password")}
                   isError={hasError("password")}
-                  error={formState.errors.password}
+                  error={[t(formState.errors.password)]}
                   name="password"
                   autoComplete="new-password"
                   type={showPassword ? "text" : "password"}
@@ -356,7 +360,7 @@ const Registration = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   label={t("Confirming your password")}
                   isError={hasError("confirmPassword")}
-                  error={formState.errors.confirmPassword}
+                  error={[t(formState.errors.confirmPassword)]}
                   placeholder={t("Confirm password")}
                   required
                   autoComplete={false}
@@ -376,11 +380,11 @@ const Registration = () => {
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
-              <label htmlFor="">{t("Last name")}</label>
+                <label htmlFor="">{t("Last name")}</label>
                 <InputField
                   type="text"
                   className={
-                    hasError("companyLastName") && formState.errors.companyLastName
+                    hasError("companyLastName") && [t(formState.errors.companyLastName)]
                       ? "reg_input_red"
                       : "reg_input"
                   }
@@ -391,7 +395,7 @@ const Registration = () => {
                   onChange={handleNameChange}
                 />
                 <div className="error-format">
-                  {hasError("companyLastName") ? formState.errors.companyLastName[0] : null}
+                  {hasError("companyLastName") ? t(formState.errors.companyLastName[0]) : null}
                 </div>
               </div>
               <div className="regist_col1">
@@ -426,7 +430,7 @@ const Registration = () => {
                   type="text"
                   label="VAT number"
                   isError={hasError("vatNumber")}
-                  error={formState.errors.vatNumber}
+                  error={[t(formState.errors.vatNumber)]}
                   placeholder="6372890367849"
                   required
                   value={formState.values.vatNumber.toUpperCase()}

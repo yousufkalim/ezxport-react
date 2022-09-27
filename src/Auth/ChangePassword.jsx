@@ -24,7 +24,7 @@ const ChangePassword = ({ Token, setResetPassword }) => {
     })
       .then((res) => {
         if (res.data.success) {
-          toaster("success", res.data.message);
+          toaster("success", t(res.data.message));
           setSuccess(true);
         }
       })

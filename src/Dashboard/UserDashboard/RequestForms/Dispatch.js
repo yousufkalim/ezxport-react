@@ -362,11 +362,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Company name')}</label>
             <InputField
-              className='company_name_input'
-              placeholder={t('Company name')}
-              name='companyName'
-              error={sellerData.errors.companyName}
-              isError={sellerError('companyName')}
+
+              className="company_name_input"
+              placeholder={t("Company name")}
+              name="companyName"
+              error={[t(sellerData.errors.companyName)]}
+              isError={sellerError("companyName")}
               value={sellerValues?.companyName}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -407,11 +408,13 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('E-mail address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='mail@gmail.com'
-              name='email'
-              error={sellerData.errors.email}
-              isError={sellerError('email')}
+
+              className="company_name_input"
+              placeholder="mail@gmail.com"
+              name="email"
+              error={[t(sellerData.errors.email)]}
+              isError={sellerError("email")}
+
               value={sellerValues.email}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -422,11 +425,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Telephone')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='xx xx xx xx xx'
-              name='telephone'
-              error={sellerData.errors.telephone}
-              isError={sellerError('telephone')}
+
+              className="company_name_input"
+              placeholder="xx xx xx xx xx"
+              name="telephone"
+              error={[t(sellerData.errors.telephone)]}
+              isError={sellerError("telephone")}
               value={sellerValues.telephone}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
@@ -438,16 +442,18 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Full address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='90 road of rouvroy'
-              error={sellerData.errors.fullAddress}
-              isError={sellerError('fullAddress')}
-              name='fullAddress'
+
+              className="company_name_input"
+              placeholder="90 road of rouvroy"
+              error={[t(sellerData.errors.fullAddress)]}
+              isError={sellerError("fullAddress")}
+              name="fullAddress"
               value={sellerValues.fullAddress}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
+            {console.log(sellerData.errors.fullAddress, "gggg")}
           </div>
 
           <div className='steps_3_2inFeilds'>
@@ -458,8 +464,9 @@ const Dispatch = (props) => {
                 placeholder='33678'
                 name='postalCode'
                 value={sellerValues.postalCode}
-                error={sellerData.errors.postalCode}
-                isError={sellerError('postalCode')}
+
+                error={[t(sellerData.errors.postalCode)]}
+                isError={sellerError("postalCode")}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
@@ -468,11 +475,12 @@ const Dispatch = (props) => {
             <div style={{ width: '60%' }}>
               <label className='BomLabel'>{t('Town')}</label>
               <InputField
-                className='company_name_input'
-                placeholder='Abbeville'
-                name='town'
-                error={sellerData.errors.town}
-                isError={sellerError('town')}
+
+                className="company_name_input"
+                placeholder="Abbeville"
+                name="town"
+                error={[t(sellerData.errors.town)]}
+                isError={sellerError("town")}
                 value={sellerValues.town}
                 onChange={(e) => {
                   props.handleSellerData(e.target.name, e.target.value);
@@ -509,11 +517,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Company name')}</label>
             <InputField
-              className='company_name_input'
-              placeholder={t('Company name')}
-              name='companyName'
-              error={buyerData.errors.companyName}
-              isError={buyerError('companyName')}
+
+              className="company_name_input"
+              placeholder={t("Company name")}
+              name="companyName"
+              error={[t(buyerData.errors.companyName)]}
+              isError={buyerError("companyName")}
               value={buyerValues?.companyName}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -554,11 +563,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('E-mail address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='mail@gmail.com'
-              name='email'
-              error={buyerData.errors.email}
-              isError={buyerError('email')}
+
+              className="company_name_input"
+              placeholder="mail@gmail.com"
+              name="email"
+              error={[t(buyerData.errors.email)]}
+              isError={buyerError("email")}
               value={buyerValues?.email}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -569,11 +579,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Telephone')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='33 33 44 04 56'
-              name='telephone'
-              error={buyerData.errors.telephone}
-              isError={buyerError('telephone')}
+
+              className="company_name_input"
+              placeholder="33 33 44 04 56"
+              name="telephone"
+              error={[t(buyerData.errors.telephone)]}
+              isError={buyerError("telephone")}
               value={buyerValues?.telephone}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -585,11 +596,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Full address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='90 road of rouvroy'
-              name='fullAddress'
-              error={buyerData.errors.fullAddress}
-              isError={buyerError('fullAddress')}
+
+              className="company_name_input"
+              placeholder="90 road of rouvroy"
+              name="fullAddress"
+              error={[t(buyerData.errors.fullAddress)]}
+              isError={buyerError("fullAddress")}
               value={buyerValues?.fullAddress}
               onChange={(e) => {
                 props.handleBuyerData(e.target.name, e.target.value);
@@ -605,8 +617,9 @@ const Dispatch = (props) => {
                 placeholder='33678'
                 name='postalCode'
                 value={buyerValues?.postalCode}
-                error={buyerData.errors.postalCode}
-                isError={buyerError('postalCode')}
+
+                error={[t(buyerData.errors.postalCode)]}
+                isError={buyerError("postalCode")}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
@@ -615,11 +628,12 @@ const Dispatch = (props) => {
             <div style={{ width: '60%' }}>
               <label className='BomLabel'>{t('Town')}</label>
               <InputField
-                className='company_name_input'
-                placeholder='Abbeville'
-                name='town'
-                error={buyerData.errors.town}
-                isError={buyerError('town')}
+
+                className="company_name_input"
+                placeholder="Abbeville"
+                name="town"
+                error={[t(buyerData.errors.town)]}
+                isError={buyerError("town")}
                 value={buyerValues?.town}
                 onChange={(e) => {
                   props.handleBuyerData(e.target.name, e.target.value);
@@ -674,19 +688,22 @@ const Dispatch = (props) => {
           />
           <Calendar className='inspection_date_icon' />
 
-          {placeError('InspectionDate') && (
-            <div className='input-error'>{placeOfInspection.errors.InspectionDate ?? null}</div>
+
+          {placeError("InspectionDate") && (
+            <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>
           )}
         </div>
         <div className='inspection_textfield'>
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Company name')}</label>
             <InputField
-              className='company_name_input'
-              placeholder={t('Company name')}
-              name='companyName'
-              // error={placeOfInspection.errors.companyName}
-              // isError={placeError('companyName')}
+
+              className="company_name_input"
+              placeholder={t("Company name")}
+              name="companyName"
+              error={[t(placeOfInspection.errors.companyName)]}
+              isError={placeError("companyName")}
+
               value={placeValues?.companyName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -718,11 +735,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('E-mail address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='mail@gmail.com'
-              name='email'
-              error={placeOfInspection.errors.email}
-              isError={placeError('email')}
+
+              className="company_name_input"
+              placeholder="mail@gmail.com"
+              name="email"
+              error={[t(placeOfInspection.errors.email)]}
+              isError={placeError("email")}
               value={placeValues?.email}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -733,11 +751,13 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Telephone')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='33 33 44 04 56'
-              name='telephone'
-              error={placeOfInspection.errors.telephone}
-              isError={placeError('telephone')}
+
+              className="company_name_input"
+              placeholder="33 33 44 04 56"
+              name="telephone"
+              error={[t(placeOfInspection.errors.telephone)]}
+              isError={placeError("telephone")}
+
               value={placeValues?.telephone}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -749,11 +769,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Full address')}</label>
             <InputField
-              className='company_name_input'
-              placeholder='90 road of rouvroy'
-              name='fullAddress'
-              error={placeOfInspection.errors.fullAddress}
-              isError={placeError('fullAddress')}
+
+              className="company_name_input"
+              placeholder="90 road of rouvroy"
+              name="fullAddress"
+              error={[t(placeOfInspection.errors.fullAddress)]}
+              isError={placeError("fullAddress")}
               value={placeValues?.fullAddress}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -764,11 +785,12 @@ const Dispatch = (props) => {
             <div style={{ width: '35%' }}>
               <label className='BomLabel'>{t('Postal code')}</label>
               <InputField
-                className='company_name_input'
-                placeholder='33678'
-                name='postalCode'
-                error={placeOfInspection.errors.postalCode}
-                isError={placeError('postalCode')}
+
+                className="company_name_input"
+                placeholder="33678"
+                name="postalCode"
+                error={[t(placeOfInspection.errors.postalCode)]}
+                isError={placeError("postalCode")}
                 value={placeValues?.postalCode}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
@@ -778,11 +800,12 @@ const Dispatch = (props) => {
             <div style={{ width: '60%' }}>
               <label className='BomLabel'>{t('Town')}</label>
               <InputField
-                className='company_name_input'
-                placeholder='Abbeville'
-                name='town'
-                error={placeOfInspection.errors.town}
-                isError={placeError('town')}
+
+                className="company_name_input"
+                placeholder="Abbeville"
+                name="town"
+                error={[t(placeOfInspection.errors.town)]}
+                isError={placeError("town")}
                 value={placeValues?.town}
                 onChange={(e) => {
                   props.handleInspectionData(e.target.name, e.target.value);
@@ -795,11 +818,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Contact last name')}</label>
             <InputField
-              className='company_name_input'
-              placeholder={t('Contact name')}
-              name='contactLastName'
-              error={placeOfInspection.errors.contactLastName}
-              isError={placeError('contactLastName')}
+
+              className="company_name_input"
+              placeholder={t("Contact name")}
+              name="contactLastName"
+              error={[t(placeOfInspection.errors.contactLastName)]}
+              isError={placeError("contactLastName")}
               value={placeValues?.contactLastName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
@@ -809,11 +833,12 @@ const Dispatch = (props) => {
           <div className='speps_3_feilds'>
             <label className='BomLabel'>{t('Contact first name')}</label>
             <InputField
-              className='company_name_input'
-              placeholder={t('Contact first name')}
-              name='contactFirstName'
-              error={placeOfInspection.errors.contactFirstName}
-              isError={placeError('contactFirstName')}
+
+              className="company_name_input"
+              placeholder={t("Contact first name")}
+              name="contactFirstName"
+              error={[t(placeOfInspection.errors.contactFirstName)]}
+              isError={placeError("contactFirstName")}
               value={placeValues?.contactFirstName}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
