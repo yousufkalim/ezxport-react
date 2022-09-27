@@ -12,6 +12,8 @@ i18n
         translations: {
           ///// EZXPORT ADMIN /////
           // Country
+          "You have validated the documents of company X, we will send you all the documents to the address":
+            "You have validated the documents of company X, we will send you all the documents to the address",
           "First name is required": "First name is required",
           "is required": "is required",
           "Email is not a valid email": "Email is not a valid email",
@@ -52,9 +54,10 @@ i18n
             "Minimum cost should be less than maximum cost",
           "Maxminm cost should be greater than minimum cost":
             "Maxminm cost should be greater than minimum cost",
-          "": "",
-          "": "",
-          "": "",
+          "Sending email is required": "Sending email is required",
+          "Fullname is required": "Fullname is required",
+          "Phone number is required": "Phone number is required",
+          "Contact email is required": "Contact email is required",
 
           Country: "Country",
           Searching: "Searching",
@@ -359,7 +362,7 @@ i18n
           "Buyer data": "Buyer data",
           "Place of inspection": "Place of inspection",
           "Date on which the goods can be inspected": "Date on which the goods can be inspected",
-          "Contact last name": "Contact last name",
+          "Contact Last Name": "Contact Last Name",
           "contact first name": "contact first name",
           "Download the file": "Download the file",
           "Request document": "Request document",
@@ -684,18 +687,18 @@ i18n
           // Appplication
           "File validated": "File validated",
           "Cost certificate": "Cost certificate",
+          // Common
+          "We asked": "We asked",
+          "the missing documents": "the missing documents",
+          "to the company": "to the company",
+          "Return to Requests": "Return to Requests",
         },
-        // Common
-        "We asked": "We asked",
-        "the missing documents": "the missing documents",
-        "to the company": "to the company",
-        "Return to Requests": "Return to Requests",
-        "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
-          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com",
       },
       fr: {
         translations: {
           // Country
+          "You have validated the documents of company X, we will send you all the documents to the address":
+            "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse",
           "Sélectionnez la date d'inspection": "Select inspection date",
           "First name is required": "Le prénom est requis ",
           "is required": "est requis",
@@ -738,6 +741,10 @@ i18n
             "Le coût minimum doit être inférieur au coût maximum",
           "Maxminm cost should be greater than minimum cost":
             "Le coût maximal doit être supérieur au coût minimal",
+          "Sending email is required": "L'envoi d'un e-mail est obligatoire",
+          "Fullname is required": "Le nom complet est requis",
+          "Phone number is required": "Le numéro de téléphone est requis",
+          "Contact email is required": "L'e-mail de contact est requis",
 
           Country: "Pays",
           Searching: "Recherche",
@@ -1041,7 +1048,7 @@ i18n
           "Place of inspection": "Lieu de contrôle",
           "Date on which the goods can be inspected":
             "Date à laquelle les marchandises peuvent être inspectées",
-          "Contact last name": "Nom de famille du contact",
+          "Contact Last Name": "Nom de famille du contact",
           "contact first name": "Prénom du contact",
           "Download the file": "Télécharger le fichier",
           "Request document": "Demander un document",
@@ -1371,8 +1378,6 @@ i18n
           "the missing documents": "les documents manquants",
           "to the company": "à la société",
           "Return to Requests": "Retour aux demandes",
-          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
-            "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse mail @mail.com",
         },
       },
     },
