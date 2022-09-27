@@ -7,7 +7,7 @@ import { Store } from "../../../StoreContext";
 import validate from "validate.js";
 
 const schema = {
-  lasstName: {
+  lastName: {
     presence: { allowEmpty: false, message: "is required" },
     length: {
       maximum: 64,
@@ -59,6 +59,7 @@ const ServiceProvider = (props) => {
         vendorId: vendorId,
         lastName: contact_lname,
         firstName: contact_fname,
+
         email: contact_email,
       },
     });
@@ -128,7 +129,7 @@ const ServiceProvider = (props) => {
               <InputField
                 className="last_name_input"
                 isError={hasError("lastName")}
-                error={step2.errors.lastName}
+                error={[t(step2.errors.lastName)]}
                 value={step2?.values?.lastName}
                 placeholder={t("Last name")}
                 name="lastName"
@@ -143,7 +144,7 @@ const ServiceProvider = (props) => {
                 placeholder={t("First name")}
                 isError={hasError("firstName")}
                 value={step2?.values?.firstName}
-                error={step2.errors.firstName}
+                error={[t(step2.errors.firstName)]}
                 className="last_name_input"
                 name="firstName"
                 onChange={(e) => {
@@ -157,7 +158,7 @@ const ServiceProvider = (props) => {
             <InputField
               className="last_name_input"
               isError={hasError("email")}
-              error={step2.errors.email}
+              error={[t(step2.errors.email)]}
               value={step2?.values?.email}
               placeholder="mail@mail.com"
               name="email"

@@ -12,13 +12,56 @@ i18n
         translations: {
           ///// EZXPORT ADMIN /////
           // Country
+          "First name is required": "First name is required",
+          "is required": "is required",
+          "Email is not a valid email": "Email is not a valid email",
+          "Email is required": "Email is required",
+          "Last name is required": "Last name is required",
+          "Company name is required": "Company name is required",
+          "Telephone is required": "Telephone is required",
+          "Full address is required": "Full address is required",
+          "Postal code is required": "Postal code is required",
+          "Town is required": "Town is required",
+          "Contact first name is required": "Contact first name is required",
+          "Contact last name is required": "Contact last name is required",
+          "Address is required": "Address is required",
+          "Vat number is required": "Vat number is required",
+          "Password is too short (minimum is 6 characters)":
+            "Password is too short (minimum is 6 characters)",
+          "Confirm password is not same as password": "Confirm password is not same as password",
+          "Confirm password is required": "Confirm password is required",
+          "Vat number is too short (minimum is 13 characters)":
+            "Vat number is too short (minimum is 13 characters)",
+          "Company last name is required": "Company last name is required",
+          "Phone is too short (minimum is 10 characters)":
+            "Phone is too short (minimum is 10 characters)",
+          "Postel code is required": "Postel code is required",
+          "Postel code is too long (maximum is 5 characters)":
+            "Postel code is too long (maximum is 5 characters)",
+          "Postel code is too short (minimum is 5 characters)":
+            "Postel code is too short (minimum is 5 characters)",
+          "Vat number is too long (maximum is 13 characters)":
+            "Vat number is too long (maximum is 13 characters)",
+          "Name is required": "Name is required",
+          "Info  is required": "Info  is required",
+          "Minmum Threshold is Required": "Minmum Threshold is Required",
+          "Coefficient is Required": "Coefficient is Required",
+          "Minmum cost is Required": "Minmum cost is Required",
+          "Maximum cost is Required": "Maximum cost is Required",
+          "Minimum cost should be less than maximum cost":
+            "Minimum cost should be less than maximum cost",
+          "Maxminm cost should be greater than minimum cost":
+            "Maxminm cost should be greater than minimum cost",
+          "": "",
+          "": "",
+          "": "",
+
           Country: "Country",
           Searching: "Searching",
           "Add a country": "Add a country",
           "Select a country to add": "Select a country to add",
           "Select a Country": "Select a Country",
-          "Select currency against selected country":
-            "Select currency against selected country",
+          "Select currency against selected country": "Select currency against selected country",
           "Select a Currency": "Select a Currency",
           "US Dollar $": "US Dollar $",
           "EURO €": "EURO €",
@@ -235,6 +278,7 @@ i18n
           Edit: "Edit",
           Documents: "Documents",
           BOMs: "BOMs",
+          "Add BOMs": "Add BOMs",
           Calculation: "Calculation",
           "Help Information": "Help Information",
           "BOMs code ": "BOMs code ",
@@ -261,11 +305,11 @@ i18n
           "Download your BOM file": "Download your BOM file",
           "Download current file": "Download current file",
           "Upload your BOM file": "Upload your BOM file",
-          "Click to upload files": "Click to upload files",
+          Click: "Click",
+          "to upload files": "to upload files",
           Submit: "Submit",
           "Select an Option": "Select an Option",
-          "Update calculation by coefficient":
-            "Update calculation by coefficient",
+          "Update calculation by coefficient": "Update calculation by coefficient",
           Update: "Update",
           "Select country for BOMs": "Select country for BOMs",
           // Service providers
@@ -300,7 +344,7 @@ i18n
           Date: "Date",
           "Certificate cost	": "Certificate cost	",
           "Missing Documents": "Missing Documents",
-          sent: "sent",
+          Sent: "Sent",
           "First name": "First name",
           Telephone: "Telephone",
           "No request created by": "No request created by",
@@ -309,14 +353,12 @@ i18n
           Request: "Request",
           Statutes: "Statutes",
           Reference: "Reference",
-          "Validate and receive the completed file":
-            "Validate and receive the completed file",
+          "Validate and receive the completed file": "Validate and receive the completed file",
           "Address Book": "Address Book",
           "Seller data": "Seller data",
           "Buyer data": "Buyer data",
           "Place of inspection": "Place of inspection",
-          "Date on which the goods can be inspected":
-            "Date on which the goods can be inspected",
+          "Date on which the goods can be inspected": "Date on which the goods can be inspected",
           "Contact last name": "Contact last name",
           "contact first name": "contact first name",
           "Download the file": "Download the file",
@@ -342,15 +384,13 @@ i18n
           "Analysis Certificate": "Analysis Certificate",
           Plan: "Plan",
           "Other documents": "Other documents",
-          "Ask for other documents for the product":
-            "Ask for other documents for the product",
+          "Ask for other documents for the product": "Ask for other documents for the product",
           "Validate By Admin": "Validate By Admin",
           "Export documents": "Export documents",
           "Enter Document name": "Enter Document name",
           "Invalid documents ": "Invalid documents ",
           "Edit Range": "Edit Range",
-          "Update calculation by coefficient":
-            "Update calculation by coefficient",
+          "Update calculation by coefficient": "Update calculation by coefficient",
           "Add Service Provider": "Add Service Provider",
           "Validate the file": "Validate the file",
           "Please add your comment below": "Please add your comment below",
@@ -365,8 +405,7 @@ i18n
           "Next Step": "Next Step",
           "Contact email": "Contact email",
           // login logout
-          "Are you sure you want to log out?":
-            "Are you sure you want to log out?",
+          "Are you sure you want to log out?": "Are you sure you want to log out?",
           Cancel: "Cancel",
           Logout: "Logout",
 
@@ -389,6 +428,7 @@ i18n
           "Send documents": "Send documents",
           "Comments by the Admin": "Comments by the Admin",
           valid: "valid",
+          "codes required ": "codes required",
           // stepper
           "Return to Dashboard": "Return to Dashboard",
           Dispatch: "Dispatch",
@@ -406,19 +446,16 @@ i18n
           "Delete BOM": "Delete BOM",
           "Those products for": "Those products for",
           "require a certification": "require a certification",
-          "The cost of this certification is up to":
-            "The cost of this certification is up to",
+          "The cost of this certification is up to": "The cost of this certification is up to",
           "Continue my request on Ezxport": "Continue my request on Ezxport",
           "Go back to my request": "Go back to my request",
           "do not require a certification": "do not require a certification",
           "You can therefore send your goods without going through an organization.":
             "You can therefore send your goods without going through an organization.",
           "Make another request": "Make another request",
-          "The nomenclatures listed for the":
-            "The nomenclatures listed for the",
+          "The nomenclatures listed for the": "The nomenclatures listed for the",
           "Gabon are subject": "Gabon are subject",
-          "to verification and certification.":
-            "to verification and certification.",
+          "to verification and certification.": "to verification and certification.",
           "Please select": "Please select",
           "a vendor": "a vendor",
           "for this request": "for this request",
@@ -426,18 +463,15 @@ i18n
             "Do you have contact information for this certification company?",
           "Add or select a seller": "Add or select a seller",
           "Add or select a buyer": "Add or select a buyer",
-          "Add or select an inspection location":
-            "Add or select an inspection location",
+          "Add or select an inspection location": "Add or select an inspection location",
           "Add inspection location": "Add inspection location",
           "Postel Code": "Postel Code",
           "To Complete": "To Complete",
           "Add another product": "Add another product",
           "Select a Platform to Continue your request":
             "Select a Platform to Continue your request",
-          "Continue request on Ezxport Platform":
-            "Continue request on Ezxport Platform",
-          "Continue request on other Platform":
-            "Continue request on other Platform",
+          "Continue request on Ezxport Platform": "Continue request on Ezxport Platform",
+          "Continue request on other Platform": "Continue request on other Platform",
           Yes: "Yes",
           No: "Non",
           Send: "Send",
@@ -445,8 +479,7 @@ i18n
           "Contact first name": "Contact first name",
           "Nomenclature name": "Nomenclature name",
           Complete: "Complete",
-          "The product documents are to be completed":
-            "The product documents are to be completed",
+          "The product documents are to be completed": "The product documents are to be completed",
           "select type of Condition": "select type of Condition",
           Bad: "Bad",
           Average: "Average",
@@ -455,6 +488,18 @@ i18n
           "Something went wrong!": "Something went wrong!",
           "Email Address": "Email Address",
           "Country name": "Country name",
+          "Your request has been made successfully": "Your request has been made successfully",
+          "We will process your file as soon as possible, and":
+            "We will process your file as soon as possible, and",
+          "we will come back to you. You can find your request in the table of":
+            "we will come back to you. You can find your request in the table of",
+          "Tracking requests.": "Tracking requests.",
+          OKAY: "OKAY",
+          title: "title",
+          "title is required": "title is required",
+          "": "",
+          "": "",
+          "": "",
 
           // Service providers
           "To Search": "To Search",
@@ -474,7 +519,6 @@ i18n
           "Add location": "Add location",
           "View inspection location": "View inspection location",
           "Edit inspection location": "Edit inspection location",
-          "is required": "is required",
           // Documents
           "By Request": "By Request",
           "By Nomenclature": "By Nomenclature",
@@ -499,11 +543,9 @@ i18n
           "Country Deleted Successfully": "Country Deleted Successfully",
           "Something went wrong": "Something went wrong",
           "User created successfully": "User created successfully",
-          "Country is required for uploading codes":
-            "Country is required for uploading codes",
+          "Country is required for uploading codes": "Country is required for uploading codes",
           "Can only upload Excel sheet": "Can only upload Excel sheet",
-          "Servive Provider updated Successfully":
-            "Servive Provider updated Successfully",
+          "Servive Provider updated Successfully": "Servive Provider updated Successfully",
           "Buyer addedd successfully!": "Buyer addedd successfully!",
           "Buyer updated sucessfully": "Buyer updated sucessfully",
           "Document Added Successfully": "Document Added Successfully",
@@ -511,27 +553,22 @@ i18n
           "company updated successfully": "company updated successfully",
           "Range added successfully": "Range added successfully",
           "Coefficient Added Successfully": "Coefficient Added Successfully",
-          "Coefficient Updated Successfully":
-            "Coefficient Updated Successfully",
+          "Coefficient Updated Successfully": "Coefficient Updated Successfully",
           "Range Deleted successfully": "Range Deleted successfully",
           "Range updated successfully": "Range updated successfully",
           "BOMs updated successfully": "BOMs updated successfully",
           "BOMs deleted successfully": "BOMs deleted successfully",
           "BOMs added successfully": "BOMs added successfully",
-          "Service Provider Updated Successfully":
-            "Service Provider Updated Successfully",
+          "Service Provider Updated Successfully": "Service Provider Updated Successfully",
           "Vendor is required": "Vendor is required",
           "File not found!": "File not found!",
           "Seller addedd successfully!": "Seller addedd successfully!",
           "Seller updated successfully!": "Seller updated successfully!",
-          "Inspection location addedd successfully!":
-            "Inspection location addedd successfully!",
-          "Inspection location updated successfully!":
-            "Inspection location updated successfully!",
+          "Inspection location addedd successfully!": "Inspection location addedd successfully!",
+          "Inspection location updated successfully!": "Inspection location updated successfully!",
           "Document Validated Successfully": "Document Validated Successfully",
           "Document Un-Validated": "Document Un-Validated",
-          "Error while fetching service providers":
-            "Error while fetching service providers",
+          "Error while fetching service providers": "Error while fetching service providers",
           "Vendor added successfully": "Vendor added successfully",
           "File not found": "File not found",
           "Email does not exist": "Email does not exist",
@@ -658,6 +695,48 @@ i18n
       fr: {
         translations: {
           // Country
+          "First name is required": "Le prénom est requis ",
+          "is required": "est requis",
+          "Email is not a valid email": "L'e-mail n'est pas un e-mail valide",
+          "Email is required": "L'e-mail est requis",
+          "Last name is required": "Le nom de famille est requis",
+          "Company name is required": "Le nom de l'entreprise est requis",
+          "Telephone is required": "Le téléphone est requis",
+          "Full address is required": "L'adresse complète est requise",
+          "Postal code is required": "Le code postal est requis",
+          "Town is required": "La ville est requise",
+          "Contact first name is required": "Le prénom du contact est requis",
+          "Contact last name is required": "Le nom de famille du contact est requis",
+          "Address is required": "L'adresse est obligatoire",
+          "Vat number is required": "Le numéro de TVA est requis",
+          "Password is too short (minimum is 6 characters)":
+            "Le mot de passe est trop court (le minimum est de 6 caractères)",
+          "Confirm password is not same as password":
+            "Confirmer que le mot de passe n'est pas le même que le mot de passe",
+          "Confirm password is required": "Confirmer le mot de passe est requis",
+          "Vat number is too short (minimum is 13 characters)":
+            "Le numéro de TVA est trop court (le minimum est de 13 caractères)",
+          "Company last name is required": "Le nom de famille de l'entreprise est requis",
+          "Phone is too short (minimum is 10 characters)":
+            "Le numéro de téléphone est trop court (le minimum est de 10 caractères)",
+          "Postel code is required": "Le code postal est requis",
+          "Postel code is too long (maximum is 5 characters)":
+            "Le code postal est trop court (le minimum est de 5 caractères)",
+          "Postel code is too short (minimum is 5 characters)":
+            "Le code postal est trop court (le minimum est de 5 caractères)",
+          "Vat number is too long (maximum is 13 characters)":
+            "Le numéro de TVA est trop long (le maximum est de 13 caractères)",
+          "Name is required": "Le nom est requis",
+          "Info  is required": "Des informations sont requises",
+          "Minmum Threshold is Required": "Le seuil minimum est requis",
+          "Coefficient is Required": "Le coefficient est requis",
+          "Minmum cost is Required": "Le coût minimum est requis",
+          "Maximum cost is Required": "Le coût maximum est requis",
+          "Minimum cost should be less than maximum cost":
+            "Le coût minimum doit être inférieur au coût maximum",
+          "Maxminm cost should be greater than minimum cost":
+            "Le coût maximal doit être supérieur au coût minimal",
+
           Country: "Pays",
           Searching: "Recherche",
           "Add a country": "Ajouter un pays",
@@ -879,6 +958,7 @@ i18n
           Edit: "Éditer",
           Documents: "Documents",
           BOMs: "BOMs",
+          "Add BOMs": "Ajouter des BOMs",
           Calculation: "Calcul",
           "Help Information": "Informations d'aide",
           "BOMs code ": "BOMs code ",
@@ -889,7 +969,7 @@ i18n
           "Calculation by range": "Calcul par tranche",
           "Minimum threshold": "Seuil minimal",
           Coefficient: "Coefficient",
-          "minimum cost": "coût minime",
+          "Minimum cost": "Coût minime",
           "Maximum cost": "Coût maximal",
           Minimum: "Le minimum",
           Maximum: "Maximum",
@@ -943,7 +1023,7 @@ i18n
           Date: "Date",
           "Certificate cost": "Coût du certificat",
           "Missing Documents": "Documents manquants",
-          sent: "expédié",
+          Sent: "expédié",
           "First name": "Prénom",
           Telephone: "Téléphone",
           "No request created by": "Aucune demande créée par",
@@ -952,8 +1032,7 @@ i18n
           Request: "Demande",
           Statutes: "Statuts",
           Reference: "Référence",
-          "Validate and receive the completed file":
-            "Valider et recevoir le dossier complété",
+          "Validate and receive the completed file": "Valider et recevoir le dossier complété",
           "Address Book": "Carnet d'adresses",
           "Seller data": "Données du vendeur ",
           "Buyer data": "Données de l'acheteur",
@@ -964,13 +1043,11 @@ i18n
           "contact first name": "Prénom du contact",
           "Download the file": "Télécharger le fichier",
           "Request document": "Demander un document",
-          "Import documents specific to":
-            "Importer des documents spécifiques à",
+          "Import documents specific to": "Importer des documents spécifiques à",
           "Validated documents": "Documents validés",
           Valid: "Valide",
           "Un-Valid": "Non valide",
-          "Request other documents for":
-            "Demander d'autres documents pour l'Amérique",
+          "Request other documents for": "Demander d'autres documents pour l'Amérique",
           "Request another document": "Demander un autre document",
           "BOM name": "Nom de la BOM",
           "Validated documents": "Documents validés",
@@ -987,25 +1064,21 @@ i18n
           "Analysis Certificate": "Certificat d'analyse",
           Plan: "Planifier",
           "Other documents": "Autres documents",
-          "Ask for other documents for the product":
-            "Demander d'autres documents pour le produit",
+          "Ask for other documents for the product": "Demander d'autres documents pour le produit",
           "Validate By Admin": "Valider par l'administrateur",
           "Export documents": "Exporter des documents",
           "Enter Document name": "Entrez le nom du document",
           "Invalid documents": "Documents invalides",
           "Edit Range": "Modifier la plage",
-          "Update calculation by coefficient":
-            "Mise à jour du calcul par coefficient",
+          "Update calculation by coefficient": "Mise à jour du calcul par coefficient",
           "Add Service Provider": "Ajouter un prestataire",
           "Validate the file": "Valider le dossier",
-          "Please add your comment below":
-            "Veuillez ajouter votre commentaire ci-dessous",
+          "Please add your comment below": "Veuillez ajouter votre commentaire ci-dessous",
           "Start writing from here": "Commencez à écrire à partir d'ici",
           Submit: "Soumettre",
           "To be checked": "À vérifier",
           Request: "Demande",
-          "Are you sure you want to log out?":
-            "Êtes-vous sûr de vouloir vous déconnecter?",
+          "Are you sure you want to log out?": "Êtes-vous sûr de vouloir vous déconnecter?",
           Cancel: "Annuler",
           Logout: "Se déconnecter",
           "All steps completed - you": "Toutes les étapes terminées - vous",
@@ -1015,7 +1088,7 @@ i18n
           "Next Step": "L'étape suivante",
           "Contact email": "Email du contact",
 
-          ///// EZXPORT ADMIN /////
+          ///// EZXPORT USER /////
           // Follow-up
           "Follow-up of requests": "Suivi des demandes",
           "Make your first certification request on Ezxport":
@@ -1035,6 +1108,7 @@ i18n
           "Comments by the Admin": "Commentaires de l'administrateur",
           valid: "valide",
           "Are you sure to delete?": "Êtes-vous sûr de vouloir supprimer?",
+          "codes required ": "code requis",
 
           // stepper
           "Return to Dashboard": "Retour au tableau de bord",
@@ -1053,19 +1127,16 @@ i18n
           "Delete BOM": "Supprimer la BOM",
           "Those products for": "Ces produits pour",
           "require a certification": "exiger une attestation",
-          "The cost of this certification is up to":
-            "Le coût de cette certification est jusqu'à",
+          "The cost of this certification is up to": "Le coût de cette certification est jusqu'à",
           "Continue my request on Ezxport": "Continuer ma demande sur Ezxport",
           "Go back to my request": "Revenir à ma demande",
           "do not require a certification": "ne nécessite pas de certification",
           "You can therefore send your goods without going through an organization.":
             "Vous pouvez donc expédier vos marchandises sans passer par un organisme.",
           "Make another request": "Faire une autre demande",
-          "The nomenclatures listed for the":
-            "Les nomenclatures indiquées pour le",
+          "The nomenclatures listed for the": "Les nomenclatures indiquées pour le",
           "Gabon are subject": "Le Gabon fait l'objet",
-          "to verification and certification.":
-            "à la vérification et à la certification.",
+          "to verification and certification.": "à la vérification et à la certification.",
           "Please select": "Veuillez sélectionner",
           "a vendor": "Un vendeur",
           "for this request": "pour cette demande",
@@ -1073,17 +1144,14 @@ i18n
             "Avez-vous les coordonnées de cette société de certification ?",
           "Add or select a seller": "Ajouter ou sélectionner un vendeur",
           "Add or select a buyer": "Ajouter ou sélectionner un acheteur",
-          "Add or select an inspection location":
-            "Ajouter ou sélectionner un lieu d'inspection",
+          "Add or select an inspection location": "Ajouter ou sélectionner un lieu d'inspection",
           "Add inspection location": "Ajouter un lieu d'inspection",
           "To Complete": "Compléter",
           "Add another product": "Ajouter un autre produit",
           "Select a Platform to Continue your request":
             "Sélectionnez une plateforme pour poursuivre votre demande",
-          "Continue request on Ezxport Platform":
-            "Continuer la demande sur la plateforme Ezxport",
-          "Continue request on other Platform":
-            "Continuer la demande sur une autre plateforme",
+          "Continue request on Ezxport Platform": "Continuer la demande sur la plateforme Ezxport",
+          "Continue request on other Platform": "Continuer la demande sur une autre plateforme",
           Yes: "Oui",
           No: "Non",
           Send: "Envoyer",
@@ -1091,8 +1159,7 @@ i18n
           "Contact first name": "Prénom du contact",
           "Nomenclature name": "Nom de nomenclature",
           Complete: "Complète",
-          "The product documents are to be completed":
-            "Les documents du produit sont à compléter",
+          "The product documents are to be completed": "Les documents du produit sont à compléter",
           "select type of Condition": "sélectionnez le type de condition",
           Bad: "Mal",
           Average: "Moyenne",
@@ -1101,6 +1168,15 @@ i18n
           "Something went wrong!": "Quelque chose s'est mal passé !",
           "Email Address": "Adresse e-mail",
           "Country name": "Nom du pays",
+          "Your request has been made successfully": "Votre demande a été effectuée avec succès",
+          "We will process your file as soon as possible, and":
+            "Nous traiterons votre dossier dans les plus brefs délais, et",
+          "we will come back to you. You can find your request in the table of":
+            "nous allons revenir à vous. Vous pouvez trouver votre demande dans le tableau des",
+          "Tracking requests.": "Suivi des demandes.",
+          OKAY: "D'ACCORD",
+          title: "Titre",
+          "title is required": "le titre est requis",
 
           // Service providers
           "To Search": "Chercher",
@@ -1120,7 +1196,6 @@ i18n
           "Add location": "Ajouter un emplacement",
           "View inspection location": "Voir le lieu d'inspection",
           "Edit inspection location": "Modifier le lieu d'inspection",
-          "is required": "est requis",
 
           // Documents
           "By Request": "Sur demande",
@@ -1143,43 +1218,34 @@ i18n
           // Toast
           "Country already exists": "Le pays existe déjà",
           "Country Added Successfully": "Pays ajouté avec succès",
-          "Error while fetching data!":
-            "Erreur lors de la récupération des données !",
+          "Error while fetching data!": "Erreur lors de la récupération des données !",
           "Country Deleted Successfully": "Pays supprimé avec succès",
           "Something went wrong": "Quelque chose s'est mal passé",
           "User created successfully": "Utilisateur créé avec succès",
           "Country is required for uploading codes":
             "Le pays est requis pour télécharger les codes",
-          "Can only upload Excel sheet":
-            "Ne peut télécharger que la feuille Excel",
-          "Servive Provider updated Successfully":
-            "Fournisseur de services mis à jour avec succès",
+          "Can only upload Excel sheet": "Ne peut télécharger que la feuille Excel",
+          "Servive Provider updated Successfully": "Fournisseur de services mis à jour avec succès",
           "Buyer addedd successfully!": "L'acheteur a été ajouté avec succès !",
           "Buyer updated sucessfully": "L'acheteur a bien été mis à jour",
-          "Document Added Successfully":
-            "Document ajouté avec succèsDocument Deleted Successfully",
+          "Document Added Successfully": "Document ajouté avec succèsDocument Deleted Successfully",
           "Document Deleted Successfully": "Document supprimé avec succès",
           "company updated successfully": "société mise à jour avec succès",
           "Range added successfully": "Plage ajoutée avec succès",
           "Coefficient Added Successfully": "Coefficient ajouté avec succès",
-          "Coefficient Updated Successfully":
-            "Coefficient mis à jour avec succès",
-          "Range Deleted successfully": "Range Deleted successfully",
+          "Coefficient Updated Successfully": "Coefficient mis à jour avec succès",
+          "Range Deleted successfully": "Plage supprimée avec succès",
           "Range updated successfully": "Gamme mise à jour avec succès",
           "BOMs updated successfully": "BOMs mises à jour avec succès",
           "BOMs deleted successfully": "BOMs Supprimé avec succès",
           "BOMs added successfully": "BOMs ajoutées avec succès",
-          "Service Provider Updated Successfully":
-            "Fournisseur de services mis à jour avec succès",
+          "Service Provider Updated Successfully": "Fournisseur de services mis à jour avec succès",
           "Vendor is required": "Le fournisseur est requis",
           "File not found!": "Fichier introuvable!",
-          "Seller addedd successfully!":
-            "Le vendeur a été ajouté avec succès !",
+          "Seller addedd successfully!": "Le vendeur a été ajouté avec succès !",
           "Seller updated successfully!": "Vendeur mis à jour avec succès !",
-          "Inspection location addedd successfully!":
-            "Lieu d'inspection ajouté avec succès !",
-          "Inspection location updated successfully!":
-            "Lieu d'inspection mis à jour avec succès !",
+          "Inspection location addedd successfully!": "Lieu d'inspection ajouté avec succès !",
+          "Inspection location updated successfully!": "Lieu d'inspection mis à jour avec succès !",
           "Document Validated Successfully": "Document validé avec succès",
           "Document Un-Validated": "Document non validé",
           "Error while fetching service providers":
@@ -1280,8 +1346,7 @@ i18n
           "New Password": "Nouveau mot de passe",
           "Confirm password": "Confirmez le mot de passe",
           "Change the password": "Changer le mot de passe",
-          "Password changed successfully":
-            "Le mot de passe a été changé avec succès",
+          "Password changed successfully": "Le mot de passe a été changé avec succès",
           "Forgot your password ?": "Mot de passe oublié ?",
           "Please enter your email address to reset your password":
             "Veuillez saisir votre adresse e-mail pour réinitialiser votre mot de passe",

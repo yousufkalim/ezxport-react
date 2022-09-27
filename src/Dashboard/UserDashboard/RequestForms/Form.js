@@ -244,8 +244,9 @@ export default function HorizontalNonLinearStepper() {
           setCertificationCountryOfCode(res?.data?.country);
         }
       })
-
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => {
+        toaster("Failed", t(err.response.data.message));
+      });
   };
   const handleStep1 = async () => {
     if (request?._id ) {
@@ -282,7 +283,7 @@ export default function HorizontalNonLinearStepper() {
         setRequestedId(res?.data?.request?._id);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleStep2 = async () => {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
@@ -307,7 +308,7 @@ export default function HorizontalNonLinearStepper() {
         if (err.response?.data?.message?.msg === "vendorId required") {
           toaster("Failed", t("Vendor is required"));
         } else {
-          toaster("Failed", t(err.response.data.message).msg);
+          toaster("Failed", t(err.response.data.message));
         }
       });
   };
@@ -354,10 +355,10 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         handleNext();
         setCreatedCodes(res.data.request);
-        toaster("success", res.data.message);
+        toaster("success", t(res.data.message));
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleSendFile = () => setPlatformSelect(true);
 
@@ -377,7 +378,10 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
         // history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => {
+        console.log("Documents ERROR ", err.response.data.message);
+        toaster("Failed", t(err.response.data.message));
+      });
   };
   const handleDocByCountryId = async () => {
     await API("get", `/documents/getByCountry/${step1?.country}`)
@@ -385,7 +389,7 @@ export default function HorizontalNonLinearStepper() {
         setCountryDoc(res?.data?.documents);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
@@ -398,7 +402,7 @@ export default function HorizontalNonLinearStepper() {
           return [...prev];
         });
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
@@ -451,21 +455,21 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         setSeller(res.data.seller);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleBuyer = async () => {
     await API("get", `/buyers/getByUser/${userData._id}`)
       .then((res) => {
         setBuyers(res.data.buyer);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handlePlaces = async () => {
     await API("put", `/places/getByUser/${userData._id}`)
       .then((res) => {
         setPlaces(res.data.place);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleStripe = () => {
     handleStep4();
@@ -500,11 +504,11 @@ export default function HorizontalNonLinearStepper() {
     await API("put", `/requests/sendEmail/${requestId}`)
       .then((res) => {
         handleStep4();
-        toaster("success", res.data.message);
+        toaster("success", t(res.data.message));
         localStorage.setItem("Requested", true);
         history.push("/User/Dashboard/ListOfRequests");
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message).msg));
+      .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handlePlatformSelect = () => setPlatformSelect(false);
   return (

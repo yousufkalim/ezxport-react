@@ -13,8 +13,11 @@ const api = async (method = "get", uri, body) => {
         if (err?.response?.status === 403) {
           window.location = "/login";
         } else {
-          console.log("Failed toast ");
-          toaster("failed", err?.response?.data ? err?.response?.data?.message : "Something went wrong");
+          console.log("Failed toast1 ", err?.response?.data?.message);
+          // toaster(
+          //   "failed",
+          //   err?.response?.data ? err?.response?.data?.message : "Something went wrong"
+          // );
 
           reject(err);
         }

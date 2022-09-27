@@ -68,12 +68,8 @@ const Documents = () => {
       .then((res) => {
         const allRequests = res.data?.Request;
         if (allRequests?.length) {
-          const allCodes = allRequests?.filter(
-            (item) => item?.codes.length > 0
-          );
-          const allDocuments = allRequests?.filter(
-            (item) => item?.documents.length > 0
-          );
+          const allCodes = allRequests?.filter((item) => item?.codes.length > 0);
+          const allDocuments = allRequests?.filter((item) => item?.documents.length > 0);
           setDocuments(allDocuments);
           setCodes(allCodes);
         }
@@ -96,23 +92,15 @@ const Documents = () => {
           <div className="List_heading_div">
             <h1 className="list_h1_doc">{t("Documents")}</h1>
             <div className="searching4">
-              <SearchField setSearch={setSearchTerm} />
+              <SearchField placeholder="Search" setSearch={setSearchTerm} />
             </div>
           </div>
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab
-                    className="tab_btn1"
-                    label={t("By Request")}
-                    {...a11yProps(0)}
-                  />
-                  <Tab
-                    className="tab_btn3"
-                    label={t("By Nomenclature")}
-                    {...a11yProps(2)}
-                  />
+                  <Tab className="tab_btn1" label={t("By Request")} {...a11yProps(0)} />
+                  <Tab className="tab_btn3" label={t("By Nomenclature")} {...a11yProps(2)} />
                 </Tabs>
               </Box>
               <br />

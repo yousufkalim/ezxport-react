@@ -219,7 +219,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
           "success",
           t("Inspection location addedd successfully!"),
           t("Adding Inspection location")
-
         );
         setOpen(false);
         fetchLocations();
@@ -234,7 +233,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
           "success",
           t("Inspection location updated successfully!"),
           t("Update Inspection location")
-
         );
         handleCloseModal();
         fetchLocations();
@@ -275,8 +273,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     }
   };
 
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
 
   const MODAL_TITLE = isEdit
     ? "Edit inspection location"
@@ -284,9 +281,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
     ? "View inspection location"
     : "Add inspection location";
 
-  const searchedResults = locations.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const searchedResults = locations.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   return (
     <>
@@ -303,9 +298,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       style={{ backgrounColor: "#EAECF0" }}
                     >
                       {t(item.heading)} &nbsp;
-                      {item.sortIcon &&
-                      !sort.ascend &&
-                      sort.key === item.key ? (
+                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
@@ -368,19 +361,11 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                     <TableCell align="left" className="country2">
                       {item.phone_number}
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country2"
-                      style={{ cursor: "pointer" }}
-                    >
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                       <p className="country2">{item.address}</p>
                     </TableCell>
 
-                    <TableCell
-                      align="left"
-                      className="country2"
-                      style={{ cursor: "pointer" }}
-                    >
+                    <TableCell align="left" className="country2" style={{ cursor: "pointer" }}>
                       <img
                         src={EditIcon}
                         alt=""
@@ -416,7 +401,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
               onChange={(e) => handleChange(e)}
               value={formState.values.companyName}
               isError={hasError("companyName")}
-              error={formState.errors?.companyName}
+              error={[t(formState.errors?.companyName)]}
               type="text"
               placeholder="Company 1"
             />
@@ -453,7 +438,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("email")}
-                  error={formState.errors.email}
+                  error={[t(formState.errors.email)]}
                   value={formState.values.email}
                   type="email"
                   placeholder="mail@mail.com"
@@ -466,7 +451,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("telephone")}
-                  error={formState.errors.telephone}
+                  error={[t(formState.errors.telephone)]}
                   value={formState.values.telephone}
                   type="number"
                   placeholder="+33 03 32 32 42 42"
@@ -482,7 +467,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 disabled={!isEdit && location}
                 onChange={(e) => handleChange(e)}
                 isError={hasError("address")}
-                error={formState.errors.address}
+                error={[t(formState.errors.address)]}
                 value={formState.values.address}
                 type="text"
                 placeholder="97 road of rouvroy"
@@ -498,7 +483,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("zipcode")}
-                  error={formState.errors.zipcode}
+                  error={[t(formState.errors.zipcode)]}
                   value={formState.values.zipcode}
                   type="number"
                   placeholder="34 832"
@@ -511,7 +496,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("town")}
-                  error={formState.errors?.town}
+                  error={[t(formState.errors?.town)]}
                   value={formState.values.town}
                   type="text"
                   placeholder="Congo"
@@ -528,7 +513,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("firstName")}
-                  error={formState.errors?.firstName}
+                  error={[t(formState.errors?.firstName)]}
                   value={formState.values.firstName}
                   type="text"
                   placeholder="John"
@@ -541,7 +526,7 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                   disabled={!isEdit && location}
                   onChange={(e) => handleChange(e)}
                   isError={hasError("lastName")}
-                  error={formState.errors?.lastName}
+                  error={[t(formState.errors?.lastName)]}
                   value={formState.values.lastName}
                   type="text"
                   placeholder="Congo"
