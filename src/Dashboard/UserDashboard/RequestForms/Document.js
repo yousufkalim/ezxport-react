@@ -21,6 +21,7 @@ const Document = (props) => {
         const product = productCodes.map((item) => {
           const findCode = previousCodes.find(a => a.codeID === item.code._id);
           if(findCode){
+            console.log("Prrodusts ", findCode.products);
             const products = findCode.products?.map((b) => {
               const obj = b;
               delete obj?._id;
@@ -29,7 +30,7 @@ const Document = (props) => {
               delete obj?.missing_docs;
               delete obj?.createdAt;
               console.log("Object modified ", obj);
-              // obj['price'] = obj?.price?.value;
+              obj['price'] = b?.price?.value;
               return obj
             })
             return {...item, products: products};

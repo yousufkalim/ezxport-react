@@ -151,7 +151,7 @@ const ProductForm = (props) => {
             <InputField
               className="product_name_textfield"
               name="price"
-              value={product?.price?.value}
+              value={product?.price}
               onChange={(e) => handleDataChange(e)}
             />
           </div>
@@ -182,7 +182,7 @@ const ProductForm = (props) => {
         <Select
           id="demo-simple-select"
           name="country"
-          value={product?.country}
+          value={`${product?.country}`}
           onChange={(e) => handleDataChange(e)}
           className="countrydropdown"
         >

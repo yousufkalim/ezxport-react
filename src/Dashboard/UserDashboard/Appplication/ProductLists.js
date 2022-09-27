@@ -51,11 +51,9 @@ const ProductLists = ({ codes, currency }) => {
               <TableBody>
                 {codes?.map((item) => {
                   return (
-
                     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                       <TableCell component="th" scope="row" style={{ width: "22%" }}>
                         <p className="AP_plus_title">{item?.code?.code}</p>
-
                       </TableCell>
 
                       <TableCell align='left' className='country2' style={{ width: '100%' }}>
