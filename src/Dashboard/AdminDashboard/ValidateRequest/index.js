@@ -1,33 +1,35 @@
-import React, { useState, useEffect } from "react";
-import CompanyInformation from "../ValidateRequest/CompanyInformation";
-import { useHistory } from "react-router-dom";
-import EzxportIcon from "../../../assets/EzxportIcon.svg";
-import { Link } from "react-router-dom";
-import BackArrow from "../../../assets/BackArrow.svg";
-import { useParams } from "react-router-dom";
-import API from "../../../api/index";
-import Modal from "../../../components/Common/Modal";
-import Button from "../../../components/Common/Button";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
-import { useTranslation } from "react-i18next";
-import toaster from "../../../utils/toaster";
+import React, { useState, useEffect } from 'react';
+import CompanyInformation from '../ValidateRequest/CompanyInformation';
+import { useHistory, useLocation } from 'react-router-dom';
+import EzxportIcon from '../../../assets/EzxportIcon.svg';
+import { Link } from 'react-router-dom';
+import BackArrow from '../../../assets/BackArrow.svg';
+import { useParams } from 'react-router-dom';
+import API from '../../../api/index';
+import Modal from '../../../components/Common/Modal';
+import Button from '../../../components/Common/Button';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import { useTranslation } from 'react-i18next';
+import toaster from '../../../utils/toaster';
 
 const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
-  console.log("🚀 ~ file: index.js ~ line 19 ~ Index ~ requestById", requestById)
-  
+  console.log('🚀 ~ file: index.js ~ line 19 ~ Index ~ requestById', requestById);
+
   const [inputList, setInputList] = useState([]);
   const [inputListProduct, setInputListProduct] = useState([]);
   const [validateCountry, setValidateCountry] = useState(false);
   const [validateProduct, setValidateProduct] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
   const [modalBtn, setModalBtn] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
 
   const { t } = useTranslation();
   const params = useParams();
+
+  console.log('History ', history);
   const { id } = params;
 
   useEffect(() => {
@@ -38,88 +40,98 @@ const Index = () => {
   }
 
   const handlerequestById = async () => {
-    await API("get", `/requests/${id}`)
+    await API('get', `/requests/${id}`)
       .then((res) => {
         setRequestById(res?.data?.request);
       })
       .catch((err) => {
-        console.log(err, "errrrrr");
+        console.log(err, 'errrrrr');
       });
   };
 
   const handleCountryDocsValidate = async (checked, id) => {
-    await API("put", `/requests/validateDoc/${requestById._id}`, {
+    await API('put', `/requests/validateDoc/${requestById._id}`, {
       doc_id: id,
-      status: checked ? "Valid" : "Invalid",
+      status: checked ? 'Valid' : 'Invalid',
     })
       .then((res) => {
-        console.log("handleCountryDocsValidate", res);
+        console.log('handleCountryDocsValidate', res);
         if (checked) {
-          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
+          toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
           handlerequestById();
         } else {
-          toaster(t("warning"), t("Document Un-Validated"));
+          toaster(t('warning'), t('Document Un-Validated'));
 
           handlerequestById();
         }
       })
       .catch((err) => {
-        console.log("handleCountryDocsValidate", err);
+        console.log('handleCountryDocsValidate', err);
       });
   };
 
   const handleProductDocsValidate = async (name, checked, id) => {
     const DocName = name;
-    await API("put", `/requests/validateProductDoc/${id}`, {
+    await API('put', `/requests/validateProductDoc/${id}`, {
       [DocName]: {
-        status: checked ? "Valid" : "Invalid",
+        status: checked ? 'Valid' : 'Invalid',
       },
     })
       .then((res) => {
         if (checked) {
-          console.log("handleProductDocsValidate", res);
-          toaster("success", t("Document Validated Successfully"), t("Validated Document"));
+          console.log('handleProductDocsValidate', res);
+          toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
           handlerequestById();
         } else {
-          toaster(t("warning"), t("Document Un-Validated"));
+          toaster(t('warning'), t('Document Un-Validated'));
 
           handlerequestById();
         }
       })
       .catch((err) => {
-        console.log("handleProductDocsValidate", err);
+        console.log('handleProductDocsValidate', err);
       });
   };
   // console.log();
   const handleRequestDoc = async () => {
     setModalBtn(true);
-    await API("put", `/requests/ReqmissingDocs/${requestById._id}`, {
+    await API('put', `/requests/ReqmissingDocs/${requestById._id}`, {
       admin_remarks: comment,
       products: inputListProduct,
       documents: inputList,
     })
       .then((res) => {
-        console.log(res, "handleRequestDoc");
+        console.log(res, 'handleRequestDoc');
         setCommentModal(false);
         setModalBtn(false);
-        history.push("/RequestDocuments");
+        history.push('/RequestDocuments');
       })
       .catch((err) => {
         setModalBtn(false);
-        console.log("err", err);
+        console.log('err', err);
       });
   };
   const handleValidByAdmin = async () => {
-    await API("put", `/requests/validateRequest/${requestById._id}`)
+    await API('put', `/requests/validateRequest/${requestById._id}`)
       .then((res) => {
-        console.log(res, "handleValidByAdmin");
-        history.push("/SendDocuments");
+        console.log(res, 'handleValidByAdmin');
+        history.push('/SendDocuments');
       })
       .catch((err) => {
-        console.log("err", err);
+        console.log('err', err);
       });
+  };
+
+  const exportDocument = async (e) => {
+    const reqId = history.location.pathname.split('/Admin/ValidateRequest/')[1];
+    e.stopPropagation();
+    await API('get', `/requests/zipFile/${reqId}`)
+      .then((res) => {
+        window.location.href = res.config.url;
+      })
+      .catch((err) => toaster('failed', t('File not found!')));
   };
 
   const handleClose = () => setCommentModal(false);
@@ -127,45 +139,49 @@ const Index = () => {
 
   return (
     <>
-      <div className="Reference_header">
-        <div className="Reference_center_div">
-          <div className="Reference_heading">
-            <Link to="/Admin/Dashboard/Requests" style={{ color: "black", textDecoration: "none" }}>
-              <p className="Reference_h2">
-                <img src={BackArrow} alt="" />
+      <div className='Reference_header'>
+        <div className='Reference_center_div'>
+          <div className='Reference_heading'>
+            <Link to='/Admin/Dashboard/Requests' style={{ color: 'black', textDecoration: 'none' }}>
+              <p className='Reference_h2'>
+                <img src={BackArrow} alt='' />
                 &nbsp; {requestById?.title}
               </p>
             </Link>
           </div>
-          <div className="Reference_logo_div">
-            <img src={EzxportIcon} alt="" className="header_center_div" />
+          <div className='Reference_logo_div'>
+            <img src={EzxportIcon} alt='' className='header_center_div' />
           </div>
           {/* <div> */}
           {countTabe === 2 && (
             <div>
-              <Button text={t("Download the file")} className="validate_button2" />
+              <Button
+                onClick={(e) => exportDocument(e)}
+                text={t('Download the file')}
+                className='validate_button2'
+              />
               &nbsp;
               <Button
-                  text={t("Validate the file")}
-                  className="validate_button"
-                  onClick={handleValidByAdmin}
-                />
+                text={t('Validate the file')}
+                className='validate_button'
+                onClick={handleValidByAdmin}
+              />
               &nbsp;
-
               {inputList?.length !== 0 ? (
                 <Button
-                  text={t("Request document")}
-                  className="validate_button"
+                  text={t('Request document')}
+                  className='validate_button'
                   onClick={handleModalOpen}
                 />
               ) : inputListProduct?.length !== 0 ? (
                 <Button
-                  text={t("Request document")}
-                  className="validate_button"
+                  text={t('Request document')}
+                  className='validate_button'
                   onClick={handleModalOpen}
                 />
-              ) : ""}
-             
+              ) : (
+                ''
+              )}
             </div>
           )}
           {/* </div> */}
@@ -189,7 +205,7 @@ const Index = () => {
       <Modal
         open={commentModal}
         setOpen={setCommentModal}
-        title={t("Please add your comment below")}
+        title={t('Please add your comment below')}
         handleClose={handleClose}
         Closebtn={true}
       >
@@ -197,20 +213,20 @@ const Index = () => {
           minRows={10}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
-          placeholder={t("Start writing from here")}
+          placeholder={t('Start writing from here')}
           style={{
-            width: "100%",
-            padding: "10px",
-            fontSize: "1rem",
-            marginTop: "1rem",
-            borderColor: "#EAECF0",
+            width: '100%',
+            padding: '10px',
+            fontSize: '1rem',
+            marginTop: '1rem',
+            borderColor: '#EAECF0',
           }}
         />
         <Button
-          text={t("Submit")}
-          className="bom_downloadFile_btn"
+          text={t('Submit')}
+          className='bom_downloadFile_btn'
           onClick={handleRequestDoc}
-          disabled={modalBtn === true && comment === "" && true}
+          disabled={modalBtn === true && comment === '' && true}
         />
       </Modal>
     </>

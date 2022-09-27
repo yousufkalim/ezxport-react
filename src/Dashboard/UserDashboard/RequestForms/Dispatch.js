@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../../components/Common/InputField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import DatePicker from "../../../components/Common/DatePicker";
 // import moment from "moment";
 import { useTranslation } from "react-i18next";
 import { validate } from "validate.js";
 import { Store } from "../../../StoreContext";
 import moment from "moment";
 import { COUNTRIES } from "../../../lib/data";
+import DatePicker from "react-datepicker";
+import { addDays } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
+import { ReactComponent as Calendar } from "../../../assets/calendarIcon.svg";
 
 const inspectionSchema = {
   companyName: {
@@ -123,6 +126,8 @@ const Dispatch = (props) => {
   const { values } = step3.placeOfInspection;
   const { t } = useTranslation();
   const { request, pastRequest } = Store();
+
+  const lng = localStorage.getItem("language");
 
   useEffect(() => {
     const { placeOfInspection } = step3;
@@ -259,7 +264,7 @@ const Dispatch = (props) => {
           fullAddress: address,
           postalCode: zipcode,
           town: city,
-          InspectionDate: moment(inspection_date).format("YYYY-MM-DD"),
+          InspectionDate: inspection_date,
           contactLastName: contact_lname,
           contactFirstName: contact_fname,
         },
@@ -648,18 +653,27 @@ const Dispatch = (props) => {
             })}
           </Select>
         </div>
-        <div>
+        <div className="inspection_date_container">
           <label className="BomLabel" style={{ marginTop: "1rem" }}>
             {t("Date on which the goods can be inspected")}
           </label>
           <DatePicker
+            selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ""}
             name="InspectionDate"
-            min={moment().clone().add(1, "days").toISOString().split("T")[0]}
-            value={placeValues.InspectionDate} //moment().format("LL")
-            onChange={(e) => {
-              props.handleInspectionData(e.target.name, e.target.value);
+            className="inspection_date"
+            minDate={addDays(new Date(), 1)}
+            showYearDropdown
+            // dateFormatCalendar='MMMM'
+            yearDropdownItemNumber={15}
+            scrollableYearDropdown
+            // min={moment().clone().add(1, 'days').toISOString().split('T')[0]}
+            // value={placeValues.InspectionDate}
+            locale={lng}
+            onChange={(date) => {
+              props.handleInspectionData("InspectionDate", date);
             }}
           />
+          <Calendar className="inspection_date_icon" />
 
           {placeError("InspectionDate") && (
             <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>
