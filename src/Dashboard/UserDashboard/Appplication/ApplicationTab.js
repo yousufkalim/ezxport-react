@@ -52,7 +52,7 @@ const ApplicationTab = (props) => {
             <Tabs value={value} onChange={handleChange}>
               <Tab className="tab_btn1" label="Information" {...a11yProps(0)} />
               <Tab className="tab_btn3" {...a11yProps(1)} label="Documents" />
-              {              props?.userRequest?.status === "Missing documents" ? (
+              {props?.userRequest?.status === "Missing documents" ? (
                 <div className="badge_missingDocs" />
               ) : (
                 ""
@@ -66,7 +66,7 @@ const ApplicationTab = (props) => {
           </TabPanel>
           <TabPanel value={value} index={1}>
             <div className="list_table">
-              <DocumentsTab userRequest={props?.userRequest} handleRequest={props?.handleRequest}/>
+              <DocumentsTab userRequest={props?.userRequest} handleRequest={props?.handleRequest} />
             </div>
           </TabPanel>
         </Box>

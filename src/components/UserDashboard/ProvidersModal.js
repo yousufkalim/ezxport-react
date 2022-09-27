@@ -63,7 +63,9 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
 
   useEffect(() => {
     if (data) {
-      const count = data?.countries?.map((item) => allCountries.find((country) => country?._id === item)).map((c) => c?.name);
+      const count = data?.countries
+        ?.map((item) => allCountries.find((country) => country?._id === item))
+        .map((c) => c?.name);
       setFormData({
         ...formData,
         values: {
@@ -98,7 +100,11 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   };
   const handleChange = (e) => {
     const { value, name } = e.target;
-    setFormData({ ...formData, values: { ...formData.values, [name]: value }, touched: { ...formData.touched, [name]: true } });
+    setFormData({
+      ...formData,
+      values: { ...formData.values, [name]: value },
+      touched: { ...formData.touched, [name]: true },
+    });
   };
 
   const handleChangeCountry = (e) => {
@@ -108,7 +114,10 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
 
     setFormData({
       ...formData,
-      values: { ...formData.values, countries: typeof value === "string" ? value.split(",") : value },
+      values: {
+        ...formData.values,
+        countries: typeof value === "string" ? value.split(",") : value,
+      },
       touched: { ...formData.touched, country: true },
     });
   };
@@ -120,7 +129,9 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
   const getEditData = () => {
     const { firstName, lastName, email, countries } = formData.values;
     const { contact_email, phone_number } = data;
-    const countryIds = countries?.map((item) => allCountries.find((el) => el.name === item)).map((country) => country._id);
+    const countryIds = countries
+      ?.map((item) => allCountries.find((el) => el.name === item))
+      .map((country) => country._id);
     const fname = trimName(firstName);
     const lname = trimName(lastName);
     const obj = {
@@ -139,10 +150,9 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
       .then((res) => {
         toaster(
           "success",
-          t("service provider updated successfully"),
+          t("Service Provider Updated Successfully"),
           t("Update Service Provider")
         );
-
 
         getProviders();
         setOpen(false);
@@ -189,7 +199,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       disabled={!isEdit}
                       label="First name"
                       name="firstName"
-                      error={errors.firstName}
+                      error={[t(errors.firstName)]}
                       isError={hasError("firstName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.firstName}
@@ -203,7 +213,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                       disabled={!isEdit}
                       name="lastName"
                       label="Last name"
-                      error={errors.lastName}
+                      error={[t(errors.lastName)]}
                       isError={hasError("lastName")}
                       onChange={(e) => handleChange(e)}
                       value={values?.lastName}
@@ -218,7 +228,7 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
                     label="E-mail address"
                     disabled={!isEdit}
                     name="email"
-                    error={errors.email}
+                    error={[t(errors.email)]}
                     isError={hasError("email")}
                     onChange={(e) => handleChange(e)}
                     value={values?.email}

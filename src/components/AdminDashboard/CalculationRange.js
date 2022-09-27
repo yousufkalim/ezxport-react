@@ -25,7 +25,7 @@ const TITLE = [
   { heading: "Minimum" },
   { heading: "Maximum" },
   {
-    heading: "Certificate Cost",
+    heading: "Certificate cost",
     key: "certificate_cost",
     sortIcon: true,
     imgSrc: downArrow,
@@ -76,14 +76,7 @@ const CalculationRange = (props) => {
     if (formState.values.minCost) {
       const { min, max } = allErrors;
       const { minCost, maxCost, certificate } = formState.values;
-      if (
-        !min &&
-        !max &&
-        !allErrors.certificate &&
-        minCost &&
-        maxCost &&
-        certificate
-      ) {
+      if (!min && !max && !allErrors.certificate && minCost && maxCost && certificate) {
         setFormState({ ...formState, isValid: true });
       } else {
         setFormState({ ...formState, isValid: false });
@@ -215,9 +208,7 @@ const CalculationRange = (props) => {
           isValid: true,
         }));
 
-
         toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
-
       })
       .catch((err) => {
         console.log("handleAddCoefficient", err);
@@ -260,8 +251,7 @@ const CalculationRange = (props) => {
   }, []);
 
   const handleEditModalClose = () => setEditModal(false);
-  const hasError = (name) =>
-    allErrors[name] && allErrors[name] ? true : false;
+  const hasError = (name) => (allErrors[name] && allErrors[name] ? true : false);
 
   if (loading) {
     return <Spinner />;
@@ -282,9 +272,7 @@ const CalculationRange = (props) => {
                         style={{ backgrounColor: "#EAECF0" }}
                       >
                         {t(item.heading)} &nbsp;
-                        {item.sortIcon &&
-                        !sort.ascend &&
-                        sort.key === item.key ? (
+                        {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                           <img
                             className="sorting-icon"
                             onClick={() =>
@@ -324,31 +312,21 @@ const CalculationRange = (props) => {
                 </TableHead>
                 <TableBody>
                   {rangeData?.map((item) => (
-                    <TableRow
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ width: "20%" }}
-                      >
+                    <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                      <TableCell component="th" scope="row" style={{ width: "20%" }}>
                         <p className="AP_plus_title">{`${item.min} ${
                           props.currency === "USD" ? "$" : "€"
                         }`}</p>
                       </TableCell>
-                      <TableCell
-                        align="left"
-                        className="country2"
-                        style={{ width: "20%" }}
-                      >
+                      <TableCell align="left" className="country2" style={{ width: "20%" }}>
                         <p className="AP_plus_title">{`${item.max} ${
                           props.currency === "USD" ? "$" : "€"
                         }`}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
-                        <p className="AP_plus_title">{`${
-                          item.certificate_cost
-                        } ${props.currency === "USD" ? "$" : "€"}`}</p>
+                        <p className="AP_plus_title">{`${item.certificate_cost} ${
+                          props.currency === "USD" ? "$" : "€"
+                        }`}</p>
                       </TableCell>
                       <TableCell align="left" className="country2">
                         <img
@@ -393,7 +371,7 @@ const CalculationRange = (props) => {
                     <InputField
                       label="Minimum"
                       isError={hasError("min")}
-                      error={[allErrors.min]}
+                      error={[t(allErrors.min)]}
                       value={formState.values.minCost}
                       name="minCost"
                       onChange={(e) => handleValuesChange(e)}
@@ -407,7 +385,7 @@ const CalculationRange = (props) => {
                     <InputField
                       label="Maximum"
                       isError={hasError("max")}
-                      error={[allErrors.max]}
+                      error={[t(allErrors.max)]}
                       value={formState.values.maxCost}
                       name="maxCost"
                       disabled={!formState.values.maxCost && allErrors.min}
@@ -424,7 +402,7 @@ const CalculationRange = (props) => {
                     <InputField
                       value={formState.values.certificate}
                       isError={hasError("certificate")}
-                      error={[allErrors.certificate]}
+                      error={[t(allErrors.certificate)]}
                       name="certificate"
                       onChange={(e) => handleValuesChange(e)}
                       className="calculation_input"
@@ -433,11 +411,7 @@ const CalculationRange = (props) => {
                 </div>
               </div>
               <button
-                className={
-                  !formState.isValid
-                    ? "AddSlice_button_disabled"
-                    : "AddSlice_button"
-                }
+                className={!formState.isValid ? "AddSlice_button_disabled" : "AddSlice_button"}
                 onClick={props.Calculation ? handleAddRange : handleNewRange}
                 disabled={!formState.isValid}
               >

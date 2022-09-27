@@ -361,7 +361,7 @@ const AdminTab3 = (props) => {
       <Modal
         open={props.openAddBomModal}
         setOpen={props.setOpenAddBomModal}
-        title={t("Add BOMs")}
+        title="Add BOMs"
         handleClose={props.handleAddBomModalClose}
         Closebtn={true}
       >

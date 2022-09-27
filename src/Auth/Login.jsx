@@ -50,7 +50,7 @@ const Login = () => {
   }, [formState.values]);
 
   const handleChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormState((formState) => ({
       ...formState,
       values: {
@@ -106,7 +106,7 @@ const Login = () => {
             <InputField
               label={t("E-mail address")}
               isError={hasError("email")}
-              error={formState.errors.email}
+              error={[t(formState.errors.email)]}
               name="email"
               // role="presentation"
               autoComplete="off"
@@ -116,12 +116,13 @@ const Login = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
+          <br />
           {/* PASSWORD  */}
           <div className="email_inputs_div">
             <InputField
               label={t("Password")}
               isError={hasError("password")}
-              error={formState.errors.password}
+              error={[t(formState.errors.password)]}
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder={t("Password")}

@@ -238,9 +238,10 @@ const NameProvider = () => {
       .then((res) => {
         setOpen(false);
         toaster(
-          'success',
-          t('Service Provider Updated Successfully'),
-          t('Updated Service Provider')
+          "success",
+          t("Service Provider Updated Successfully"),
+          t("Updated Service Provider")
+
         );
       })
       .catch((err) => {
@@ -260,9 +261,9 @@ const NameProvider = () => {
       .then((res) => {
         setOpen(false);
         toaster(
-          'success',
-          t('Service Provider Updated Successfully'),
-          t('Updated Service Provider')
+          "success",
+          t("Service Provider Updated Successfully"),
+          t("Updated Service Provider")
         );
       })
       .catch((err) => {
@@ -302,15 +303,15 @@ const NameProvider = () => {
                   <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
                 </div>
               )}
-              <Button text={t('Update')} className='changeProvider' onClick={() => setOpen(true)} />
+              <Button text={t("Update")} className="changeProvider" onClick={() => setOpen(true)} />
             </div>
           </div>
 
           <div className='list_table'>
             <Box sx={{ width: '100%' }}>
               <Box>
-                <Tabs value={value} onChange={handleDataChange} className='tab_menu'>
-                  <Tab className='admin_tab_btn' label={t('Information')} {...a11yProps(0)} />
+                <Tabs value={value} onChange={handleDataChange} className="tab_menu">
+                  <Tab className="admin_tab_btn" label={t("Information")} {...a11yProps(0)} />
                   <Tab
                     className='admin_tab_btn'
                     label={t('Associated countries')}
@@ -374,7 +375,8 @@ const NameProvider = () => {
                 <div className='list_table'>
                   <>
                     <TableContainer component={Paper}>
-                      <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
+                      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+
                         <TableHead>
                           <TableRow>
                             <TableCell
@@ -467,8 +469,8 @@ const NameProvider = () => {
             select={select}
           />
           <Button
-            text={t('Update Service Provider')}
-            className={formState.isValid ? 'edit_vendor_button' : 'edit_vendor_button_disabled'}
+            text={t("Update Service Provider")}
+            className={formState.isValid ? "edit_vendor_button" : "edit_vendor_button_disabled"}
             disabled={!formState.isValid ? true : false}
             onClick={handelUpdateAssociatedCountries}
           />
@@ -535,6 +537,7 @@ const NameProvider = () => {
             isError={hasError('email')}
             error={formState.errors.email}
             className={
+
               hasError('email') && formState.errors.email ? 'textfield_row2_red' : 'textfield_row2'
             }
             onChange={handleChange}

@@ -120,9 +120,11 @@ const AdminNomPays = () => {
         handleCountryData();
         setFile({});
         setOpen(false);
-        toaster("success", res.data.message);
+        toaster("success", t(res.data.message));
       })
       .catch((err) => {
+        toaster("success", t(err?.response?.data?.message));
+
         console.log("errr", err);
       });
   };
@@ -260,13 +262,7 @@ const AdminNomPays = () => {
           </div>
         </div>
       </div>
-      <Modal
-        open={open}
-        setOpen={setOpen}
-        title={t("Update")}
-        handleClose={handleClose}
-        Closebtn={true}
-      >
+      <Modal open={open} setOpen={setOpen} title="Update" handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
