@@ -77,7 +77,7 @@ export default function HorizontalNonLinearStepper() {
   const [countries, setCounteries] = useState();
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [allCodes, setAllCodes] = useState([]);
-  const { request } = Store();
+  const { request, pastRequest } = Store();
   const [prevCodes, setPrevCodes] = useState([]);
 
   // step 2 states
@@ -155,6 +155,7 @@ export default function HorizontalNonLinearStepper() {
   const [CountryDoc, setCountryDoc] = useState([]);
   const [createdCodes, setCreatedCodes] = useState({});
   const [productCodes, setProductCodes] = useState([]);
+  const [formUpdate, setFormUpdate] = useState(false);
 
   // all useEffect
   useEffect(() => {
@@ -184,6 +185,15 @@ export default function HorizontalNonLinearStepper() {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (pastRequest && formUpdate === true) {
+        setCountryDoc(request?.documents);
+        setFormUpdate(false);
+  }
+}, [pastRequest, formUpdate ]);
+
+
   const totalSteps = () => {
     return steps.length;
   };
@@ -387,10 +397,11 @@ export default function HorizontalNonLinearStepper() {
     await API("get", `/documents/getByCountry/${step1?.country}`)
       .then((res) => {
         setCountryDoc(res?.data?.documents);
+        setFormUpdate(true);
       })
-
       .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
+
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
     formData.append("doc_id", docId);
@@ -398,7 +409,7 @@ export default function HorizontalNonLinearStepper() {
     await API("put", `/requests/documentsUpload/${requestId}`, formData)
       .then((res) => {
         setCountryDoc((prev) => {
-          prev[index].fileName = file.name;
+          prev[index].filename = file.name;
           return [...prev];
         });
       })

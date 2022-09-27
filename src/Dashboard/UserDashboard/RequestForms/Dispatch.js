@@ -697,7 +697,7 @@ const Dispatch = (props) => {
             // mask={maskMap[lng]}
             selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ''}
             name='InspectionDate'
-            placeholderText={t("Select inspection date")}
+            placeholderText="Sélectionnez la date d'inspection"
             className='inspection_date'
             minDate={addDays(new Date(), 1)}
             showYearDropdown

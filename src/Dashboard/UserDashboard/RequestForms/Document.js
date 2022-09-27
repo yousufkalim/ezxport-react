@@ -17,7 +17,7 @@ const Document = (props) => {
   const [formUpdate, setFormUpdate] = useState(false);
 
   useEffect(() => {
-      if (pastRequest && previousCodes.length && productCodes.length && formUpdate) {
+      if (pastRequest && previousCodes.length && productCodes.length && formUpdate === true) {
         const product = productCodes.map((item) => {
           const findCode = previousCodes.find(a => a.codeID === item.code._id);
           if(findCode){
@@ -38,12 +38,14 @@ const Document = (props) => {
           }
           return item;
         });
-        props.setCountryDoc(request?.documents);
-        console.log("Modified array ", product);
+        console.log("Modified array ", request.documents);
         setProductCodes(product);
         setFormUpdate(false);
     }
   }, [pastRequest,previousCodes, formUpdate ]);
+
+
+  console.log("Country DOCS ", props.CountryDoc);
 
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
@@ -133,8 +135,8 @@ const Document = (props) => {
           return (
             <Grid item xs={6}>
               <label style={{ display: "flex" }}>
-                {item?.name}
-                <Tooltip title={item?.info} placement="top">
+                {item?.doc_id?.name}
+                <Tooltip title={item?.doc_id?.info} placement="top">
                   <img style={{ paddingLeft: "5px" }} src={HelperIcon} />
                 </Tooltip>
               </label>
