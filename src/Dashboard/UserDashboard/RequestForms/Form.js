@@ -599,6 +599,7 @@ export default function HorizontalNonLinearStepper() {
                 handleDocByCountryId={handleDocByCountryId}
                 handleUploadDoc={handleUploadDoc}
                 CountryDoc={CountryDoc}
+                setCountryDoc={setCountryDoc}
                 createdCodes={createdCodes}
                 userData={userData._id}
                 setProductCodes={setProductCodes}

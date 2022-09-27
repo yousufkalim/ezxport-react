@@ -348,7 +348,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={sellerValues.Country || "default"}
               onChange={(e) => {
@@ -495,7 +495,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={buyerValues?.Country || "default"}
               onChange={(e) => {
@@ -657,7 +657,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={placeValues.Country || "default"}
               onChange={(e) => {

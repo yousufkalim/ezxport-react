@@ -37,7 +37,7 @@ const DocumentsTab = ({ userRequest }) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = () => {
-        resolve({ file: fileReader.result, name: fileName });
+        resolve({ file: fileReader.result.replace(/^.*,/, ''), name: fileName });
       };
       fileReader.onerror = (error) => {
         reject(error);

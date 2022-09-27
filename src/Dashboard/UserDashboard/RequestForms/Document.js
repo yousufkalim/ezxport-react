@@ -13,7 +13,7 @@ const Document = (props) => {
   const {setProductCodes, productCodes} = props;
   console.log("Products ", productCodes);
   const { request, pastRequest , previousCodes} = Store();
-  console.log("🚀 ~ request", previousCodes);
+  console.log("🚀 ~ request", request);
   const [formUpdate, setFormUpdate] = useState(false);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const Document = (props) => {
           }
           return item;
         });
+        props.setCountryDoc(request?.documents);
         console.log("Modified array ", product);
         setProductCodes(product);
         setFormUpdate(false);
@@ -128,6 +129,7 @@ const Document = (props) => {
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: "100%" }}>
         {props?.CountryDoc?.map((item, index) => {
+          console.log("Item name ", item);
           return (
             <Grid item xs={6}>
               <label style={{ display: "flex" }}>
@@ -139,7 +141,7 @@ const Document = (props) => {
               <div className="to_download_div">
                 <FilePicker
                   index={index}
-                  fileName={item.fileName}
+                  fileName={item?.filename || item?.url?.[0]?.split("-")[1] }
                   name={item.name}
                   onChange={(e) => {
                     props?.handleUploadDoc(e.target.files[0], item._id, index);

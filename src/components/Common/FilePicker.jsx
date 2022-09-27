@@ -5,6 +5,14 @@ import { useTranslation } from "react-i18next";
 const FilePicker = (props) => {
   const { t } = useTranslation();
 
+  let allFiles = props?.fileName;
+  if (props.isMultiple) {
+    const file = props?.fileName;
+    allFiles = `${file?.filename || file?.url[0]?.split("-").slice(-3).reverse().pop()}  (${file?.url?.length})`
+  } else {
+    allFiles = props?.fileName;
+  }
+
   return (
     <div className="filepicker_main_div">
       <label htmlFor={`file` + props.index}>
@@ -19,10 +27,10 @@ const FilePicker = (props) => {
           // value={props.value}
         />
         <div className="download_icon_div">
-          {typeof props.fileName === "string" ? (
-            props.fileName
-          ) : typeof props.fileName === "object" ? (
-            props?.fileName?.map((item, index) => {
+          {typeof allFiles === "string" ? (
+            allFiles
+          ) : typeof allFiles === "object" ? (
+            allFiles?.map((item, index) => {
               return (
                 <p>
                   {index + 1}). {item}
