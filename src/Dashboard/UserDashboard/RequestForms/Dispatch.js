@@ -164,7 +164,6 @@ const Dispatch = (props) => {
   }, [props?.step3?.buyerData?.values?.buyer]);
 
   useEffect(() => {
-    console.log("Code enters  inspecion");
     handleSelectedPlace();
   }, [placeOfInspection?.values?.InspectionPlace]);
 
@@ -181,7 +180,6 @@ const Dispatch = (props) => {
   };
 
   const setSeller = () => {
-    console.log("request", request);
     const { seller } = request;
     const { address, city, company_name, email, phone_number, zipcode, country, _id } = seller;
     const countryId = country?._id;
@@ -193,6 +191,7 @@ const Dispatch = (props) => {
           ...prev.sellerData.values,
           seller: _id,
           companyName: company_name,
+          Country:country,
           CountryId: countryId,
           email: email,
           telephone: phone_number,
@@ -216,6 +215,7 @@ const Dispatch = (props) => {
           ...prev.buyerData.values,
           buyer: _id,
           companyName: company_name,
+          Country:country,
           CountryId: countryId,
           email: email,
           telephone: phone_number,
@@ -253,7 +253,7 @@ const Dispatch = (props) => {
           InspectionPlace: _id,
           companyName: company_name,
           CountryId: countryId,
-          country: countryId,
+          Country: country,
           email: email,
           telephone: phone_number,
           fullAddress: address,
@@ -303,7 +303,7 @@ const Dispatch = (props) => {
 
   const handleSelectedPlace = () => {
     let SelectedPlace = props?.places?.find((item) => {
-      return item._id === props?.step3?.placeOfInspection?.values;
+      return item._id === props?.step3?.placeOfInspection?.values?.InspectionPlace;
     });
 
     props.setStep3((prev) => {
@@ -375,7 +375,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={sellerValues.CountryId || "default"}
+              value={sellerValues.Country || "default"}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -523,7 +523,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={buyerValues?.CountryId || "default"}
+              value={buyerValues?.Country || "default"}
               onChange={(e) => {
                 props?.handleBuyerData(e.target.name, e.target.value);
               }}
@@ -687,7 +687,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="CountryId"
               id="demo-simple-select"
-              value={placeValues.CountryId || "default"}
+              value={placeValues.Country || "default"}
               onChange={(e) => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}

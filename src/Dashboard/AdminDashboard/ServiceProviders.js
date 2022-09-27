@@ -1,54 +1,55 @@
-import React, { useEffect, useState } from "react";
-import Button from "../../components/Common/Button";
-import SearchField from "../../components/Common/SearchField";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import PlusIcon from "../../assets/PlusIcon.svg";
-import API from "../../api/index";
-import Modal from "../../components/Common/Modal";
-import InputField from "../../components/Common/InputField";
-import MultiSelect from "../../components/Common/MultiSelect";
-import { useHistory } from "react-router-dom";
-import validate from "validate.js";
-import { useTranslation } from "react-i18next";
-import toaster from "../../utils/toaster";
-import Spinner from "../../components/Common/Spinner";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import { getSortedData } from "../../lib/getSortedData";
-import { createFilter } from "react-search-input";
+import React, { useEffect, useState } from 'react';
+import Button from '../../components/Common/Button';
+import SearchField from '../../components/Common/SearchField';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import PlusIcon from '../../assets/PlusIcon.svg';
+import API from '../../api/index';
+import Modal from '../../components/Common/Modal';
+import InputField from '../../components/Common/InputField';
+import MultiSelect from '../../components/Common/MultiSelect';
+import { useHistory } from 'react-router-dom';
+import validate from 'validate.js';
+import { useTranslation } from 'react-i18next';
+import toaster from '../../utils/toaster';
+import Spinner from '../../components/Common/Spinner';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
+import { createFilter } from 'react-search-input';
+import { ReactComponent as Delete } from '../../assets/DeleteIcon.svg';
+import ConfirmModal from '../../components/Common/ConfirmModal';
 
 const schema = {
   fullname: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { minimum: 2 },
   },
   phone_Number: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { minimum: 10, maximum: 10 },
   },
   sendingEmail: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     email: true,
     length: {
       maximum: 64,
     },
   },
   contactEmail: {
-    presence: { allowEmpty: false, message: "is required" },
-    email: true,
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
       maximum: 64,
     },
   },
 };
 
-const KEYS_TO_FILTERS = ["name"];
+const KEYS_TO_FILTERS = ['name'];
 
 const ServiceProviders = () => {
   const history = useHistory(null);
@@ -59,16 +60,18 @@ const ServiceProviders = () => {
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState({ key: "", ascend: true });
-  const [searchTerm, setSearchTerm] = useState("");
+  const [sort, setSort] = useState({ key: '', ascend: true });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [openModal, setOpenModal] = useState(false);
+  const [providerId, setProviderId] = useState('');
 
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      fullname: "",
-      phone_Number: "",
-      sendingEmail: "",
-      contactEmail: "",
+      fullname: '',
+      phone_Number: '',
+      sendingEmail: '',
+      contactEmail: '',
     },
     touched: {},
     errors: {},
@@ -107,13 +110,13 @@ const ServiceProviders = () => {
   // getting all service providers in database
   const handleServiceProvider = async () => {
     setLoading(true);
-    await API("get", "/vendors/")
+    await API('get', '/vendors/')
       .then((res) => {
         setVendors(res?.data?.vendor?.reverse());
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", t("Error while fetching service providers"));
+        toaster('Failed', t('Error while fetching service providers'));
 
         setLoading(false);
       });
@@ -125,7 +128,7 @@ const ServiceProviders = () => {
 
   // adding service providers in database
   const handleAddVendor = async () => {
-    await API("post", "/vendors/", {
+    await API('post', '/vendors/', {
       phone_number: formState.values.phone_Number,
       name: formState.values.fullname,
       sending_email: formState.values.sendingEmail,
@@ -137,21 +140,21 @@ const ServiceProviders = () => {
         setFormState({
           isValid: false,
           values: {
-            fullname: "",
-            phone_Number: "",
-            sendingEmail: "",
-            contactEmail: "",
+            fullname: '',
+            phone_Number: '',
+            sendingEmail: '',
+            contactEmail: '',
           },
           errors: {},
           touched: {},
         });
         setOpen(false);
-        toaster[res?.data?.success ? "success" : t("error")](
-          res?.data?.message || t("Vendor added successfully")
+        toaster[res?.data?.success ? 'success' : t('error')](
+          res?.data?.message || t('Vendor added successfully')
         );
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
@@ -159,11 +162,11 @@ const ServiceProviders = () => {
     const {
       target: { value },
     } = event;
-    setSelect(typeof value === "string" ? value.split(",") : value);
+    setSelect(typeof value === 'string' ? value.split(',') : value);
   };
 
   const handleCoutries = async () => {
-    await API("get", "/countries/")
+    await API('get', '/countries/')
       .then((res) => {
         let country_name = [];
         setOptions(res?.data?.countries);
@@ -173,13 +176,10 @@ const ServiceProviders = () => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        console.log('errrrr', err);
       });
   };
-  // setting data of modal in state
-  // const handleModalData = (name, value) => {
-  //   setAddVendor({ ...addVendor, [name]: value });
-  // };
+
   const handleChange = (event) => {
     setFormState((formState) => ({
       ...formState,
@@ -196,7 +196,6 @@ const ServiceProviders = () => {
 
   const handlePhnChange = (event) => {
     if (!event.target.value.match(/[^0-9]/)) {
-      console.log("=====>", event.target.value);
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -211,80 +210,75 @@ const ServiceProviders = () => {
     }
   };
 
-  const searchedProviders = vendors?.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const handleDelete = async () => {
+    await API('delete', `/vendors/${providerId}`)
+      .then(() => {
+        setOpenModal(false);
+        setProviderId('');
+        handleServiceProvider();
+        toaster(
+          'success',
+          t('Service provider deleted Successfully'),
+          t('Delete service provider')
+        );
+      })
+      .catch((err) => {
+        toaster('Failed', t('Service provider is not deleted'));
+      });
+  };
 
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const searchedProviders = vendors?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
+
+  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
-      <div className="list_main_div">
-        <div className="list_second_div">
+      <div className='list_main_div'>
+        <div className='list_second_div'>
           {/* list head  */}
-          <div className="List_heading_div">
-            <h1 className="list_h1">{t("Service providers")}</h1>
-            <div className="searching3">
-              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
+          <div className='List_heading_div'>
+            <h1 className='list_h1'>{t('Service providers')}</h1>
+            <div className='searching3'>
+              <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
               <Button
-                className="list_service_btn2"
-                text={t("Add a service provider")}
+                className='list_service_btn2'
+                text={t('Add a service provider')}
                 Imgsrc={PlusIcon}
                 onClick={() => setOpen(true)}
               />
             </div>
           </div>
           {/* list table   */}
-          <div className="list_table">
+          <div className='list_table'>
             <TableContainer component={Paper}>
-              <Table
-                sx={{ minWidth: 650 }}
-                size="small"
-                aria-label="a dense table"
-              >
+              <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
                 <TableHead>
-                  <TableRow sx={{ border: "1px solid #EAECF0" }}>
-                    <TableCell
-                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
-                    >
-                      {t("Service providers")} &nbsp;
+                  <TableRow sx={{ border: '1px solid #EAECF0' }}>
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Service providers')} &nbsp;
                       {!sort.ascend ? (
                         <img
-                          className="sorting-icon"
+                          className='sorting-icon'
                           onClick={() =>
-                            getSortedData(
-                              vendors,
-                              setVendors,
-                              setSort,
-                              [],
-                              "name",
-                              true
-                            )
+                            getSortedData(vendors, setVendors, setSort, [], 'name', true)
                           }
                           src={arrow_up}
-                          alt=""
+                          alt=''
                         />
                       ) : (
                         <img
                           onClick={() =>
-                            getSortedData(
-                              vendors,
-                              setVendors,
-                              setSort,
-                              [],
-                              "name",
-                              false
-                            )
+                            getSortedData(vendors, setVendors, setSort, [], 'name', false)
                           }
                           src={downArrow}
-                          alt=""
+                          alt=''
                         />
                       )}
                     </TableCell>
-                    <TableCell
-                      sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}
-                    >
-                      {t("Associated countries")}
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Associated countries')}
+                    </TableCell>
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Actions')}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -293,34 +287,32 @@ const ServiceProviders = () => {
                 ) : (
                   <TableBody>
                     {searchedProviders?.map((item, index) => (
-                      <TableRow
-                        key={index}
-                        sx={{ border: "1px solid #EAECF0" }}
-                      >
+                      <TableRow key={index} sx={{ border: '1px solid #EAECF0' }}>
                         <TableCell
                           onClick={() => {
                             history.push(
                               `/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`
                             );
                           }}
-                          component="th"
-                          scope="row"
+                          component='th'
+                          scope='row'
                           sx={{
                             padding: 2,
-                            cursor: "pointer",
+                            cursor: 'pointer',
                           }}
                         >
-                          <p className="AP_plus_title">{item.name}</p>
+                          <p className='AP_plus_title'>{item.name}</p>
                         </TableCell>
                         <TableCell
-                          component="th"
-                          scope="row"
+                          component='th'
+                          scope='row'
                           sx={{
                             padding: 2,
-                            cursor: "pointer",
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            alignItems: 'flex-start',
+                            borderBottom: 'none',
                           }}
                           onClick={() => {
                             history.push(
@@ -330,14 +322,29 @@ const ServiceProviders = () => {
                         >
                           {item.countries.map((country) => {
                             return (
-                              <p
-                                className="AP_plus_title"
-                                style={{ paddingLeft: "10px" }}
-                              >
+                              <p className='AP_plus_title' style={{ paddingLeft: '10px' }}>
                                 {country.name}
                               </p>
                             );
                           })}
+                        </TableCell>
+                        <TableCell
+                          component='th'
+                          scope='row'
+                          sx={{
+                            padding: 2,
+                          }}
+                        >
+                          <Delete
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setOpenModal(true);
+                              setProviderId(item?._id);
+                            }}
+                            style={{
+                              cursor: 'pointer',
+                            }}
+                          />
                         </TableCell>
                       </TableRow>
                     ))}
@@ -348,96 +355,96 @@ const ServiceProviders = () => {
           </div>
         </div>
       </div>
+      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete()} />
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t("Add a service provider")}
+        title={t('Add a service provider')}
         handleClose={handleClose}
         Closebtn={true}
       >
-        <div className="add_vendor_div">
-          <label htmlFor="" className="label_modal">
-            {t("Full Name")}
-          </label>{" "}
+        <div className='add_vendor_div'>
+          <label htmlFor='' className='label_modal'>
+            {t('Full Name')}
+          </label>{' '}
           <InputField
-            name="fullname"
+            name='fullname'
             className={
-              hasError("fullname") && formState.errors.fullname
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('fullname') && formState.errors.fullname
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             value={formState.values.fullname}
             onChange={handleChange}
           />
-          <div className="error-format">
-            {hasError("fullname") ? formState.errors.fullname[0] : null}
+          <div className='error-format'>
+            {hasError('fullname') ? formState.errors.fullname[0] : null}
           </div>
-          <label htmlFor="" className="label_modal">
-            {t("Phone Number")}
-          </label>{" "}
+          <label htmlFor='' className='label_modal'>
+            {t('Phone Number')}
+          </label>{' '}
           <InputField
-            name="phone_Number"
+            name='phone_Number'
             value={formState.values.phone_Number}
-            type="string"
+            type='string'
             className={
-              hasError("phone_Number") && formState.errors.phone_Number
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('phone_Number') && formState.errors.phone_Number
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handlePhnChange}
           />
-          <div className="error-format">
-            {hasError("phone_Number") ? formState.errors.phone_Number[0] : null}
+          <div className='error-format'>
+            {hasError('phone_Number') ? formState.errors.phone_Number[0] : null}
           </div>
-          <label htmlFor="" className="label_modal">
-            {t("Contact email")}
-          </label>{" "}
+          <label htmlFor='' className='label_modal'>
+            {t('Contact Last Name')}
+          </label>{' '}
           <InputField
-            name="contactEmail"
+            name='contactEmail'
             className={
-              hasError("contactEmail") && formState.errors.contactEmail
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('contactEmail') && formState.errors.contactEmail
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
             value={formState.values.contactEmail}
           />
-          <div className="error-format">
-            {hasError("contactEmail") ? formState.errors.contactEmail[0] : null}
+          <div className='error-format'>
+            {hasError('contactEmail') ? formState.errors.contactEmail[0] : null}
           </div>
-          <label htmlFor="" className="label_modal">
-            {t("Default sending email address")}
+          <label htmlFor='' className='label_modal'>
+            {t('Default sending email address')}
           </label>
           <InputField
-            name="sendingEmail"
+            name='sendingEmail'
             className={
-              hasError("sendingEmail") && formState.errors.sendingEmail
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('sendingEmail') && formState.errors.sendingEmail
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
             value={formState.values.sendingEmail}
           />
-          <div className="error-format">
-            {hasError("sendingEmail") ? formState.errors.sendingEmail[0] : null}
+          <div className='error-format'>
+            {hasError('sendingEmail') ? formState.errors.sendingEmail[0] : null}
           </div>
-          <label htmlFor="" className="label_modal">
-            {t("Select country to add")}
+          <label htmlFor='' className='label_modal'>
+            {t('Select country to add')}
           </label>
           <MultiSelect
-            name="country"
+            name='country'
             onChange={handleMultiSelectChange}
             value={select}
             names={names}
             select={select}
           />
-          {/* {console.log("===", select)} */}
           <Button
-            text={t("Add Service Provider")}
+            text={t('Add Service Provider')}
             className={
               formState.isValid && select.length > 0
-                ? "add_vendor_button"
-                : "add_vendor_button_disabled"
+                ? 'add_vendor_button'
+                : 'add_vendor_button_disabled'
             }
             onClick={handleAddVendor}
             disabled={!formState.isValid || select.length < 1 ? true : false}

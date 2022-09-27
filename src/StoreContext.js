@@ -20,6 +20,7 @@ export function StoreProvider({ children }) {
   let [store, setStore] = useState({
     request: {},
     pastRequest: false,
+    previousCodes:[]
   });
 
   const updateStore = (data) => {

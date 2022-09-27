@@ -16,7 +16,7 @@ const FilePicker = (props) => {
           disabled={props.disabled}
           onChange={props.onChange}
           className="filepicker_input"
-          value={props.value}
+          // value={props.value}
         />
         <div className="download_icon_div">
           {typeof props.fileName === "string" ? (

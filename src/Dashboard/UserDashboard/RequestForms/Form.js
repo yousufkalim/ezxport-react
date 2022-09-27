@@ -19,7 +19,8 @@ import Modal from "../../../components/Common/Modal";
 import { ReactComponent as Featured } from "../../../assets/Featured.svg";
 import { ReactComponent as Logo } from "../../../assets/logo.svg";
 import { useTranslation } from "react-i18next";
-import { UpdateStore } from "../../../StoreContext";
+import { Store,UpdateStore } from "../../../StoreContext";
+
 import toaster from "../../../utils/toaster";
 
 const userData = JSON.parse(localStorage.getItem("userData"));
@@ -45,6 +46,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
     borderRadius: 1,
   },
 }));
+
 const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -75,6 +77,8 @@ export default function HorizontalNonLinearStepper() {
   const [countries, setCounteries] = useState();
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [allCodes, setAllCodes] = useState([]);
+  const { request } = Store();
+  const [prevCodes, setPrevCodes] = useState([]);
 
   // step 2 states
   const [step2, setStep2] = useState({
@@ -143,6 +147,7 @@ export default function HorizontalNonLinearStepper() {
       touched: {},
     },
   });
+
   const [sellers, setSeller] = useState([]);
   const [buyers, setBuyers] = useState([]);
   const [places, setPlaces] = useState([]);
@@ -244,6 +249,20 @@ export default function HorizontalNonLinearStepper() {
       });
   };
   const handleStep1 = async () => {
+    if (request?._id ) {
+      const allPrevCodes = request?.codes?.map(item => ({id: item?.code?._id, products: item.products}));
+      const newAllCodes = allCodes.map((item) => {
+        const prevCode = allPrevCodes.find(a => a.id === item.codeID);
+        if(prevCode){
+          return {...item, newCode: false, products: prevCode.products}
+        }
+        else{
+          return {...item, newCode: false, products: [{user: userData._id, code: item.codeID }]}
+        }
+      })
+      console.log("ALL new cdodes ", newAllCodes);
+      updateStore({ previousCodes:newAllCodes });
+    }
     let data = {
       country: step1.country,
       user: step1.user,
@@ -304,7 +323,7 @@ export default function HorizontalNonLinearStepper() {
         phone_number: buyerData.telephone,
         company_name: buyerData.companyName,
         email: buyerData.email,
-        country: buyerData.CountryId,
+        country: buyerData.Country,
         city: buyerData.town,
         zipcode: buyerData.postalCode,
         address: buyerData.fullAddress,
@@ -314,7 +333,7 @@ export default function HorizontalNonLinearStepper() {
         phone_number: sellerData.telephone,
         company_name: sellerData.companyName,
         email: sellerData.email,
-        country: sellerData.CountryId,
+        country: sellerData.Country,
         city: sellerData.town,
         zipcode: sellerData.postalCode,
         address: sellerData.fullAddress,
@@ -324,7 +343,7 @@ export default function HorizontalNonLinearStepper() {
         phone_number: placeOfInspection.telephone,
         company_name: placeOfInspection.companyName,
         email: placeOfInspection.email,
-        country: placeOfInspection.CountryId,
+        country: placeOfInspection.Country,
         city: placeOfInspection.town,
         zipcode: placeOfInspection.postalCode,
         address: placeOfInspection.fullAddress,
@@ -353,6 +372,7 @@ export default function HorizontalNonLinearStepper() {
         data.codes.push(item2);
       });
     });
+    console.log("qwerty" , data.codes)
     await API("put", "/requests/documents", data)
       .then((res) => {
         localStorage.setItem("Requested", true);
@@ -430,7 +450,6 @@ export default function HorizontalNonLinearStepper() {
       },
     });
   };
-
   const handleSeller = async () => {
     await API("get", `/sellers/getByUser/${userData._id}`)
       .then((res) => {
@@ -555,6 +574,7 @@ export default function HorizontalNonLinearStepper() {
                 setRetrieveRequestId={setRetrieveRequestId}
                 allCodes={allCodes}
                 setAllCodes={setAllCodes}
+                currency={currency}
               />
             ) : activeStep === 1 ? (
               <ServiceproviderForm

@@ -103,13 +103,14 @@
   cursor: pointer;
 }
 .confirm_modal_btn_no {
-  background: #7f56d9;
+  background: #fff;
+  color: #7f56d9;
   border: 1px solid #7f56d9;
 }
 
 .confirm_modal_buttons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
 }

@@ -1,65 +1,69 @@
-import React, { useEffect, useState } from "react";
-import UserTable from "../../components/AdminDashboard/UserTable";
-import API from "../../api/index";
-import { useTranslation } from "react-i18next";
-import { getSortedData } from "../../lib/getSortedData";
+import React, { useEffect, useState } from 'react';
+import UserTable from '../../components/AdminDashboard/UserTable';
+import API from '../../api/index';
+import { useTranslation } from 'react-i18next';
+import { getSortedData } from '../../lib/getSortedData';
 
 const HeadTitle = [
   {
-    list: "Last name",
-    key: "last_name",
+    list: 'Last name',
+    key: 'last_name',
     sortIcon: true,
   },
   {
-    list: "First name",
-    key: "first_name",
+    list: 'First name',
+    key: 'first_name',
     sortIcon: true,
   },
   {
-    list: "E-mail address",
-    key: "email",
+    list: 'E-mail address',
+    key: 'email',
   },
   {
-    list: "Telephone",
-    key: "phone_number",
+    list: 'Telephone',
+    key: 'phone_number',
   },
   {
-    list: "Address",
-    key: "address",
+    list: 'Address',
+    key: 'address',
   },
   {
-    list: "Postal code",
-    key: "zipcode",
+    list: 'Postal code',
+    key: 'zipcode',
   },
   {
-    list: "Town",
-    key: "city",
+    list: 'Town',
+    key: 'city',
   },
   {
-    list: "Company name",
-    key: "name",
+    list: 'Company name',
+    key: 'name',
   },
   {
-    list: "Company type",
-    key: "type",
+    list: 'Company type',
+    key: 'type',
   },
   {
-    list: "VAT number",
-    key: "vat",
+    list: 'VAT number',
+    key: 'vat',
+  },
+  {
+    list: '',
+    key: 'action',
   },
 ];
 
 const nestSortTitles = [
   {
-    title: "company",
-    fields: ["name", "type", "vat"],
+    title: 'company',
+    fields: ['name', 'type', 'vat'],
   },
 ];
 
 const Users = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [sort, setSort] = useState({ key: '', ascend: true });
 
   const { t } = useTranslation();
 
@@ -69,7 +73,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     setLoading(true);
-    await API("get", "/users/")
+    await API('get', '/users/')
       .then((res) => {
         setAllUsers(res?.data.users);
         setLoading(false);
@@ -88,8 +92,9 @@ const Users = () => {
         sortData={(field, ascend) =>
           getSortedData(allUsers, setAllUsers, setSort, nestSortTitles, field, ascend)
         }
+        getUsers={fetchUsers}
         headTitle={HeadTitle}
-        title={t("Users")}
+        title={t('Users')}
         rows={allUsers}
       />
     </>

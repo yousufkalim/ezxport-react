@@ -22,13 +22,13 @@ import Select from "@mui/material/Select";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmModal from "../../../components/Common/ConfirmModal";
-import { Store } from "../../../StoreContext";
+import { Store , UpdateStore} from "../../../StoreContext";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
-  const { step1, setStep1, setMatchedData, allCodes, setAllCodes } = props;
+  const { step1, setStep1, setMatchedData, allCodes, setAllCodes ,currency ,setRetrieveRequestId} = props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -40,13 +40,14 @@ const BOMsForm = (props) => {
   const [importedFile, setImportedFile] = useState();
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [retrieveRequestId, setRetrieveRequestId] = useState("");
+  // const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [bomId, setBomId] = useState("");
+  const [bomIndex, setBomIndex] = useState("");
   const [adminCodes, setAdminCodes] = useState([]);
-  // const [allCodes, setAllCodes] = useState([]);
-  const { request, pastRequest } = Store();
-
-  console.log("Request data ", request);
+  const { request, pastRequest , previousCodes } = Store();
+  console.log("🚀 ~ file: BOMsForm.js ~ line 48 ~ BOMsForm ~ previousCodes", previousCodes)
+  console.log("🚀 ~ file: BOMsForm.js ~ line 48 ~ BOMsForm ~ request", request)
+  const updateStore = UpdateStore();
 
   useEffect(() => {
     if (pastRequest) {
@@ -60,7 +61,8 @@ const BOMsForm = (props) => {
     // handleTitle(countryId);
     const matched = getMatchedCodes(codes);
     setStep1({ ...step1, country: countryId });
-    setMatchedData(matched);
+    setAllCodes(matched);
+  
   };
 
   const getMatchedCodes = (codes) => {
@@ -68,6 +70,7 @@ const BOMsForm = (props) => {
     codes?.forEach((item) => {
       const { monetary_value } = item;
       const { code, _id: codeID, certification_required, admin_code } = item.code;
+
       const codeObj = {
         monetary_value,
         admin_code,
@@ -146,7 +149,6 @@ const BOMsForm = (props) => {
     setMonetaryValue("");
   };
 
-  console.log("ALL codes ", allCodes);
 
   const handleDocument = async (file) => {
     var filename = file.name.split(".").pop();
@@ -199,29 +201,20 @@ const BOMsForm = (props) => {
     }
   };
 
-  const handleDelete = (code) => {
-    const { matchedData, unMatchedData, setUnMatchedData } = props;
-    const findCode = allCodes.find((item) => item.codeID === code.codeID);
-    let filtered = allCodes.filter((item) => {
-      return item.codeID !== code.codeID;
+  const handleDelete = (code , bomIndex) => {
+    const codes = [...allCodes]
+    const findCode = codes?.find((item , index) => index === bomIndex);
+    let filtered = codes.filter((item , index1) => {
+      return index1 !== bomIndex;
     });
-    console.log("ALL codes ==> ", allCodes);
-    console.log("Single codes ==> ", code);
-    console.log("Filtered codes ==> ", filtered);
-    console.log("FIND codes ==> ", findCode);
+ 
     if (findCode && findCode.certification_required && !pastRequest) {
-      // setUnMatchedData([...unMatchedData, findCode]);
       setAdminCodes([...adminCodes, findCode]);
     }
-    // if(props.matchedData.length === 1){
-    //   setImportedFile("")
-    // }
-    // props.setMatchedData(filtered);
     setAllCodes(filtered);
     setOpenModal(false);
   };
 
-  console.log("Admin codes ", adminCodes);
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
       userId: user._id,
@@ -253,8 +246,6 @@ const BOMsForm = (props) => {
     }
   };
   const getBomByCountryId = async () => {
-    console.log(step1?.country, "qwerty");
-
     await API("get", `/boms/getByCountryId/${step1.country}`)
       .then((res) => {
         setAdminCodes(res?.data?.bom);
@@ -446,6 +437,7 @@ const BOMsForm = (props) => {
                         onClick={() => {
                           setOpenModal(true);
                           setBomId(item);
+                          setBomIndex(index)
                         }}
                       />
                       <img
@@ -518,7 +510,12 @@ const BOMsForm = (props) => {
         </div>
       </Modal>
 
-      <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleDelete(bomId)} />
+
+      <ConfirmModal
+        open={openModal}
+        setOpen={setOpenModal}
+        action={() => handleDelete(bomId , bomIndex)}
+      />
       {/* certification required modal */}
       <Modal
         open={props.certificateRequire}
@@ -552,8 +549,8 @@ const BOMsForm = (props) => {
             <div className="space">
               {t("The cost of this certification is up to")}
               <span style={{ fontWeight: 900, fontSize: "19px" }}>
-                &nbsp;
-                {props.certificationCostOfCode}$/HT
+
+                {props.certificationCostOfCode} {currency === "USD"  ? "$" : "Є"}/HT
               </span>
             </div>
           </div>
@@ -614,44 +611,8 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
-      <Modal
-        open={verificationModal}
-        setOpen={setVerificationModal}
-        handleClose={handleVerification}
-      >
-        <div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
-            <div className="space">
-              <Logo />
-            </div>
-            <div className="space">
-              <Featured />
-            </div>
 
-            <div className="space" style={{ width: "75%", textAlign: "center" }}>
-              {t("The nomenclatures listed for the")}
-              <b>
-                {t("Gabon are subject")} <br />
-                {t("to verification and certification.")}
-              </b>
-            </div>
-            <div className="space">
-              {t("The cost of this certification is up to")} <b>7000€/HT</b>
-            </div>
-          </div>
-          <Button text={t("Continue my request on Ezxport")} className="to_confirm_btn" />
-          <Button text={t("Go back to my request")} className="delete_bom_btn" />
-        </div>
-      </Modal>
+
     </div>
   );
 };
