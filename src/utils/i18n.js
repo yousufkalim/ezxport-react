@@ -12,6 +12,8 @@ i18n
         translations: {
           ///// EZXPORT ADMIN /////
           // Country
+          "You have validated the documents of company X, we will send you all the documents to the address":
+            "You have validated the documents of company X, we will send you all the documents to the address",
           "First name is required": "First name is required",
           "is required": "is required",
           "Email is not a valid email": "Email is not a valid email",
@@ -56,8 +58,6 @@ i18n
           "Fullname is required": "Fullname is required",
           "Phone number is required": "Phone number is required",
           "Contact email is required": "Contact email is required",
-          "": "",
-          "": "",
 
           Country: "Country",
           Searching: "Searching",
@@ -686,18 +686,18 @@ i18n
           // Appplication
           "File validated": "File validated",
           "Cost certificate": "Cost certificate",
+          // Common
+          "We asked": "We asked",
+          "the missing documents": "the missing documents",
+          "to the company": "to the company",
+          "Return to Requests": "Return to Requests",
         },
-        // Common
-        "We asked": "We asked",
-        "the missing documents": "the missing documents",
-        "to the company": "to the company",
-        "Return to Requests": "Return to Requests",
-        "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
-          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com",
       },
       fr: {
         translations: {
           // Country
+          "You have validated the documents of company X, we will send you all the documents to the address":
+            "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse",
           "First name is required": "Le prénom est requis ",
           "is required": "est requis",
           "Email is not a valid email": "L'e-mail n'est pas un e-mail valide",
@@ -1376,8 +1376,6 @@ i18n
           "the missing documents": "les documents manquants",
           "to the company": "à la société",
           "Return to Requests": "Retour aux demandes",
-          "You have validated the documents of company X, we will send you all the documents to the address mail @mail.com":
-            "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse mail @mail.com",
         },
       },
     },
