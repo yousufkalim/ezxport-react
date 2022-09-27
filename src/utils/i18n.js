@@ -576,6 +576,7 @@ i18n
           "File not found": "File not found",
           "Email does not exist": "Email does not exist",
           Failed: "Failed",
+          "Select inspection date":"Sélectionnez la date d'inspection",
           success: "success",
           Success: "Success",
           "Email or password is incorrect": "Email or password is incorrect",
@@ -698,6 +699,7 @@ i18n
           // Country
           "You have validated the documents of company X, we will send you all the documents to the address":
             "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse",
+          "Sélectionnez la date d'inspection": "Select inspection date",
           "First name is required": "Le prénom est requis ",
           "is required": "est requis",
           "Email is not a valid email": "L'e-mail n'est pas un e-mail valide",

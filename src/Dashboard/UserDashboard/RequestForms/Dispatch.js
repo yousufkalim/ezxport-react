@@ -2,16 +2,27 @@ import React, { useEffect, useState } from "react";
 import InputField from "../../../components/Common/InputField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-// import moment from "moment";
-import { useTranslation } from "react-i18next";
-import { validate } from "validate.js";
-import { Store } from "../../../StoreContext";
-import moment from "moment";
-import { COUNTRIES } from "../../../lib/data";
-import DatePicker from "react-datepicker";
-import { addDays } from "date-fns";
-import "react-datepicker/dist/react-datepicker.css";
-import { ReactComponent as Calendar } from "../../../assets/calendarIcon.svg";
+import { useTranslation } from 'react-i18next';
+import { validate } from 'validate.js';
+import { Store } from '../../../StoreContext';
+import moment from 'moment';
+import { COUNTRIES } from '../../../lib/data';
+import DatePicker from 'react-datepicker';
+import { addDays } from 'date-fns';
+import 'react-datepicker/dist/react-datepicker.css';
+import frLocale from "date-fns/locale/fr";
+import enLocale from "date-fns/locale/en-US";
+import { ReactComponent as Calendar } from '../../../assets/calendarIcon.svg';
+
+const localeMap = {
+  en: enLocale,
+  fr: frLocale,
+};
+
+const maskMap = {
+  fr: "__/__/____",
+  en: "__/__/____",
+};
 
 const inspectionSchema = {
   companyName: {
@@ -127,7 +138,7 @@ const Dispatch = (props) => {
   const { t } = useTranslation();
   const { request, pastRequest } = Store();
 
-  const lng = localStorage.getItem("language");
+  const lng = localStorage.getItem('i18nextLng') === 'fr' ? frLocale : enLocale;
 
   useEffect(() => {
     const { placeOfInspection } = step3;
@@ -378,7 +389,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={sellerValues.Country || "default"}
               onChange={(e) => {
@@ -526,7 +537,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={buyerValues?.Country || "default"}
               onChange={(e) => {
@@ -658,9 +669,10 @@ const Dispatch = (props) => {
             {t("Date on which the goods can be inspected")}
           </label>
           <DatePicker
-            selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ""}
-            name="InspectionDate"
-            className="inspection_date"
+            selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ''}
+            name='InspectionDate'
+            placeholderText="Sélectionnez la date d'inspection"
+            className='inspection_date'
             minDate={addDays(new Date(), 1)}
             showYearDropdown
             // dateFormatCalendar='MMMM'
@@ -699,7 +711,7 @@ const Dispatch = (props) => {
             <label className="BomLabel">{t("Country")}</label>
             <Select
               className="company_name_input"
-              name="CountryId"
+              name="Country"
               id="demo-simple-select"
               value={placeValues.Country || "default"}
               onChange={(e) => {

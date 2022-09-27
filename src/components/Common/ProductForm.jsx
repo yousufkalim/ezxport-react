@@ -18,22 +18,34 @@ const ProductForm = (props) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
-    const base64 = await convertBase64(files);
+    const newImagesPromises = [];
+    const firstFileName = files[0]?.name;
+    for (let i = 0; i < files.length; i++) {
+      const fileName = files[i]?.name;
+      newImagesPromises.push(convertBase64(files[i], fileName));
+    }
+    // const newImages = await convertBase64(files);
+
+    const base64 = await Promise.all(newImagesPromises);
+
+    console.log("FILENAME ===>", firstFileName)
+    console.log("ALL fliles", base64)
 
     props.setCodes((prev) => {
       prev[cindex].products[index1][name] = {
-        url: [base64],
-        filename: files.name,
+        url: [...prev[cindex]?.products[index1][name]?.url, ...base64],
+        filename: firstFileName,
       };
       return [...prev];
     });
   };
-  const convertBase64 = (file) => {
+  const convertBase64 = (file, fileName) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = () => {
-        resolve(fileReader.result);
+        // resolve(fileReader.result);
+        resolve(fileReader.result.replace(/^.*,/, ''));
       };
       fileReader.onerror = (error) => {
         reject(error);
@@ -201,10 +213,11 @@ const ProductForm = (props) => {
             <FilePicker
               multiple
               index={`1${props.cindex}${props.index1}`}
-              fileName={props?.product?.technical_sheet?.filename}
+              isMultiple={true}
+              fileName={props?.product?.technical_sheet}
               name="technical_sheet"
               onChange={(e) =>
-                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+                handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
               }
             />
           </div>
@@ -214,11 +227,12 @@ const ProductForm = (props) => {
           <div className="to_download_div">
             <FilePicker
               multiple
+              isMultiple={true}
               index={`2${props.cindex}${props.index1}`}
-              fileName={props?.product?.test_report?.filename}
+              fileName={props?.product?.test_report}
               name="test_report"
               onChange={(e) =>
-                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+                handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
               }
             />
           </div>
@@ -230,11 +244,12 @@ const ProductForm = (props) => {
           <div className="to_download_div">
             <FilePicker
               multiple
+              isMultiple={true}
               index={`3${props.cindex}${props.index1}`}
-              fileName={props?.product?.analysis_certificate?.filename}
+              fileName={props?.product?.analysis_certificate}
               name="analysis_certificate"
               onChange={(e) =>
-                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+                handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
               }
             />
           </div>
@@ -244,11 +259,12 @@ const ProductForm = (props) => {
           <div className="to_download_div">
             <FilePicker
               multiple
+              isMultiple={true}
               index={`4${props?.cindex}${props?.index1}`}
-              fileName={props?.product?.plan?.filename}
+              fileName={props?.product?.plan}
               name="plan"
               onChange={(e) =>
-                handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+                handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
               }
             />
           </div>
@@ -259,11 +275,12 @@ const ProductForm = (props) => {
         <div className="to_download_div">
           <FilePicker
             multiple
+            isMultiple={true}
             index={`5${props.cindex}${props.index1}`}
-            fileName={props?.product?.other_docs?.filename}
+            fileName={props?.product?.other_docs}
             name="other_docs"
             onChange={(e) =>
-              handleAddDocument(e.target.name, e.target.files[0], props.cindex, props.index1)
+              handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
             }
           />
         </div>
