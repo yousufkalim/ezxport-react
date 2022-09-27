@@ -158,7 +158,7 @@ const ProvidersTable = (props) => {
                               (el) => el._id === country
                             );
                             return (
-                              <span key={item.name}>
+                              <span key={item}>
                                 {count.name}
                                 {index !== item.countries.length - 1 &&
                                   item.countries.length > 1 &&
