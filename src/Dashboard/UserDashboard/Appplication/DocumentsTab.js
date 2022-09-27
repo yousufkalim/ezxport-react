@@ -32,7 +32,7 @@ const DocumentsTab = ({ userRequest }) => {
     handleProdLength();
   }, []);
 
-  const convertBase64 = (file, fileName) => {
+  const convertBase64 = (file, fileName) => { 
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);

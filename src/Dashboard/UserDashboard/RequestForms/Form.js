@@ -46,6 +46,7 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
     borderRadius: 1,
   },
 }));
+
 const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
@@ -146,7 +147,7 @@ export default function HorizontalNonLinearStepper() {
       touched: {},
     },
   });
-  console.log("first" , step3.placeOfInspection.values.Country)
+
   const [sellers, setSeller] = useState([]);
   const [buyers, setBuyers] = useState([]);
   const [places, setPlaces] = useState([]);
@@ -686,7 +687,7 @@ export default function HorizontalNonLinearStepper() {
           <Button1
             text={t("Continue request on Ezxport Platform")}
             className="to_confirm_btn"
-            onClick={handleStep4}
+            onClick={handleStripe}
           />
           <Button1
             text={t("Continue request on other Platform")}
