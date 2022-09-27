@@ -197,13 +197,15 @@ const AdminTab2 = (props) => {
             name="name"
             value={formState.values.name}
             className={
-              hasError("name") && formState.errors.info
+              hasError("name") && [t(formState.errors.info)]
                 ? "textfield_addvendor_red"
                 : "textfield_addvendor"
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("name") ? formState.errors.name[0] : null}</div>
+          <div className="error-format">
+            {hasError("name") ? t(formState.errors.name[0]) : null}
+          </div>
           <label htmlFor="" className="label_modal">
             {t("Help Information")}
           </label>{" "}
@@ -211,13 +213,15 @@ const AdminTab2 = (props) => {
             name="info"
             value={formState.values.info}
             className={
-              hasError("info") && formState.errors.info
+              hasError("info") && [t(formState.errors.info)]
                 ? "textfield_addvendor_red"
                 : "textfield_addvendor"
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("info") ? formState.errors.info[0] : null}</div>
+          <div className="error-format">
+            {hasError("info") ? t(formState.errors.info[0]) : null}
+          </div>
           <Button
             text={t("Add Documents")}
             disabled={!formState.isValid ? true : false}

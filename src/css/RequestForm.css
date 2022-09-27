@@ -57,9 +57,9 @@
 }
 .countrydropdown {
   padding-top: 0px !important;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   width: 100%;
-  height: 2.8rem;
+  height: 3.2rem;
   border-radius: 7px;
   margin-top: 0rem;
   margin-bottom: 0rem;
@@ -113,7 +113,6 @@
   font-weight: 500;
 }
 .import_Btn {
-  width: 45%;
   height: 2.7rem;
   font-size: 14px;
   font-weight: 500;
@@ -124,6 +123,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 10px;
 }
 
 .download_Btn {
@@ -133,13 +133,24 @@
   text-decoration: none;
   font-size: 14px;
   margin-left: 1rem;
-  width: 25.5%;
   height: 2.7rem;
   border: 1px solid rgba(0, 0, 0, 0.23);
   border-radius: 8px;
-  background-color: #7f56d9;
   cursor: pointer;
   color: white;
+  background-color: #7f56d9;
+  padding: 0 10px;
+}
+.download_Btn2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  background-color: #7f56d9;
+  padding: 0 10px;
+  margin-left: 20px;
+  border-radius: 8px;
+  text-decoration: none;
 }
 .to_add_btn {
   font-size: 14px;
@@ -208,7 +219,7 @@
 .company_name_input {
   padding-left: 7px;
   width: 100%;
-  height: 3rem;
+  height: 2.7rem;
   border-radius: 7px;
   margin-top: 0;
   font-size: 1rem;
@@ -340,6 +351,7 @@ input[type="radio"]:checked {
   outline: none;
   border: 1px solid rgba(0, 0, 0, 0.23);
   font-size: 1rem;
+  padding-left: 10px;
 }
 .product_name_textfield2 {
   width: 100%;

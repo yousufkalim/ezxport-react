@@ -1,7 +1,7 @@
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding-right: 32px;
   padding: 0;
-  margin-top: 13px !important;
+  margin-top: 0px !important;
 }
 .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 0 0px !important;
@@ -10,9 +10,10 @@
   border: none !important;
   width: 100% !important;
   padding-left: 5px !important;
+  height: 3rem !important;
 }
 .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
-  height: 3rem !important;
+  height: inherit !important;
   margin-top: 7px !important;
   /* border: none !important; */
   top: -9px !important;
@@ -45,6 +46,7 @@
   font-size: 18px;
   color: black;
   font-weight: 600;
+  padding-bottom: 15px;
 }
 .second_input_field {
   display: flex;
@@ -63,7 +65,7 @@
   padding: 10px !important;
   border: 1px solid #d0d5dd !important;
   border-radius: 8px !important;
-  height: 2.7rem;
+  height: 3.2rem;
 }
 
 .css-4ff9q7.Mui-active {
@@ -90,7 +92,7 @@
 .confirm_modal .MuiDialog-paperScrollPaper {
   padding: 10px 0;
 }
-.confirm_modal_btn{
+.confirm_modal_btn {
   background: #7f56d9;
   border: 1px solid #7f56d9;
   box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
@@ -143,9 +145,9 @@
   position: unset !important;
 }
 .css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-  top: -5px !important;
+  top: 0px !important;
   border: none !important;
-  font-family: 'Inter' !important;
+  font-family: "Inter" !important;
 }
 .ApPlus_popup_h2 {
   font-size: 18px;

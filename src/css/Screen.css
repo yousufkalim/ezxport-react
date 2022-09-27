@@ -1,4 +1,4 @@
-.css-i79574-MuiInputBase-root-MuiOutlinedInput-root{
+.css-i79574-MuiInputBase-root-MuiOutlinedInput-root {
   padding-left: 7px !important;
 }
 
@@ -50,12 +50,13 @@ label {
 
 .input-field {
   width: 100%;
-  padding: 3% 2%;
+  padding: 0 2%;
   border: 1px solid rgba(0, 0, 0, 0.23);
   box-shadow: 0px 1px 2px rgb(16 24 40 / 5%);
   border-radius: 8px;
-  margin: 2% 0 0 0;
+  margin: 0% 0 0 0;
   outline: none;
+  height: 3rem;
 }
 
 .input-error {
@@ -64,6 +65,7 @@ label {
   display: flex;
   justify-content: flex-start;
   margin-top: 10px;
+  text-align: left;
 }
 
 .primary-button:disabled {
@@ -348,6 +350,7 @@ label {
   font-size: 12px;
   display: flex;
   justify-content: flex-start;
+  text-align: left;
 }
 
 .spinner {

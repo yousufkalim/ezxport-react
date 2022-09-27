@@ -55,7 +55,7 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
             </label>
             <InputField
               value={formState.values?.lastName}
-              error={errors.lastName}
+              error={[t(errors.lastName)]}
               isError={hasError("lastName")}
               name="lastName"
               onChange={(e) => handleChange(e)}
@@ -94,7 +94,7 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
             <InputField
               value={formState.values?.vatNumber}
               name="vatNumber"
-              error={errors.vatNumber}
+              error={[t(errors.vatNumber)]}
               isError={hasError("vatNumber")}
               onChange={(e) => handleChange(e)}
               type="text"

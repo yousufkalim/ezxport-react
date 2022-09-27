@@ -59,9 +59,7 @@ const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [requestedModal, setRequestedModal] = useState(false);
   const [sort, setSort] = useState({ key: "", ascend: true });
-  const [userData, setUserData] = useState(
-    JSON.parse(localStorage.getItem("userData"))
-  );
+  const [userData, setUserData] = useState(JSON.parse(localStorage.getItem("userData")));
 
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -105,9 +103,7 @@ const FollowUp = () => {
             <div className="List_heading_div">
               <h1 className="list_h1">{t("List of requests")}</h1>
               <Link to="/User/RequestForm">
-                <button className="list_reqst_btn">
-                  {t("Create a request")}
-                </button>
+                <button className="list_reqst_btn">{t("Create a request")}</button>
               </Link>
             </div>
             {/* list table   */}
@@ -117,21 +113,42 @@ const FollowUp = () => {
                   <TableHead>
                     <TableRow>
                       {TITLES.map((item) => (
-                        <TableCell align="left" className="country" style={{ backgrounColor: "#EAECF0" }} key={item?.name}>
+                        <TableCell
+                          align="left"
+                          className="country"
+                          style={{ backgrounColor: "#EAECF0" }}
+                          key={item?.name}
+                        >
                           {t(item.name)} &nbsp;
-                          {item.sortIcon &&
-                          !sort.ascend &&
-                          sort.key === item.key ? (
+                          {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                             <img
                               className="sorting-icon"
-                              onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, true)}
+                              onClick={() =>
+                                getSortedData(
+                                  allRequest,
+                                  setAllRequest,
+                                  setSort,
+                                  nestSortTitles,
+                                  item.key,
+                                  true
+                                )
+                              }
                               src={arrow_up}
                               alt=""
                             />
                           ) : (
                             item.sortIcon && (
                               <img
-                                onClick={() => getSortedData(allRequest, setAllRequest, setSort, nestSortTitles, item.key, false)}
+                                onClick={() =>
+                                  getSortedData(
+                                    allRequest,
+                                    setAllRequest,
+                                    setSort,
+                                    nestSortTitles,
+                                    item.key,
+                                    false
+                                  )
+                                }
                                 src={downArrow}
                                 alt=""
                               />
@@ -146,11 +163,7 @@ const FollowUp = () => {
                       <TableRow
                         style={{ cursor: "pointer" }}
                         key={item?._id}
-                        onClick={() =>
-                          history.push(
-                            `/User/Dashboard/Application/${item._id}`
-                          )
-                        }
+                        onClick={() => history.push(`/User/Dashboard/Application/${item._id}`)}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
@@ -167,9 +180,7 @@ const FollowUp = () => {
                             <>
                               {item?.certification_cost?.currency === "USD"
                                 ? item?.certification_cost?.value + "$"
-
-                                : item?.certification_cost?.currency ===
-                                    "EURO" &&
+                                : item?.certification_cost?.currency === "EURO" &&
                                   item?.certification_cost?.value + "€"}
                             </>
                           ) : (
@@ -178,14 +189,9 @@ const FollowUp = () => {
                         </TableCell>
 
                         <TableCell align="left" className="country2">
-                          {item?.vendor?.vendor ? (
-                            <>{item?.vendor?.vendor?.name}</>
-                          ) : (
-                            "--"
-                          )}
+                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
                         </TableCell>
                         <TableCell align="left">
-
                           {item?.status === "Sent" ? (
                             <p className="send_status">{t(item?.status)}</p>
                           ) : item?.status === "Missing documents" ? (
@@ -210,11 +216,7 @@ const FollowUp = () => {
         <CreateRequest />
       )}
 
-      <Modal
-        open={requestedModal}
-        setOpen={setRequestedModal}
-        handleClose={handleRequested}
-      >
+      <Modal open={requestedModal} setOpen={setRequestedModal} handleClose={handleRequested}>
         <div>
           <div
             style={{
@@ -233,24 +235,23 @@ const FollowUp = () => {
               <Featured1 />
             </div>
 
-            <div className="space" style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}>
-              Votre demande été effectuée <br />
-              avec succès
+            <div
+              className="space"
+              style={{ textAlign: "center", fontSize: "2rem", fontWeight: "600" }}
+            >
+              {t("Your request has been made successfully")}
             </div>
-            <div className="space" style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}>
-
-              Nous allons procéder au traitement de votre dossier
-              <br /> dans les meilleurs délais, et reviendrons vers vous. Vous{" "}
+            <div
+              className="space"
+              style={{ fontSize: "1.2rem", width: "90%", color: "#667085", textAlign: "center" }}
+            >
+              <p>{t("We will process your file as soon as possible, and")}</p>
+              <p>{"we will come back to you. You can find your request in the table of"}</p>
               <br />
-              pouvez retrouver votre demande dans le tableau de
-              <br /> <b>suivi des demandes.</b>
+              <b>{t("Tracking requests.")}</b>
             </div>
           </div>
-          <Button
-            text="D’accord"
-            className="to_confirm_btn"
-            onClick={handleRequested}
-          />
+          <Button text="OKAY" className="to_confirm_btn" onClick={handleRequested} />
         </div>
       </Modal>
     </>
