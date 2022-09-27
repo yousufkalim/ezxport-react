@@ -573,6 +573,7 @@ i18n
           "File not found": "File not found",
           "Email does not exist": "Email does not exist",
           Failed: "Failed",
+          "Select inspection date":"Sélectionnez la date d'inspection",
           success: "success",
           Success: "Success",
           "Email or password is incorrect": "Email or password is incorrect",
@@ -695,6 +696,7 @@ i18n
       fr: {
         translations: {
           // Country
+          "Sélectionnez la date d'inspection": "Select inspection date",
           "First name is required": "Le prénom est requis ",
           "is required": "est requis",
           "Email is not a valid email": "L'e-mail n'est pas un e-mail valide",

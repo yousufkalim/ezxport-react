@@ -75,6 +75,9 @@
 .inspection_date {
   padding: 15px 13px 15px 45px;
   border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.23) !important;
+  width: 100%;
+  max-width: 270px;
 }
 .inspection_date input {
   box-shadow: none !important;
@@ -84,7 +87,7 @@
 .inspection_date_icon {
   position: absolute;
   top: 72%;
-  left: 10%;
+  left: 7%;
   transform: translate(-50%, -50%);
 }
 
