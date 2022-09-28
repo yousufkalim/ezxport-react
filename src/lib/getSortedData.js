@@ -1,6 +1,5 @@
 export const getSortedData = (data, setData, setSort, nestedTitles, field, ascend) => {
   setSort({ key: field, ascend });
-  console.log("Sort runs ", nestedTitles);
   if (data) {
     const nestedTitle = nestedTitles?.find((item) => item.fields.includes(field))?.title ?? "";
     const users = [...data];

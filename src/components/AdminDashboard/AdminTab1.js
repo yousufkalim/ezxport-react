@@ -52,7 +52,6 @@ const AdminTab1 = ({ vendor, setVendor, loading }) => {
           ) : (
             <TableBody>
               {vendor?.map((item, index) => {
-                console.log("NAme ", item);
                 return (
                   <TableRow key={index}>
                     <TableCell

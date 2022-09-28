@@ -82,7 +82,6 @@ const ProvidersTable = (props) => {
           setOpen={setOpen}
         />
         <div className="list_table">
-          {/* table  */}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>

@@ -56,7 +56,7 @@ const ExportDocuments = (props) => {
               : "Validator_document_btn_div redclass"
           }
         />
-        {/* switch   */}
+        {/* SWITCH  */}
         <Grid container spacing={2} sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
           {props?.requestById?.documents?.map((item) => {
             return (
@@ -79,9 +79,8 @@ const ExportDocuments = (props) => {
           <p className="request_documents_title">{`${t("Request other documents for")} ${t(
             props.requestById.country.name
           )}`}</p>
-          {/* Request other documents  */}
-
-          {props.inputList?.map((item, index) => {
+          {/* REQUEST OTHER DOCUMENTS  */}
+          {props?.inputList?.map((item, index) => {
             return (
               <>
                 <div className="request_documents_input_div">

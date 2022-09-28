@@ -11,7 +11,6 @@ import API from "../../../../../api/index";
 import Spinner from "../../../../../components/Common/Spinner";
 import EditIcon from "../../../../../assets/EditIcon.svg";
 import BuyerModal from "./BuyerModal";
-import { useTranslation } from "react-i18next";
 import downArrow from "../../../../../assets/TitleDownArrow.svg";
 import arrow_up from "../../../../../assets/arrow_up.svg";
 import { getSortedData } from "../../../../../lib/getSortedData";
@@ -247,7 +246,6 @@ const BuyersTab = ({
           setOpen={setOpen}
           open={open}
         />
-        {/* table  */}
       </div>
     </>
   );

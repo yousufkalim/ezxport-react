@@ -46,7 +46,6 @@ function a11yProps(index) {
   };
 }
 const ValidateForm = (props) => {
-  // user data states
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);

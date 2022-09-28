@@ -158,12 +158,9 @@ const Account = () => {
                 </Tabs>
               </Box>
               <br />
-              {/* 1in tag */}
               <TabPanel value={value} index={0}>
                 <UserInformation />
               </TabPanel>
-
-              {/* 2in tag */}
               <TabPanel value={value} index={1}>
                 <CompanyInformation
                   formState={formState}

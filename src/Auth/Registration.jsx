@@ -223,7 +223,6 @@ const Registration = () => {
           </Link>
         </div>
         <form autoComplete="off" className="registration_div">
-          {/* first input fields  */}
           <h2 className="user_info">{t("User information")}</h2>
           <div className="regist_form">
             <div className="regist_input_div">
@@ -340,19 +339,6 @@ const Registration = () => {
                     {hasError("town") && [t(formState.errors.town)]}
                   </div>
                 </div>
-                {/* <div className="city_inputs2">
-                  <InputField
-                    type="text"
-                    label="Town"
-                    isError={hasError("town")}
-                    error={formState.errors.town}
-                    placeholder="Abbeville"
-                    required
-                    value={formState.values.town}
-                    name="town"
-                    onChange={handleChange}
-                  />
-                </div> */}
               </div>
             </div>
             <div className="regist_input_div">
@@ -391,9 +377,7 @@ const Registration = () => {
               </div>
             </div>
           </div>
-          {/* second input fields  */}
           <h2 className="user_info">{t("Company information")}</h2>
-          {/* ///  */}
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
@@ -457,7 +441,6 @@ const Registration = () => {
               </div>
             </div>
           </div>
-          {/* ///  */}
           <div div className="btn_div">
             <Button
               className={

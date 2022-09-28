@@ -22,7 +22,7 @@ const UserLayouts = () => {
           {showMenu ? (
             <>
               <div className="dashboard_left_side2">
-                {/* dashbord logo  */}
+                {/* DSAHBOARD LOGO */}
                 <CloseIcon
                   color="primary"
                   className="cros_icon"
@@ -33,7 +33,7 @@ const UserLayouts = () => {
                 <div className="dashoard_logo">
                   <img src={DashLogo} alt="" className="dashboard_logo" />
                 </div>
-                {/* dashbord menu  */}
+                {/* DASHBOARD MENU */}
                 <Drawer
                   Route={UserRoutes}
                   handleActiveUploadButton={handleActiveUploadButton}
@@ -44,11 +44,11 @@ const UserLayouts = () => {
           ) : (
             <>
               <div className="dashboard_left_side">
-                {/* dashbord logo  */}
+                  {/* DSAHBOARD LOGO  */}
                 <div className="dashoard_logo">
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
-                {/* dashbord menu  */}
+                  {/* DASHBOARD MENU */}
                 <Drawer
                   Route={UserRoutes}
                   handleActiveUploadButton={handleActiveUploadButton}

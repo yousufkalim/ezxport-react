@@ -7,7 +7,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import DownArrow from "../../../assets/TitleDownArrow.svg";
 import Paper from "@mui/material/Paper";
 import DeleteIcon from "../../../assets/DeleteIcon.svg";
 import EditIcon from "../../../assets/EditIcon.svg";
@@ -22,17 +21,16 @@ import Select from "@mui/material/Select";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmModal from "../../../components/Common/ConfirmModal";
-import { Store , UpdateStore} from "../../../StoreContext";
+import { Store, UpdateStore } from "../../../StoreContext";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
-  const { step1, setStep1, setMatchedData, allCodes, setAllCodes ,currency ,setRetrieveRequestId} = props;
+  const { step1, setStep1, setMatchedData, allCodes, setAllCodes, currency, setRetrieveRequestId } = props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [verificationModal, setVerificationModal] = useState(false);
   const [code, setCode] = useState("default");
   const [monetaryValue, setMonetaryValue] = useState("");
   const [requestByCountry, setRequestByCountry] = useState([]);
@@ -40,14 +38,10 @@ const BOMsForm = (props) => {
   const [importedFile, setImportedFile] = useState();
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  // const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [bomId, setBomId] = useState("");
   const [bomIndex, setBomIndex] = useState("");
   const [adminCodes, setAdminCodes] = useState([]);
-  const { request, pastRequest , previousCodes } = Store();
-  console.log("🚀 ~ file: BOMsForm.js ~ line 48 ~ BOMsForm ~ previousCodes", previousCodes)
-  console.log("🚀 ~ file: BOMsForm.js ~ line 48 ~ BOMsForm ~ request", request)
-  const updateStore = UpdateStore();
+  const { request, pastRequest, previousCodes } = Store();
 
   useEffect(() => {
     if (pastRequest) {
@@ -58,11 +52,10 @@ const BOMsForm = (props) => {
   const getSetData = () => {
     const { title, country, codes } = request;
     const countryId = country?._id;
-    // handleTitle(countryId);
     const matched = getMatchedCodes(codes);
     setStep1({ ...step1, country: countryId });
     setAllCodes(matched);
-  
+
   };
 
   const getMatchedCodes = (codes) => {
@@ -113,21 +106,19 @@ const BOMsForm = (props) => {
   const handleEditModal = () => setOpenEditModal(false);
   const handleCertificateRequire = () => props.setCertificateRequire(false);
   const handleCertificateNotRequire = () => props.setCertificateNotRequire(false);
-  const handleVerification = () => setVerificationModal(false);
   const handleGetAllCountry = async () => {
     await API("get", "/countries/")
       .then((res) => {
         props.setCounteries(res.data.countries);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch((err) => toaster("Failed", t(err.response.data.message), "Countries"));
   };
   useEffect(() => {
     handleGetAllCountry();
   }, []);
 
   const handleAddCodes = () => {
-    console.log("CODE ID ", code);
     const obj = {
       admin_code: code.admin_code,
       code: code?.code,
@@ -135,21 +126,14 @@ const BOMsForm = (props) => {
       monetary_value: monetaryValue || "--",
       certification_required: code?.certification_required,
     };
-    // props.matchedData.push(obj);
-    console.log("CODE Obj ", obj);
-    console.log("CODE ALL codes ", obj);
-    console.log("Admin ALL codes ", adminCodes);
-    setAllCodes([...allCodes, obj]);
-    let filtered = adminCodes?.filter((item) => {
+    const filtered = adminCodes?.filter((item) => {
       return item?._id !== code?._id;
     });
-    // props.setUnMatchedData(filtered);
+
+    setAllCodes([...allCodes, obj]);
     setAdminCodes(filtered);
-    setCode("default");
     setMonetaryValue("");
   };
-
-
   const handleDocument = async (file) => {
     var filename = file.name.split(".").pop();
     if (filename === "xlsx") {
@@ -182,10 +166,6 @@ const BOMsForm = (props) => {
               certification_required: item.bom?.certification_required,
             });
           });
-
-          // props?.setMatchedData([...arr1]);
-          // props?.setUnMatchedData(res?.data?.unMatched);
-          // props.setUnMatchedCodes(res?.data?.unMatched);
           setAllCodes([...allCodes, ...arr1, ...arr2]);
         })
         .catch((err) => {
@@ -201,15 +181,21 @@ const BOMsForm = (props) => {
     }
   };
 
-  const handleDelete = (code , bomIndex) => {
+  const handleDelete = (code, bomIndex) => {
     const codes = [...allCodes]
-    const findCode = codes?.find((item , index) => index === bomIndex);
-    let filtered = codes.filter((item , index1) => {
+    const findCode = codes?.find((item, index) => index === bomIndex);
+    const adminCode = {
+      admin_code: findCode?.admin_code,
+      certification_required: findCode?.certification_required,
+      code: findCode?.code,
+      _id: findCode?.codeID
+    }
+    let filtered = codes.filter((item, index1) => {
       return index1 !== bomIndex;
     });
- 
+
     if (findCode && findCode.certification_required && !pastRequest) {
-      setAdminCodes([...adminCodes, findCode]);
+      setAdminCodes([...adminCodes, adminCode]);
     }
     setAllCodes(filtered);
     setOpenModal(false);
@@ -217,8 +203,8 @@ const BOMsForm = (props) => {
 
   const handleTitle = async () => {
     await API("post", "/requests/createName", {
-      userId: user._id,
-      countryId: step1.country,
+      userId: user?._id,
+      countryId: step1?.country,
     })
       .then((res) => {
         props.handleChange("title", t(res?.data?.tile).toUpperCase());
@@ -251,10 +237,9 @@ const BOMsForm = (props) => {
         setAdminCodes(res?.data?.bom);
       })
       .catch((err) => {
-        
-        console.log("first2", err);
+        toaster("failed", t("BOM not found"), "BOM's");
       });
-      
+
   };
   return (
     <div>
@@ -263,7 +248,6 @@ const BOMsForm = (props) => {
         <Select
           name="country"
           id="demo-simple-select"
-          // defaultValue={"default"}
           value={step1?.country || "default"}
           onChange={(e) => {
             props?.handleChange(e.target.name, e.target.value);
@@ -274,7 +258,7 @@ const BOMsForm = (props) => {
             {t("Select a Country")}
           </MenuItem>
           {props?.countries?.map((item) => {
-            return <MenuItem value={item?._id}>{item?.name}</MenuItem>;
+            return <MenuItem key={item?._id} value={item?._id}>{item?.name}</MenuItem>;
           })}
         </Select>
 
@@ -296,7 +280,6 @@ const BOMsForm = (props) => {
         </Select>
         <label className="BomLabel">{t("Application title")}</label>
         <Inputfield
-          // label="Application title"
           style={{ width: "100%" }}
           name="title"
           placeholder={t("Application title")}
@@ -368,7 +351,7 @@ const BOMsForm = (props) => {
               {t("Select a Code")}
             </MenuItem>
             {adminCodes?.map((item) => {
-              return <MenuItem value={item}>{item?.code}</MenuItem>;
+              return <MenuItem key={item?._id} value={item}>{item?.code}</MenuItem>;
             })}
           </Select>
         </div>
@@ -460,7 +443,7 @@ const BOMsForm = (props) => {
           </Table>
         </TableContainer>
       )}
-      {/* Edit codes modal */}
+      {/* EDIT CODE MODAL */}
       <Modal
         open={openEditModal}
         setOpen={setOpenEditModal}
@@ -501,14 +484,6 @@ const BOMsForm = (props) => {
               setOpenEditModal(false);
             }}
           />
-          <Button
-            text={t("Delete BOM")}
-            className="delete_bom_btn"
-            onClick={() => {
-              handleDelete(editModalData);
-              setOpenEditModal(false);
-            }}
-          />
         </div>
       </Modal>
 
@@ -516,9 +491,9 @@ const BOMsForm = (props) => {
       <ConfirmModal
         open={openModal}
         setOpen={setOpenModal}
-        action={() => handleDelete(bomId , bomIndex)}
+        action={() => handleDelete(bomId, bomIndex)}
       />
-      {/* certification required modal */}
+      {/* CERTIFICATION REQUIRED MODAL */}
       <Modal
         open={props.certificateRequire}
         setOpen={props.setCertificateRequire}
@@ -552,7 +527,7 @@ const BOMsForm = (props) => {
               {t("The cost of this certification is up to")}
               &nbsp;
               <span style={{ fontWeight: 900, fontSize: "19px" }}>
-                {props.certificationCostOfCode} {currency === "USD"  ? "$" : "Є"}/HT
+                {props.certificationCostOfCode} {currency === "USD" ? "$" : "Є"}/HT
               </span>
             </div>
           </div>

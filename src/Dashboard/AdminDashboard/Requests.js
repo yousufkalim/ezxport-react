@@ -4,8 +4,6 @@ import { useHistory } from "react-router-dom";
 import API from "../../api";
 import Moment from "moment";
 import { useTranslation } from "react-i18next";
-
-// table
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -83,7 +81,6 @@ const Requests = () => {
       .catch((err) => {
         toaster("Failed", t("Failed to fetch data!"));
         setLoading(false);
-        console.log("err", err);
       });
   };
 
@@ -92,14 +89,14 @@ const Requests = () => {
   return (
     <div className="list_main_div">
       <div className="list_second_div">
-        {/* list head  */}
+        {/* LIST HEAD  */}
         <div className="List_heading_div">
           <h1 className="list_rqst_h1">{t("List of requests")}</h1>
           <div className="searchingRequest">
             <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
           </div>
         </div>
-        {/* list table   */}
+        {/* LIST TABLE   */}
         <div className="list_table">
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">

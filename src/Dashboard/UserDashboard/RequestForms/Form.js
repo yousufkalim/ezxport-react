@@ -53,13 +53,10 @@ export default function HorizontalNonLinearStepper() {
   const [completed, setCompleted] = useState({});
   const [platformSelect, setPlatformSelect] = useState(false);
   const history = useHistory(null);
-  // requestId of request created
   const [requestId, setRequestedId] = useState("");
   const [currency, setCurrency] = useState("");
   const updateStore = UpdateStore();
-
   const { t } = useTranslation();
-
   //step 1 states
   const [step1, setStep1] = useState({
     country: "",
@@ -182,7 +179,7 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        toaster("failed", t("Request not found"), "Request")
       });
   };
 
@@ -270,7 +267,6 @@ export default function HorizontalNonLinearStepper() {
           return {...item, newCode: false, products: [{user: userData._id, code: item.codeID }]}
         }
       })
-      console.log("ALL new cdodes ", newAllCodes);
       updateStore({ previousCodes:newAllCodes });
     }
     let data = {
@@ -382,15 +378,12 @@ export default function HorizontalNonLinearStepper() {
         data.codes.push(item2);
       });
     });
-    console.log("qwerty" , data.codes)
     await API("put", "/requests/documents", data)
       .then((res) => {
         localStorage.setItem("Requested", true);
-        // history.push("/User/Dashboard/ListOfRequests");
       })
       .catch((err) => {
-        console.log("Documents ERROR ", err.response.data.message);
-        toaster("Failed", t(err.response.data.message));
+        toaster("Failed", t(err.response.data.message), t("Documents"));
       });
   };
   const handleDocByCountryId = async () => {
@@ -571,12 +564,12 @@ export default function HorizontalNonLinearStepper() {
                 unMatchedCodes={unMatchedCodes}
                 matchedData={matchedData}
                 unMatchedData={unMatchedData}
-                //certificate Require modal
+                //certificate Required modal
                 certificateRequire={certificateRequire}
                 setCertificateRequire={setCertificateRequire}
                 certificationCostOfCode={certificationCostOfCode}
                 certificationCountryOfCode={certificationCountryOfCode}
-                //certificate not Require modal
+                //certificate not Required modal
                 certificateNotRequire={certificateNotRequire}
                 setCertificateNotRequire={setCertificateNotRequire}
                 handleStep1={handleStep1}

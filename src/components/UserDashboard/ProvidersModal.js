@@ -175,7 +175,6 @@ const ProvidersModal = ({ open, setOpen, data, getProviders, isEdit }) => {
               <h3 className="ApPlus_popup_h2">{values.name}</h3>
               <ClearIcon onClick={handleClose} style={{ cursor: "pointer" }} />
             </div>
-            {/* inputs  */}
             <div className="buyer_socond">
               <div className="luyer_input_field">
                 <FormControl fullWidth>

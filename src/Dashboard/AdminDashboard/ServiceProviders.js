@@ -78,11 +78,11 @@ const ServiceProviders = () => {
   });
   const { t } = useTranslation();
 
-  // useEffect for invoking func
   useEffect(() => {
     handleServiceProvider();
     handleCoutries();
   }, [open]);
+
   // getting ids against names of country selected by the user
   useEffect(() => {
     let ids = [];
@@ -176,7 +176,7 @@ const ServiceProviders = () => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        toaster("Failed", t(err.response.data.message), "Countries");
       });
   };
 
@@ -234,7 +234,7 @@ const ServiceProviders = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD */}
           <div className="List_heading_div">
             <h1 className="list_h1">{t("Service providers")}</h1>
             <div className="searching3">
@@ -247,7 +247,7 @@ const ServiceProviders = () => {
               />
             </div>
           </div>
-          {/* list table   */}
+          {/* LIST TABLE  */}
           <div className="list_table">
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">

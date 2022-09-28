@@ -58,7 +58,6 @@ const Providers = () => {
             setData={setProviders}
             getProviders={getProviders}
             dataLoading={loading}
-            // Icons={false}
           />
         </div>
       </div>

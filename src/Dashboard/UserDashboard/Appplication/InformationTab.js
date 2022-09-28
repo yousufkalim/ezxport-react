@@ -81,7 +81,7 @@ const InformationTab = (props) => {
           </div>
         </div>
       </div>
-      {/* 3 tab menu  */}
+      {/* TAB MENU NO.3  */}
       <div className='expeditions_div'>
         <p className='expeditions_p'>{t('Expeditions')}</p>
       </div>

@@ -97,11 +97,10 @@ const AdminNomPays = () => {
         setDocument(res?.data?.country?.documents);
         setBoms(res?.data?.country?.boms);
         setCalculation(res?.data?.country?.calculation);
-        // setCurrentRadioValue(res?.data?.country?.calculation?.type);
         setLoading(false);
       })
-      .catch((err) => {
-        console.log("---->ERR", err);
+      .catch(() => {
+        toaster("failed", t("Countries not found"), "Error")
         setLoading(false);
       });
   };
@@ -123,9 +122,7 @@ const AdminNomPays = () => {
         toaster("success", t(res.data.message));
       })
       .catch((err) => {
-        toaster("success", t(err?.response?.data?.message));
-
-        console.log("errr", err);
+        toaster("failed", t(err?.response?.data?.message));
       });
   };
   const handleCodesFile = (file) => setFile(file);
@@ -140,7 +137,7 @@ const AdminNomPays = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD  */}
           <div className="List_heading_div">
             <h1 className="list_nom_h1">
               <Link to="/Admin/Dashboard/Country">
@@ -178,10 +175,7 @@ const AdminNomPays = () => {
                 />
               </div>
             ) : value === 3 ? (
-              <div className="searching_div_country3">
-                {/* {currentRadioValue !== "coefficient" && (
-                  <SearchField placeholder="Search" placeholder={t("Searching")} className="Country_search_Calculation" />
-                )} */}
+                    <div className="searching_div_country3">
                 {currentRadioValue === "coefficient" && (
                   <Button
                     text={t("Update")}
@@ -194,7 +188,7 @@ const AdminNomPays = () => {
               <></>
             )}
           </div>
-          {/* list table   */}
+          {/* LIST TABLE   */}
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
@@ -205,14 +199,14 @@ const AdminNomPays = () => {
                   <Tab className="admin_tab_btn" label={t("Calculation")} {...a11yProps(3)} />
                 </Tabs>
               </Box>
-              {/* table 1 */}
+              {/* TABLE NO.1 */}
 
               <TabPanel value={value} index={0}>
                 <div className="list_table">
                   <AdminTab1 loading={loading} setVendor={setVendor} vendor={searchedProviders} />
                 </div>
               </TabPanel>
-              {/* table 2 */}
+              {/* TABLE NO.2 */}
               <TabPanel value={value} index={1}>
                 <div className="list_table">
                   <AdminTab2
@@ -228,7 +222,7 @@ const AdminNomPays = () => {
                   />
                 </div>
               </TabPanel>
-              {/* table 3 */}
+              {/* TABLE NO.3 */}
               <TabPanel value={value} index={2}>
                 <div className="list_table">
                   <AdminTab3
@@ -240,11 +234,10 @@ const AdminNomPays = () => {
                     setOpenAddBomModal={setOpenAddBomModal}
                     openAddBomModal={openAddBomModal}
                     handleAddBomModalClose={handleAddBomModalClose}
-                    // handleGetBomByCid={handleGetBomByCid}
                   />
                 </div>
               </TabPanel>
-              {/* table 4 */}
+              {/* TABLE NO.4 */}
               <TabPanel value={value} index={3}>
                 <AdminTab4
                   handleCountryData={handleCountryData}

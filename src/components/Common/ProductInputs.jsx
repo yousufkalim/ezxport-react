@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import InputField from "../Common/InputField";
-import TextFieldSelect from "../Common/TextFieldSelect";
 import SwitchButton from "../Common/SwitchButton";
 import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
 import { ReactComponent as Arrow } from "../../assets/arrow.svg";
@@ -9,7 +8,6 @@ import { useTranslation } from "react-i18next";
 
 const ProductInputs = (props) => {
   const { t } = useTranslation();
-
   useEffect(() => {
     handleProductDocuments();
   }, [props?.requestById]);
@@ -244,11 +242,9 @@ const ProductInputs = (props) => {
           />
         </div>
       </div>
-
       <div className="request_documents">
         <p className="request_documents_title">{t("Ask for other documents for the product")}</p>
-        {/* Request other documents  */}
-
+        {/* REQUEST OTHER DOCUMENTS  */}
         {props.inputListProduct?.map((item, index) => {
           return (
             <>

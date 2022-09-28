@@ -42,7 +42,6 @@ const UserTable = (props) => {
   };
 
   const handleDelete = async () => {
-    console.log('Delete user');
     await API('delete', `/users/${userId}`)
       .then(() => {
         setOpenModal(false);
@@ -57,13 +56,11 @@ const UserTable = (props) => {
 
   const searchedResults = rows?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
-  console.log('Row ', props.rows);
-
   return (
     <>
       <div className='list_main_div'>
         <div className='list_second_div'>
-          {/* list head  */}
+          {/* LIST HEAD  */}
           <div className='UserTable'>
             <h1 className='list_user_h1'>{t(props.title)}</h1>
             <div className='UserTable_right_div'>
@@ -76,7 +73,7 @@ const UserTable = (props) => {
               />
             </div>
           </div>
-          {/* list table   */}
+          {/* LIST HEAD   */}
           <div className='list_table'>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size='small' aria-label='a dense table'>
@@ -117,12 +114,12 @@ const UserTable = (props) => {
                   {loading ? (
                     <Spinner />
                   ) : (
-                    searchedResults?.map((row) => (
+                      searchedResults?.map((row, index) => (
                       <TableRow
                         onClick={(e) => {
                           history.push(`/Admin/Dashboard/Users/UserDetails/${row._id}`);
                         }}
-                        key={row.name}
+                          key={index}
                         sx={{ cursor: 'pointer', border: '1px solid #E5E5E5;' }}
                       >
                         <TableCell component='th' scope='row' align='left' className='table_cell'>

@@ -33,17 +33,6 @@ const TITLE = [
   { heading: "Actions" },
 ];
 
-// const schema = {
-//   minCost: {
-//     presence: { allowEmpty: false, message: "is required" },
-//   },
-//   maxCost: {
-//     presence: { allowEmpty: false, message: "is required" },
-//   },
-//   certificate: {
-//     presence: { allowEmpty: false, message: "is required" },
-//   },
-// };
 const CalculationRange = (props) => {
   const [rangeData, setRangeData] = useState();
   const [itemId, setItemId] = useState();
@@ -143,7 +132,6 @@ const CalculationRange = (props) => {
       }
     }
   };
-  console.log("first", props?.id);
 
   const handleRangeData = async () => {
     setLoading(true);
@@ -153,7 +141,7 @@ const CalculationRange = (props) => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err, "handleRangeData");
+        toaster("failed", t("Range calculations not found"), "Error")
         setLoading(false);
       });
   };
@@ -181,7 +169,7 @@ const CalculationRange = (props) => {
         toaster("success", t("Range added successfully"), t("Adding Range"));
       })
       .catch((err) => {
-        console.log("handleAddRange", err);
+        toaster("failed", t("Something went wrong"), t("Adding Range"));
       });
   };
 
@@ -211,7 +199,7 @@ const CalculationRange = (props) => {
         toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
       })
       .catch((err) => {
-        console.log("handleAddCoefficient", err);
+        toaster("failed", t("Something went wrong"), t("Adding Coefficient"));
       });
   };
   const handleDeleteCalculation = async (calId) => {
@@ -222,10 +210,11 @@ const CalculationRange = (props) => {
         handleRangeData();
         setOpenModal(false);
         setRangeId("");
-        toaster("success", t("Range Deleted successfully"), t("Deleted Range"));
+        toaster("success", t("Range Deleted successfully"), t("Delete Range"));
       })
       .catch((err) => {
-        console.log("handleDeleteCalculation", err);
+        toaster("failed", t("Something went wrong"), t("Delete Range"));
+
       });
   };
   const handleUpdateRange = async () => {
@@ -243,7 +232,8 @@ const CalculationRange = (props) => {
         toaster("success", t("Range updated successfully"), t("Updated Range"));
       })
       .catch((err) => {
-        console.log("handleUpdateRange", err);
+        toaster("failed", t("Something went wrong"), t("Updated Range"));
+
       });
   };
   useEffect(() => {
@@ -259,7 +249,7 @@ const CalculationRange = (props) => {
     return (
       <>
         <div>
-          {/* table  */}
+          {/* TABLE  */}
           {rangeData === undefined || rangeData?.length > 0 ? (
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">

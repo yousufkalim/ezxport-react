@@ -80,7 +80,7 @@ const DocumentsTab = ({ userRequest }) => {
         setAllDocuments(res?.data?.Request);
       })
       .catch((err) => {
-        // console.log("handleDocuments", err);
+        toaster("failed", t("Something went wrong"), "Documents");
       });
   };
 

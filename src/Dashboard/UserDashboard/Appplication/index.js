@@ -3,7 +3,7 @@ import ApplicationHeader from "./ApplicationHeader";
 import ApplicationTab from "./ApplicationTab";
 import API from "../../../api/index";
 import { useParams } from "react-router-dom";
-
+import toaster from "../../../utils/toaster"
 const Application = () => {
   const params = useParams();
   const { id } = params;
@@ -18,7 +18,8 @@ const Application = () => {
         setUserRequest(res?.data?.request);
       })
       .catch((err) => {
-        console.log("errr", err);
+        toaster("failed", "Request not found", "Requests");
+
       });
   };
 
@@ -26,7 +27,6 @@ const Application = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
           <ApplicationHeader title={userRequest?.title} status={userRequest?.status} />
           <ApplicationTab userRequest={userRequest} handleRequest={handleRequest}/>
         </div>

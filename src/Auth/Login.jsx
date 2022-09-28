@@ -109,7 +109,6 @@ const Login = () => {
               isError={hasError("email")}
               error={[t(formState.errors.email)]}
               name="email"
-              // role="presentation"
               autoComplete="off"
               type="text"
               placeholder={t("E-mail address")}

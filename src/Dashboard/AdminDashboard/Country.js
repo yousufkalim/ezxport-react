@@ -119,7 +119,6 @@ const Country = () => {
             <h1 className="list_h1_Country">{t("Country")}</h1>
             <div className="searching">
               <SearchInput placeholder={t("Search")} setSearch={setSearchTerm} />
-              {/* <SearchField placeholder={t("Searching")} /> */}
               <Button
                 className="list_reqst_btn4"
                 text={t("Add a country")}
@@ -128,7 +127,7 @@ const Country = () => {
               />
             </div>
           </div>
-          {/* list table   */}
+          {/* LIST TABLE   */}
           <div className="list_table">
             <TableContainer component={Paper} style={{ overflow: "scroll !important" }}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -175,7 +174,6 @@ const Country = () => {
                     ))}
                     {history.location.pathname === "/Admin/Dashboard/Service" && (
                       <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                        {/* {props.text2} */}
                         &nbsp;
                         <img src={DownArrow} alt="" />
                       </TableCell>

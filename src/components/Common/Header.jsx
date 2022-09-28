@@ -1,4 +1,3 @@
-// Init
 import React from 'react';
 import EzxportIcon from '../../assets/EzxportIcon.svg';
 

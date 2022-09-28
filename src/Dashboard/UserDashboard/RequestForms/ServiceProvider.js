@@ -5,6 +5,7 @@ import { Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { Store } from "../../../StoreContext";
 import validate from "validate.js";
+import toaster from "../../../utils/toaster";
 
 const schema = {
   lastName: {
@@ -29,10 +30,11 @@ const schema = {
 const ServiceProvider = (props) => {
   const { request, pastRequest } = Store();
   const [vendors, setVendors] = useState([]);
-
   const { t } = useTranslation();
-
   const { step2, setFormState, setStep2 } = props;
+  useEffect(() => {
+    VendorByCountryId();
+  }, []);
   useEffect(() => {
     const errors = validate(step2.values, schema);
     setFormState((formState) => ({
@@ -51,7 +53,6 @@ const ServiceProvider = (props) => {
     const { vendor } = request;
     const { contact_email, contact_fname, contact_lname } = vendor;
     const vendorId = vendor?.vendor?._id;
-
     setStep2({
       ...step2,
       values: {
@@ -59,7 +60,6 @@ const ServiceProvider = (props) => {
         vendorId: vendorId,
         lastName: contact_lname,
         firstName: contact_fname,
-
         email: contact_email,
       },
     });
@@ -71,12 +71,10 @@ const ServiceProvider = (props) => {
         setVendors(res.data.vendor);
       })
       .catch((err) => {
-        console.log("VendorByCountryId", err);
+        toaster("failed", t("Vendor not found"), "Vendors")
       });
   };
-  useEffect(() => {
-    VendorByCountryId();
-  }, []);
+
 
   const hasError = (field) => (step2.touched[field] && step2.errors[field] ? true : false);
 
@@ -87,7 +85,6 @@ const ServiceProvider = (props) => {
           {t("Please select")} <b>{t("a vendor")}</b> {t("for this request")}
         </span>
       </div>
-      {/* <div style={{ marginTop: "4rem", height: "15%", display: "flex" }}> */}
       <Grid container spacing={2} sx={{ marginTop: "4rem" }}>
         {vendors?.map((item) => {
           return (
@@ -98,7 +95,6 @@ const ServiceProvider = (props) => {
                 checked={item?._id === step2?.values?.vendorId}
                 name="vendorId"
                 onChange={(e) => {
-                  console.log("e.target.value", e.target.value);
                   props.handleChange(e.target.name, e.target.value);
                 }}
               />
@@ -107,7 +103,6 @@ const ServiceProvider = (props) => {
           );
         })}
       </Grid>
-      {/* </div> */}
       <div className="DoYouHave">
         <input
           type="checkbox"

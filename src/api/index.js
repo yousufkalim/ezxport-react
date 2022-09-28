@@ -1,6 +1,5 @@
 // Init
 import axios from "axios";
-import toaster from "../utils/toaster";
 import { baseUrl } from "../config";
 
 const api = async (method = "get", uri, body) => {
@@ -14,16 +13,10 @@ const api = async (method = "get", uri, body) => {
           window.location = "/login";
         } else {
           console.log("Failed toast1 ", err?.response?.data?.message);
-          // toaster(
-          //   "failed",
-          //   err?.response?.data ? err?.response?.data?.message : "Something went wrong"
-          // );
-
           reject(err);
         }
       });
   });
 };
 
-// Export
 export default api;

@@ -332,7 +332,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {/* table  */}
       </div>
       <Modal
         open={open}
@@ -375,7 +374,6 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                     </MenuItem>
                   );
                 })}
-                {/* COUNTRIES */}
               </Select>
               {hasError("country") && (
                 <div className="input-error">{formState.errors.country ?? null}</div>

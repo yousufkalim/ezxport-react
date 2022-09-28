@@ -24,7 +24,7 @@ const AdminLayouts = () => {
           {showMenu ? (
             <>
               <div className="dashboard_left_side2">
-                {/* dashbord logo  */}
+                {/* DASHBOARD LOGO  */}
                 <CloseIcon
                   color="primary"
                   className="cros_icon"
@@ -35,7 +35,7 @@ const AdminLayouts = () => {
                 <div className="dashoard_logo">
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
-                {/* dashbord menu  */}
+                {/* DASHBOARD MENU */}
                 <Drawer
                   Route={AdminRoutes}
                   handleActiveUploadButton={handleActiveUploadButton}
@@ -46,11 +46,11 @@ const AdminLayouts = () => {
           ) : (
             <>
               <div className="dashboard_left_side">
-                {/* dashbord logo  */}
+                  {/* DASHBOARD LOGO  */}
                 <div className="dashoard_logo">
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
-                {/* dashbord menu  */}
+                  {/* DASHBOARD MENU */}
                 <Drawer
                   Route={AdminRoutes}
                   handleActiveUploadButton={handleActiveUploadButton}
