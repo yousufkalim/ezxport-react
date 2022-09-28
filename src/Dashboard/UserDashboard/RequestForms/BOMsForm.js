@@ -21,13 +21,13 @@ import Select from "@mui/material/Select";
 import { Link, useHistory } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import ConfirmModal from "../../../components/Common/ConfirmModal";
-import { Store , UpdateStore} from "../../../StoreContext";
+import { Store, UpdateStore } from "../../../StoreContext";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
 
 const user = JSON.parse(localStorage.getItem("userData"));
 const BOMsForm = (props) => {
-  const { step1, setStep1, setMatchedData, allCodes, setAllCodes ,currency ,setRetrieveRequestId} = props;
+  const { step1, setStep1, setMatchedData, allCodes, setAllCodes, currency, setRetrieveRequestId } = props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -55,7 +55,7 @@ const BOMsForm = (props) => {
     const matched = getMatchedCodes(codes);
     setStep1({ ...step1, country: countryId });
     setAllCodes(matched);
-  
+
   };
 
   const getMatchedCodes = (codes) => {
@@ -181,19 +181,19 @@ const BOMsForm = (props) => {
     }
   };
 
-  const handleDelete = (code , bomIndex) => {
+  const handleDelete = (code, bomIndex) => {
     const codes = [...allCodes]
-    const findCode = codes?.find((item , index) => index === bomIndex);
+    const findCode = codes?.find((item, index) => index === bomIndex);
     const adminCode = {
       admin_code: findCode?.admin_code,
       certification_required: findCode?.certification_required,
       code: findCode?.code,
       _id: findCode?.codeID
     }
-    let filtered = codes.filter((item , index1) => {
+    let filtered = codes.filter((item, index1) => {
       return index1 !== bomIndex;
     });
- 
+
     if (findCode && findCode.certification_required && !pastRequest) {
       setAdminCodes([...adminCodes, adminCode]);
     }
@@ -239,6 +239,7 @@ const BOMsForm = (props) => {
       .catch((err) => {
         toaster("failed", t("BOM not found"), "BOM's");
       });
+
   };
   return (
     <div>
@@ -490,7 +491,7 @@ const BOMsForm = (props) => {
       <ConfirmModal
         open={openModal}
         setOpen={setOpenModal}
-        action={() => handleDelete(bomId , bomIndex)}
+        action={() => handleDelete(bomId, bomIndex)}
       />
       {/* CERTIFICATION REQUIRED MODAL */}
       <Modal
@@ -523,10 +524,10 @@ const BOMsForm = (props) => {
               </span>
             </div>
             <div className="space">
-              {t("The cost of this certification is up to ")}
+              {t("The cost of this certification is up to")}
+              &nbsp;
               <span style={{ fontWeight: 900, fontSize: "19px" }}>
-
-                {props.certificationCostOfCode} {currency === "USD"  ? "$" : "Є"}/HT
+                {props.certificationCostOfCode} {currency === "USD" ? "$" : "Є"}/HT
               </span>
             </div>
           </div>

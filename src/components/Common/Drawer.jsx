@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { ReactComponent as LILogo5 } from "../../assets/LILogo5.svg";
 import { ReactComponent as LILogo6 } from "../../assets/LILogo6.svg";
@@ -13,10 +13,19 @@ import UserTour from "../UserDashboard/UserTour";
 
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [open, setOpen] = React.useState(false);
+  const [showTour, setShowTour] = useState(false);
   const location = useLocation();
 
   const { t, i18n } = useTranslation();
   const { language } = i18n;
+  const newUser = localStorage.getItem('newUser');
+
+  console.log("New USer ", typeof newUser);
+  console.log("New USer ", showTour);
+
+  useEffect(() => {
+    newUser ? setShowTour(true) : setShowTour(false);
+  }, [newUser]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,6 +58,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               const isActive = location.pathname === item.path;
 
               return (
+                <>
                 <div className='user_route_container'>
                   <Link
                     exact
@@ -61,6 +71,12 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     {t(item?.name)}
                   </Link>
                 </div>
+                {/* { isActive && showTour && newUser === "true" && role === 'user' &&
+                  <div className="user_tour_wrapper">
+                    <UserTour setShowTour={setShowTour} pathname={location.pathname} tour={item.tour} index={index} />
+                  </div>
+                  }  */}
+                </>
               );
             } else if (role === "admin") {
               const isActive = location.pathname === item.path;

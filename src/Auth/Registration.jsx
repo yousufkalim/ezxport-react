@@ -141,7 +141,22 @@ const Registration = () => {
   // handle change for phone number
   const handlePhnChange = (event) => {
     const { name, value } = event.target;
-    if (!value.match(/[^0-9]/)) {
+    console.log("Postal code ", value);
+    console.log("Postal code ", name);
+    if(name === 'postelCode'){
+      if(!value.match(/[^0-9]/) && value !== '00000'){
+        return setFormState((formState) => ({
+          ...formState,
+          values: {
+            ...formState.values,
+            [name]: value,
+          },
+          touched: { ...formState.touched, [name]: true },
+          errors: {...formState.errors, postelCode: ['Inavlid postal code']}
+        }));
+      }
+    }
+    else if (!value.match(/[^0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -152,6 +167,8 @@ const Registration = () => {
       }));
     }
   };
+
+  console.log("Formstate ", formState);
   const handleNameChange = (event) => {
     const { name, value } = event.target;
     if (!value.match(/[^a-zA-Z0-9]/)) {

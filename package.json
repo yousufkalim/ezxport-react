@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "date-fns": "^2.29.3",
+    "i18next": "^21.9.2",
     "i18next-browser-languagedetector": "^6.1.5",
     "js-base64": "^3.7.2",
     "moment": "^2.29.4",

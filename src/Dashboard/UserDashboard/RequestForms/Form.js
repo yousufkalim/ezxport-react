@@ -252,7 +252,7 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message));
+        toaster("Failed", t(err.response.data.message.msg));
       });
   };
   const handleStep1 = async () => {
@@ -364,7 +364,7 @@ export default function HorizontalNonLinearStepper() {
         toaster("success", t(res.data.message));
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch((err) => toaster("Failed", t(err?.response?.data?.message?.msg)));
   };
   const handleSendFile = () => setPlatformSelect(true);
 

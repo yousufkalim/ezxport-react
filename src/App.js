@@ -12,6 +12,7 @@ import "./css/index.css";
 function App() {
   const [role, setRole] = useState("");
   const {i18n} = useTranslation();
+
   useEffect(() => {
     const Role = JSON.parse(localStorage.getItem("role"));
     const lang = localStorage.getItem('language');
