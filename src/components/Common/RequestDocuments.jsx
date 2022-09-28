@@ -20,7 +20,7 @@ const RequestDocuments = () => {
         <div className="SendDocuments_second">
           <img src={SendIcon} alt="" className="SendDocuments_img" />
           <p className="SendDocuments_P">
-            {t("We asked")} <span style={{ fontWeight: "bold" }}>{t("the missing documents")}</span>
+            {t("We asked")} <span style={{ fontWeight: "bold" }}>{t("the missing documents")} </span>
             {t("to the company")}
           </p>
           <Button text={t("Return to Requests")} onClick={handleReturn} className="return_btn" />

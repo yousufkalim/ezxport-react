@@ -671,7 +671,7 @@ const Dispatch = (props) => {
           <DatePicker
             selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ''}
             name='InspectionDate'
-            placeholderText="Sélectionnez la date d'inspection"
+            placeholderText={t("Select inspection date")}
             className='inspection_date'
             minDate={addDays(new Date(), 1)}
             showYearDropdown

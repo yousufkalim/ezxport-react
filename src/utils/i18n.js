@@ -27,6 +27,7 @@ i18n
           "Contact first name is required": "Contact first name is required",
           "Contact last name is required": "Contact last name is required",
           "Address is required": "Address is required",
+          "address is required": "address is required",
           "Vat number is required": "Vat number is required",
           "Password is too short (minimum is 6 characters)":
             "Password is too short (minimum is 6 characters)",
@@ -57,8 +58,12 @@ i18n
           "Sending email is required": "Sending email is required",
           "Fullname is required": "Fullname is required",
           "Phone number is required": "Phone number is required",
+          "phone number is required": "phone number is required",
           "Contact email is required": "Contact email is required",
           "Code is required":"Code is required",
+          "Validated":"Validated",
+          "Telephone is too short (minimum is 10 characters)":"Telephone is too short (minimum is 10 characters)",
+          "Select inspection date":"Select inspection date",
 
           Country: "Country",
           Searching: "Searching",
@@ -335,7 +340,7 @@ i18n
           "E-mail address": "E-mail address",
           Address: "Address",
           "Postal code": "Postal code",
-          "Town ": "Town ",
+          Town: "Town",
           "Company name": "Company name",
           "Company type": "Company type",
           "VAT number ": "VAT number ",
@@ -477,7 +482,7 @@ i18n
           "Continue request on Ezxport Platform": "Continue request on Ezxport Platform",
           "Continue request on other Platform": "Continue request on other Platform",
           Yes: "Yes",
-          No: "Non",
+          No: "No",
           Send: "Send",
           "Contact name": "Contact name",
           "Contact first name": "Contact first name",
@@ -611,6 +616,14 @@ i18n
           "We will get back to you quickly": "We will get back to you quickly",
           "The question was asked to the administrator":
             "The question was asked to the administrator",
+            "Service provider deleted Successfully":"Service provider deleted Successfully",
+            "Delete service provider":"Delete service provider",
+            "Service provider is not deleted":"Service provider is not deleted",
+            "":"",
+            "":"",
+            "":"",
+
+
           //Backend Toast
           "Admin already exists.": "Admin already exists.",
           "Password and Confirm Password are not same.":
@@ -714,6 +727,7 @@ i18n
           "Contact first name is required": "Le prénom du contact est requis",
           "Contact last name is required": "Le nom de famille du contact est requis",
           "Address is required": "L'adresse est obligatoire",
+          "address is required": "L'adresse est obligatoire",
           "Vat number is required": "Le numéro de TVA est requis",
           "Password is too short (minimum is 6 characters)":
             "Le mot de passe est trop court (le minimum est de 6 caractères)",
@@ -745,8 +759,13 @@ i18n
           "Sending email is required": "L'envoi d'un e-mail est obligatoire",
           "Fullname is required": "Le nom complet est requis",
           "Phone number is required": "Le numéro de téléphone est requis",
+          "phone number is required": "Le numéro de téléphone est requis",
           "Contact email is required": "L'e-mail de contact est requis",
           "Code is required":"Le code est requis",
+          "Validated":"Validé",
+          "Telephone is too short (minimum is 10 characters)":"Le numéro de téléphone est trop court (le minimum est de 10 caractères)",
+          "Select inspection date":"Sélectionnez la date d'inspection",
+
 
 
           Country: "Pays",
@@ -1022,7 +1041,7 @@ i18n
           "E-mail address": "Adresse e-mail",
           Address: "Adresse",
           "Postal code": "Code postal",
-          Town: "Ville ",
+          Town: "Ville",
           "Company name": "Nom de l'entreprise",
           "Company type": "Type de compagnie",
           "VAT number": "Numéro de TVA",
@@ -1062,7 +1081,7 @@ i18n
           "Request other documents for": "Demander d'autres documents pour l'Amérique",
           "Request another document": "Demander un autre document",
           "BOM name": "Nom de la BOM",
-          "Validated documents": "Documents validés",
+          "Validated document": "Documents validé",
           "Product Name": "Nom du produit",
           Description: "La description",
           Condition: "Condition",
@@ -1299,6 +1318,9 @@ i18n
           "We will get back to you quickly": "Nous vous reviendrons sous peu",
           "The question was asked to the administrator":
             "La question a été posée à l'administrateur",
+            "Service provider deleted Successfully":"Fournisseur de services supprimé avec succès",
+            "Delete service provider":"Supprimer le fournisseur de services",
+            "Service provider is not deleted":"Le fournisseur de services n'est pas supprimé",
 
           //Backend Toast
           "Admin already exists.": "L'administrateur existe déjà.",
