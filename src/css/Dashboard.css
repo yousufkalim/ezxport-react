@@ -11,6 +11,7 @@
 .userDashboar_center_div {
   display: flex;
   min-height: 100vh;
+  position: relative;
 }
 .dashboard_left_side {
   background-color: #6941c6;
@@ -58,19 +59,33 @@
 }
 .user_route_container {
   position: relative;
+  z-index: 1;
 }
 
 
 
-
+/* .css-l9jwla-MuiButtonBase-root-MuiListItemButton-root {
+  z-index: -1;
+}
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+  z-index: -1;
+} */
 .user_routes {
 }
-.user_tour {
+.user_tour_wrapper {
   position: absolute;
-  z-index: 99;
+  /* z-index: 999999999; */
   top: 0;
-  left: 100%;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.user_tour {
   background: #fff;
+  position: absolute;
+  left: 20%;
+  top: 5%;
+  /* z-index: 99999999; */
   border-radius: 8px;
   padding: 8px;
   width: 300px;
