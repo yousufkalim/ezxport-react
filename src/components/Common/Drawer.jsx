@@ -15,13 +15,9 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [open, setOpen] = React.useState(false);
   const [showTour, setShowTour] = useState(false);
   const location = useLocation();
-
   const { t, i18n } = useTranslation();
   const { language } = i18n;
   const newUser = localStorage.getItem('newUser');
-
-  console.log("New USer ", typeof newUser);
-  console.log("New USer ", showTour);
 
   useEffect(() => {
     newUser ? setShowTour(true) : setShowTour(false);
