@@ -153,6 +153,7 @@ const ServiceProvider = (props) => {
               />
             </div>
           </div>
+          <br />
           <div className="steps_2_feild">
             <label>{t("Email Address")}</label>
             <InputField

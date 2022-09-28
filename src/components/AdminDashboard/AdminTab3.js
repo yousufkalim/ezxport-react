@@ -379,7 +379,7 @@ const AdminTab3 = (props) => {
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("code") ? formState.errors.code[0] : null}</div>
+          <div className="error-format">{hasError("code") ? t(formState.errors.code[0]) : null}</div>
           {/* <label htmlFor="" className="label_modal">
             {t("Status")}
           </label>{" "}
