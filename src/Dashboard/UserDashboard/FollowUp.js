@@ -19,6 +19,7 @@ import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import CreateRequest from "./CreateRequest";
 import Spinner from "../../components/Common/Spinner";
+import toaster from "../../utils/toaster";
 
 const nestSortTitles = [
   {
@@ -87,7 +88,7 @@ const FollowUp = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log("handleAllRequest", err);
+        toaster("failed", t("Request not found"), t("Request"))
         setLoading(false);
       });
   };
@@ -99,14 +100,14 @@ const FollowUp = () => {
       ) : allRequest?.length !== 0 ? (
         <div className="list_main_div">
           <div className="list_second_div">
-            {/* list head  */}
+              {/* LIST HEAD */}
             <div className="List_heading_div">
               <h1 className="list_h1">{t("List of requests")}</h1>
               <Link to="/User/RequestForm">
                 <button className="list_reqst_btn">{t("Create a request")}</button>
               </Link>
             </div>
-            {/* list table   */}
+              {/* LIST TABLE */}
             <div className="list_table">
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">

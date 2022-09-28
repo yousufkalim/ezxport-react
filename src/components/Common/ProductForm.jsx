@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
-import TextFieldSelect from "./TextFieldSelect";
 import MenuItem from "@mui/material/MenuItem";
 import FilePicker from "./FilePicker";
 import Select from "@mui/material/Select";
@@ -8,13 +7,17 @@ import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
 const ProductForm = (props) => {
-  console.log("Form item ", props.item);
-  console.log("products ", props?.product?.country?.trim());
   const { product } = props;
-  const [toComplete, setToComplete] = useState();
   const { t } = useTranslation();
 
   const handleDataChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'price') {
+      if (!value.match(/[^0-9]/)) {
+        return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
+      }
+      return;
+    }
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
@@ -24,18 +27,15 @@ const ProductForm = (props) => {
       const fileName = files[i]?.name;
       newImagesPromises.push(convertBase64(files[i], fileName));
     }
-    // const newImages = await convertBase64(files);
-
     const base64 = await Promise.all(newImagesPromises);
-
-    console.log("FILENAME ===>", firstFileName)
-    console.log("ALL fliles", base64)
-
     props.setCodes((prev) => {
-      prev[cindex].products[index1][name] = {
+      prev[cindex].products[index1][name] = prev[cindex]?.products[index1][name]?.url?.length ? {
         url: [...prev[cindex]?.products[index1][name]?.url, ...base64],
         filename: firstFileName,
-      };
+      } : {
+        url: base64,
+        filename: firstFileName,
+      }
       return [...prev];
     });
   };
@@ -44,7 +44,6 @@ const ProductForm = (props) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = () => {
-        // resolve(fileReader.result);
         resolve(fileReader.result.replace(/^.*,/, ''));
       };
       fileReader.onerror = (error) => {
@@ -83,11 +82,7 @@ const ProductForm = (props) => {
       ) : (
         <span className="to_complete_pill">{t("The product documents are to be completed")}</span>
       )}
-
       <div className="divider_line"></div>
-      {/* <h3 className="steps_3_h3">
-        Code # {props.cindex + 1} Product # {props.index1 + 1}
-      </h3> */}
       <label className="BomLabel" style={{ marginTop: props.index1 !== 0 ? "2.5rem" : "1rem" }}>
         {t("Product Name")}
       </label>
@@ -112,7 +107,6 @@ const ProductForm = (props) => {
         </label>
         <select
           className="countrydropdown"
-          // defaultValue={"default"}
           name="condition"
           value={product?.condition || "default"}
           onChange={(e) => handleDataChange(e)}
@@ -157,7 +151,6 @@ const ProductForm = (props) => {
               <option value="foot/feet">Ft</option>
             </select>
           </div>
-          {console.log("first", product?.price?.value)}
           <div style={{ width: "60%" }}>
             <label className="BomLabel">{t("Price")}</label>
             <InputField
@@ -277,7 +270,7 @@ const ProductForm = (props) => {
             multiple
             isMultiple={true}
             index={`5${props.cindex}${props.index1}`}
-            fileName={props?.product?.other_docs}
+            fileName={props?.product?.other_docs || ""}
             name="other_docs"
             onChange={(e) =>
               handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)

@@ -31,9 +31,7 @@ const ProductLists = ({ codes, currency }) => {
             )}
           </p>
         </div>
-        {/* table  */}
         <div className='list_table' style={{ marginBottom: '5%' }}>
-          {/* table  */}
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label='simple table'>
               <TableHead style={{ backgroundColor: '#F9FAFB' }}>

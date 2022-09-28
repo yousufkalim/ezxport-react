@@ -39,7 +39,7 @@ const ResetPassword = () => {
               <img src={Quiz} alt="" className="quizIcon" />
             </div>
           </div>
-          {/* login button  */}
+          {/* LOGIN BUTTON  */}
           <button className="regBtn regBtn2">{t("Request made successfully")}</button>
           <Link to="/changepassword" className="logingbtn">
             {t("Resend again")}

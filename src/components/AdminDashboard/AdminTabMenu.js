@@ -12,6 +12,7 @@ import DownArrow from "../../assets/TitleDownArrow.svg";
 import { useParams } from "react-router-dom";
 import API from "../../api/index";
 import { useTranslation } from "react-i18next";
+import toaster from "../../utils/toaster";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -71,7 +72,7 @@ const AdminTabMenu = () => {
         setCalculation(res.data.country.calculation);
       })
       .catch((err) => {
-        console.log("---->ERR", err);
+        toaster("failed", t("Countries not found"), "Error")
       });
   };
   return (
@@ -86,26 +87,26 @@ const AdminTabMenu = () => {
           </Tabs>
         </Box>
         <br />
-        {/* table 1 */}
+        {/* TABLE NO.1 */}
 
         <TabPanel value={value} index={0}>
           <div className="list_table">
             <AdminTab1 vendor={vendor} />
           </div>
         </TabPanel>
-        {/* table 2 */}
+        {/* TABLE NO.2 */}
         <TabPanel value={value} index={1}>
           <div className="list_table">
             <AdminTab2 rows={document} img={DownArrow} />
           </div>
         </TabPanel>
-        {/* table 3 */}
+        {/* TABLE NO.3 */}
         <TabPanel value={value} index={2}>
           <div className="list_table">
             <AdminTab3 rows={boms} />
           </div>
         </TabPanel>
-        {/* table 4 */}
+        {/* TABLE NO.4 */}
         <TabPanel value={value} index={3}>
           <AdminTab4 calculation={calculation} />
         </TabPanel>

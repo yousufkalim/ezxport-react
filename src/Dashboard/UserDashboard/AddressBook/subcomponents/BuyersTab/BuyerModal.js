@@ -57,7 +57,6 @@ const BuyerModal = ({
   buyer,
   isEdit,
   setIsEdit,
-  // countries,
   setOpen,
   setBuyer,
   formState,
@@ -137,9 +136,6 @@ const BuyerModal = ({
       })
       .catch((err) => toaster("Failed", t("Something went wrong!")));
   };
-
-  console.log("Current state ", formState);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const {

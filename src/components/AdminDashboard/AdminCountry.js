@@ -19,7 +19,7 @@ const AdminCountry = (props) => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD */}
           <div className="List_heading_div">
             <h1 className="list_h1">{props.title}</h1>
             <div className="searching">
@@ -31,7 +31,7 @@ const AdminCountry = (props) => {
               />
             </div>
           </div>
-          {/* list table   */}
+          {/* LIST TABLE */}
           <div className="list_table">
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
@@ -51,10 +51,7 @@ const AdminCountry = (props) => {
                 </TableHead>
                 <TableBody>
                   {props.rows.map((row) => (
-                    <TableRow
-                      key={row.createData}
-                      // sx={{ '&:last-child td, &:last-child th': { border: 0, padding: 1 } }}
-                    >
+                    <TableRow key={row.createData}>
                       <TableCell
                         component="th"
                         scope="row"

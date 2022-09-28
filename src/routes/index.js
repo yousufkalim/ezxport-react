@@ -59,13 +59,12 @@ const Index = ({ role }) => {
           </>
         ) : (
           <>
-            {/* Auth routes */}
+              {/* AUTH ROUTES*/}
             {role === "user" ? (
               <>
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Route path="/User/RequestForm" component={RequestForm} />
-                <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
-                {/* <Route exact path="/User/Dashboard/Account" component={Account} /> */}
+                  <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
               </>
             ) : role === "admin" ? (
               <>
@@ -78,7 +77,7 @@ const Index = ({ role }) => {
             ) : (
               !role && (
                 <>
-                  {/* unAuth routes */}
+                        {/* UNAUTH ROUTES */}
                   <Redirect from="/" to="/" />
                   <Route exact path="/" component={Login} />
                   <Route exact path="/forgetpassword" component={ForgetPassword} />

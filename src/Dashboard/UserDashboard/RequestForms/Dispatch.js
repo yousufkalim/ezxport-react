@@ -391,7 +391,7 @@ const Dispatch = (props) => {
               className="company_name_input"
               name="Country"
               id="demo-simple-select"
-              value={sellerValues.Country || "default"}
+              value={sellerValues?.Country || "default"}
               onChange={(e) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
@@ -403,15 +403,6 @@ const Dispatch = (props) => {
                 return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
-            {/* <InputField
-              className="company_name_input"
-              placeholder="CL"
-              name="Country"
-              value={sellerValues.Country}
-              onChange={(e) => {
-                props.handleSellerData(e.target.name, e.target.value);
-              }}
-            /> */}
           </div>
         </div>
         <div className="inspection_textfield">
@@ -459,7 +450,6 @@ const Dispatch = (props) => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
-            {console.log(sellerData.errors.fullAddress, "gggg")}
           </div>
 
           <div className="steps_3_2inFeilds">
@@ -551,15 +541,6 @@ const Dispatch = (props) => {
                 return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
-            {/* <InputField
-              className="company_name_input"
-              placeholder="CL"
-              name="Country"
-              value={buyerValues?.Country}
-              onChange={(e) => {
-                props.handleBuyerData(e.target.name, e.target.value);
-              }}
-            /> */}
           </div>
         </div>
         <div className="inspection_textfield">
@@ -675,11 +656,8 @@ const Dispatch = (props) => {
             className='inspection_date'
             minDate={addDays(new Date(), 1)}
             showYearDropdown
-            // dateFormatCalendar='MMMM'
             yearDropdownItemNumber={15}
             scrollableYearDropdown
-            // min={moment().clone().add(1, 'days').toISOString().split('T')[0]}
-            // value={placeValues.InspectionDate}
             locale={lng}
             onChange={(date) => {
               props.handleInspectionData("InspectionDate", date);

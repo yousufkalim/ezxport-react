@@ -23,8 +23,8 @@ const ChangePassword = ({ Token, setResetPassword }) => {
       confirmPassword: confirmPassword,
     })
       .then((res) => {
-        if (res.data.success) {
-          toaster("success", t(res.data.message));
+        if (res?.data?.success) {
+          toaster("success", t(res?.data?.message));
           setSuccess(true);
         }
       })

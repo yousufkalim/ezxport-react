@@ -383,7 +383,6 @@ const LocationsTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        {/* table  */}
       </div>
       <Modal
         open={open}

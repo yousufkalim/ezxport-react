@@ -103,9 +103,6 @@ const NameProvider = () => {
     touched: {},
     errors: {},
   });
-
-  console.log("latest state ", formState);
-
   const [select, setSelect] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [names, setNames] = useState([]);
@@ -147,7 +144,7 @@ const NameProvider = () => {
         setNames(country_name);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        toaster("failed", t("Countries not found"), "Countries")
       });
   };
 
@@ -204,11 +201,10 @@ const NameProvider = () => {
           setCountries(allCountries);
           const countryNames = allCountries.map((item) => item?.name);
           setSelect(countryNames);
-          console.log("ALL countries ", res?.data?.vendor?.countries);
         }
       })
       .catch((err) => {
-        console.log(err, "errrrrr");
+        toaster("failed", t("Vendor not found"), "Vendor")
       });
   };
   const handleClose = () => setOpen(false);
@@ -272,12 +268,10 @@ const NameProvider = () => {
   };
 
   const handleMultiSelectChange = (event) => {
-    console.log("VALUE ", event.target.value);
     const {
       target: { value },
     } = event;
     setSelect(
-      // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
   };
@@ -288,7 +282,7 @@ const NameProvider = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD  */}
           <div className="List_heading_div">
             <h1 className="list_h1">
               <Link to="/Admin/Dashboard/Service">

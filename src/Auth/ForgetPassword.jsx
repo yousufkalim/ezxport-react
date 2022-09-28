@@ -105,7 +105,6 @@ const ForgetPassword = () => {
               error={[t(formState.errors.email)]}
               name="email"
               onBlur={(e) => handleBlur(e)}
-              // role="presentation"
               autoComplete="off"
               type="text"
               placeholder={t("E-mail address")}

@@ -175,7 +175,6 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
                                     <React.Fragment>
                                       {products.length > 0 && (
                                         <ListItemButton
-                                          // onClick={() => handleProduct("1122")}
                                           sx={{
                                             border: "1px solid #EAECF0",
                                             display: "flex",

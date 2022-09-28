@@ -6,7 +6,6 @@ import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import API from "../../../api/index";
-// import Spinner from "../../../components/Common/Spinner";
 import DocumentByRequest from "./subcomponents/DocumentByRequest";
 import DocumentByName from "./subcomponents/DocumentByName";
 import { useTranslation } from "react-i18next";
@@ -105,7 +104,6 @@ const Documents = () => {
               </Box>
               <br />
               <TabPanel value={value} index={0}>
-                {/* List  */}
                 <DocumentByRequest
                   searchTerm={searchTerm}
                   documents={documents}
@@ -113,8 +111,6 @@ const Documents = () => {
                   loading={loading}
                 />
               </TabPanel>
-
-              {/* 2in tag */}
               <TabPanel value={value} index={1}>
                 <DocumentByName
                   searchTerm={searchTerm}

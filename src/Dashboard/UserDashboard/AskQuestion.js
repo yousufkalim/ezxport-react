@@ -94,11 +94,11 @@ const AskQuestion = () => {
       <>
         <div className="list_main_div">
           <div className="list_second_div">
-            {/* list head  */}
+            {/* LIST HEAD  */}
             <div className="List_heading_div">
               <h1 className="list_h1">{t("Ask a question")}</h1>
             </div>
-            {/* list table   */}
+            {/* LIST TABLE */}
             <div className="question_form">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>

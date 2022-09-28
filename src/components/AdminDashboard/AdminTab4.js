@@ -31,14 +31,6 @@ const AdminTab4 = (props) => {
   );
   const [minCostCurrency, setMinCostCurrency] = useState(props?.calculation?.min_cost?.currency);
   const [maxCostCurrency, setMaxCostCurrency] = useState(props?.calculation?.max_cost?.currency);
-  // const [MinThreshold, setMinThreshold] = useState(
-  //   props?.calculation?.min_threshold?.value
-  // );
-  // const [coefficient, setCoefficient] = useState(
-  //   props?.calculation?.coefficient
-  // );
-  // const [minCost, setMinCost] = useState(props?.calculation?.min_cost?.value);
-  // const [maxCost, setMaxCost] = useState(props?.calculation?.max_cost?.value);
   const [coefficientChange, setCoefficientChange] = useState(props?.calculation);
   const { calculation } = props;
 
@@ -189,7 +181,8 @@ const AdminTab4 = (props) => {
         toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
       })
       .catch((err) => {
-        console.log("handleAddCoefficient", err);
+        toaster("success", t("Coefficient not added"), t("Coefficient"));
+
       });
   };
 

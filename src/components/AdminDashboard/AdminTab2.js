@@ -29,7 +29,6 @@ const schema = {
 };
 
 const nestSortTitles = [];
-
 const AdminTab2 = (props) => {
   const { rows, loading, setDocument } = props;
   const [formState, setFormState] = useState({
@@ -44,11 +43,7 @@ const AdminTab2 = (props) => {
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [openModal, setOpenModal] = useState(false);
   const [docId, setDocId] = useState("");
-
   const { t } = useTranslation();
-
-  // const [name, setName] = useState("");
-  // const [info, setInfo] = useState("");
 
   const handleAddDocuments = async () => {
     await API("post", "/documents/", {
@@ -57,7 +52,6 @@ const AdminTab2 = (props) => {
       countries: [props.countryId],
     })
       .then((res) => {
-        console.log("handleAddDocuments", res);
         props.handleCountryData();
         props.setOpenAddDocument(false);
         toaster("success", t("Document Added Successfully"));
@@ -73,7 +67,6 @@ const AdminTab2 = (props) => {
         }));
       })
       .catch((err) => {
-        console.log("handleAddDocuments", err);
         props.setOpenAddDocument(false);
         toaster("Failed", t(err.response.data.message));
       });
@@ -91,14 +84,12 @@ const AdminTab2 = (props) => {
   const handleDocumentDelete = async (id) => {
     await API("delete", `/documents/${id}`)
       .then((res) => {
-        console.log(res);
         props.handleCountryData();
         setOpenModal(false);
         setDocId("");
         toaster("success", t("Document Deleted Successfully"), t("Deleted Document"));
       })
       .catch((err) => {
-        console.log(err);
         toaster("Failed", t(err.response.data.message));
       });
   };

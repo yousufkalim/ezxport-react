@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CompanyInformation from '../ValidateRequest/CompanyInformation';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import EzxportIcon from '../../../assets/EzxportIcon.svg';
 import { Link } from 'react-router-dom';
 import BackArrow from '../../../assets/BackArrow.svg';
@@ -16,8 +16,6 @@ const Index = () => {
   const history = useHistory();
   const [countTabe, setCountTabe] = useState();
   const [requestById, setRequestById] = useState({});
-  console.log('🚀 ~ file: index.js ~ line 19 ~ Index ~ requestById', requestById);
-
   const [inputList, setInputList] = useState([]);
   const [inputListProduct, setInputListProduct] = useState([]);
   const [validateCountry, setValidateCountry] = useState(false);
@@ -25,11 +23,8 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [modalBtn, setModalBtn] = useState(false);
   const [comment, setComment] = useState('');
-
   const { t } = useTranslation();
   const params = useParams();
-
-  console.log('History ', history);
   const { id } = params;
 
   useEffect(() => {
@@ -45,7 +40,7 @@ const Index = () => {
         setRequestById(res?.data?.request);
       })
       .catch((err) => {
-        console.log(err, 'errrrrr');
+        toaster("failed", t("request not found"), "requests");
       });
   };
 
@@ -55,7 +50,6 @@ const Index = () => {
       status: checked ? 'Valid' : 'Invalid',
     })
       .then((res) => {
-        console.log('handleCountryDocsValidate', res);
         if (checked) {
           toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
@@ -67,7 +61,7 @@ const Index = () => {
         }
       })
       .catch((err) => {
-        console.log('handleCountryDocsValidate', err);
+        toaster("failed", t("Something wrong with request"), "Requests");
       });
   };
 
@@ -80,7 +74,6 @@ const Index = () => {
     })
       .then((res) => {
         if (checked) {
-          console.log('handleProductDocsValidate', res);
           toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
           handlerequestById();
@@ -91,10 +84,10 @@ const Index = () => {
         }
       })
       .catch((err) => {
-        console.log('handleProductDocsValidate', err);
+        toaster('failed', t('Document not Validated'), t('Validated Document'));
+
       });
   };
-  // console.log();
   const handleRequestDoc = async () => {
     setModalBtn(true);
     await API('put', `/requests/ReqmissingDocs/${requestById._id}`, {
@@ -103,24 +96,22 @@ const Index = () => {
       documents: inputList,
     })
       .then((res) => {
-        console.log(res, 'handleRequestDoc');
         setCommentModal(false);
         setModalBtn(false);
         history.push('/RequestDocuments');
       })
       .catch((err) => {
         setModalBtn(false);
-        console.log('err', err);
+        toaster('failed', t('Document not Validated'), t('Validate Document'));
       });
   };
   const handleValidByAdmin = async () => {
     await API('put', `/requests/validateRequest/${requestById._id}`)
       .then((res) => {
-        console.log(res, 'handleValidByAdmin');
         history.push('/SendDocuments');
       })
       .catch((err) => {
-        console.log('err', err);
+        toaster("failed", t("Something wrong with documents"), "Missing documents");
       });
   };
 
@@ -152,7 +143,6 @@ const Index = () => {
           <div className='Reference_logo_div'>
             <img src={EzxportIcon} alt='' className='header_center_div' />
           </div>
-          {/* <div> */}
           {countTabe === 2 && (
             <div>
               <Button
@@ -184,7 +174,6 @@ const Index = () => {
               )}
             </div>
           )}
-          {/* </div> */}
         </div>
       </div>
 

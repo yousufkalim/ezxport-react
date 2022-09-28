@@ -11,9 +11,6 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useTranslation, Trans } from "react-i18next";
 import UserTour from "../UserDashboard/UserTour";
 
-// import DialogActions from "@mui/material/DialogActions";
-// import DialogTitle from "@mui/material/DialogTitle";
-
 const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
   const [open, setOpen] = React.useState(false);
   const location = useLocation();
@@ -63,9 +60,6 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     <span className={`${isActive && "li_img_white"}  li_img `}>{item.icon}</span>
                     {t(item?.name)}
                   </Link>
-                  {/* { isActive &&
-                    <UserTour pathname={location.pathname} tour={item.tour} index={index} />
-                  }  */}
                 </div>
               );
             } else if (role === "admin") {
@@ -77,7 +71,6 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     exact
                     activeClassName="activeColor"
                     to={item.path}
-                    // className={` dashboard_li `}
                     className={`${isActive && "activeLi"} dashboard_li `}
                     onClick={() => handleActiveUploadButton(index + 1)}
                   >
@@ -91,7 +84,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           })}
         </ul>
       </div>
-      {/* dashbord menu 2 */}
+      {/* DASHBOARD MENU NO.2 */}
       <div className="dash_menu2">
         <ul className="dashboard_ul">
           {role === "user" ? (
@@ -133,7 +126,6 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 alt=""
                 className="user_profile"
                 onClick={handleClickOpen}
-                // onClick={handleLoggout}
                 style={{ cursor: "pointer" }}
               />
             </div>
@@ -146,7 +138,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
         </ul>
       </div>
 
-      {/* logout popup  */}
+      {/* LOGOUT POP-UP  */}
       <div>
         <Dialog
           fullWidth
@@ -160,7 +152,6 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
               <h2 className="buyer_h2">{t("Are you sure you want to log out?")}</h2>
               <ClearIcon onClick={handleClose} />
             </div>
-            {/* {children} */}
             <div className="logout_popup">
               <Button className="logBtn" onClick={handleClose}>
                 {t("Cancel")}

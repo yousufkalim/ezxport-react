@@ -8,20 +8,18 @@ import API from "../../../api/index";
 import ProductForm from "../../../components/Common/ProductForm";
 import { useTranslation } from "react-i18next";
 import { Store } from "../../../StoreContext";
+import toaster from "../../../utils/toaster";
 
 const Document = (props) => {
-  const {setProductCodes, productCodes} = props;
-  console.log("Products ", productCodes);
-  const { request, pastRequest , previousCodes} = Store();
-  console.log("🚀 ~ request", request);
+  const { setProductCodes, productCodes } = props;
+  const { request, pastRequest, previousCodes } = Store();
   const [formUpdate, setFormUpdate] = useState(false);
 
   useEffect(() => {
       if (pastRequest && previousCodes.length && productCodes.length && formUpdate === true) {
         const product = productCodes.map((item) => {
           const findCode = previousCodes.find(a => a.codeID === item.code._id);
-          if(findCode){
-            console.log("Prrodusts ", findCode.products);
+          if (findCode) {
             const products = findCode.products?.map((b) => {
               const obj = b;
               delete obj?._id;
@@ -29,36 +27,27 @@ const Document = (props) => {
               delete obj?.updatedAt;
               delete obj?.missing_docs;
               delete obj?.createdAt;
-              console.log("Object modified ", obj);
               obj['price'] = b?.price?.value;
               return obj
             })
-            return {...item, products: products};
-            // const obj = {...item, code: }
+            return { ...item, products: products };
           }
           return item;
         });
-        console.log("Modified array ", request.documents);
         setProductCodes(product);
         setFormUpdate(false);
     }
-  }, [pastRequest,previousCodes, formUpdate ]);
-
-
-  console.log("Country DOCS ", props.CountryDoc);
-
+  }, [pastRequest, previousCodes, formUpdate]);
   const [countries, setCountries] = useState([]);
   const [countryName, setCountryName] = useState("");
-
   const { t } = useTranslation();
-
   const [validDoc, setValidDoc] = useState(false);
   useEffect(() => {
     handleCountryName();
   }, []);
 
   useEffect(() => {
-    if (props.CountryDoc) {
+    if (props?.CountryDoc) {
       validateDocuments();
     }
   }, [props?.CountryDoc]);
@@ -66,20 +55,19 @@ const Document = (props) => {
   useEffect(() => {
     if (props?.createdCodes?.codes) {
       let product = props.createdCodes.codes.map((item) => {
-        item.products = [{ user: props.userData, code: item?.code?._id }];
+        item.products = [{ user: props?.userData, code: item?.code?._id }];
         return item;
       });
-      props.setProductCodes(product);
+      props?.setProductCodes(product);
       setFormUpdate(true);
     }
     handleAllCountries();
-    // handleCountryDocValidate();
     props.handleDocByCountryId();
   }, [props?.createdCodes?.codes]);
 
   const validateDocuments = () => {
-    const filterDocs = props?.CountryDoc?.filter((item) => item.hasOwnProperty("fileName"));
-    if (filterDocs?.length === props.CountryDoc?.length) {
+    const filterDocs = props?.CountryDoc?.filter((item) => item.hasOwnProperty("filename"));
+    if (filterDocs?.length === props?.CountryDoc?.length) {
       setValidDoc(true);
     } else {
       setValidDoc(false);
@@ -103,10 +91,10 @@ const Document = (props) => {
   const handleAllCountries = async () => {
     await API("get", "/countries/")
       .then((res) => {
-        setCountries(res.data.countries);
+        setCountries(res?.data?.countries);
       })
       .catch((err) => {
-        console.log("errrrr", err);
+        toaster("failed", t("Countries not not"), "Countries");
       });
   };
   const handleCountryName = () => {
@@ -131,12 +119,11 @@ const Document = (props) => {
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: "100%" }}>
         {props?.CountryDoc?.map((item, index) => {
-          console.log("Item name ", item);
           return (
             <Grid item xs={6}>
               <label style={{ display: "flex" }}>
-                {item?.doc_id?.name}
-                <Tooltip title={item?.doc_id?.info} placement="top">
+                {item?.doc_id?.name || item?.name}
+                <Tooltip title={item?.doc_id?.info || item?.info} placement="top">
                   <img style={{ paddingLeft: "5px" }} src={HelperIcon} />
                 </Tooltip>
               </label>

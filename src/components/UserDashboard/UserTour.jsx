@@ -1,6 +1,6 @@
 import Button from '../Common/Button';
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const paths = [
     '/User/Dashboard/ListOfRequests',
@@ -11,19 +11,9 @@ const paths = [
 
 const UserTour = (props) => {
     const {title, description} = props.tour;
-    const {index, pathname} = props;
-    const ind = index + 1;
+    const { index, pathname } = props;
     const history = useHistory();
-
-    console.log("Tour item ", props.pathname);
-
     const handleNext = () => {
-        const routeIndex = paths.indexOf(pathname);
-        // if(routeIndex){
-        //     const findItem = 
-        //     history.push()
-        // }
-        console.log("Item ", routeIndex);
         if(pathname === '/User/Dashboard/ListOfRequests'){
             history.push('/User/Dashboard/Providers')
         } else if(pathname === '/User/Dashboard/Providers'){

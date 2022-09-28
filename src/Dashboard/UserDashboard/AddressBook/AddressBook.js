@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchField from "../../../components/Common/SearchField";
-// import TabMenu from "./TabMenu";
 import Button from "../../../components/Common/Button";
-import TitleDownArrow from "../../../assets/TitleDownArrow.svg";
 import { useTranslation } from "react-i18next";
 import { Box, Tab, Tabs, Typography } from "@mui/material";
 import BuyersTab from "./subcomponents/BuyersTab";
@@ -11,15 +9,6 @@ import API from "../../../api/index";
 import { toast } from "react-toastify";
 import SellersTab from "./subcomponents/SellersTab";
 import LocationsTab from "./subcomponents/LocationsTab";
-
-// const title = [
-//   { heading: "Company name", sortIcon: true, key: "company_name", imgSrc: TitleDownArrow },
-//   { heading: "Country" },
-//   { heading: "E-mail address" },
-//   { heading: "Telephone" },
-//   { heading: "Address" },
-//   { heading: "" },
-// ];
 
 const schema = {
   companyName: {
@@ -90,7 +79,6 @@ const AddressBook = () => {
   const [value, setValue] = useState(0);
   const [countries, setCountries] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
 
@@ -119,21 +107,19 @@ const AddressBook = () => {
   };
 
   const buttonTitle = value === 0 ? "Add buyer" : value === 1 ? "Add seller" : "Add location";
-
   return (
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD  */}
           <div className="List_heading_div4">
             <h1 className="list_h1_address">{t("Address Book")}</h1>
             <div className="searching5">
               <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
-
               <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
-          {/* list table   */}
+          {/* LIST TABLE   */}
           <div className="list_table">
             <Box sx={{ width: "100%" }}>
               <Box>
@@ -143,7 +129,7 @@ const AddressBook = () => {
                   <Tab className="tab_btn3" label={t("Inspection locations")} {...a11yProps(2)} />
                 </Tabs>
               </Box>
-              {/* Buyers Tab */}
+              {/* BUYER TAB */}
               <TabPanel value={value} index={0}>
                 <BuyersTab
                   t={t}
@@ -156,7 +142,7 @@ const AddressBook = () => {
                 />
               </TabPanel>
 
-              {/* Sellers TAB 2  */}
+              {/*SELLER TAB  */}
               <TabPanel value={value} index={1}>
                 <SellersTab
                   schema={t(schema)}
@@ -170,7 +156,7 @@ const AddressBook = () => {
                 />
               </TabPanel>
 
-              {/* Locations TAB 3  */}
+              {/* LOCATION TAB */}
               <TabPanel value={value} index={2}>
                 <LocationsTab
                   t={t}
@@ -183,14 +169,6 @@ const AddressBook = () => {
                 />
               </TabPanel>
             </Box>
-            {/* <TabMenu
-              t={t}
-              handleChange={handleChange}
-              value={value}
-              setOpen={setOpen}
-              open={open}
-              title={t("title")}
-            /> */}
           </div>
         </div>
       </div>

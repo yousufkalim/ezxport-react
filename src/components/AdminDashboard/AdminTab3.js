@@ -112,12 +112,12 @@ const AdminTab3 = (props) => {
         toaster("success", t("BOMs deleted successfully"), t("Deleted BOMs"));
       })
       .catch((err) => {
-        console.log("handleBomDelete", err);
+        toaster("failed", t("Something went wrong"), t("BOMs"));
+
       });
   };
   const handleClose = () => {
     setOpen(false);
-    // setSelect([]);
   };
 
   const handleEditBomClick = (bomcode) => {
@@ -159,7 +159,6 @@ const AdminTab3 = (props) => {
         toaster("success", t("BOMs added successfully"), t("Adding BOMs"));
       })
       .catch((err) => {
-        console.log("handleAddBom", err);
         setNewCertificate_status("default");
         props.setOpenAddBomModal(false);
         toaster("Failed", t(err.response.data.message));
@@ -237,7 +236,6 @@ const AdminTab3 = (props) => {
               {props.rows.map((row) => (
                 <TableRow key={row.createData}>
                   <TableCell
-                    // style={{ width: "20%" }}
                     component="th"
                     scope="row"
                     sx={{ padding: 2 }}
@@ -246,15 +244,6 @@ const AdminTab3 = (props) => {
                     <p className="AP_plus_title">{row.code}</p>
                   </TableCell>
                   <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
-                    {/* <p
-                        style={{
-                          background: "#ECFDF3",
-                          borderRadius: "16px",
-                          display: "inline-block",
-                          padding: "2px 5px",
-                          color: "#027A48",
-                        }}
-                      ></p> */}
                     {row.certification_required === true ? (
                       <p
                         style={{
@@ -292,16 +281,6 @@ const AdminTab3 = (props) => {
                         setOpenModal(true);
                       }}
                     />
-
-                    {/* <img
-                      src={EditIcon}
-                      alt=""
-                      className="dltIcon"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        handleEditBomClick(row);
-                      }}
-                    /> */}
                   </TableCell>
                 </TableRow>
               ))}
@@ -311,53 +290,7 @@ const AdminTab3 = (props) => {
       </TableContainer>
 
       <ConfirmModal open={openModal} setOpen={setOpenModal} action={() => handleBomDelete(bomId)} />
-
-      {/* update modal */}
-      {/* <Modal open={open} setOpen={setOpen} title={t("Update")} handleClose={handleClose} Closebtn={true}>
-        <div style={{ height: "20%" }}>
-          <label htmlFor="" className="label_modal">
-            BOMs code
-          </label>{" "}
-          <InputField
-            name="bomCode"
-            value={updateBomCode.values.bomCode}
-            className={
-              updateHasError("bomCode") && updateBomCode.errors.bomCode ? "textfield_addvendor_red" : "textfield_addvendor"
-            }
-            onChange={handleUpdateBomChange}
-          />
-          <div className="error-format">{updateHasError("bomCode") ? updateBomCode.errors.bomCode[0] : null}</div>
-          <label htmlFor="" className="label_modal">
-            {t("Status")}
-          </label>{" "}
-          <select
-            defaultValue={certificate_status}
-            name="certificate_status"
-            className="textfield_addvendor"
-            onChange={(e) => setCertificate_status(e.target.value)}
-          >
-            <option value={false}>{t("Not subject")}</option>
-            <option value={true}>{t("Subject to inspection")}</option>
-          </select>
-          {/* <label htmlFor="" className="label_modal">
-            {t("Select country for BOMs")}
-          </label>
-          <MultiSelect
-            name="countries"
-            onChange={handleCountryChange}
-            value={select}
-            names={names}
-            select={select}
-          /> */}
-      {/* <Button
-            text={t("Update")}
-            className={updateBomCode.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
-            disabled={!updateBomCode.isValid ? true : false}
-            onClick={() => handleBomUpdate(data._id)}
-          />
-        </div> */}
-      {/* </Modal>  */}
-      {/* Add modal */}
+      {/* ADD MODAL */}
       <Modal
         open={props.openAddBomModal}
         setOpen={props.setOpenAddBomModal}
@@ -380,31 +313,6 @@ const AdminTab3 = (props) => {
             onChange={handleChange}
           />
           <div className="error-format">{hasError("code") ? formState.errors.code[0] : null}</div>
-          {/* <label htmlFor="" className="label_modal">
-            {t("Status")}
-          </label>{" "}
-          <select
-            defaultValue={newCertificate_status}
-            name="certificate_status"
-            className="textfield_addvendor"
-            onChange={(e) => setNewCertificate_status(e.target.value)}
-          >
-            <option disabled value={"default"}>
-              {t("Select an Option")}
-            </option>
-            <option value={false}>{t("Not subject")}</option>
-            <option value={true}>{t("Subject to inspection")}</option>
-          </select> */}
-          {/* <label htmlFor="" className="label_modal">
-            {t("Select country for BOMs")}
-          </label>
-          <MultiSelect
-            name={"countries"}
-            onChange={handleCountryChange}
-            value={select}
-            names={names}
-            select={select}
-          /> */}
           <Button
             text={t("Add")}
             className={formState.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}

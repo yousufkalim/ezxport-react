@@ -2,11 +2,6 @@
 let baseUrl = 'http://localhost:5000/api';
 let mediaUrl = "http://localhost:5000/"
 
-// let baseUrl = "https://ezxport.loca.lt/api";
-// let mediaUrl = "https://ezxport.loca.lt/"
-
-
-
 if (window.location.host === "ezxport-dev.falconweb.app") {
   baseUrl = "https://ezxport-api-dev.falconweb.app/api";
   mediaUrl = "https://ezxport-api-dev.falconweb.app/"

@@ -13,7 +13,6 @@ const InputField = (props) => {
           </label>
         )}
         <input
-          // {...props}
           onFocus={props.onFocus}
           onBlur={props.onBlur}
           name={props.name}

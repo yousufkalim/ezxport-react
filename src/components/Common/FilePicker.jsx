@@ -8,7 +8,7 @@ const FilePicker = (props) => {
   let allFiles = props?.fileName;
   if (props.isMultiple) {
     const file = props?.fileName;
-    allFiles = `${file?.filename || file?.url[0]?.split("-").slice(-3).reverse().pop()}  (${file?.url?.length})`
+    allFiles = (file?.url?.[0]?.length || file?.filename) ? `${file?.filename || file?.url?.[0]?.split("-").slice(-3).reverse().pop()}  (${file?.url?.length})` : ''
   } else {
     allFiles = props?.fileName;
   }
@@ -24,12 +24,11 @@ const FilePicker = (props) => {
           disabled={props.disabled}
           onChange={props.onChange}
           className="filepicker_input"
-          // value={props.value}
         />
         <div className="download_icon_div">
-          {typeof allFiles === "string" ? (
+          {(typeof allFiles === "string" && allFiles) ? (
             allFiles
-          ) : typeof allFiles === "object" ? (
+          ) : typeof allFiles === "object" && allFiles ? (
             allFiles?.map((item, index) => {
               return (
                 <p>

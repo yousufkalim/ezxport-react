@@ -76,17 +76,6 @@ export const UserRoutes = [
     path: '/User/Dashboard/Account',
     component: Account,
   },
-  // {
-  //   path: '/User/Dashboard/Application',
-  //   name: 'Application',
-  //   component: Application,
-  // },
-  // {
-  //   path: '/User/Dashboard/CreateRequest',
-  //   name: 'add Request',
-  //   icon: <Logo4 />,
-  //   component: CreateRequest,
-  // },
 ];
 
 export const AdminRoutes = [

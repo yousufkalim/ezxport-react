@@ -3,7 +3,7 @@ import UserTable from '../../components/AdminDashboard/UserTable';
 import API from '../../api/index';
 import { useTranslation } from 'react-i18next';
 import { getSortedData } from '../../lib/getSortedData';
-
+import toaster from '../../utils/toaster';
 const HeadTitle = [
   {
     list: 'Last name',
@@ -75,11 +75,11 @@ const Users = () => {
     setLoading(true);
     await API('get', '/users/')
       .then((res) => {
-        setAllUsers(res?.data.users);
+        setAllUsers(res?.data?.users);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        toaster("Failed", t("Users not found"), "User");
         setLoading(false);
       });
   };

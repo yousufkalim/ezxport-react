@@ -22,7 +22,7 @@ import downArrow from "../../assets/TitleDownArrow.svg";
 import arrow_up from "../../assets/arrow_up.svg";
 import { getSortedData } from "../../lib/getSortedData";
 import Spinner from "../../components/Common/Spinner";
-
+import toaster from "../../utils/toaster";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -57,7 +57,6 @@ function a11yProps(index) {
 }
 const UserDetails = () => {
   const [loading, setLoading] = useState(false);
-  // user data states
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
@@ -71,8 +70,6 @@ const UserDetails = () => {
   const [name, setName] = useState("");
   const [societyType, setSocietyType] = useState("");
   const [vatNumber, setVatNumber] = useState("");
-
-  // user request states
   const [requestById, setRequestById] = useState([]);
   const [sort, setSort] = useState({ key: "", ascend: true });
   const [requestLoading, setRequestLoading] = useState(false);
@@ -100,7 +97,7 @@ const UserDetails = () => {
         setVatNumber(res?.data?.user?.company?.vat);
       })
       .catch((err) => {
-        console.log(err, "errrrrr");
+        toaster("Failed", t("User not found"), "User");
       });
   };
 
@@ -115,8 +112,7 @@ const UserDetails = () => {
       })
       .catch((err) => {
         setLoading(false);
-
-        console.log("err---->", err);
+        toaster("Failed", t("Request not found"), "Request");
         setRequestLoading(false);
       });
   };
@@ -125,7 +121,7 @@ const UserDetails = () => {
     <>
       <div className="list_main_div">
         <div className="list_second_div">
-          {/* list head  */}
+          {/* LIST HEAD */}
           <div className="List_Details_div">
             <h1 className="list_Details_h1">
               <Link to="/Admin/Dashboard/Users">
