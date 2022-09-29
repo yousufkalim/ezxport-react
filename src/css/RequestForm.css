@@ -477,6 +477,9 @@ input[type="radio"]:checked {
   align-items: flex-start;
   justify-content: flex-end;
 }
+.css-14lo706{
+  display: none !important; 
+}
 
 @media screen and (min-width: 350px) and (max-width: 650px) {
   .add_code_div {
