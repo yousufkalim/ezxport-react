@@ -11,7 +11,7 @@ const SwitchButton = (props) => {
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start" }}>
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start",flexDirection:"column" }}>
           {props?.item?.url?.map((item, index) => {
             var filename = item.split("-").slice(-3).reverse().pop();
             return (
