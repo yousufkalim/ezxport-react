@@ -118,6 +118,7 @@ i18n
           "Zipcode is too short (minimum is 5 characters)":"Zipcode is too short (minimum is 5 characters)",
           "Error":"Error",
           "error":"error",
+          "Range calculations not found":"Range calculations not found",
 
           Country: "Country",
           Searching: "Searching",
@@ -874,6 +875,7 @@ i18n
           "Zipcode is too short (minimum is 5 characters)":"Le code postal est trop court (le minimum est de 5 caractères)",
           "Error":"Erreur",
           "error":"Erreur",
+          "Range calculations not found":"Calculs de plage introuvables",
 
 
       
