@@ -16,6 +16,7 @@ import { Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import toaster from "../../../utils/toaster";
 import { useHistory } from "react-router-dom";
+const token = localStorage.getItem("token")
 const DocumentsTab = ({ userRequest }) => {
   let history = useHistory(null);
   const [open, setOpen] = useState(true);
@@ -95,9 +96,9 @@ const DocumentsTab = ({ userRequest }) => {
   const handleReqDoc = async () => {
     await API("get", `/requests/zipFile/${userRequest._id}`)
       .then((res) => {
+        console.log("🚀 ~ file: DocumentsTab.js ~ line 98 ~ .then ~ res", res)
         window.location.href = res.config.url;
       })
-
       .catch((err) => toaster("Failed", t("File not found")));
   };
 

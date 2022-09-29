@@ -75,7 +75,6 @@ export default function HorizontalNonLinearStepper() {
   const [retrieveRequestId, setRetrieveRequestId] = useState("");
   const [allCodes, setAllCodes] = useState([]);
   const { request, pastRequest } = Store();
-  const [prevCodes, setPrevCodes] = useState([]);
 
   // step 2 states
   const [step2, setStep2] = useState({
@@ -234,7 +233,7 @@ export default function HorizontalNonLinearStepper() {
       codes: [],
     };
     allCodes?.map((item) => {
-      data.codes.push({
+      return data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
         certification_required: item.certification_required,
@@ -277,7 +276,7 @@ export default function HorizontalNonLinearStepper() {
       certification_cost: certificationCostOfCode,
     };
     allCodes?.map((item) => {
-      data.codes.push({
+      return data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
         certification_required: item.certification_required,
@@ -367,7 +366,6 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => toaster("Failed", t(err?.response?.data?.message?.msg)));
   };
   const handleSendFile = () => setPlatformSelect(true);
-
   const handleStep4 = async () => {
     let data = {
       request: requestId,

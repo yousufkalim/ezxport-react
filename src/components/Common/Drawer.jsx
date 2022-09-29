@@ -131,8 +131,8 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           <div className="userDetail">
             <div className="user_Pro">
               {role === "user"
-                ? `${user.first_name} ${user.last_name}`
-                : role === "admin" && `${user.name}`}
+                ? `${user?.first_name} ${user?.last_name}`
+                : role === "admin" && `${user?.name}`}
               <img
                 src={LILogo7}
                 alt=""
@@ -141,10 +141,10 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                 style={{ cursor: "pointer" }}
               />
             </div>
-            <p className="user_mail">{user.email}</p>
+            <p className="user_mail">{user?.email}</p>
             <div className="languages-container">
-              <img src={english} onClick={() => changeLanguage("en")} />
-              <img src={french} onClick={() => changeLanguage("fr")} />
+              <img src={english} onClick={() => changeLanguage("en")} alt="" />
+              <img src={french} onClick={() => changeLanguage("fr")} alt="" />
             </div>
           </div>
         </ul>

@@ -8,7 +8,7 @@ import validate from "validate.js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputField from "../components/Common/InputField";
-import { useTranslation, i18n } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import toaster from "../utils/toaster";
 
 const schema = {
@@ -198,7 +198,6 @@ const Registration = () => {
     })
       .then(() => {
         toaster("success", t("User created successfully"), t("Createed User"));
-
         history.push("/");
       })
       .catch((err) => {
