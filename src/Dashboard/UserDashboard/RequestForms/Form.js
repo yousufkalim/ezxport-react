@@ -365,9 +365,12 @@ export default function HorizontalNonLinearStepper() {
         toaster("success", t(res.data.message));
       })
 
-      .catch((err) => toaster("Failed", t(err?.response?.data?.message?.msg)));
-  };
-  const handleSendFile = () => setPlatformSelect(true);
+      .catch((err) => {toaster("Failed", t(err?.response?.data?.message?.msg))
+    
+      console.log(err?.response?.data?.message?.msg,"sssss")
+    });
+    };
+    const handleSendFile = () => setPlatformSelect(true);
 
   const handleStep4 = async () => {
     let data = {
@@ -384,7 +387,7 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message), t("Documents"));
+        toaster("Failed", t(err.response.data.message.msg), t("Documents"));
       });
   };
   const handleDocByCountryId = async () => {
