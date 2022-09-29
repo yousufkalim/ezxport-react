@@ -154,7 +154,7 @@ const ServiceProviders = () => {
         );
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message));
+        toaster("Failed", t(err?.response?.data?.message));
       });
   };
 

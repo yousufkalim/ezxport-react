@@ -63,20 +63,20 @@ const Login = () => {
   const handleLoggin = async () => {
     try {
       await API("post", "/auth/login", {
-        email: formState.values.email,
-        password: formState.values.password,
+        email: formState?.values?.email,
+        password: formState?.values?.password,
       })
         .then((res) => {
           if (res?.data?.role === "user") {
-            localStorage.setItem("userData", JSON.stringify(res.data.user));
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("role", JSON.stringify(res.data.role));
+            localStorage.setItem("userData", JSON.stringify(res?.data?.user));
+            localStorage.setItem("token", res?.data?.token);
+            localStorage.setItem("role", JSON.stringify(res?.data?.role));
             localStorage.setItem('newUser', true);
             window.location = "/User/Dashboard/ListOfRequests";
           } else if (res?.data?.role === "admin") {
-            localStorage.setItem("userData", JSON.stringify(res.data.admin));
-            localStorage.setItem("token", res.data.token);
-            localStorage.setItem("role", JSON.stringify(res.data.role));
+            localStorage.setItem("userData", JSON.stringify(res?.data?.admin));
+            localStorage.setItem("token", res?.data?.token);
+            localStorage.setItem("role", JSON.stringify(res?.data?.role));
 
             window.location = "/admin/Dashboard/Country";
           }
