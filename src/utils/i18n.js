@@ -64,7 +64,6 @@ i18n
           "Validated":"Validated",
           "Telephone is too short (minimum is 10 characters)":"Telephone is too short (minimum is 10 characters)",
           "Select inspection date":"Select inspection date",
-
           "Codes required ":"Codes required ",
           "Password is required":"Password is required",
           "Password min length must be 6 characters":"Password min length must be 6 characters",
@@ -115,6 +114,10 @@ i18n
           "rangeId required":"rangeId required",
           "New password is required":"New password is required",
           "Confirm password is required":"Confirm password is required",
+          "Being checked by an expert":"Being checked by an expert",
+          "Zipcode is too short (minimum is 5 characters)":"Zipcode is too short (minimum is 5 characters)",
+          "Error":"Error",
+          "error":"error",
 
           Country: "Country",
           Searching: "Searching",
@@ -817,7 +820,6 @@ i18n
           "Validated":"Validé",
           "Telephone is too short (minimum is 10 characters)":"Le numéro de téléphone est trop court (le minimum est de 10 caractères)",
           "Select inspection date":"Sélectionnez la date d'inspection",
-
           "Codes required ":"Codes requis",
           "Password is required":"Mot de passe requis",
           "Password min length must be 6 characters":"La longueur minimale du mot de passe doit être de 6 caractères",
@@ -868,6 +870,11 @@ i18n
           "rangeId required":"ID de plage requis",
           "New password is required":"Un nouveau mot de passe est requis",
           "Confirm password is required":"Confirmer le mot de passe est requis",
+          "Being checked by an expert":"Être contrôlé par un expert",
+          "Zipcode is too short (minimum is 5 characters)":"Le code postal est trop court (le minimum est de 5 caractères)",
+          "Error":"Erreur",
+          "error":"Erreur",
+
 
       
 

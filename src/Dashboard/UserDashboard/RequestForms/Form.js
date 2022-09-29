@@ -382,7 +382,8 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message.msg), t("Documents"));
+        toaster("failed", t(err.response.data.message), t("Documents"));
+        console.log(err.response.data.message,"wwwww");
       });
   };
   const handleDocByCountryId = async () => {
@@ -391,7 +392,7 @@ export default function HorizontalNonLinearStepper() {
         setCountryDoc(res?.data?.documents);
         setFormUpdate(true);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch((err) => toaster("failed", t(err.response.data.message)));
   };
 
   const handleUploadDoc = async (file, docId, index) => {

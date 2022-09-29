@@ -141,7 +141,7 @@ const CalculationRange = (props) => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("failed", t("Range calculations not found"), "Error")
+        toaster("failed", t("Range calculations not found"), t("Error"))
         setLoading(false);
       });
   };
