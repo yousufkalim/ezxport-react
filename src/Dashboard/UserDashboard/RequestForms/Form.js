@@ -500,7 +500,9 @@ export default function HorizontalNonLinearStepper() {
       });
       window.location = response.data.url;
     } catch (e) {
+      
       console.trace(e);
+      
     }
   };
 
