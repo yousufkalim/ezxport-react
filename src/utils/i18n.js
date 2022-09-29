@@ -404,6 +404,7 @@ i18n
           Date: "Date",
           "Certificate cost	": "Certificate cost	",
           "Missing Documents": "Missing Documents",
+          "Missing documents": "Missing documents",
           Sent: "Sent",
           "First name": "First name",
           Telephone: "Telephone",
@@ -488,7 +489,7 @@ i18n
           "Send documents": "Send documents",
           "Comments by the Admin": "Comments by the Admin",
           valid: "valid",
-          "codes required ": "codes required",
+          "codes required": "codes required",
           // stepper
           "Return to Dashboard": "Return to Dashboard",
           Dispatch: "Dispatch",
@@ -1156,6 +1157,7 @@ i18n
           Date: "Date",
           "Certificate cost": "Coût du certificat",
           "Missing Documents": "Documents manquants",
+          "Missing documents": "Documents manquants",
           Sent: "expédié",
           "First name": "Prénom",
           Telephone: "Téléphone",
@@ -1241,7 +1243,7 @@ i18n
           "Comments by the Admin": "Commentaires de l'administrateur",
           valid: "valide",
           "Are you sure to delete?": "Êtes-vous sûr de vouloir supprimer?",
-          "codes required ": "code requis",
+          "codes required": "code requis",
 
           // stepper
           "Return to Dashboard": "Retour au tableau de bord",

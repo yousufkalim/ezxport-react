@@ -252,7 +252,8 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message.msg));
+        toaster("failed", t(err.response.data.message.msg));
+        console.log(err.response.data.message.msg, "ssssss");
       });
   };
   const handleStep1 = async () => {
