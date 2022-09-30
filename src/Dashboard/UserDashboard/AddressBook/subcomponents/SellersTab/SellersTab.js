@@ -35,7 +35,7 @@ const title = [
   { heading: "E-mail address" },
   { heading: "Telephone" },
   { heading: "Address" },
-  { heading: "" },
+  { heading: "Actions" },
 ];
 
 const KEYS_TO_FILTERS = ["company_name"];
@@ -120,7 +120,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
 
   const fetchSellers = () => {
     setLoading(true);
-    API("get", `/sellers/getByUser/${userData._id}`)
+    API("get", `/sellers/getByUser/${userData?._id}`)
       .then((res) => {
         setSellers(res.data.seller);
         setLoading(false);
