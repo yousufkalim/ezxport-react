@@ -610,6 +610,12 @@
   padding-top: 8px;
   width: 20%;
 }
+.table_li2_error{
+  line-height: 3.43 !important ;
+  padding-left: 10%;
+  color: red !important;
+  padding-top: 8px;
+}
 .table_li3 {
   line-height: 3.43 !important ;
   /* padding-left: 20%; */
