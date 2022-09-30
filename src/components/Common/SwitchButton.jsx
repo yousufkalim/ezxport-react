@@ -18,7 +18,6 @@ const SwitchButton = (props) => {
               <a
                 className="switch_p2"
                 style={{
-                  // marginLeft: index !== 0 ? "5px" : "none",
                   textDecoration: "none"
                 }}
                 target="_blank"
