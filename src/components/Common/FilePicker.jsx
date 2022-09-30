@@ -6,32 +6,37 @@ const FilePicker = (props) => {
   const { t } = useTranslation();
 
   let allFiles = props?.fileName;
-  if (props.isMultiple) {
+  if (props?.isMultiple) {
     const file = props?.fileName;
-    allFiles = (file?.url?.[0]?.length || file?.filename) ? `${file?.filename || file?.url?.[0]?.split("-").slice(-3).reverse().pop()}  (${file?.url?.length})` : ''
+    if (props?.fileName?.length) {
+      allFiles = props?.fileName?.map(item => item?.filename);
+    }
+    else {
+      allFiles = props?.fileName;
+    }
   } else {
     allFiles = props?.fileName;
   }
 
   return (
     <div className="filepicker_main_div">
-      <label htmlFor={`file` + props.index}>
+      <label htmlFor={`file` + props?.index}>
         <input
-          multiple={props.multiple}
-          id={`file` + props.index}
-          name={props.name}
+          multiple={props?.multiple}
+          id={`file` + props?.index}
+          name={props?.name}
           type="file"
-          disabled={props.disabled}
-          onChange={props.onChange}
+          disabled={props?.disabled}
+          onChange={props?.onChange}
           className="filepicker_input"
         />
-        <div className="download_icon_div">
+        <div style={{ alignItems: typeof allFiles === 'object' ? 'flex-start' : 'center' }} className="download_icon_div">
           {(typeof allFiles === "string" && allFiles) ? (
             allFiles
           ) : typeof allFiles === "object" && allFiles ? (
             allFiles?.map((item, index) => {
               return (
-                <p>
+                <p key={index}>
                   {index + 1}). {item}
                 </p>
               );
