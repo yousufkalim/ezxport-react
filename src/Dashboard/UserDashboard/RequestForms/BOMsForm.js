@@ -89,7 +89,9 @@ const BOMsForm = (props) => {
       .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   useEffect(() => {
-    handleAllRequestByCountryId();
+    if (step1?.country !== "") {
+      handleAllRequestByCountryId();
+    }
   }, [step1?.country]);
   useEffect(() => {
     if (step1?.country !== "") {

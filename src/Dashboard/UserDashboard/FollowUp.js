@@ -84,7 +84,7 @@ const FollowUp = () => {
     setLoading(true);
     await API("get", `/requests/getByUser/${userData?._id}`)
       .then((res) => {
-        setAllRequest(res.data.request);
+        setAllRequest(res?.data?.request);
         setLoading(false);
       })
       .catch((err) => {
@@ -92,7 +92,6 @@ const FollowUp = () => {
         setLoading(false);
       });
   };
-
   return (
     <>
       {loading ? (
@@ -120,8 +119,8 @@ const FollowUp = () => {
                           style={{ backgrounColor: "#EAECF0" }}
                           key={item?.name}
                         >
-                          {t(item.name)} &nbsp;
-                          {item.sortIcon && !sort.ascend && sort.key === item.key ? (
+                          {t(item?.name)} &nbsp;
+                          {item?.sortIcon && !sort.ascend && sort.key === item.key ? (
                             <img
                               className="sorting-icon"
                               onClick={() =>
@@ -138,7 +137,7 @@ const FollowUp = () => {
                               alt=""
                             />
                           ) : (
-                            item.sortIcon && (
+                              item?.sortIcon && (
                               <img
                                 onClick={() =>
                                   getSortedData(
@@ -164,7 +163,7 @@ const FollowUp = () => {
                       <TableRow
                         style={{ cursor: "pointer" }}
                         key={item?._id}
-                        onClick={() => history.push(`/User/Dashboard/Application/${item._id}`)}
+                        onClick={() => history.push(`/User/Dashboard/Application/${item?._id}`)}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
@@ -201,8 +200,8 @@ const FollowUp = () => {
                             <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "Being checked by an expert" ? (
                             <p className="process_status">{t(item?.status)}</p>
-                          ) : (
-                            item?.status
+                                ) : item?.status === "Documents to be checked" && (
+                                  <p className="clrClass" >{t(item?.status)}</p>
                           )}
                         </TableCell>
                       </TableRow>
