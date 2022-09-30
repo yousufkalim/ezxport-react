@@ -20,7 +20,7 @@ const KEYS_TO_FILTERS = ["title"];
 
 const DocumentByRequest = ({
   loading,
-  documents,
+  documents: allDocuments,
   setDocuments,
   searchTerm,
 }) => {
@@ -51,14 +51,13 @@ const DocumentByRequest = ({
       .catch((err) => toaster("Failed", t("File not found!")));
   };
 
-  const searchedResults = documents.filter(
+  const searchedResults = allDocuments.filter(
     createFilter(searchTerm, KEYS_TO_FILTERS)
   );
-
   return (
     <div>
       <List>
-        <ListItemButton
+        {/* <ListItemButton
           sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}
         >
           <li
@@ -99,14 +98,14 @@ const DocumentByRequest = ({
               />
             )}
           </li>
-        </ListItemButton>
+        </ListItemButton> */}
         {loading ? (
           <Spinner />
         ) : (
           <React.Fragment>
             {searchedResults?.length > 0 &&
-              searchedResults?.map(({ requestId, title }) => {
-                if (documents?.documents) {
+                searchedResults?.map(({ requestId, title, documents }) => {
+                  if (documents?.length) {
                   return (
                     <React.Fragment key={requestId}>
                       <ListItemButton
@@ -134,8 +133,8 @@ const DocumentByRequest = ({
                         timeout="auto"
                         unmountOnExit
                       >
-                        {searchedResults?.documents?.length > 0 &&
-                          searchedResults?.documents?.map(
+                        {documents?.length > 0 &&
+                          documents?.map(
                             ({ _id: docId, doc_id }) => (
                               <ListItemButton
                                 sx={{
@@ -143,20 +142,39 @@ const DocumentByRequest = ({
                                   display: "flex",
                                 }}
                               >
-                                <li
-                                  className="table_li2"
-                                  style={{
-                                    marginRight: "auto",
-                                    display: "flex",
-                                  }}
-                                >
-                                  <img
-                                    src={RightArrow}
-                                    alt=""
-                                    className="rightArrow"
-                                  />
-                                  {doc_id?.name}
-                                </li>
+                                {
+                                  doc_id ? (
+                                    <li
+                                      className="table_li2"
+                                      style={{
+                                        marginRight: "auto",
+                                        display: "flex",
+                                        width: '100%'
+                                      }}
+                                    >
+                                      <img
+                                        src={RightArrow}
+                                        alt=""
+                                        className="rightArrow"
+                                      />
+                                      {doc_id?.name}
+                                    </li>
+                                  )
+                                    :
+                                    (
+                                      <li
+                                        className="table_li2_error"
+                                        style={{
+                                          marginRight: "auto",
+                                          display: "flex",
+                                          width: '100%',
+                                          color: 'red !important'
+                                        }}
+                                      >
+                                        {t('No document uploaded for country')}
+                                      </li>
+                                    )
+                                }
                                 <img
                                   onClick={(e) =>
                                     downloadDocument(e, requestId, doc_id._id)

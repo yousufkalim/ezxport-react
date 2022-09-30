@@ -98,8 +98,8 @@ const Documents = () => {
             <Box sx={{ width: "100%" }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label={t("By Nomenclature")} {...a11yProps(0)} />
-                  <Tab className="tab_btn3" label={t("By Request")} {...a11yProps(2)} />
+                  <Tab className="tab_btn1" label={t("By Request")} {...a11yProps(0)} />
+                  <Tab className="tab_btn3" label={t("By Nomenclature")} {...a11yProps(1)} />
                 </Tabs>
               </Box>
               <br />
