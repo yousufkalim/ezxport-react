@@ -11,12 +11,20 @@ const SwitchButton = (props) => {
     <>
       <div className="Switches">
         <p className="switch_p">{props.text}</p>
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start" }}>
-          {props?.item?.url?.map((item, index) => {
-            var filename = item.split("-").slice(-3).reverse().pop();
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start", flexDirection: "column", overflow: "hidden" }} >
+          {props?.item?.map((item1, index) => {
+            // var filename = item.split("-").slice(-3).reverse().pop();
             return (
-              <a className="switch_p2" style={{ marginLeft: index !== 0 ? "5px" : "none", textDecoration: "none" }} target="_blank" href={`${mediaUrl}${item}`}>
-                {filename}
+              <a
+                className="switch_p2"
+                style={{
+                  textDecoration: "none"
+                }}
+                target="_blank"
+                href={`${mediaUrl}${item1?.url}`}
+                rel="noreferrer">
+                {item1?.filename}
+
               </a>
             );
           })}

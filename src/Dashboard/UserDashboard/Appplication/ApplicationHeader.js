@@ -22,9 +22,10 @@ const ApplicationHeader = (props) => {
             <p className="send_p3">{t(props?.status)}</p>
           ) : props?.status === "Being checked by an expert" ? (
             <p className="send_p6">{t(props?.status)}</p>
-          ) : (
-            <p className="send_p6">{t(props?.status)}</p>
-          )}
+          ) : props?.status === "Documents to be checked"
+            ? (
+              <p className="send_p3">{t(props?.status)}</p>
+            ) : "--"}
         </p>
       </div>
     </div>

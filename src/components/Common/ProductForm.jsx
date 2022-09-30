@@ -22,24 +22,21 @@ const ProductForm = (props) => {
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
     const newImagesPromises = [];
-    const firstFileName = files[0]?.name;
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;
-      newImagesPromises.push(convertBase64(files[i], fileName));
+      newImagesPromises.push({ filename: fileName, url: await convertBase64(files[i]) });
     }
-    const base64 = await Promise.all(newImagesPromises);
+    const base64 = newImagesPromises;
     props.setCodes((prev) => {
-      prev[cindex].products[index1][name] = prev[cindex]?.products[index1][name]?.url?.length ? {
-        url: [...prev[cindex]?.products[index1][name]?.url, ...base64],
-        filename: firstFileName,
+      prev[cindex].products[index1][name] = prev[cindex]?.products[index1][name]?.files?.length ? {
+        files: [...prev[cindex]?.products[index1][name]?.files, ...base64],
       } : {
-        url: base64,
-        filename: firstFileName,
+          files: base64,
       }
       return [...prev];
     });
   };
-  const convertBase64 = (file, fileName) => {
+  const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
@@ -207,7 +204,7 @@ const ProductForm = (props) => {
               multiple
               index={`1${props.cindex}${props.index1}`}
               isMultiple={true}
-              fileName={props?.product?.technical_sheet}
+              fileName={props?.product?.technical_sheet?.files}
               name="technical_sheet"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
@@ -222,7 +219,7 @@ const ProductForm = (props) => {
               multiple
               isMultiple={true}
               index={`2${props.cindex}${props.index1}`}
-              fileName={props?.product?.test_report}
+              fileName={props?.product?.test_report?.files}
               name="test_report"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
@@ -239,7 +236,7 @@ const ProductForm = (props) => {
               multiple
               isMultiple={true}
               index={`3${props.cindex}${props.index1}`}
-              fileName={props?.product?.analysis_certificate}
+              fileName={props?.product?.analysis_certificate?.files}
               name="analysis_certificate"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
@@ -254,7 +251,7 @@ const ProductForm = (props) => {
               multiple
               isMultiple={true}
               index={`4${props?.cindex}${props?.index1}`}
-              fileName={props?.product?.plan}
+              fileName={props?.product?.plan?.files}
               name="plan"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
@@ -270,7 +267,7 @@ const ProductForm = (props) => {
             multiple
             isMultiple={true}
             index={`5${props.cindex}${props.index1}`}
-            fileName={props?.product?.other_docs || ""}
+            fileName={props?.product?.other_docs?.files}
             name="other_docs"
             onChange={(e) =>
               handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)

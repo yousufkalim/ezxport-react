@@ -33,12 +33,12 @@ const DocumentsTab = ({ userRequest }) => {
     handleProdLength();
   }, []);
 
-  const convertBase64 = (file, fileName) => { 
+  const convertBase64 = (file) => { 
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
       fileReader.readAsDataURL(file);
       fileReader.onload = () => {
-        resolve({ file: fileReader.result.replace(/^.*,/, ''), name: fileName });
+        resolve(fileReader.result.replace(/^.*,/, ''));
       };
       fileReader.onerror = (error) => {
         reject(error);
@@ -46,33 +46,49 @@ const DocumentsTab = ({ userRequest }) => {
     });
   };
 
-  const handleCountryMissingDocs = async (files, doc_id) => {
+  const handleCountryMissingDocs = async (files, doc_id, ind) => {
     const newImagesPromises = [];
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;
-      newImagesPromises.push(convertBase64(files[i], fileName));
+      newImagesPromises.push({ filename: fileName, url: await convertBase64(files[i]) });
     }
-    const newImages = await Promise.all(newImagesPromises);
+    const newImages = newImagesPromises;
     const obj = {
       doc_id,
       files: newImages,
     };
-    setCountryMissingDocs([...countryMissingDocs, obj]);
+    setCountryMissingDocs((prev) => {
+      prev[ind] = prev[ind]?.files?.length ? {
+        ...prev[ind],
+        files: [...prev[ind]?.files, ...newImages],
+      } : {
+        ...obj
+      }
+      return [...prev];
+    });
   };
-
-  const handleProductMissingDocs = async (files, obj_id, productId) => {
+  const handleProductMissingDocs = async (files, obj_id, productId, ind) => {
     const newImagesPromises = [];
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;
-      newImagesPromises.push(convertBase64(files[i], fileName));
+      newImagesPromises.push({ filename: fileName, url: await convertBase64(files[i]) });
     }
-    const newImages = await Promise.all(newImagesPromises);
+    const newImages = newImagesPromises
     const obj = {
       productId,
       obj_id,
       files: newImages,
     };
-    setProductMissingDocs([...productMissingDocs, obj]);
+
+    setProductMissingDocs((prev) => {
+      prev[ind] = prev[ind]?.files?.length ? {
+        ...prev[ind],
+        files: [...prev[ind]?.files, ...newImages],
+      } : {
+        ...obj
+      }
+      return [...prev];
+    });
   };
 
   const handleDocuments = async () => {
@@ -96,7 +112,6 @@ const DocumentsTab = ({ userRequest }) => {
   const handleReqDoc = async () => {
     await API("get", `/requests/zipFile/${userRequest._id}`)
       .then((res) => {
-        console.log("🚀 ~ file: DocumentsTab.js ~ line 98 ~ .then ~ res", res)
         window.location.href = res.config.url;
       })
       .catch((err) => toaster("Failed", t("File not found")));
@@ -128,15 +143,18 @@ const DocumentsTab = ({ userRequest }) => {
   };
   const handleMissingDocUpload = async () => {
     const data = {
-      documents: countryMissingDocs?.map((item) => ({
-        ...item,
-        files: item?.files?.map(({ file }) => file),
-      })),
-      products: productMissingDocs?.map((item) => ({
-        ...item,
-        files: item?.files?.map(({ file }) => file),
-      })),
+      documents: countryMissingDocs,
+      // ?.map((item) => ({
+      //   ...item,
+      //   files: item?.files?.map(({ file }) => file),
+      // })),
+      products: productMissingDocs
+      // ?.map((item) => ({
+      //   ...item,
+      //   files: item?.files?.map(({ file }) => file),
+      // })),
     };
+    console.log("filesss", data)
     await API("put", `/requests/UploadmissingDocs/${userRequest._id}`, data)
       .then((res) => {
         toaster("success", t("Documents uploaded"));
@@ -157,10 +175,10 @@ const DocumentsTab = ({ userRequest }) => {
     <>
       {userRequest?.missing_docs?.length !== 0 ? (
         <>
-          <Typography>{t("Missing Documents")}</Typography>
+          <Typography>{t("Country missing documents")}</Typography>
           <Divider style={{ margin: "1rem 0 1rem 0" }} />
           <Grid container spacing={2}>
-            {userRequest?.missing_docs?.map((item, index) => {
+            {userRequest?.missing_docs?.map((item, index1) => {
               const findName = countryMissingDocs.find((doc) => {
                 return doc.doc_id === item._id;
               });
@@ -171,11 +189,12 @@ const DocumentsTab = ({ userRequest }) => {
                   <div className="to_download_div">
                     <FilePicker
                       multiple
-                      index={item._id}
-                      fileName={names}
+                      isMultiple={true}
+                      index={`${index1}-1`}
+                      fileName={findName?.files}
                       name={item.name}
                       onChange={(e) => {
-                        handleCountryMissingDocs(e.target.files, item._id);
+                        handleCountryMissingDocs(e.target.files, item._id, index1);
                       }}
                     />
                   </div>
@@ -188,28 +207,29 @@ const DocumentsTab = ({ userRequest }) => {
             return (
               <>
                 {code?.products?.filter((_) => _.missing_docs.length > 0).length > 0 && (
-                  <span>Product's Code: {code?.code?.code}</span>
+                  <span>Product missing documents</span>
                 )}
                 {code?.products?.map((product, index) => {
                   return (
                     <>
                       <Grid container spacing={2}>
-                        {product?.missing_docs?.map((item, index1) => {
+                        {product?.missing_docs?.map((item, index) => {
                           const findName = productMissingDocs.find((doc) => {
                             return doc.obj_id === item._id;
                           });
-                          const names = findName?.files?.map((item) => item.name);
+                          // const names = findName?.files?.map((item) => item.name);
                           return (
                             <Grid item xs={6} key={item._id}>
                               <label style={{ display: "flex" }}>{item?.name}</label>
                               <div className="to_download_div">
                                 <FilePicker
                                   multiple
+                                  isMultiple={true}
                                   index={item._id}
-                                  fileName={names}
+                                  fileName={findName?.files}
                                   name={item.name}
                                   onChange={(e) => {
-                                    handleProductMissingDocs(e.target.files, item._id, product._id);
+                                    handleProductMissingDocs(e.target.files, item._id, product._id, index);
                                   }}
                                 />
                               </div>

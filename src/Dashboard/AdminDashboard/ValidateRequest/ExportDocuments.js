@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ValidateButton from "../../../components/Common/ValidateButton";
 import SwitchButton from "../../../components/Common/SwitchButton";
 import ProductInputs from "../../../components/Common/ProductInputs";
 import { Grid } from "@mui/material";
-// import { ReactComponent as Arrow } from "../../../assets/arrow.svg";
 import PlusButton from "../../../assets/PlusButton.svg";
 import { ReactComponent as Delete } from "../../../assets/DeleteIcon.svg";
 import { useTranslation } from "react-i18next";
@@ -63,7 +62,7 @@ const ExportDocuments = (props) => {
               <Grid item xs={6} className="vendors_div">
                 <SwitchButton
                   text={item?.doc_id?.name}
-                  item={item}
+                  item={item?.files}
                   onChange={(e) =>
                     props.handleCountryDocsValidate(e.target.checked, item?.doc_id?._id)
                   }

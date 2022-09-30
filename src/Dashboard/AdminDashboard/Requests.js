@@ -196,8 +196,8 @@ const Requests = () => {
                             <p className="clrClass">{t(item?.status)}</p>
                           ) : item?.status === "Being checked by an expert" ? (
                             <p className="process_status">{t(item?.status)}</p>
-                          ) : (
-                            "--"
+                                ) : item?.status === "Documents to be checked" && (
+                                  <p className="clrClass" >{t(item?.status)}</p>
                           )}
                         </TableCell>
                       </TableRow>
