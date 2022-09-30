@@ -116,7 +116,7 @@ const ServiceProviders = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", t("Error while fetching service providers"));
+        toaster("failed", t("Error while fetching service providers"));
 
         setLoading(false);
       });

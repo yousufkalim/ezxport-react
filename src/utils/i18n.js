@@ -25,6 +25,7 @@ i18n
           "Postal code is required": "Postal code is required",
           "Town is required": "Town is required",
           "Contact first name is required.": "Contact first name is required.",
+          "Contact first name is required": "Contact first name is required",
           "Contact last Name  is required": "Contact last Name  is required",
           "Address is required": "Address is required",
           "address is required": "address is required",
@@ -119,6 +120,7 @@ i18n
           "Error":"Error",
           "error":"error",
           "Range calculations not found":"Range calculations not found",
+          "Documents to be checked":"Documents to be checked",
 
           Country: "Country",
           Searching: "Searching",
@@ -781,6 +783,7 @@ i18n
           "Postal code is required": "Le code postal est requis",
           "Town is required": "La ville est requise",
           "Contact first name is required.": "Le prénom du contact est requis",
+          "Contact first name is required": "Le prénom du contact est requis",
           "Contact last Name  is required": "Le nom de famille du contact est requis",
           "Address is required": "L'adresse est obligatoire",
           "address is required": "L'adresse est obligatoire",
@@ -876,7 +879,7 @@ i18n
           "Error":"Erreur",
           "error":"Erreur",
           "Range calculations not found":"Calculs de plage introuvables",
-
+          "Documents to be checked":"Documents à vérifier",
 
       
 

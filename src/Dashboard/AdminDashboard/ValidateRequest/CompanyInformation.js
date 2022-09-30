@@ -8,7 +8,6 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import { useParams } from "react-router-dom";
-import API from "../../../api/index";
 import { useTranslation } from "react-i18next";
 import AddressBook from "./AddressBook";
 import ExportDocuments from "./ExportDocuments";
@@ -195,17 +194,17 @@ const ValidateForm = (props) => {
                   <>
                     <TableContainer component={Paper}>
                       <ExportDocuments
-                        requestById={props.requestById}
-                        handleCountryDocsValidate={props.handleCountryDocsValidate}
-                        handleProductDocsValidate={props.handleProductDocsValidate}
-                        inputList={props.inputList}
-                        setInputList={props.setInputList}
-                        inputListProduct={props.inputListProduct}
-                        setInputListProduct={props.setInputListProduct}
-                        validateCountry={props.validateCountry}
-                        setValidateCountry={props.setValidateCountry}
-                        validateProduct={props.validateProduct}
-                        setValidateProduct={props.setValidateProduct}
+                        requestById={props?.requestById}
+                        handleCountryDocsValidate={props?.handleCountryDocsValidate}
+                        handleProductDocsValidate={props?.handleProductDocsValidate}
+                        inputList={props?.inputList}
+                        setInputList={props?.setInputList}
+                        inputListProduct={props?.inputListProduct}
+                        setInputListProduct={props?.setInputListProduct}
+                        validateCountry={props?.validateCountry}
+                        setValidateCountry={props?.setValidateCountry}
+                        validateProduct={props?.validateProduct}
+                        setValidateProduct={props?.setValidateProduct}
                       />
                     </TableContainer>
                   </>
