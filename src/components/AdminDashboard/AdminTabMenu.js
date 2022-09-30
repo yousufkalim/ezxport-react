@@ -72,7 +72,7 @@ const AdminTabMenu = () => {
         setCalculation(res.data.country.calculation);
       })
       .catch((err) => {
-        toaster("failed", t("Countries not found"), "Error")
+        toaster("failed", t("Countries not found"), t("Error"))
       });
   };
   return (

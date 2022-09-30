@@ -251,7 +251,8 @@ export default function HorizontalNonLinearStepper() {
         }
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message.msg));
+        toaster("failed", t(err.response.data.message.msg));
+        console.log(err.response.data.message.msg, "ssssss");
       });
   };
   const handleStep1 = async () => {
@@ -381,7 +382,8 @@ export default function HorizontalNonLinearStepper() {
         localStorage.setItem("Requested", true);
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message), t("Documents"));
+        toaster("failed", t(err.response.data.message), t("Documents"));
+        console.log(err.response.data.message,"wwwww");
       });
   };
   const handleDocByCountryId = async () => {
@@ -390,7 +392,7 @@ export default function HorizontalNonLinearStepper() {
         setCountryDoc(res?.data?.documents);
         setFormUpdate(true);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch((err) => toaster("failed", t(err.response.data.message)));
   };
 
   const handleUploadDoc = async (file, docId, index) => {
@@ -498,7 +500,9 @@ export default function HorizontalNonLinearStepper() {
       });
       window.location = response.data.url;
     } catch (e) {
+      
       console.trace(e);
+      
     }
   };
 

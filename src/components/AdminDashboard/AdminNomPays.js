@@ -100,7 +100,7 @@ const AdminNomPays = () => {
         setLoading(false);
       })
       .catch(() => {
-        toaster("failed", t("Countries not found"), "Error")
+        toaster("failed", t("Countries not found"), t("Error"))
         setLoading(false);
       });
   };

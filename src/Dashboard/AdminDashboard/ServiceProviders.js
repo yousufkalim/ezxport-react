@@ -116,7 +116,7 @@ const ServiceProviders = () => {
         setLoading(false);
       })
       .catch((err) => {
-        toaster("Failed", t("Error while fetching service providers"));
+        toaster("failed", t("Error while fetching service providers"));
 
         setLoading(false);
       });
@@ -154,7 +154,7 @@ const ServiceProviders = () => {
         );
       })
       .catch((err) => {
-        toaster("Failed", t(err?.response?.data?.message));
+        toaster("failed", t(err?.response?.data?.message));
       });
   };
 
@@ -176,7 +176,7 @@ const ServiceProviders = () => {
         setNames(country_name);
       })
       .catch((err) => {
-        toaster("Failed", t(err.response.data.message), "Countries");
+        toaster("failed", t(err.response.data.message), "Countries");
       });
   };
 
@@ -223,7 +223,7 @@ const ServiceProviders = () => {
         );
       })
       .catch((err) => {
-        toaster("Failed", t("Service provider is not deleted"));
+        toaster("failed", t("Service provider is not deleted"));
       });
   };
 
