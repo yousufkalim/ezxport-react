@@ -157,7 +157,7 @@ const ProductInputs = (props) => {
           <SwitchButton
             text={t("Technical sheet")}
             name="technical_sheet"
-            item={props?.product?.technical_sheet}
+            item={props?.product?.technical_sheet?.files}
             label={props?.product?.technical_sheet?.status === "Valid" ? "Valid" : "In-Valid"}
             checked={props?.product?.technical_sheet?.status === "Valid" ? true : false}
             onChange={(e) =>
@@ -169,7 +169,7 @@ const ProductInputs = (props) => {
           <SwitchButton
             text={t("Test report")}
             name="test_report"
-            item={props?.product?.test_report}
+            item={props?.product?.test_report?.files}
             label={props?.product?.test_report?.status === "Valid" ? "Valid" : "In-Valid"}
             checked={props?.product?.test_report?.status === "Valid" ? true : false}
             onChange={(e) =>
@@ -207,7 +207,7 @@ const ProductInputs = (props) => {
           <SwitchButton
             text={t("Analysis Certificate")}
             name="analysis_certificate"
-            item={props?.product?.analysis_certificate}
+            item={props?.product?.analysis_certificate?.files}
             label={props?.product?.analysis_certificate?.status === "Valid" ? "Valid" : "In-Valid"}
             checked={props?.product?.analysis_certificate?.status === "Valid" ? true : false}
             onChange={(e) =>
@@ -219,7 +219,7 @@ const ProductInputs = (props) => {
           <SwitchButton
             text={t("Plan")}
             name="plan"
-            item={props?.product?.plan}
+            item={props?.product?.plan?.files}
             label={props?.product?.plan?.status === "Valid" ? "Valid" : "In-Valid"}
             checked={props?.product?.plan?.status === "Valid" ? true : false}
             onChange={(e) =>
@@ -233,7 +233,7 @@ const ProductInputs = (props) => {
           <SwitchButton
             text={t("Other documents")}
             name="other_docs"
-            item={props?.product?.other_docs}
+            item={props?.product?.other_docs?.files}
             label={props?.product?.other_docs?.status === "Valid" ? "Valid" : "In-Valid"}
             checked={props?.product?.other_docs?.status === "Valid" ? true : false}
             onChange={(e) =>
