@@ -67,7 +67,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
   return (
     <div>
       <List>
-        <ListItemButton
+        {/* <ListItemButton
           sx={{ border: "1px solid #EAECF0", background: "#f9fafb" }}
         >
           <li
@@ -94,7 +94,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
               />
             )}
           </li>
-        </ListItemButton>
+        </ListItemButton> */}
         {loading ? (
           <Spinner />
         ) : (
@@ -143,8 +143,7 @@ const DocumentByName = ({ loading, codes: allCodes, setCodes, searchTerm }) => {
                                   >
                                     <li
                                       className="table_li2"
-
-                                      style={{ marginRight: "auto", display: "flex" }}
+                                      style={{ marginRight: "auto", display: "flex", width: '100%' }}
                                     >
                                       <img src={RightArrow} alt="" className="rightArrow" />
                                       {code?.code}
