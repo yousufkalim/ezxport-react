@@ -35,7 +35,7 @@ const title = [
   { heading: "E-mail address" },
   { heading: "Telephone" },
   { heading: "Address" },
-  { heading: "" },
+  { heading: "Actions" },
 ];
 
 const KEYS_TO_FILTERS = ["company_name"];
