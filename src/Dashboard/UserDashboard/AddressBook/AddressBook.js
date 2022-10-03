@@ -9,6 +9,7 @@ import API from "../../../api/index";
 import { toast } from "react-toastify";
 import SellersTab from "./subcomponents/SellersTab";
 import LocationsTab from "./subcomponents/LocationsTab";
+import toaster from "../../../utils/toaster";
 
 const schema = {
   companyName: {
@@ -81,7 +82,6 @@ const AddressBook = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const user = localStorage.getItem("userData");
   const userData = JSON.parse(user);
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -94,7 +94,8 @@ const AddressBook = () => {
         setCountries(res?.data?.countries);
       })
       .catch((err) => {
-        toast.error(t("Something went wrong!"));
+        // toast.error(t("Something went wrong!"));
+        toaster("failed", t("Something went wrong!"), "Address book")
       });
   };
 
@@ -107,6 +108,7 @@ const AddressBook = () => {
   };
 
   const buttonTitle = value === 0 ? "Add buyer" : value === 1 ? "Add seller" : "Add location";
+
   return (
     <>
       <div className="list_main_div">
@@ -141,7 +143,6 @@ const AddressBook = () => {
                   value={value}
                 />
               </TabPanel>
-
               {/*SELLER TAB  */}
               <TabPanel value={value} index={1}>
                 <SellersTab
