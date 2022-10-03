@@ -75,7 +75,9 @@ const Requests = () => {
     setLoading(true);
     await API("get", "/requests")
       .then((res) => {
-        setAllRequest(res.data.requets);
+        // setAllRequest(res?.data?.requets);
+        const filteredRequests = res?.data?.requets?.filter((item) => { return item?.user !== null })
+        setAllRequest(filteredRequests);
         setLoading(false);
       })
       .catch((err) => {
@@ -166,7 +168,7 @@ const Requests = () => {
                           <p className="country2">{item?.country?.name}</p>
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          <p className="AP_plus_title">{item?.user.first_name} {item?.user.last_name}</p>
+                          <p className="AP_plus_title">{item?.user?.first_name} {item?.user?.last_name}</p>
                         </TableCell>
                         <TableCell align="left" className="country2">
                           {Moment(item?.createdAt).format("DD/MM/YYYY")}

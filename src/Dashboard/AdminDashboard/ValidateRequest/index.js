@@ -26,7 +26,6 @@ const Index = () => {
   const { t } = useTranslation();
   const params = useParams();
   const { id } = params;
-
   useEffect(() => {
     handlerequestById();
   }, []);
@@ -120,7 +119,7 @@ const Index = () => {
     e.stopPropagation();
     await API('get', `/requests/zipFile/${reqId}`)
       .then((res) => {
-        window.location.href = res.config.url;
+        window.location.href = res?.config?.url;
       })
       .catch((err) => toaster('failed', t('File not found!')));
   };
@@ -160,18 +159,18 @@ const Index = () => {
               {inputList?.length !== 0 ? (
                 <Button
                   text={t('Request document')}
-                  className='validate_button'
+                  className={'validate_button'}
                   onClick={handleModalOpen}
+                  // disabled={disableValidateButton ? true : false}
                 />
-              ) : inputListProduct?.length !== 0 ? (
-                <Button
+              ) : inputListProduct?.length !== 0 ?
+                (<Button
                   text={t('Request document')}
-                  className='validate_button'
-                  onClick={handleModalOpen}
-                />
-              ) : (
-                ''
-              )}
+                    className={'validate_button'}
+                    onClick={handleModalOpen}
+                // disabled={disableValidateButton ? true : false}
+                />)
+                : ("")}
             </div>
           )}
         </div>
@@ -199,7 +198,7 @@ const Index = () => {
         Closebtn={true}
       >
         <TextareaAutosize
-          minRows={10}
+          minRows={7}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder={t('Start writing from here')}
@@ -213,9 +212,9 @@ const Index = () => {
         />
         <Button
           text={t('Submit')}
-          className='bom_downloadFile_btn'
+          className={comment !== '' ? 'bom_downloadFile_btn' : "bom_downloadFile_btn_disabled"}
           onClick={handleRequestDoc}
-          disabled={modalBtn === true && comment === '' && true}
+          disabled={modalBtn === true && comment === '' ? true : false} 
         />
       </Modal>
     </>
