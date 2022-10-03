@@ -156,6 +156,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           fullWidth
           open={open}
           onClose={handleClose}
+          className='logout-modal'
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >

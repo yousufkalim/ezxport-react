@@ -200,7 +200,7 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toaster("success", t("User created successfully"), t("Createed User"));
+        toaster("success", t("User created successfully"), t("Created User"));
 
         history.push("/");
       })
