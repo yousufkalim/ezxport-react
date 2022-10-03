@@ -377,13 +377,13 @@ export default function HorizontalNonLinearStepper() {
         data.codes.push(item2);
       });
     });
+    console.log("In Request docs", data)
     await API("put", "/requests/documents", data)
       .then((res) => {
         localStorage.setItem("Requested", true);
       })
       .catch((err) => {
-        toaster("failed", t(err.response.data.message), t("Documents"));
-        console.log(err.response.data.message,"wwwww");
+        toaster("failed", t(err?.response?.data?.message?.msg), t("Documents"));
       });
   };
   const handleDocByCountryId = async () => {
@@ -476,7 +476,6 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => toaster("Failed", t(err.response.data.message)));
   };
   const handleStripe = () => {
-    handleStep4();
     const line_items = [
       {
         price_data: {
@@ -497,12 +496,16 @@ export default function HorizontalNonLinearStepper() {
       const response = await API("post", "/requests/Checkout", {
         line_items: line_items,
         metaData: { id },
-      });
-      window.location = response.data.url;
+      }).then((res) => {
+        handleStep4();
+        window.open(`${res?.data?.url}`, "_blank")
+      }).catch(() => {
+        localStorage.setItem("Requested", false);
+      })
+      // window.location = response.data.url;
     } catch (e) {
-      
       console.trace(e);
-      
+      console.log("------>", e)
     }
   };
 
