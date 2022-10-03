@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LoginIcon from "../assets/LoginIcon.svg";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Header from "../components/Common/Header";
 import API from "../api/index";
 import InputField from "../components/Common/InputField";
@@ -39,6 +39,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { t } = useTranslation();
+  const history = useHistory();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
@@ -71,8 +72,9 @@ const Login = () => {
             localStorage.setItem("userData", JSON.stringify(res?.data?.user));
             localStorage.setItem("token", res?.data?.token);
             localStorage.setItem("role", JSON.stringify(res?.data?.role));
-            localStorage.setItem('newUser', true);
+            localStorage.setItem('newUser', res?.data?.user?.onboarded);
             window.location = "/User/Dashboard/ListOfRequests";
+            // history.push('/User/Dashboard/ListOfRequests');
           } else if (res?.data?.role === "admin") {
             localStorage.setItem("userData", JSON.stringify(res?.data?.admin));
             localStorage.setItem("token", res?.data?.token);

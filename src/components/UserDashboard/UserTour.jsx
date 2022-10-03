@@ -1,6 +1,8 @@
 import Button from '../Common/Button';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import API from '../../api';
+import toaster from '../../utils/toaster';
 
 const paths = [
     '/User/Dashboard/ListOfRequests',
@@ -15,10 +17,18 @@ const UserTour = (props) => {
     const history = useHistory();
     const i = index + 1;
 
-    const handleNext = (next) => {
-        if (props.pathname === '/User/Dashboard/Documents') {
-            localStorage.setItem('newUser', false);
-            props.setShowTour(false);
+    const handleNext = async (next) => {
+        if (next && props.pathname === '/User/Dashboard/Documents') {
+            const user = localStorage.getItem('userData');
+            const currentUser = JSON.parse(user);
+            currentUser.onboarded = false
+            await API('put', `/users/${currentUser._id}`, currentUser).then((res) => {
+                localStorage.setItem('newUser', false);
+                props.setShowTour(false);
+                history.push('/User/Dashboard/ListOfRequests')
+            }).catch((err) => {
+                toaster('failed', 'Something went wrong');
+            })
         }
         else {
             let routeIndex = next ? paths.indexOf(pathname) + 1 : paths.indexOf(pathname) - 1;
@@ -33,7 +43,8 @@ const UserTour = (props) => {
     }
 
     return (
-        <div className="user_tour" style={{ top: i === 2 ? '9%' : i === 3 ? '13%' : i === 4 && '16%' }}>
+        <div className="user_tour" style={{ top: i === 2 ? '10.7%' : i === 3 ? '14.3%' : i === 4 && '19.3%' }}>
+            <div className='user_tour_triangle'></div>
             <div className='user_tour_title_container'>
                 <div className='user_tour_title'>{title}</div>
                 {`${i}/4`}
