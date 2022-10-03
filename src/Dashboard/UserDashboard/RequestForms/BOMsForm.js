@@ -233,6 +233,22 @@ const BOMsForm = (props) => {
       setMonetaryValue(validatedValue);
     }
   };
+  const handleEditModaldata = (value) => {
+    const validatedValue = value.replace(/[^0-9]/g, "");
+    if (validatedValue === "0") {
+      if (editModalData?.item?.monetary_value !== "") {
+        setEditModalData((prev) => {
+          prev.item.monetary_value = validatedValue;
+          return { ...prev };
+        });
+      }
+    } else {
+      setEditModalData((prev) => {
+        prev.item.monetary_value = validatedValue;
+        return { ...prev };
+      });
+    }
+  }
   const getBomByCountryId = async () => {
     await API("get", `/boms/getByCountryId/${step1.country}`)
       .then((res) => {
@@ -467,12 +483,7 @@ const BOMsForm = (props) => {
             <InputField
               className="monetary_value"
               value={editModalData?.item?.monetary_value}
-              onChange={(e) => {
-                setEditModalData((prev) => {
-                  prev.item.monetary_value = e.target.value;
-                  return { ...prev };
-                });
-              }}
+              onChange={(e) => { handleEditModaldata(e.target.value) }}
             />
           </div>
           <Button

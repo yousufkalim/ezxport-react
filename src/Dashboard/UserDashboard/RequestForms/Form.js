@@ -168,9 +168,13 @@ export default function HorizontalNonLinearStepper() {
     handleBuyer();
     handlePlaces();
   }, []);
+
   useEffect(() => {
-    handleRequestById();
+    if (retrieveRequestId !== "default") {
+      handleRequestById();
+    }
   }, [retrieveRequestId]);
+
   const handleRequestById = async () => {
     await API("get", `/requests/${retrieveRequestId}`)
       .then((res) => {
