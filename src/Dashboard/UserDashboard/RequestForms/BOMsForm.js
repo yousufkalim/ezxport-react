@@ -172,8 +172,7 @@ const BOMsForm = (props) => {
         })
         .catch((err) => {
           setLoading(false);
-          toaster("Failed", t("Country is required for uploading codes"));
-
+          toaster("Failed", t(err?.response?.message), "Codes");
           setImportedFile("");
         });
     } else {
