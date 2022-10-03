@@ -369,25 +369,9 @@ export default function HorizontalNonLinearStepper() {
       .catch((err) => toaster("Failed", t(err?.response?.data?.message?.msg)));
   };
   const handleSendFile = () => setPlatformSelect(true);
-  const handleStep4 = async () => {
-    let data = {
-      request: requestId,
-      codes: [],
-    };
-    productCodes.map((item) => {
-      item?.products?.map((item2) => {
-        data.codes.push(item2);
-      });
-    });
-    console.log("In Request docs", data)
-    await API("put", "/requests/documents", data)
-      .then((res) => {
-        localStorage.setItem("Requested", true);
-      })
-      .catch((err) => {
-        toaster("failed", t(err?.response?.data?.message?.msg), t("Documents"));
-      });
-  };
+  
+
+
   const handleDocByCountryId = async () => {
     await API("get", `/documents/getByCountry/${step1?.country}`)
       .then((res) => {
@@ -477,39 +461,55 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch((err) => toaster("Failed", t(err?.response?.data?.message)));
   };
-  // STRIPE PAYMENT FUNCTION
-  const handleStripe = () => {
-    const line_items = [
-      {
-        price_data: {
-          currency: "USD",
-          product_data: {
-            name: step1?.title,
+
+  const handleStep4 = async () => {
+    let data = {
+      request: requestId,
+      codes: [],
+    };
+    productCodes.map((item) => {
+      item?.products?.map((item2) => {
+        data.codes.push(item2);
+      });
+    });
+    // console.log("In Request docs", data)
+    await API("put", "/requests/documents", data)
+      .then((res) => {
+        localStorage.setItem("Requested", true);
+        const line_items = [
+          {
+            price_data: {
+              currency: "USD",
+              product_data: {
+                name: step1?.title,
+              },
+              unit_amount: (certificationCostOfCode + (certificationCostOfCode*0.2)) ,
+            },
+            quantity: 1,
           },
-          unit_amount: (certificationCostOfCode + 50) * 100,
-        },
-        quantity: 1,
-      },
-    ];
-    getSessionUrl(requestId, line_items);
+        ];
+        getSessionUrl(requestId, line_items);
+      })
+      .catch((err) => {
+        toaster("failed", t(err?.response?.data?.message?.msg), t("Documents"));
+      });
   };
+
+  // STRIPE PAYMENT FUNCTION
+  // const handleStripe = () => {
+    
+  // };
   const getSessionUrl = async (id, line_items) => {
     await API("post", "/requests/Checkout", {
       line_items: line_items,
       metaData: { id },
     }).then((res) => {
-      handleStep4();
-      localStorage.setItem("Requested", true);
+      // handleStep4();
+      // localStorage.setItem("Requested", true);
       window.location = res?.data?.url;
     }).catch(() => {
       localStorage.setItem("Requested", false);
     })
-    // try {
-    //   const response =
-    // } catch (e) {
-    //   console.trace(e);
-    //   console.log("------>", e)
-    // }
   };
 
   const handleSendEmail = async () => {
@@ -738,12 +738,14 @@ export default function HorizontalNonLinearStepper() {
             <div className="space">
               <Warning />
             </div>
-            <div className="space1">{t("After agreeing to this you will be redirected to another site and you will need to resubmit data for new products")}</div>
+            <div className="space1">
+              <h2>Your certification cost is<h1 style={{color:'black'}}>{`${certificationCostOfCode + (certificationCostOfCode*0.2)} ${currency === "USD" ? "$":"€"}`}</h1></h2>
+              {t("After agreeing to this you will be redirected to another site and you will need to resubmit data for new products")}</div>
           </div>
           <Button1
             text={t("Agree")}
             className="to_confirm_btn"
-            onClick={handleStripe}
+            onClick={handleStep4}
           />
           <Button1
             text={t("Cancel")}
