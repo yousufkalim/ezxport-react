@@ -129,9 +129,10 @@ const Document = (props) => {
               </label>
               <div className="to_download_div">
                 <FilePicker
+                  isMultiple={item?.filename ? false : true}
                   index={index}
-                  fileName={item?.filename || item?.url?.[0]?.split("-")[1] }
-                  name={item.name}
+                  fileName={item?.filename ? item?.filename : item?.files}
+                  name={item?.name}
                   onChange={(e) => {
                     props?.handleUploadDoc(e.target.files[0], item._id, index);
                   }}
