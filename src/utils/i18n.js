@@ -102,8 +102,7 @@ i18n
           "builder required":"builder required",
           "country required":"country required",
           "value required":"value required",
-          "doc_id required":"doc_id required",
-          "Sending email is required":"Sending email is required",
+          "doc_id required": "doc_id required",
           "Doc name is required":"Doc name is required",
           "Contact name  is required":"Contact name  is required",
           "Certification required true only":"Certification required true only",
@@ -113,8 +112,7 @@ i18n
           "Max required":"Max required",
           "Certificate cost is required":"Certificate cost is required",
           "rangeId required":"rangeId required",
-          "New password is required":"New password is required",
-          "Confirm password is required":"Confirm password is required",
+          "New password is required": "New password is required",
           "Being checked by an expert":"Being checked by an expert",
           "Zipcode is too short (minimum is 5 characters)":"Zipcode is too short (minimum is 5 characters)",
           "Error":"Error",
@@ -567,9 +565,6 @@ i18n
           OKAY: "OKAY",
           title: "title",
           "title is required": "title is required",
-          "": "",
-          "": "",
-          "": "",
 
           // Service providers
           "To Search": "To Search",
@@ -679,10 +674,7 @@ i18n
             "The question was asked to the administrator",
             "Service provider deleted Successfully":"Service provider deleted Successfully",
             "Delete service provider":"Delete service provider",
-            "Service provider is not deleted":"Service provider is not deleted",
-            "":"",
-            "":"",
-            "":"",
+          "Service provider is not deleted": "Service provider is not deleted",
 
 
           //Backend Toast
@@ -864,8 +856,7 @@ i18n
           "builder required":"constructeur requis",
           "country required":"pays requis",
           "value required":"valeur requise",
-          "doc_id required":"doc_id requis",
-          "Sending email is required":"L'envoi d'un e-mail est obligatoire",
+          "doc_id required": "doc_id requis",
           "Doc name is required":"Le nom du document est requis",
           "Contact name  is required":"Le nom du contact est requis",
           "Certification required true only":"Certification requise vrai seulement",
