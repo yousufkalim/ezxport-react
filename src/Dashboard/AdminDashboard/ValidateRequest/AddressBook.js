@@ -14,6 +14,9 @@ const AddressBook = (props) => {
         <div>
           <span className="seller_title">{t("Seller data")}</span>
 
+
+
+
           <div className="inspection_textfield">
             <div className="speps_3_feilds">
               <label className="label_modal">{t("Company name")}</label>
