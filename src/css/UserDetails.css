@@ -109,6 +109,12 @@
   cursor: pointer;
   float: right;
 }
+.account_btn:disabled {
+  background-color: rgb(187, 186, 186, 0.5);
+  border: 1px solid rgb(187, 186, 186, 0.5);
+  color: #344054;
+
+}
 .emailAddress_div {
   width: 50%;
 }

@@ -8,7 +8,7 @@ import validate from "validate.js";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputField from "../components/Common/InputField";
-import { useTranslation } from "react-i18next";
+import { useTranslation, i18n } from "react-i18next";
 import toaster from "../utils/toaster";
 
 const schema = {
@@ -141,6 +141,8 @@ const Registration = () => {
   // handle change for phone number
   const handlePhnChange = (event) => {
     const { name, value } = event.target;
+    console.log("Postal code ", value);
+    console.log("Postal code ", name);
     if(name === 'postelCode'){
       if(!value.match(/[^0-9]/) && value !== '00000'){
         return setFormState((formState) => ({
@@ -166,9 +168,10 @@ const Registration = () => {
     }
   };
 
+  console.log("Formstate ", formState);
   const handleNameChange = (event) => {
     const { name, value } = event.target;
-    if (!value.match(/[^a-zA-Z0-9]/)) {
+    // if (!value.match(/[^a-zA-Z0-9]/)) {
       setFormState((formState) => ({
         ...formState,
         values: {
@@ -177,7 +180,7 @@ const Registration = () => {
         },
         touched: { ...formState.touched, [name]: true },
       }));
-    }
+    // }
   };
   const handleSubmit = async () => {
     await API("post", "/users/", {
@@ -197,7 +200,8 @@ const Registration = () => {
       },
     })
       .then(() => {
-        toaster("success", t("User created successfully"), t("Createed User"));
+        toaster("success", t("User created successfully"), t("Created User"));
+
         history.push("/");
       })
       .catch((err) => {
@@ -219,6 +223,7 @@ const Registration = () => {
           </Link>
         </div>
         <form autoComplete="off" className="registration_div">
+          {/* first input fields  */}
           <h2 className="user_info">{t("User information")}</h2>
           <div className="regist_form">
             <div className="regist_input_div">
@@ -335,6 +340,19 @@ const Registration = () => {
                     {hasError("town") && [t(formState.errors.town)]}
                   </div>
                 </div>
+                {/* <div className="city_inputs2">
+                  <InputField
+                    type="text"
+                    label="Town"
+                    isError={hasError("town")}
+                    error={formState.errors.town}
+                    placeholder="Abbeville"
+                    required
+                    value={formState.values.town}
+                    name="town"
+                    onChange={handleChange}
+                  />
+                </div> */}
               </div>
             </div>
             <div className="regist_input_div">
@@ -373,7 +391,9 @@ const Registration = () => {
               </div>
             </div>
           </div>
+          {/* second input fields  */}
           <h2 className="user_info">{t("Company information")}</h2>
+          {/* ///  */}
           <div className="regist_form">
             <div className="regist_input_div">
               <div className="regist_col1">
@@ -437,6 +457,7 @@ const Registration = () => {
               </div>
             </div>
           </div>
+          {/* ///  */}
           <div div className="btn_div">
             <Button
               className={

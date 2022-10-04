@@ -1,5 +1,6 @@
 .search-input {
     position: relative;
+    z-index: 1;
 }
 
 .search-input input{
