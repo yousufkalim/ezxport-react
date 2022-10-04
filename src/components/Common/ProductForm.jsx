@@ -10,6 +10,7 @@ const ProductForm = (props) => {
   const { product } = props;
   const { t } = useTranslation();
 
+  
   const handleDataChange = (e) => {
     const { name, value } = e.target;
     if (name === 'price') {
@@ -153,7 +154,7 @@ const ProductForm = (props) => {
             <InputField
               className="product_name_textfield"
               name="price"
-              value={product?.price}
+              value={product?.price ?? ''}
               onChange={(e) => handleDataChange(e)}
             />
           </div>

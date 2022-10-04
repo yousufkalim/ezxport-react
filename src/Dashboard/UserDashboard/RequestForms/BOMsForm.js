@@ -1,45 +1,46 @@
-import React, { useState, useEffect, useRef } from "react";
-import Inputfield from "../../../components/Common/InputField";
-import Button from "../../../components/Common/Button";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "../../../assets/DeleteIcon.svg";
-import EditIcon from "../../../assets/EditIcon.svg";
-import Modal from "../../../components/Common/Modal";
-import { ReactComponent as Featured1 } from "../../../assets/Featured1.svg";
-import InputField from "../../../components/Common/InputField";
-import { ReactComponent as Logo } from "../../../assets/logo.svg";
-import { ReactComponent as Featured } from "../../../assets/Featured.svg";
-import API from "../../../api/index";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import { Link, useHistory } from "react-router-dom";
-import CircularProgress from "@mui/material/CircularProgress";
-import ConfirmModal from "../../../components/Common/ConfirmModal";
-import { Store, UpdateStore } from "../../../StoreContext";
-import { useTranslation } from "react-i18next";
-import toaster from "../../../utils/toaster";
+import React, { useState, useEffect, useRef } from 'react';
+import Inputfield from '../../../components/Common/InputField';
+import Button from '../../../components/Common/Button';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import DeleteIcon from '../../../assets/DeleteIcon.svg';
+import EditIcon from '../../../assets/EditIcon.svg';
+import Modal from '../../../components/Common/Modal';
+import { ReactComponent as Featured1 } from '../../../assets/Featured1.svg';
+import InputField from '../../../components/Common/InputField';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { ReactComponent as Featured } from '../../../assets/Featured.svg';
+import API from '../../../api/index';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import { Link, useHistory } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import ConfirmModal from '../../../components/Common/ConfirmModal';
+import { Store, UpdateStore } from '../../../StoreContext';
+import { useTranslation } from 'react-i18next';
+import toaster from '../../../utils/toaster';
 
-const user = JSON.parse(localStorage.getItem("userData"));
-const BOMsForm = (props) => {
-  const { step1, setStep1, setMatchedData, allCodes, setAllCodes, currency, setRetrieveRequestId } = props;
+const user = JSON.parse(localStorage.getItem('userData'));
+const BOMsForm = props => {
+  const { step1, setStep1, setMatchedData, allCodes, setAllCodes, currency, setRetrieveRequestId } =
+    props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const [code, setCode] = useState("default");
-  const [monetaryValue, setMonetaryValue] = useState("");
+  const [code, setCode] = useState('default');
+  const [monetaryValue, setMonetaryValue] = useState('');
   const [requestByCountry, setRequestByCountry] = useState([]);
   const [editModalData, setEditModalData] = useState({});
   const [importedFile, setImportedFile] = useState();
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [bomId, setBomId] = useState("");
-  const [bomIndex, setBomIndex] = useState("");
+  const [bomId, setBomId] = useState('');
+  const [bomIndex, setBomIndex] = useState('');
   const [adminCodes, setAdminCodes] = useState([]);
   const { request, pastRequest, previousCodes } = Store();
 
@@ -55,12 +56,11 @@ const BOMsForm = (props) => {
     const matched = getMatchedCodes(codes);
     setStep1({ ...step1, country: countryId });
     setAllCodes(matched);
-
   };
 
-  const getMatchedCodes = (codes) => {
+  const getMatchedCodes = codes => {
     const newCodes = [];
-    codes?.forEach((item) => {
+    codes?.forEach(item => {
       const { monetary_value } = item;
       const { code, _id: codeID, certification_required, admin_code } = item.code;
 
@@ -69,7 +69,7 @@ const BOMsForm = (props) => {
         admin_code,
         code,
         codeID,
-        certification_required,
+        certification_required
       };
       newCodes.push(codeObj);
     });
@@ -81,26 +81,26 @@ const BOMsForm = (props) => {
   const fileRef = useRef(null);
 
   const handleAllRequestByCountryId = async () => {
-    await API("get", `/requests/getByCountry/${step1?.country}`)
-      .then((res) => {
+    await API('get', `/requests/getByUser/${step1?.country}`)
+      .then(res => {
         setRequestByCountry(res?.data?.request);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   useEffect(() => {
-    if (step1?.country !== "") {
+    if (step1?.country !== '') {
       handleAllRequestByCountryId();
     }
   }, [step1?.country]);
   useEffect(() => {
-    if (step1?.country !== "") {
+    if (step1?.country !== '') {
       getBomByCountryId();
     }
   }, [step1?.country]);
 
   useEffect(() => {
-    if (step1?.country !== "") {
+    if (step1?.country !== '') {
       handleTitle(step1.country);
     }
   }, [step1?.country]);
@@ -109,12 +109,12 @@ const BOMsForm = (props) => {
   const handleCertificateRequire = () => props.setCertificateRequire(false);
   const handleCertificateNotRequire = () => props.setCertificateNotRequire(false);
   const handleGetAllCountry = async () => {
-    await API("get", "/countries/")
-      .then((res) => {
+    await API('get', '/countries/')
+      .then(res => {
         props.setCounteries(res.data.countries);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message), "Countries"));
+      .catch(err => toaster('Failed', t(err.response.data.message), 'Countries'));
   };
   useEffect(() => {
     handleGetAllCountry();
@@ -125,72 +125,72 @@ const BOMsForm = (props) => {
       admin_code: code.admin_code,
       code: code?.code,
       codeID: code?._id,
-      monetary_value: monetaryValue || "--",
-      certification_required: code?.certification_required,
+      monetary_value: monetaryValue || '--',
+      certification_required: code?.certification_required
     };
-    const filtered = adminCodes?.filter((item) => {
+    const filtered = adminCodes?.filter(item => {
       return item?._id !== code?._id;
     });
 
     setAllCodes([...allCodes, obj]);
     setAdminCodes(filtered);
-    setMonetaryValue("");
+    setMonetaryValue('');
   };
-  const handleDocument = async (file) => {
-    var filename = file.name.split(".").pop();
-    if (filename === "xlsx") {
+  const handleDocument = async file => {
+    var filename = file.name.split('.').pop();
+    if (filename === 'xlsx') {
       setLoading(true);
       setImportedFile(file);
       let formData = new FormData();
-      formData.append("file", file);
-      formData.append("country", `${step1.country}`);
-      await API("post", "/boms/filterCodes", formData)
-        .then((res) => {
+      formData.append('file', file);
+      formData.append('country', `${step1.country}`);
+      await API('post', '/boms/filterCodes', formData)
+        .then(res => {
           setLoading(false);
           let arr1 = [];
           let arr2 = [];
-          res?.data?.matchedData.map((item) => {
+          res?.data?.matchedData.map(item => {
             arr1.push({
               admin_code: item.bom.admin_code,
               code: item?.bom?.code,
               codeID: item?.bom?._id,
               monetary_value: monetaryValue || item?.monetary_value,
-              certification_required: item.bom?.certification_required,
+              certification_required: item.bom?.certification_required
             });
           });
 
-          res?.data?.unMatched.map((item) => {
+          res?.data?.unMatched.map(item => {
             arr2.push({
               admin_code: item.bom.admin_code,
               code: item?.bom?.code,
               codeID: item?.bom?._id,
               monetary_value: monetaryValue || item?.monetary_value,
-              certification_required: item.bom?.certification_required,
+              certification_required: item.bom?.certification_required
             });
           });
           setAllCodes([...allCodes, ...arr1, ...arr2]);
         })
-        .catch((err) => {
+        .catch(err => {
           setLoading(false);
-          toaster("Failed", t(err?.response?.message), "Codes");
-          setImportedFile("");
+          toaster('Failed', t(err?.response?.message), 'Codes');
+          setImportedFile('');
         });
     } else {
-      toaster("Failed", t("Can only upload Excel sheet"));
+      toaster('Failed', t('Can only upload Excel sheet'));
       setLoading(false);
-      setImportedFile("");
+      setImportedFile('');
     }
   };
 
   const handleDelete = (code, bomIndex) => {
-    const codes = [...allCodes]
+    const codes = [...allCodes];
     const findCode = codes?.find((item, index) => index === bomIndex);
     const adminCode = {
       admin_code: findCode?.admin_code,
       certification_required: findCode?.certification_required,
       code: findCode?.code,
       _id: findCode?.codeID
-    }
+    };
     let filtered = codes.filter((item, index1) => {
       return index1 !== bomIndex;
     });
@@ -203,153 +203,153 @@ const BOMsForm = (props) => {
   };
 
   const handleTitle = async () => {
-    await API("post", "/requests/createName", {
+    await API('post', '/requests/createName', {
       userId: user?._id,
-      countryId: step1?.country,
+      countryId: step1?.country
     })
-      .then((res) => {
-        props.handleChange("title", t(res?.data?.tile).toUpperCase());
+      .then(res => {
+        props.handleChange('title', t(res?.data?.tile).toUpperCase());
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handleSearchTitle = async () => {
-    await API("post", "/requests/searchName/", {
-      title: step1?.title,
+    await API('post', '/requests/searchName/', {
+      title: step1?.title
     })
-      .then((res) => {
-        props.handleChange("title", t(res?.data?.tile));
+      .then(res => {
+        props.handleChange('title', t(res?.data?.tile));
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
-  const handleMonetaryValue = (value) => {
-    const validatedValue = value.replace(/[^0-9]/g, "");
-    if (validatedValue === "0") {
-      if (monetaryValue !== "") {
+  const handleMonetaryValue = value => {
+    const validatedValue = value.replace(/[^0-9]/g, '');
+    if (validatedValue === '0') {
+      if (monetaryValue !== '') {
         setMonetaryValue(validatedValue);
       }
     } else {
       setMonetaryValue(validatedValue);
     }
   };
-  const handleEditModaldata = (value) => {
-    const validatedValue = value.replace(/[^0-9]/g, "");
-    if (validatedValue === "0") {
-      if (editModalData?.item?.monetary_value !== "") {
-        setEditModalData((prev) => {
+  const handleEditModaldata = value => {
+    const validatedValue = value.replace(/[^0-9]/g, '');
+    if (validatedValue === '0') {
+      if (editModalData?.item?.monetary_value !== '') {
+        setEditModalData(prev => {
           prev.item.monetary_value = validatedValue;
           return { ...prev };
         });
       }
     } else {
-      setEditModalData((prev) => {
+      setEditModalData(prev => {
         prev.item.monetary_value = validatedValue;
         return { ...prev };
       });
     }
-  }
+  };
   const getBomByCountryId = async () => {
-    await API("get", `/boms/getByCountryId/${step1.country}`)
-      .then((res) => {
+    await API('get', `/boms/getByCountryId/${step1.country}`)
+      .then(res => {
         setAdminCodes(res?.data?.bom);
       })
-      .catch((err) => {
-        toaster("failed", t("BOM not found"), "BOM's");
+      .catch(err => {
+        toaster('failed', t('BOM not found'), "BOM's");
       });
-
   };
+
+  console.log('Moetry value ', monetaryValue);
   return (
     <div>
-      <div style={{ width: "100%" }}>
-        <label className="BomLabel">{t("Country")}</label>
+      <div style={{ width: '100%' }}>
+        <label className="BomLabel">{t('Country')}</label>
         <Select
           name="country"
           id="demo-simple-select"
-          value={step1?.country || "default"}
-          onChange={(e) => {
+          value={step1?.country || 'default'}
+          onChange={e => {
             props?.handleChange(e.target.name, e.target.value);
           }}
-          className="countrydropdown"
-        >
+          className="countrydropdown">
           <MenuItem disabled value="default">
-            {t("Select a Country")}
+            {t('Select a Country')}
           </MenuItem>
-          {props?.countries?.map((item) => {
-            return <MenuItem key={item?._id} value={item?._id}>{item?.name}</MenuItem>;
+          {props?.countries?.map(item => {
+            return (
+              <MenuItem key={item?._id} value={item?._id}>
+                {item?.name}
+              </MenuItem>
+            );
           })}
         </Select>
 
         <label className="BomLabel">
-          {t("Create a new request or select an old request to retrieve information")}
+          {t('Create a new request or select an old request to retrieve information')}
         </label>
         <Select
           id="demo-simple-select"
-          defaultValue={"default"}
-          onChange={(e) => {
+          defaultValue={'default'}
+          onChange={e => {
             setRetrieveRequestId(e.target.value);
           }}
-          className="countrydropdown"
-        >
-          <MenuItem value="default">{t("Create a new Request")}</MenuItem>
-          {requestByCountry?.map((item) => {
+          className="countrydropdown">
+          <MenuItem value="default">{t('Create a new Request')}</MenuItem>
+          {requestByCountry?.map(item => {
             return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
           })}
         </Select>
-        <label className="BomLabel">{t("Application title")}</label>
+        <label className="BomLabel">{t('Application title')}</label>
         <Inputfield
-          style={{ width: "100%" }}
+          style={{ width: '100%' }}
           name="title"
-          placeholder={t("Application title")}
+          placeholder={t('Application title')}
           className="applicationTitle2"
-          onChange={(e) => {
+          onChange={e => {
             props.handleChange(e.target.name, e.target.value);
           }}
           onBlur={handleSearchTitle}
           value={step1.title}
         />
 
-        <div className="ProductList_boms" style={{ display: "flex" }}>
-          <div style={{ marginRight: "auto" }}>
-            <span className="title_productList">{t("Product Lists")}</span>
+        <div className="ProductList_boms" style={{ display: 'flex' }}>
+          <div style={{ marginRight: 'auto' }}>
+            <span className="title_productList">{t('Product Lists')}</span>
             <br />
             <Link
-              to={"/Files/codeTemplate.xlsx"}
+              to={'/Files/codeTemplate.xlsx'}
               target="_blank"
               download
-              className="download_text"
-            >
+              className="download_text">
               {t("You don't know your product nomenclatures?")}
             </Link>
           </div>
           <div
             style={{
-              display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "flex-end",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'flex-end'
+            }}>
             <div
               style={{
-                marginRight: "7px",
-              }}
-            >
-              {loading ? <CircularProgress color="secondary" /> : ""}
+                marginRight: '7px'
+              }}>
+              {loading ? <CircularProgress color="secondary" /> : ''}
             </div>
             <label className="import_Btn" htmlFor="file">
-              {t(importedFile?.name || "Import an XLS file")}
+              {t(importedFile?.name || 'Import an XLS file')}
               <input
-                onClick={(event) => {
+                onClick={event => {
                   event.target.value = null;
                 }}
                 type="file"
-                style={{ display: "none" }}
+                style={{ display: 'none' }}
                 id="file"
-                onChange={(e) => handleDocument(e.target.files[0])}
+                onChange={e => handleDocument(e.target.files[0])}
               />
             </label>
           </div>
-          <Link to={"/Files/codeTemplate.xlsx"} target="_blank" download className="download_Btn2">
-            {t("Download XLS file")}
+          <Link to={'/Files/codeTemplate.xlsx'} target="_blank" download className="download_Btn2">
+            {t('Download XLS file')}
           </Link>
         </div>
       </div>
@@ -360,72 +360,73 @@ const BOMsForm = (props) => {
           <Select
             name="codes"
             id="demo-simple-select"
-            defaultValue={"default"}
-            onChange={(e) => setCode(e.target.value)}
-            className="countrydropdown"
-          >
+            defaultValue={'default'}
+            onChange={e => setCode(e.target.value)}
+            className="countrydropdown">
             <MenuItem disabled value="default">
-              {t("Select a Code")}
+              {t('Select a Code')}
             </MenuItem>
-            {adminCodes?.map((item) => {
-              return <MenuItem key={item?._id} value={item}>{item?.code}</MenuItem>;
+            {adminCodes?.map(item => {
+              return (
+                <MenuItem key={item?._id} value={item}>
+                  {item?.code}
+                </MenuItem>
+              );
             })}
           </Select>
         </div>
         <div className="codedropdown_div">
-          <label className="BomLabel">{t("Monetary value")}</label>
+          <label className="BomLabel">{t('Monetary value')}</label>
           <Inputfield
             value={monetaryValue}
             className="applicationTitle"
-            onChange={(e) => handleMonetaryValue(e.target.value)}
+            onChange={e => handleMonetaryValue(e.target.value)}
           />
         </div>
         <div className="codedropdown_div1">
           <Button
-            text={t("To add")}
-            className={code === "default" ? "to_add_btn_disabled" : "to_add_btn"}
+            text={t('To add')}
+            className={code === 'default' ? 'to_add_btn_disabled' : 'to_add_btn'}
             onClick={handleAddCodes}
-            disabled={code === "default" ? true : false}
+            disabled={code === 'default' || !monetaryValue ? true : false}
           />
         </div>
       </div>
       {allCodes?.length === 0 ? (
-        ""
+        ''
       ) : (
-        <TableContainer component={Paper} style={{ width: "100%", marginTop: "2%" }}>
+        <TableContainer component={Paper} style={{ width: '100%', marginTop: '2%' }}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell align="center" className="country">
-                  {t("Code")}
+                  {t('Code')}
                 </TableCell>
                 <TableCell align="center" className="country">
-                  {t("Monetary value")}
+                  {t('Monetary value')}
                 </TableCell>
 
                 <TableCell align="center" className="country">
-                  {t("Actions")}
+                  {t('Actions')}
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {allCodes?.map((item, index) => {
                 return (
-                  <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }} key={index}>
-                    <TableCell align="center" style={{ width: "20%" }}>
+                  <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} key={index}>
+                    <TableCell align="center" style={{ width: '20%' }}>
                       <p
                         className="AP_plus_title"
-                        style={{ color: item?.certification_required === false && "red" }}
-                      >
+                        style={{ color: item?.certification_required === false && 'red' }}>
                         {item?.code}
                       </p>
                     </TableCell>
 
-                    <TableCell align="center" className="country2" style={{ width: "20%" }}>
+                    <TableCell align="center" className="country2" style={{ width: '20%' }}>
                       <p
                         className="AP_plus_title"
-                        style={{ color: item?.certification_required === false && "red" }}
-                      >
+                        style={{ color: item?.certification_required === false && 'red' }}>
                         {item?.monetary_value}
                       </p>
                     </TableCell>
@@ -435,18 +436,18 @@ const BOMsForm = (props) => {
                         src={DeleteIcon}
                         alt=""
                         className="dltIcon"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
                           setOpenModal(true);
                           setBomId(item);
-                          setBomIndex(index)
+                          setBomIndex(index);
                         }}
                       />
                       <img
                         src={EditIcon}
                         alt=""
                         className="dltIcon"
-                        style={{ cursor: "pointer" }}
+                        style={{ cursor: 'pointer' }}
                         onClick={() => {
                           setOpenEditModal(true);
                           setEditModalData({ item: { ...item }, index });
@@ -464,12 +465,11 @@ const BOMsForm = (props) => {
       <Modal
         open={openEditModal}
         setOpen={setOpenEditModal}
-        title={t("Modify BOM")}
+        title={t('Modify BOM')}
         handleClose={handleEditModal}
-        Closebtn={true}
-      >
+        Closebtn={true}>
         <div>
-          <div style={{ marginTop: "2.2rem" }}>
+          <div style={{ marginTop: '2.2rem' }}>
             <label className="BomLabel">Code</label>
             <InputField
               className="code_textfield"
@@ -477,19 +477,21 @@ const BOMsForm = (props) => {
               disabled={true}
             />
           </div>
-          <div style={{ marginTop: "1rem" }}>
-            <label className="BomLabel">{t("Monetary value")}</label>
+          <div style={{ marginTop: '1rem' }}>
+            <label className="BomLabel">{t('Monetary value')}</label>
             <InputField
               className="monetary_value"
               value={editModalData?.item?.monetary_value}
-              onChange={(e) => { handleEditModaldata(e.target.value) }}
+              onChange={e => {
+                handleEditModaldata(e.target.value);
+              }}
             />
           </div>
           <Button
             text="To Confirm"
             className="to_confirm_btn"
             onClick={() => {
-              setAllCodes((prev) => {
+              setAllCodes(prev => {
                 prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
                 return [...prev];
               });
@@ -498,7 +500,6 @@ const BOMsForm = (props) => {
           />
         </div>
       </Modal>
-
 
       <ConfirmModal
         open={openModal}
@@ -509,19 +510,17 @@ const BOMsForm = (props) => {
       <Modal
         open={props.certificateRequire}
         setOpen={props.setCertificateRequire}
-        handleClose={handleCertificateRequire}
-      >
+        handleClose={handleCertificateRequire}>
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem'
+            }}>
             <div className="space">
               <Logo />
             </div>
@@ -530,26 +529,26 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              {t("Those products for")} &nbsp;
+              {t('Those products for')} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} {t("require a certification")}
+                {props.certificationCountryOfCode} {t('require a certification')}
               </span>
             </div>
             <div className="space">
-              {t("The cost of this certification is up to")}
+              {t('The cost of this certification is up to')}
               &nbsp;
-              <span style={{ fontWeight: 900, fontSize: "19px" }}>
-                {props.certificationCostOfCode} {currency === "USD" ? "$" : "Є"}/HT
+              <span style={{ fontWeight: 900, fontSize: '19px' }}>
+                {props.certificationCostOfCode} {currency === 'USD' ? '$' : 'Є'}/HT
               </span>
             </div>
           </div>
           <Button
-            text={t("Continue my request on Ezxport")}
+            text={t('Continue my request on Ezxport')}
             className="to_confirm_btn"
             onClick={props.handleStep1}
           />
           <Button
-            text={t("Go back to my request")}
+            text={t('Go back to my request')}
             className="delete_bom_btn"
             onClick={handleCertificateRequire}
           />
@@ -558,19 +557,17 @@ const BOMsForm = (props) => {
       <Modal
         open={props.certificateNotRequire}
         setOpen={props.setCertificateNotRequire}
-        handleClose={handleCertificateNotRequire}
-      >
+        handleClose={handleCertificateNotRequire}>
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem'
+            }}>
             <div className="space">
               <Logo />
             </div>
@@ -579,29 +576,27 @@ const BOMsForm = (props) => {
             </div>
 
             <div className="space">
-              {t("Those products for")} &nbsp;
+              {t('Those products for')} &nbsp;
               <span className="bold_text_in_modal">
-                {props.certificationCountryOfCode} {t("do not require a certification")}
+                {props.certificationCountryOfCode} {t('do not require a certification')}
               </span>
             </div>
-            <div className="space" style={{ textAlign: "center" }}>
-              {t("You can therefore send your goods without going through an organization.")}
+            <div className="space" style={{ textAlign: 'center' }}>
+              {t('You can therefore send your goods without going through an organization.')}
             </div>
           </div>
           <Button
-            text={t("Make another request")}
+            text={t('Make another request')}
             className="to_confirm_btn"
-            onClick={() => history.push("/User/Dashboard/ListOfRequests")}
+            onClick={() => history.push('/User/Dashboard/ListOfRequests')}
           />
           <Button
-            text={t("Go back to my request")}
+            text={t('Go back to my request')}
             className="delete_bom_btn"
             onClick={handleCertificateNotRequire}
           />
         </div>
       </Modal>
-
-
     </div>
   );
 };

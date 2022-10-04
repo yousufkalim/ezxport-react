@@ -1,26 +1,26 @@
 import React, { useEffect, useState } from 'react';
 
-import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import Button from "@mui/material/Button";
-import Button1 from "../../../components/Common/Button";
-import Typography from "@mui/material/Typography";
-import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
-import { styled } from "@mui/material/styles";
-import { StepLabel } from "@mui/material";
-import BOMsForm from "./BOMsForm";
-import DispatchForm from "./Dispatch";
-import DocumentForm from "./Document";
-import ServiceproviderForm from "./ServiceProvider";
-import { useHistory } from "react-router-dom";
-import API from "../../../api/index";
-import Modal from "../../../components/Common/Modal";
-import { ReactComponent as Featured } from "../../../assets/Featured.svg";
-import { ReactComponent as Warning } from "../../../assets/warning.svg";
-import { ReactComponent as Logo } from "../../../assets/logo.svg";
-import { useTranslation } from "react-i18next";
-import { Store, UpdateStore } from "../../../StoreContext";
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import Button from '@mui/material/Button';
+import Button1 from '../../../components/Common/Button';
+import Typography from '@mui/material/Typography';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import { styled } from '@mui/material/styles';
+import { StepLabel } from '@mui/material';
+import BOMsForm from './BOMsForm';
+import DispatchForm from './Dispatch';
+import DocumentForm from './Document';
+import ServiceproviderForm from './ServiceProvider';
+import { useHistory } from 'react-router-dom';
+import API from '../../../api/index';
+import Modal from '../../../components/Common/Modal';
+import { ReactComponent as Featured } from '../../../assets/Featured.svg';
+import { ReactComponent as Warning } from '../../../assets/warning.svg';
+import { ReactComponent as Logo } from '../../../assets/logo.svg';
+import { useTranslation } from 'react-i18next';
+import { Store, UpdateStore } from '../../../StoreContext';
 
 import toaster from '../../../utils/toaster';
 
@@ -170,7 +170,7 @@ export default function HorizontalNonLinearStepper() {
   }, []);
 
   useEffect(() => {
-    if (retrieveRequestId !== "default") {
+    if (retrieveRequestId !== 'default') {
       handleRequestById();
     }
   }, [retrieveRequestId]);
@@ -375,8 +375,6 @@ export default function HorizontalNonLinearStepper() {
   };
   const handleSendFile = () => setPlatformSelect(true);
 
-
-
   const handleDocByCountryId = async () => {
     await API('get', `/documents/getByCountry/${step1?.country}`)
       .then(res => {
@@ -455,57 +453,59 @@ export default function HorizontalNonLinearStepper() {
     });
   };
   const handleSeller = async () => {
-    await API("get", `/sellers/getByUser/${userData?._id}`)
-      .then((res) => {
+    await API('get', `/sellers/getByUser/${userData?._id}`)
+      .then(res => {
         setSeller(res?.data?.seller);
       })
       .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handleBuyer = async () => {
-    await API("get", `/buyers/getByUser/${userData?._id}`)
-      .then((res) => {
+    await API('get', `/buyers/getByUser/${userData?._id}`)
+      .then(res => {
         setBuyers(res?.data?.buyer);
       })
       .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handlePlaces = async () => {
-    await API("put", `/places/getByUser/${userData?._id}`)
-      .then((res) => {
+    await API('put', `/places/getByUser/${userData?._id}`)
+      .then(res => {
         setPlaces(res?.data?.place);
       })
-      .catch((err) => toaster("Failed", t(err?.response?.data?.message)));
+      .catch(err => toaster('Failed', t(err?.response?.data?.message)));
   };
 
   const handleStep4 = async () => {
     let data = {
       request: requestId,
-      codes: [],
+      codes: []
     };
-    productCodes.map((item) => {
-      item?.products?.map((item2) => {
+    productCodes.map(item => {
+      item?.products?.map(item2 => {
         data.codes.push(item2);
       });
     });
     // console.log("In Request docs", data)
-    await API("put", "/requests/documents", data)
-      .then((res) => {
-        localStorage.setItem("Requested", true);
+    await API('put', '/requests/documents', data)
+      .then(res => {
+        localStorage.setItem('Requested', true);
         const line_items = [
           {
             price_data: {
-              currency: "USD",
+              currency: 'USD',
               product_data: {
-                name: step1?.title,
+                name: step1?.title
               },
-              unit_amount: (certificationCostOfCode + (certificationCostOfCode * 0.2)),
+              unit_amount: Math.round(
+                (certificationCostOfCode + certificationCostOfCode * 0.2) * 100
+              )
             },
-            quantity: 1,
-          },
+            quantity: 1
+          }
         ];
         getSessionUrl(requestId, line_items);
       })
-      .catch((err) => {
-        toaster("failed", t(err?.response?.data?.message?.msg), t("Documents"));
+      .catch(err => {
+        toaster('failed', t(err?.response?.data?.message?.msg), t('Documents'));
       });
   };
 
@@ -514,16 +514,18 @@ export default function HorizontalNonLinearStepper() {
 
   // };
   const getSessionUrl = async (id, line_items) => {
-    await API("post", "/requests/Checkout", {
+    await API('post', '/requests/Checkout', {
       line_items: line_items,
-      metaData: { id },
-    }).then((res) => {
-      // handleStep4();
-      // localStorage.setItem("Requested", true);
-      window.location = res?.data?.url;
-    }).catch(() => {
-      localStorage.setItem("Requested", false);
+      metaData: { id }
     })
+      .then(res => {
+        // handleStep4();
+        // localStorage.setItem("Requested", true);
+        window.location = res?.data?.url;
+      })
+      .catch(() => {
+        localStorage.setItem('Requested', false);
+      });
   };
 
   const handleSendEmail = async () => {
@@ -539,9 +541,9 @@ export default function HorizontalNonLinearStepper() {
   const handlePlatformSelect = () => setPlatformSelect(false);
   const handleStripeModal = () => setStripeModal(false);
   const openStripeModal = () => {
-    setStripeModal(true)
-    setPlatformSelect(false)
-  }
+    setStripeModal(true);
+    setPlatformSelect(false);
+  };
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper
@@ -685,8 +687,8 @@ export default function HorizontalNonLinearStepper() {
                       activeStep === 1
                         ? handleStep2
                         : activeStep === 2
-                          ? handleStep3
-                          : activeStep === 3 && handleSendFile
+                        ? handleStep3
+                        : activeStep === 3 && handleSendFile
                     }
                   />
                 </div>
@@ -732,14 +734,13 @@ export default function HorizontalNonLinearStepper() {
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem'
+            }}>
             <div className="space">
               <Logo />
             </div>
@@ -747,19 +748,19 @@ export default function HorizontalNonLinearStepper() {
               <Warning />
             </div>
             <div className="space1">
-              <h2>Your certification cost is<h1 style={{ color: 'black' }}>{`${certificationCostOfCode + (certificationCostOfCode * 0.2)} ${currency === "USD" ? "$" : "€"}`}</h1></h2>
-              {t("After agreeing to this you will be redirected to another site and you will need to resubmit data for new products")}</div>
+              <h2>
+                Your certification cost is
+                <h1 style={{ color: 'black' }}>{`${
+                  certificationCostOfCode + certificationCostOfCode * 0.2
+                } ${currency === 'USD' ? '$' : '€'}`}</h1>
+              </h2>
+              {t(
+                'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products'
+              )}
+            </div>
           </div>
-          <Button1
-            text={t("Agree")}
-            className="to_confirm_btn"
-            onClick={handleStep4}
-          />
-          <Button1
-            text={t("Cancel")}
-            className="delete_bom_btn"
-            onClick={handleStripeModal}
-          />
+          <Button1 text={t('Agree')} className="to_confirm_btn" onClick={handleStep4} />
+          <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
         </div>
       </Modal>
     </Box>

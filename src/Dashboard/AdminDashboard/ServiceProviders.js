@@ -1,55 +1,55 @@
-import React, { useEffect, useState } from "react";
-import Button from "../../components/Common/Button";
-import SearchField from "../../components/Common/SearchField";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import PlusIcon from "../../assets/PlusIcon.svg";
-import API from "../../api/index";
-import Modal from "../../components/Common/Modal";
-import InputField from "../../components/Common/InputField";
-import MultiSelect from "../../components/Common/MultiSelect";
-import { useHistory } from "react-router-dom";
-import validate from "validate.js";
-import { useTranslation } from "react-i18next";
-import toaster from "../../utils/toaster";
-import Spinner from "../../components/Common/Spinner";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import { getSortedData } from "../../lib/getSortedData";
-import { createFilter } from "react-search-input";
-import { ReactComponent as Delete } from "../../assets/DeleteIcon.svg";
-import ConfirmModal from "../../components/Common/ConfirmModal";
+import React, { useEffect, useState } from 'react';
+import Button from '../../components/Common/Button';
+import SearchField from '../../components/Common/SearchField';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import PlusIcon from '../../assets/PlusIcon.svg';
+import API from '../../api/index';
+import Modal from '../../components/Common/Modal';
+import InputField from '../../components/Common/InputField';
+import MultiSelect from '../../components/Common/MultiSelect';
+import { useHistory } from 'react-router-dom';
+import validate from 'validate.js';
+import { useTranslation } from 'react-i18next';
+import toaster from '../../utils/toaster';
+import Spinner from '../../components/Common/Spinner';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
+import { createFilter } from 'react-search-input';
+import { ReactComponent as Delete } from '../../assets/DeleteIcon.svg';
+import ConfirmModal from '../../components/Common/ConfirmModal';
 
 const schema = {
   fullname: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { minimum: 2 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { minimum: 2 }
   },
   phone_Number: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { minimum: 10, maximum: 10 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { minimum: 10, maximum: 10 }
   },
   sendingEmail: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     email: true,
     length: {
-      maximum: 64,
-    },
+      maximum: 64
+    }
   },
   contactEmail: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
-  },
+      maximum: 64
+    }
+  }
 };
 
-const KEYS_TO_FILTERS = ["name"];
+const KEYS_TO_FILTERS = ['name'];
 
 const ServiceProviders = () => {
   const history = useHistory(null);
@@ -60,21 +60,21 @@ const ServiceProviders = () => {
   const [options, setOptions] = useState();
   const [select, setSelect] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [sort, setSort] = useState({ key: "", ascend: true });
-  const [searchTerm, setSearchTerm] = useState("");
+  const [sort, setSort] = useState({ key: '', ascend: true });
+  const [searchTerm, setSearchTerm] = useState('');
   const [openModal, setOpenModal] = useState(false);
-  const [providerId, setProviderId] = useState("");
+  const [providerId, setProviderId] = useState('');
 
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      fullname: "",
-      phone_Number: "",
-      sendingEmail: "",
-      contactEmail: "",
+      fullname: '',
+      phone_Number: '',
+      sendingEmail: '',
+      contactEmail: ''
     },
     touched: {},
-    errors: {},
+    errors: {}
   });
   const { t } = useTranslation();
 
@@ -87,8 +87,8 @@ const ServiceProviders = () => {
   useEffect(() => {
     let ids = [];
     if (options?.length > 0 && select?.length > 0) {
-      options?.map((item) => {
-        select?.map((item2) => {
+      options?.map(item => {
+        select?.map(item2 => {
           if (item.name === item2) {
             ids.push(item._id);
           }
@@ -100,23 +100,23 @@ const ServiceProviders = () => {
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
       isValid: errors ? false : true,
-      errors: errors || {},
+      errors: errors || {}
     }));
   }, [formState.values]);
 
   // getting all service providers in database
   const handleServiceProvider = async () => {
     setLoading(true);
-    await API("get", "/vendors/")
-      .then((res) => {
+    await API('get', '/vendors/')
+      .then(res => {
         setVendors(res?.data?.vendor?.reverse());
         setLoading(false);
       })
-      .catch((err) => {
-        toaster("failed", t("Error while fetching service providers"));
+      .catch(err => {
+        toaster('failed', t('Error while fetching service providers'));
 
         setLoading(false);
       });
@@ -128,120 +128,118 @@ const ServiceProviders = () => {
 
   // adding service providers in database
   const handleAddVendor = async () => {
-    await API("post", "/vendors/", {
+    await API('post', '/vendors/', {
       phone_number: formState.values.phone_Number,
       name: formState.values.fullname,
       sending_email: formState.values.sendingEmail,
       contact_email: formState.values.contactEmail,
-      countries: id,
+      countries: id
     })
-      .then((res) => {
+      .then(res => {
         setSelect([]);
         setFormState({
           isValid: false,
           values: {
-            fullname: "",
-            phone_Number: "",
-            sendingEmail: "",
-            contactEmail: "",
+            fullname: '',
+            phone_Number: '',
+            sendingEmail: '',
+            contactEmail: ''
           },
           errors: {},
-          touched: {},
+          touched: {}
         });
         setOpen(false);
-        toaster[res?.data?.success ? "success" : t("error")](
-          res?.data?.message || t("Vendor added successfully")
-        );
+        toaster('success', res?.data?.message || t('Vendor added successfully'));
       })
-      .catch((err) => {
-        toaster("failed", t(err?.response?.data?.message));
+      .catch(err => {
+        toaster('failed', t(err?.response?.data?.message));
       });
   };
 
-  const handleMultiSelectChange = (event) => {
+  const handleMultiSelectChange = event => {
     const {
-      target: { value },
+      target: { value }
     } = event;
-    setSelect(typeof value === "string" ? value.split(",") : value);
+    setSelect(typeof value === 'string' ? value.split(',') : value);
   };
 
   const handleCoutries = async () => {
-    await API("get", "/countries/")
-      .then((res) => {
+    await API('get', '/countries/')
+      .then(res => {
         let country_name = [];
         setOptions(res?.data?.countries);
-        res.data.countries.map((item) => {
+        res.data.countries.map(item => {
           country_name.push(item.name);
         });
         setNames(country_name);
       })
-      .catch((err) => {
-        toaster("failed", t(err.response.data.message), "Countries");
+      .catch(err => {
+        toaster('failed', t(err.response.data.message), 'Countries');
       });
   };
 
-  const handleChange = (event) => {
-    setFormState((formState) => ({
+  const handleChange = event => {
+    setFormState(formState => ({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value
       },
       touched: {
         ...formState.touched,
-        [event.target.name]: true,
-      },
+        [event.target.name]: true
+      }
     }));
   };
 
-  const handlePhnChange = (event) => {
+  const handlePhnChange = event => {
     if (!event.target.value.match(/[^0-9]/)) {
-      setFormState((formState) => ({
+      setFormState(formState => ({
         ...formState,
         values: {
           ...formState.values,
-          [event.target.name]: event.target.value,
+          [event.target.name]: event.target.value
         },
         touched: {
           ...formState.touched,
-          [event.target.name]: true,
-        },
+          [event.target.name]: true
+        }
       }));
     }
   };
 
   const handleDelete = async () => {
-    await API("delete", `/vendors/${providerId}`)
+    await API('delete', `/vendors/${providerId}`)
       .then(() => {
         setOpenModal(false);
-        setProviderId("");
+        setProviderId('');
         handleServiceProvider();
         toaster(
-          "success",
-          t("Service provider deleted Successfully"),
-          t("Delete service provider")
+          'success',
+          t('Service provider deleted Successfully'),
+          t('Delete service provider')
         );
       })
-      .catch((err) => {
-        toaster("failed", t("Service provider is not deleted"));
+      .catch(err => {
+        toaster('failed', t('Service provider is not deleted'));
       });
   };
 
   const searchedProviders = vendors?.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = field => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
       <div className="list_main_div">
         <div className="list_second_div">
           {/* LIST HEAD */}
           <div className="List_heading_div">
-            <h1 className="list_h1">{t("Service providers")}</h1>
+            <h1 className="list_h1">{t('Service providers')}</h1>
             <div className="searching3">
-              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
+              <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
               <Button
                 className="list_service_btn2"
-                text={t("Add a service provider")}
+                text={t('Add a service provider')}
                 Imgsrc={PlusIcon}
                 onClick={() => setOpen(true)}
               />
@@ -252,14 +250,14 @@ const ServiceProviders = () => {
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
                 <TableHead>
-                  <TableRow sx={{ border: "1px solid #EAECF0" }}>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                      {t("Service providers")} &nbsp;
+                  <TableRow sx={{ border: '1px solid #EAECF0' }}>
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Service providers')} &nbsp;
                       {!sort.ascend ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
-                            getSortedData(vendors, setVendors, setSort, [], "name", true)
+                            getSortedData(vendors, setVendors, setSort, [], 'name', true)
                           }
                           src={arrow_up}
                           alt=""
@@ -267,18 +265,18 @@ const ServiceProviders = () => {
                       ) : (
                         <img
                           onClick={() =>
-                            getSortedData(vendors, setVendors, setSort, [], "name", false)
+                            getSortedData(vendors, setVendors, setSort, [], 'name', false)
                           }
                           src={downArrow}
                           alt=""
                         />
                       )}
                     </TableCell>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                      {t("Associated countries")}
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Associated countries')}
                     </TableCell>
-                    <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                      {t("Actions")}
+                    <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                      {t('Actions')}
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -287,7 +285,7 @@ const ServiceProviders = () => {
                 ) : (
                   <TableBody>
                     {searchedProviders?.map((item, index) => (
-                      <TableRow key={index} sx={{ border: "1px solid #EAECF0" }}>
+                      <TableRow key={index} sx={{ border: '1px solid #EAECF0' }}>
                         <TableCell
                           onClick={() => {
                             history.push(
@@ -298,9 +296,8 @@ const ServiceProviders = () => {
                           scope="row"
                           sx={{
                             padding: 2,
-                            cursor: "pointer",
-                          }}
-                        >
+                            cursor: 'pointer'
+                          }}>
                           <p className="AP_plus_title">{item.name}</p>
                         </TableCell>
                         <TableCell
@@ -308,21 +305,20 @@ const ServiceProviders = () => {
                           scope="row"
                           sx={{
                             padding: 2,
-                            cursor: "pointer",
-                            display: "flex",
-                            justifyContent: "flex-start",
-                            alignItems: "flex-start",
-                            borderBottom: "none",
+                            cursor: 'pointer',
+                            display: 'flex',
+                            justifyContent: 'flex-start',
+                            alignItems: 'flex-start',
+                            borderBottom: 'none'
                           }}
                           onClick={() => {
                             history.push(
                               `/Admin/Dashboard/ServiceProvider/nameProvider/${item._id}`
                             );
-                          }}
-                        >
-                          {item.countries.map((country) => {
+                          }}>
+                          {item.countries.map(country => {
                             return (
-                              <p className="AP_plus_title" style={{ paddingLeft: "10px" }}>
+                              <p className="AP_plus_title" style={{ paddingLeft: '10px' }}>
                                 {country.name}
                               </p>
                             );
@@ -332,17 +328,16 @@ const ServiceProviders = () => {
                           component="th"
                           scope="row"
                           sx={{
-                            padding: 2,
-                          }}
-                        >
+                            padding: 2
+                          }}>
                           <Delete
-                            onClick={(e) => {
+                            onClick={e => {
                               e.stopPropagation();
                               setOpenModal(true);
                               setProviderId(item?._id);
                             }}
                             style={{
-                              cursor: "pointer",
+                              cursor: 'pointer'
                             }}
                           />
                         </TableCell>
@@ -359,78 +354,77 @@ const ServiceProviders = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t("Add a service provider")}
+        title={t('Add a service provider')}
         handleClose={handleClose}
-        Closebtn={true}
-      >
+        Closebtn={true}>
         <div className="add_vendor_div">
           <label htmlFor="" className="label_modal">
-            {t("Full Name")}
-          </label>{" "}
+            {t('Full Name')}
+          </label>{' '}
           <InputField
             name="fullname"
             className={
-              hasError("fullname") && [t(formState.errors.fullname)]
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('fullname') && [t(formState.errors.fullname)]
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             value={formState.values.fullname}
             onChange={handleChange}
           />
           <div className="error-format">
-            {hasError("fullname") ? t(formState.errors.fullname[0]) : null}
+            {hasError('fullname') ? t(formState.errors.fullname[0]) : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Phone Number")}
-          </label>{" "}
+            {t('Phone Number')}
+          </label>{' '}
           <InputField
             name="phone_Number"
             value={formState.values.phone_Number}
             type="string"
             className={
-              hasError("phone_Number") && formState.errors.phone_Number
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('phone_Number') && formState.errors.phone_Number
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handlePhnChange}
           />
           <div className="error-format">
-            {hasError("phone_Number") ? t(formState.errors.phone_Number[0]) : null}
+            {hasError('phone_Number') ? t(formState.errors.phone_Number[0]) : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Contact Last Name")}
-          </label>{" "}
+            {t('Contact Last Name')}
+          </label>{' '}
           <InputField
             name="contactEmail"
             className={
-              hasError("contactEmail") && formState.errors.contactEmail
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('contactEmail') && formState.errors.contactEmail
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
             value={formState.values.contactEmail}
           />
           <div className="error-format">
-            {hasError("contactEmail") ? t(formState.errors.contactEmail[0]) : null}
+            {hasError('contactEmail') ? t(formState.errors.contactEmail[0]) : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Default sending email address")}
+            {t('Default sending email address')}
           </label>
           <InputField
             name="sendingEmail"
             className={
-              hasError("sendingEmail") && formState.errors.sendingEmail
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('sendingEmail') && formState.errors.sendingEmail
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
             value={formState.values.sendingEmail}
           />
           <div className="error-format">
-            {hasError("sendingEmail") ? t(formState.errors.sendingEmail[0]) : null}
+            {hasError('sendingEmail') ? t(formState.errors.sendingEmail[0]) : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Select country to add")}
+            {t('Select country to add')}
           </label>
           <MultiSelect
             name="country"
@@ -440,11 +434,11 @@ const ServiceProviders = () => {
             select={select}
           />
           <Button
-            text={t("Add Service Provider")}
+            text={t('Add Service Provider')}
             className={
               formState.isValid && select.length > 0
-                ? "add_vendor_button"
-                : "add_vendor_button_disabled"
+                ? 'add_vendor_button'
+                : 'add_vendor_button_disabled'
             }
             onClick={handleAddVendor}
             disabled={!formState.isValid || select.length < 1 ? true : false}
