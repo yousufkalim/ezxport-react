@@ -67,11 +67,11 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
                     {t(item?.name)}
                   </Link>
                 </div>
-                {/* { isActive && showTour && newUser === "true" && role === 'user' &&
+                { isActive && showTour && newUser === "true" && role === 'user' &&
                   <div className="user_tour_wrapper">
                     <UserTour setShowTour={setShowTour} pathname={location.pathname} tour={item.tour} index={index} />
                   </div>
-                  }  */}
+                  } 
                 </>
               );
             } else if (role === "admin") {
@@ -156,6 +156,7 @@ const Drawer = ({ handleActiveUploadButton, activeUploadButton, Route }) => {
           fullWidth
           open={open}
           onClose={handleClose}
+          className='logout-modal'
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >

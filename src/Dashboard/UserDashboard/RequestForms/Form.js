@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
@@ -20,50 +20,50 @@ import { ReactComponent as Featured } from "../../../assets/Featured.svg";
 import { ReactComponent as Warning } from "../../../assets/warning.svg";
 import { ReactComponent as Logo } from "../../../assets/logo.svg";
 import { useTranslation } from "react-i18next";
-import { Store,UpdateStore } from "../../../StoreContext";
+import { Store, UpdateStore } from "../../../StoreContext";
 
-import toaster from "../../../utils/toaster";
+import toaster from '../../../utils/toaster';
 
-const userData = JSON.parse(localStorage.getItem("userData"));
+const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
   [`&.${stepConnectorClasses.alternativeLabel}`]: {
     top: 10,
-    left: "calc(-50% + 16px)",
-    right: "calc(50% + 16px)",
+    left: 'calc(-50% + 16px)',
+    right: 'calc(50% + 16px)'
   },
   [`&.${stepConnectorClasses.active}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7F56D9",
-    },
+      borderColor: '#7F56D9'
+    }
   },
   [`&.${stepConnectorClasses.completed}`]: {
     [`& .${stepConnectorClasses.line}`]: {
-      borderColor: "#7F56D9",
-    },
+      borderColor: '#7F56D9'
+    }
   },
   [`& .${stepConnectorClasses.line}`]: {
-    borderColor: theme.palette.mode === "dark" ? theme.palette.grey[800] : "#eaeaf0",
+    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
     borderTopWidth: 3,
-    borderRadius: 1,
-  },
+    borderRadius: 1
+  }
 }));
 
-const steps = ["BOMs", "Service providers", "Dispatch", "Documents"];
+const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
 export default function HorizontalNonLinearStepper() {
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
   const [platformSelect, setPlatformSelect] = useState(false);
   const [stripeModal, setStripeModal] = useState(false);
   const history = useHistory(null);
-  const [requestId, setRequestedId] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [requestId, setRequestedId] = useState('');
+  const [currency, setCurrency] = useState('');
   const updateStore = UpdateStore();
   const { t } = useTranslation();
   //step 1 states
   const [step1, setStep1] = useState({
-    country: "",
+    country: '',
     user: userData._id,
-    title: "",
+    title: ''
   });
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
@@ -71,10 +71,10 @@ export default function HorizontalNonLinearStepper() {
   const [codes, setCodes] = useState([]);
   const [certificateRequire, setCertificateRequire] = useState(false);
   const [certificateNotRequire, setCertificateNotRequire] = useState(false);
-  const [certificationCostOfCode, setCertificationCostOfCode] = useState("");
-  const [certificationCountryOfCode, setCertificationCountryOfCode] = useState("");
+  const [certificationCostOfCode, setCertificationCostOfCode] = useState('');
+  const [certificationCountryOfCode, setCertificationCountryOfCode] = useState('');
   const [countries, setCounteries] = useState();
-  const [retrieveRequestId, setRetrieveRequestId] = useState("");
+  const [retrieveRequestId, setRetrieveRequestId] = useState('');
   const [allCodes, setAllCodes] = useState([]);
   const { request, pastRequest } = Store();
 
@@ -82,68 +82,68 @@ export default function HorizontalNonLinearStepper() {
   const [step2, setStep2] = useState({
     isValid: false,
     values: {
-      vendorId: "",
+      vendorId: '',
       contactInfo: false,
-      lastName: "",
-      firstName: "",
-      email: "",
+      lastName: '',
+      firstName: '',
+      email: ''
     },
     touched: {},
-    errors: {},
+    errors: {}
   });
   // step 3 states
   const [step3, setStep3] = useState({
     sellerData: {
       isValid: false,
       values: {
-        seller: "",
-        companyName: "",
-        Country: "",
-        CountryId: "",
-        email: "",
-        telephone: "",
-        fullAddress: "",
-        postalCode: "",
-        town: "",
+        seller: '',
+        companyName: '',
+        Country: '',
+        CountryId: '',
+        email: '',
+        telephone: '',
+        fullAddress: '',
+        postalCode: '',
+        town: ''
       },
       errors: {},
-      touched: {},
+      touched: {}
     },
     buyerData: {
       isValid: false,
       values: {
-        buyer: "",
-        companyName: "",
-        Country: "",
-        CountryId: "",
-        email: "",
-        telephone: "",
-        fullAddress: "",
-        postalCode: "",
-        town: "",
+        buyer: '',
+        companyName: '',
+        Country: '',
+        CountryId: '',
+        email: '',
+        telephone: '',
+        fullAddress: '',
+        postalCode: '',
+        town: ''
       },
       errors: {},
-      touched: {},
+      touched: {}
     },
     placeOfInspection: {
       isValid: false,
       values: {
-        InspectionPlace: "",
-        InspectionDate: "",
-        companyName: "",
-        Country: "",
-        CountryId: "",
-        email: "",
-        telephone: "",
-        fullAddress: "",
-        postalCode: "",
-        town: "",
-        contactLastName: "",
-        contactFirstName: "",
+        InspectionPlace: '',
+        InspectionDate: '',
+        companyName: '',
+        Country: '',
+        CountryId: '',
+        email: '',
+        telephone: '',
+        fullAddress: '',
+        postalCode: '',
+        town: '',
+        contactLastName: '',
+        contactFirstName: ''
       },
       errors: {},
-      touched: {},
-    },
+      touched: {}
+    }
   });
 
   const [sellers, setSeller] = useState([]);
@@ -157,7 +157,7 @@ export default function HorizontalNonLinearStepper() {
 
   // all useEffect
   useEffect(() => {
-    const countryCurrency = countries?.find((country) => {
+    const countryCurrency = countries?.find(country => {
       return country?._id === step1?.country;
     }).currency;
     setCurrency(countryCurrency);
@@ -176,25 +176,24 @@ export default function HorizontalNonLinearStepper() {
   }, [retrieveRequestId]);
 
   const handleRequestById = async () => {
-    await API("get", `/requests/${retrieveRequestId}`)
-      .then((res) => {
+    await API('get', `/requests/${retrieveRequestId}`)
+      .then(res => {
         const request = res.data.request;
         if (request) {
           updateStore({ request: request, pastRequest: true });
         }
       })
-      .catch((err) => {
-        toaster("failed", t("Request not found"), "Request")
+      .catch(err => {
+        toaster('failed', t('Request not found'), 'Request');
       });
   };
 
   useEffect(() => {
     if (pastRequest && formUpdate === true) {
-        setCountryDoc(request?.documents);
-        setFormUpdate(false);
-  }
-}, [pastRequest, formUpdate ]);
-
+      setCountryDoc(request?.documents);
+      setFormUpdate(false);
+    }
+  }, [pastRequest, formUpdate]);
 
   const totalSteps = () => {
     return steps.length;
@@ -216,9 +215,9 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(newActiveStep);
   };
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
-  const handleStep = (step) => () => {
+  const handleStep = step => () => {
     setActiveStep(step);
   };
   const handleComplete = () => {
@@ -236,91 +235,93 @@ export default function HorizontalNonLinearStepper() {
       country: step1.country,
       user: step1.user,
       title: step1.title,
-      codes: [],
+      codes: []
     };
-    allCodes?.map((item) => {
+    allCodes?.map(item => {
       return data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
-        certification_required: item.certification_required,
+        certification_required: item.certification_required
       });
     });
-    await API("post", "/requests/calculateCost", data)
-      .then((res) => {
-        if (res.data.status === "Required") {
+    await API('post', '/requests/calculateCost', data)
+      .then(res => {
+        if (res.data.status === 'Required') {
           setCertificateRequire(true);
           setCertificationCostOfCode(res?.data?.certification_cost);
           setCertificationCountryOfCode(res?.data?.country);
-        } else if (res.data.status === "Not Required") {
+        } else if (res.data.status === 'Not Required') {
           setCertificateNotRequire(true);
           setCertificationCountryOfCode(res?.data?.country);
         }
       })
-      .catch((err) => {
-        toaster("failed", t(err.response.data.message.msg));
-        console.log(err.response.data.message.msg, "ssssss");
+      .catch(err => {
+        toaster('failed', t(err.response.data.message.msg));
+        console.log(err.response.data.message.msg, 'ssssss');
       });
   };
   const handleStep1 = async () => {
-    if (request?._id ) {
-      const allPrevCodes = request?.codes?.map(item => ({id: item?.code?._id, products: item.products}));
-      const newAllCodes = allCodes.map((item) => {
+    if (request?._id) {
+      const allPrevCodes = request?.codes?.map(item => ({
+        id: item?.code?._id,
+        products: item.products
+      }));
+      const newAllCodes = allCodes.map(item => {
         const prevCode = allPrevCodes.find(a => a.id === item.codeID);
-        if(prevCode){
-          return {...item, newCode: false, products: prevCode.products}
+        if (prevCode) {
+          return { ...item, newCode: false, products: prevCode.products };
+        } else {
+          return { ...item, newCode: false, products: [{ user: userData._id, code: item.codeID }] };
         }
-        else{
-          return {...item, newCode: false, products: [{user: userData._id, code: item.codeID }]}
-        }
-      })
-      updateStore({ previousCodes:newAllCodes });
+      });
+      updateStore({ previousCodes: newAllCodes });
     }
     let data = {
       country: step1.country,
       user: step1.user,
       title: step1.title,
       codes: [],
-      certification_cost: certificationCostOfCode,
+      certification_cost: certificationCostOfCode
     };
-    allCodes?.map((item) => {
+    allCodes?.map(item => {
       return data.codes.push({
         code: item.codeID,
         monetary_value: item.monetary_value,
-        certification_required: item.certification_required,
+        certification_required: item.certification_required
       });
     });
-    await API("post", "/requests/boms", data)
-      .then((res) => {
+    await API('post', '/requests/boms', data)
+      .then(res => {
         handleNext();
         setRequestedId(res?.data?.request?._id);
       })
 
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handleStep2 = async () => {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
-    await API("put", "/requests/userVendor", {
+    await API('put', '/requests/userVendor', {
       user: userData._id,
       request: requestId,
       vendor: vendorId,
       contact_info: contactInfo,
       contact_fname: firstName,
       contact_lname: lastName,
-      contact_email: email,
+      contact_email: email
     })
-      .then((res) => {
+      .then(res => {
         handleNext();
         toaster(
-          "success",
-          t("Service Provider Updated Successfully"),
-          t("Updated Service Provider")
+          'success',
+          t('Service Provider Updated Successfully'),
+          t('Updated Service Provider')
         );
       })
-      .catch((err) => {
-        if (err.response?.data?.message?.msg === "vendorId required") {
-          toaster("Failed", t("Vendor is required"));
+      .catch(err => {
+        if (err.response?.data?.message?.msg === 'vendorId required') {
+          toaster('Failed', t('Vendor is required'));
         } else {
-          toaster("Failed", t(err.response.data.message));
+          toaster('Failed', t(err.response.data.message));
         }
       });
   };
@@ -328,7 +329,7 @@ export default function HorizontalNonLinearStepper() {
     const placeOfInspection = step3.placeOfInspection.values;
     const sellerData = step3.sellerData.values;
     const buyerData = step3.buyerData.values;
-    await API("put", "/requests/dispatch", {
+    await API('put', '/requests/dispatch', {
       request: requestId,
       inspection_date: placeOfInspection.InspectionDate,
       buyer: {
@@ -339,7 +340,7 @@ export default function HorizontalNonLinearStepper() {
         city: buyerData.town,
         zipcode: buyerData.postalCode,
         address: buyerData.fullAddress,
-        user: userData._id,
+        user: userData._id
       },
       seller: {
         phone_number: sellerData.telephone,
@@ -349,7 +350,7 @@ export default function HorizontalNonLinearStepper() {
         city: sellerData.town,
         zipcode: sellerData.postalCode,
         address: sellerData.fullAddress,
-        user: userData._id,
+        user: userData._id
       },
       place: {
         phone_number: placeOfInspection.telephone,
@@ -361,42 +362,42 @@ export default function HorizontalNonLinearStepper() {
         address: placeOfInspection.fullAddress,
         contact_fname: placeOfInspection.contactFirstName,
         contact_lname: placeOfInspection.contactLastName,
-        user: userData._id,
-      },
+        user: userData._id
+      }
     })
-      .then((res) => {
+      .then(res => {
         handleNext();
         setCreatedCodes(res.data.request);
-        toaster("success", t(res.data.message));
+        toaster('success', t(res.data.message));
       })
 
-      .catch((err) => toaster("Failed", t(err?.response?.data?.message?.msg)));
+      .catch(err => toaster('Failed', t(err?.response?.data?.message?.msg)));
   };
   const handleSendFile = () => setPlatformSelect(true);
-  
+
 
 
   const handleDocByCountryId = async () => {
-    await API("get", `/documents/getByCountry/${step1?.country}`)
-      .then((res) => {
+    await API('get', `/documents/getByCountry/${step1?.country}`)
+      .then(res => {
         setCountryDoc(res?.data?.documents);
         setFormUpdate(true);
       })
-      .catch((err) => toaster("failed", t(err.response.data.message)));
+      .catch(err => toaster('failed', t(err.response.data.message)));
   };
 
   const handleUploadDoc = async (file, docId, index) => {
     let formData = new FormData();
-    formData.append("doc_id", docId);
-    formData.append("file", file);
-    await API("put", `/requests/documentsUpload/${requestId}`, formData)
-      .then((res) => {
-        setCountryDoc((prev) => {
+    formData.append('doc_id', docId);
+    formData.append('file', file);
+    await API('put', `/requests/documentsUpload/${requestId}`, formData)
+      .then(res => {
+        setCountryDoc(prev => {
           prev[index].filename = file.name;
           return [...prev];
         });
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
@@ -405,43 +406,52 @@ export default function HorizontalNonLinearStepper() {
     setStep2({
       ...step2,
       values: { ...step2.values, [name]: value },
-      touched: { ...step2.touched, [name]: true },
+      touched: { ...step2.touched, [name]: true }
     });
   };
   const handleSellerData = (name, value) => {
     const { sellerData } = step3;
     const { values } = step3.sellerData;
+    if (name === 'postalCode' && value === '00000') {
+      return;
+    }
     setStep3({
       ...step3,
       sellerData: {
         ...sellerData,
         values: { ...values, [name]: value },
-        touched: { ...sellerData.touched, [name]: true },
-      },
+        touched: { ...sellerData.touched, [name]: true }
+      }
     });
   };
   const handleBuyerData = (name, value) => {
     const { buyerData } = step3;
     const { values } = step3.buyerData;
+    if (name === 'postalCode' && value === '00000') {
+      return;
+    }
     setStep3({
       ...step3,
       buyerData: {
         ...buyerData,
         values: { ...values, [name]: value },
-        touched: { ...buyerData.touched, [name]: true },
-      },
+        touched: { ...buyerData.touched, [name]: true }
+      }
     });
   };
   const handleInspectionData = (name, value) => {
     const { placeOfInspection } = step3;
     const { values } = step3.placeOfInspection;
+    if (name === 'postalCode' && value === '00000') {
+      return;
+    }
     setStep3({
       ...step3,
       placeOfInspection: {
         ...placeOfInspection,
         values: { ...values, [name]: value },
-        touched: { ...placeOfInspection.touched, [name]: true },
-      },
+        touched: { ...placeOfInspection.touched, [name]: true }
+      }
     });
   };
   const handleSeller = async () => {
@@ -449,14 +459,14 @@ export default function HorizontalNonLinearStepper() {
       .then((res) => {
         setSeller(res?.data?.seller);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handleBuyer = async () => {
     await API("get", `/buyers/getByUser/${userData?._id}`)
       .then((res) => {
         setBuyers(res?.data?.buyer);
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handlePlaces = async () => {
     await API("put", `/places/getByUser/${userData?._id}`)
@@ -487,7 +497,7 @@ export default function HorizontalNonLinearStepper() {
               product_data: {
                 name: step1?.title,
               },
-              unit_amount: (certificationCostOfCode + (certificationCostOfCode*0.2)) ,
+              unit_amount: (certificationCostOfCode + (certificationCostOfCode * 0.2)),
             },
             quantity: 1,
           },
@@ -501,7 +511,7 @@ export default function HorizontalNonLinearStepper() {
 
   // STRIPE PAYMENT FUNCTION
   // const handleStripe = () => {
-    
+
   // };
   const getSessionUrl = async (id, line_items) => {
     await API("post", "/requests/Checkout", {
@@ -517,14 +527,14 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleSendEmail = async () => {
-    await API("put", `/requests/sendEmail/${requestId}`)
-      .then((res) => {
+    await API('put', `/requests/sendEmail/${requestId}`)
+      .then(res => {
         handleStep4();
-        toaster("success", t(res.data.message));
-        localStorage.setItem("Requested", true);
-        history.push("/User/Dashboard/ListOfRequests");
+        toaster('success', t(res.data.message));
+        localStorage.setItem('Requested', true);
+        history.push('/User/Dashboard/ListOfRequests');
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const handlePlatformSelect = () => setPlatformSelect(false);
   const handleStripeModal = () => setStripeModal(false);
@@ -533,22 +543,20 @@ export default function HorizontalNonLinearStepper() {
     setPlatformSelect(false)
   }
   return (
-    <Box sx={{ width: "100%", marginTop: "3rem" }}>
+    <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper
         alternativeLabel
         activeStep={activeStep}
         connector={<QontoConnector />}
-        className="stepperClass"
-      >
+        className="stepperClass">
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]} disabled={true}>
             <StepLabel>
               <p
                 className="stepper_content"
                 style={{
-                  color: activeStep === index ? "#6941C6" : "black",
-                }}
-              >
+                  color: activeStep === index ? '#6941C6' : 'black'
+                }}>
                 {t(label)}
               </p>
             </StepLabel>
@@ -559,10 +567,10 @@ export default function HorizontalNonLinearStepper() {
         {allStepsCompleted() ? (
           <React.Fragment>
             <Typography sx={{ mt: 2, mb: 1 }}>
-              {t("All steps completed - you")}&apos;{t("re finished")}
+              {t('All steps completed - you')}&apos;{t('re finished')}
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-              <Box sx={{ flex: "1 1 auto" }} />
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
               <Button onClick={handleReset}>Reset</Button>
             </Box>
           </React.Fragment>
@@ -632,35 +640,33 @@ export default function HorizontalNonLinearStepper() {
                 countries={countries}
               />
             ) : (
-              ""
+              ''
             )}
 
-            <Box sx={{ display: "flex", flexDirection: "row", width: "100%", marginTop: "5%" }}>
-              <div style={{ width: "100%", display: activeStep !== 0 && "none" }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', marginTop: '5%' }}>
+              <div style={{ width: '100%', display: activeStep !== 0 && 'none' }}>
                 <Button1
                   onClick={hanldeEstimateRequest}
                   className="request_Estimate_btn"
-                  text={t("Estimate my request")}
+                  text={t('Estimate my request')}
                 />
               </div>
 
               <div
                 style={{
-                  display: activeStep === 0 ? "none" : "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  marginTop: "4%",
-                }}
-              >
+                  display: activeStep === 0 ? 'none' : 'flex',
+                  flexDirection: 'row',
+                  width: '100%',
+                  marginTop: '4%'
+                }}>
                 <div
                   style={{
-                    width: "50%",
-                    marginBottom: "5%",
-                    display: activeStep === 0 && "none",
-                  }}
-                >
+                    width: '50%',
+                    marginBottom: '5%',
+                    display: activeStep === 0 && 'none'
+                  }}>
                   <Button1
-                    text={t("Previous step")}
+                    text={t('Previous step')}
                     className="import_Btn"
                     disabled={activeStep === 0}
                     onClick={handleBack}
@@ -668,20 +674,19 @@ export default function HorizontalNonLinearStepper() {
                 </div>
                 <div
                   style={{
-                    width: "50%",
-                    justifyContent: "flex-end",
-                    display: activeStep === 0 ? "none" : "flex",
-                  }}
-                >
+                    width: '50%',
+                    justifyContent: 'flex-end',
+                    display: activeStep === 0 ? 'none' : 'flex'
+                  }}>
                   <Button1
-                    text={activeStep === 3 ? t("Send my file") : t("Next Step")}
+                    text={activeStep === 3 ? t('Send my file') : t('Next Step')}
                     className="download_Btn"
                     onClick={
                       activeStep === 1
                         ? handleStep2
                         : activeStep === 2
-                        ? handleStep3
-                        : activeStep === 3 && handleSendFile
+                          ? handleStep3
+                          : activeStep === 3 && handleSendFile
                     }
                   />
                 </div>
@@ -695,29 +700,28 @@ export default function HorizontalNonLinearStepper() {
         <div>
           <div
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              marginTop: "1rem",
-              marginBottom: "1rem",
-            }}
-          >
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              marginTop: '1rem',
+              marginBottom: '1rem'
+            }}>
             <div className="space">
               <Logo />
             </div>
             <div className="space">
               <Featured />
             </div>
-            <div className="space">{t("Select a Platform to Continue your request")}</div>
+            <div className="space">{t('Select a Platform to Continue your request')}</div>
           </div>
           <Button1
-            text={t("Continue request on Ezxport Platform")}
+            text={t('Continue request on Ezxport Platform')}
             className="to_confirm_btn"
             onClick={openStripeModal}
           />
           <Button1
-            text={t("Continue request on other Platform")}
+            text={t('Continue request on other Platform')}
             className="delete_bom_btn"
             onClick={handleSendEmail}
           />
@@ -743,7 +747,7 @@ export default function HorizontalNonLinearStepper() {
               <Warning />
             </div>
             <div className="space1">
-              <h2>Your certification cost is<h1 style={{color:'black'}}>{`${certificationCostOfCode + (certificationCostOfCode*0.2)} ${currency === "USD" ? "$":"€"}`}</h1></h2>
+              <h2>Your certification cost is<h1 style={{ color: 'black' }}>{`${certificationCostOfCode + (certificationCostOfCode * 0.2)} ${currency === "USD" ? "$" : "€"}`}</h1></h2>
               {t("After agreeing to this you will be redirected to another site and you will need to resubmit data for new products")}</div>
           </div>
           <Button1

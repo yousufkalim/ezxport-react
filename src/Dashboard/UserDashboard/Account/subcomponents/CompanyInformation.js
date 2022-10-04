@@ -1,47 +1,49 @@
-import React from "react";
-import Spinner from "../../../../components/Common/Spinner";
-import InputField from "../../../../components/Common/InputField";
-import { FormControl, MenuItem, Select } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import Spinner from '../../../../components/Common/Spinner';
+import InputField from '../../../../components/Common/InputField';
+import { FormControl, MenuItem, Select } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const societyType = [
   {
-    name: "Test",
+    name: 'Test'
   },
   {
-    name: "testing",
+    name: 'testing'
   },
   {
-    name: "IT",
+    name: 'IT'
   },
   {
-    name: "4",
-  },
+    name: '4'
+  }
 ];
 
-const CompanyInformation = ({ formState, setFormState, loading }) => {
+const CompanyInformation = ({ formState, setFormState, loading, setBtnDisabled }) => {
   const { errors } = formState;
 
-  const companyTypeHandler = (e) => {
+  const companyTypeHandler = e => {
     setFormState({
       ...formState,
       values: { ...formState.values, type: e.target.value },
-      touched: { ...formState.touched, type: true },
+      touched: { ...formState.touched, type: true }
     });
+    setBtnDisabled(false);
   };
 
   const { t } = useTranslation();
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormState({
       ...formState,
       values: { ...formState.values, [name]: value },
-      touched: { ...formState.touched, [name]: true },
+      touched: { ...formState.touched, [name]: true }
     });
+    setBtnDisabled(false);
   };
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = field => (formState.touched[field] && formState.errors[field] ? true : false);
 
   if (loading) {
     return <Spinner />;
@@ -51,52 +53,51 @@ const CompanyInformation = ({ formState, setFormState, loading }) => {
         <div className="company_input_div">
           <div className="company_input_col">
             <label className="email_input_label" htmlFor="">
-              {t("Last name")}
+              {t('Last name')}
             </label>
             <InputField
               value={formState.values?.lastName}
               error={[t(errors.lastName)]}
-              isError={hasError("lastName")}
+              isError={hasError('lastName')}
               name="lastName"
-              onChange={(e) => handleChange(e)}
+              onChange={e => handleChange(e)}
               type="text"
               className="company_input"
-              placeholder={t("Last name")}
+              placeholder={t('Last name')}
             />
           </div>
           <div className="company_input_society">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Type of society")}
+                {t('Type of society')}
               </label>
               <Select
                 id="demo-simple-select"
                 name="type"
                 value={formState.values?.type}
-                onChange={(e) => companyTypeHandler(e)}
-                className="buyer_input"
-              >
+                onChange={e => companyTypeHandler(e)}
+                className="buyer_input">
                 {societyType?.map(({ name }) => (
                   <MenuItem key={name} value={name}>
                     {name}
                   </MenuItem>
                 ))}
               </Select>
-              {hasError("type") && <div className="input-error">{errors.type ?? null}</div>}
+              {hasError('type') && <div className="input-error">{errors.type ?? null}</div>}
             </FormControl>
           </div>
         </div>
         <div className="company_input_div">
           <div className="company_input_col">
             <label className="email_input_label" htmlFor="">
-              {t("VAT number")}
+              {t('VAT number')}
             </label>
             <InputField
               value={formState.values?.vatNumber}
               name="vatNumber"
               error={[t(errors.vatNumber)]}
-              isError={hasError("vatNumber")}
-              onChange={(e) => handleChange(e)}
+              isError={hasError('vatNumber')}
+              onChange={e => handleChange(e)}
               type="text"
               className="company_input"
               placeholder="6372890367849"

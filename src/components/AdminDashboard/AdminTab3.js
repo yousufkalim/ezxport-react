@@ -1,182 +1,181 @@
-import React, { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import DeleteIcon from "../../assets/DeleteIcon.svg";
-import API from "../../api/index";
-import Modal from "../../components/Common/Modal";
-import InputField from "../../components/Common/InputField";
-import Button from "../Common/Button";
-import validate from "validate.js";
-import { useTranslation } from "react-i18next";
-import ConfirmModal from "../Common/ConfirmModal";
-import { getSortedData } from "../../lib/getSortedData";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import Spinner from "../Common/Spinner";
-import toaster from "../../utils/toaster";
+import React, { useState, useEffect } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import API from '../../api/index';
+import Modal from '../../components/Common/Modal';
+import InputField from '../../components/Common/InputField';
+import Button from '../Common/Button';
+import validate from 'validate.js';
+import { useTranslation } from 'react-i18next';
+import ConfirmModal from '../Common/ConfirmModal';
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import Spinner from '../Common/Spinner';
+import toaster from '../../utils/toaster';
 
 const schema = {
   code: {
-    presence: { allowEmpty: false, message: "is required" },
-  },
+    presence: { allowEmpty: false, message: 'is required' }
+  }
 };
 const updateSchema = {
   bomCode: {
-    presence: { allowEmpty: false, message: "is required" },
-  },
+    presence: { allowEmpty: false, message: 'is required' }
+  }
 };
 
 const nestSortTitles = [];
 
-const AdminTab3 = (props) => {
+const AdminTab3 = props => {
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const [bomId, setBomId] = useState("");
+  const [bomId, setBomId] = useState('');
 
-  const [newCertificate_status, setNewCertificate_status] = useState("default");
-  const [certificate_status, setCertificate_status] = useState("");
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [newCertificate_status, setNewCertificate_status] = useState('default');
+  const [certificate_status, setCertificate_status] = useState('');
+  const [sort, setSort] = useState({ key: '', ascend: true });
 
   const { loading, rows, setBoms } = props;
 
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      code: "",
+      code: ''
     },
     touched: {},
-    errors: {},
+    errors: {}
   });
   const [updateBomCode, setUpdateBomCode] = useState({
     isValid: false,
     values: {
-      bomCode: "",
+      bomCode: ''
     },
     touched: {},
-    errors: {},
+    errors: {}
   });
 
   const { t } = useTranslation();
 
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = field => (formState.touched[field] && formState.errors[field] ? true : false);
 
-  const updateHasError = (field) =>
+  const updateHasError = field =>
     updateBomCode.touched[field] && updateBomCode.errors[field] ? true : false;
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
       isValid: errors ? false : true,
-      errors: errors || {},
+      errors: errors || {}
     }));
   }, [formState.values]);
 
   useEffect(() => {
     const errors = validate(updateBomCode.values, updateSchema);
-    setUpdateBomCode((updateBomCode) => ({
+    setUpdateBomCode(updateBomCode => ({
       ...updateBomCode,
       isValid: errors ? false : true,
-      errors: errors || {},
+      errors: errors || {}
     }));
   }, [updateBomCode.values]);
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     if (!event.target.value.match(/[^a-zA-Z0-9]/)) {
-      setFormState((formState) => ({
+      setFormState(formState => ({
         ...formState,
         values: {
           ...formState.values,
-          [event.target.name]: event.target.value,
+          [event.target.name]: event.target.value
         },
         touched: {
           ...formState.touched,
-          [event.target.name]: true,
-        },
+          [event.target.name]: true
+        }
       }));
     }
   };
 
-  const handleBomDelete = async (BomId) => {
-    await API("delete", `/boms/${BomId}`)
-      .then((res) => {
+  const handleBomDelete = async BomId => {
+    await API('delete', `/boms/${BomId}`)
+      .then(res => {
         props.handleCountryData();
-        setBomId("");
+        setBomId('');
         setOpenModal(false);
-        toaster("success", t("BOMs deleted successfully"), t("Deleted BOMs"));
+        toaster('success', t('BOMs deleted successfully'), t('Deleted BOMs'));
       })
-      .catch((err) => {
-        toaster("failed", t("Something went wrong"), t("BOMs"));
-
+      .catch(err => {
+        toaster('failed', t('Something went wrong'), t('BOMs'));
       });
   };
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleEditBomClick = (bomcode) => {
+  const handleEditBomClick = bomcode => {
     setOpen(true);
     setData(bomcode);
-    setUpdateBomCode((updateBomCode) => ({
+    setUpdateBomCode(updateBomCode => ({
       ...updateBomCode,
       values: {
         ...updateBomCode.values,
-        bomCode: bomcode.code,
-      },
+        bomCode: bomcode.code
+      }
     }));
     setCertificate_status(bomcode.certification_required);
   };
   const handleAddBom = async () => {
-    await API("post", "/boms", {
+    await API('post', '/boms', {
       code: formState.values.code,
       certification_required: true,
-      countries: [props?.countryId],
+      countries: [props?.countryId]
     })
-      .then((res) => {
+      .then(res => {
         props.handleCountryData();
         props.setOpenAddBomModal(false);
-        setFormState((formState) => ({
+        setFormState(formState => ({
           ...formState,
           values: {
             ...formState.values,
-            code: "",
-            certificate_status: "",
-            countries: "",
+            code: '',
+            certificate_status: '',
+            countries: ''
           },
           touched: {
             ...updateBomCode.touched,
             code: false,
             certificate_status: false,
-            countries: false,
-          },
+            countries: false
+          }
         }));
-        toaster("success", t("BOMs added successfully"), t("Adding BOMs"));
+        toaster('success', t('BOMs added successfully'), t('Adding BOMs'));
       })
-      .catch((err) => {
-        setNewCertificate_status("default");
+      .catch(err => {
+        setNewCertificate_status('default');
         props.setOpenAddBomModal(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
 
-        setFormState((formState) => ({
+        setFormState(formState => ({
           ...formState,
           values: {
             ...formState.values,
-            code: "",
-            certificate_status: "",
-            countries: "",
+            code: '',
+            certificate_status: '',
+            countries: ''
           },
           touched: {
             ...updateBomCode.touched,
             code: false,
             certificate_status: false,
-            countries: false,
-          },
+            countries: false
+          }
         }));
       });
   };
@@ -187,9 +186,9 @@ const AdminTab3 = (props) => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>BOMs code</TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Status")}
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>BOMs code</TableCell>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('Status')} &nbsp;
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
@@ -199,7 +198,7 @@ const AdminTab3 = (props) => {
                         setBoms,
                         setSort,
                         nestSortTitles,
-                        "certification_required",
+                        'certification_required',
                         true
                       )
                     }
@@ -214,7 +213,7 @@ const AdminTab3 = (props) => {
                         setBoms,
                         setSort,
                         nestSortTitles,
-                        "certification_required",
+                        'certification_required',
                         false
                       )
                     }
@@ -224,8 +223,8 @@ const AdminTab3 = (props) => {
                 )}
               </TableCell>
 
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Actions")}
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('Actions')}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -233,40 +232,33 @@ const AdminTab3 = (props) => {
             <Spinner />
           ) : (
             <TableBody>
-              {props.rows.map((row) => (
+              {props.rows.map(row => (
                 <TableRow key={row.createData}>
-                  <TableCell
-                    component="th"
-                    scope="row"
-                    sx={{ padding: 2 }}
-                    align="left"
-                  >
+                  <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
                     <p className="AP_plus_title">{row.code}</p>
                   </TableCell>
                   <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
                     {row.certification_required === true ? (
                       <p
                         style={{
-                          background: "#ECFDF3",
-                          borderRadius: "16px",
-                          display: "inline-block",
-                          padding: "2px 5px",
-                          color: "#027A48",
-                        }}
-                      >
-                        {t("Subject to inspection")}
+                          background: '#ECFDF3',
+                          borderRadius: '16px',
+                          display: 'inline-block',
+                          padding: '2px 5px',
+                          color: '#027A48'
+                        }}>
+                        {t('Subject to inspection')}
                       </p>
                     ) : (
                       <p
                         style={{
-                          background: "#FFFAEB",
-                          borderRadius: "16px",
-                          display: "inline-block",
-                          padding: "2px 5px",
-                          color: "#B54708",
-                        }}
-                      >
-                        {t("Not subject")}
+                          background: '#FFFAEB',
+                          borderRadius: '16px',
+                          display: 'inline-block',
+                          padding: '2px 5px',
+                          color: '#B54708'
+                        }}>
+                        {t('Not subject')}
                       </p>
                     )}
                   </TableCell>
@@ -275,7 +267,7 @@ const AdminTab3 = (props) => {
                       src={DeleteIcon}
                       alt=""
                       className="dltIcon"
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                       onClick={() => {
                         setBomId(row._id);
                         setOpenModal(true);
@@ -296,26 +288,25 @@ const AdminTab3 = (props) => {
         setOpen={props.setOpenAddBomModal}
         title="Add BOMs"
         handleClose={props.handleAddBomModalClose}
-        Closebtn={true}
-      >
-        <div style={{ height: "20%" }}>
+        Closebtn={true}>
+        <div style={{ height: '20%' }}>
           <label htmlFor="" className="label_modal">
             BOMs code
-          </label>{" "}
+          </label>{' '}
           <InputField
             name="code"
             value={formState.values.code}
             className={
-              hasError("code") && formState.errors.code
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('code') && formState.errors.code
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
           />
-          <div className="error-format">{hasError("code") ? formState.errors.code[0] : null}</div>
+          <div className="error-format">{hasError('code') ? formState.errors.code[0] : null}</div>
           <Button
-            text={t("Add")}
-            className={formState.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
+            text={t('Add')}
+            className={formState.isValid ? 'add_vendor_button' : 'add_vendor_button_disabled'}
             onClick={handleAddBom}
             disabled={!formState.isValid ? true : false}
           />
