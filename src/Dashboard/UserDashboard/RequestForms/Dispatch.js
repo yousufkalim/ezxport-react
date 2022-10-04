@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import InputField from "../../../components/Common/InputField";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import React, { useEffect, useState } from 'react';
+import InputField from '../../../components/Common/InputField';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 import { validate } from 'validate.js';
 import { Store } from '../../../StoreContext';
@@ -10,125 +10,125 @@ import { COUNTRIES } from '../../../lib/data';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
-import frLocale from "date-fns/locale/fr";
-import enLocale from "date-fns/locale/en-US";
+import frLocale from 'date-fns/locale/fr';
+import enLocale from 'date-fns/locale/en-US';
 import { ReactComponent as Calendar } from '../../../assets/calendarIcon.svg';
 
 const localeMap = {
   en: enLocale,
-  fr: frLocale,
+  fr: frLocale
 };
 
 const maskMap = {
-  fr: "__/__/____",
-  en: "__/__/____",
+  fr: '__/__/____',
+  en: '__/__/____'
 };
 
 const inspectionSchema = {
   companyName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   fullAddress: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   postalCode: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 5, minimum: 5 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 5, minimum: 5 }
   },
   town: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { maximum: 64 },
-    email: true,
+    email: true
   },
   telephone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 10, minimum: 10 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 10, minimum: 10 }
   },
   contactLastName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   contactFirstName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
-  },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
+  }
 };
 
 const sellerSchema = {
   companyName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   seller: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   fullAddress: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   postalCode: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 5, minimum: 5 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 5, minimum: 5 }
   },
   town: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { maximum: 64 },
-    email: true,
+    email: true
   },
   country: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   telephone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 10, minimum: 10 },
-  },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 10, minimum: 10 }
+  }
 };
 
 const buyerSchema = {
   companyName: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   seller: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   fullAddress: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   postalCode: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 5, minimum: 5 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 5, minimum: 5 }
   },
   town: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { maximum: 64 },
-    email: true,
+    email: true
   },
   country: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   telephone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 10, minimum: 10 },
-  },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 10, minimum: 10 }
+  }
 };
 
-const Dispatch = (props) => {
+const Dispatch = props => {
   const { step3, setStep3, stepHanlder } = props;
   const { buyerData, sellerData, placeOfInspection } = props.step3;
   const sellerValues = sellerData.values;
@@ -148,8 +148,8 @@ const Dispatch = (props) => {
       placeOfInspection: {
         ...placeOfInspection,
         isValid: errors ? false : true,
-        errors: errors || {},
-      },
+        errors: errors || {}
+      }
     });
   }, [step3.placeOfInspection.values]);
 
@@ -158,7 +158,7 @@ const Dispatch = (props) => {
     const errors = validate(sellerData.values, sellerSchema);
     setStep3({
       ...step3,
-      sellerData: { ...sellerData, isValid: errors ? false : true, errors: errors || {} },
+      sellerData: { ...sellerData, isValid: errors ? false : true, errors: errors || {} }
     });
   }, [step3.sellerData.values]);
 
@@ -167,7 +167,7 @@ const Dispatch = (props) => {
     const errors = validate(buyerData.values, buyerSchema);
     setStep3({
       ...step3,
-      buyerData: { ...buyerData, isValid: errors ? false : true, errors: errors || {} },
+      buyerData: { ...buyerData, isValid: errors ? false : true, errors: errors || {} }
     });
   }, [step3.buyerData.values]);
 
@@ -199,7 +199,7 @@ const Dispatch = (props) => {
     const { seller } = request;
     const { address, city, company_name, email, phone_number, zipcode, country, _id } = seller;
     const countryId = country?._id;
-    stepHanlder((prev) => ({
+    stepHanlder(prev => ({
       ...prev,
       sellerData: {
         ...prev.sellerData,
@@ -213,9 +213,9 @@ const Dispatch = (props) => {
           telephone: phone_number,
           fullAddress: address,
           postalCode: zipcode,
-          town: city,
-        },
-      },
+          town: city
+        }
+      }
     }));
   };
 
@@ -223,7 +223,7 @@ const Dispatch = (props) => {
     const { buyer } = request;
     const { address, city, company_name, email, phone_number, zipcode, country, _id } = buyer;
     const countryId = country?._id;
-    stepHanlder((prev) => ({
+    stepHanlder(prev => ({
       ...prev,
       buyerData: {
         ...prev.buyerData,
@@ -237,9 +237,9 @@ const Dispatch = (props) => {
           telephone: phone_number,
           fullAddress: address,
           postalCode: zipcode,
-          town: city,
-        },
-      },
+          town: city
+        }
+      }
     }));
   };
 
@@ -257,10 +257,10 @@ const Dispatch = (props) => {
       country,
       contact_fname,
       contact_lname,
-      _id,
+      _id
     } = place;
     const countryId = country?._id;
-    stepHanlder((prev) => ({
+    stepHanlder(prev => ({
       ...prev,
       placeOfInspection: {
         ...prev.placeOfInspection,
@@ -277,17 +277,17 @@ const Dispatch = (props) => {
           town: city,
           InspectionDate: inspection_date,
           contactLastName: contact_lname,
-          contactFirstName: contact_fname,
-        },
-      },
+          contactFirstName: contact_fname
+        }
+      }
     }));
   };
 
   const handleSelectedSeller = () => {
-    let SelectedSeller = props?.sellers?.find((item) => {
+    let SelectedSeller = props?.sellers?.find(item => {
       return item._id === props?.step3?.sellerData.values?.seller;
     });
-    props.setStep3((prev) => {
+    props.setStep3(prev => {
       prev.sellerData.values.companyName = SelectedSeller?.company_name;
       prev.sellerData.values.Country = SelectedSeller?.country;
       prev.sellerData.values.CountryId = SelectedSeller?.country?._id;
@@ -301,10 +301,10 @@ const Dispatch = (props) => {
   };
 
   const handleSelectedBuyer = () => {
-    let SelectedBuyer = props?.buyers?.find((item) => {
+    let SelectedBuyer = props?.buyers?.find(item => {
       return item._id === props?.step3?.buyerData?.values?.buyer;
     });
-    props.setStep3((prev) => {
+    props.setStep3(prev => {
       prev.buyerData.values.companyName = SelectedBuyer?.company_name;
       prev.buyerData.values.Country = SelectedBuyer?.country;
       prev.buyerData.values.CountryId = SelectedBuyer?.country?._id;
@@ -318,11 +318,11 @@ const Dispatch = (props) => {
   };
 
   const handleSelectedPlace = () => {
-    let SelectedPlace = props?.places?.find((item) => {
+    let SelectedPlace = props?.places?.find(item => {
       return item._id === props?.step3?.placeOfInspection?.values?.InspectionPlace;
     });
 
-    props.setStep3((prev) => {
+    props.setStep3(prev => {
       prev.placeOfInspection.values.companyName = SelectedPlace?.company_name;
       prev.placeOfInspection.values.Country = SelectedPlace?.country;
       prev.placeOfInspection.values.CountryId = SelectedPlace?.country?._id;
@@ -337,69 +337,67 @@ const Dispatch = (props) => {
     });
   };
 
-  const placeError = (field) =>
+  const placeError = field =>
     step3.placeOfInspection.touched[field] && step3.placeOfInspection.errors[field] ? true : false;
-  const sellerError = (field) =>
+  const sellerError = field =>
     step3.sellerData.touched[field] && step3.sellerData.errors[field] ? true : false;
-  const buyerError = (field) =>
+  const buyerError = field =>
     step3.buyerData.touched[field] && step3.buyerData.errors[field] ? true : false;
 
   return (
     <div className="dispatch_main_Div">
       <div>
-        <span className="seller_title">{t("Seller data")}</span>
+        <span className="seller_title">{t('Seller data')}</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            {t("Add or select a seller")}
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            {t('Add or select a seller')}
           </label>
           <Select
             name="seller"
             id="demo-simple-select"
-            defaultValue={"default"}
-            onChange={(e) => {
+            defaultValue={'default'}
+            onChange={e => {
               props.handleSellerData(e.target.name, e.target.value);
             }}
-            className="countrydropdown"
-          >
+            className="countrydropdown">
             <MenuItem disabled value="default">
-              {t("Company name")}
+              {t('Company name')}
             </MenuItem>
-            {props?.sellers?.map((item) => {
+            {props?.sellers?.map(item => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
             })}
           </Select>
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Company name")}</label>
+            <label className="BomLabel">{t('Company name')}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Company name")}
+              placeholder={t('Company name')}
               name="companyName"
               error={[t(sellerData.errors.companyName)]}
-              isError={sellerError("companyName")}
+              isError={sellerError('companyName')}
               value={sellerValues?.companyName}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Country")}</label>
+            <label className="BomLabel">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
               id="demo-simple-select"
-              value={sellerValues?.Country || "default"}
-              onChange={(e) => {
+              value={sellerValues?.Country || 'default'}
+              onChange={e => {
                 props.handleSellerData(e.target.name, e.target.value);
-              }}
-            >
-              <MenuItem disabled value={"default"}>
-                {t("Select a Country")}
+              }}>
+              <MenuItem disabled value={'default'}>
+                {t('Select a Country')}
               </MenuItem>
-              {COUNTRIES?.map((item) => {
+              {COUNTRIES?.map(item => {
                 return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
@@ -407,30 +405,30 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-mail address")}</label>
+            <label className="BomLabel">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
               error={[t(sellerData.errors.email)]}
-              isError={sellerError("email")}
+              isError={sellerError('email')}
               value={sellerValues.email}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Telephone")}</label>
+            <label className="BomLabel">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="xx xx xx xx xx"
               name="telephone"
               error={[t(sellerData.errors.telephone)]}
-              isError={sellerError("telephone")}
+              isError={sellerError('telephone')}
               value={sellerValues.telephone}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
@@ -438,45 +436,45 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full address")}</label>
+            <label className="BomLabel">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
               error={[t(sellerData.errors.fullAddress)]}
-              isError={sellerError("fullAddress")}
+              isError={sellerError('fullAddress')}
               name="fullAddress"
               value={sellerValues.fullAddress}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleSellerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="steps_3_2inFeilds">
-            <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postal code")}</label>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
                 value={sellerValues.postalCode}
                 error={[t(sellerData.errors.postalCode)]}
-                isError={sellerError("postalCode")}
-                onChange={(e) => {
+                isError={sellerError('postalCode')}
+                onChange={e => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label className="BomLabel">{t("Town")}</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
                 error={[t(sellerData.errors.town)]}
-                isError={sellerError("town")}
+                isError={sellerError('town')}
                 value={sellerValues.town}
-                onChange={(e) => {
+                onChange={e => {
                   props.handleSellerData(e.target.name, e.target.value);
                 }}
               />
@@ -485,59 +483,57 @@ const Dispatch = (props) => {
         </div>
       </div>
       <div className="buyer_data_div">
-        <span className="seller_title">{t("Buyer data")}</span>
+        <span className="seller_title">{t('Buyer data')}</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            {t("Add or select a buyer")}
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            {t('Add or select a buyer')}
           </label>
           <Select
             name="buyer"
             id="demo-simple-select"
-            defaultValue={"default"}
-            onChange={(e) => {
+            defaultValue={'default'}
+            onChange={e => {
               props.handleBuyerData(e.target.name, e.target.value);
             }}
-            className="countrydropdown"
-          >
+            className="countrydropdown">
             <MenuItem disabled value="default">
-              {t("Company name")}
+              {t('Company name')}
             </MenuItem>
-            {props?.buyers?.map((item) => {
+            {props?.buyers?.map(item => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
             })}
           </Select>
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Company name")}</label>
+            <label className="BomLabel">{t('Company name')}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Company name")}
+              placeholder={t('Company name')}
               name="companyName"
               error={[t(buyerData.errors.companyName)]}
-              isError={buyerError("companyName")}
+              isError={buyerError('companyName')}
               value={buyerValues?.companyName}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Country")}</label>
+            <label className="BomLabel">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
               id="demo-simple-select"
-              value={buyerValues?.Country || "default"}
-              onChange={(e) => {
+              value={buyerValues?.Country || 'default'}
+              onChange={e => {
                 props?.handleBuyerData(e.target.name, e.target.value);
-              }}
-            >
-              <MenuItem disabled value={"default"}>
-                {t("Select a Country")}
+              }}>
+              <MenuItem disabled value={'default'}>
+                {t('Select a Country')}
               </MenuItem>
-              {COUNTRIES?.map((item) => {
+              {COUNTRIES?.map(item => {
                 return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
@@ -545,30 +541,30 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-mail address")}</label>
+            <label className="BomLabel">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
               error={[t(buyerData.errors.email)]}
-              isError={buyerError("email")}
+              isError={buyerError('email')}
               value={buyerValues?.email}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Telephone")}</label>
+            <label className="BomLabel">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
               name="telephone"
               error={[t(buyerData.errors.telephone)]}
-              isError={buyerError("telephone")}
+              isError={buyerError('telephone')}
               value={buyerValues?.telephone}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
             />
@@ -576,45 +572,45 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full address")}</label>
+            <label className="BomLabel">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
               name="fullAddress"
               error={[t(buyerData.errors.fullAddress)]}
-              isError={buyerError("fullAddress")}
+              isError={buyerError('fullAddress')}
               value={buyerValues?.fullAddress}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleBuyerData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="steps_3_2inFeilds">
-            <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postal code")}</label>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
                 value={buyerValues?.postalCode}
                 error={[t(buyerData.errors.postalCode)]}
-                isError={buyerError("postalCode")}
-                onChange={(e) => {
+                isError={buyerError('postalCode')}
+                onChange={e => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label className="BomLabel">{t("Town")}</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
                 error={[t(buyerData.errors.town)]}
-                isError={buyerError("town")}
+                isError={buyerError('town')}
                 value={buyerValues?.town}
-                onChange={(e) => {
+                onChange={e => {
                   props.handleBuyerData(e.target.name, e.target.value);
                 }}
               />
@@ -623,83 +619,82 @@ const Dispatch = (props) => {
         </div>
       </div>
       <div className="buyer_data_div">
-        <span className="seller_title">{t("Place of inspection")}</span>
+        <span className="seller_title">{t('Place of inspection')}</span>
         <div>
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            {t("Add or select an inspection location")}
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            {t('Add or select an inspection location')}
           </label>
           <Select
             name="InspectionPlace"
             id="demo-simple-select"
-            defaultValue={"default"}
-            onChange={(e) => {
+            defaultValue={'default'}
+            onChange={e => {
               props.handleInspectionData(e.target.name, e.target.value);
             }}
-            className="countrydropdown"
-          >
+            className="countrydropdown">
             <MenuItem disabled value="default">
-              {t("Place of inspection")}
+              {t('Place of inspection')}
             </MenuItem>
-            {props?.places?.map((item) => {
+            {props?.places?.map(item => {
               return <MenuItem value={item?._id}>{item?.company_name}</MenuItem>;
             })}
           </Select>
         </div>
         <div className="inspection_date_container">
-          <label className="BomLabel" style={{ marginTop: "1rem" }}>
-            {t("Date on which the goods can be inspected")}
+          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+            {t('Date on which the goods can be inspected')}
           </label>
           <DatePicker
             selected={placeValues?.InspectionDate ? new Date(placeValues.InspectionDate) : ''}
-            name='InspectionDate'
-            placeholderText={t("Select inspection date")}
-            className='inspection_date'
+            name="InspectionDate"
+            placeholderText={t('Select inspection date')}
+            className="inspection_date"
             minDate={addDays(new Date(), 1)}
+            dateFormat="dd-MM-yyyy"
             showYearDropdown
             yearDropdownItemNumber={15}
             scrollableYearDropdown
             locale={lng}
-            onChange={(date) => {
-              props.handleInspectionData("InspectionDate", date);
+            onChange={date => {
+              props.handleInspectionData('InspectionDate', date);
             }}
           />
           <Calendar className="inspection_date_icon" />
 
-          {placeError("InspectionDate") && (
+          {placeError('InspectionDate') && (
             <div className="input-error">{placeOfInspection.errors.InspectionDate ?? null}</div>
           )}
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Company name")}</label>
+            <label className="BomLabel">{t('Company name')}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Company name")}
+              placeholder={t('Company name')}
               name="companyName"
               error={[t(placeOfInspection.errors.companyName)]}
-              isError={placeError("companyName")}
+              isError={placeError('companyName')}
               value={placeValues?.companyName}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Country")}</label>
+            <label className="BomLabel">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
               id="demo-simple-select"
-              value={placeValues.Country || "default"}
-              onChange={(e) => {
+              value={placeValues.Country || 'default'}
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
-              }}
-            >
-              <MenuItem disabled value={"default"}>
-                {t("Select a Country")}
+              }}>
+              <MenuItem disabled value={'default'}>
+                {t('Select a Country')}
               </MenuItem>
-              {COUNTRIES?.map((item) => {
+              {COUNTRIES?.map(item => {
                 return <MenuItem value={item}>{item}</MenuItem>;
               })}
             </Select>
@@ -707,30 +702,30 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("E-mail address")}</label>
+            <label className="BomLabel">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
               name="email"
               error={[t(placeOfInspection.errors.email)]}
-              isError={placeError("email")}
+              isError={placeError('email')}
               value={placeValues?.email}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Telephone")}</label>
+            <label className="BomLabel">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
               name="telephone"
               error={[t(placeOfInspection.errors.telephone)]}
-              isError={placeError("telephone")}
+              isError={placeError('telephone')}
               value={placeValues?.telephone}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />
@@ -738,44 +733,44 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Full address")}</label>
+            <label className="BomLabel">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
               name="fullAddress"
               error={[t(placeOfInspection.errors.fullAddress)]}
-              isError={placeError("fullAddress")}
+              isError={placeError('fullAddress')}
               value={placeValues?.fullAddress}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />
           </div>
           <div className="steps_3_2inFeilds">
-            <div style={{ width: "35%" }}>
-              <label className="BomLabel">{t("Postal code")}</label>
+            <div style={{ width: '35%' }}>
+              <label className="BomLabel">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
                 name="postalCode"
                 error={[t(placeOfInspection.errors.postalCode)]}
-                isError={placeError("postalCode")}
+                isError={placeError('postalCode')}
                 value={placeValues?.postalCode}
-                onChange={(e) => {
+                onChange={e => {
                   props.handleInspectionData(e.target.name, e.target.value);
                 }}
               />
             </div>
-            <div style={{ width: "60%" }}>
-              <label className="BomLabel">{t("Town")}</label>
+            <div style={{ width: '60%' }}>
+              <label className="BomLabel">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
                 name="town"
                 error={[t(placeOfInspection.errors.town)]}
-                isError={placeError("town")}
+                isError={placeError('town')}
                 value={placeValues?.town}
-                onChange={(e) => {
+                onChange={e => {
                   props.handleInspectionData(e.target.name, e.target.value);
                 }}
               />
@@ -784,29 +779,29 @@ const Dispatch = (props) => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Contact Last Name")}</label>
+            <label className="BomLabel">{t('Contact Last Name')}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Contact name")}
+              placeholder={t('Contact name')}
               name="contactLastName"
               error={[t(placeOfInspection.errors.contactLastName)]}
-              isError={placeError("contactLastName")}
+              isError={placeError('contactLastName')}
               value={placeValues?.contactLastName}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />
           </div>
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t("Contact first name")}</label>
+            <label className="BomLabel">{t('Contact first name')}</label>
             <InputField
               className="company_name_input"
-              placeholder={t("Contact first name")}
+              placeholder={t('Contact first name')}
               name="contactFirstName"
               error={[t(placeOfInspection.errors.contactFirstName)]}
-              isError={placeError("contactFirstName")}
+              isError={placeError('contactFirstName')}
               value={placeValues?.contactFirstName}
-              onChange={(e) => {
+              onChange={e => {
                 props.handleInspectionData(e.target.name, e.target.value);
               }}
             />

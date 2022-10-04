@@ -35,20 +35,20 @@ const Index = () => {
 
   const handlerequestById = async () => {
     await API('get', `/requests/${id}`)
-      .then((res) => {
+      .then(res => {
         setRequestById(res?.data?.request);
       })
-      .catch((err) => {
-        toaster("failed", t("request not found"), "requests");
+      .catch(err => {
+        toaster('failed', t('request not found'), 'requests');
       });
   };
 
   const handleCountryDocsValidate = async (checked, id) => {
     await API('put', `/requests/validateDoc/${requestById._id}`, {
       doc_id: id,
-      status: checked ? 'Valid' : 'Invalid',
+      status: checked ? 'Valid' : 'Invalid'
     })
-      .then((res) => {
+      .then(res => {
         if (checked) {
           toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
@@ -59,8 +59,8 @@ const Index = () => {
           handlerequestById();
         }
       })
-      .catch((err) => {
-        toaster("failed", t("Something wrong with request"), "Requests");
+      .catch(err => {
+        toaster('failed', t('Something wrong with request'), 'Requests');
       });
   };
 
@@ -68,10 +68,10 @@ const Index = () => {
     const DocName = name;
     await API('put', `/requests/validateProductDoc/${id}`, {
       [DocName]: {
-        status: checked ? 'Valid' : 'Invalid',
-      },
+        status: checked ? 'Valid' : 'Invalid'
+      }
     })
-      .then((res) => {
+      .then(res => {
         if (checked) {
           toaster('success', t('Document Validated Successfully'), t('Validated Document'));
 
@@ -82,9 +82,8 @@ const Index = () => {
           handlerequestById();
         }
       })
-      .catch((err) => {
+      .catch(err => {
         toaster('failed', t('Document not Validated'), t('Validated Document'));
-
       });
   };
   const handleRequestDoc = async () => {
@@ -92,36 +91,37 @@ const Index = () => {
     await API('put', `/requests/ReqmissingDocs/${requestById._id}`, {
       admin_remarks: comment,
       products: inputListProduct,
-      documents: inputList,
+      documents: inputList
     })
-      .then((res) => {
+      .then(res => {
         setCommentModal(false);
         setModalBtn(false);
         history.push('/RequestDocuments');
       })
-      .catch((err) => {
+      .catch(err => {
+        console.log('ERROR MSG ===>  ', err);
         setModalBtn(false);
         toaster('failed', t('Document not Validated'), t('Validate Document'));
       });
   };
   const handleValidByAdmin = async () => {
     await API('put', `/requests/validateRequest/${requestById._id}`)
-      .then((res) => {
+      .then(res => {
         history.push('/SendDocuments');
       })
-      .catch((err) => {
-        toaster("failed", t("Something wrong with documents"), "Missing documents");
+      .catch(err => {
+        toaster('failed', t('Something wrong with documents'), 'Missing documents');
       });
   };
 
-  const exportDocument = async (e) => {
+  const exportDocument = async e => {
     const reqId = history.location.pathname.split('/Admin/ValidateRequest/')[1];
     e.stopPropagation();
     await API('get', `/requests/zipFile/${reqId}`)
-      .then((res) => {
+      .then(res => {
         window.location.href = res?.config?.url;
       })
-      .catch((err) => toaster('failed', t('File not found!')));
+      .catch(err => toaster('failed', t('File not found!')));
   };
 
   const handleClose = () => setCommentModal(false);
@@ -129,30 +129,30 @@ const Index = () => {
 
   return (
     <>
-      <div className='Reference_header'>
-        <div className='Reference_center_div'>
-          <div className='Reference_heading'>
-            <Link to='/Admin/Dashboard/Requests' style={{ color: 'black', textDecoration: 'none' }}>
-              <p className='Reference_h2'>
-                <img src={BackArrow} alt='' />
+      <div className="Reference_header">
+        <div className="Reference_center_div">
+          <div className="Reference_heading">
+            <Link to="/Admin/Dashboard/Requests" style={{ color: 'black', textDecoration: 'none' }}>
+              <p className="Reference_h2">
+                <img src={BackArrow} alt="" />
                 &nbsp; {requestById?.title}
               </p>
             </Link>
           </div>
-          <div className='Reference_logo_div'>
-            <img src={EzxportIcon} alt='' className='header_center_div' />
+          <div className="Reference_logo_div">
+            <img src={EzxportIcon} alt="" className="header_center_div" />
           </div>
           {countTabe === 2 && (
             <div>
               <Button
-                onClick={(e) => exportDocument(e)}
+                onClick={e => exportDocument(e)}
                 text={t('Download the file')}
-                className='validate_button2'
+                className="validate_button2"
               />
               &nbsp;
               <Button
                 text={t('Validate the file')}
-                className='validate_button'
+                className="validate_button"
                 onClick={handleValidByAdmin}
               />
               &nbsp;
@@ -163,14 +163,16 @@ const Index = () => {
                   onClick={handleModalOpen}
                   // disabled={disableValidateButton ? true : false}
                 />
-              ) : inputListProduct?.length !== 0 ?
-                (<Button
+              ) : inputListProduct?.length !== 0 ? (
+                <Button
                   text={t('Request document')}
-                    className={'validate_button'}
-                    onClick={handleModalOpen}
-                // disabled={disableValidateButton ? true : false}
-                />)
-                : ("")}
+                  className={'validate_button'}
+                  onClick={handleModalOpen}
+                  // disabled={disableValidateButton ? true : false}
+                />
+              ) : (
+                ''
+              )}
             </div>
           )}
         </div>
@@ -195,26 +197,25 @@ const Index = () => {
         setOpen={setCommentModal}
         title={t('Please add your comment below')}
         handleClose={handleClose}
-        Closebtn={true}
-      >
+        Closebtn={true}>
         <TextareaAutosize
           minRows={7}
           value={comment}
-          onChange={(e) => setComment(e.target.value)}
+          onChange={e => setComment(e.target.value)}
           placeholder={t('Start writing from here')}
           style={{
             width: '100%',
             padding: '10px',
             fontSize: '1rem',
             marginTop: '1rem',
-            borderColor: '#EAECF0',
+            borderColor: '#EAECF0'
           }}
         />
         <Button
           text={t('Submit')}
-          className={comment !== '' ? 'bom_downloadFile_btn' : "bom_downloadFile_btn_disabled"}
+          className={comment !== '' ? 'bom_downloadFile_btn' : 'bom_downloadFile_btn_disabled'}
           onClick={handleRequestDoc}
-          disabled={modalBtn === true && comment === '' ? true : false} 
+          disabled={modalBtn === true && comment === '' ? true : false}
         />
       </Modal>
     </>
