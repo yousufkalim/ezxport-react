@@ -1,21 +1,21 @@
-import React, { useEffect } from "react";
-import ValidateButton from "../../../components/Common/ValidateButton";
-import SwitchButton from "../../../components/Common/SwitchButton";
-import ProductInputs from "../../../components/Common/ProductInputs";
-import { Grid } from "@mui/material";
-import PlusButton from "../../../assets/PlusButton.svg";
-import { ReactComponent as Delete } from "../../../assets/DeleteIcon.svg";
-import { useTranslation } from "react-i18next";
+import React, { useEffect } from 'react';
+import ValidateButton from '../../../components/Common/ValidateButton';
+import SwitchButton from '../../../components/Common/SwitchButton';
+import ProductInputs from '../../../components/Common/ProductInputs';
+import { Grid } from '@mui/material';
+import PlusButton from '../../../assets/PlusButton.svg';
+import { ReactComponent as Delete } from '../../../assets/DeleteIcon.svg';
+import { useTranslation } from 'react-i18next';
 
-const ExportDocuments = (props) => {
+const ExportDocuments = props => {
   const { t } = useTranslation();
 
   useEffect(() => {
     handleCountryDocuments();
   }, [props?.requestById]);
   const handleCountryDocuments = () => {
-    let temp = props?.requestById?.documents?.filter((item) => {
-      return item.status === "Valid";
+    let temp = props?.requestById?.documents?.filter(item => {
+      return item.status === 'Valid';
     });
     if (props?.requestById?.documents?.length === temp.length) {
       props.setValidateCountry(true);
@@ -33,7 +33,7 @@ const ExportDocuments = (props) => {
   };
 
   // handle click event of the Remove button
-  const handleRemoveClick = (index) => {
+  const handleRemoveClick = index => {
     const list = [...props.inputList];
     list.splice(index, 1);
     props.setInputList(list);
@@ -41,33 +41,33 @@ const ExportDocuments = (props) => {
 
   // handle click event of the Add button
   const handleAddClick = () => {
-    props.setInputList([...props.inputList, { name: "" }]);
+    props.setInputList([...props.inputList, { name: '' }]);
   };
   return (
     <>
-      <div className="ExportDocuments" style={{ marginBottom: "5%" }}>
+      <div className="ExportDocuments" style={{ marginBottom: '5%' }}>
         <ValidateButton
-          text1={props.validateCountry ? t("Validated document") : t("To be checked")          }
-          text={`${t("Import documents specific to")} ${t(props?.requestById?.country?.name)}`}
+          text1={props.validateCountry ? t('Validated document') : t('To be checked')}
+          text={`${t('Import documents specific to')} ${t(props?.requestById?.country?.name)}`}
           className={
             props.validateCountry
-              ? "Validator_document_btn_div"
-              : "Validator_document_btn_div redclass"
+              ? 'Validator_document_btn_div'
+              : 'Validator_document_btn_div redclass'
           }
         />
         {/* SWITCH  */}
-        <Grid container spacing={2} sx={{ marginTop: "2rem", marginBottom: "2rem" }}>
-          {props?.requestById?.documents?.map((item) => {
+        <Grid container spacing={2} sx={{ marginTop: '2rem', marginBottom: '2rem' }}>
+          {props?.requestById?.documents?.map(item => {
             return (
               <Grid item xs={6} className="vendors_div">
                 <SwitchButton
                   text={item?.doc_id?.name}
                   item={item?.files}
-                  onChange={(e) =>
+                  onChange={e =>
                     props.handleCountryDocsValidate(e.target.checked, item?.doc_id?._id)
                   }
-                  label={item.status === "Valid" ? "Valid" : "InValid"}
-                  checked={item.status === "Valid" ? true : false}
+                  label={item.status === 'Valid' ? 'Valid' : 'InValid'}
+                  checked={item.status === 'Valid' ? true : false}
                 />
               </Grid>
             );
@@ -75,8 +75,8 @@ const ExportDocuments = (props) => {
         </Grid>
 
         <div className="request_documents">
-          <p className="request_documents_title">{`${t("Request other documents for")} ${t(
-            props.requestById.country.name
+          <p className="request_documents_title">{`${t('Request other documents for')} ${t(
+            props?.requestById?.country?.name
           )}`}</p>
           {/* REQUEST OTHER DOCUMENTS  */}
           {props?.inputList?.map((item, index) => {
@@ -87,24 +87,23 @@ const ExportDocuments = (props) => {
                     htmlFor=""
                     className="request_documents_label"
                     style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      marginTop: index !== 0 ? "1rem" : "none",
-                    }}
-                  >
-                    {t("Document name")}
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginTop: index !== 0 ? '1rem' : 'none'
+                    }}>
+                    {t('Document name')}
                     <Delete
                       onClick={() => handleRemoveClick(index)}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: 'pointer' }}
                     />
                   </label>
                   <input
                     name="name"
                     type="text"
                     className="request_documents_input"
-                    placeholder={t("Enter Document name")}
-                    onChange={(e) => handleInputChange(e, index)}
+                    placeholder={t('Enter Document name')}
+                    onChange={e => handleInputChange(e, index)}
                     value={item.name}
                   />
                 </div>
@@ -112,9 +111,9 @@ const ExportDocuments = (props) => {
             );
           })}
 
-          <div className="add_ducoment_div" style={{ cursor: "pointer" }}>
+          <div className="add_ducoment_div" style={{ cursor: 'pointer' }}>
             <img src={PlusButton} alt="" onClick={handleAddClick} />
-            <p className="add_ducoment_p">{t("Request another document")}</p>
+            <p className="add_ducoment_p">{t('Request another document')}</p>
           </div>
         </div>
 
@@ -122,7 +121,7 @@ const ExportDocuments = (props) => {
           return (
             <>
               <ValidateButton
-                text={`${code.code.code} – ${t("BOM name")}`}
+                text={`${code?.code?.code} – ${t('BOM name')}`}
                 className="Validator_document_btn_div"
               />
               {code?.products?.map((product, pIndex) => {

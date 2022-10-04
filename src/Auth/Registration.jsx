@@ -270,7 +270,7 @@ const Registration = () => {
               <div className="regist_col1">
                 <InputField
                   label={t("Telephone")}
-                  type="number"
+                  // type="number"
                   isError={hasError("phone")}
                   error={[t(formState.errors.phone)]}
                   placeholder="33 07 86 36 02 20"

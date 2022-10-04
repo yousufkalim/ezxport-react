@@ -112,7 +112,7 @@ const ForgetPassword = () => {
               onChange={(e) => handleChange(e)}
             />
           </div>
-          {!flag ? (
+          {!flag && (
             <div className="resetPassword-div">
               <Button
                 className={!formState.isValid ? "logingbtn_disabled" : "logingbtn"}
@@ -121,13 +121,15 @@ const ForgetPassword = () => {
                 disabled={!formState.isValid ? true : false}
               />
             </div>
-          ) : (
-            <div className="requestSuccess-div">
-              <button className="regBtn" style={{ cursor: "default !important" }}>
-                {t("Request made successfully")}
-              </button>
-            </div>
-          )}
+           )
+          // (
+          //   <div className="requestSuccess-div">
+          //     <button className="regBtn" style={{ cursor: "default !important" }}>
+          //       {t("Request made successfully")}
+          //     </button>
+          //   </div>
+          // )
+          }
           <div className="resetPassword-div">
             <Button
               className={flag ? "logingbtn" : "regBtn"}

@@ -62,6 +62,7 @@ const ProductForm = (props) => {
     } else {
       validated = false;
     }
+    props.setValidProduct(validated)
     return validated;
   };
 

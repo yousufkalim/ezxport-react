@@ -58,6 +58,8 @@ export default function HorizontalNonLinearStepper() {
   const [requestId, setRequestedId] = useState('');
   const [currency, setCurrency] = useState('');
   const updateStore = UpdateStore();
+  const [validDoc, setValidDoc] = useState(false);
+  const [validProduct, setValidProduct] = useState(false);
   const { t } = useTranslation();
   //step 1 states
   const [step1, setStep1] = useState({
@@ -168,6 +170,8 @@ export default function HorizontalNonLinearStepper() {
     handleBuyer();
     handlePlaces();
   }, []);
+
+  console.log('Validate product ', validProduct);
 
   useEffect(() => {
     if (retrieveRequestId !== 'default') {
@@ -544,6 +548,8 @@ export default function HorizontalNonLinearStepper() {
     setStripeModal(true);
     setPlatformSelect(false);
   };
+
+  console.log('Valid doc ', validDoc);
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper
@@ -633,7 +639,10 @@ export default function HorizontalNonLinearStepper() {
                 CountryName={step1.country}
                 handleDocByCountryId={handleDocByCountryId}
                 handleUploadDoc={handleUploadDoc}
+                setValidProduct={setValidProduct}
                 CountryDoc={CountryDoc}
+                setValidDoc={setValidDoc}
+                validDoc={validDoc}
                 setCountryDoc={setCountryDoc}
                 createdCodes={createdCodes}
                 userData={userData._id}
@@ -683,6 +692,9 @@ export default function HorizontalNonLinearStepper() {
                   <Button1
                     text={activeStep === 3 ? t('Send my file') : t('Next Step')}
                     className="download_Btn"
+                    disabled={
+                      (activeStep === 3 && !validDoc) || (activeStep === 3 && !validProduct)
+                    }
                     onClick={
                       activeStep === 1
                         ? handleStep2
