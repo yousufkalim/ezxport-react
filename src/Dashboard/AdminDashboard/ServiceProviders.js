@@ -296,20 +296,25 @@ const ServiceProviders = () => {
                           scope="row"
                           sx={{
                             padding: 2,
-                            cursor: 'pointer'
+                            cursor: 'pointer',
+                            maxWidth: '20%',
+                            width: '15%'
                           }}>
                           <p className="AP_plus_title">{item.name}</p>
                         </TableCell>
                         <TableCell
                           component="th"
                           scope="row"
+                          className="admin_providers_countries"
                           sx={{
                             padding: 2,
                             cursor: 'pointer',
                             display: 'flex',
                             justifyContent: 'flex-start',
                             alignItems: 'flex-start',
-                            borderBottom: 'none'
+                            borderBottom: 'none',
+                            maxWidth: '80%',
+                            flexWrap: 'wrap'
                           }}
                           onClick={() => {
                             history.push(

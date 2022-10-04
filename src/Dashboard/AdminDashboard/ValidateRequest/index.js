@@ -18,6 +18,7 @@ const Index = () => {
   const [requestById, setRequestById] = useState({});
   const [inputList, setInputList] = useState([]);
   const [inputListProduct, setInputListProduct] = useState([]);
+  const [enableValidate, setEnableValidate] = useState(false);
   const [validateCountry, setValidateCountry] = useState(false);
   const [validateProduct, setValidateProduct] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
@@ -29,6 +30,35 @@ const Index = () => {
   useEffect(() => {
     handlerequestById();
   }, []);
+
+  useEffect(() => {
+    const arr = [...inputList, ...inputListProduct];
+    const num = [];
+    if (arr?.length) {
+      arr?.forEach(function (item) {
+        if (item.name) {
+          // setEnableValidate(true);
+          num.push(true);
+        }
+      });
+
+      if (num?.length === arr?.length) {
+        setEnableValidate(true);
+      } else {
+        setEnableValidate(false);
+      }
+    }
+    // if (inputListProduct?.length) {
+    //   inputListProduct?.forEach(function (item) {
+    //     if (item.name) {
+    //       setEnableValidate(true);
+    //     }
+    //   });
+    // }
+  }, [inputList, inputListProduct]);
+
+  console.log('Input lists ', inputList);
+
   function TabeProps(data) {
     setCountTabe(data);
   }
@@ -156,14 +186,14 @@ const Index = () => {
                 onClick={handleValidByAdmin}
               />
               &nbsp;
-              {inputList?.length !== 0 ? (
+              {inputList?.length !== 0 && enableValidate ? (
                 <Button
                   text={t('Request document')}
                   className={'validate_button'}
                   onClick={handleModalOpen}
                   // disabled={disableValidateButton ? true : false}
                 />
-              ) : inputListProduct?.length !== 0 ? (
+              ) : inputListProduct?.length !== 0 && enableValidate ? (
                 <Button
                   text={t('Request document')}
                   className={'validate_button'}
