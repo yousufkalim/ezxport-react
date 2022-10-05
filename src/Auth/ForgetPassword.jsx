@@ -45,6 +45,7 @@ const ForgetPassword = () => {
       .then((res) => {
         setFlag(true);
         if (res.data.success) {
+          setFlag(!flag);
           toaster("success", t(res.data.message));
         }
       })
@@ -52,7 +53,6 @@ const ForgetPassword = () => {
         toaster("Failed", t("Email does not exist"));
         setFlag(false);
       });
-    setFlag(!flag);
   };
   const handleChange = (event) => {
     setFormState((formState) => ({
