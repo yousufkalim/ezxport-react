@@ -33,6 +33,9 @@
   margin-left: 20%;
   z-index: -1;
 }
+.dashoard_logo {
+  height: 70px;
+}
 .dash_menu2 {
   position: absolute;
   bottom: 3%;
@@ -87,7 +90,7 @@
   background: #fff;
   position: absolute;
   left: 20%;
-  top: 6.5%;
+  top: 6.3%;
   /* z-index: 99999999; */
   border-radius: 8px;
   padding: 10px;
@@ -95,6 +98,18 @@
   filter: drop-shadow(0 0.2rem 0.25rem rgba(0, 0, 0, 0.2));
 }
 
+.user_tour_1 {
+  top: 5.5%
+}
+.user_tour_2 {
+  top: 10%
+}
+.user_tour_3 {
+  top: 13.5%
+}
+.user_tour_4 {
+  top: 18.5%
+}
 .user_tour_triangle {
   z-index: 99999999999999;
   width: 0;
@@ -892,6 +907,9 @@
   .dashboard_li {
     font-size: 14px;
   }
+  .user_tour{
+    left: 28%;
+  }
   .dashboard_left_side {
     width: 28%;
     position: inherit;
@@ -1005,6 +1023,9 @@
   .Edit_btn_bom,
   .Edit_btn2 {
     font-size: 13px !important;
+  }
+  .user_tour{
+    left: 25%;
   }
   .searching_div_country2 {
     height: 40px;

@@ -188,39 +188,7 @@ const AdminTab3 = props => {
             <TableRow>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>BOMs code</TableCell>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
-                {t('Status')} &nbsp;
-                {!sort.ascend ? (
-                  <img
-                    className="sorting-icon"
-                    onClick={() =>
-                      getSortedData(
-                        rows,
-                        setBoms,
-                        setSort,
-                        nestSortTitles,
-                        'certification_required',
-                        true
-                      )
-                    }
-                    src={arrow_up}
-                    alt=""
-                  />
-                ) : (
-                  <img
-                    onClick={() =>
-                      getSortedData(
-                        rows,
-                        setBoms,
-                        setSort,
-                        nestSortTitles,
-                        'certification_required',
-                        false
-                      )
-                    }
-                    src={downArrow}
-                    alt=""
-                  />
-                )}
+                {t('Status')}
               </TableCell>
 
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>

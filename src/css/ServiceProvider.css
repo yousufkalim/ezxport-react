@@ -111,6 +111,28 @@
   .textfield_row2 {
     font-size: 0.8rem;
   }
+  .switch_column_with_btn {
+    display: flex !important;
+  }
+
+  .Validator_document_btn_div {
+    background: #12b76a;
+    border-radius: 8px;
+    padding: 0 10px;
+    border: 1px solid rgba(0, 0, 0, 0.23);
+    margin-top: 2%;
+  }
+  .Validator_document_btn_div p {
+    border: none;
+    background: #12b76a;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    border-radius: 8px;
+    color: #fff;
+    padding: 10px 5px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
   .switch_buttons {
     flex-direction: column;
   }

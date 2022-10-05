@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { Store, UpdateStore } from '../../../StoreContext';
 
 import toaster from '../../../utils/toaster';
+import { checkFileType } from '../../../lib/common';
 
 const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -300,7 +301,9 @@ export default function HorizontalNonLinearStepper() {
         setRequestedId(res?.data?.request?._id);
       })
 
-      .catch(err => toaster('Failed', t(err.response.data.message)));
+      .catch(err =>
+        toaster('Failed', t(err.response.data.message?.msg) || t(err.response.data.message))
+      );
   };
   const handleStep2 = async () => {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
@@ -389,17 +392,30 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleUploadDoc = async (file, docId, index) => {
-    let formData = new FormData();
-    formData.append('doc_id', docId);
-    formData.append('file', file);
-    await API('put', `/requests/documentsUpload/${requestId}`, formData)
-      .then(res => {
-        setCountryDoc(prev => {
-          prev[index].filename = file.name;
-          return [...prev];
+    const files = checkFileType(file, t);
+    if (files) {
+      let formData = new FormData();
+      formData.append('doc_id', docId);
+      formData.append('file', files);
+      await API('put', `/requests/documentsUpload/${requestId}`, formData)
+        .then(res => {
+          setCountryDoc(prev => {
+            prev[index].filename = file.name;
+            return [...prev];
+          });
+        })
+        .catch(err => {
+          console.log('Upload doc ===> ', err.response.data);
+          if (err?.response?.data) {
+            const error = err?.response?.data
+              ?.split('<pre>')?.[1]
+              ?.split('Error: ')?.[1]
+              ?.split('<br>')[0];
+            console.log('ERROR  ===> ', error);
+            toaster('Failed', t(error));
+          }
         });
-      })
-      .catch(err => toaster('Failed', t(err.response.data.message)));
+    }
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
@@ -506,6 +522,7 @@ export default function HorizontalNonLinearStepper() {
             quantity: 1
           }
         ];
+        console.log('line items ==> ', line_items?.unit_amount);
         getSessionUrl(requestId, line_items);
       })
       .catch(err => {
@@ -520,7 +537,7 @@ export default function HorizontalNonLinearStepper() {
   const getSessionUrl = async (id, line_items) => {
     await API('post', '/requests/Checkout', {
       line_items: line_items,
-      metaData: { id }
+      metaData: { id: id, unit_amount: line_items.unit_amount }
     })
       .then(res => {
         // handleStep4();

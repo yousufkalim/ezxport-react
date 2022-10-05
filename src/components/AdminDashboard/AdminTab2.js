@@ -1,125 +1,125 @@
-import React, { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Modal from "../Common/Modal";
-import InputField from "../Common/InputField";
-import Button from "../Common/Button";
-import API from "../../api/index";
-import DeleteIcon from "../../assets/DeleteIcon.svg";
-import validate from "validate.js";
-import { useTranslation } from "react-i18next";
-import { getSortedData } from "../../lib/getSortedData";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import ConfirmModal from "../Common/ConfirmModal";
-import toaster from "../../utils/toaster";
+import React, { useState, useEffect } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Modal from '../Common/Modal';
+import InputField from '../Common/InputField';
+import Button from '../Common/Button';
+import API from '../../api/index';
+import DeleteIcon from '../../assets/DeleteIcon.svg';
+import validate from 'validate.js';
+import { useTranslation } from 'react-i18next';
+import { getSortedData } from '../../lib/getSortedData';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import ConfirmModal from '../Common/ConfirmModal';
+import toaster from '../../utils/toaster';
 
 const schema = {
   name: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   info: {
-    presence: { allowEmpty: false, message: " is required" },
-  },
+    presence: { allowEmpty: false, message: ' is required' }
+  }
 };
 
 const nestSortTitles = [];
-const AdminTab2 = (props) => {
+const AdminTab2 = props => {
   const { rows, loading, setDocument } = props;
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      name: "",
-      info: "",
+      name: '',
+      info: ''
     },
     touched: {},
-    errors: {},
+    errors: {}
   });
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [sort, setSort] = useState({ key: '', ascend: true });
   const [openModal, setOpenModal] = useState(false);
-  const [docId, setDocId] = useState("");
+  const [docId, setDocId] = useState('');
   const { t } = useTranslation();
 
   const handleAddDocuments = async () => {
-    await API("post", "/documents/", {
+    await API('post', '/documents/', {
       name: formState.values.name,
       info: formState.values.info,
-      countries: [props.countryId],
+      countries: [props.countryId]
     })
-      .then((res) => {
+      .then(res => {
         props.handleCountryData();
         props.setOpenAddDocument(false);
-        toaster("success", t("Document Added Successfully"));
+        toaster('success', t('Document Added Successfully'));
 
-        setFormState((formState) => ({
+        setFormState(formState => ({
           ...formState,
           values: {
-            name: "",
-            info: "",
+            name: '',
+            info: ''
           },
           touched: {},
-          errors: {},
+          errors: {}
         }));
       })
-      .catch((err) => {
+      .catch(err => {
         props.setOpenAddDocument(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
   useEffect(() => {
     const errors = validate(formState.values, schema);
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
       isValid: errors ? false : true,
-      errors: errors || {},
+      errors: errors || {}
     }));
   }, [formState.values]);
 
-  const handleDocumentDelete = async (id) => {
-    await API("delete", `/documents/${id}`)
-      .then((res) => {
+  const handleDocumentDelete = async id => {
+    await API('delete', `/documents/${id}`)
+      .then(res => {
         props.handleCountryData();
         setOpenModal(false);
-        setDocId("");
-        toaster("success", t("Document Deleted Successfully"), t("Deleted Document"));
+        setDocId('');
+        toaster('success', t('Document Deleted Successfully'), t('Deleted Document'));
       })
-      .catch((err) => {
-        toaster("Failed", t(err.response.data.message));
+      .catch(err => {
+        toaster('Failed', t(err.response.data.message));
       });
   };
-  const handleChange = (event) => {
-    setFormState((formState) => ({
+  const handleChange = event => {
+    setFormState(formState => ({
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]: event.target.value,
+        [event.target.name]: event.target.value
       },
       touched: {
         ...formState.touched,
-        [event.target.name]: true,
-      },
+        [event.target.name]: true
+      }
     }));
   };
-  const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
+  const hasError = field => (formState.touched[field] && formState.errors[field] ? true : false);
   return (
     <>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Documents")} &nbsp;
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('Documents')} &nbsp;
                 {!sort.ascend ? (
                   <img
                     className="sorting-icon"
                     onClick={() =>
-                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", true)
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', true)
                     }
                     src={arrow_up}
                     alt=""
@@ -127,25 +127,25 @@ const AdminTab2 = (props) => {
                 ) : (
                   <img
                     onClick={() =>
-                      getSortedData(rows, setDocument, setSort, nestSortTitles, "name", false)
+                      getSortedData(rows, setDocument, setSort, nestSortTitles, 'name', false)
                     }
                     src={downArrow}
                     alt=""
                   />
                 )}
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Help Information")} <img src={props.img} alt="" />
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('Help Information')}
               </TableCell>
-              <TableCell sx={{ color: "#667085", backgroundColor: "#F9FAFB" }}>
-                {t("Actions")} <img src={props.img} alt="" />
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('Actions')}
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {props.rows.map((row, index) => (
               <TableRow key={index}>
-                <TableCell style={{ width: "20%" }} component="th" scope="row" sx={{ padding: 2 }}>
+                <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
                   <p className="AP_plus_title">{row?.name}</p>
                 </TableCell>
                 <TableCell component="th" scope="row" sx={{ padding: 2 }}>
@@ -156,7 +156,7 @@ const AdminTab2 = (props) => {
                     src={DeleteIcon}
                     alt=""
                     className="dltIcon"
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: 'pointer' }}
                     onClick={() => {
                       setOpenModal(true);
                       setDocId(row._id);
@@ -176,47 +176,46 @@ const AdminTab2 = (props) => {
       <Modal
         open={props.openAddDocument}
         setOpen={props.setOpenAddDocument}
-        title={t("Add Documents")}
+        title={t('Add Documents')}
         handleClose={props.handleAddDocumentModalClose}
-        Closebtn={true}
-      >
-        <div style={{ height: "20%" }}>
+        Closebtn={true}>
+        <div style={{ height: '20%' }}>
           <label htmlFor="" className="label_modal">
-            {t("Document Name")}
+            {t('Document Name')}
           </label>
           <InputField
             name="name"
             value={formState.values.name}
             className={
-              hasError("name") && [t(formState.errors.info)]
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('name') && [t(formState.errors.info)]
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
           />
           <div className="error-format">
-            {hasError("name") ? t(formState.errors.name[0]) : null}
+            {hasError('name') ? t(formState.errors.name[0]) : null}
           </div>
           <label htmlFor="" className="label_modal">
-            {t("Help Information")}
-          </label>{" "}
+            {t('Help Information')}
+          </label>{' '}
           <InputField
             name="info"
             value={formState.values.info}
             className={
-              hasError("info") && [t(formState.errors.info)]
-                ? "textfield_addvendor_red"
-                : "textfield_addvendor"
+              hasError('info') && [t(formState.errors.info)]
+                ? 'textfield_addvendor_red'
+                : 'textfield_addvendor'
             }
             onChange={handleChange}
           />
           <div className="error-format">
-            {hasError("info") ? t(formState.errors.info[0]) : null}
+            {hasError('info') ? t(formState.errors.info[0]) : null}
           </div>
           <Button
-            text={t("Add Documents")}
+            text={t('Add Documents')}
             disabled={!formState.isValid ? true : false}
-            className={formState.isValid ? "add_vendor_button" : "add_vendor_button_disabled"}
+            className={formState.isValid ? 'add_vendor_button' : 'add_vendor_button_disabled'}
             onClick={handleAddDocuments}
           />
         </div>

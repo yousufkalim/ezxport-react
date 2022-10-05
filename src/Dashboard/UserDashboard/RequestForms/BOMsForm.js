@@ -46,7 +46,7 @@ const BOMsForm = props => {
 
   useEffect(() => {
     if (pastRequest) {
-      getSetData();
+      // getSetData();
     }
   }, [request]);
 
@@ -218,9 +218,12 @@ const BOMsForm = props => {
       title: step1?.title
     })
       .then(res => {
-        props.handleChange('title', t(res?.data?.tile));
+        console.log('Search title ', res.data);
+        // props.handleChange('title', t(res?.data?.tile));
       })
-      .catch(err => toaster('Failed', t(err.response.data.message)));
+      .catch(err =>
+        toaster('Failed', t(err.response.data.message?.msg) || t(err.response.data.message))
+      );
   };
   const handleMonetaryValue = value => {
     const validatedValue = value.replace(/[^0-9]/g, '');
@@ -258,7 +261,7 @@ const BOMsForm = props => {
       });
   };
 
-  console.log('Moetry value ', monetaryValue);
+  console.log('Step1 value ', step1);
   return (
     <div>
       <div style={{ width: '100%' }}>
