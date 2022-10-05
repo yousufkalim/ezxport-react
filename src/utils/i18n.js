@@ -34,6 +34,7 @@ i18n
             'Password is too short (minimum is 6 characters)',
           'Confirm password is not same as password': 'Confirm password is not same as password',
           'Confirm password is required': 'Confirm password is required',
+          'Collect the documents': 'Collect the documents',
           'Vat number is too short (minimum is 13 characters)':
             'Vat number is too short (minimum is 13 characters)',
           'Company last name is required': 'Company last name is required',
@@ -92,6 +93,9 @@ i18n
           'codeId is required': 'codeId is required',
           'Monetory value required': 'Monetory value required',
           'Certification required true/false': 'Certification required true/false',
+          'Select your service providers': 'Select your service providers',
+          'Enter your sellers, buyers and inspection locations in one place':
+            'Enter your sellers, buyers and inspection locations in one place',
           'requestId required': 'requestId required',
           'Buyer user is required': 'Buyer user is required',
           'place user  is required': 'place user  is required',
@@ -455,6 +459,9 @@ i18n
           Plan: 'Plan',
           'Invalid file type, only DOCX PDF and EXCEL &nbsp;is allowed!':
             'Invalid file type, only DOCX PDF and EXCEL  is allowed!',
+          'Track your certification requests': 'Track your certification requests',
+          'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.':
+            'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.',
           'Other documents': 'Other documents',
           'Ask for other documents for the product': 'Ask for other documents for the product',
           'Validate By Admin': 'Validate By Admin',
@@ -775,7 +782,13 @@ i18n
           // Country
           'You have validated the documents of company X, we will send you all the documents to the address':
             "Vous avez validé les documents de la société X, nous vous enverrons tous les documents à l'adresse",
+          'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.':
+            "Les info-bulles sont utilisées pour décrire ou identifier un élément. Dans la plupart des scénarios, les info-bulles aident l'utilisateur à comprendre la signification, la fonction ou le texte alternatif d'un élément.",
+          'Track your certification requests': 'Suivez vos demandes de certification',
           "Sélectionnez la date d'inspection": 'Select inspection date',
+          'Select your service providers': 'Sélectionnez vos prestataires',
+          'Enter your sellers, buyers and inspection locations in one place':
+            "Entrez vos vendeurs, acheteurs et lieux d'inspection en un seul endroit",
           'First name is required': 'Le prénom est requis ',
           'is required': 'est requis',
           'Email is not a valid email': "L'e-mail n'est pas un e-mail valide",
@@ -790,6 +803,7 @@ i18n
           'Contact first name is required': 'Le prénom du contact est requis',
           'Contact last Name  is required': 'Le nom de famille du contact est requis',
           'Address is required': "L'adresse est obligatoire",
+          'Collect the documents': 'Rassemblez les documents',
           'address is required': "L'adresse est obligatoire",
           'Vat number is required': 'Le numéro de TVA est requis',
           'Password is too short (minimum is 6 characters)':

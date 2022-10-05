@@ -172,8 +172,6 @@ export default function HorizontalNonLinearStepper() {
     handlePlaces();
   }, []);
 
-  console.log('Validate product ', validProduct);
-
   useEffect(() => {
     if (retrieveRequestId !== 'default') {
       handleRequestById();
@@ -262,7 +260,6 @@ export default function HorizontalNonLinearStepper() {
       })
       .catch(err => {
         toaster('failed', t(err.response.data.message.msg));
-        console.log(err.response.data.message.msg, 'ssssss');
       });
   };
   const handleStep1 = async () => {
@@ -392,31 +389,29 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleUploadDoc = async (file, docId, index) => {
-    console.log('File type ', file);
-    const files = checkFileType(file, t);
-    if (files) {
-      let formData = new FormData();
-      formData.append('doc_id', docId);
-      formData.append('file', files);
-      await API('put', `/requests/documentsUpload/${requestId}`, formData)
-        .then(res => {
-          setCountryDoc(prev => {
-            prev[index].filename = file.name;
-            return [...prev];
-          });
-        })
-        .catch(err => {
-          console.log('Upload doc ===> ', err.response.data);
-          if (err?.response?.data) {
-            const error = err?.response?.data
-              ?.split('<pre>')?.[1]
-              ?.split('Error: ')?.[1]
-              ?.split('<br>')[0];
-            console.log('ERROR  ===> ', error);
-            toaster('Failed', t(error));
-          }
+    // const files = checkFileType(file, t);
+
+    // if (files) {
+    let formData = new FormData();
+    formData.append('doc_id', docId);
+    formData.append('file', file);
+    await API('put', `/requests/documentsUpload/${requestId}`, formData)
+      .then(res => {
+        setCountryDoc(prev => {
+          prev[index].filename = file.name;
+          return [...prev];
         });
-    }
+      })
+      .catch(err => {
+        if (err?.response?.data) {
+          const error = err?.response?.data
+            ?.split('<pre>')?.[1]
+            ?.split('Error: ')?.[1]
+            ?.split('<br>')[0];
+          toaster('Failed', t(error));
+        }
+      });
+    // }
   };
   const handleStep1Change = (name, value) => {
     setStep1({ ...step1, [name]: value });
@@ -523,7 +518,6 @@ export default function HorizontalNonLinearStepper() {
             quantity: 1
           }
         ];
-        console.log('line items ==> ', line_items?.unit_amount);
         getSessionUrl(requestId, line_items);
       })
       .catch(err => {
@@ -567,7 +561,6 @@ export default function HorizontalNonLinearStepper() {
     setPlatformSelect(false);
   };
 
-  console.log('Valid doc ', validDoc);
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>
       <Stepper

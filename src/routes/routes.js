@@ -30,8 +30,8 @@ export const UserRoutes = [
     tour: {
       title: 'Track your certification requests',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.',
-    },
+        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+    }
   },
   {
     path: '/User/Dashboard/Providers',
@@ -41,8 +41,8 @@ export const UserRoutes = [
     tour: {
       title: 'Select your service providers',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.',
-    },
+        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+    }
   },
   {
     path: '/User/Dashboard/AddressBook',
@@ -52,8 +52,8 @@ export const UserRoutes = [
     tour: {
       title: 'Enter your sellers, buyers and inspection locations in one place',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.',
-    },
+        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+    }
   },
   {
     path: '/User/Dashboard/Documents',
@@ -63,19 +63,19 @@ export const UserRoutes = [
     tour: {
       title: 'Collect the documents',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.',
-    },
+        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+    }
   },
 
   // Routes cannot be add after this should be added before this comment
   {
     path: '/User/Dashboard/AskQuestion',
-    component: AskQuestion,
+    component: AskQuestion
   },
   {
     path: '/User/Dashboard/Account',
-    component: Account,
-  },
+    component: Account
+  }
 ];
 
 export const AdminRoutes = [
@@ -83,25 +83,25 @@ export const AdminRoutes = [
     path: '/Admin/Dashboard/Country',
     name: 'Country',
     icon: <AdminLogo1 />,
-    component: Country,
+    component: Country
   },
   {
     path: '/Admin/Dashboard/Service',
     name: 'Service providers',
     icon: <AdminLogo2 />,
-    component: ServiceProviders,
+    component: ServiceProviders
   },
   {
     path: '/Admin/Dashboard/Users',
     name: 'Users',
     icon: <AdminLogo2 />,
-    component: Users,
+    component: Users
   },
   {
     path: '/Admin/Dashboard/Requests',
     name: 'Requests',
     icon: <AdminLogo3 />,
-    component: Requests,
-  },
+    component: Requests
+  }
   // Routes cannot be add after this should be added before this comment
 ];
