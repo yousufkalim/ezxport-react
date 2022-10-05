@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from "react";
-import CalculationRange from "./CalculationRange";
-import FormControl from "@mui/material/FormControl";
-import Modal from "../Common/Modal";
-import Button from "../Common/Button";
-import API from "../../api/index";
-import CalculationCoefficient from "./CalculationCoefficient";
-import InputField from "../Common/InputField";
-import { useTranslation } from "react-i18next";
-import toaster from "../../utils/toaster";
-import { validate } from "validate.js";
+import React, { useEffect, useState } from 'react';
+import CalculationRange from './CalculationRange';
+import FormControl from '@mui/material/FormControl';
+import Modal from '../Common/Modal';
+import Button from '../Common/Button';
+import API from '../../api/index';
+import CalculationCoefficient from './CalculationCoefficient';
+import InputField from '../Common/InputField';
+import { useTranslation } from 'react-i18next';
+import toaster from '../../utils/toaster';
+import { validate } from 'validate.js';
 
 const schema = {
   min_threshold: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
+      maximum: 64
+    }
   },
   coefficient: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
-  },
+      maximum: 64
+    }
+  }
 };
 
-const AdminTab4 = (props) => {
+const AdminTab4 = props => {
   const [thresholdCurrency, setThresholdCurrency] = useState(
     props?.calculation?.min_threshold?.currency
   );
@@ -40,17 +40,17 @@ const AdminTab4 = (props) => {
       minCost: calculation?.min_cost?.value,
       maxCost: calculation?.max_cost?.value,
       MinThreshold: calculation?.min_threshold?.value,
-      coefficient: calculation?.coefficient,
+      coefficient: calculation?.coefficient
     },
     errors: {},
-    touched: {},
+    touched: {}
   });
 
   const [allErrors, setAllErrors] = useState({
-    minCost: "",
-    maxCost: "",
-    coefficient: "",
-    MinThreshold: "",
+    minCost: '',
+    maxCost: '',
+    coefficient: '',
+    MinThreshold: ''
   });
 
   const { minCost, maxCost, MinThreshold } = formState.values;
@@ -70,24 +70,24 @@ const AdminTab4 = (props) => {
     }
   }, [formState.values, allErrors]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
 
-    if (name === "coefficient") {
-      if (value.includes(".")) {
-        const afterDecimal = value.split(".")[1];
+    if (name === 'coefficient') {
+      if (value.includes('.')) {
+        const afterDecimal = value.split('.')[1];
         if (afterDecimal.length <= 2) {
           setFormState({
             ...formState,
             values: { ...formState.values, [name]: value },
-            touched: { ...formState.touched, [name]: true },
+            touched: { ...formState.touched, [name]: true }
           });
         }
-      } else if (!value.includes("00")) {
+      } else if (!value.includes('00')) {
         setFormState({
           ...formState,
           values: { ...formState.values, [name]: value },
-          touched: { ...formState.touched, [name]: true },
+          touched: { ...formState.touched, [name]: true }
         });
       }
     } else {
@@ -95,7 +95,7 @@ const AdminTab4 = (props) => {
         setFormState({
           ...formState,
           values: { ...formState.values, [name]: value },
-          touched: { ...formState.touched, [name]: true },
+          touched: { ...formState.touched, [name]: true }
         });
     }
 
@@ -104,94 +104,93 @@ const AdminTab4 = (props) => {
     const val = parseInt(value);
     const cof = parseFloat(value);
 
-    if (name === "coefficient") {
+    if (name === 'coefficient') {
       if (!cof) {
-        setAllErrors({ ...allErrors, coefficient: "Coefficient is Required" });
+        setAllErrors({ ...allErrors, coefficient: 'Coefficient is Required' });
       } else {
-        setAllErrors({ ...allErrors, coefficient: "" });
+        setAllErrors({ ...allErrors, coefficient: '' });
       }
-    } else if (name === "MinThreshold") {
+    } else if (name === 'MinThreshold') {
       if (!val) {
         setAllErrors({
           ...allErrors,
-          MinThreshold: "Minmum Threshold is Required",
+          MinThreshold: 'Minmum Threshold is Required'
         });
       } else {
-        setAllErrors({ ...allErrors, MinThreshold: "" });
+        setAllErrors({ ...allErrors, MinThreshold: '' });
       }
-    } else if (name === "minCost") {
+    } else if (name === 'minCost') {
       if (max && val >= max) {
         setAllErrors({
           ...allErrors,
-          min: "Minimum cost should be less than maximum cost",
+          min: 'Minimum cost should be less than maximum cost'
         });
       } else if (!val) {
-        setAllErrors({ ...allErrors, min: "Minmum cost is Required" });
+        setAllErrors({ ...allErrors, min: 'Minmum cost is Required' });
       } else {
-        setAllErrors({ ...allErrors, min: "" });
+        setAllErrors({ ...allErrors, min: '' });
       }
-    } else if (name === "maxCost") {
+    } else if (name === 'maxCost') {
       if (min && val <= min) {
         setAllErrors({
           ...allErrors,
-          max: "Maxminm cost should be greater than minimum cost",
+          max: 'Maxminm cost should be greater than minimum cost'
         });
       } else if (!val) {
-        setAllErrors({ ...allErrors, max: "Maximum cost is Required" });
+        setAllErrors({ ...allErrors, max: 'Maximum cost is Required' });
       } else {
-        setAllErrors({ ...allErrors, max: "" });
+        setAllErrors({ ...allErrors, max: '' });
       }
     }
   };
 
   const handleCoefficientChange = async () => {
-    await API("put", `/calculations/${props?.calculation?._id}`, {
+    await API('put', `/calculations/${props?.calculation?._id}`, {
       country: props.countryId,
-      type: "coefficient",
+      type: 'coefficient',
       min_threshold: { currency: thresholdCurrency, value: MinThreshold },
       coefficient: formState.values?.coefficient,
       min_cost: { currency: minCostCurrency, value: minCost },
-      max_cost: { currency: maxCostCurrency, value: maxCost },
+      max_cost: { currency: maxCostCurrency, value: maxCost }
     })
-      .then((res) => {
+      .then(res => {
         props.setOpenCalculationModal(false);
         props.handleCountryData();
         setCoefficientChange(res?.data?.calculation);
 
-        toaster("success", t("Coefficient Updated Successfully"), t("Update Coefficient"));
+        toaster('success', t('Coefficient Updated Successfully'), t('Update Coefficient'));
       })
-      .catch((err) => {
-        toaster("failed", t("Something went wrong"));
+      .catch(err => {
+        toaster('failed', t('Something went wrong'));
       });
   };
   const handleAddCoefficient = async () => {
-    await API("post", `/calculations/`, {
+    await API('post', `/calculations/`, {
       country: props.countryId,
-      type: "coefficient",
+      type: 'coefficient',
       coefficient: formState.values?.coefficient,
       min_threshold: { currency: thresholdCurrency, value: MinThreshold },
       min_cost: { currency: minCostCurrency, value: minCost },
-      max_cost: { currency: maxCostCurrency, value: maxCost },
+      max_cost: { currency: maxCostCurrency, value: maxCost }
     })
-      .then((res) => {
+      .then(res => {
         props.handleCountryData();
         setCoefficientChange(res?.data?.calculation);
         props.setOpenCalculationModal(false);
 
-        toaster("success", t("Coefficient Added Successfully"), t("Adding Coefficient"));
+        toaster('success', t('Coefficient Added Successfully'), t('Adding Coefficient'));
       })
-      .catch((err) => {
-        toaster("success", t("Coefficient not added"), t("Coefficient"));
-
+      .catch(err => {
+        toaster('success', t('Coefficient not added'), t('Coefficient'));
       });
   };
 
   const closeModal = () => {
     setAllErrors({
-      minCost: "",
-      maxCost: "",
-      coefficient: "",
-      MinThreshold: "",
+      minCost: '',
+      maxCost: '',
+      coefficient: '',
+      MinThreshold: ''
     });
     setFormState({
       ...formState,
@@ -199,8 +198,8 @@ const AdminTab4 = (props) => {
         minCost: calculation?.min_cost?.value,
         maxCost: calculation?.max_cost?.value,
         MinThreshold: calculation?.min_threshold?.value,
-        coefficient: calculation?.coefficient,
-      },
+        coefficient: calculation?.coefficient
+      }
     });
     props.handleCalculationClose();
   };
@@ -208,48 +207,45 @@ const AdminTab4 = (props) => {
     <>
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          padding: "2% 0",
-        }}
-      >
+          display: 'flex',
+          alignItems: 'center',
+          padding: '2% 0'
+        }}>
         <input
           name="radio-item-1"
           value="on"
           type="radio"
-          onChange={(e) => props.setCurrentRadioValue("coefficient")}
-          defaultChecked={props.currentRadioValue === "coefficient"}
+          onChange={e => props.setCurrentRadioValue('coefficient')}
+          defaultChecked={props.currentRadioValue === 'coefficient'}
         />
         <label
           htmlFor="radio-item-1"
           style={{
-            paddingLeft: "5px",
-          }}
-        >
-          {t("Calculation by coefficient")}
+            paddingLeft: '5px'
+          }}>
+          {t('Calculation by coefficient')}
         </label>
 
         <input
           style={{
-            marginLeft: "20px",
+            marginLeft: '20px'
           }}
           name="radio-item-1"
           value="off"
           type="radio"
-          onChange={(e) => props.setCurrentRadioValue("range")}
-          defaultChecked={props.currentRadioValue === "range"}
+          onChange={e => props.setCurrentRadioValue('range')}
+          defaultChecked={props.currentRadioValue === 'range'}
         />
         <label
           style={{
-            paddingLeft: "5px",
+            paddingLeft: '5px'
           }}
-          htmlFor="radio-item-2"
-        >
-          {t("Calculation by range")}
+          htmlFor="radio-item-2">
+          {t('Calculation by range')}
         </label>
       </div>
 
-      {props.currentRadioValue === "range" ? (
+      {props.currentRadioValue === 'range' ? (
         <CalculationRange
           setOpenCalculationModal={props.setOpenCalculationModal}
           id={props?.calculation?._id}
@@ -259,7 +255,7 @@ const AdminTab4 = (props) => {
           countryData={props.handleCountryData}
         />
       ) : (
-        props.currentRadioValue === "coefficient" && (
+        props.currentRadioValue === 'coefficient' && (
           <CalculationCoefficient values={formState.values} currency={props.currency} />
         )
       )}
@@ -267,22 +263,21 @@ const AdminTab4 = (props) => {
       <Modal
         open={props.openCalculationModal}
         setOpen={props.setOpenCalculationModal}
-        title={t("Update calculation by coefficient")}
-        handleClose={(e) => closeModal(e)}
-        Closebtn={true}
-      >
+        title={t('Update calculation by coefficient')}
+        handleClose={e => closeModal(e)}
+        Closebtn={true}>
         <div className="Coefficient_input_div">
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Minimum threshold")}
+                {t('Minimum threshold')}
               </label>
 
               <InputField
                 className="calculation_input"
                 value={formState.values.MinThreshold}
                 name="MinThreshold"
-                onChange={(e) => handleChange(e)}
+                onChange={e => handleChange(e)}
               />
               {allErrors.MinThreshold && (
                 <div className="input-error">{t(allErrors.MinThreshold) ?? null}</div>
@@ -292,13 +287,13 @@ const AdminTab4 = (props) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Coefficient")} %
+                {t('Coefficient')} %
               </label>
               <InputField
                 className="calculation_input"
                 name="coefficient"
                 value={formState.values?.coefficient}
-                onChange={(e) => handleChange(e)}
+                onChange={e => handleChange(e)}
                 type="number"
               />
               {allErrors.coefficient && (
@@ -309,14 +304,14 @@ const AdminTab4 = (props) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Minimum cost")}
+                {t('Minimum cost')}
               </label>
 
               <InputField
                 className="calculation_input"
                 value={minCost}
                 name="minCost"
-                onChange={(e) => handleChange(e)}
+                onChange={e => handleChange(e)}
               />
               {allErrors.min && <div className="input-error">{t(allErrors.min) ?? null}</div>}
             </FormControl>
@@ -324,27 +319,27 @@ const AdminTab4 = (props) => {
           <div className="luyer_input_field">
             <FormControl fullWidth>
               <label htmlFor="" className="buyer_label">
-                {t("Maximum cost")}
+                {t('Maximum cost')}
               </label>
 
               <InputField
                 className="calculation_input"
                 value={maxCost}
                 name="maxCost"
-                onChange={(e) => handleChange(e)}
+                onChange={e => handleChange(e)}
               />
               {allErrors.max && <div className="input-error">{t(allErrors.max) ?? null}</div>}
             </FormControl>
           </div>
           <Button
-            text={t("Update")}
+            text={t('Update')}
             className={
-              MinThreshold === "" ||
-              minCost === "" ||
-              maxCost === "" ||
-              formState.values?.coefficient === ""
-                ? "bom_downloadFile_btn_disabled"
-                : "bom_downloadFile_btn"
+              MinThreshold === '' ||
+              minCost === '' ||
+              maxCost === '' ||
+              formState.values?.coefficient === ''
+                ? 'bom_downloadFile_btn_disabled'
+                : 'bom_downloadFile_btn'
             }
             onClick={props.calculation ? handleCoefficientChange : handleAddCoefficient}
             disabled={!formState.isValid}

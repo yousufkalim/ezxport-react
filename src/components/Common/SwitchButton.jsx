@@ -9,9 +9,9 @@ const SwitchButton = (props) => {
 
   return (
     <>
-      <div className="Switches">
+      <div className={`${props.className} Switches`}>
         <p className="switch_p">{props.text}</p>
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start", flexDirection: "column", overflow: "hidden" }} >
+        <div className="switch_another" style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start", flexDirection: "column"}} >
           {props?.item?.map((item1, index) => {
             // var filename = item.split("-").slice(-3).reverse().pop();
             return (

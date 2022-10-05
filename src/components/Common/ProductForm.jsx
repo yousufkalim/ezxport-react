@@ -6,6 +6,8 @@ import Select from "@mui/material/Select";
 import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
+const fileTypes = ['pdf', 'xlxs', 'docs', 'doc'];
+
 const ProductForm = (props) => {
   const { product } = props;
   const { t } = useTranslation();
@@ -22,6 +24,9 @@ const ProductForm = (props) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
+
+    const fileType = files?.map((item) => item?.name?.split('.')[1]);
+    console.log("File types ", fileType);
     const newImagesPromises = [];
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;

@@ -1,25 +1,25 @@
-import SearchField from "../../components/Common/SearchField";
-import Button from "../../components/Common/Button";
-import BackArrow from "../../assets/BackArrow.svg";
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import PropTypes from "prop-types";
-import Typography from "@mui/material/Typography";
-import AdminTab1 from "./AdminTab1";
-import AdminTab2 from "./AdminTab2";
-import AdminTab3 from "./AdminTab3";
-import AdminTab4 from "./AdminTab4";
-import DownArrow from "../../assets/TitleDownArrow.svg";
-import { useParams } from "react-router-dom";
-import API from "../../api/index";
-import FilePicker from "../../components/Common/FilePicker";
-import { useTranslation } from "react-i18next";
-import Modal from "../../components/Common/Modal";
-import { createFilter } from "react-search-input";
-import toaster from "../../utils/toaster";
+import SearchField from '../../components/Common/SearchField';
+import Button from '../../components/Common/Button';
+import BackArrow from '../../assets/BackArrow.svg';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import PropTypes from 'prop-types';
+import Typography from '@mui/material/Typography';
+import AdminTab1 from './AdminTab1';
+import AdminTab2 from './AdminTab2';
+import AdminTab3 from './AdminTab3';
+import AdminTab4 from './AdminTab4';
+import DownArrow from '../../assets/TitleDownArrow.svg';
+import { useParams } from 'react-router-dom';
+import API from '../../api/index';
+import FilePicker from '../../components/Common/FilePicker';
+import { useTranslation } from 'react-i18next';
+import Modal from '../../components/Common/Modal';
+import { createFilter } from 'react-search-input';
+import toaster from '../../utils/toaster';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -30,8 +30,7 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -44,26 +43,26 @@ function TabPanel(props) {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
   };
 }
 
-const PROVIDERS_TO_FILTERS = ["name"];
-const DOCUMENTS_TO_FILTERS = ["name"];
-const CODES_TO_FILTERS = ["code"];
+const PROVIDERS_TO_FILTERS = ['name'];
+const DOCUMENTS_TO_FILTERS = ['name'];
+const CODES_TO_FILTERS = ['code'];
 
 const AdminNomPays = () => {
   const params = useParams();
   const { id } = params;
   const [value, setValue] = useState(0);
   const [vendor, setVendor] = useState();
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState('');
   const [document, setDocument] = useState();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -71,13 +70,13 @@ const AdminNomPays = () => {
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState("coefficient");
+  const [currentRadioValue, setCurrentRadioValue] = useState('coefficient');
   const [calculation, setCalculation] = useState();
-  const [currency, setCurrency] = useState("");
-  const [file, setFile] = useState("");
-  const [providerSerach, setProviderSearch] = useState("");
-  const [documentSerach, setDocumentSearch] = useState("");
-  const [codeSearch, setCodeSearch] = useState("");
+  const [currency, setCurrency] = useState('');
+  const [file, setFile] = useState('');
+  const [providerSerach, setProviderSearch] = useState('');
+  const [documentSerach, setDocumentSearch] = useState('');
+  const [codeSearch, setCodeSearch] = useState('');
 
   const { t } = useTranslation();
 
@@ -89,8 +88,9 @@ const AdminNomPays = () => {
   };
   const handleCountryData = async () => {
     setLoading(true);
-    await API("get", `/countries/${id}`)
-      .then((res) => {
+    await API('get', `/countries/${id}`)
+      .then(res => {
+        console.log('Calculations ', res?.data);
         setCurrency(res?.data?.country?.currency);
         setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
@@ -100,10 +100,12 @@ const AdminNomPays = () => {
         setLoading(false);
       })
       .catch(() => {
-        toaster("failed", t("Countries not found"), t("Error"))
+        toaster('failed', t('Countries not found'), t('Error'));
         setLoading(false);
       });
   };
+
+  console.log('After set cal ', calculation);
 
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);
@@ -112,20 +114,20 @@ const AdminNomPays = () => {
 
   const handleUplaodFile = async () => {
     let formData = new FormData();
-    formData.append("file", file);
-    formData.append("country", `${id}`);
-    await API("post", "/boms/uploadCodes/", formData)
-      .then((res) => {
+    formData.append('file', file);
+    formData.append('country', `${id}`);
+    await API('post', '/boms/uploadCodes/', formData)
+      .then(res => {
         handleCountryData();
         setFile({});
         setOpen(false);
-        toaster("success", t(res.data.message));
+        toaster('success', t(res.data.message));
       })
-      .catch((err) => {
-        toaster("failed", t(err?.response?.data?.message));
+      .catch(err => {
+        toaster('failed', t(err?.response?.data?.message));
       });
   };
-  const handleCodesFile = (file) => setFile(file);
+  const handleCodesFile = file => setFile(file);
 
   const searchedProviders = vendor?.filter(createFilter(providerSerach, PROVIDERS_TO_FILTERS));
 
@@ -153,7 +155,7 @@ const AdminNomPays = () => {
               <div className="searching_div_country">
                 <SearchField placeholder="Search" setSearch={setDocumentSearch} />
                 <Button
-                  text={t("Add Documents")}
+                  text={t('Add Documents')}
                   className="update_Boms_btn"
                   onClick={() => setOpenAddDocument(true)}
                 />
@@ -163,22 +165,22 @@ const AdminNomPays = () => {
                 <div className="searching_div_style">
                   <SearchField placeholder="Search" setSearch={setCodeSearch} />
                   <Button
-                    text={t("Add")}
+                    text={t('Add')}
                     className="Edit_btn_bom"
                     onClick={() => setOpenAddBomModal(true)}
                   />
                 </div>
                 <Button
-                  text={t("Update")}
+                  text={t('Update')}
                   className="update_Boms_btn"
                   onClick={() => setOpen(true)}
                 />
               </div>
             ) : value === 3 ? (
-                    <div className="searching_div_country3">
-                {currentRadioValue === "coefficient" && (
+              <div className="searching_div_country3">
+                {currentRadioValue === 'coefficient' && (
                   <Button
-                    text={t("Update")}
+                    text={t('Update')}
                     className="Edit_btn2"
                     onClick={() => setOpenCalculationModal(true)}
                   />
@@ -190,13 +192,13 @@ const AdminNomPays = () => {
           </div>
           {/* LIST TABLE   */}
           <div className="list_table">
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: '100%' }}>
               <Box>
                 <Tabs value={value} onChange={handleChange} className="tab_menu">
-                  <Tab className="admin_tab_btn" label={t("Service providers")} {...a11yProps(0)} />
-                  <Tab className="admin_tab_btn" label={t("Documents")} {...a11yProps(1)} />
-                  <Tab className="admin_tab_btn" label={t("BOMs")} {...a11yProps(2)} />
-                  <Tab className="admin_tab_btn" label={t("Calculation")} {...a11yProps(3)} />
+                  <Tab className="admin_tab_btn" label={t('Service providers')} {...a11yProps(0)} />
+                  <Tab className="admin_tab_btn" label={t('Documents')} {...a11yProps(1)} />
+                  <Tab className="admin_tab_btn" label={t('BOMs')} {...a11yProps(2)} />
+                  <Tab className="admin_tab_btn" label={t('Calculation')} {...a11yProps(3)} />
                 </Tabs>
               </Box>
               {/* TABLE NO.1 */}
@@ -259,30 +261,29 @@ const AdminNomPays = () => {
         <div className="buyer_socond">
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              {t("Download your BOM file")}
+              {t('Download your BOM file')}
             </label>
             <div className="bom_download_File_btn_div">
               <Link
-                to={"/Files/Admintemplate.xlsx"}
+                to={'/Files/Admintemplate.xlsx'}
                 target="_blank"
                 download
-                className="bom_download"
-              >
-                {t("Download current file")}
+                className="bom_download">
+                {t('Download file')}
               </Link>
             </div>
           </div>
 
-          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: "10px" }}>
-            {t("Upload your BOM file")}
+          <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
+            {t('Upload your BOM file')}
           </label>
           <FilePicker
-            index={"01"}
+            index={'01'}
             fileName={file.name}
             name={file.name}
-            onChange={(e) => handleCodesFile(e.target.files[0])}
+            onChange={e => handleCodesFile(e.target.files[0])}
           />
-          <Button text={t("Submit")} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
+          <Button text={t('Submit')} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
         </div>
       </Modal>
     </>

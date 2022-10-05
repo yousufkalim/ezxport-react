@@ -165,7 +165,7 @@ const ProductInputs = (props) => {
             }
           />
         </div>
-        <div className="switch_column">
+        <div style={{width: '20%'}} className="switch_column switch_column_report">
           <SwitchButton
             text={t("Test report")}
             name="test_report"

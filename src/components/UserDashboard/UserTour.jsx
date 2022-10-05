@@ -21,9 +21,9 @@ const UserTour = (props) => {
         if (next && props.pathname === '/User/Dashboard/Documents') {
             const user = localStorage.getItem('userData');
             const currentUser = JSON.parse(user);
-            currentUser.onboarded = false
+            currentUser.onboarded = true
             await API('put', `/users/${currentUser._id}`, currentUser).then((res) => {
-                localStorage.setItem('newUser', false);
+                localStorage.setItem('newUser', true);
                 props.setShowTour(false);
                 history.push('/User/Dashboard/ListOfRequests')
             }).catch((err) => {
@@ -42,8 +42,10 @@ const UserTour = (props) => {
         }
     }
 
+    // style={{ top: i === 2 ? '10.7%' : i === 3 ? '14.3%' : i === 4 && '19.3%' }}
+
     return (
-        <div className="user_tour" style={{ top: i === 2 ? '10.7%' : i === 3 ? '14.3%' : i === 4 && '19.3%' }}>
+        <div className={`${i === 1 ? 'user_tour_1' : i === 2 ? 'user_tour_2' : i === 3 ? 'user_tour_3' : 'user_tour_4'} user_tour`}>
             <div className='user_tour_triangle'></div>
             <div className='user_tour_title_container'>
                 <div className='user_tour_title'>{title}</div>
