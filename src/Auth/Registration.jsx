@@ -141,8 +141,6 @@ const Registration = () => {
   // handle change for phone number
   const handlePhnChange = (event) => {
     const { name, value } = event.target;
-    console.log("Postal code ", value);
-    console.log("Postal code ", name);
     if(name === 'postelCode'){
       if(!value.match(/[^0-9]/) && value !== '00000'){
         return setFormState((formState) => ({
@@ -168,7 +166,6 @@ const Registration = () => {
     }
   };
 
-  console.log("Formstate ", formState);
   const handleNameChange = (event) => {
     const { name, value } = event.target;
     // if (!value.match(/[^a-zA-Z0-9]/)) {

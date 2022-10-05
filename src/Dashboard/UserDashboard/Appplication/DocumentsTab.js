@@ -186,7 +186,6 @@ const DocumentsTab = ({ userRequest }) => {
       // })),
     };
     setLoading(true);
-    console.log('filesss', data);
     await API('put', `/requests/UploadmissingDocs/${userRequest._id}`, data)
       .then(res => {
         toaster('success', t('Documents uploaded'));

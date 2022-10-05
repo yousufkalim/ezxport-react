@@ -3,6 +3,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import API from '../../api';
 import toaster from '../../utils/toaster';
+import { useTranslation } from 'react-i18next';
 
 const paths = [
     '/User/Dashboard/ListOfRequests',
@@ -15,6 +16,7 @@ const UserTour = (props) => {
     const { title, description } = props.tour;
     const { index, pathname } = props;
     const history = useHistory();
+    const {t} = useTranslation();
     const i = index + 1;
 
     const handleNext = async (next) => {
@@ -48,10 +50,10 @@ const UserTour = (props) => {
         <div className={`${i === 1 ? 'user_tour_1' : i === 2 ? 'user_tour_2' : i === 3 ? 'user_tour_3' : 'user_tour_4'} user_tour`}>
             <div className='user_tour_triangle'></div>
             <div className='user_tour_title_container'>
-                <div className='user_tour_title'>{title}</div>
+                <div className='user_tour_title'>{t(title)}</div>
                 {`${i}/4`}
             </div>
-            <div className='user_tour_description'>{description}</div>
+            <div className='user_tour_description'>{t(description)}</div>
             <div className='user_tour_buttons'>
                 {i !== 1 && <Button onClick={() => handleNext(false)} className='user_tour_previous' text='Previous' />}
                 <Button onClick={() => handleNext(true)} className={`${i === 1 && 'user_tour_show_next'} user_tour_next`} text={i === 4 ? 'To end' : 'Next'} />

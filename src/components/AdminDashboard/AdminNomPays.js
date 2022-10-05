@@ -90,7 +90,6 @@ const AdminNomPays = () => {
     setLoading(true);
     await API('get', `/countries/${id}`)
       .then(res => {
-        console.log('Calculations ', res?.data);
         setCurrency(res?.data?.country?.currency);
         setCountry(res?.data?.country);
         setVendor(res?.data?.country?.vendors);
@@ -104,8 +103,6 @@ const AdminNomPays = () => {
         setLoading(false);
       });
   };
-
-  console.log('After set cal ', calculation);
 
   const handleClose = () => setOpen(false);
   const handleCalculationClose = () => setOpenCalculationModal(false);

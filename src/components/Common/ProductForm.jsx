@@ -31,7 +31,6 @@ const ProductForm = (props) => {
       
     }
 
-    console.log("File types ", fileExtensions);
     const newImagesPromises = [];
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;

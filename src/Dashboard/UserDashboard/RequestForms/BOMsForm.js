@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Inputfield from '../../../components/Common/InputField';
 import Button from '../../../components/Common/Button';
 import Table from '@mui/material/Table';
@@ -46,7 +46,7 @@ const BOMsForm = props => {
 
   useEffect(() => {
     if (pastRequest) {
-      // getSetData();
+      getSetData();
     }
   }, [request]);
 
@@ -78,10 +78,9 @@ const BOMsForm = props => {
 
   const { t } = useTranslation();
 
-  const fileRef = useRef(null);
-
   const handleAllRequestByCountryId = async () => {
-    await API('get', `/requests/getByUser/${step1?.country}`)
+    console.log('GET by user ', step1);
+    await API('get', `/requests/getByUser/${step1?.user}`)
       .then(res => {
         setRequestByCountry(res?.data?.request);
       })
