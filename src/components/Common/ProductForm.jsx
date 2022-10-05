@@ -24,9 +24,14 @@ const ProductForm = (props) => {
     props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
+    const fileExtensions = [];
+    for (let i = 0; i < files.length; i++) {
+      const fileName = files[i]?.name?.split('.')?.[1];
+      fileExtensions.push(fileName);
+      
+    }
 
-    const fileType = files?.map((item) => item?.name?.split('.')[1]);
-    console.log("File types ", fileType);
+    console.log("File types ", fileExtensions);
     const newImagesPromises = [];
     for (let i = 0; i < files.length; i++) {
       const fileName = files[i]?.name;
@@ -209,6 +214,8 @@ const ProductForm = (props) => {
           <div className="to_download_div">
             <FilePicker
               multiple
+              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               index={`1${props.cindex}${props.index1}`}
               isMultiple={true}
               fileName={props?.product?.technical_sheet?.files}
@@ -226,6 +233,8 @@ const ProductForm = (props) => {
               multiple
               isMultiple={true}
               index={`2${props.cindex}${props.index1}`}
+              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               fileName={props?.product?.test_report?.files}
               name="test_report"
               onChange={(e) =>
@@ -243,6 +252,8 @@ const ProductForm = (props) => {
               multiple
               isMultiple={true}
               index={`3${props.cindex}${props.index1}`}
+              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               fileName={props?.product?.analysis_certificate?.files}
               name="analysis_certificate"
               onChange={(e) =>
@@ -259,6 +270,8 @@ const ProductForm = (props) => {
               isMultiple={true}
               index={`4${props?.cindex}${props?.index1}`}
               fileName={props?.product?.plan?.files}
+              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
               name="plan"
               onChange={(e) =>
                 handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
@@ -276,6 +289,8 @@ const ProductForm = (props) => {
             index={`5${props.cindex}${props.index1}`}
             fileName={props?.product?.other_docs?.files}
             name="other_docs"
+            accept="application/pdf,.csv,.doc,.docx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
+              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             onChange={(e) =>
               handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
             }

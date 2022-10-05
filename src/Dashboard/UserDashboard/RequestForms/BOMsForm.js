@@ -185,6 +185,7 @@ const BOMsForm = props => {
   const handleDelete = (code, bomIndex) => {
     const codes = [...allCodes];
     const findCode = codes?.find((item, index) => index === bomIndex);
+    console.log('Find code ', findCode);
     const adminCode = {
       admin_code: findCode?.admin_code,
       certification_required: findCode?.certification_required,
@@ -195,7 +196,9 @@ const BOMsForm = props => {
       return index1 !== bomIndex;
     });
 
-    if (findCode && findCode.certification_required && !pastRequest) {
+    const isCodeExist = adminCodes.find(item => item.code === findCode?.code);
+
+    if (findCode && findCode.certification_required && !pastRequest && !isCodeExist) {
       setAdminCodes([...adminCodes, adminCode]);
     }
     setAllCodes(filtered);

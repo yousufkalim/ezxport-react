@@ -25,6 +25,7 @@ const FilePicker = (props) => {
           multiple={props?.multiple}
           id={`file` + props?.index}
           name={props?.name}
+          accept={props.accept || "application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
           type="file"
           disabled={props?.disabled}
           onChange={props?.onChange}

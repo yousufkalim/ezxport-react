@@ -1,70 +1,70 @@
-import React, { useState, useEffect } from "react";
-import SearchField from "../../components/Common/SearchField";
-import { useHistory } from "react-router-dom";
-import API from "../../api";
-import Moment from "moment";
-import { useTranslation } from "react-i18next";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import downArrow from "../../assets/TitleDownArrow.svg";
-import arrow_up from "../../assets/arrow_up.svg";
-import { getSortedData } from "../../lib/getSortedData";
-import Spinner from "../../components/Common/Spinner";
-import { createFilter } from "react-search-input";
-import toaster from "../../utils/toaster";
+import React, { useState, useEffect } from 'react';
+import SearchField from '../../components/Common/SearchField';
+import { useHistory } from 'react-router-dom';
+import API from '../../api';
+import Moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import downArrow from '../../assets/TitleDownArrow.svg';
+import arrow_up from '../../assets/arrow_up.svg';
+import { getSortedData } from '../../lib/getSortedData';
+import Spinner from '../../components/Common/Spinner';
+import { createFilter } from 'react-search-input';
+import toaster from '../../utils/toaster';
 
 const nestSortTitles = [
   {
-    title: "country",
-    fields: ["name"],
-  },
+    title: 'country',
+    fields: ['name']
+  }
 ];
 
 const TITLES = [
   {
-    name: "Request",
-    key: "name",
-    sortIcon: true,
+    name: 'Request',
+    key: 'name',
+    sortIcon: true
   },
   {
-    name: "Users",
-    key: "name",
-    sortIcon: true,
+    name: 'Users',
+    key: 'name',
+    sortIcon: false
   },
   {
-    name: "Date",
-    key: "createdAt",
-    sortIcon: true,
+    name: 'Date',
+    key: 'createdAt',
+    sortIcon: true
   },
   {
-    name: "Certificate cost",
-    key: "name",
-    sortIcon: false,
+    name: 'Certificate cost',
+    key: 'name',
+    sortIcon: false
   },
   {
-    name: "Service providers",
-    key: "name",
-    sortIcon: false,
+    name: 'Service providers',
+    key: 'name',
+    sortIcon: false
   },
   {
-    name: "Status",
-    key: "name",
-    sortIcon: false,
-  },
+    name: 'Status',
+    key: 'name',
+    sortIcon: false
+  }
 ];
 
-const KEYS_TO_FILTERS = ["title"];
+const KEYS_TO_FILTERS = ['title'];
 
 const Requests = () => {
   const [allRequest, setAllRequest] = useState([]);
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [sort, setSort] = useState({ key: '', ascend: true });
   const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
 
   const { t } = useTranslation();
   const history = useHistory(null);
@@ -73,15 +73,17 @@ const Requests = () => {
   }, []);
   const handleAllRequest = async () => {
     setLoading(true);
-    await API("get", "/requests")
-      .then((res) => {
+    await API('get', '/requests')
+      .then(res => {
         // setAllRequest(res?.data?.requets);
-        const filteredRequests = res?.data?.requets?.filter((item) => { return item?.user !== null })
+        const filteredRequests = res?.data?.requets?.filter(item => {
+          return item?.user !== null;
+        });
         setAllRequest(filteredRequests);
         setLoading(false);
       })
-      .catch((err) => {
-        toaster("Failed", t("Failed to fetch data!"));
+      .catch(err => {
+        toaster('Failed', t('Failed to fetch data!'));
         setLoading(false);
       });
   };
@@ -93,9 +95,9 @@ const Requests = () => {
       <div className="list_second_div">
         {/* LIST HEAD  */}
         <div className="List_heading_div">
-          <h1 className="list_rqst_h1">{t("List of requests")}</h1>
+          <h1 className="list_rqst_h1">{t('List of requests')}</h1>
           <div className="searchingRequest">
-            <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
+            <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
           </div>
         </div>
         {/* LIST TABLE   */}
@@ -104,12 +106,11 @@ const Requests = () => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  {TITLES.map((item) => (
+                  {TITLES.map(item => (
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                      style={{ backgrounColor: '#EAECF0' }}>
                       {t(item.name)} &nbsp;
                       {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
@@ -153,53 +154,56 @@ const Requests = () => {
                 <Spinner />
               ) : (
                 <TableBody>
-                  {searchedResults?.map((item) => {
+                  {searchedResults?.map(item => {
                     return (
                       <TableRow
                         key={item?._id}
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
-                          cursor: "pointer",
+                          '&:last-child td, &:last-child th': { border: 0 },
+                          cursor: 'pointer'
                         }}
-                        onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}
-                      >
+                        onClick={() => history.push(`/Admin/ValidateRequest/${item?._id}`)}>
                         <TableCell component="th" scope="row">
                           <p className="AP_plus_title">{item?.title}</p>
                           <p className="country2">{item?.country?.name}</p>
                         </TableCell>
                         <TableCell component="th" scope="row">
-                          <p className="AP_plus_title">{item?.user?.first_name} {item?.user?.last_name}</p>
+                          <p className="AP_plus_title">
+                            {item?.user?.first_name} {item?.user?.last_name}
+                          </p>
                         </TableCell>
                         <TableCell align="left" className="country2">
-                          {Moment(item?.createdAt).format("DD/MM/YYYY")}
+                          {Moment(item?.createdAt).format('DD/MM/YYYY')}
                         </TableCell>
                         <TableCell align="left" className="country2">
                           {item?.certification_cost?.value ? (
                             <>
-                              {item?.certification_cost?.currency === "USD"
-                                ? item?.certification_cost?.value + "$"
-                                : item?.certification_cost?.currency === "EURO" &&
-                                  item?.certification_cost?.value + "€"}
+                              {item?.certification_cost?.currency === 'USD'
+                                ? item?.certification_cost?.value + '$'
+                                : item?.certification_cost?.currency === 'EURO' &&
+                                  item?.certification_cost?.value + '€'}
                             </>
                           ) : (
-                            "--"
+                            '--'
                           )}
                         </TableCell>
 
                         <TableCell align="left" className="country2">
-                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : "--"}
+                          {item?.vendor?.vendor ? <>{item?.vendor?.vendor?.name}</> : '--'}
                         </TableCell>
                         <TableCell align="left">
-                          {item?.status === "Sent" ? (
+                          {item?.status === 'Sent' ? (
                             <p className="send_status">{t(item?.status)}</p>
-                          ) : item?.status === "Missing documents" ? (
+                          ) : item?.status === 'Missing documents' ? (
                             <p className="missingDocStatus">{t(item?.status)}</p>
-                          ) : item?.status === "Validated" ? (
+                          ) : item?.status === 'Validated' ? (
                             <p className="clrClass">{t(item?.status)}</p>
-                          ) : item?.status === "Being checked by an expert" ? (
+                          ) : item?.status === 'Being checked by an expert' ? (
                             <p className="process_status">{t(item?.status)}</p>
-                                ) : item?.status === "Documents to be checked" && (
-                                  <p className="clrClass" >{t(item?.status)}</p>
+                          ) : (
+                            item?.status === 'Documents to be checked' && (
+                              <p className="clrClass">{t(item?.status)}</p>
+                            )
                           )}
                         </TableCell>
                       </TableRow>

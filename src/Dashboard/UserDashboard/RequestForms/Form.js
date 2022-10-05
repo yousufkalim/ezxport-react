@@ -392,6 +392,7 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleUploadDoc = async (file, docId, index) => {
+    console.log('File type ', file);
     const files = checkFileType(file, t);
     if (files) {
       let formData = new FormData();
