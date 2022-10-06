@@ -9,6 +9,7 @@ import ProductForm from '../../../components/Common/ProductForm';
 import { useTranslation } from 'react-i18next';
 import { Store } from '../../../StoreContext';
 import toaster from '../../../utils/toaster';
+import Spinner from '../../../components/Common/Spinner';
 
 const Document = props => {
   const { setProductCodes, productCodes, validDoc, setValidDoc, setValidProduct } = props;
@@ -105,6 +106,7 @@ const Document = props => {
   };
   return (
     <div className="documents_main_div">
+      {props.docLoading && <Spinner />}
       <div className="title_Div_documents">
         <span className="title_span">
           {t('Import documents specific to')} {countryName?.name}

@@ -81,6 +81,7 @@ export default function HorizontalNonLinearStepper() {
   const [retrieveRequestId, setRetrieveRequestId] = useState('');
   const [allCodes, setAllCodes] = useState([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [docLoading, setDocLoading] = useState(false);
   const { request, pastRequest } = Store();
 
   // step 2 states
@@ -394,6 +395,7 @@ export default function HorizontalNonLinearStepper() {
     // const files = checkFileType(file, t);
 
     // if (files) {
+    setDocLoading(true);
     let formData = new FormData();
     formData.append('doc_id', docId);
     formData.append('file', file);
@@ -403,6 +405,7 @@ export default function HorizontalNonLinearStepper() {
           prev[index].filename = file.name;
           return [...prev];
         });
+        setDocLoading(false);
       })
       .catch(err => {
         if (err?.response?.data) {
@@ -411,6 +414,7 @@ export default function HorizontalNonLinearStepper() {
             ?.split('Error: ')?.[1]
             ?.split('<br>')[0];
           toaster('Failed', t(error));
+          setDocLoading(false);
         }
       });
     // }
@@ -430,6 +434,18 @@ export default function HorizontalNonLinearStepper() {
     const { values } = step3.sellerData;
     if (name === 'postalCode' && value === '00000') {
       return;
+    } else if (name === 'postalCode' || name === 'telephone') {
+      if (!value.match(/[^0-9]/)) {
+        return setStep3({
+          ...step3,
+          sellerData: {
+            ...sellerData,
+            values: { ...values, [name]: value },
+            touched: { ...sellerData.touched, [name]: true }
+          }
+        });
+      }
+      return;
     }
     setStep3({
       ...step3,
@@ -445,6 +461,18 @@ export default function HorizontalNonLinearStepper() {
     const { values } = step3.buyerData;
     if (name === 'postalCode' && value === '00000') {
       return;
+    } else if (name === 'postalCode' || name === 'telephone') {
+      if (!value.match(/[^0-9]/)) {
+        return setStep3({
+          ...step3,
+          buyerData: {
+            ...buyerData,
+            values: { ...values, [name]: value },
+            touched: { ...buyerData.touched, [name]: true }
+          }
+        });
+      }
+      return;
     }
     setStep3({
       ...step3,
@@ -459,6 +487,18 @@ export default function HorizontalNonLinearStepper() {
     const { placeOfInspection } = step3;
     const { values } = step3.placeOfInspection;
     if (name === 'postalCode' && value === '00000') {
+      return;
+    } else if (name === 'postalCode' || name === 'telephone') {
+      if (!value.match(/[^0-9]/)) {
+        return setStep3({
+          ...step3,
+          placeOfInspection: {
+            ...placeOfInspection,
+            values: { ...values, [name]: value },
+            touched: { ...placeOfInspection.touched, [name]: true }
+          }
+        });
+      }
       return;
     }
     setStep3({
@@ -521,7 +561,6 @@ export default function HorizontalNonLinearStepper() {
           }
         ];
         getSessionUrl(requestId, line_items);
-        setCheckoutLoading(false);
       })
       .catch(err => {
         setCheckoutLoading(false);
@@ -534,17 +573,19 @@ export default function HorizontalNonLinearStepper() {
 
   // };
   const getSessionUrl = async (id, line_items) => {
+    console.log('Data ', line_items);
     await API('post', '/requests/Checkout', {
       line_items: line_items,
-      metaData: { id: id, unit_amount: line_items.unit_amount }
+      metaData: { id: id, unit_amount: line_items[0]?.price_data?.unit_amount }
     })
       .then(res => {
         // handleStep4();
-        // localStorage.setItem("Requested", true);
-        // console.log('WIndow url ', res?.data?.url);
+        // localStorage.setItem("Requested", true)
         window.location = res?.data?.url;
+        // setCheckoutLoading(false);
       })
       .catch(() => {
+        // setCheckoutLoading(false);
         localStorage.setItem('Requested', false);
       });
   };
@@ -656,6 +697,7 @@ export default function HorizontalNonLinearStepper() {
                 handleDocByCountryId={handleDocByCountryId}
                 handleUploadDoc={handleUploadDoc}
                 setValidProduct={setValidProduct}
+                docLoading={docLoading}
                 CountryDoc={CountryDoc}
                 setValidDoc={setValidDoc}
                 validDoc={validDoc}
