@@ -6,8 +6,6 @@ import Select from "@mui/material/Select";
 import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
-const fileTypes = ['pdf', 'xlxs', 'docs', 'doc'];
-
 const ProductForm = (props) => {
   const { product } = props;
   const { t } = useTranslation();
@@ -37,6 +35,7 @@ const ProductForm = (props) => {
       newImagesPromises.push({ filename: fileName, url: await convertBase64(files[i]) });
     }
     const base64 = newImagesPromises;
+
     props.setCodes((prev) => {
       prev[cindex].products[index1][name] = prev[cindex]?.products[index1][name]?.files?.length ? {
         files: [...prev[cindex]?.products[index1][name]?.files, ...base64],

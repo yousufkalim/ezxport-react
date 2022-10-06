@@ -405,10 +405,14 @@ export default function HorizontalNonLinearStepper() {
           prev[index].filename = file.name;
           return [...prev];
         });
+        setValidDoc(true);
         setDocLoading(false);
       })
       .catch(err => {
-        if (err?.response?.data) {
+        if (err?.response?.data?.message) {
+          toaster('Failed', t(err?.response?.data?.message));
+          setDocLoading(false);
+        } else if (err?.response?.data) {
           const error = err?.response?.data
             ?.split('<pre>')?.[1]
             ?.split('Error: ')?.[1]
@@ -416,6 +420,7 @@ export default function HorizontalNonLinearStepper() {
           toaster('Failed', t(error));
           setDocLoading(false);
         }
+        setDocLoading(false);
       });
     // }
   };
@@ -573,7 +578,6 @@ export default function HorizontalNonLinearStepper() {
 
   // };
   const getSessionUrl = async (id, line_items) => {
-    console.log('Data ', line_items);
     await API('post', '/requests/Checkout', {
       line_items: line_items,
       metaData: { id: id, unit_amount: line_items[0]?.price_data?.unit_amount }

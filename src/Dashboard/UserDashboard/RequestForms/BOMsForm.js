@@ -217,10 +217,7 @@ const BOMsForm = props => {
     await API('post', '/requests/searchName/', {
       title: step1?.title
     })
-      .then(res => {
-        console.log('Search title ', res.data);
-        // props.handleChange('title', t(res?.data?.tile));
-      })
+      .then(res => {})
       .catch(err =>
         toaster('Failed', t(err.response.data.message?.msg) || t(err.response.data.message))
       );
