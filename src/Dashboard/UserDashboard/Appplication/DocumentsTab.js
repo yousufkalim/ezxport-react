@@ -69,13 +69,17 @@ const DocumentsTab = ({ userRequest }) => {
           docs = docs + prod.missing_docs?.length;
         });
       });
-      if (missingDocs?.length || docs?.length) {
+      console.log('Missing docs ', missingDocs);
+      console.log('Missing Codes ', docs);
+      if (missingDocs > 0 || docs > 0) {
         setShowSend(true);
       } else {
         setShowSend(false);
       }
     }
   }, [userRequest]);
+
+  console.log('Show send ', showSend);
 
   const convertBase64 = file => {
     return new Promise((resolve, reject) => {

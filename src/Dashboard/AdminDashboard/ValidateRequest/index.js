@@ -11,6 +11,7 @@ import Button from '../../../components/Common/Button';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import { useTranslation } from 'react-i18next';
 import toaster from '../../../utils/toaster';
+import Spinner from '../../../components/Common/Spinner';
 
 const Index = () => {
   const history = useHistory();
@@ -24,6 +25,7 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [modalBtn, setModalBtn] = useState(false);
   const [comment, setComment] = useState('');
+  const [downloadLoading, setDownloadLoading] = useState(false);
   const { t } = useTranslation();
   const params = useParams();
   const { id } = params;
@@ -142,13 +144,18 @@ const Index = () => {
   };
 
   const exportDocument = async e => {
+    setDownloadLoading(true);
     const reqId = history.location.pathname.split('/Admin/ValidateRequest/')[1];
     e.stopPropagation();
     await API('get', `/requests/zipFile/${reqId}`)
       .then(res => {
+        setDownloadLoading(false);
         window.location.href = res?.config?.url;
       })
-      .catch(err => toaster('failed', t('File not found!')));
+      .catch(err => {
+        setDownloadLoading(false);
+        toaster('failed', t('File not found!'));
+      });
   };
 
   const handleClose = () => setCommentModal(false);
@@ -157,6 +164,7 @@ const Index = () => {
   return (
     <>
       <div className="Reference_header">
+        {downloadLoading && <Spinner />}
         <div className="Reference_center_div">
           <div className="Reference_heading">
             <Link to="/Admin/Dashboard/Requests" style={{ color: 'black', textDecoration: 'none' }}>
@@ -174,6 +182,7 @@ const Index = () => {
               <Button
                 onClick={e => exportDocument(e)}
                 text={t('Download the file')}
+                disabled={downloadLoading}
                 className="validate_button2"
               />
               &nbsp;
