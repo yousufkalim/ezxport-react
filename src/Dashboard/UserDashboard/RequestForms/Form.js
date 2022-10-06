@@ -24,6 +24,7 @@ import { Store, UpdateStore } from '../../../StoreContext';
 
 import toaster from '../../../utils/toaster';
 import { checkFileType } from '../../../lib/common';
+import Spinner from '../../../components/Common/Spinner';
 
 const userData = JSON.parse(localStorage.getItem('userData'));
 const QontoConnector = styled(StepConnector)(({ theme }) => ({
@@ -79,6 +80,7 @@ export default function HorizontalNonLinearStepper() {
   const [countries, setCounteries] = useState();
   const [retrieveRequestId, setRetrieveRequestId] = useState('');
   const [allCodes, setAllCodes] = useState([]);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
   const { request, pastRequest } = Store();
 
   // step 2 states
@@ -491,6 +493,7 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleStep4 = async () => {
+    setCheckoutLoading(true);
     let data = {
       request: requestId,
       codes: []
@@ -500,7 +503,6 @@ export default function HorizontalNonLinearStepper() {
         data.codes.push(item2);
       });
     });
-    // console.log("In Request docs", data)
     await API('put', '/requests/documents', data)
       .then(res => {
         localStorage.setItem('Requested', true);
@@ -519,8 +521,10 @@ export default function HorizontalNonLinearStepper() {
           }
         ];
         getSessionUrl(requestId, line_items);
+        setCheckoutLoading(false);
       })
       .catch(err => {
+        setCheckoutLoading(false);
         toaster('failed', t(err?.response?.data?.message?.msg), t('Documents'));
       });
   };
@@ -783,8 +787,14 @@ export default function HorizontalNonLinearStepper() {
               )}
             </div>
           </div>
-          <Button1 text={t('Agree')} className="to_confirm_btn" onClick={handleStep4} />
-          <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
+          {checkoutLoading ? (
+            <Spinner className="" />
+          ) : (
+            <>
+              <Button1 text={t('Agree')} className="to_confirm_btn" onClick={handleStep4} />
+              <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
+            </>
+          )}
         </div>
       </Modal>
     </Box>

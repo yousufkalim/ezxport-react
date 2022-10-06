@@ -70,7 +70,7 @@ const AdminNomPays = () => {
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState();
+  const [currentRadioValue, setCurrentRadioValue] = useState('coefficient');
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState('');
   const [file, setFile] = useState('');
