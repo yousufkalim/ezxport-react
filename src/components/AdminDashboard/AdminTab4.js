@@ -74,7 +74,7 @@ const AdminTab4 = props => {
     if (props?.calculation) {
       await API('put', `/calculations/updateType/${props?.calculation?._id}`, { type })
         .then(res => {
-          console.log('Updated ', res);
+          console.log('');
         })
         .catch(err => {
           toaster('failed', t('Range calculations not found'), t('Error'));

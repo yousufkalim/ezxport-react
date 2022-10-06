@@ -35,6 +35,7 @@ const Document = props => {
         }
         return item;
       });
+      setValidDoc(true);
       setProductCodes(product);
       setFormUpdate(false);
     }
@@ -66,7 +67,7 @@ const Document = props => {
   }, [props?.createdCodes?.codes]);
 
   const validateDocuments = () => {
-    const filterDocs = props?.CountryDoc?.filter(item => item.hasOwnProperty('filename'));
+    const filterDocs = props?.CountryDoc?.filter(item => item.files?.length);
     if (filterDocs?.length === props?.CountryDoc?.length) {
       setValidDoc(true);
     } else {
@@ -104,6 +105,7 @@ const Document = props => {
       })
     );
   };
+
   return (
     <div className="documents_main_div">
       {props.docLoading && <Spinner />}
@@ -120,6 +122,7 @@ const Document = props => {
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: '100%' }}>
         {props?.CountryDoc?.map((item, index) => {
+          console.log('DOCument id ', item);
           return (
             <Grid item xs={6}>
               <label style={{ display: 'flex' }}>
@@ -137,7 +140,7 @@ const Document = props => {
                   fileName={item?.filename ? item?.filename : item?.files}
                   name={item?.name}
                   onChange={e => {
-                    props?.handleUploadDoc(e.target.files[0], item._id, index);
+                    props?.handleUploadDoc(e.target.files[0], item?.doc_id?._id || item._id, index);
                   }}
                 />
               </div>

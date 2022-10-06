@@ -69,8 +69,6 @@ const DocumentsTab = ({ userRequest }) => {
           docs = docs + prod.missing_docs?.length;
         });
       });
-      console.log('Missing docs ', missingDocs);
-      console.log('Missing Codes ', docs);
       if (missingDocs > 0 || docs > 0) {
         setShowSend(true);
       } else {
@@ -78,8 +76,6 @@ const DocumentsTab = ({ userRequest }) => {
       }
     }
   }, [userRequest]);
-
-  console.log('Show send ', showSend);
 
   const convertBase64 = file => {
     return new Promise((resolve, reject) => {
@@ -359,7 +355,7 @@ const DocumentsTab = ({ userRequest }) => {
             {allDocuments?.documents?.map(doc => {
               return (
                 <ListItemButton sx={{ border: '1px solid #EAECF0', position: 'relative' }}>
-                  <li className="table_li2" style={{ marginRight: 'auto', display: 'flex' }}>
+                  <li className="table_li2" style={{ width: '100%' }}>
                     <img src={RightArrow} alt="" className="rightArrow" />
                     {doc?.doc_id?.name}
                   </li>
