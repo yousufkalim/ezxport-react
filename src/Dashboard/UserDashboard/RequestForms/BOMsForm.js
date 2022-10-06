@@ -209,9 +209,13 @@ const BOMsForm = props => {
     })
       .then(res => {
         props.handleChange('title', t(res?.data?.tile).toUpperCase());
+        props.setValidateBom(true);
       })
 
-      .catch(err => toaster('Failed', t(err.response.data.message)));
+      .catch(err => {
+        toaster('Failed', t(err.response.data.message));
+        props.setValidateBom(false);
+      });
   };
   const handleSearchTitle = async () => {
     await API('post', '/requests/searchName/', {
