@@ -652,6 +652,7 @@ export default function HorizontalNonLinearStepper() {
                 step1={step1}
                 setStep1={setStep1}
                 handleChange={handleStep1Change}
+                setValidateBom={setValidateBom}
                 codes={codes}
                 setCodes={setCodes}
                 setMatchedData={setMatchedData}
@@ -722,6 +723,7 @@ export default function HorizontalNonLinearStepper() {
               <div style={{ width: '100%', display: activeStep !== 0 && 'none' }}>
                 <Button1
                   onClick={hanldeEstimateRequest}
+                  disabled={!validateBom}
                   className="request_Estimate_btn"
                   text={t('Estimate my request')}
                 />
