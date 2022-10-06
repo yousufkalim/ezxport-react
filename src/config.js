@@ -1,4 +1,4 @@
-let baseUrl = 'http://localhost:5000/api';
+let baseUrl = 'https://ezxport-api-dev.falconweb.app/api';
 let mediaUrl = 'http://localhost:5000/';
 
 if (window.location.host === 'ezxport-dev.falconweb.app') {
@@ -10,9 +10,9 @@ if (window.location.host === 'ezxport-dev.falconweb.app') {
 } else if (window.location.host === 'ezxport-staging.falconweb.app') {
   baseUrl = 'https://ezxport-api-staging.falconweb.app/api';
   mediaUrl = 'https://ezxport-api-staging.falconweb.app/';
-} else if (window.location.host === 'ezxport-prod.falconweb.app/') {
-  baseUrl = 'https://ezxport-api-prod.falconweb.app/api';
-  mediaUrl = 'https://ezxport-api-prod.falconweb.app/';
+} else if (window.location.host === 'app.ezxport.com') {
+  baseUrl = 'https://api.ezxport.com/api';
+  mediaUrl = 'https://api.ezxport.com/';
 }
 
 module.exports = { baseUrl, mediaUrl };
