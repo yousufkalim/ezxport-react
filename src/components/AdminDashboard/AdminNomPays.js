@@ -70,7 +70,7 @@ const AdminNomPays = () => {
   const [openAddDocument, setOpenAddDocument] = useState(false);
   const [openAddBomModal, setOpenAddBomModal] = useState(false);
   const [boms, setBoms] = useState();
-  const [currentRadioValue, setCurrentRadioValue] = useState('coefficient');
+  const [currentRadioValue, setCurrentRadioValue] = useState();
   const [calculation, setCalculation] = useState();
   const [currency, setCurrency] = useState('');
   const [file, setFile] = useState('');
@@ -83,6 +83,13 @@ const AdminNomPays = () => {
   useEffect(() => {
     handleCountryData();
   }, []);
+
+  useEffect(() => {
+    if (calculation) {
+      setCurrentRadioValue(calculation?.type);
+    }
+  }, [calculation]);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

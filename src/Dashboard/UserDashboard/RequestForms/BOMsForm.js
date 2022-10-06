@@ -79,7 +79,6 @@ const BOMsForm = props => {
   const { t } = useTranslation();
 
   const handleAllRequestByCountryId = async () => {
-    console.log('GET by user ', step1);
     await API('get', `/requests/getByUser/${step1?.user}`)
       .then(res => {
         setRequestByCountry(res?.data?.request);
@@ -171,7 +170,7 @@ const BOMsForm = props => {
         })
         .catch(err => {
           setLoading(false);
-          toaster('Failed', t(err?.response?.message), 'Codes');
+          toaster('Failed', t(err?.response?.data?.message), 'Codes');
           setImportedFile('');
         });
     } else {
@@ -184,7 +183,6 @@ const BOMsForm = props => {
   const handleDelete = (code, bomIndex) => {
     const codes = [...allCodes];
     const findCode = codes?.find((item, index) => index === bomIndex);
-    console.log('Find code ', findCode);
     const adminCode = {
       admin_code: findCode?.admin_code,
       certification_required: findCode?.certification_required,
@@ -263,7 +261,6 @@ const BOMsForm = props => {
       });
   };
 
-  console.log('Step1 value ', step1);
   return (
     <div>
       <div style={{ width: '100%' }}>

@@ -57,8 +57,6 @@ const Index = () => {
     // }
   }, [inputList, inputListProduct]);
 
-  console.log('Input lists ', inputList);
-
   function TabeProps(data) {
     setCountTabe(data);
   }
@@ -129,7 +127,6 @@ const Index = () => {
         history.push('/RequestDocuments');
       })
       .catch(err => {
-        console.log('ERROR MSG ===>  ', err);
         setModalBtn(false);
         toaster('failed', t('Document not Validated'), t('Validate Document'));
       });

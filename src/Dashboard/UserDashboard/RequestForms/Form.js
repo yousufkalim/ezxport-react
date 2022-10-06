@@ -537,6 +537,7 @@ export default function HorizontalNonLinearStepper() {
       .then(res => {
         // handleStep4();
         // localStorage.setItem("Requested", true);
+        // console.log('WIndow url ', res?.data?.url);
         window.location = res?.data?.url;
       })
       .catch(() => {
