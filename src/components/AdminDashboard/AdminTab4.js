@@ -70,6 +70,16 @@ const AdminTab4 = props => {
     }
   }, [formState.values, allErrors]);
 
+  const setCalculationType = async type => {
+    await API('put', `/calculations/updateType/${props?.calculation?._id}`, { type })
+      .then(res => {
+        console.log('Updated ', res);
+      })
+      .catch(err => {
+        toaster('failed', t('Range calculations not found'), t('Error'));
+      });
+  };
+
   const handleChange = e => {
     const { name, value } = e.target;
 
@@ -215,7 +225,10 @@ const AdminTab4 = props => {
           name="radio-item-1"
           value="on"
           type="radio"
-          onChange={e => props.setCurrentRadioValue('coefficient')}
+          onChange={e => {
+            props.setCurrentRadioValue('coefficient');
+            setCalculationType('coefficient');
+          }}
           defaultChecked={props.currentRadioValue === 'coefficient'}
         />
         <label
@@ -233,7 +246,10 @@ const AdminTab4 = props => {
           name="radio-item-1"
           value="off"
           type="radio"
-          onChange={e => props.setCurrentRadioValue('range')}
+          onChange={e => {
+            props.setCurrentRadioValue('range');
+            setCalculationType('range');
+          }}
           defaultChecked={props.currentRadioValue === 'range'}
         />
         <label
