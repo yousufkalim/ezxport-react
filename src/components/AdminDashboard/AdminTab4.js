@@ -71,13 +71,15 @@ const AdminTab4 = props => {
   }, [formState.values, allErrors]);
 
   const setCalculationType = async type => {
-    await API('put', `/calculations/updateType/${props?.calculation?._id}`, { type })
-      .then(res => {
-        console.log('Updated ', res);
-      })
-      .catch(err => {
-        toaster('failed', t('Range calculations not found'), t('Error'));
-      });
+    if (props?.calculation) {
+      await API('put', `/calculations/updateType/${props?.calculation?._id}`, { type })
+        .then(res => {
+          console.log('Updated ', res);
+        })
+        .catch(err => {
+          toaster('failed', t('Range calculations not found'), t('Error'));
+        });
+    }
   };
 
   const handleChange = e => {

@@ -28,6 +28,7 @@ const DocumentsTab = ({ userRequest }) => {
   const [productMissingDocs, setProductMissingDocs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [enableSend, setEnableSend] = useState(false);
+  const [showSend, setShowSend] = useState(false);
 
   const { t } = useTranslation();
 
@@ -58,6 +59,23 @@ const DocumentsTab = ({ userRequest }) => {
       setEnableSend(false);
     }
   }, [countryMissingDocs, productMissingDocs]);
+
+  useEffect(() => {
+    if (userRequest) {
+      const missingDocs = userRequest?.missing_docs?.length;
+      let docs = 0;
+      userRequest?.codes?.forEach(function (codeItem) {
+        codeItem.products.forEach(function (prod) {
+          docs = docs + prod.missing_docs?.length;
+        });
+      });
+      if (missingDocs?.length || docs?.length) {
+        setShowSend(true);
+      } else {
+        setShowSend(false);
+      }
+    }
+  }, [userRequest]);
 
   const convertBase64 = file => {
     return new Promise((resolve, reject) => {
@@ -244,7 +262,6 @@ const DocumentsTab = ({ userRequest }) => {
                 </Grid>
               </>
             )}
-            <Divider style={{ margin: '1rem 0 1rem 0' }} />
             {userRequest?.codes?.map(code => {
               return (
                 <>
@@ -254,6 +271,7 @@ const DocumentsTab = ({ userRequest }) => {
                   {code?.products?.map((product, index) => {
                     return (
                       <>
+                        <Divider style={{ margin: '1rem 0 1rem 0' }} />
                         <Grid container spacing={2}>
                           {product?.missing_docs?.map((item, index) => {
                             const findName = productMissingDocs.find(doc => {
@@ -290,28 +308,34 @@ const DocumentsTab = ({ userRequest }) => {
                 </>
               );
             })}
-            <Button
-              text="Send documents"
-              className="send_documents_btn"
-              // countryMissingDocs.length === userRequest?.missing_docs?.length && productMissingDocs.length === productLength
-              // ?
-              // : "send_documents_btn_disabled"
-              disabled={!enableSend}
-              onClick={handleMissingDocUpload}
-              // disabled={countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false}
-            />
+            {showSend && (
+              <Button
+                text="Send documents"
+                className="send_documents_btn"
+                // countryMissingDocs.length === userRequest?.missing_docs?.length && productMissingDocs.length === productLength
+                // ?
+                // : "send_documents_btn_disabled"
+                disabled={!enableSend}
+                onClick={handleMissingDocUpload}
+                // disabled={countryMissingDocs.length === 0 || productMissingDocs.length === 0 ? true : false}
+              />
+            )}
           </>
         )}
-        <Divider style={{ margin: '1rem 0 1rem 0' }} />
-        <span>{t('Comments by the Admin')}</span> <br />
-        <TextareaAutosize
-          value={userRequest?.admin_remarks}
-          disabled
-          minRows={8}
-          placeholder="Comments by admin will be shown here"
-          style={{ width: '100%', padding: '10px', fontSize: '1rem', marginTop: '1rem' }}
-        />
-        <Divider style={{ margin: '1rem 0 1rem 0' }} />
+        {showSend && (
+          <>
+            <Divider style={{ margin: '1rem 0 1rem 0' }} />
+            <span>{t('Comments by the Admin')}</span> <br />
+            <TextareaAutosize
+              value={userRequest?.admin_remarks}
+              disabled
+              minRows={8}
+              placeholder="Comments by admin will be shown here"
+              style={{ width: '100%', padding: '10px', fontSize: '1rem', marginTop: '1rem' }}
+            />
+            <Divider style={{ margin: '1rem 0 1rem 0' }} />
+          </>
+        )}
       </>
       <List>
         <ListItemButton sx={{ border: '1px solid #EAECF0' }}>

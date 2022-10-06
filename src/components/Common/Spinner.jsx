@@ -1,9 +1,9 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Spinner = ({color = 'secondary'}) => {
+const Spinner = ({className, color = 'secondary'}) => {
   return (
-    <CircularProgress className='spinner' color={color} /> 
+    <CircularProgress className={`${className} spinner`} color={color} /> 
   )
 }
 
