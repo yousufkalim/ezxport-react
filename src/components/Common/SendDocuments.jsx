@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 const SendDocuments = () => {
   const history = useHistory(null);
   const { t, i18n } = useTranslation();
+  const userData = localStorage.getItem('userData');
   const { language } = i18n;
   const handleReturn = () => {
     history.push("/Admin/Dashboard/Requests");
@@ -25,7 +26,7 @@ const SendDocuments = () => {
               "You have validated the documents of company X, we will send you all the documents to the address"
             )}
             &nbsp;
-            <span style={{ fontWeight: "bold" }}>mail@mail.com</span>
+            <span style={{ fontWeight: "bold" }}>{userData?.email}</span>
           </p>
           <Button text={t("Return to Requests")} onClick={handleReturn} className="return_btn" />
         </div>

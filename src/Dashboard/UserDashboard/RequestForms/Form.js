@@ -82,6 +82,7 @@ export default function HorizontalNonLinearStepper() {
   const [allCodes, setAllCodes] = useState([]);
   const [checkoutLoading, setCheckoutLoading] = useState(false);
   const [docLoading, setDocLoading] = useState(false);
+  const [validateBom, setValidateBom] = useState(false);
   const { request, pastRequest } = Store();
 
   // step 2 states
@@ -585,6 +586,7 @@ export default function HorizontalNonLinearStepper() {
       .then(res => {
         // handleStep4();
         // localStorage.setItem("Requested", true)
+        localStorage.setItem('requestId', requestId);
         window.location = res?.data?.url;
         // setCheckoutLoading(false);
       })
