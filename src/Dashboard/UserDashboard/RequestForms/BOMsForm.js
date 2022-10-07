@@ -76,8 +76,6 @@ const BOMsForm = props => {
     return newCodes;
   };
 
-  console.log('Country ', step1);
-
   const { t } = useTranslation();
 
   const handleAllRequestByCountryId = async () => {
