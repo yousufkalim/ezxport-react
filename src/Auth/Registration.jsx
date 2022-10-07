@@ -88,6 +88,12 @@ const schema = {
     },
   },
 };
+const companyType = [
+  { name: "Manufacturer", id: "manufacturer" },
+  { name: "Vendor", id: "vendor" },
+  { name: "Trader", id: "trader" },
+  { name: "Freight forwarder", id: "freight_forwarder" },
+]
 
 const Registration = () => {
   const history = useHistory();
@@ -209,7 +215,6 @@ const Registration = () => {
   const hasError = (field) => (formState.touched[field] && formState.errors[field] ? true : false);
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
-
   return (
     <>
       <Header />
@@ -425,12 +430,11 @@ const Registration = () => {
                   <option disabled value="default">
                     {t("Select your type")}
                   </option>
-                  <option value="1">Type 1</option>
-                  <option value="2">Type 2</option>
-                  <option value="3">Type 3</option>
-                  <option value="4">Type 4</option>
-                  <option value="5">Type 5</option>
+                  {companyType?.map((item) => {
+                    return <option value={item?.id} key={item?.id}>{t(item?.name)}</option>
+                  })}
                 </select>
+
                 <div className="error-format">
                   {hasError("typeOfSociety") && formState.touched.typeOfSociety
                     ? formState.errors.typeOfSociety[0]
