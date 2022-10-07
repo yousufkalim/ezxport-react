@@ -66,11 +66,31 @@ const FollowUp = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let request = localStorage.getItem('Requested');
-    if (request === 'true') {
-      setRequestedModal(true);
+    let requestId = localStorage.getItem('requestId');
+    if (requestId) {
+      handleReqById(requestId);
     }
   }, []);
+
+  const handleReqById = async requestId => {
+    await API('get', `/requests/${requestId}`)
+      .then(res => {
+        if (
+          res?.data?.request?.status === 'Being checked by an expert' ||
+          res?.data?.request?.status === 'Sent'
+        ) {
+          setRequestedModal(true);
+          localStorage.removeItem('requestId');
+        } else {
+          setRequestedModal(false);
+          localStorage.removeItem('requestId');
+        }
+      })
+      .catch(err => {
+        console.log('errrrrr', err);
+      });
+  };
+
   useEffect(() => {
     handleAllRequest();
   }, [userData]);
@@ -79,6 +99,7 @@ const FollowUp = () => {
   const handleRequested = () => {
     setRequestedModal(false);
     localStorage.removeItem('Requested');
+    localStorage.removeItem('requestId');
   };
   const handleAllRequest = async () => {
     setLoading(true);

@@ -352,7 +352,19 @@ const UserDetails = () => {
                                     )}
                                   </TableCell>
                                   <TableCell align="left">
-                                    <p className="clrClass">{t(item.status)}</p>
+                                    {item?.status === 'Sent' ? (
+                                      <p className="send_status">{t(item?.status)}</p>
+                                    ) : item?.status === 'Missing documents' ? (
+                                      <p className="missingDocStatus">{t(item?.status)}</p>
+                                    ) : item?.status === 'Validated' ? (
+                                      <p className="clrClass">{t(item?.status)}</p>
+                                    ) : item?.status === 'Being checked by an expert' ? (
+                                      <p className="process_status">{t(item?.status)}</p>
+                                    ) : (
+                                      item?.status === 'Documents to be checked' && (
+                                        <p className="clrClass">{t(item?.status)}</p>
+                                      )
+                                    )}
                                   </TableCell>
                                 </TableRow>
                               ))}

@@ -393,9 +393,6 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const handleUploadDoc = async (file, docId, index) => {
-    // const files = checkFileType(file, t);
-
-    // if (files) {
     setDocLoading(true);
     let formData = new FormData();
     formData.append('doc_id', docId);
@@ -538,7 +535,7 @@ export default function HorizontalNonLinearStepper() {
       .catch(err => toaster('Failed', t(err?.response?.data?.message)));
   };
 
-  const handleStep4 = async () => {
+  const handleStep4 = async flag => {
     setCheckoutLoading(true);
     let data = {
       request: requestId,
@@ -552,21 +549,23 @@ export default function HorizontalNonLinearStepper() {
     await API('put', '/requests/documents', data)
       .then(res => {
         localStorage.setItem('Requested', true);
-        const line_items = [
-          {
-            price_data: {
-              currency: 'USD',
-              product_data: {
-                name: step1?.title
+        if (flag) {
+          const line_items = [
+            {
+              price_data: {
+                currency: 'USD',
+                product_data: {
+                  name: step1?.title
+                },
+                unit_amount: Math.round(
+                  (certificationCostOfCode + certificationCostOfCode * 0.2) * 100
+                )
               },
-              unit_amount: Math.round(
-                (certificationCostOfCode + certificationCostOfCode * 0.2) * 100
-              )
-            },
-            quantity: 1
-          }
-        ];
-        getSessionUrl(requestId, line_items);
+              quantity: 1
+            }
+          ];
+          getSessionUrl(requestId, line_items);
+        }
       })
       .catch(err => {
         setCheckoutLoading(false);
@@ -575,33 +574,25 @@ export default function HorizontalNonLinearStepper() {
   };
 
   // STRIPE PAYMENT FUNCTION
-  // const handleStripe = () => {
 
-  // };
   const getSessionUrl = async (id, line_items) => {
     await API('post', '/requests/Checkout', {
       line_items: line_items,
       metaData: { id: id, unit_amount: line_items[0]?.price_data?.unit_amount }
     })
       .then(res => {
-        // handleStep4();
-        // localStorage.setItem("Requested", true)
         localStorage.setItem('requestId', requestId);
         window.location = res?.data?.url;
-        // setCheckoutLoading(false);
       })
-      .catch(() => {
-        // setCheckoutLoading(false);
-        localStorage.setItem('Requested', false);
-      });
+      .catch(() => {});
   };
 
   const handleSendEmail = async () => {
     await API('put', `/requests/sendEmail/${requestId}`)
       .then(res => {
-        handleStep4();
+        handleStep4(false);
         toaster('success', t(res.data.message));
-        localStorage.setItem('Requested', true);
+        localStorage.setItem('requestId', requestId);
         history.push('/User/Dashboard/ListOfRequests');
       })
       .catch(err => toaster('Failed', t(err.response.data.message)));
@@ -841,7 +832,11 @@ export default function HorizontalNonLinearStepper() {
             <Spinner className="" />
           ) : (
             <>
-              <Button1 text={t('Agree')} className="to_confirm_btn" onClick={handleStep4} />
+              <Button1
+                text={t('Agree')}
+                className="to_confirm_btn"
+                onClick={() => handleStep4(true)}
+              />
               <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
             </>
           )}
