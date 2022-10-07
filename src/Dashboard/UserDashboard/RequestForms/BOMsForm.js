@@ -76,12 +76,14 @@ const BOMsForm = props => {
     return newCodes;
   };
 
+  console.log('Country ', step1);
+
   const { t } = useTranslation();
 
   const handleAllRequestByCountryId = async () => {
-    await API('get', `/requests/getByUser/${step1?.user}`)
+    await API('get', `/requests/getByCountryandUserId/${step1.country}/${step1?.user}`)
       .then(res => {
-        setRequestByCountry(res?.data?.request);
+        setRequestByCountry(res?.data?.requests);
       })
 
       .catch(err => toaster('Failed', t(err.response.data.message)));

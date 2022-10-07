@@ -237,6 +237,8 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(0);
     setCompleted({});
   };
+
+  console.log('Past request ==> ', request);
   const hanldeEstimateRequest = async () => {
     let data = {
       country: step1.country,
@@ -282,13 +284,27 @@ export default function HorizontalNonLinearStepper() {
       });
       updateStore({ previousCodes: newAllCodes });
     }
-    let data = {
-      country: step1.country,
-      user: step1.user,
-      title: step1.title,
-      codes: [],
-      certification_cost: certificationCostOfCode
-    };
+    let data;
+    console.log('Past req ', pastRequest);
+    if (pastRequest) {
+      data = {
+        country: step1.country,
+        user: step1.user,
+        title: step1.title,
+        codes: [],
+        certification_cost: certificationCostOfCode,
+        pastreqId: request?._id
+      };
+    } else {
+      data = {
+        country: step1.country,
+        user: step1.user,
+        title: step1.title,
+        codes: [],
+        certification_cost: certificationCostOfCode
+      };
+    }
+
     allCodes?.map(item => {
       return data.codes.push({
         code: item.codeID,
