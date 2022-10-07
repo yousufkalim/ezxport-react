@@ -86,9 +86,7 @@ const FollowUp = () => {
           localStorage.removeItem('requestId');
         }
       })
-      .catch(err => {
-        console.log('errrrrr', err);
-      });
+      .catch(err => {});
   };
 
   useEffect(() => {

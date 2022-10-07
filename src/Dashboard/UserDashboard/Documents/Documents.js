@@ -11,6 +11,7 @@ import DocumentByName from './subcomponents/DocumentByName';
 import { useTranslation } from 'react-i18next';
 import toaster from '../../../utils/toaster';
 import SearchField from '../../../components/Common/SearchField';
+import Spinner from '../../../components/Common/Spinner';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -50,6 +51,7 @@ const Documents = () => {
   const [codes, setCodes] = useState([]);
   const [documents, setDocuments] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [downloadLoading, setDownloadLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -88,6 +90,7 @@ const Documents = () => {
   return (
     <>
       <div className="list_main_div">
+        {downloadLoading && <Spinner />}
         <div className="list_second_div">
           <div className="List_heading_div">
             <h1 className="list_h1_doc">{t('Documents')}</h1>
@@ -108,6 +111,7 @@ const Documents = () => {
                 <DocumentByRequest
                   searchTerm={searchTerm}
                   documents={documents}
+                  setDownloadLoading={setDownloadLoading}
                   setDocuments={setDocuments}
                   loading={loading}
                 />
@@ -116,6 +120,7 @@ const Documents = () => {
                 <DocumentByName
                   searchTerm={searchTerm}
                   codes={codes}
+                  setDownloadLoading={setDownloadLoading}
                   setCodes={setCodes}
                   loading={loading}
                 />

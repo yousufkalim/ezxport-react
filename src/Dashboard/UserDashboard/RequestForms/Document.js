@@ -122,7 +122,6 @@ const Document = props => {
       <div className="divider_line2"></div>
       <Grid container spacing={2} sx={{ width: '100%' }}>
         {props?.CountryDoc?.map((item, index) => {
-          console.log('DOCument id ', item);
           return (
             <Grid item xs={6}>
               <label style={{ display: 'flex' }}>

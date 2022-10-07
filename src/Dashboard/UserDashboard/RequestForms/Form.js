@@ -238,7 +238,6 @@ export default function HorizontalNonLinearStepper() {
     setCompleted({});
   };
 
-  console.log('Past request ==> ', request);
   const hanldeEstimateRequest = async () => {
     let data = {
       country: step1.country,
@@ -285,7 +284,6 @@ export default function HorizontalNonLinearStepper() {
       updateStore({ previousCodes: newAllCodes });
     }
     let data;
-    console.log('Past req ', pastRequest);
     if (pastRequest) {
       data = {
         country: step1.country,

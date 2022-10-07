@@ -13,7 +13,7 @@ const ProductForm = (props) => {
   
   const handleDataChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'price') {
+    if (name === 'price' || name === 'amount') {
       if (!value.match(/[^0-9]/)) {
         return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
       }
@@ -132,7 +132,7 @@ const ProductForm = (props) => {
           <label className="BomLabel">{t("Amount")}</label>
           <InputField
             className="company_name_input"
-            placeholder="90 road of rouvroy"
+            placeholder="1234"
             name="amount"
             value={product?.amount}
             onChange={(e) => handleDataChange(e)}
