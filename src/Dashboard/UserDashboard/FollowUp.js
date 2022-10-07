@@ -20,6 +20,7 @@ import { getSortedData } from '../../lib/getSortedData';
 import CreateRequest from './CreateRequest';
 import Spinner from '../../components/Common/Spinner';
 import toaster from '../../utils/toaster';
+import { UpdateStore } from '../../StoreContext';
 
 const nestSortTitles = [
   {
@@ -61,12 +62,13 @@ const FollowUp = () => {
   const [requestedModal, setRequestedModal] = useState(false);
   const [sort, setSort] = useState({ key: '', ascend: true });
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
-
+  const updateStore = UpdateStore();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     let requestId = localStorage.getItem('requestId');
+    updateStore({ request: {}, pastRequest: false, previousCodes: [] });
     if (requestId) {
       handleReqById(requestId);
     }
