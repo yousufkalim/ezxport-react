@@ -11,16 +11,26 @@ import toaster from "../../utils/toaster";
 
 const questions = [
   {
-    title: "What is your country name?",
+    title: 'A Request ?',
+    id: 'A_Request'
   },
   {
-    title: "What is your age?",
+    title: 'A Country ?',
+    id: 'A_Country'
   },
+  {
+    title: 'Your account ?',
+    id: 'Your_Account'
+  },
+  {
+    title: 'Other ?',
+    id: 'Other'
+  }
 ];
 
 const AskQuestion = () => {
-  const [formData, setFormData] = useState({ question: "", request: "", description: "" });
-  const user = localStorage.getItem("userData");
+  const [formData, setFormData] = useState({ question: '', request: '', description: '' });
+  const user = localStorage.getItem('userData');
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -35,52 +45,52 @@ const AskQuestion = () => {
   const getUserRequest = async () => {
     setLoading(true);
     try {
-      await API("get", `/requests/getByUser/${userData._id}`)
-        .then((res) => {
+      await API('get', `/requests/getByUser/${userData._id}`)
+        .then(res => {
           setRequests(res.data.request);
           setLoading(false);
         })
 
-        .catch((err) => toaster("Failed", t("Something went wrong!")));
+        .catch(err => toaster('Failed', t('Something went wrong!')));
     } catch (err) {
-      toaster("Failed", t(err.message));
+      toaster('Failed', t(err.message));
       setLoading(false);
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const resetForm = () => {
-    setFormData({ question: "", request: "", description: "" });
+    setFormData({ question: '', request: '', description: '' });
   };
 
-  const submitHandler = async (e) => {
+  const submitHandler = async e => {
     e.preventDefault();
     setLoading(true);
     const { question, request: requestTitle, description: message } = formData;
     const obj = {
       question,
       requestTitle,
-      message,
+      message
     };
 
     setSubmitLoading(true);
-    await API("post", `/users/sendQuestion/${userData._id}`, obj)
-      .then((res) => {
+    await API('post', `/users/sendQuestion/${userData._id}`, obj)
+      .then(res => {
         resetForm();
         setSubmitLoading(false);
         setLoading(false);
         toaster(
-          "success",
-          t("We will get back to you quickly"),
-          t("The question was asked to the administrator")
+          'success',
+          t('We will get back to you quickly'),
+          t('The question was asked to the administrator')
         );
       })
-      .catch((err) => {
-        toaster("Failed", t("Something went wrong!"));
+      .catch(err => {
+        toaster('Failed', t('Something went wrong!'));
 
         setLoading(false);
         setSubmitLoading(false);
@@ -96,38 +106,36 @@ const AskQuestion = () => {
           <div className="list_second_div">
             {/* LIST HEAD  */}
             <div className="List_heading_div">
-              <h1 className="list_h1">{t("Ask a question")}</h1>
+              <h1 className="list_h1">{t('Ask a question')}</h1>
             </div>
             {/* LIST TABLE */}
             <div className="question_form">
               <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
                   <label htmlFor="" className="question_label">
-                    {t("Your question is related to")}
+                    {t('Your question is related to')}
                   </label>
                   <Select
                     id="demo-simple-select"
                     name="question"
                     value={formData.question}
-                    onChange={(e) => handleChange(e)}
-                  >
-                    {questions.map(({ title }) => (
-                      <MenuItem value={title}>{t(title)}</MenuItem>
+                    onChange={e => handleChange(e)}>
+                    {questions.map(item => (
+                      <MenuItem value={item?.id}>{t(item?.title)}</MenuItem>
                     ))}
                   </Select>
                   <br />
                 </FormControl>
                 <FormControl fullWidth>
                   <label htmlFor="" className="question_label">
-                    {t("Select request")}
+                    {t('Select request')}
                   </label>
                   <Select
                     id="demo-simple-select"
                     name="request"
                     value={formData.request}
-                    onChange={(e) => handleChange(e)}
-                  >
-                    {requests.map((item) => (
+                    onChange={e => handleChange(e)}>
+                    {requests.map(item => (
                       <MenuItem value={item.title}>{item.title}</MenuItem>
                     ))}
                   </Select>
@@ -135,25 +143,24 @@ const AskQuestion = () => {
                 </FormControl>
                 <FormControl fullWidth>
                   <label htmlFor="" className="question_label">
-                    {t("Description")}
+                    {t('Description')}
                   </label>
                   <TextareaAutosize
-                    onChange={(e) => handleChange(e)}
+                    onChange={e => handleChange(e)}
                     name="description"
                     aria-label="minimum height"
                     minRows={10}
                     value={formData.description}
-                    placeholder={t("Description of your request")}
-                    style={{ padding: "10px", borderRadius: "7px" }}
+                    placeholder={t('Description of your request')}
+                    style={{ padding: '10px', borderRadius: '7px' }}
                   />
                   <br />
                 </FormControl>
                 <button
                   disabled={submitLoading}
-                  onClick={(e) => submitHandler(e)}
-                  className="quiz_btn"
-                >
-                  {t("Ask the question")}
+                  onClick={e => submitHandler(e)}
+                  className="quiz_btn">
+                  {t('Ask the question')}
                 </button>
               </Box>
             </div>

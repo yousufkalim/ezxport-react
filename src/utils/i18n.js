@@ -5,7 +5,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    // fallbackLng: ["fr", "en"],
+    // fallbackLng: ['fr', 'en'],
     // we init with resources
     resources: {
       en: {
@@ -40,11 +40,11 @@ i18n
           'Phone is too short (minimum is 10 characters)':
             'Phone is too short (minimum is 10 characters)',
           'Postel code is required': 'Postel code is required',
-          'Postel code is too long (maximum is 5 characters)':
-            'Postel code is too long (maximum is 5 characters)',
+          'Postal code is too long (maximum is 5 characters)':
+            'Postal code is too long (maximum is 5 characters)',
           'Postel code is too short (minimum is 5 characters)':
-            'Postel code is too short (minimum is 5 characters)',
-          'VAT number is too long (maximum is 13 characters)':
+            'Postal code is too short (minimum is 5 characters)',
+          'Vat number is too long (maximum is 13 characters)':
             'VAT number is too long (maximum is 13 characters)',
           'Name is required': 'Name is required',
           'Info  is required': 'Info  is required',
@@ -86,7 +86,7 @@ i18n
           'country_id is required': 'country_id is required',
           'userId required': 'userId required',
           'countryId is required': 'countryId is required',
-          "userId is required'": "userId is required'",
+          'userId is required': 'userId is required',
           'Certification cost is required': 'Certification cost is required',
           'codeId is required': 'codeId is required',
           'Monetory value required': 'Monetory value required',
@@ -100,11 +100,11 @@ i18n
           'name required ': 'name required ',
           'description required': 'description required',
           'condition required': 'condition required',
-          'amount required': 'amount required',
+          'amount required': 'quantity required',
           'unit required': 'unit required',
-          'mark required': 'mark required',
-          'builder required': 'builder required',
-          'country required': 'country required',
+          'mark required': 'brand required',
+          'builder required': 'model number required',
+          'country required': 'country of origin required',
           'value required': 'value required',
           'doc_id required': 'doc_id required',
           'Sending email is required': 'Sending email is required',
@@ -122,6 +122,13 @@ i18n
           'Being checked by an expert': 'Being checked by an expert',
           'Zipcode is too short (minimum is 5 characters)':
             'Zipcode is too short (minimum is 5 characters)',
+          Error: 'Error',
+          error: 'error',
+          'Range calculations not found': 'Range calculations not found',
+          'Documents to be checked': 'Documents to be checked',
+          'User deleted Successfully': 'User deleted Successfully',
+          'Delete Country': 'Delete Country',
+          'User is not deleted': 'User is not deleted',
           Manufacturer: 'Manufacturer',
           Vendor: 'Vendor',
           Trader: 'Trader',
@@ -396,13 +403,13 @@ i18n
           'Associated countries': 'Associated countries',
           Information: 'Information',
           'Default sending email address': 'Default sending email address',
-          'Full Name': 'Full Name',
+          'Full Name': 'Company name',
           'Last name': 'Last name',
           'Telephone number': 'Telephone number',
           'Update Certification Body': 'Update Certification Body',
           'Phone Number': 'Phone Number',
           'Select country to add': 'Select country to add',
-          'Change Provider': 'Change Provider',
+          'Change Provider': 'Change Certification Body',
           // Users
           Users: 'Users',
           User: 'User',
@@ -454,11 +461,11 @@ i18n
           'Product Name': 'Product Name',
           Description: 'Description',
           Condition: 'Condition',
-          Amount: 'Amount',
+          Amount: 'Quantity',
           'Unit of measure': 'Unit of measure',
-          Price: 'Price',
-          Mark: 'Mark',
-          Builder: 'Builder',
+          Price: 'Unit price',
+          Mark: 'Brand',
+          Builder: 'Model number',
           'Technical sheet': 'Technical sheet',
           'Test report': 'Test report',
           'Analysis Certificate': 'Analysis Certificate',
@@ -518,8 +525,8 @@ i18n
           'Application title': 'Application title',
           "You don't know your product nomenclatures?":
             "You don't know your product nomenclatures?",
-          'Import an XLS file': 'Import an XLS file',
-          'Download XLS file': 'Download XLS file',
+          'Import an XLS file': 'Import the Excel file',
+          'Download XLS file': 'Download Excel file',
           'Select a Code': 'Select a Code',
           Add: 'Add',
           'Estimate my request': 'Estimate my request',
@@ -615,8 +622,10 @@ i18n
           // Ask a question
           'Ask a question': 'Ask a question',
           'Your question is related to': 'Your question is related to',
-          'What is your country name?': 'What is your country name?',
-          'What is your age?': 'What is your age?',
+          'A Request ?': 'A Request ?',
+          'A Country ?': 'A Country ?',
+          'Your account ?': 'Your account ?',
+          Other: 'Other ?',
           'Select request': 'Select request',
           'Description of your request': 'Description of your request',
           'Ask the question': 'Ask the question',
@@ -693,13 +702,11 @@ i18n
           'Adding Seller': 'Adding Seller',
           'Update Seller': 'Update Seller',
           'We will get back to you quickly': 'We will get back to you quickly',
-          'The question was asked to the Expert': 'The question was asked to the Expert',
-          'Certification body deleted Successfully': 'Certification body deleted Successfully',
-          'Delete certification body': 'Delete certification body',
-          'certification body is not deleted': 'certification body is not deleted',
-          '': '',
-          '': '',
-          '': '',
+          'The question was asked to the administrator': 'The question was asked to the Expert',
+          'Service provider deleted Successfully': 'Certification body deleted Successfully',
+          'Delete service provider': 'Delete certification body',
+          'Service provider is not deleted': 'certification body is not deleted',
+          'Updated company': 'Updated company',
 
           //Backend Toast
           'Admin already exists.': 'Admin already exists.',
@@ -723,6 +730,7 @@ i18n
           'Country not found': 'Country not found',
           'Codes Uploaded Successfully': 'Codes Uploaded Successfully',
           'UserId is invalid': 'UserId is invalid',
+          'Please Create Vendors for this country': 'No vendors assigned to this country',
           'Buyer already exist': 'Buyer already exist',
           'calculation already existed with this country':
             'calculation already existed with this country',
@@ -735,13 +743,13 @@ i18n
           'Not Required': 'Not Required',
           'all fields required in contact information section':
             'all fields required in contact information section',
-          'Invalid VendorID': 'Invalid VendorID',
+          'Invalid VendorID': 'Invalid Certification BodyID',
           'Invalid userID': 'Invalid userID',
           'Invalid requestID': 'Invalid requestID',
           'userCertification Body created': 'userCertification Body created',
           'userCertificaiton Body updated': 'userCertification Body updated',
           Dispatched: 'Dispatched',
-          'Email has been sent to vendor': 'Email has been sent to vendor',
+          'Email has been sent to vendor': 'Email has been sent to certification body',
           'new document has been created': 'new document has been created',
           ' document has been updated': ' document has been updated',
           'Product Not Found': 'Product Not Found',
@@ -755,7 +763,7 @@ i18n
           'Question sent Successfully': 'Question sent Successfully',
           'Certification Body already exist': 'Certification body already exist',
           'sending_email is already associated with another vendor':
-            'sending_email is already associated with another vendor',
+            'sending_email is already associated with another certification body',
 
           // Auth
           'New Password': 'New Password',
@@ -790,6 +798,9 @@ i18n
           // Country
           'You have validated the documents of company X, we will send you all the documents to the address':
             'Vous avez validé les documents de la société X, nous vous enverrons tous les documents par e-mail',
+          'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.':
+            "Les info-bulles sont utilisées pour décrire ou identifier un élément. Dans la plupart des scénarios, les info-bulles aident l'utilisateur à comprendre la signification, la fonction ou le texte alternatif d'un élément.",
+          'Track your certification requests': 'Suivez vos demandes de certification',
           "Sélectionnez la date d'inspection": 'Select inspection date',
           'First name is required': 'Le prénom est requis ',
           'is required': 'est requis',
@@ -843,7 +854,7 @@ i18n
           'Telephone is too short (minimum is 10 characters)':
             'Le numéro de téléphone est trop court (le minimum est de 10 caractères)',
           'Select inspection date': "Sélectionnez la date d'inspection",
-          'Codes required ': 'Codes requis',
+          'Codes required': 'Codes requis',
           'Password is required': 'Mot de passe requis',
           'Password min length must be 6 characters':
             'La longueur minimale du mot de passe doit être de 6 caractères',
@@ -864,7 +875,7 @@ i18n
           'country_id is required': 'Le numéro de pays est requis',
           'userId required': "L'ID de l'utilisateur requis",
           'countryId is required': 'Le numéro de pays est requis',
-          "userId is required'": "l'ID de l'utilisateur est requis'",
+          'userId is required': "l'ID de l'utilisateur est requis",
           'Certification cost is required': 'Le coût de la certification est requis',
           'codeId is required': 'Code requis',
           'Monetory value required': 'Valeur monétaire requise',
@@ -908,7 +919,10 @@ i18n
           'User deleted Successfully': 'Utilisateur supprimé avec succès',
           'Delete Country': 'Supprimer le pays',
           'User is not deleted': 'Utilisateur non supprimé',
-
+          'A Request ?': 'Un dossier ?',
+          'A Country ?': 'Un Pays  ?',
+          'Your account ?': 'Votre compte ?',
+          'Other ?': 'Autre ?',
           Country: 'Pays',
           Searching: 'Recherche',
           'Add a country': 'Ajouter un pays',
@@ -917,12 +931,12 @@ i18n
           'Select currency against selected country': 'Sélectionnez la devise du pays sélectionné',
           'Select a Currency': 'Sélectionnez une devise',
           'US Dollar $': 'Dollar américain $',
-          'EURO €': 'EUROS €',
+          'EURO €': 'Euro €',
           Manufacturer: 'Fabricant',
           Vendor: 'Fournisseur',
           Trader: 'Négociant',
           'Freight forwarder': 'Transitaire',
-          Actions: 'Shares',
+          Actions: 'Actions',
           Afghanistan: 'Afghanistan',
           Albania: 'Albanie',
           Algeria: 'Algérie',
@@ -1165,6 +1179,11 @@ i18n
           Submit: 'Soumettre',
           'Select an Option': 'Sélectionner une option',
           Update: 'Mise à jour',
+          'Select country for BOMs': 'Sélectionnez le pays pour les Codes HS',
+          // Service providers
+          'Service providers': 'Organismes de certification',
+          'Service provider': 'Organisme de certification',
+          'Add a service provider': 'Ajouter un organisme de certification',
           'Select country for SH Code': 'Sélectionnez le pays pour les Codes HS',
           // Certification bodies
           'Add a certification body': 'Ajouter un organisme de certification',
@@ -1172,7 +1191,7 @@ i18n
           'Associated countries': 'Pays associés',
           Information: 'Informations',
           'Default sending email address': "Adresse e-mail d'envoi par défaut",
-          'Full Name': 'Nom et prénom',
+          'Full Name': 'Nom de société',
           'Last name': 'Nom de famille',
           'Telephone number': 'Numéro de téléphone',
           'Update Certification Body': "Mettre à jour l'organisme de certification",
@@ -1296,8 +1315,8 @@ i18n
           'Application title': 'Titre du dossier',
           "You don't know your product nomenclatures?":
             'Vous ne connaissez pas vos nomenclatures produits ?',
-          'Import an XLS file': 'Importer fichier XLS',
-          'Download XLS file': 'Télécharger le fichier XLS',
+          'Import an XLS file': 'Importer fichier Excel',
+          'Download XLS file': 'Télécharger le fichier Excel',
           'Select a Code': 'Sélectionnez un code',
           Add: 'Ajouter',
           'Estimate my request': 'Estimer ma demande',
@@ -1328,6 +1347,10 @@ i18n
           'Select a Platform to Continue your request':
             'Sélectionnez une plateforme pour poursuivre votre demande',
           'Continue request on Ezxport Platform': 'Continuer la demande sur la plateforme Ezxport',
+          Cancel: 'Annuler',
+          Agree: 'Accepter',
+          'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products':
+            'Après avoir accepté cela, vous serez redirigé vers un autre site et vous devrez soumettre à nouveau des données pour de nouveaux produits',
           'Continue request on other Platform': 'Continuer la demande sur une autre plateforme',
           Yes: 'Oui',
           No: 'Non',
@@ -1355,6 +1378,9 @@ i18n
           title: 'Titre',
           'title is required': 'le titre est requis',
 
+          // Service providers
+          'Service providers': 'Organismes de certification',
+          'Service provider': 'Organisme de certification',
           // Certification Body
           'To Search': 'Chercher',
           'To Confirm': 'Confirmer',
@@ -1383,8 +1409,10 @@ i18n
           // Ask a question
           'Ask a question': 'Poser une question',
           'Your question is related to': 'Votre question est liée à',
-          'What is your country name?': 'Quel est le nom de votre pays?',
-          'What is your age?': 'Quel âge avez-vous?',
+          'What is your country name?': 'Un dossier?',
+          'What is your age?': 'Un pays?',
+          'Your account': 'Votre compte',
+          Other: 'Autre',
           'Select request': 'Sélectionnez la demande',
           'Description of your request': 'Description de votre demande',
           'Ask the question': 'Posez la question',
@@ -1402,6 +1430,9 @@ i18n
           'Country is required for uploading codes':
             'Le pays est requis pour télécharger les codes',
           'Can only upload Excel sheet': 'Ne peut télécharger que la feuille Excel',
+          'Servive Provider updated Successfully':
+            'Organisme de certification mis à jour avec succès',
+          'Buyer addedd successfully!': "L'acheteur a été ajouté avec succès !",
           'Certification Body updated Successfully':
             'Organisme de certification mis à jour avec succès',
           'Buyer addedd successfully!': "L'acheteur a été ajouté avec succès !",
@@ -1503,7 +1534,7 @@ i18n
           'Not Required': 'Non requis',
           'all fields required in contact information section':
             'tous les champs requis dans la section des informations de contact',
-          'Invalid VendorID': 'ID fournisseur non valide',
+          'Invalid VendorID': 'ID organisme de certification non valide',
           'Invalid userID': 'Identifiant invalide',
           'Invalid requestID': 'ID de demande non valide',
           'userCertification Body created': 'Organisme de certification créé',
@@ -1522,6 +1553,9 @@ i18n
           'Email already associated with another user':
             'E-mail déjà associé à un autre utilisateur',
           'Question sent Successfully': 'Question envoyée avec succès',
+          'vendor already exist': "l'organisme de certification existe déjà",
+          'sending_email is already associated with another vendor':
+            'envoi_email est déjà associé à un autre fournisseur',
           'certification body already exist': "l'organisme de certification existe déjà",
           'sending_email is already associated with another certification body':
             "L'adresse e-mail est déjà associé à un autre organisme de certification",

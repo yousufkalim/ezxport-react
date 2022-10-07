@@ -185,7 +185,7 @@ export default function HorizontalNonLinearStepper() {
   const handleRequestById = async () => {
     await API('get', `/requests/${retrieveRequestId}`)
       .then(res => {
-        const request = res.data.request;
+        const request = res?.data?.request;
         if (request) {
           updateStore({ request: request, pastRequest: true });
         }
@@ -562,7 +562,6 @@ export default function HorizontalNonLinearStepper() {
     });
     await API('put', '/requests/documents', data)
       .then(res => {
-        localStorage.setItem('Requested', true);
         if (flag) {
           const line_items = [
             {
