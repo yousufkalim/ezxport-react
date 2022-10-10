@@ -6,6 +6,108 @@ import Select from "@mui/material/Select";
 import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
+const measureUnits = [
+  'Barrels',
+'Bobbins',
+'Boxes',
+'Bushels (35,2391 dm3)',
+'Bushels (36,36874 dm3)',
+'Centigrams',
+'Centilitres',
+'Centimetres',
+'Cubic Centimetres',
+'Cubic Cords (3,63 m3)',
+'Cubic Decimetres',
+'Cubic Feet',
+'Cubic Inches',
+'Cubic Metres',
+'Cubic Tons Timber',
+'Cubic Tons Timber',
+'Cubic Yards',
+'Decilitres',
+'Decimetres',
+'Dozen Pairs',
+'Dozens',
+'Drachms GB (3,887935 g)',
+'Drams GB (1,771745 g)',
+'Drams US (3,887935 g)',
+'Dry Barrels (115,627 dm3)',
+'Dry Gallons (4,404884 dm3)',
+'Dry Pints (0,55061 dm3)',
+'Dry Quarts (1,101221 dm3)',
+'Feet',
+'Fluid Ounces (28,413 cm3)',
+'Fluid Ounces (29,5735 cm3)',
+'Gallons (Imperial)',
+'Gills (0,142065 dm3)',
+'Gills (11,8294 cm3)',
+'Grains GB, US (64,798910 mg)',
+'Grams',
+'Great Gross (12 Gross)',
+'Gross',
+'Gross Tons (2240 lb)',
+'Hectograms',
+'Hectokilograms',
+'Hectolitres',
+'Hundreds',
+'Hundredweights GB (50,802345 kg)',
+'Inches',
+'Joules',
+'Kilograms',
+'Kilograms Dry',
+'Kilograms Gross',
+'Kilograms Net',
+'Kilometres',
+'Kilowatt-Hours',
+'Liquid Gallons (3,78541 dm3)',
+'Liquid Pints (0,473176 dm3)',
+'Liquid Quarts (0,946353 dm3)',
+'Litres',
+'Litres of Pure Alcohol',
+'Long Tons (2240 lb)',
+'Long Tons Net',
+'Lots',
+'Megalitres',
+'Megametres',
+'Megawatt-Hours',
+'Metres',
+'Metric Carats (200 mg)',
+'Metric Tons',
+'Milligrams',
+'Millilitres',
+'Millimetres',
+'Numbers',
+'Ounces',
+'Pairs',
+'Pennyweights GB, US (1,555174 g)',
+'Pieces',
+'Pints',
+'Pints (0,568262 dm3)',
+'Pounds',
+'Quarters, Gb (12,700586 kg)',
+'Quarts (1,136523 dm3)',
+'Quintals',
+'Rolls',
+'Sets',
+'Short Tons Net',
+'Square Centimeters',
+'Square Feet',
+'Square Inches',
+'Square Metres',
+'Square Yards',
+'Stones GB (6,350293 kg)',
+'Ten Pairs',
+'Tens',
+'Terajoule',
+'Thousand Board Feet (2,36 m3)',
+'Thousand Square Feet',
+'Thousands',
+'Tonnes courtes (2000 livres)',
+'Troy Pounds, US (373,242 g)',
+'Units',
+'Yards',
+]
+
 const ProductForm = (props) => {
   const { product } = props;
   const { t } = useTranslation();
@@ -150,12 +252,18 @@ const ProductForm = (props) => {
               value={product?.unit}
               onChange={(e) => handleDataChange(e)}
             >
-              <option value="millimeter">Mm</option>
+              <option disabled value='default'>{t('Select unit')}</option>
+              {
+                measureUnits?.map((item) => (
+                  <option key={item} value={item}>{item}</option>
+                ))
+              }
+              {/* <option value="millimeter">Mm</option>
               <option value="centimeter">Cm</option>
               <option value="meter">M</option>
               <option value="kilometer">Km</option>
               <option value="inch">In</option>
-              <option value="foot/feet">Ft</option>
+              <option value="foot/feet">Ft</option> */}
             </select>
           </div>
           <div style={{ width: "60%" }}>

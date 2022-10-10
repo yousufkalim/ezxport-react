@@ -5,18 +5,11 @@ import { FormControl, MenuItem, Select } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 const societyType = [
-  {
-    name: 'Test'
-  },
-  {
-    name: 'testing'
-  },
-  {
-    name: 'IT'
-  },
-  {
-    name: '4'
-  }
+  { name: 'Select your type', id: 'default' },
+  { name: 'Manufacturer', id: 'manufacturer' },
+  { name: 'Vendor', id: 'vendor' },
+  { name: 'Trader', id: 'trader' },
+  { name: 'Freight forwarder', id: 'freight_forwarder' }
 ];
 
 const CompanyInformation = ({ formState, setFormState, loading, setBtnDisabled }) => {
@@ -77,8 +70,8 @@ const CompanyInformation = ({ formState, setFormState, loading, setBtnDisabled }
                 value={formState.values?.type}
                 onChange={e => companyTypeHandler(e)}
                 className="buyer_input">
-                {societyType?.map(({ name }) => (
-                  <MenuItem key={name} value={name}>
+                {societyType?.map(({ name, id }) => (
+                  <MenuItem disabled={id === 'default'} key={id} value={id}>
                     {name}
                   </MenuItem>
                 ))}

@@ -359,7 +359,7 @@ const ServiceProviders = () => {
       <Modal
         open={open}
         setOpen={setOpen}
-        title={t('Add a service provider')}
+        title={t('Add Service Provider')}
         handleClose={handleClose}
         Closebtn={true}>
         <div className="add_vendor_div">

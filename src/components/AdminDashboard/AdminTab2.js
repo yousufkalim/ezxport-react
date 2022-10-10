@@ -143,7 +143,7 @@ const AdminTab2 = props => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {props.rows.map((row, index) => (
+            {props?.rows?.map((row, index) => (
               <TableRow key={index}>
                 <TableCell style={{ width: '20%' }} component="th" scope="row" sx={{ padding: 2 }}>
                   <p className="AP_plus_title">{row?.name}</p>

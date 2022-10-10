@@ -20,6 +20,7 @@ import { useTranslation } from 'react-i18next';
 import Modal from '../../components/Common/Modal';
 import { createFilter } from 'react-search-input';
 import toaster from '../../utils/toaster';
+import Spinner from '../Common/Spinner';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -77,6 +78,7 @@ const AdminNomPays = () => {
   const [providerSerach, setProviderSearch] = useState('');
   const [documentSerach, setDocumentSearch] = useState('');
   const [codeSearch, setCodeSearch] = useState('');
+  const [uploadLoading, setUploadLoading] = useState(false);
 
   const { t } = useTranslation();
 
@@ -120,14 +122,17 @@ const AdminNomPays = () => {
     let formData = new FormData();
     formData.append('file', file);
     formData.append('country', `${id}`);
+    setUploadLoading(true);
     await API('post', '/boms/uploadCodes/', formData)
       .then(res => {
         handleCountryData();
         setFile({});
         setOpen(false);
+        setUploadLoading(false);
         toaster('success', t(res.data.message));
       })
       .catch(err => {
+        setUploadLoading(false);
         toaster('failed', t(err?.response?.data?.message));
       });
   };
@@ -263,6 +268,7 @@ const AdminNomPays = () => {
       </div>
       <Modal open={open} setOpen={setOpen} title="Update" handleClose={handleClose} Closebtn={true}>
         <div className="buyer_socond">
+          {uploadLoading && <Spinner />}
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
               {t('Download your BOM file')}
@@ -287,7 +293,12 @@ const AdminNomPays = () => {
             name={file.name}
             onChange={e => handleCodesFile(e.target.files[0])}
           />
-          <Button text={t('Submit')} className="bom_downloadFile_btn" onClick={handleUplaodFile} />
+          <Button
+            disabled={uploadLoading}
+            text={t('Submit')}
+            className="bom_downloadFile_btn"
+            onClick={handleUplaodFile}
+          />
         </div>
       </Modal>
     </>

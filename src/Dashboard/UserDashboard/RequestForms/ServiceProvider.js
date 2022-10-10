@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from "react";
-import InputField from "../../../components/Common/InputField";
-import API from "../../../api/index";
-import { Grid } from "@mui/material";
-import { useTranslation } from "react-i18next";
-import { Store } from "../../../StoreContext";
-import validate from "validate.js";
-import toaster from "../../../utils/toaster";
+import React, { useEffect, useState } from 'react';
+import InputField from '../../../components/Common/InputField';
+import API from '../../../api/index';
+import { Grid } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { Store } from '../../../StoreContext';
+import validate from 'validate.js';
+import toaster from '../../../utils/toaster';
 
 const schema = {
   lastName: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
+      maximum: 64
+    }
   },
   firstName: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
+      maximum: 64
+    }
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { maximum: 64 },
-    email: true,
-  },
+    email: true
+  }
 };
 
-const ServiceProvider = (props) => {
+const ServiceProvider = props => {
   const { request, pastRequest } = Store();
   const [vendors, setVendors] = useState([]);
   const { t } = useTranslation();
@@ -37,10 +37,10 @@ const ServiceProvider = (props) => {
   }, []);
   useEffect(() => {
     const errors = validate(step2.values, schema);
-    setFormState((formState) => ({
+    setFormState(formState => ({
       ...formState,
       isValid: errors ? false : true,
-      errors: errors || {},
+      errors: errors || {}
     }));
   }, [step2.values]);
   useEffect(() => {
@@ -51,50 +51,50 @@ const ServiceProvider = (props) => {
 
   const SetVendorData = () => {
     const { vendor } = request;
-    const { contact_email, contact_fname, contact_lname } = vendor;
     const vendorId = vendor?.vendor?._id;
-    setStep2({
-      ...step2,
-      values: {
-        ...step2.values,
-        vendorId: vendorId,
-        lastName: contact_lname,
-        firstName: contact_fname,
-        email: contact_email,
-      },
-    });
+    if (vendor?.vendorId) {
+      setStep2({
+        ...step2,
+        values: {
+          ...step2.values,
+          vendorId: vendor?.vendorId,
+          lastName: vendors?.contact_lname,
+          firstName: vendor?.contact_fname,
+          email: vendor?.contact_email
+        }
+      });
+    }
   };
 
   const VendorByCountryId = async () => {
-    await API("get", `/vendors/getByCountryId/${props.countryId}`)
-      .then((res) => {
+    await API('get', `/vendors/getByCountryId/${props.countryId}`)
+      .then(res => {
         setVendors(res.data.vendor);
       })
-      .catch((err) => {
-        toaster("failed", t("Vendor not found"), "Vendors")
+      .catch(err => {
+        toaster('failed', t('Vendor not found'), 'Vendors');
       });
   };
 
-
-  const hasError = (field) => (step2.touched[field] && step2.errors[field] ? true : false);
+  const hasError = field => (step2.touched[field] && step2.errors[field] ? true : false);
 
   return (
-    <div style={{ width: "100%" }}>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+    <div style={{ width: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <span className="aVendor_heading">
-          {t("Please select")} <b>{t("a vendor")}</b> {t("for this request")}
+          {t('Please select')} <b>{t('a vendor')}</b> {t('for this request')}
         </span>
       </div>
-      <Grid container spacing={2} sx={{ marginTop: "4rem" }}>
-        {vendors?.map((item) => {
+      <Grid container spacing={2} sx={{ marginTop: '4rem' }}>
+        {vendors?.map(item => {
           return (
             <Grid item xs={6} className="vendors_div" key={item?._id}>
               <input
-                type={"radio"}
+                type={'radio'}
                 value={item?._id}
                 checked={item?._id === step2?.values?.vendorId}
                 name="vendorId"
-                onChange={(e) => {
+                onChange={e => {
                   props.handleChange(e.target.name, e.target.value);
                 }}
               />
@@ -108,41 +108,41 @@ const ServiceProvider = (props) => {
           type="checkbox"
           className="checkBox"
           name="contactInfo"
-          onChange={(e) => {
+          onChange={e => {
             props.handleChange(e.target.name, e.target.checked);
           }}
         />
         <span className="check_company_p">
-          {t("Do you have contact information for this certification company?")}
+          {t('Do you have contact information for this certification company?')}
         </span>
       </div>
       {step2.values?.contactInfo ? (
         <>
           <div className="steps_2_main">
             <div className="steps_2_feild">
-              <label>{t("Last name")}</label>
+              <label>{t('Last name')}</label>
               <InputField
                 className="last_name_input"
-                isError={hasError("lastName")}
+                isError={hasError('lastName')}
                 error={[t(step2.errors.lastName)]}
                 value={step2?.values?.lastName}
-                placeholder={t("Last name")}
+                placeholder={t('Last name')}
                 name="lastName"
-                onChange={(e) => {
+                onChange={e => {
                   props.handleChange(e.target.name, e.target.value);
                 }}
               />
             </div>
             <div className="steps_2_feild">
-              <label>{t("First name")}</label>
+              <label>{t('First name')}</label>
               <InputField
-                placeholder={t("First name")}
-                isError={hasError("firstName")}
+                placeholder={t('First name')}
+                isError={hasError('firstName')}
                 value={step2?.values?.firstName}
                 error={[t(step2.errors.firstName)]}
                 className="last_name_input"
                 name="firstName"
-                onChange={(e) => {
+                onChange={e => {
                   props.handleChange(e.target.name, e.target.value);
                 }}
               />
@@ -150,22 +150,22 @@ const ServiceProvider = (props) => {
           </div>
           <br />
           <div className="steps_2_feild">
-            <label>{t("Email Address")}</label>
+            <label>{t('Email Address')}</label>
             <InputField
               className="last_name_input"
-              isError={hasError("email")}
+              isError={hasError('email')}
               error={[t(step2.errors.email)]}
               value={step2?.values?.email}
               placeholder="mail@mail.com"
               name="email"
-              onChange={(e) => {
+              onChange={e => {
                 props.handleChange(e.target.name, e.target.value);
               }}
             />
           </div>
         </>
       ) : (
-        ""
+        ''
       )}
     </div>
   );

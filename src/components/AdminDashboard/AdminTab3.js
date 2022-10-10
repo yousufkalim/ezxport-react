@@ -186,7 +186,9 @@ const AdminTab3 = props => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>BOMs code</TableCell>
+              <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
+                {t('BOMs')}
+              </TableCell>
               <TableCell sx={{ color: '#667085', backgroundColor: '#F9FAFB' }}>
                 {t('Status')}
               </TableCell>
@@ -200,7 +202,7 @@ const AdminTab3 = props => {
             <Spinner />
           ) : (
             <TableBody>
-              {props.rows.map(row => (
+              {props?.rows?.map(row => (
                 <TableRow key={row.createData}>
                   <TableCell component="th" scope="row" sx={{ padding: 2 }} align="left">
                     <p className="AP_plus_title">{row.code}</p>
@@ -259,7 +261,7 @@ const AdminTab3 = props => {
         Closebtn={true}>
         <div style={{ height: '20%' }}>
           <label htmlFor="" className="label_modal">
-            BOMs code
+            {t('BOMs')}
           </label>{' '}
           <InputField
             name="code"
