@@ -834,7 +834,7 @@ export default function HorizontalNonLinearStepper() {
                 Your certification cost is
                 <h1 style={{ color: 'black' }}>{`${
                   certificationCostOfCode + certificationCostOfCode * 0.2
-                } ${currency === 'USD' ? '$' : '€'}`}</h1>
+                } ${currency === 'USD' ? '$' : '€/TTC'}`}</h1>
               </h2>
               {t(
                 'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products'
