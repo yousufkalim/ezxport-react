@@ -20,6 +20,7 @@ import { getSortedData } from '../../lib/getSortedData';
 import CreateRequest from './CreateRequest';
 import Spinner from '../../components/Common/Spinner';
 import toaster from '../../utils/toaster';
+import { UpdateStore } from '../../StoreContext';
 
 const nestSortTitles = [
   {
@@ -61,16 +62,35 @@ const FollowUp = () => {
   const [requestedModal, setRequestedModal] = useState(false);
   const [sort, setSort] = useState({ key: '', ascend: true });
   const [userData, setUserData] = useState(JSON.parse(localStorage.getItem('userData')));
-
+  const updateStore = UpdateStore();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let request = localStorage.getItem('Requested');
-    if (request === 'true') {
-      setRequestedModal(true);
+    let requestId = localStorage.getItem('requestId');
+    updateStore({ request: {}, pastRequest: false, previousCodes: [] });
+    if (requestId) {
+      handleReqById(requestId);
     }
   }, []);
+
+  const handleReqById = async requestId => {
+    await API('get', `/requests/${requestId}`)
+      .then(res => {
+        if (
+          res?.data?.request?.status === 'Being checked by an expert' ||
+          res?.data?.request?.status === 'Sent'
+        ) {
+          setRequestedModal(true);
+          localStorage.removeItem('requestId');
+        } else {
+          setRequestedModal(false);
+          localStorage.removeItem('requestId');
+        }
+      })
+      .catch(err => {});
+  };
+
   useEffect(() => {
     handleAllRequest();
   }, [userData]);
@@ -79,6 +99,7 @@ const FollowUp = () => {
   const handleRequested = () => {
     setRequestedModal(false);
     localStorage.removeItem('Requested');
+    localStorage.removeItem('requestId');
   };
   const handleAllRequest = async () => {
     setLoading(true);

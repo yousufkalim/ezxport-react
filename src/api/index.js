@@ -23,7 +23,7 @@ const api = async (method = "get", uri, body) => {
           toaster("failed", err?.response?.message, "Token error")
           window.location = "/login";
         } else {
-          console.log("API Failed   Error --------> ", err?.response?.data?.message);
+          console.log('API Error --------> ', err?.response?.data?.message);
           reject(err);
         }
       });
