@@ -11,8 +11,8 @@ if (window.location.host === 'ezxport-dev.falconweb.app') {
   baseUrl = 'https://ezxport-api-staging.falconweb.app/api';
   mediaUrl = 'https://ezxport-api-staging.falconweb.app/';
 } else if (window.location.host === 'app.ezxport.com') {
-  baseUrl = 'https://api.export.com/api';
-  mediaUrl = 'https://api.export.com/';
+  baseUrl = 'https://api.ezxport.com/api';
+  mediaUrl = 'https://api.ezxport.com/';
 }
 
 module.exports = { baseUrl, mediaUrl };
