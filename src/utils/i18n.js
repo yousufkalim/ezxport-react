@@ -1239,7 +1239,6 @@ i18n
           Address: 'Adresse',
           'Postal code': 'Code postal',
           Town: 'Ville',
-          'Company name': "Nom de l'entreprise",
           'Company type': "Type d'entreprise'",
           'VAT number': 'Numéro de TVA',
           Informations: 'Informations',
