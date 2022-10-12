@@ -25,12 +25,13 @@ const Providers = () => {
     setLoading(true);
     await API("get", `/vendors/userVendor/${userData._id}`)
       .then((res) => {
-        const data = res?.data?.Uservendors?.map((item) => ({
+        const filteredUserVendors = res?.data?.Uservendors?.filter(item => item?.vendor !== null);
+        const data = filteredUserVendors?.map(item => ({
           ...item.vendor,
           email: item.contact_email,
           firstName: item.contact_fname,
           lastName: item.contact_lname,
-          userVendorId: item._id,
+          userVendorId: item._id
         }));
         setProviders(data);
         setLoading(false);

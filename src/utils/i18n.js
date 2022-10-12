@@ -605,7 +605,7 @@ i18n
           OKAY: 'OKAY',
           title: 'title',
           'title is required': 'title is required',
-          '': '',
+          'The cost of this certification is up to': 'The cost of this certification is up to',
           '': '',
           '': '',
 
@@ -691,7 +691,7 @@ i18n
           'File not found': 'File not found',
           'Email does not exist': 'Email does not exist',
           Failed: 'Failed',
-          'Select inspection date': "Sélectionnez la date d'inspection",
+          'Select inspection date': 'Select inspection date',
           success: 'success',
           Success: 'Success',
           'Email or password is incorrect': 'Email or password is incorrect',
@@ -810,7 +810,8 @@ i18n
           'We asked': 'We asked',
           'the missing documents': 'the missing documents',
           'to the company': 'to the company',
-          'Return to Requests': 'Return to Requests'
+          'Return to Requests': 'Return to Requests',
+          'Your certification cost is': 'Your certification cost is'
         }
       },
       fr: {
@@ -821,7 +822,7 @@ i18n
           'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.':
             "Les info-bulles sont utilisées pour décrire ou identifier un élément. Dans la plupart des scénarios, les info-bulles aident l'utilisateur à comprendre la signification, la fonction ou le texte alternatif d'un élément.",
           'Track your certification requests': 'Suivez vos demandes de certification',
-          "Sélectionnez la date d'inspection": 'Select inspection date',
+          'Select inspection date': "Sélectionnez la date d'inspection",
           'First name is required': 'Le prénom est requis ',
           'is required': 'est requis',
           'Email is not a valid email': "L'adresse e-mail n'est pas valide",
@@ -1352,6 +1353,7 @@ i18n
           'Download XLS file': 'Télécharger le fichier Excel',
           'Select a Code': 'Sélectionnez un code',
           Add: 'Ajouter',
+          'Your certification cost is': 'Votre coût de certification est',
           'Estimate my request': 'Estimer ma demande',
           'Delete SH Code': 'Supprimer le Chode HS',
           'Those products for': 'Ces produits pour',

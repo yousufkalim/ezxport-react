@@ -566,7 +566,7 @@ export default function HorizontalNonLinearStepper() {
           const line_items = [
             {
               price_data: {
-                currency: 'USD',
+                currency: currency === 'USD' ? 'USD' : 'EUR',
                 product_data: {
                   name: step1?.title
                 },
@@ -831,7 +831,7 @@ export default function HorizontalNonLinearStepper() {
             </div>
             <div className="space1">
               <h2>
-                Your certification cost is
+                {t('Your certification cost is')}
                 <h1 style={{ color: 'black' }}>{`${
                   certificationCostOfCode + certificationCostOfCode * 0.2
                 } ${currency === 'USD' ? '$' : '€/TTC'}`}</h1>
