@@ -543,7 +543,7 @@ const BOMsForm = props => {
               {t('The cost of this certification is up to')}
               &nbsp;
               <span style={{ fontWeight: 900, fontSize: '19px' }}>
-                {props.certificationCostOfCode} {currency === 'USD' ? '$' : 'Є'}/HT
+                {props.certificationCostOfCode - 50} {currency === 'USD' ? '$' : 'Є'}/HT
               </span>
             </div>
           </div>
