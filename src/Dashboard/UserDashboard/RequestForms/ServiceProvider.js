@@ -51,14 +51,13 @@ const ServiceProvider = props => {
 
   const SetVendorData = () => {
     const { vendor } = request;
-    const vendorId = vendor?.vendor?._id;
-    if (vendor?.vendorId) {
+    if (vendor?.vendor?._id) {
       setStep2({
         ...step2,
         values: {
           ...step2.values,
-          vendorId: vendor?.vendorId,
-          lastName: vendors?.contact_lname,
+          vendorId: vendor?.vendor?._id,
+          lastName: vendor?.contact_lname,
           firstName: vendor?.contact_fname,
           email: vendor?.contact_email
         }

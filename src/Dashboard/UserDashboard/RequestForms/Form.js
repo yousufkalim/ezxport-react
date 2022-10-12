@@ -849,7 +849,7 @@ export default function HorizontalNonLinearStepper() {
                           border: '1px solid gray;'
                         }}
                         align="left">
-                        Certificate
+                        {t('Certificate')}
                       </TableCell>
                       <TableCell
                         align="left"
@@ -866,7 +866,7 @@ export default function HorizontalNonLinearStepper() {
                         sx={{
                           border: '1px solid gray;'
                         }}>
-                        Délégation à un expert
+                        {t('Delegation to an expert')}
                       </TableCell>
                       <TableCell
                         align="left"
@@ -890,7 +890,8 @@ export default function HorizontalNonLinearStepper() {
                           border: '1px solid gray;'
                         }}>
                         {certificationCostOfCode}
-                        {currency === 'USD' ? '$' : '€'} (Certifcate + Délégation à un expert)
+                        {currency === 'USD' ? '$' : '€'} ({t('Certifcate')} +{' '}
+                        {t('Delegation to an expert')})
                       </TableCell>
                     </TableRow>{' '}
                     <TableRow>
