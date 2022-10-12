@@ -151,7 +151,7 @@ const Dispatch = props => {
         errors: errors || {}
       }
     });
-  }, [step3.placeOfInspection.values]);
+  }, [step3?.placeOfInspection?.values]);
 
   useEffect(() => {
     const { sellerData } = step3;

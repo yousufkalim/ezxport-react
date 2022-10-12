@@ -119,6 +119,7 @@ const BOMsForm = props => {
   }, []);
 
   const handleAddCodes = () => {
+
     const obj = {
       admin_code: code.admin_code,
       code: code?.code,
@@ -133,6 +134,7 @@ const BOMsForm = props => {
     setAllCodes([...allCodes, obj]);
     setAdminCodes(filtered);
     setMonetaryValue('');
+    setCode('default');
   };
   const handleDocument = async file => {
     var filename = file.name.split('.').pop();
