@@ -27,8 +27,16 @@ import toaster from '../../../utils/toaster';
 
 const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = props => {
-  const { step1, setStep1, setMatchedData, allCodes, setAllCodes, currency, setRetrieveRequestId } =
-    props;
+  const {
+    step1,
+    setStep1,
+    setMatchedData,
+    allCodes,
+    setAllCodes,
+    currency,
+    setRetrieveRequestId,
+    certificationCostOfCode
+  } = props;
 
   const history = useHistory(null);
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -119,7 +127,6 @@ const BOMsForm = props => {
   }, []);
 
   const handleAddCodes = () => {
-
     const obj = {
       admin_code: code.admin_code,
       code: code?.code,
@@ -263,6 +270,7 @@ const BOMsForm = props => {
         toaster('failed', t('BOM not found'), "BOM's");
       });
   };
+  const cost = certificationCostOfCode - 50;
 
   return (
     <div>
@@ -543,7 +551,7 @@ const BOMsForm = props => {
               {t('The cost of this certification is up to')}
               &nbsp;
               <span style={{ fontWeight: 900, fontSize: '19px' }}>
-                {props.certificationCostOfCode - 50} {currency === 'USD' ? '$' : 'Є'}/HT
+                {cost} {currency === 'USD' ? '$' : 'Є'}/HT
               </span>
             </div>
           </div>
