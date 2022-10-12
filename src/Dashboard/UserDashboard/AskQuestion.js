@@ -118,23 +118,32 @@ const AskQuestion = () => {
                   <Select
                     id="demo-simple-select"
                     name="question"
-                    value={formData.question}
+                    value={formData.question || 'default'}
                     onChange={e => handleChange(e)}>
+                    <MenuItem value="default" disabled>
+                      {t('Select a question')}
+                    </MenuItem>
                     {questions.map(item => (
                       <MenuItem value={item?.id}>{t(item?.title)}</MenuItem>
                     ))}
                   </Select>
                   <br />
                 </FormControl>
-                <FormControl fullWidth>
+                <FormControl
+                  fullWidth
+                  style={{ display: formData.question !== 'A_Request' && 'none' }}>
                   <label htmlFor="" className="question_label">
                     {t('Select request')}
                   </label>
                   <Select
                     id="demo-simple-select"
                     name="request"
-                    value={formData.request}
+                    value={formData.request || 'default'}
                     onChange={e => handleChange(e)}>
+                    <MenuItem value="default" disabled>
+                      {t('Select a request')}
+                    </MenuItem>
+
                     {requests.map(item => (
                       <MenuItem value={item.title}>{item.title}</MenuItem>
                     ))}

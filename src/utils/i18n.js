@@ -811,11 +811,18 @@ i18n
           'the missing documents': 'the missing documents',
           'to the company': 'to the company',
           'Return to Requests': 'Return to Requests',
-          'Your certification cost is': 'Your certification cost is'
+          'Below is your certification cost': 'Below is your certification cost',
+
+          // ask question
+          'Select a question': 'Select a question',
+          'Select a request': 'Select a request'
         }
       },
       fr: {
         translations: {
+          // ask question
+          'Select a question': 'Sélectionnez une question',
+          'Select a request': 'Sélectionnez une demande',
           // Country
           'You have validated the documents of company X, we will send you all the documents to the address':
             'Vous avez validé les documents de la société X, nous vous enverrons tous les documents par e-mail',
@@ -1353,7 +1360,8 @@ i18n
           'Download XLS file': 'Télécharger le fichier Excel',
           'Select a Code': 'Sélectionnez un code',
           Add: 'Ajouter',
-          'Your certification cost is': 'Votre coût de certification est',
+          'Below is your certification cost':
+            'Vous trouverez ci-dessous votre coût de certification',
           'Estimate my request': 'Estimer ma demande',
           'Delete SH Code': 'Supprimer le Chode HS',
           'Those products for': 'Ces produits pour',

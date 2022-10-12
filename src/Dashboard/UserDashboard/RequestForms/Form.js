@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
-
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableRow from '@mui/material/TableRow';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -830,15 +834,88 @@ export default function HorizontalNonLinearStepper() {
               <Warning />
             </div>
             <div className="space1">
-              <h2>
-                {t('Your certification cost is')}
-                <h1 style={{ color: 'black' }}>{`${
-                  certificationCostOfCode + certificationCostOfCode * 0.2
-                } ${currency === 'USD' ? '$' : '€/TTC'}`}</h1>
-              </h2>
+              <h2>{t('Below is your certification cost')}</h2>
               {t(
                 'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products'
               )}
+            </div>
+            <div className="space12">
+              <TableContainer>
+                <Table>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell
+                        sx={{
+                          border: '1px solid gray;'
+                        }}
+                        align="left">
+                        Certificate
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          border: '1px solid gray;'
+                        }}>
+                        {certificationCostOfCode - 50}
+                        {currency === 'USD' ? '$' : '€ HT'}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          border: '1px solid gray;'
+                        }}>
+                        Délégation à un expert
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          border: '1px solid gray;'
+                        }}>
+                        50€ HT
+                      </TableCell>
+                    </TableRow>{' '}
+                    <TableRow>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          border: '1px solid gray;'
+                        }}>
+                        Total HT
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          border: '1px solid gray;'
+                        }}>
+                        {certificationCostOfCode}
+                        {currency === 'USD' ? '$' : '€'} (Certifcate + Délégation à un expert)
+                      </TableCell>
+                    </TableRow>{' '}
+                    <TableRow>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          backgroundColor: '#E5E5E5',
+
+                          border: '1px solid gray;'
+                        }}>
+                        Total TTC
+                      </TableCell>
+                      <TableCell
+                        align="left"
+                        sx={{
+                          backgroundColor: '#E5E5E5',
+                          border: '1px solid gray;'
+                        }}>
+                        {certificationCostOfCode + certificationCostOfCode * 0.2}
+                        {currency === 'USD' ? '$' : '€'} (Total HT*20%)
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
           </div>
           {checkoutLoading ? (
