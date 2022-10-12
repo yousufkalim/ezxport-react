@@ -295,7 +295,7 @@
   padding: 10px 10px;
   font-size: 16px;
   font-weight: 500;
-  width: 164px;
+  /* width: 100%; */
 }
 .list_table {
   /* margin: 2% 0; */
