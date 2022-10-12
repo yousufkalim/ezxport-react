@@ -264,7 +264,7 @@ const FollowUp = () => {
               className="space"
               style={{ fontSize: '1.2rem', width: '90%', color: '#667085', textAlign: 'center' }}>
               <p>{t('We will process your file as soon as possible, and')}</p>
-              <p>{'we will come back to you. You can find your request in the table of'}</p>
+              <p>{t('we will come back to you. You can find your request in the table of')}</p>
               <br />
               <b>{t('Tracking requests.')}</b>
             </div>

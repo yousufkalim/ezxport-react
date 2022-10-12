@@ -890,8 +890,7 @@ export default function HorizontalNonLinearStepper() {
                           border: '1px solid gray;'
                         }}>
                         {certificationCostOfCode}
-                        {currency === 'USD' ? '$' : '€'} ({t('Certifcate')} +{' '}
-                        {t('Delegation to an expert')})
+                        {currency === 'USD' ? '$' : '€'}
                       </TableCell>
                     </TableRow>{' '}
                     <TableRow>
@@ -911,7 +910,7 @@ export default function HorizontalNonLinearStepper() {
                           border: '1px solid gray;'
                         }}>
                         {certificationCostOfCode + certificationCostOfCode * 0.2}
-                        {currency === 'USD' ? '$' : '€'} (Total HT*20%)
+                        {currency === 'USD' ? '$' : '€'}
                       </TableCell>
                     </TableRow>
                   </TableBody>
