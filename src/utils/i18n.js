@@ -811,15 +811,27 @@ i18n
           'the missing documents': 'the missing documents',
           'to the company': 'to the company',
           'Return to Requests': 'Return to Requests',
-          'Below is your certification cost': 'Below is your certification cost',
 
           // ask question
           'Select a question': 'Select a question',
-          'Select a request': 'Select a request'
+          'Select a request': 'Select a request',
+          //paymnet modal
+          'Below is your certification cost': 'Below is your certification cost',
+          Certificate: 'Certificate',
+          'Delegation to an expert': 'Delegation to an expert',
+          'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products':
+            'After agreeing to this you will be redirected to another site and you will need to resubmit data for new products',
+          'Do you have contact information for this certification company?':
+            'Do you have contact information for this certification company?'
         }
       },
       fr: {
         translations: {
+          // payment modal
+          'Below is your certification cost':
+            'Vous trouverez ci-dessous votre coût de certification',
+          Certificate: 'Certificate',
+          'Delegation to an expert': 'Délégation à un expert',
           // ask question
           'Select a question': 'Sélectionnez une question',
           'Select a request': 'Sélectionnez une demande',
@@ -1360,8 +1372,7 @@ i18n
           'Download XLS file': 'Télécharger le fichier Excel',
           'Select a Code': 'Sélectionnez un code',
           Add: 'Ajouter',
-          'Below is your certification cost':
-            'Vous trouverez ci-dessous votre coût de certification',
+
           'Estimate my request': 'Estimer ma demande',
           'Delete SH Code': 'Supprimer le Chode HS',
           'Those products for': 'Ces produits pour',
