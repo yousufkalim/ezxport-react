@@ -443,9 +443,15 @@ input[type="radio"]:checked {
   margin: 0.7rem 0 0.7rem 0;
 }
 .space1 {
-  color: orange;
+  color:#e0bc00;
   text-align: center;
-  margin: 0.7rem 0 0.7rem 0;
+  margin: 0 0 1rem 0;
+}
+.space12 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 98%;
 }
 .bold_text_in_modal {
   font-size: 18px;
