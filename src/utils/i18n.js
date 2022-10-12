@@ -159,7 +159,8 @@ i18n
           'User deleted Successfully': 'User deleted Successfully',
           'Delete Country': 'Delete Country',
           'User is not deleted': 'User is not deleted',
-
+          'Download your SH Code file': 'Download your SH Code file',
+          'Upload your SH Code file': 'Upload your SH Code file',
           Country: 'Country',
           Searching: 'Searching',
           'Add a country': 'Add a country',
@@ -386,7 +387,6 @@ i18n
           Calculation: 'Calculation',
           'Help Information': 'Help Information',
           'SH Code code ': 'SH Code code ',
-          Status: 'Status',
           'Subject to inspection': 'Subject to inspection',
           'Not subject': 'Not subject',
           'Calculation by coefficient': 'Calculation by coefficient',
@@ -459,7 +459,6 @@ i18n
           // Requests
           'List of requests': 'List of requests',
           Request: 'Request',
-          Status: 'Status',
           Reference: 'Reference',
           'Validate and receive the completed file': 'Validate and receive the completed file',
           'Address Book': 'Address Book',
@@ -518,6 +517,7 @@ i18n
 
           ///// EZXPORT USER /////
           // Follow-up
+
           'Follow-up of requests': 'Follow-up of requests',
           'Make your first certification request on Ezxport':
             'Make your first certification request on Ezxport',
@@ -581,6 +581,7 @@ i18n
           'Continue request on other Platform': 'Continue request on other Platform',
           Yes: 'Yes',
           No: 'No',
+          Status: 'Status',
           Send: 'Send',
           'Contact name': 'Contact name',
           'Contact first name': 'Contact first name',
@@ -869,6 +870,8 @@ i18n
           'phone number is required': 'Le numéro de téléphone est requis',
           'Contact email is required': "L'adresse e-mail de contact est requis",
           'Code is required': 'Le code est requis',
+          'Download your SH Code file': 'Téléchargez votre fichier Code HS',
+          'Upload your SH Code file': 'Téléchargez votre fichier de Code HS',
           Validated: 'Validé',
           'Telephone is too short (minimum is 10 characters)':
             'Le numéro de téléphone est trop court (le minimum est de 10 caractères)',
@@ -1177,7 +1180,6 @@ i18n
           Calculation: 'Calcul',
           'Help Information': "Centre d'information",
           'SH Code ': 'Code HS  ',
-          Status: 'Statut',
           'Subject to inspection': 'Sujet à inspection',
           'Not subject': 'Non soumis',
           'Calculation by coefficient': 'Calcul par coefficient',
@@ -1258,7 +1260,6 @@ i18n
           // Requests
           'List of requests': 'Demandes',
           Request: 'Demande',
-          Status: 'Statuts',
           Reference: 'Référence',
           'Validate and receive the completed file': 'Valider et recevoir le dossier complété',
           'Address Book': "Carnet d'adresses",
@@ -1412,6 +1413,7 @@ i18n
             'nous allons revenir vers vous. Vous pouvez trouver votre demande dans le tableau des',
           'Tracking requests.': 'Suivi des demandes.',
           OKAY: 'OK',
+          Status: 'Statutes',
           title: 'Titre',
           'title is required': 'le titre est requis',
           // Certification Body

@@ -81,9 +81,9 @@ const BOMsForm = props => {
   const handleAllRequestByCountryId = async () => {
     await API('get', `/requests/getByCountryandUserId/${step1.country}/${step1?.user}`)
       .then(res => {
-        setRequestByCountry(res?.data?.requests);
+        let filteredRequests = res?.data?.requests?.filter(item => item.status !== 'Draft');
+        setRequestByCountry(filteredRequests);
       })
-
       .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   useEffect(() => {

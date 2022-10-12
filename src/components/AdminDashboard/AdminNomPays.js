@@ -271,7 +271,7 @@ const AdminNomPays = () => {
           {uploadLoading && <Spinner />}
           <div className="luyer_input_field">
             <label htmlFor="" className="bom_popup_label">
-              {t('Download your BOM file')}
+              {t('Download your SH Code file')}
             </label>
             <div className="bom_download_File_btn_div">
               <Link
@@ -285,7 +285,7 @@ const AdminNomPays = () => {
           </div>
 
           <label htmlFor="" className="bom_popup_label" style={{ paddingBottom: '10px' }}>
-            {t('Upload your BOM file')}
+            {t('Upload your SH Code file')}
           </label>
           <FilePicker
             index={'01'}

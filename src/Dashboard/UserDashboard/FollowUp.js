@@ -51,7 +51,7 @@ const TITLES = [
     sortIcon: false
   },
   {
-    name: 'Statutes',
+    name: 'Status',
     key: 'name',
     sortIcon: false
   }
