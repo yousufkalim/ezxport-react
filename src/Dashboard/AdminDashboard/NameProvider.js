@@ -224,46 +224,46 @@ const NameProvider = () => {
   }, [select]);
 
   const handelUpdateAssociatedCountries = async () => {
-    await API("put", `/vendors/${userId}`, {
+    await API('put', `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
       contact_email: formState.values.contact,
-      countries: id,
+      countries: id
     })
-      .then((res) => {
+      .then(res => {
         setOpen(false);
         toaster(
-          "success",
-          t("Service Provider Updated Successfully"),
-          t("Updated Service Provider")
+          'success',
+          t('Service Provider Updated Successfully'),
+          t('Updated Service Provider')
         );
       })
-      .catch((err) => {
+      .catch(err => {
         setOpen(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
   const handelUpdateVendor = async () => {
-    await API("put", `/vendors/${userId}`, {
+    await API('put', `/vendors/${userId}`, {
       phone_number: formState.values.phone,
       name: formState.values.fullName,
       sending_email: formState.values.email,
       contact_email: formState.values.contact,
-      countries: countries,
+      countries: id
     })
-      .then((res) => {
+      .then(res => {
         setOpen(false);
         toaster(
-          "success",
-          t("Service Provider Updated Successfully"),
-          t("Updated Service Provider")
+          'success',
+          t('Service Provider Updated Successfully'),
+          t('Updated Service Provider')
         );
       })
-      .catch((err) => {
+      .catch(err => {
         setOpen(false);
-        toaster("Failed", t(err.response.data.message));
+        toaster('Failed', t(err.response.data.message));
       });
   };
 
