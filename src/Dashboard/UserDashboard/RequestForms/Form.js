@@ -582,6 +582,8 @@ export default function HorizontalNonLinearStepper() {
             }
           ];
           getSessionUrl(requestId, line_items);
+        } else {
+          handleSendEmail();
         }
       })
       .catch(err => {
@@ -607,7 +609,6 @@ export default function HorizontalNonLinearStepper() {
   const handleSendEmail = async () => {
     await API('put', `/requests/sendEmail/${requestId}`)
       .then(res => {
-        handleStep4(false);
         toaster('success', t(res.data.message));
         localStorage.setItem('requestId', requestId);
         history.push('/User/Dashboard/ListOfRequests');
@@ -811,7 +812,7 @@ export default function HorizontalNonLinearStepper() {
           <Button1
             text={t('Continue request on other Platform')}
             className="delete_bom_btn"
-            onClick={handleSendEmail}
+            onClick={() => handleStep4(false)}
           />
         </div>
       </Modal>
