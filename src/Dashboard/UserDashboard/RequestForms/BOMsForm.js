@@ -270,7 +270,6 @@ const BOMsForm = props => {
         toaster('failed', t('BOM not found'), "BOM's");
       });
   };
-  const cost = certificationCostOfCode - 50;
 
   return (
     <div>
@@ -551,7 +550,7 @@ const BOMsForm = props => {
               {t('The cost of this certification is up to')}
               &nbsp;
               <span style={{ fontWeight: 900, fontSize: '19px' }}>
-                {cost} {currency === 'USD' ? '$' : 'Є'}/HT
+                {certificationCostOfCode} {currency === 'USD' ? '$' : 'Є'}/HT
               </span>
             </div>
           </div>
