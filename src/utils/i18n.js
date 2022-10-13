@@ -1352,7 +1352,7 @@ i18n
           'Product Lists': 'Listes de produits',
           'Total value': 'Valeur totale',
           Denomination: 'Dénomination',
-          'Monetary value': 'Valeur monétaire',
+          'Monetary value': 'Valeur totale en €',
           'Send documents': 'Envoyer des documents',
           'Comments by the Ezxpert': "Commentaires de l'Expert",
           valid: 'valide',
