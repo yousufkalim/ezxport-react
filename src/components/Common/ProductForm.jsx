@@ -249,7 +249,7 @@ const ProductForm = (props) => {
             <select
               className="company_name_input"
               name="unit"
-              value={product?.unit}
+              value={product?.unit || 'default'}
               onChange={(e) => handleDataChange(e)}
             >
               <option disabled value='default'>{t('Select unit')}</option>
@@ -258,12 +258,6 @@ const ProductForm = (props) => {
                   <option key={item} value={item}>{item}</option>
                 ))
               }
-              {/* <option value="millimeter">Mm</option>
-              <option value="centimeter">Cm</option>
-              <option value="meter">M</option>
-              <option value="kilometer">Km</option>
-              <option value="inch">In</option>
-              <option value="foot/feet">Ft</option> */}
             </select>
           </div>
           <div style={{ width: "60%" }}>

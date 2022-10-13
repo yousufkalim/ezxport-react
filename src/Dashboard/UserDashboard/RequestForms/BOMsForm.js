@@ -24,6 +24,7 @@ import ConfirmModal from '../../../components/Common/ConfirmModal';
 import { Store, UpdateStore } from '../../../StoreContext';
 import { useTranslation } from 'react-i18next';
 import toaster from '../../../utils/toaster';
+import { parse } from 'date-fns';
 
 const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = props => {
@@ -550,7 +551,7 @@ const BOMsForm = props => {
               {t('The cost of this certification is up to')}
               &nbsp;
               <span style={{ fontWeight: 900, fontSize: '19px' }}>
-                {certificationCostOfCode} {currency === 'USD' ? '$' : 'Є'}/HT
+                {parseInt(certificationCostOfCode) - 50} {currency === 'USD' ? '$' : 'Є'}/HT
               </span>
             </div>
           </div>
