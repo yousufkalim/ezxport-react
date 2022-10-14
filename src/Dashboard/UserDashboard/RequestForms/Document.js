@@ -147,6 +147,7 @@ const Document = props => {
           );
         })}
       </Grid>
+
       {props?.productCodes?.map((item, cindex) => {
         return (
           <div>
@@ -160,13 +161,14 @@ const Document = props => {
                   cindex={cindex}
                   index1={index1}
                   countries={countries}
+                  codes={productCodes}
                   setCodes={props.setProductCodes}
                   product={product}
                 />
               );
             })}
-            <div className="addProduct_btn" onClick={() => addEmptyProduct(cindex, item)}>
-              <AddProductIcon />
+            <div className="addProduct_btn">
+              <AddProductIcon onClick={() => addEmptyProduct(cindex, item)} />
               &nbsp;&nbsp;{t('Add another product')}
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import DownloadIcon from "../../assets/Featured_icon.svg";
 import { useTranslation } from "react-i18next";
+import crossIcon from "../../assets/close.png";
 
 const FilePicker = (props) => {
   const { t } = useTranslation();
@@ -31,14 +32,14 @@ const FilePicker = (props) => {
           onChange={props?.onChange}
           className="filepicker_input"
         />
-        <div style={{ alignItems: typeof allFiles === 'object' ? 'flex-start' : 'center' }} className="download_icon_div">
+        <div style={{ alignItems: (typeof allFiles === 'object' && allFiles.length) ? 'flex-start' : 'center' }} className="download_icon_div">
           {(typeof allFiles === "string" && allFiles) ? (
             allFiles
-          ) : typeof allFiles === "object" && allFiles ? (
+          ) : typeof allFiles === "object" && allFiles?.length ? (
             allFiles?.map((item, index) => {
               return (
-                <p key={index}>
-                  {index + 1}). {item}
+                <p key={index} style={{display: 'flex', alignItems: 'center'}}>
+                  {index + 1}). {item} &nbsp; {props.isDelete && <p className='delete_product_file' onClick={(e) => props.handleDelete(e, item, index)}><img src={crossIcon} alt='cross' /></p>}
                 </p>
               );
             })
