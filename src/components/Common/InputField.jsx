@@ -1,7 +1,7 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-const InputField = (props) => {
+const InputField = props => {
   const { isError, error, label } = props;
   const { t } = useTranslation();
   return (
@@ -17,8 +17,8 @@ const InputField = (props) => {
           onBlur={props.onBlur}
           name={props.name}
           value={props.value}
-          className={`${props.className ?? "input-field "}  ${
-            error && isError && "input_field_error"
+          className={`${props.className ?? 'input-field '}  ${
+            error && isError && 'input_field_error'
           }`}
           type={props.type}
           placeholder={props.placeholder}
@@ -26,6 +26,7 @@ const InputField = (props) => {
           disabled={props.disabled}
           autoComplete={props.autoComplete}
           role={props.role}
+          step={props.step}
         />
         <img src={props.icon} alt="" className="quizIcon" />
         {props.visibleEye && <props.icon2 className="quizIcon" onClick={props.onClick} />}
