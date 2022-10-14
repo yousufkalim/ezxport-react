@@ -440,7 +440,6 @@ export default function HorizontalNonLinearStepper() {
   const handleStep1Change = (name, value) => {
     if (name === 'country') {
       const country = countries?.find(item => item._id === value);
-      console.log('Find country ', country);
       return setStep1({ ...step1, [name]: value, currency: country?.currency });
     }
     setStep1({ ...step1, [name]: value });
@@ -568,7 +567,6 @@ export default function HorizontalNonLinearStepper() {
     });
     await API('put', '/requests/documents', data)
       .then(res => {
-        console.log('Country ==> ', step1.currency);
         if (flag) {
           const line_items = [
             {
@@ -596,7 +594,6 @@ export default function HorizontalNonLinearStepper() {
   // STRIPE PAYMENT FUNCTION
 
   const getSessionUrl = async (id, line_items) => {
-    console.log('Step1 Country', step1.country);
     await API('post', '/requests/Checkout', {
       line_items: line_items,
       metaData: { id: id, unit_amount: line_items[0]?.price_data?.unit_amount },

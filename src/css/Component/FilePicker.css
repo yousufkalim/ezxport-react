@@ -7,6 +7,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* position: relative;
+    z-index: 1; */
+}
+.delete_product_file {
+    display: inline-block;
+    /* position: absolute;
+    z-index: 3; */
+    font-size: 18cpx;
+    cursor: pointer;
+    padding-left: 5px;
+}
+.delete_product_file img {
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
 }
 .filepicker_input{
     display: none;
