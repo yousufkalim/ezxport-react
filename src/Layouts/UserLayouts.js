@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/Dashboard.css';
 import DashLogo from '../assets/DashLogo.svg';
 import Drawer from '../components/Common/Drawer';
@@ -12,9 +12,10 @@ const UserLayouts = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [activeUploadButton, setActiveUploadButton] = useState(1);
 
-  const handleActiveUploadButton = (i) => {
+  const handleActiveUploadButton = i => {
     setActiveUploadButton(i);
   };
+
   return (
     <>
       <div className="userdashboard_div">
@@ -44,11 +45,11 @@ const UserLayouts = () => {
           ) : (
             <>
               <div className="dashboard_left_side">
-                  {/* DSAHBOARD LOGO  */}
+                {/* DSAHBOARD LOGO  */}
                 <div className="dashoard_logo">
                   <img src={DashLogo} alt="" className="dashboard_logo " />
                 </div>
-                  {/* DASHBOARD MENU */}
+                {/* DASHBOARD MENU */}
                 <Drawer
                   Route={UserRoutes}
                   handleActiveUploadButton={handleActiveUploadButton}
@@ -66,11 +67,10 @@ const UserLayouts = () => {
               className="hambrgr_icon"
             />
             <Switch>
-              {UserRoutes.map((item) => {
+              {UserRoutes.map(item => {
                 return <Route exact path={item.path} render={() => <item.component />} />;
               })}
               <Route exact path="/User/Dashboard/Application/:id" component={Application} />
-
             </Switch>
           </div>
         </div>
