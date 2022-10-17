@@ -143,8 +143,7 @@ const Document = props => {
                 <FilePicker
                   isMultiple={item?.filename ? false : true}
                   index={index}
-                  //     accept="application/pdf,.csv,.doc,.docx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-                  // text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  accept="application/pdf,image/jpeg,image/png"
                   fileName={item?.filename ? item?.filename : item?.files}
                   name={item?.name}
                   onChange={e => {

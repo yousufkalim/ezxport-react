@@ -372,8 +372,7 @@ const ProductForm = props => {
           <div className="to_download_div">
             <FilePicker
               multiple
-              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept="application/pdf,image/jpeg,image/png"
               index={`1${props.cindex}${props.index1}`}
               isDelete={true}
               isMultiple={true}
@@ -403,8 +402,7 @@ const ProductForm = props => {
               isMultiple={true}
               isDelete={true}
               index={`2${props.cindex}${props.index1}`}
-              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept="application/pdf,image/jpeg,image/png"
               fileName={props?.product?.test_report?.files}
               name="test_report"
               handleDelete={(e, fileItem, fileIndex) =>
@@ -433,8 +431,7 @@ const ProductForm = props => {
               isMultiple={true}
               isDelete={true}
               index={`3${props.cindex}${props.index1}`}
-              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept="application/pdf,image/jpeg,image/png"
               fileName={props?.product?.analysis_certificate?.files}
               name="analysis_certificate"
               handleDelete={(e, fileItem, fileIndex) =>
@@ -462,8 +459,7 @@ const ProductForm = props => {
               isDelete={true}
               index={`4${props?.cindex}${props?.index1}`}
               fileName={props?.product?.plan?.files}
-              accept="application/pdf,.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              accept="application/pdf,image/jpeg,image/png"
               name="plan"
               handleDelete={(e, fileItem, fileIndex) =>
                 handleRemoveDocument(e, 'plan', fileItem, fileIndex, props.cindex, props.index1)
@@ -485,8 +481,7 @@ const ProductForm = props => {
             index={`5${props.cindex}${props.index1}`}
             fileName={props?.product?.other_docs?.files}
             name="other_docs"
-            accept="application/pdf,.csv,.doc,.docx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            accept="application/pdf,image/jpeg,image/png"
             onChange={e =>
               handleAddDocument(e.target.name, e.target.files, props.cindex, props.index1)
             }
