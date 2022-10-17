@@ -294,7 +294,7 @@ const ProductForm = (props) => {
               value={product?.unit || 'default'}
               onChange={(e) => handleDataChange(e)}
             >
-              <option disabled value='default'>{t('Select unit')}</option>
+              <option disabled value='default'>{t('Selectionner')}</option>
               {
                 measureUnits?.map((item) => (
                   <option key={item} value={item}>{item}</option>
@@ -334,7 +334,7 @@ const ProductForm = (props) => {
       />
       <div>
         <label className="BomLabel" style={{ marginTop: "1rem" }}>
-          {t("Country")}
+          {t("Country of construction")}
         </label>
         <Select
           id="demo-simple-select"
