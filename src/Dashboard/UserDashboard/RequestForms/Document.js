@@ -80,6 +80,7 @@ const Document = props => {
       return [...prev];
     });
   };
+
   const addEmptyProduct = (cindex, item) => {
     props.setProductCodes(prev => {
       prev[cindex].products = [

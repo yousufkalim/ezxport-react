@@ -115,13 +115,26 @@ const ProductForm = (props) => {
   
   const handleDataChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'price' || name === 'amount') {
+    if(name === 'price'){
+        if (value.includes('.')) {
+          const afterDecimal = value.split('.')[1];
+          if (afterDecimal.length <= 2) {
+            return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1)
+          }
+        } else if (!value.includes('00')) {
+          return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1)
+        }
+        return
+    }
+    else if (name === 'amount') {
       if (!value.match(/[^0-9]/)) {
         return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
       }
       return;
     }
-    props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
+    else {
+      props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1);
+    }
   };
   const handleAddDocument = async (name, files, cindex, index1) => {
     const fileExtensions = [];
@@ -291,6 +304,7 @@ const ProductForm = (props) => {
               className="product_name_textfield"
               name="price"
               value={product?.price ?? ''}
+              type='number'
               onChange={(e) => handleDataChange(e)}
             />
           </div>
