@@ -346,6 +346,9 @@ const Dispatch = props => {
 
   return (
     <div className="dispatch_main_Div">
+      <div className="mandatory_field_tips">
+        <span className="required">{t('Mandatory field')}</span>
+      </div>
       <div>
         <span className="seller_title">{t('Seller data')}</span>
         <div>
@@ -370,7 +373,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Company name')}</label>
+            <label className="BomLabel required">{t('Company name')}</label>
             <InputField
               className="company_name_input"
               placeholder={t('Company name')}
@@ -385,7 +388,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Country')}</label>
+            <label className="BomLabel required">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
@@ -405,7 +408,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('E-mail address')}</label>
+            <label className="BomLabel required">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -420,7 +423,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Telephone')}</label>
+            <label className="BomLabel required">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="xx xx xx xx xx"
@@ -436,7 +439,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Full address')}</label>
+            <label className="BomLabel required">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -452,7 +455,7 @@ const Dispatch = props => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
-              <label className="BomLabel">{t('Postal code')}</label>
+              <label className="BomLabel required">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -466,7 +469,7 @@ const Dispatch = props => {
               />
             </div>
             <div style={{ width: '60%' }}>
-              <label className="BomLabel">{t('Town')}</label>
+              <label className="BomLabel required">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -506,7 +509,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Company name')}</label>
+            <label className="BomLabel required">{t('Company name')}</label>
             <InputField
               className="company_name_input"
               placeholder={t('Company name')}
@@ -521,7 +524,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Country')}</label>
+            <label className="BomLabel required">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
@@ -541,7 +544,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('E-mail address')}</label>
+            <label className="BomLabel required">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -556,7 +559,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Telephone')}</label>
+            <label className="BomLabel required">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -572,7 +575,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Full address')}</label>
+            <label className="BomLabel required">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -588,7 +591,7 @@ const Dispatch = props => {
 
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
-              <label className="BomLabel">{t('Postal code')}</label>
+              <label className="BomLabel required">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -602,7 +605,7 @@ const Dispatch = props => {
               />
             </div>
             <div style={{ width: '60%' }}>
-              <label className="BomLabel">{t('Town')}</label>
+              <label className="BomLabel required">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -641,7 +644,7 @@ const Dispatch = props => {
           </Select>
         </div>
         <div className="inspection_date_container">
-          <label className="BomLabel" style={{ marginTop: '1rem' }}>
+          <label className="BomLabel required" style={{ marginTop: '1rem' }}>
             {t('Date on which the goods can be inspected')}
           </label>
           <DatePicker
@@ -667,7 +670,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Company name')}</label>
+            <label className="BomLabel required">{t('Company name')}</label>
             <InputField
               className="company_name_input"
               placeholder={t('Company name')}
@@ -682,7 +685,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Country')}</label>
+            <label className="BomLabel required">{t('Country')}</label>
             <Select
               className="company_name_input"
               name="Country"
@@ -702,7 +705,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('E-mail address')}</label>
+            <label className="BomLabel required">{t('E-mail address')}</label>
             <InputField
               className="company_name_input"
               placeholder="mail@gmail.com"
@@ -717,7 +720,7 @@ const Dispatch = props => {
           </div>
 
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Telephone')}</label>
+            <label className="BomLabel required">{t('Telephone')}</label>
             <InputField
               className="company_name_input"
               placeholder="33 33 44 04 56"
@@ -733,7 +736,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Full address')}</label>
+            <label className="BomLabel required">{t('Full address')}</label>
             <InputField
               className="company_name_input"
               placeholder="90 road of rouvroy"
@@ -748,7 +751,7 @@ const Dispatch = props => {
           </div>
           <div className="steps_3_2inFeilds">
             <div style={{ width: '35%' }}>
-              <label className="BomLabel">{t('Postal code')}</label>
+              <label className="BomLabel required">{t('Postal code')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="33678"
@@ -762,7 +765,7 @@ const Dispatch = props => {
               />
             </div>
             <div style={{ width: '60%' }}>
-              <label className="BomLabel">{t('Town')}</label>
+              <label className="BomLabel required">{t('Town')}</label>
               <InputField
                 className="company_name_input"
                 placeholder="Abbeville"
@@ -779,7 +782,7 @@ const Dispatch = props => {
         </div>
         <div className="inspection_textfield">
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Contact Last Name')}</label>
+            <label className="BomLabel required">{t('Contact Last Name')}</label>
             <InputField
               className="company_name_input"
               placeholder={t('Contact name')}
@@ -793,7 +796,7 @@ const Dispatch = props => {
             />
           </div>
           <div className="speps_3_feilds">
-            <label className="BomLabel">{t('Contact first name')}</label>
+            <label className="BomLabel required">{t('Contact first name')}</label>
             <InputField
               className="company_name_input"
               placeholder={t('Contact first name')}

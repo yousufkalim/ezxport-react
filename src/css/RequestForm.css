@@ -18,9 +18,20 @@
   color: red;
 }
 
+.advisable:after {
+  content: ' *';
+  color: #7f56d9;
+}
+
 .mandatory_field_tips {
   font-size: 12px;
   color: red;
+  text-align: right;
+}
+
+.advisable_field_tips {
+  font-size: 12px;
+  color: #7f56d9;
   text-align: right;
 }
 

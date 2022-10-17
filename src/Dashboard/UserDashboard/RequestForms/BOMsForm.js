@@ -400,7 +400,7 @@ const BOMsForm = props => {
                 </span>
                 <div className="add_code_div">
                   <div className="codedropdown_div">
-                    <label className="BomLabel">Code</label>
+                    <label className="BomLabel required">Code</label>
                     {adminCodes ? (
                       <Autocomplete
                         options={adminCodes.map(adminCode => adminCode)}

@@ -1656,7 +1656,9 @@ i18n
           'We asked': 'Nous avons demandé',
           'the missing documents': 'les documents manquants',
           'to the company': 'à la société',
-          'Return to Requests': 'Retour aux demandes'
+          'Return to Requests': 'Retour aux demandes',
+          'Mandatory field': 'Champs obligatoires',
+          'Advisable field': 'Champs recommandés'
         }
       }
     },
