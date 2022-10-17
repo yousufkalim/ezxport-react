@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import { COUNTRIES } from "../../lib/data";
 import { useTranslation } from "react-i18next";
 
+const inputRegex = ['e', 'E', '+', '-'];
 const measureUnits = [
   'Barrels',
 'Bobbins',
@@ -116,15 +117,18 @@ const ProductForm = (props) => {
   const handleDataChange = (e) => {
     const { name, value } = e.target;
     if(name === 'price'){
+      if(!inputRegex.includes(value)){
         if (value.includes('.')) {
           const afterDecimal = value.split('.')[1];
           if (afterDecimal.length <= 2) {
             return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1)
           }
-        } else if (!value.includes('00')) {
+        } else if (!value.startsWith('00')) {
           return props.handleProductChange(e.target.name, e.target.value, props.cindex, props.index1)
         }
         return
+      }
+      return
     }
     else if (name === 'amount') {
       if (!value.match(/[^0-9]/)) {
