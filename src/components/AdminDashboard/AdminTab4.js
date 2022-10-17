@@ -93,7 +93,7 @@ const AdminTab4 = props => {
             touched: { ...formState.touched, [name]: true }
           });
         }
-      } else if (!value.includes('00')) {
+      } else if (!value.startsWith('00')) {
         setFormState({
           ...formState,
           values: { ...formState.values, [name]: value },
