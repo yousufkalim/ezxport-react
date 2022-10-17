@@ -109,6 +109,14 @@ const Document = props => {
 
   return (
     <div className="documents_main_div">
+      <div className="mandatory_field_tips">
+        <span className="required">{t('Mandatory field')}</span>
+      </div>
+
+      <div className="advisable_field_tips">
+        <span className="advisable">{t('Advisable field')}</span>
+      </div>
+
       {props.docLoading && <Spinner />}
       <div className="title_Div_documents">
         <span className="title_span">
@@ -126,7 +134,7 @@ const Document = props => {
           return (
             <Grid item xs={6}>
               <label style={{ display: 'flex' }}>
-                {item?.doc_id?.name || item?.name}
+                <span className="required">{item?.doc_id?.name || item?.name}</span>
                 <Tooltip title={item?.doc_id?.info || item?.info} placement="top">
                   <img style={{ paddingLeft: '5px' }} src={HelperIcon} />
                 </Tooltip>

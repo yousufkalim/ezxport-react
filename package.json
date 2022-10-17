@@ -20,6 +20,7 @@
     "i18next": "^21.9.2",
     "i18next-browser-languagedetector": "^6.1.5",
     "js-base64": "^3.7.2",
+    "mime": "^3.0.0",
     "moment": "^2.29.4",
     "popper.js": "^1.16.1",
     "react": "^17.0.2",

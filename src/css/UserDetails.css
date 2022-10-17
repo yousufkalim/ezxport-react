@@ -23,39 +23,39 @@
   padding-bottom: 5px;
 }
 .css-1q2h7u5 {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-q34dxg {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1kfoz9l {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1bigob2 {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-9sbb3g {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1n786et {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1q2h7u5.Mui-selected {
   color: #6941c6 !important;
   background-color: #f9f5ff !important;
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1ex1afd-MuiTableCell-root {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1ygcj2i-MuiTableCell-root {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-wmokj3-MuiTableCell-root {
-  font-family: "Inter" !important;
+  font-family: 'Inter' !important;
 }
 .css-ttwr4n {
   background-color: transparent !important;
@@ -113,7 +113,6 @@
   background-color: rgb(187, 186, 186, 0.5);
   border: 1px solid rgb(187, 186, 186, 0.5);
   color: #344054;
-
 }
 .emailAddress_div {
   width: 50%;
@@ -662,6 +661,7 @@ input:focus {
   .luyer_button {
     padding: 4%;
   }
+
   .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
     height: 2.7rem !important;
   }

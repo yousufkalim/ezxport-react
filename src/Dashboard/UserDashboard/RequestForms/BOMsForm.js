@@ -24,17 +24,16 @@ import Select from '@mui/material/Select';
 import { Link, useHistory } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import ConfirmModal from '../../../components/Common/ConfirmModal';
-import { Store, UpdateStore } from '../../../StoreContext';
+import { Store } from '../../../StoreContext';
 import { useTranslation } from 'react-i18next';
 import toaster from '../../../utils/toaster';
-import { parse } from 'date-fns';
+import { ButtonBase } from '@mui/material';
 
 const user = JSON.parse(localStorage.getItem('userData'));
 const BOMsForm = props => {
   const {
     step1,
     setStep1,
-    setMatchedData,
     allCodes,
     setAllCodes,
     currency,
@@ -54,7 +53,7 @@ const BOMsForm = props => {
   const [bomId, setBomId] = useState('');
   const [bomIndex, setBomIndex] = useState('');
   const [adminCodes, setAdminCodes] = useState(null);
-  const { request, pastRequest, previousCodes } = Store();
+  const { request, pastRequest } = Store();
 
   useEffect(() => {
     if (pastRequest) {
@@ -63,7 +62,7 @@ const BOMsForm = props => {
   }, [request]);
 
   const getSetData = () => {
-    const { title, country, codes } = request;
+    const { country, codes } = request;
     const countryId = country?._id;
     const matched = getMatchedCodes(codes);
     setStep1({ ...step1, country: countryId });
@@ -277,8 +276,12 @@ const BOMsForm = props => {
 
   return (
     <div>
+      <div className="mandatory_field_tips">
+        <span className="required">{t('Mandatory field')}</span>
+      </div>
+
       <div style={{ width: '100%' }}>
-        <label className="BomLabel">{t('Country')}</label>
+        <label className="BomLabel required">{t('Country')}</label>
         {props?.countries ? (
           <Select
             name="country"
@@ -305,7 +308,7 @@ const BOMsForm = props => {
 
         {step1?.country ? (
           <Fragment>
-            <label className="BomLabel">
+            <label className="BomLabel required">
               {t('Create a new request or select an old request to retrieve information')}
             </label>
             <Select
@@ -320,7 +323,7 @@ const BOMsForm = props => {
                 return <MenuItem value={item?._id}>{item?.title}</MenuItem>;
               })}
             </Select>
-            <label className="BomLabel">{t('Application title')}</label>
+            <label className="BomLabel required">{t('Application title')}</label>
             <Inputfield
               style={{ width: '100%' }}
               name="title"
@@ -332,32 +335,47 @@ const BOMsForm = props => {
               onBlur={handleSearchTitle}
               value={step1.title}
             />
-            <div className="ProductList_boms" style={{ display: 'flex' }}>
-              <div style={{ marginRight: 'auto' }}>
+            <div className="ProductList_boms">
+              <div style={{ textAlign: 'center' }}>
                 <span className="title_productList">{t('Product Lists')}</span>
                 <br />
+                <br />
                 <Link
-                  to={'/Files/codeTemplate.xlsx'}
+                  to={{ pathname: 'https://www.tarifdouanier.eu/' }}
                   target="_blank"
-                  download
                   className="download_text">
                   {t("You don't know your product nomenclatures?")}
                 </Link>
+                <br />
+                <br />
               </div>
+            </div>
+
+            <Fragment>
               <div
+                className="section_code_import file_code_import"
                 style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-end'
+                  textAlign: 'center'
                 }}>
+                <span className="choice_title required">{t('Import from an excel list file')}</span>
+
                 <div
                   style={{
                     marginRight: '7px'
                   }}>
                   {loading ? <CircularProgress color="secondary" /> : ''}
                 </div>
+                <Link
+                  to={'/Files/codeTemplate.xlsx'}
+                  target="_blank"
+                  className="download_text"
+                  download>
+                  1. {t('Download XLS file')}
+                </Link>
+                <br />
+                <br />
                 <label className="import_Btn" htmlFor="file">
-                  {t(importedFile?.name || 'Import an XLS file')}
+                  2. {t(importedFile?.name || 'Import an XLS file')}
                   <input
                     onClick={event => {
                       event.target.value = null;
@@ -369,127 +387,139 @@ const BOMsForm = props => {
                   />
                 </label>
               </div>
-              <Link
-                to={'/Files/codeTemplate.xlsx'}
-                target="_blank"
-                download
-                className="download_Btn2">
-                {t('Download XLS file')}
-              </Link>
-            </div>
+            </Fragment>
+            <div className="choice_or">Ou</div>
+            <Fragment>
+              <div
+                className="section_code_import manually_code_import"
+                style={{
+                  textAlign: 'center'
+                }}>
+                <span className="choice_title required">
+                  {t('Fill manually from existing codes')}
+                </span>
+                <div className="add_code_div">
+                  <div className="codedropdown_div">
+                    <label className="BomLabel required">Code</label>
+                    {adminCodes ? (
+                      <Autocomplete
+                        options={adminCodes.map(adminCode => adminCode)}
+                        getOptionLabel={option => option.code}
+                        onChange={(_, newValue) => {
+                          setCode(newValue);
+                        }}
+                        placeholder={t('Select a Code')}
+                      />
+                    ) : (
+                      <CircularProgress color="secondary" size="2em" />
+                    )}
+                  </div>
+                  <div className="codedropdown_div">
+                    <label className="BomLabel required">{t('Monetary value')}</label>
+                    <Inputfield
+                      value={monetaryValue}
+                      className="applicationTitle"
+                      onChange={e => handleMonetaryValue(e.target.value)}
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                    />
+                  </div>
+                  <div className="codedropdown_div1">
+                    <Button
+                      text={t('To add')}
+                      className={code === 'default' ? 'to_add_btn_disabled' : 'to_add_btn'}
+                      onClick={handleAddCodes}
+                      disabled={code === 'default' || !monetaryValue ? true : false}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Fragment>
           </Fragment>
         ) : null}
       </div>
 
       {step1?.country ? (
         <Fragment>
-          <div className="add_code_div">
-            <div className="codedropdown_div">
-              <label className="BomLabel">Code</label>
-              {adminCodes ? (
-                <Autocomplete
-                  options={adminCodes.map(adminCode => adminCode)}
-                  getOptionLabel={option => option.code}
-                  onChange={(_, newValue) => {
-                    console.log(newValue);
-                    setCode(newValue);
-                  }}
-                  placeholder={t('Select a Code')}
-                />
-              ) : (
-                <CircularProgress color="secondary" size="2em" />
-              )}
-            </div>
-            <div className="codedropdown_div">
-              <label className="BomLabel">{t('Monetary value')}</label>
-              <Inputfield
-                value={monetaryValue}
-                className="applicationTitle"
-                onChange={e => handleMonetaryValue(e.target.value)}
-                type="number"
-                step="0.01"
-                placeholder="0.00"
-              />
-            </div>
-            <div className="codedropdown_div1">
-              <Button
-                text={t('To add')}
-                className={code === 'default' ? 'to_add_btn_disabled' : 'to_add_btn'}
-                onClick={handleAddCodes}
-                disabled={code === 'default' || !monetaryValue ? true : false}
-              />
-            </div>
-          </div>
+          <br />
           {allCodes?.length === 0 ? (
             ''
           ) : (
-            <TableContainer component={Paper} style={{ width: '100%', marginTop: '2%' }}>
-              <Table aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center" className="country">
-                      {t('Code')}
-                    </TableCell>
-                    <TableCell align="center" className="country">
-                      {t('Monetary value')}
-                    </TableCell>
+            <Fragment>
+              <div className="ProductList_boms">
+                <div style={{ textAlign: 'center' }}>
+                  <span className="title_productList">{t('Summary')}</span>
+                </div>
+              </div>
+              <TableContainer component={Paper} style={{ width: '100%', marginTop: '2%' }}>
+                <Table aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center" className="country">
+                        {t('Code')}
+                      </TableCell>
+                      <TableCell align="center" className="country">
+                        {t('Monetary value')}
+                      </TableCell>
 
-                    <TableCell align="center" className="country">
-                      {t('Actions')}
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {allCodes?.map((item, index) => {
-                    return (
-                      <TableRow
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        key={index}>
-                        <TableCell align="center" style={{ width: '20%' }}>
-                          <p
-                            className="AP_plus_title"
-                            style={{ color: item?.certification_required === false && 'red' }}>
-                            {item?.code}
-                          </p>
-                        </TableCell>
+                      <TableCell align="center" className="country">
+                        {t('Actions')}
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {allCodes?.map((item, index) => {
+                      return (
+                        <TableRow
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                          key={index}>
+                          <TableCell align="center" style={{ width: '20%' }}>
+                            <p
+                              className="AP_plus_title"
+                              style={{ color: item?.certification_required === false && 'red' }}>
+                              {item?.code}
+                            </p>
+                          </TableCell>
 
-                        <TableCell align="center" className="country2" style={{ width: '20%' }}>
-                          <p
-                            className="AP_plus_title"
-                            style={{ color: item?.certification_required === false && 'red' }}>
-                            {item?.monetary_value}
-                          </p>
-                        </TableCell>
+                          <TableCell align="center" className="country2" style={{ width: '20%' }}>
+                            <p
+                              className="AP_plus_title"
+                              style={{ color: item?.certification_required === false && 'red' }}>
+                              {item?.monetary_value}
+                            </p>
+                          </TableCell>
 
-                        <TableCell align="center" className="country2">
-                          <img
-                            src={DeleteIcon}
-                            alt=""
-                            className="dltIcon"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                              setOpenModal(true);
-                              setBomId(item);
-                              setBomIndex(index);
-                            }}
-                          />
-                          <img
-                            src={EditIcon}
-                            alt=""
-                            className="dltIcon"
-                            style={{ cursor: 'pointer' }}
-                            onClick={() => {
-                              setOpenEditModal(true);
-                              setEditModalData({ item: { ...item }, index });
-                            }}
-                          />
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                          <TableCell align="center" className="country2">
+                            <img
+                              src={DeleteIcon}
+                              alt=""
+                              className="dltIcon"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => {
+                                setOpenModal(true);
+                                setBomId(item);
+                                setBomIndex(index);
+                              }}
+                            />
+                            <img
+                              src={EditIcon}
+                              alt=""
+                              className="dltIcon"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => {
+                                setOpenEditModal(true);
+                                setEditModalData({ item: { ...item }, index });
+                              }}
+                            />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Fragment>
           )}
         </Fragment>
       ) : null}

@@ -79,8 +79,12 @@ const ServiceProvider = props => {
 
   return (
     <div style={{ width: '100%' }}>
+      <div className="mandatory_field_tips">
+        <span className="required">{t('Mandatory field')}</span>
+      </div>
+      <br />
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <span className="aVendor_heading">
+        <span className="aVendor_heading required">
           {t('Please select')} <b>{t('a vendor')}</b> {t('for this request')}
         </span>
       </div>
