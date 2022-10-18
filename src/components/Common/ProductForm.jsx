@@ -206,9 +206,9 @@ const ProductForm = props => {
   const validateProduct = () => {
     let validated = true;
 
-    if (Object.keys(props?.product).length > 14) {
+    if (Object.keys(props?.product).length > 11) {
       for (const key in props?.product) {
-        if (key !== 'other_docs') {
+        if (!['other_docs', 'plan', 'analysis_certificate', 'test_report'].includes(key)) {
           if (!props?.product[key]) {
             if (!props?.product[key]?.files?.length) {
               validated = false;
