@@ -55,6 +55,8 @@
     "build": "react-scripts build",
     "deploy": "shipit prod deploy --shipitfile .shipit/shipitfiles/frontend.js",
     "rollback": "shipit prod rollback --shipitfile .shipit/shipitfiles/frontend.js",
+    "deploy-staging": "shipit staging deploy --shipitfile .shipit/shipitfiles/frontend.js",
+    "rollback-staging": "shipit staging rollback --shipitfile .shipit/shipitfiles/frontend.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install"
