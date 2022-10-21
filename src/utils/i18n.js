@@ -484,7 +484,7 @@ i18n
           Amount: 'Quantity',
           'Unit of measure': 'Unit of measure',
           Mark: 'Brand',
-          'Country of construction' :'Country of construction',
+          'Country of construction': 'Country of construction',
           Builder: 'Model number',
           'Technical sheet': 'Technical sheet',
           'Test report': 'Test report',
@@ -1309,7 +1309,7 @@ i18n
           'Unit of measure': 'Unité de mesure',
           Mark: 'Marque',
           Builder: 'Numéro de modèle',
-          'Country of construction' :'Pays de construction',
+          'Country of construction': 'Pays de construction',
           'Technical sheet': 'Fiche technique',
           'Test report': "Rapport d'essai",
           'Analysis Certificate': "Certificat d'analyse",
@@ -1351,7 +1351,7 @@ i18n
           Expeditions: 'Expéditions',
           'Inspection date': "Date d'inspection",
           Email: 'E-mail',
-          'Product Lists': 'Listes de produits',
+          'Product Lists': 'Ajout de produit',
           'Total value': 'Valeur totale',
           Denomination: 'Dénomination',
           'Monetary value': 'Valeur totale en €',
@@ -1370,11 +1370,13 @@ i18n
           'Application title': 'Titre du dossier',
           "You don't know your product nomenclatures?":
             'Vous ne connaissez pas vos nomenclatures produits ?',
-          'Import an XLS file': 'Importer fichier Excel',
-          'Download XLS file': 'Télécharger le fichier Excel',
-          'Select a Code': 'Sélectionnez un code',
+          'Import an XLS file': 'Importer votre liste de produit completée en cliquant ici (.xls)',
+          'Download XLS file': 'Télécharger le modèle de la liste de produit à compléter',
+          'Select a Code': 'Sélectionnez un code existant',
+          'Fill manually from existing codes': 'Choisir manuellement à partir des codes existants',
+          'Import from an excel list file': "Importer une liste à partir d'un fichier Excel",
+          Summary: 'Résumé de ma demande',
           Add: 'Ajouter',
-
           'Estimate my request': 'Estimer ma demande',
           'Delete SH Code': 'Supprimer le Chode HS',
           'Those products for': 'Ces produits pour',
@@ -1396,7 +1398,8 @@ i18n
             'Avez-vous les coordonnées de cette société de certification ?',
           'Add or select a seller': 'Ajouter un nouveau vendeur ou sélectionner un existant',
           'Add or select a buyer': 'Ajouter un nouvel acheteur ou sélectionner un existant',
-          'Add or select an inspection location': "Ajouter un nouveau lieu ou sélectionner un existant",
+          'Add or select an inspection location':
+            'Ajouter un nouveau lieu ou sélectionner un existant',
           'Add inspection location': "Ajouter un lieu d'inspection",
           'To Complete': 'Compléter',
           'Add another product': 'Ajouter un autre produit',
@@ -1653,7 +1656,9 @@ i18n
           'We asked': 'Nous avons demandé',
           'the missing documents': 'les documents manquants',
           'to the company': 'à la société',
-          'Return to Requests': 'Retour aux demandes'
+          'Return to Requests': 'Retour aux demandes',
+          'Mandatory field': 'Champs obligatoires',
+          'Advisable field': 'Champs recommandés'
         }
       }
     },

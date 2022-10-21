@@ -24,6 +24,7 @@
   border-radius: 6px;
   border: 1px solid rgba(0, 0, 0, 0.23);
 }
+
 .textfield_row2 {
   font-size: 1rem;
   padding-left: 9px;
@@ -59,9 +60,9 @@
   height: 230px;
 }
 
-.service-provider-country-modal .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
-.service-provider-country-modal .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon
- {
+.service-provider-country-modal
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input.css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input,
+.service-provider-country-modal .css-hfutr2-MuiSvgIcon-root-MuiSelect-icon {
   margin-top: 0 !important;
   margin-left: 10px;
 }

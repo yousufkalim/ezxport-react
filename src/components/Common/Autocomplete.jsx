@@ -125,7 +125,14 @@ export default function Virtualize({ options, getOptionLabel, onChange, placehol
       onChange={onChange}
       getOptionLabel={getOptionLabel}
       renderInput={params => {
-        return <TextField {...params} size="small" placeholder={placeholder} />;
+        return (
+          <TextField
+            {...params}
+            className="autocomplete-test-input"
+            size="small"
+            placeholder={placeholder}
+          />
+        );
       }}
       renderOption={(props, option) => [props, option.code]}
       // TODO: Post React 18 update - validate this conversion, look like a hidden bug
