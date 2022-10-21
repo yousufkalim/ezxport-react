@@ -1,34 +1,34 @@
 .css-jpln7h-MuiTabs-scroller {
-padding: 13px 0;
+  padding: 13px 0;
 }
-.send_documents_btn{
+.send_documents_btn {
   margin-top: 3%;
-background-color: #7F56D9;
-font-size: 1rem;
-color: white;
-width: 11rem;
-height: 3rem;
-border-radius: 10px;
-border: none;
-cursor: pointer;
+  background-color: #7f56d9;
+  font-size: 1rem;
+  color: white;
+  width: 11rem;
+  height: 3rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
 }
 
-.send_documents_btn_disabled{
-  background-color: #EAECF0;
+.send_documents_btn_disabled {
+  background-color: #eaecf0;
   font-size: 1rem;
   color: black;
   width: 11rem;
   height: 3rem;
   border-radius: 10px;
   border: none;
-  }
+}
 
-.badge_missingDocs{
+.badge_missingDocs {
   height: 11px;
-   width: 11px; 
-   background-color: #D92D20;
-   border-radius: 50%;
-    margin: 0 0 0 1px;
+  width: 11px;
+  background-color: #d92d20;
+  border-radius: 50%;
+  margin: 0 0 0 1px;
 }
 .InformationTab {
   width: 100%;
@@ -108,4 +108,13 @@ cursor: pointer;
   .requestData_date {
     font-size: 11px !important;
   }
+}
+
+.version {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 10px;
+  color: #667085;
+  padding: 10px;
 }
