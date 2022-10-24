@@ -30,7 +30,7 @@ export const UserRoutes = [
     tour: {
       title: 'Track your certification requests',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+        'Dans cet espace vous pouvez : effectuer une nouvelle demande (simuler si vos produits sont soumis, simuler le coût du certificat, crée un dossier), suivre et modifier vos dossiers en cours.'
     }
   },
   {
@@ -41,7 +41,7 @@ export const UserRoutes = [
     tour: {
       title: 'Select your service providers',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+        'Dans cet espace vous pouvez : retrouver les coordonnées de votre interlocuteur par organisme de certification et les pays associés.'
     }
   },
   {
@@ -52,7 +52,7 @@ export const UserRoutes = [
     tour: {
       title: 'Enter your sellers, buyers and inspection locations in one place',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+        'Dans cet espace vous pouvez : renseigner les coordonnées de vos acheteurs, vendeurs et lieux dinspection pour les utiliser pendant votre demande. Retrouver les informations déjà renseignées dans vos précédents dossiers. '
     }
   },
   {
