@@ -63,7 +63,7 @@ export const UserRoutes = [
     tour: {
       title: 'Collect the documents',
       description:
-        'Tooltips are used to describe or identify an element. In most scenarios, tooltips help the user understand the meaning, function or alt-text of an element.'
+        'Dans cet espace vous pouvez : retrouver vos documents par dossier ou nomenclature. Vous pouvez les télécharger ou les utiliser pour vos prochains dossiers.'
     }
   },
 
