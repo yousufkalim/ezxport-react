@@ -149,7 +149,7 @@ i18n
           'Delete Country': 'Delete Country',
           'User is not deleted': 'User is not deleted',
           Manufacturer: 'Manufacturer',
-          Vendor: 'Vendor',
+          Vendor: 'Organisme de certification',
           Trader: 'Trader',
           'Freight forwarder': 'Freight forwarder',
           Error: 'Error',
