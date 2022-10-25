@@ -1,5 +1,71 @@
-.condition_section_content {
+.accept_condition_container .infos {
+  text-align: right;
   padding: 10px 0;
+  color: #7f56d9;
+  font-size: 0.8em;
+}
+
+.accept_condition_container header {
+  text-align: center;
+  padding: 10px 0;
+  color: #7f56d9;
+}
+
+.accept_condition_container header hr {
+  margin: 10px auto 30px auto;
+  width: 160px;
+  height: 1px;
+  background-color: #7f56d9;
+  border: none;
+}
+
+.accept_condition_container hr.end {
+  margin: 20px auto;
+  height: 1px;
+  background-color: #7f56d9;
+  border: none;
+}
+
+.accept_condition_container h1 {
+  padding: 10px 0;
+  color: #7f56d9;
+}
+
+.accept_condition_container .condition_section_title {
+  text-transform: uppercase;
+}
+
+.accept_condition_container .condition_section_content {
+  padding: 10px 0;
+}
+
+.accept_condition_container .condition_section_content h4 {
+  color: #7f56d9;
+  padding-bottom: 5px;
+  font-size: 1.2em;
+}
+
+.accept_condition_container .condition_section_content a {
+  color: #7f56d9;
+}
+
+.accept_condition_container .condition_section_content p {
+  padding: 3px 0;
+}
+
+.accept_condition_container .condition_section_content ol,
+.accept_condition_container .condition_section_content ul {
+  padding: 3px 0;
+  margin-left: 5%;
+}
+
+.accept_condition_container .condition_section_content li {
+  padding: 3px 0;
+}
+
+.accept_condition_container .condition_section_content b {
+  font-weight: 900;
+  color: #7f56d9;
 }
 
 .accept_conditions_btn {
@@ -8,4 +74,5 @@
 
 .accept_condition_checkbox {
   color: #7f56d9;
+  padding-left: 5px;
 }

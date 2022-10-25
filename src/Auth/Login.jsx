@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoginIcon from '../assets/LoginIcon.svg';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Common/Header';
 import API from '../api/index';
 import InputField from '../components/Common/InputField';
@@ -39,7 +39,6 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const { t } = useTranslation();
-  const history = useHistory();
 
   useEffect(() => {
     const errors = validate(formState.values, schema);

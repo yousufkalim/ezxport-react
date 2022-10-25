@@ -613,6 +613,7 @@ i18n
           // Certification bodies
           'To Search': 'To Search',
           'To Confirm': 'To Confirm',
+          'To Valid': 'To Valid',
           Search: 'Search',
           'Certificate cost': 'Certificate cost',
           // Address Book
@@ -1445,6 +1446,7 @@ i18n
           // Certification Body
           'To Search': 'Chercher',
           'To Confirm': 'Confirmer',
+          'To Valid': 'Valider',
           Search: 'Chercher',
 
           // Address Book
@@ -1658,7 +1660,13 @@ i18n
           'to the company': 'à la société',
           'Return to Requests': 'Retour aux demandes',
           'Mandatory field': 'Champs obligatoires',
-          'Advisable field': 'Champs recommandés'
+          'Advisable field': 'Champs recommandés',
+
+          // Accept Conditions
+          'Accept CGU': "J'accepte les Conditions Générales d’Utilisation (CGU)",
+          'Accept CGV': "J'accepte les Conditions Générale de Vente (CGV – SaaS)",
+          'Accept RGPD': "J'accepte la Politique de Confidentialité d'EZXPORT",
+          Mandatory: 'Obligatoire'
         }
       }
     },
