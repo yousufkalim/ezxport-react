@@ -1,22 +1,25 @@
-import React from "react";
-import ForgetLogo from "../assets/ForgetLogo.svg";
-import Quiz from "../assets/Quiz.png";
-import Header from "../components/Header";
-import { Link, useHistory } from "react-router-dom";
-import BackArrow from "../assets/BackArrow.svg";
+import React from 'react';
+import ForgetLogo from '../assets/ForgetLogo.svg';
+import Quiz from '../assets/Quiz.png';
+import Header from '../components/Header';
+import { Link, useHistory } from 'react-router-dom';
+import BackArrow from '../assets/BackArrow.svg';
+import { useTranslation } from 'react-i18next';
+
 const ResetPassword = () => {
   const history = useHistory();
+  const { t } = useTranslation();
 
   return (
     <>
-      <Header />
+      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
       <div className="login_mainDiv">
         <img
           src={BackArrow}
           alt=""
           className="backArrow"
           onClick={() => {
-            history.push("/forgetpassword");
+            history.push('/forgetpassword');
           }}
         />
         <div className="loginCenterDiv">
@@ -24,25 +27,25 @@ const ResetPassword = () => {
 
           {/* LOGIN BUTTON AND ICON  */}
           <div className="login_icon_div">
-            <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: "5px" }} />
+            <img src={ForgetLogo} alt="" className="login_icons" style={{ paddingBottom: '5px' }} />
             <br />
-            <h2 className="login_h2">{t("Forgot your password ?")}</h2>
+            <h2 className="login_h2">{t('Forgot your password ?')}</h2>
             <p className="forget_p">
-              {t("Please enter your email address to reset your password")}
+              {t('Please enter your email address to reset your password')}
             </p>
           </div>
           {/* LOGIN INPUTS  */}
           <div className="email_inputs_div">
-            <label htmlFor="">{t("E-mail address")}</label>
+            <label htmlFor="">{t('E-mail address')}</label>
             <div className="input_field">
               <input className="input_email" type="email" placeholder="mail@mail.com" required />
               <img src={Quiz} alt="" className="quizIcon" />
             </div>
           </div>
           {/* LOGIN BUTTON  */}
-          <button className="regBtn regBtn2">{t("Request made successfully")}</button>
+          <button className="regBtn regBtn2">{t('Request made successfully')}</button>
           <Link to="/changepassword" className="logingbtn">
-            {t("Resend again")}
+            {t('Resend again')}
           </Link>
         </div>
       </div>
