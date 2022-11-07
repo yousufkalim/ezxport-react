@@ -95,7 +95,7 @@ const Login = () => {
 
   return (
     <>
-      <Header />
+      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" showLanguage />
       <div className="login_mainDiv">
         <form autoComplete="off" className="loginCenterDiv">
           {/* HEADING  */}
