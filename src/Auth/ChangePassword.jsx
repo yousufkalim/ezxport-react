@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import ChangeSuccessfully from "./ChangeSuccessfully";
-import API from "../api";
-import ForgetLogo from "../assets/ForgetLogo.svg";
-import Header from "../components/Common/Header";
-import InputField from "../components/Common/InputField";
-import Button from "../components/Common/Button";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { useTranslation } from "react-i18next";
-import toaster from "../utils/toaster";
+import React, { useState } from 'react';
+import ChangeSuccessfully from './ChangeSuccessfully';
+import API from '../api';
+import ForgetLogo from '../assets/ForgetLogo.svg';
+import Header from '../components/Common/Header';
+import InputField from '../components/Common/InputField';
+import Button from '../components/Common/Button';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { useTranslation } from 'react-i18next';
+import toaster from '../utils/toaster';
 
 const ChangePassword = ({ Token, setResetPassword }) => {
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [success, setSuccess] = useState(false);
 
   const { t } = useTranslation();
 
   const handleChangePassword = async () => {
-    await API("put", `/auth/new-password/${Token}`, {
+    await API('put', `/auth/new-password/${Token}`, {
       newPassword: password,
-      confirmPassword: confirmPassword,
+      confirmPassword: confirmPassword
     })
-      .then((res) => {
+      .then(res => {
         if (res?.data?.success) {
-          toaster("success", t(res?.data?.message));
+          toaster('success', t(res?.data?.message));
           setSuccess(true);
         }
       })
-      .catch((err) => toaster("Failed", t(err.response.data.message)));
+      .catch(err => toaster('Failed', t(err.response.data.message)));
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -39,7 +39,7 @@ const ChangePassword = ({ Token, setResetPassword }) => {
     <>
       {!success ? (
         <>
-          <Header />
+          <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
           <div className="login_mainDiv">
             <div className="loginCenterDiv">
               {/* HEADING  */}
@@ -50,46 +50,46 @@ const ChangePassword = ({ Token, setResetPassword }) => {
                   src={ForgetLogo}
                   alt=""
                   className="login_icons"
-                  style={{ paddingBottom: "5px" }}
+                  style={{ paddingBottom: '5px' }}
                 />
                 <br />
-                <h2 className="login_h2">{t("New Password")}</h2>
+                <h2 className="login_h2">{t('New Password')}</h2>
               </div>
               {/* PASSWORD */}
               <div className="email_inputs_div">
-                <label htmlFor="">{t("New Password")}</label>
+                <label htmlFor="">{t('New Password')}</label>
                 <InputField
                   className="input_email"
-                  type={showPassword ? "text" : "password"}
-                  placeholder={t("New Password")}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder={t('New Password')}
                   required
                   value={password}
                   visibleEye
                   icon2={showPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowPassword}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                 />
               </div>
               {/*C PASSWORD  */}
               <div className="email_inputs_div">
-                <label htmlFor="">{t("Confirm password")}</label>
+                <label htmlFor="">{t('Confirm password')}</label>
                 <InputField
                   className="input_email"
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder={t("Confirm password")}
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  placeholder={t('Confirm password')}
                   required
                   value={confirmPassword}
                   visibleEye
                   icon2={showConfirmPassword ? VisibilityIcon : VisibilityOffIcon}
                   onClick={handleShowConfirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={e => setConfirmPassword(e.target.value)}
                 />
               </div>
               {/* login button  */}
               <Button
                 className="logingbtn"
                 onClick={handleChangePassword}
-                text={t("Change the password")}
+                text={t('Change the password')}
               />
             </div>
           </div>

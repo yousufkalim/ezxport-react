@@ -1,8 +1,8 @@
-import React from "react";
-import ChangedPIcon from "../assets/ChangedPIcon.svg";
-import Header from "../components/Common/Header";
-import { useHistory } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import ChangedPIcon from '../assets/ChangedPIcon.svg';
+import Header from '../components/Common/Header';
+import { useHistory } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ChangeSuccessfully = ({ setResetPassword }) => {
   const { t } = useTranslation();
@@ -10,11 +10,11 @@ const ChangeSuccessfully = ({ setResetPassword }) => {
   const history = useHistory(null);
   const handleToLogin = () => {
     setResetPassword(false);
-    history.push("/");
+    history.push('/');
   };
   return (
     <>
-      <Header />
+      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
       <div className="login_mainDiv">
         <div className="loginCenterDiv">
           {/* HEADING  */}
@@ -25,15 +25,15 @@ const ChangeSuccessfully = ({ setResetPassword }) => {
               src={ChangedPIcon}
               alt=""
               className="login_icons"
-              style={{ paddingBottom: "5px" }}
+              style={{ paddingBottom: '5px' }}
             />
             <br />
-            <h2 className="login_h2">{t("Password changed successfully")}</h2>
+            <h2 className="login_h2">{t('Password changed successfully')}</h2>
           </div>
 
           {/* login button  */}
           <button onClick={handleToLogin} className="logingbtn" type="button">
-            {t("To log in")}
+            {t('To log in')}
           </button>
         </div>
       </div>

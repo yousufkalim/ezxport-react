@@ -427,7 +427,7 @@ const BOMsForm = props => {
                   </div>
                   <div className="codedropdown_div1">
                     <Button
-                      text={t('To add')}
+                      text={t('Add')}
                       className={code === 'default' ? 'to_add_btn_disabled' : 'to_add_btn'}
                       onClick={handleAddCodes}
                       disabled={code === 'default' || !monetaryValue ? true : false}

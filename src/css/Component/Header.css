@@ -3,3 +3,17 @@
   text-align: center;
   margin-top: 4%;
 }
+.header_with_lg_logo {
+  text-align: center;
+  margin-top: 2%;
+}
+.change_language_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: -2rem;
+}
+.change_language_container > img {
+  cursor: pointer;
+}
