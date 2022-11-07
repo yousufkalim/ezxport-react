@@ -36,3 +36,7 @@
 :root {
   --primary: 'green';
 }
+.header_center_image {
+  padding: 7px 0;
+  width: 36%;
+}

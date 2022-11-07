@@ -263,6 +263,10 @@ label {
   border-radius: 8px;
   outline: none;
 }
+.reg_input ::placeholder {
+  font-size: 1rem;
+  color: #667085;
+}
 .reg_input_red {
   width: 100%;
   padding: 3% 2%;
