@@ -224,7 +224,7 @@ const Registration = () => {
   const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
   return (
     <>
-      <Header />
+      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
       <div className="login_mainDiv">
         <div className="backArrow_div">
           <Link to="/">
@@ -282,7 +282,7 @@ const Registration = () => {
                   // type="number"
                   isError={hasError('phone')}
                   error={[t(formState.errors.phone)]}
-                  placeholder="33 07 86 36 02 20"
+                  placeholder="+33 (0)1 86 36 02 20"
                   required
                   value={formState.values.phone}
                   name="phone"
@@ -290,80 +290,7 @@ const Registration = () => {
                 />
               </div>
             </div>
-            <div className="regist_input_div">
-              <div className="regist_col1">
-                <label htmlFor="">{t('Full address')}</label>
-                <input
-                  type="text"
-                  className={
-                    hasError('fullAddress') && [t(formState.errors.fullAddress)]
-                      ? 'reg_input_red'
-                      : 'reg_input'
-                  }
-                  placeholder="90 road of rouvroy"
-                  required
-                  value={formState.values.fullAddress}
-                  name="fullAddress"
-                  onChange={handleChange}
-                />
-                <div className="error-format">
-                  {hasError('fullAddress') && [t(formState.errors.fullAddress)]}
-                </div>
-              </div>
-              <div className="regist_col2">
-                <div className="city_inputs">
-                  <label htmlFor="">{t('Postal code')}</label>
-                  <input
-                    type="string"
-                    className={
-                      hasError('postelCode') && [t(formState.errors.postelCode)]
-                        ? 'reg_input_red2'
-                        : 'reg_input2'
-                    }
-                    placeholder="80100"
-                    required
-                    value={formState.values.postelCode}
-                    name="postelCode"
-                    onChange={handlePhnChange}
-                  />
-                  <div className="error-format">
-                    {hasError('postelCode') ? t(formState.errors.postelCode[0]) : null}
-                  </div>
-                </div>
-                <div className="city_inputs2">
-                  <label htmlFor="">{t('Town')}</label>
-                  <input
-                    type="text"
-                    className={
-                      hasError('town') && [t(formState.errors.town)]
-                        ? 'reg_input_red3'
-                        : 'reg_input3'
-                    }
-                    placeholder="Abbeville"
-                    required
-                    value={formState.values.town}
-                    name="town"
-                    onChange={e => handleChange(e)}
-                  />
-                  <div className="error-format">
-                    {hasError('town') && [t(formState.errors.town)]}
-                  </div>
-                </div>
-                {/* <div className="city_inputs2">
-                  <InputField
-                    type="text"
-                    label="Town"
-                    isError={hasError("town")}
-                    error={formState.errors.town}
-                    placeholder="Abbeville"
-                    required
-                    value={formState.values.town}
-                    name="town"
-                    onChange={handleChange}
-                  />
-                </div> */}
-              </div>
-            </div>
+
             <div className="regist_input_div">
               <div className="regist_col1">
                 <InputField
@@ -434,7 +361,7 @@ const Registration = () => {
                   onChange={handleChange}
                   value={formState.values.typeOfSociety}>
                   <option disabled value="default">
-                    {t('Select your type')}
+                    {t('Select your type of company')}
                   </option>
                   {companyType?.map(item => {
                     return (
@@ -449,6 +376,67 @@ const Registration = () => {
                   {hasError('typeOfSociety') && formState.touched.typeOfSociety
                     ? formState.errors.typeOfSociety[0]
                     : null}
+                </div>
+              </div>
+            </div>
+            <div className="regist_input_div">
+              <div className="regist_col1">
+                <label htmlFor="">{t('Full address')}</label>
+                <input
+                  type="text"
+                  className={
+                    hasError('fullAddress') && [t(formState.errors.fullAddress)]
+                      ? 'reg_input_red'
+                      : 'reg_input'
+                  }
+                  placeholder="90 chaussée de rouvroy"
+                  required
+                  value={formState.values.fullAddress}
+                  name="fullAddress"
+                  onChange={handleChange}
+                />
+                <div className="error-format">
+                  {hasError('fullAddress') && [t(formState.errors.fullAddress)]}
+                </div>
+              </div>
+              <div className="regist_col2">
+                <div className="city_inputs">
+                  <label htmlFor="">{t('Postal code')}</label>
+                  <input
+                    type="string"
+                    className={
+                      hasError('postelCode') && [t(formState.errors.postelCode)]
+                        ? 'reg_input_red2'
+                        : 'reg_input2'
+                    }
+                    placeholder="75001"
+                    required
+                    value={formState.values.postelCode}
+                    name="postelCode"
+                    onChange={handlePhnChange}
+                  />
+                  <div className="error-format">
+                    {hasError('postelCode') ? t(formState.errors.postelCode[0]) : null}
+                  </div>
+                </div>
+                <div className="city_inputs2">
+                  <label htmlFor="">{t('Town')}</label>
+                  <input
+                    type="text"
+                    className={
+                      hasError('town') && [t(formState.errors.town)]
+                        ? 'reg_input_red3'
+                        : 'reg_input3'
+                    }
+                    placeholder="Paris"
+                    required
+                    value={formState.values.town}
+                    name="town"
+                    onChange={e => handleChange(e)}
+                  />
+                  <div className="error-format">
+                    {hasError('town') && [t(formState.errors.town)]}
+                  </div>
                 </div>
               </div>
             </div>
