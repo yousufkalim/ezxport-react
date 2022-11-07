@@ -214,7 +214,7 @@ i18n
           Congo: 'Congo',
           'Cook Islands': 'Cook Islands',
           'Costa Rica': 'Costa Rica',
-          'Cote D Ivoire': 'Cote D Ivoire',
+          'Cote DIvoire': 'Cote DIvoire',
           Croatia: 'Croatia',
           'Cruise Ship': 'Cruise Ship',
           Cuba: 'Cuba',
@@ -565,6 +565,7 @@ i18n
           'Gabon are subject': 'Gabon are subject',
           'to verification and certification.': 'to verification and certification.',
           'Please select': 'Please select',
+          'a vendor': 'a vendor',
           'a certification body': 'a certification body',
           'for this request': 'for this request',
           'Do you have contact information for this certification body?':
@@ -802,7 +803,7 @@ i18n
           'To log in': 'To log in',
           Register: 'Register',
           'Confirming your password': 'Confirming your password',
-          'Select your type': 'Select your type',
+          'Select your type of company': 'Select your type of company',
           'VAT number': 'VAT number',
           'Resend again': 'Resend again',
           // Appplication
@@ -1031,7 +1032,7 @@ i18n
           Congo: 'Congo',
           'Cook Islands': 'les Îles Cook',
           'Costa Rica': 'Costa Rica',
-          'Cote D Ivoire': "Côte d'Ivoire",
+          'Cote DIvoire': "Côte d'Ivoire",
           Croatia: 'Croatie',
           'Cruise Ship': 'Bateau de croisière',
           Cuba: 'Cuba',
@@ -1393,6 +1394,7 @@ i18n
           'Gabon are subject': "Le Gabon fait l'objet",
           'to verification and certification.': 'à la vérification et à la certification.',
           'Please select': 'Veuillez sélectionner',
+          'a vendor': 'un organisme de certification',
           'a certificaiton body': 'un organisme de certification',
           'for this request': 'pour cette demande',
           'Do you have contact information for this certification company?':
@@ -1647,7 +1649,7 @@ i18n
           'To log in': 'Ouvrir une session',
           Register: "S'inscrire",
           'Confirming your password': 'Confirmation de votre mot de passe',
-          'Select your type': 'Sélectionnez votre type',
+          'Select your type of company': 'Sélectionnez votre type de société',
           'VAT number': 'Numéro de TVA',
           'Resend again': 'Renvoyer à nouveau',
           // Appplication
