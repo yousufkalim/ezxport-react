@@ -224,13 +224,18 @@ const Registration = () => {
   const handleShowConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
   return (
     <>
-      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
+      <Header
+        to="/"
+        backBtn
+        className="header_center_image"
+        classNameLogoDiv="header_with_lg_logo"
+      />
       <div className="login_mainDiv">
-        <div className="backArrow_div">
+        {/* <div className="backArrow_div" style={{ backgroundColor: 'red' }}>
           <Link to="/">
             <img src={BackArrow} alt="back" className="backArrow" />
           </Link>
-        </div>
+        </div> */}
         <form autoComplete="off" className="registration_div">
           {/* first input fields  */}
           <h2 className="user_info">{t('User information')}</h2>

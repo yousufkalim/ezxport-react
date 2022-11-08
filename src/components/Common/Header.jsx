@@ -3,6 +3,8 @@ import EzxportIcon from '../../assets/EzxportIcon.svg';
 import { useTranslation } from 'react-i18next';
 import french from '../../assets/france.png';
 import english from '../../assets/english.png';
+import BackArrow from '../../assets/BackArrow.svg';
+import { Link } from 'react-router-dom';
 // Component
 export default function Header(props) {
   const { i18n } = useTranslation();
@@ -14,6 +16,18 @@ export default function Header(props) {
   return (
     <>
       <div className={props.classNameLogoDiv ? props.classNameLogoDiv : 'header'}>
+        {props.backBtn ? (
+          <Link to={props?.to}>
+            <img
+              src={BackArrow}
+              alt="back"
+              className="backArrow"
+              style={{ marginLeft: '6%', position: 'absolute', top: '9%' }}
+            />
+          </Link>
+        ) : (
+          ''
+        )}
         <img
           className={props.className ? props.className : 'header_center_div'}
           src={EzxportIcon}
