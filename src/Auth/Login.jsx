@@ -10,6 +10,8 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import validate from 'validate.js';
 import { useTranslation } from 'react-i18next';
 import toaster from '../utils/toaster';
+import english from '../assets/english.png';
+import french from '../assets/france.png';
 
 const schema = {
   email: {
@@ -37,9 +39,7 @@ const Login = () => {
     errors: {}
   });
   const [showPassword, setShowPassword] = useState(false);
-
-  const { t } = useTranslation();
-
+  const { i18n, t } = useTranslation();
   useEffect(() => {
     const errors = validate(formState.values, schema);
     setFormState(formState => ({
@@ -92,10 +92,13 @@ const Login = () => {
 
   const handleShowPassword = () => setShowPassword(!showPassword);
   const hasError = field => (formState.touched[field] && formState.errors[field] ? true : false);
-
+  const changeLanguage = lang => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('language', lang);
+  };
   return (
     <>
-      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" showLanguage />
+      <Header className="header_center_image" classNameLogoDiv="header_with_lg_logo" />
       <div className="login_mainDiv">
         <form autoComplete="off" className="loginCenterDiv">
           {/* HEADING  */}
@@ -150,6 +153,20 @@ const Login = () => {
             <Link to="/registration" className="regBtn">
               {t('Register')}
             </Link>
+          </div>
+          <div className="register-div" style={{ gap: '3rem' }}>
+            <img
+              src={english}
+              onClick={() => changeLanguage('en')}
+              alt=""
+              style={{ cursor: 'pointer' }}
+            />
+            <img
+              src={french}
+              onClick={() => changeLanguage('fr')}
+              alt=""
+              style={{ cursor: 'pointer' }}
+            />
           </div>
         </form>
       </div>

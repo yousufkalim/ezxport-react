@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Common/Header';
-import { Link, useHistory } from 'react-router-dom';
-import BackArrow from '../assets/BackArrow.svg';
+import {
+  //  Link,
+  useHistory
+} from 'react-router-dom';
+// import BackArrow from '../assets/BackArrow.svg';
 import API from '../api';
 import Button from '../components/Common/Button';
 import validate from 'validate.js';
