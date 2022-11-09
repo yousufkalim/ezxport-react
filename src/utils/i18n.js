@@ -522,6 +522,7 @@ i18n
           'Follow-up of requests': 'Follow-up of requests',
           'Make your first certification request on Ezxport':
             'Make your first certification request on Ezxport',
+          'Your last request is in step': 'Your last request is in step',
           'Create a first request': 'Create a first request',
           'Create a request': 'Create a request',
           'Contract to be signed': 'Contract to be signed',
@@ -537,6 +538,10 @@ i18n
           'Comments by the Expert': 'Comments by the Expert',
           valid: 'valid',
           'codes required': 'codes required',
+          'HS code': 'HS code',
+          'Certification body': 'Certification body',
+          Shipment: 'Shipment',
+          Documents: 'Documents',
           // stepper
           'Return to Dashboard': 'Return to Dashboard',
           Dispatch: 'Dispatch',
@@ -608,6 +613,7 @@ i18n
           title: 'title',
           'title is required': 'title is required',
           'The cost of this certification is up to': 'The cost of this certification is up to',
+          Step: 'Step',
           '': '',
           '': '',
 
@@ -1346,6 +1352,7 @@ i18n
           'Follow-up of requests': 'Suivi des demandes',
           'Make your first certification request on Ezxport':
             'Faites votre première demande de certification sur Ezxport',
+          'Your last request is in step': 'Votre dernière demande est à l’étape',
           'Create a first request': 'Créer une première demande',
           'Create a request': 'Créer une demande',
           'Contract to be signed': 'Contrat à signer',
@@ -1362,6 +1369,11 @@ i18n
           valid: 'valide',
           'Are you sure to delete?': 'Êtes-vous sûr de vouloir supprimer?',
           'codes required': 'code requis',
+          'HS code': 'Code HS',
+          'Certification body': 'Organisme de certification',
+          Shipment: 'Expédition',
+          Documents: 'Documents',
+          Step: 'Étape',
 
           // stepper
           'Return to Dashboard': 'Retour au tableau de bord',

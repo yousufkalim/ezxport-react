@@ -57,6 +57,24 @@ const TITLES = [
   }
 ];
 
+const DRAFTTITLES = [
+  {
+    name: 'Request',
+    key: 'name',
+    sortIcon: true
+  },
+  {
+    name: 'Date',
+    key: 'createdAt',
+    sortIcon: true
+  },
+  {
+    name: 'Step',
+    key: 'name',
+    sortIcon: false
+  }
+];
+
 const FollowUp = () => {
   const [allRequest, setAllRequest] = useState([]);
   const [requestedModal, setRequestedModal] = useState(false);
@@ -65,6 +83,18 @@ const FollowUp = () => {
   const updateStore = UpdateStore();
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const [drafts, setDrafts] = useState([]);
+
+  const handleUnfinishedRequest = async () => {
+    await API('get', `/requests/${userData._id}/drafts`)
+      .then(res => {
+        console.log(res.data);
+        setDrafts(res.data.drafts);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     let requestId = localStorage.getItem('requestId');
@@ -72,6 +102,7 @@ const FollowUp = () => {
     if (requestId) {
       handleReqById(requestId);
     }
+    handleUnfinishedRequest();
   }, []);
 
   const handleReqById = async requestId => {
@@ -115,6 +146,7 @@ const FollowUp = () => {
   };
   return (
     <>
+      {console.log(drafts)}
       {loading ? (
         <Spinner />
       ) : allRequest?.length !== 0 ? (
@@ -232,6 +264,98 @@ const FollowUp = () => {
               </TableContainer>
             </div>
           </div>
+          {/*  */}
+
+          <div className="list_main_div">
+            <div className="list_second_div">
+              <div className="List_heading_div">
+                <h1 className="list_h1">{t('List of unfinished requests')}</h1>
+              </div>
+              <div className="list_table">
+                <TableContainer component={Paper}>
+                  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead></TableHead>
+                    <TableBody>
+                      {DRAFTTITLES.map(item => (
+                        <TableCell
+                          align="left"
+                          className="country"
+                          style={{ backgrounColor: '#EAECF0' }}
+                          key={item?.name}>
+                          {t(item?.name)} &nbsp;
+                          {item?.sortIcon && !sort.ascend && sort.key === item.key ? (
+                            <img
+                              className="sorting-icon"
+                              onClick={() =>
+                                getSortedData(
+                                  allRequest,
+                                  setAllRequest,
+                                  setSort,
+                                  nestSortTitles,
+                                  item.key,
+                                  true
+                                )
+                              }
+                              src={arrow_up}
+                              alt=""
+                            />
+                          ) : (
+                            item?.sortIcon && (
+                              <img
+                                onClick={() =>
+                                  getSortedData(
+                                    allRequest,
+                                    setAllRequest,
+                                    setSort,
+                                    nestSortTitles,
+                                    item.key,
+                                    false
+                                  )
+                                }
+                                src={downArrow}
+                                alt=""
+                              />
+                            )
+                          )}
+                        </TableCell>
+                      ))}
+                      {drafts.map(item => (
+                        <TableRow
+                          style={{ cursor: 'pointer' }}
+                          key={item?._id}
+                          onClick={() => history.push(`/User/Dashboard/Application/${item?._id}`)}
+                          sx={{
+                            '&:last-child td, &:last-child th': { border: 0 }
+                          }}>
+                          <TableCell component="th" scope="row">
+                            <p className="request_title">{item?.title}</p>
+                            <p className="country2">{item?.country?.name}</p>
+                          </TableCell>
+                          <TableCell align="left" className="country2">
+                            {Moment(item?.createdAt).format('DD/MM/YYYY')}
+                          </TableCell>
+
+                          <TableCell align="left">
+                            {item?.draft_step === 1 ? (
+                              <p className="send_status">{t('HS code')}</p>
+                            ) : item?.draft_step === 2 ? (
+                              <p className="send_status">{t('Certification body')}</p>
+                            ) : item?.draft_step === 3 ? (
+                              <p className="send_status">{t('Shipment')}</p>
+                            ) : item?.draft_step === 4 ? (
+                              <p className="send_status">{t('Documents')}</p>
+                            ) : null}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+            </div>
+          </div>
+
+          {/*  */}
         </div>
       ) : (
         <CreateRequest />
