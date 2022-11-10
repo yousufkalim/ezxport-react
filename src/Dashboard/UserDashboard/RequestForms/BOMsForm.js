@@ -297,7 +297,7 @@ const BOMsForm = props => {
             {props?.countries?.map(item => {
               return (
                 <MenuItem key={item?._id} value={item?._id}>
-                  {item?.name}
+                  {t(item?.name)}
                 </MenuItem>
               );
             })}
