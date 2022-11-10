@@ -86,9 +86,8 @@ const FollowUp = () => {
   const [drafts, setDrafts] = useState([]);
 
   const handleUnfinishedRequest = async () => {
-    await API('get', `/requests/${userData._id}/drafts`)
+    await API('get', `/requests/drafts`)
       .then(res => {
-        console.log(res.data);
         setDrafts(res.data.drafts);
       })
       .catch(err => {
@@ -102,6 +101,9 @@ const FollowUp = () => {
     if (requestId) {
       handleReqById(requestId);
     }
+  }, []);
+
+  useEffect(() => {
     handleUnfinishedRequest();
   }, []);
 
@@ -146,10 +148,9 @@ const FollowUp = () => {
   };
   return (
     <>
-      {console.log(drafts)}
       {loading ? (
         <Spinner />
-      ) : allRequest?.length !== 0 ? (
+      ) : allRequest?.length !== 0 || drafts.length !== 0 ? (
         <div className="list_main_div">
           <div className="list_second_div">
             {/* LIST HEAD */}
