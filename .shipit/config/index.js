@@ -4,12 +4,12 @@ module.exports = {
   servers: {
     prod: {
       servers: 'falcon@ec2-13-37-212-74.eu-west-3.compute.amazonaws.com',
-      key: '/home/florentmenus/.ssh/id_rsa',
+      key: 'path_to_ssh_key',
       deployTo: '/home/falcon/ezxport/prod/'
     },
     staging: {
       servers: 'falcon@ec2-13-37-212-74.eu-west-3.compute.amazonaws.com',
-      key: '/home/florentmenus/.ssh/id_rsa',
+      key: 'path_to_ssh_key',
       deployTo: '/home/falcon/ezxport/staging/'
     }
   }
