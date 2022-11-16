@@ -1,22 +1,146 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Form from "./RequestForms/Form";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import Form from './RequestForms/Form';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
+import Modal from '../../components/Common/Modal';
+import Button1 from '../../components/Common/Button';
+import API from '../../api/index';
+import toaster from '../../utils/toaster';
+import { Store } from '../../StoreContext';
 
 const RequestForm = () => {
+  const { request } = Store();
+  const history = useHistory();
   const { t } = useTranslation();
+  console.log(request);
+  const [step, setStep] = useState(request.draft_step || 0);
+  const [modal, setModal] = useState(false);
+  const [drafts, setDrafts] = useState([]);
+  const [trigger, setTrigger] = useState(true);
+  const [draft, setDraft] = useState({});
+
+  const activeStep = data => {
+    setStep(data);
+  };
+  const handleBackToDashboard = () => {
+    history.push('/User/Dashboard/ListOfRequests');
+  };
+  const handleIsQuitting = () => {
+    if (step === 0) {
+      handleBackToDashboard();
+    } else {
+      setModal(true);
+    }
+  };
+  const handleSaveDraft = () => {
+    // Save draft here
+    setModal(false);
+    handleBackToDashboard();
+  };
+  const handleCloseModal = () => {
+    setModal(false);
+  };
+
+  const deleteDraft = async () => {
+    await API('delete', `/requests/${request._id}`)
+      .then(res => {
+        if (res.status === 200) {
+          toaster(t('Request deleted successfully'), 'success');
+        }
+      })
+      .catch(err => {
+        toaster(t('Something went wrong'), 'error');
+      });
+    handleCloseModal();
+    handleBackToDashboard();
+  };
+
+  // V1 //////////////////////////////////////////
+
+  //   window.addEventListener('beforeunload', (event) => {
+  //   event.returnValue = `Are you sure you want to leave?`;
+  // });
+
+  // useEffect(() => {
+  //   console.log("coucou");
+  //   window.addEventListener("unload", function (e) {
+  //     alert("test addEventListener");
+  //   }, false)
+  //   return () => {
+  //     window.removeEventListener("unload remove", function (e) {});
+  //     alert("test");
+  //   }
+  // }, [])
+
+  // V2 //////////////////////////////////////////
+
+  useEffect(() => {
+    const onBeforeUnload = ev => {
+      setModal(true);
+      ev.returnValue = 'Anything you wanna put here!';
+      return "Anything here as well, doesn't matter!";
+    };
+
+    window.addEventListener('beforeunload', onBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', onBeforeUnload);
+    };
+  }, []);
+  // window.addEventListener('beforeunload', function (e) {
+  //   // Cancel the event as stated by the standard.
+  //   e.preventDefault();
+  //   console.log("coucou");
+  // // fonction qui fait apparaitre la popup
+
+  // });
+
+  //////////////////////////////////////////////
 
   return (
-    <div style={{ height: "100vh", display: "flex", justifyContent: "space-between" }}>
+    <div style={{ height: '100vh', display: 'flex', justifyContent: 'space-between' }}>
       <div className="left_back_side">
-        <Link to="/User/Dashboard/ListOfRequests" style={{ textDecoration: "none" }}>
-          <p className="return_back">{t("Return to Dashboard")}</p>
+        <button className="back_to_dashboard_btn" onClick={handleIsQuitting}>
+          <p className="return_back">{t('Return to Dashboard')}</p>
           <ArrowBackIcon className="leftArrowIcon back_dashboard" />
-        </Link>
+        </button>
+        {modal && (
+          <Modal open="open">
+            <div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexDirection: 'column',
+                  marginTop: '1rem',
+                  marginBottom: '1rem'
+                }}>
+                <div className="space">{t('Do you want to save your request for later ?')}</div>
+              </div>
+              <Button1
+                text={t('Yes, I want to save my request')}
+                className="to_confirm_btn"
+                onClick={handleSaveDraft}
+              />
+              <Button1
+                text={t('No, I want to discard my request')}
+                className="delete_bom_btn"
+                onClick={deleteDraft}
+              />
+              <Button1
+                text={t('Keep editing my request')}
+                className="delete_bom_btn"
+                onClick={handleCloseModal}
+              />
+            </div>
+          </Modal>
+        )}
       </div>
       <div className="rqst_form_div">
-        <Form />
+        <Form step={activeStep} currentStep={step} />
       </div>
     </div>
   );

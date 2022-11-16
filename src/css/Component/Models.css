@@ -167,6 +167,10 @@
 .ApPlus_popup_h2 {
   font-size: 18px;
 }
+.back_to_dashboard_btn {
+  background: none;
+  border: none;
+}
 @media screen and (max-width: 600px) {
   .textfiled_select_component {
     font-size: 13px;

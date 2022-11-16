@@ -55,8 +55,8 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
-export default function HorizontalNonLinearStepper() {
-  const [activeStep, setActiveStep] = useState(0);
+export default function HorizontalNonLinearStepper(props) {
+  const [activeStep, setActiveStep] = useState(0 || props.currentStep);
   const [completed, setCompleted] = useState({});
   const [platformSelect, setPlatformSelect] = useState(false);
   const [stripeModal, setStripeModal] = useState(false);
@@ -67,13 +67,6 @@ export default function HorizontalNonLinearStepper() {
   const [validDoc, setValidDoc] = useState(false);
   const [validProduct, setValidProduct] = useState(false);
   const { t } = useTranslation();
-  //step 1 states
-  const [step1, setStep1] = useState({
-    country: '',
-    user: userData._id,
-    title: '',
-    currency: ''
-  });
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
   const [unMatchedCodes, setUnMatchedCodes] = useState([]);
@@ -89,6 +82,14 @@ export default function HorizontalNonLinearStepper() {
   const [docLoading, setDocLoading] = useState(false);
   const [validateBom, setValidateBom] = useState(false);
   const { request, pastRequest } = Store();
+
+  //step 1 states
+  const [step1, setStep1] = useState({
+    country: request.country || '',
+    user: userData._id,
+    title: request.title || '',
+    currency: request.certification_cost.currency || ''
+  });
 
   // step 2 states
   const [step2, setStep2] = useState({
@@ -167,6 +168,8 @@ export default function HorizontalNonLinearStepper() {
   const [productCodes, setProductCodes] = useState([]);
   const [formUpdate, setFormUpdate] = useState(false);
 
+  // Quitting request
+
   // all useEffect
   useEffect(() => {
     const countryCurrency = countries?.find(country => {
@@ -242,6 +245,8 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(0);
     setCompleted({});
   };
+
+  props.step(activeStep);
 
   const hanldeEstimateRequest = async () => {
     let data = {
@@ -627,6 +632,11 @@ export default function HorizontalNonLinearStepper() {
     setStripeModal(true);
     setPlatformSelect(false);
   };
+
+  /////// DRAFT FUNCTIONALITY ///////
+  // Recupérer les données du store
+
+  // Remplir les valeurs qu'on récupère selo l'étape
 
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>

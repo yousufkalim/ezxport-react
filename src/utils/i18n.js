@@ -737,6 +737,12 @@ i18n
           'Service provider is not deleted': 'certification body is not deleted',
           'Updated company': 'Updated company',
 
+          // Request
+          'Do you want to save your request for later ?':
+            'Do you want to save your request for later ?',
+          'Yes, I want to save my request': 'Yes, I want to save my request',
+          'No, I want to discard my request': 'No, I want to discard my request',
+
           //Backend Toast
           'Admin already exists.': 'Admin already exists.',
           'Password and Confirm Password are not same.':
@@ -1578,6 +1584,11 @@ i18n
             'Organisme de certification supprimé avec succès',
           'Delete certification body': "Supprimer l'organisme de certification",
           'Certification body is not deleted': "L'organisme de certification n'est pas supprimé",
+          // Saving request
+          'Do you want to save your request for later ?':
+            'Voulez-vous enregistrer votre demande pour plus tard ?',
+          'Yes, I want to save my request': 'Oui, je veux enregistrer ma demande',
+          'No, I want to discard my request': 'Non, je veux la supprimer',
 
           //Backend Toast
           'Admin already exists.': "L'administrateur existe déjà.",
