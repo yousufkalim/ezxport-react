@@ -16,8 +16,6 @@ const Document = props => {
   const { request, pastRequest, previousCodes } = Store();
   const [formUpdate, setFormUpdate] = useState(false);
 
-  console.log(props);
-
   useEffect(() => {
     if (pastRequest && previousCodes.length && productCodes.length && formUpdate === true) {
       const product = productCodes.map(item => {

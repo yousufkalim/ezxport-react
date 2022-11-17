@@ -168,9 +168,6 @@ export default function HorizontalNonLinearStepper(props) {
   const [productCodes, setProductCodes] = useState(request?.codes || []);
   const [formUpdate, setFormUpdate] = useState(false);
 
-  console.log(request);
-  // console.log
-
   // all useEffect
   useEffect(() => {
     const countryCurrency = countries?.find(country => {
