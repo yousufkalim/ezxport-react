@@ -458,6 +458,7 @@ i18n
           'No request created by': 'No request created by',
           // Requests
           'List of requests': 'List of requests',
+          'Unfinished requests': 'Unfinished requests',
           Request: 'Request',
           Reference: 'Reference',
           'Validate and receive the completed file': 'Validate and receive the completed file',
@@ -737,11 +738,12 @@ i18n
           'Service provider is not deleted': 'certification body is not deleted',
           'Updated company': 'Updated company',
 
-          // Request
+          // Popup for saving request
           'Do you want to save your request for later ?':
             'Do you want to save your request for later ?',
           'Yes, I want to save my request': 'Yes, I want to save my request',
           'No, I want to discard my request': 'No, I want to discard my request',
+          'Keep editing my request': 'Keep editing my request',
 
           //Backend Toast
           'Admin already exists.': 'Admin already exists.',
@@ -1280,6 +1282,7 @@ i18n
           'VAT number': 'Numéro de TVA',
           Informations: 'Informations',
           Requests: 'Demandes',
+          'Unfinished requests': 'Demandes non terminées',
           'Informations utilisateur': "Informations de l'utilisateur",
           'Full address': 'Adresse complète',
           'Company information': 'Informations entreprise',
@@ -1294,6 +1297,7 @@ i18n
           'No request created by': 'Aucune demande créée par',
           // Requests
           'List of requests': 'Demandes',
+          'List of unfinished requests': 'Liste des demandes non terminées',
           Request: 'Demande',
           Reference: 'Référence',
           'Validate and receive the completed file': 'Valider et recevoir le dossier complété',
@@ -1584,11 +1588,13 @@ i18n
             'Organisme de certification supprimé avec succès',
           'Delete certification body': "Supprimer l'organisme de certification",
           'Certification body is not deleted': "L'organisme de certification n'est pas supprimé",
-          // Saving request
+
+          // Popup for saving request
           'Do you want to save your request for later ?':
             'Voulez-vous enregistrer votre demande pour plus tard ?',
           'Yes, I want to save my request': 'Oui, je veux enregistrer ma demande',
           'No, I want to discard my request': 'Non, je veux la supprimer',
+          'Keep editing my request': 'Continuer à modifier ma demande',
 
           //Backend Toast
           'Admin already exists.': "L'administrateur existe déjà.",

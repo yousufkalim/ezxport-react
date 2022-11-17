@@ -14,12 +14,8 @@ const RequestForm = () => {
   const { request } = Store();
   const history = useHistory();
   const { t } = useTranslation();
-  console.log(request);
   const [step, setStep] = useState(request.draft_step || 0);
   const [modal, setModal] = useState(false);
-  const [drafts, setDrafts] = useState([]);
-  const [trigger, setTrigger] = useState(true);
-  const [draft, setDraft] = useState({});
 
   const activeStep = data => {
     setStep(data);
@@ -35,14 +31,12 @@ const RequestForm = () => {
     }
   };
   const handleSaveDraft = () => {
-    // Save draft here
     setModal(false);
     handleBackToDashboard();
   };
   const handleCloseModal = () => {
     setModal(false);
   };
-
   const deleteDraft = async () => {
     await API('delete', `/requests/${request._id}`)
       .then(res => {
@@ -56,31 +50,14 @@ const RequestForm = () => {
     handleCloseModal();
     handleBackToDashboard();
   };
-
-  // V1 //////////////////////////////////////////
-
-  //   window.addEventListener('beforeunload', (event) => {
-  //   event.returnValue = `Are you sure you want to leave?`;
-  // });
-
-  // useEffect(() => {
-  //   console.log("coucou");
-  //   window.addEventListener("unload", function (e) {
-  //     alert("test addEventListener");
-  //   }, false)
-  //   return () => {
-  //     window.removeEventListener("unload remove", function (e) {});
-  //     alert("test");
-  //   }
-  // }, [])
-
-  // V2 //////////////////////////////////////////
-
   useEffect(() => {
     const onBeforeUnload = ev => {
-      setModal(true);
-      ev.returnValue = 'Anything you wanna put here!';
-      return "Anything here as well, doesn't matter!";
+      // setmodal if step was saved
+      if (step > 0) {
+        setModal(true);
+      }
+      ev.returnValue = '';
+      return '';
     };
 
     window.addEventListener('beforeunload', onBeforeUnload);
@@ -89,15 +66,6 @@ const RequestForm = () => {
       window.removeEventListener('beforeunload', onBeforeUnload);
     };
   }, []);
-  // window.addEventListener('beforeunload', function (e) {
-  //   // Cancel the event as stated by the standard.
-  //   e.preventDefault();
-  //   console.log("coucou");
-  // // fonction qui fait apparaitre la popup
-
-  // });
-
-  //////////////////////////////////////////////
 
   return (
     <div style={{ height: '100vh', display: 'flex', justifyContent: 'space-between' }}>
@@ -122,17 +90,17 @@ const RequestForm = () => {
               </div>
               <Button1
                 text={t('Yes, I want to save my request')}
-                className="to_confirm_btn"
+                className="save_btn"
                 onClick={handleSaveDraft}
               />
               <Button1
                 text={t('No, I want to discard my request')}
-                className="delete_bom_btn"
+                className="delete_btn"
                 onClick={deleteDraft}
               />
               <Button1
                 text={t('Keep editing my request')}
-                className="delete_bom_btn"
+                className="to_confirm_btn"
                 onClick={handleCloseModal}
               />
             </div>

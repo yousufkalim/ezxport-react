@@ -72,6 +72,11 @@ const DRAFTTITLES = [
     name: 'Step',
     key: 'name',
     sortIcon: false
+  },
+  {
+    name: 'Country',
+    key: 'country',
+    sortIcon: false
   }
 ];
 
@@ -146,7 +151,6 @@ const FollowUp = () => {
         setLoading(false);
       });
   };
-  //////////////////////////////////////////
   const handleRetrieveDraft = async id => {
     setLoading(true);
     await API('get', `/requests/${id}`)
@@ -159,12 +163,12 @@ const FollowUp = () => {
         toaster('failed', t('Request not found'), t('Request'));
         setLoading(false);
       });
+    setLoading(true);
   };
-  //////////////////////////////////////////
+
   const displayFinishedRequests = () => {
     return (
       <div className="list_table">
-        {console.log(`store=${updateStore}`)}
         <h1 className="list_h1">{t('List of requests')}</h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -273,7 +277,7 @@ const FollowUp = () => {
   const displayDraftRequests = () => {
     return (
       <div className="list_table">
-        <h1 className="list_h1">{t('List of unfinished requests')}</h1>
+        <h1 className="list_h1">{t('Unfinished requests')}</h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead></TableHead>
@@ -347,6 +351,11 @@ const FollowUp = () => {
                     ) : request?.draft_step === 3 ? (
                       <p className="send_status">{t('Documents')}</p>
                     ) : null}
+                  </TableCell>
+                  <TableCell align="left">
+                    {/* get country name by its id */}
+
+                    <p className="country2"></p>
                   </TableCell>
                 </TableRow>
               ))}

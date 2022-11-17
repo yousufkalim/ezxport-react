@@ -85,21 +85,21 @@ export default function HorizontalNonLinearStepper(props) {
 
   //step 1 states
   const [step1, setStep1] = useState({
-    country: request.country || '',
-    user: userData._id,
-    title: request.title || '',
-    currency: request.certification_cost.currency || ''
+    country: request?.country?._id || '',
+    user: request?.user?._id || userData?._id,
+    title: request?.title || '',
+    currency: request?.country?.currency || ''
   });
 
   // step 2 states
   const [step2, setStep2] = useState({
     isValid: false,
     values: {
-      vendorId: '',
+      vendorId: request?.vendor?.vendor?._id || '',
       contactInfo: false,
-      lastName: '',
-      firstName: '',
-      email: ''
+      lastName: request?.vendor?.contact_lname || '',
+      firstName: request?.vendor?.contact_fname || '',
+      email: request?.vendor?.vendor?.sending_email || ''
     },
     touched: {},
     errors: {}
@@ -109,15 +109,15 @@ export default function HorizontalNonLinearStepper(props) {
     sellerData: {
       isValid: false,
       values: {
-        seller: '',
-        companyName: '',
-        Country: '',
+        seller: request?.seller?._id || '',
+        companyName: request?.seller?.company_name || '',
+        Country: request?.seller?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: ''
+        email: request?.seller?.email || '',
+        telephone: request?.seller?.phone_number || '',
+        fullAddress: request?.seller?.address || '',
+        postalCode: request.seller?.zipcode || '',
+        town: request?.seller?.city || ''
       },
       errors: {},
       touched: {}
@@ -125,15 +125,15 @@ export default function HorizontalNonLinearStepper(props) {
     buyerData: {
       isValid: false,
       values: {
-        buyer: '',
-        companyName: '',
-        Country: '',
+        buyer: request?.buyer?._id || '',
+        companyName: request?.buyer?.company_name || '',
+        Country: request?.buyer?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: ''
+        email: request?.buyer?.email || '',
+        telephone: request?.buyer?.phone_number || '',
+        fullAddress: request?.buyer?.address || '',
+        postalCode: request?.buyer?.zipcode || '',
+        town: request?.buyer?.city || ''
       },
       errors: {},
       touched: {}
@@ -141,18 +141,18 @@ export default function HorizontalNonLinearStepper(props) {
     placeOfInspection: {
       isValid: false,
       values: {
-        InspectionPlace: '',
-        InspectionDate: '',
-        companyName: '',
-        Country: '',
+        InspectionPlace: request?.place?._id || '',
+        InspectionDate: request?.inspection_date || '',
+        companyName: request?.place?.company_name || '',
+        Country: request?.place?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: '',
-        contactLastName: '',
-        contactFirstName: ''
+        email: request?.place?.email || '',
+        telephone: request?.place?.phone_number || '',
+        fullAddress: request?.place?.address || '',
+        postalCode: request?.place?.zipcode || '',
+        town: request?.place?.city || '',
+        contactLastName: request?.place?.contact_lname || '',
+        contactFirstName: request?.place?.contact_fname || ''
       },
       errors: {},
       touched: {}
@@ -334,7 +334,7 @@ export default function HorizontalNonLinearStepper(props) {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
     await API('put', '/requests/userVendor', {
       user: userData._id,
-      request: requestId,
+      request: requestId || request?._id,
       vendor: vendorId,
       contact_info: contactInfo,
       contact_fname: firstName,
@@ -362,7 +362,7 @@ export default function HorizontalNonLinearStepper(props) {
     const sellerData = step3.sellerData.values;
     const buyerData = step3.buyerData.values;
     await API('put', '/requests/dispatch', {
-      request: requestId,
+      request: requestId || request?._id,
       inspection_date: placeOfInspection.InspectionDate,
       buyer: {
         phone_number: buyerData.telephone,
@@ -566,7 +566,7 @@ export default function HorizontalNonLinearStepper(props) {
   const handleStep4 = async flag => {
     setCheckoutLoading(true);
     let data = {
-      request: requestId,
+      request: requestId || request?._id,
       codes: []
     };
     productCodes.map(item => {
@@ -632,11 +632,6 @@ export default function HorizontalNonLinearStepper(props) {
     setStripeModal(true);
     setPlatformSelect(false);
   };
-
-  /////// DRAFT FUNCTIONALITY ///////
-  // Recupérer les données du store
-
-  // Remplir les valeurs qu'on récupère selo l'étape
 
   return (
     <Box sx={{ width: '100%', marginTop: '3rem' }}>
