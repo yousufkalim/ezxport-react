@@ -90,8 +90,6 @@ const FollowUp = () => {
   const [loading, setLoading] = useState(false);
   const [drafts, setDrafts] = useState([]);
 
-  console.log('drafts', drafts);
-  console.log('allRequest', allRequest);
   const handleUnfinishedRequest = async () => {
     await API('get', `/requests/drafts`)
       .then(res => {
@@ -420,7 +418,7 @@ const FollowUp = () => {
                   <b>{t('Tracking requests.')}</b>
                 </div>
               </div>
-              <Button text="OKAY" className="to_confirm_btn" onClick={handleRequested} />
+              <Button text="OKAY" className="btn to_confirm_btn" onClick={handleRequested} />
             </div>
           </Modal>
         </div>

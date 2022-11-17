@@ -815,12 +815,12 @@ export default function HorizontalNonLinearStepper(props) {
           </div>
           <Button1
             text={t('Continue request on Ezxport Platform')}
-            className="to_confirm_btn"
+            className="btn to_confirm_btn"
             onClick={openStripeModal}
           />
           <Button1
             text={t('Continue request on other Platform')}
-            className="delete_bom_btn"
+            className="btn delete_bom_btn"
             onClick={() => handleStep4(false)}
           />
         </div>
@@ -934,10 +934,14 @@ export default function HorizontalNonLinearStepper(props) {
             <>
               <Button1
                 text={t('Agree')}
-                className="to_confirm_btn"
+                className="btn to_confirm_btn"
                 onClick={() => handleStep4(true)}
               />
-              <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
+              <Button1
+                text={t('Cancel')}
+                className="btn delete_bom_btn"
+                onClick={handleStripeModal}
+              />
             </>
           )}
         </div>
