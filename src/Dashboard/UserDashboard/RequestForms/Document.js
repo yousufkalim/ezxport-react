@@ -12,9 +12,6 @@ import toaster from '../../../utils/toaster';
 import Spinner from '../../../components/Common/Spinner';
 
 const Document = props => {
-  {
-    console.log(props);
-  }
   const { setProductCodes, productCodes, validDoc, setValidDoc, setValidProduct } = props;
   const { request, pastRequest, previousCodes } = Store();
   const [formUpdate, setFormUpdate] = useState(false);
