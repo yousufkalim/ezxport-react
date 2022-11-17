@@ -90,17 +90,17 @@ const RequestForm = () => {
               </div>
               <Button1
                 text={t('Yes, I want to save my request')}
-                className="save_btn"
+                className="btn save_btn"
                 onClick={handleSaveDraft}
               />
               <Button1
                 text={t('No, I want to discard my request')}
-                className="delete_btn"
+                className="btn delete_btn"
                 onClick={deleteDraft}
               />
               <Button1
                 text={t('Keep editing my request')}
-                className="to_confirm_btn"
+                className="btn to_confirm_btn"
                 onClick={handleCloseModal}
               />
             </div>

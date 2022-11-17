@@ -479,48 +479,34 @@ input[type='radio']:checked {
   padding-left: 5px;
   color: #101828;
 }
-.to_confirm_btn {
+.btn {
   font-size: 0.9rem;
   width: 100%;
   height: 3rem;
-  border: 1px solid #7f56d9;
   border-radius: 8px;
-  background-color: #7f56d9;
   color: white;
   cursor: pointer;
   margin-bottom: 1rem;
+}
+.to_confirm_btn {
+  border: 1px solid #7f56d9;
+  background-color: #7f56d9;
 }
 .save_btn {
-  font-size: 0.9rem;
-  width: 100%;
-  height: 3rem;
-  border: 1px solid #3dab58;
-  border-radius: 8px;
-  background-color: #3dab58;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 1rem;
+  border: 1px solid #3cdc64;
+  background-color: #3cdc64;
 }
 .delete_btn {
-  font-size: 0.9rem;
-  width: 100%;
-  height: 3rem;
-  border: 1px solid #d96a56;
-  border-radius: 8px;
-  background-color: #d96a56;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 1rem;
+  border: 1px solid #f04324;
+  background-color: #f04324;
 }
 .delete_bom_btn {
-  font-size: 0.9rem;
-  width: 100%;
-  height: 3rem;
   background-color: white;
   color: #667085;
-  cursor: pointer;
   border: 1px solid #979ba3;
-  border-radius: 8px;
+}
+.secondary_text {
+  color: #9c9c9c;
 }
 .code_textfield {
   width: 100%;

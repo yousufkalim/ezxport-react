@@ -164,11 +164,12 @@ export default function HorizontalNonLinearStepper(props) {
   const [places, setPlaces] = useState([]);
   // step 4 states
   const [CountryDoc, setCountryDoc] = useState([]);
-  const [createdCodes, setCreatedCodes] = useState({});
-  const [productCodes, setProductCodes] = useState([]);
+  const [createdCodes, setCreatedCodes] = useState(request || {});
+  const [productCodes, setProductCodes] = useState(request?.codes || []);
   const [formUpdate, setFormUpdate] = useState(false);
 
-  // Quitting request
+  console.log(request);
+  // console.log
 
   // all useEffect
   useEffect(() => {
