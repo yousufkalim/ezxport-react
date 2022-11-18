@@ -458,6 +458,7 @@ i18n
           'No request created by': 'No request created by',
           // Requests
           'List of requests': 'List of requests',
+          'Unfinished requests': 'Unfinished requests',
           Request: 'Request',
           Reference: 'Reference',
           'Validate and receive the completed file': 'Validate and receive the completed file',
@@ -522,6 +523,7 @@ i18n
           'Follow-up of requests': 'Follow-up of requests',
           'Make your first certification request on Ezxport':
             'Make your first certification request on Ezxport',
+          'Your last request is in step': 'Your last request is in step',
           'Create a first request': 'Create a first request',
           'Create a request': 'Create a request',
           'Contract to be signed': 'Contract to be signed',
@@ -537,6 +539,10 @@ i18n
           'Comments by the Expert': 'Comments by the Expert',
           valid: 'valid',
           'codes required': 'codes required',
+          'HS code': 'HS code',
+          'Certification body': 'Certification body',
+          Shipment: 'Shipment',
+          Documents: 'Documents',
           // stepper
           'Return to Dashboard': 'Return to Dashboard',
           Dispatch: 'Dispatch',
@@ -608,6 +614,7 @@ i18n
           title: 'title',
           'title is required': 'title is required',
           'The cost of this certification is up to': 'The cost of this certification is up to',
+          Step: 'Step',
           '': '',
           '': '',
 
@@ -730,6 +737,13 @@ i18n
           'Service provider deleted Successfully': 'Certification body deleted Successfully',
           'Service provider is not deleted': 'certification body is not deleted',
           'Updated company': 'Updated company',
+
+          // Popup for saving request
+          'Do you want to save your request for later ?':
+            'Do you want to save your request for later ?',
+          'Yes, I want to save my request': 'Yes, I want to save my request',
+          'No, I want to discard my request': 'No, I want to discard my request',
+          'Keep editing my request': 'Keep editing my request',
 
           //Backend Toast
           'Admin already exists.': 'Admin already exists.',
@@ -1268,6 +1282,7 @@ i18n
           'VAT number': 'Numéro de TVA',
           Informations: 'Informations',
           Requests: 'Demandes',
+          'Unfinished requests': 'Demandes non terminées',
           'Informations utilisateur': "Informations de l'utilisateur",
           'Full address': 'Adresse complète',
           'Company information': 'Informations entreprise',
@@ -1282,6 +1297,7 @@ i18n
           'No request created by': 'Aucune demande créée par',
           // Requests
           'List of requests': 'Demandes',
+          'List of unfinished requests': 'Liste des demandes non terminées',
           Request: 'Demande',
           Reference: 'Référence',
           'Validate and receive the completed file': 'Valider et recevoir le dossier complété',
@@ -1346,6 +1362,7 @@ i18n
           'Follow-up of requests': 'Suivi des demandes',
           'Make your first certification request on Ezxport':
             'Faites votre première demande de certification sur Ezxport',
+          'Your last request is in step': 'Votre dernière demande est à l’étape',
           'Create a first request': 'Créer une première demande',
           'Create a request': 'Créer une demande',
           'Contract to be signed': 'Contrat à signer',
@@ -1362,6 +1379,11 @@ i18n
           valid: 'valide',
           'Are you sure to delete?': 'Êtes-vous sûr de vouloir supprimer?',
           'codes required': 'code requis',
+          'HS code': 'Code HS',
+          'Certification body': 'Organisme de certification',
+          Shipment: 'Expédition',
+          Documents: 'Documents',
+          Step: 'Étape',
 
           // stepper
           'Return to Dashboard': 'Retour au tableau de bord',
@@ -1566,6 +1588,13 @@ i18n
             'Organisme de certification supprimé avec succès',
           'Delete certification body': "Supprimer l'organisme de certification",
           'Certification body is not deleted': "L'organisme de certification n'est pas supprimé",
+
+          // Popup for saving request
+          'Do you want to save your request for later ?':
+            'Voulez-vous enregistrer votre demande pour plus tard ?',
+          'Yes, I want to save my request': 'Oui, je veux enregistrer ma demande',
+          'No, I want to discard my request': 'Non, je veux la supprimer',
+          'Keep editing my request': 'Continuer à modifier ma demande',
 
           //Backend Toast
           'Admin already exists.': "L'administrateur existe déjà.",

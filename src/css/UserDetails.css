@@ -96,6 +96,19 @@
   color: #fff;
   cursor: pointer;
 }
+.create_request_draft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+}
+.create_request_draft_num {
+  font-size: 14px;
+  font-weight: 500;
+  color: #7f56d9;
+  display: inline;
+}
 .account_container {
   width: 50%;
 }

@@ -55,8 +55,8 @@ const QontoConnector = styled(StepConnector)(({ theme }) => ({
 }));
 
 const steps = ['BOMs', 'Service providers', 'Dispatch', 'Documents'];
-export default function HorizontalNonLinearStepper() {
-  const [activeStep, setActiveStep] = useState(0);
+export default function HorizontalNonLinearStepper(props) {
+  const [activeStep, setActiveStep] = useState(0 || props.currentStep);
   const [completed, setCompleted] = useState({});
   const [platformSelect, setPlatformSelect] = useState(false);
   const [stripeModal, setStripeModal] = useState(false);
@@ -67,13 +67,6 @@ export default function HorizontalNonLinearStepper() {
   const [validDoc, setValidDoc] = useState(false);
   const [validProduct, setValidProduct] = useState(false);
   const { t } = useTranslation();
-  //step 1 states
-  const [step1, setStep1] = useState({
-    country: '',
-    user: userData._id,
-    title: '',
-    currency: ''
-  });
   const [matchedData, setMatchedData] = useState([]);
   const [unMatchedData, setUnMatchedData] = useState([]);
   const [unMatchedCodes, setUnMatchedCodes] = useState([]);
@@ -90,15 +83,23 @@ export default function HorizontalNonLinearStepper() {
   const [validateBom, setValidateBom] = useState(false);
   const { request, pastRequest } = Store();
 
+  //step 1 states
+  const [step1, setStep1] = useState({
+    country: request?.country?._id || '',
+    user: request?.user?._id || userData?._id,
+    title: request?.title || '',
+    currency: request?.country?.currency || ''
+  });
+
   // step 2 states
   const [step2, setStep2] = useState({
     isValid: false,
     values: {
-      vendorId: '',
+      vendorId: request?.vendor?.vendor?._id || '',
       contactInfo: false,
-      lastName: '',
-      firstName: '',
-      email: ''
+      lastName: request?.vendor?.contact_lname || '',
+      firstName: request?.vendor?.contact_fname || '',
+      email: request?.vendor?.vendor?.sending_email || ''
     },
     touched: {},
     errors: {}
@@ -108,15 +109,15 @@ export default function HorizontalNonLinearStepper() {
     sellerData: {
       isValid: false,
       values: {
-        seller: '',
-        companyName: '',
-        Country: '',
+        seller: request?.seller?._id || '',
+        companyName: request?.seller?.company_name || '',
+        Country: request?.seller?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: ''
+        email: request?.seller?.email || '',
+        telephone: request?.seller?.phone_number || '',
+        fullAddress: request?.seller?.address || '',
+        postalCode: request.seller?.zipcode || '',
+        town: request?.seller?.city || ''
       },
       errors: {},
       touched: {}
@@ -124,15 +125,15 @@ export default function HorizontalNonLinearStepper() {
     buyerData: {
       isValid: false,
       values: {
-        buyer: '',
-        companyName: '',
-        Country: '',
+        buyer: request?.buyer?._id || '',
+        companyName: request?.buyer?.company_name || '',
+        Country: request?.buyer?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: ''
+        email: request?.buyer?.email || '',
+        telephone: request?.buyer?.phone_number || '',
+        fullAddress: request?.buyer?.address || '',
+        postalCode: request?.buyer?.zipcode || '',
+        town: request?.buyer?.city || ''
       },
       errors: {},
       touched: {}
@@ -140,18 +141,18 @@ export default function HorizontalNonLinearStepper() {
     placeOfInspection: {
       isValid: false,
       values: {
-        InspectionPlace: '',
-        InspectionDate: '',
-        companyName: '',
-        Country: '',
+        InspectionPlace: request?.place?._id || '',
+        InspectionDate: request?.inspection_date || '',
+        companyName: request?.place?.company_name || '',
+        Country: request?.place?.country || '',
         CountryId: '',
-        email: '',
-        telephone: '',
-        fullAddress: '',
-        postalCode: '',
-        town: '',
-        contactLastName: '',
-        contactFirstName: ''
+        email: request?.place?.email || '',
+        telephone: request?.place?.phone_number || '',
+        fullAddress: request?.place?.address || '',
+        postalCode: request?.place?.zipcode || '',
+        town: request?.place?.city || '',
+        contactLastName: request?.place?.contact_lname || '',
+        contactFirstName: request?.place?.contact_fname || ''
       },
       errors: {},
       touched: {}
@@ -163,8 +164,8 @@ export default function HorizontalNonLinearStepper() {
   const [places, setPlaces] = useState([]);
   // step 4 states
   const [CountryDoc, setCountryDoc] = useState([]);
-  const [createdCodes, setCreatedCodes] = useState({});
-  const [productCodes, setProductCodes] = useState([]);
+  const [createdCodes, setCreatedCodes] = useState(request || {});
+  const [productCodes, setProductCodes] = useState(request?.codes || []);
   const [formUpdate, setFormUpdate] = useState(false);
 
   // all useEffect
@@ -242,6 +243,8 @@ export default function HorizontalNonLinearStepper() {
     setActiveStep(0);
     setCompleted({});
   };
+
+  props.step(activeStep);
 
   const hanldeEstimateRequest = async () => {
     let data = {
@@ -329,7 +332,7 @@ export default function HorizontalNonLinearStepper() {
     const { vendorId, contactInfo, firstName, lastName, email } = step2.values;
     await API('put', '/requests/userVendor', {
       user: userData._id,
-      request: requestId,
+      request: requestId || request?._id,
       vendor: vendorId,
       contact_info: contactInfo,
       contact_fname: firstName,
@@ -357,7 +360,7 @@ export default function HorizontalNonLinearStepper() {
     const sellerData = step3.sellerData.values;
     const buyerData = step3.buyerData.values;
     await API('put', '/requests/dispatch', {
-      request: requestId,
+      request: requestId || request?._id,
       inspection_date: placeOfInspection.InspectionDate,
       buyer: {
         phone_number: buyerData.telephone,
@@ -561,7 +564,7 @@ export default function HorizontalNonLinearStepper() {
   const handleStep4 = async flag => {
     setCheckoutLoading(true);
     let data = {
-      request: requestId,
+      request: requestId || request?._id,
       codes: []
     };
     productCodes.map(item => {
@@ -812,12 +815,12 @@ export default function HorizontalNonLinearStepper() {
           </div>
           <Button1
             text={t('Continue request on Ezxport Platform')}
-            className="to_confirm_btn"
+            className="btn to_confirm_btn"
             onClick={openStripeModal}
           />
           <Button1
             text={t('Continue request on other Platform')}
-            className="delete_bom_btn"
+            className="btn delete_bom_btn"
             onClick={() => handleStep4(false)}
           />
         </div>
@@ -931,10 +934,14 @@ export default function HorizontalNonLinearStepper() {
             <>
               <Button1
                 text={t('Agree')}
-                className="to_confirm_btn"
+                className="btn to_confirm_btn"
                 onClick={() => handleStep4(true)}
               />
-              <Button1 text={t('Cancel')} className="delete_bom_btn" onClick={handleStripeModal} />
+              <Button1
+                text={t('Cancel')}
+                className="btn delete_bom_btn"
+                onClick={handleStripeModal}
+              />
             </>
           )}
         </div>
