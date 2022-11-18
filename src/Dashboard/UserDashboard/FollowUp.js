@@ -69,13 +69,13 @@ const DRAFTTITLES = [
     sortIcon: true
   },
   {
-    name: 'Step',
-    key: 'name',
+    name: 'Country',
+    key: 'country',
     sortIcon: false
   },
   {
-    name: 'Country',
-    key: 'country',
+    name: 'Step',
+    key: 'name',
     sortIcon: false
   }
 ];
@@ -277,7 +277,7 @@ const FollowUp = () => {
   const displayDraftRequests = () => {
     return (
       <div className="list_table">
-        <h1 className="list_h1">{t('Unfinished requests')}</h1>
+        <h1 className="list_h1 secondary_text">{t('Unfinished requests')}</h1>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead></TableHead>
@@ -340,7 +340,9 @@ const FollowUp = () => {
                   <TableCell align="left" className="country2">
                     {Moment(request?.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
-
+                  <TableCell align="left">
+                    <p className="country2">{request?.country?.name}</p>
+                  </TableCell>
                   <TableCell align="left">
                     {request?.draft_step === 0 ? (
                       <p className="send_status">{t('HS code')}</p>
@@ -351,11 +353,6 @@ const FollowUp = () => {
                     ) : request?.draft_step === 3 ? (
                       <p className="send_status">{t('Documents')}</p>
                     ) : null}
-                  </TableCell>
-                  <TableCell align="left">
-                    {/* get country name by its id */}
-
-                    <p className="country2"></p>
                   </TableCell>
                 </TableRow>
               ))}
@@ -421,7 +418,7 @@ const FollowUp = () => {
                   <b>{t('Tracking requests.')}</b>
                 </div>
               </div>
-              <Button text="OKAY" className="to_confirm_btn" onClick={handleRequested} />
+              <Button text="OKAY" className="btn to_confirm_btn" onClick={handleRequested} />
             </div>
           </Modal>
         </div>
