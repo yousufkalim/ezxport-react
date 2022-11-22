@@ -38,7 +38,6 @@ const schema = {
   phone: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 10,
       minimum: 10
     }
   },
