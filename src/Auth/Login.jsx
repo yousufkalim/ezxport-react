@@ -75,11 +75,10 @@ const Login = () => {
             window.location = '/User/Dashboard/ListOfRequests';
             // history.push('/User/Dashboard/ListOfRequests');
           } else if (res?.data?.role === 'admin') {
-            localStorage.setItem('userData', JSON.stringify(res?.data?.admin));
-            localStorage.setItem('token', res?.data?.token);
             localStorage.setItem('role', JSON.stringify(res?.data?.role));
-
-            window.location = '/admin/Dashboard/Country';
+            localStorage.setItem('token', res?.data?.token);
+            localStorage.setItem('userData', JSON.stringify(res?.data?.admin));
+            window.location = '/Admin/Dashboard/Country';
           }
         })
         .catch(err => {
