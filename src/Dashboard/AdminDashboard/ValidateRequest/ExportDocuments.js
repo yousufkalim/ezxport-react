@@ -23,7 +23,6 @@ const ExportDocuments = props => {
       props.setValidateCountry(false);
     }
   };
-
   // handle input change
   const handleInputChange = (e, index) => {
     const { name, value } = e.target;
@@ -128,15 +127,15 @@ const ExportDocuments = props => {
                 return (
                   <>
                     <ProductInputs
-                      requestById={props.requestById}
+                      requestById={props?.requestById}
                       validText="Validated product"
                       product={product}
                       pIndex={pIndex}
-                      handleProductDocsValidate={props.handleProductDocsValidate}
-                      inputListProduct={props.inputListProduct}
-                      setInputListProduct={props.setInputListProduct}
-                      validateProduct={props.validateProduct}
-                      setValidateProduct={props.setValidateProduct}
+                      handleProductDocsValidate={props?.handleProductDocsValidate}
+                      inputListProduct={props?.inputListProduct}
+                      setInputListProduct={props?.setInputListProduct}
+                      validateProduct={props?.validateProduct}
+                      setValidateProduct={props?.setValidateProduct}
                     />
                   </>
                 );
