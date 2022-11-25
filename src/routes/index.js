@@ -1,8 +1,8 @@
 // Init
 import React, { useEffect, useState } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import API from '../api';
+import { useTranslation } from 'react-i18next';
 
 // unAUTH Routes
 import toaster from '../utils/toaster';
@@ -17,7 +17,7 @@ import RequestForm from '../Dashboard/UserDashboard/RequestForm';
 import ValidateRequest from '../Dashboard/AdminDashboard/ValidateRequest/index';
 import SendDocuments from '../components/Common/SendDocuments';
 import RequestDocuments from '../components/Common/RequestDocuments';
-import { useTranslation } from 'react-i18next';
+import Error404 from '../components/Common/Error404';
 
 const queryParams = new URLSearchParams(window.location.search);
 const Reset = queryParams.get('reset');
@@ -35,7 +35,6 @@ const Index = ({ role }) => {
       })
       .catch(err => {
         history.push('/');
-
         toaster('Failed', t(err.response.data.message));
       });
   };
@@ -46,13 +45,6 @@ const Index = ({ role }) => {
       }
     }
   }, []);
-  useEffect(() => {
-    if (role) {
-      if (role === 'admin' && window.location.pathname === '/') {
-        <Redirect from="/" to="/admin/dashboard/country" />;
-      }
-    }
-  }, [role]);
   return (
     <>
       <Switch>
@@ -71,7 +63,10 @@ const Index = ({ role }) => {
               <>
                 <Route path="/User/Dashboard" component={UserLayouts} />
                 <Route path="/User/RequestForm" component={RequestForm} />
-                <Redirect from="/" to="/User/Dashboard/ListOfRequests" />
+                <Route
+                  path="*"
+                  render={() => <Redirect from="/" to="/User/Dashboard/ListOfRequests" />}
+                />
               </>
             ) : role === 'admin' ? (
               <>
@@ -79,16 +74,22 @@ const Index = ({ role }) => {
                 <Route path="/Admin/ValidateRequest/:id" component={ValidateRequest} />
                 <Route path="/SendDocuments" component={SendDocuments} />
                 <Route path="/RequestDocuments" component={RequestDocuments} />
+                <Route
+                  path="*"
+                  component={() => <Error404 redirectUrl="/Admin/Dashboard/Country" />}
+                />
+              </>
+            ) : role === 'unknown' ? (
+              <>
+                {/* UNAUTH ROUTES */}
+                <Route exact path="/" component={Login} />
+                <Route exact path="/forgetpassword" component={ForgetPassword} />
+                <Route exact path="/registration" component={Registration} />
               </>
             ) : (
-              !role && (
-                <>
-                  {/* UNAUTH ROUTES */}
-                  <Route exact path="/" component={Login} />
-                  <Route exact path="/forgetpassword" component={ForgetPassword} />
-                  <Route exact path="/registration" component={Registration} />
-                </>
-              )
+              <>
+                <p>Loading</p>
+              </>
             )}
           </>
         )}
