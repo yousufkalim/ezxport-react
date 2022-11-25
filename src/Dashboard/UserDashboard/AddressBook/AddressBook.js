@@ -1,48 +1,48 @@
-import React, { useState, useEffect } from "react";
-import SearchField from "../../../components/Common/SearchField";
-import Button from "../../../components/Common/Button";
-import { useTranslation } from "react-i18next";
-import { Box, Tab, Tabs, Typography } from "@mui/material";
-import BuyersTab from "./subcomponents/BuyersTab";
-import PropTypes from "prop-types";
-import API from "../../../api/index";
-import { toast } from "react-toastify";
-import SellersTab from "./subcomponents/SellersTab";
-import LocationsTab from "./subcomponents/LocationsTab";
-import toaster from "../../../utils/toaster";
+import React, { useState, useEffect } from 'react';
+import SearchField from '../../../components/Common/SearchField';
+import Button from '../../../components/Common/Button';
+import { useTranslation } from 'react-i18next';
+import { Box, Tab, Tabs, Typography } from '@mui/material';
+import BuyersTab from './subcomponents/BuyersTab';
+import PropTypes from 'prop-types';
+import API from '../../../api/index';
+import { toast } from 'react-toastify';
+import SellersTab from './subcomponents/SellersTab';
+import LocationsTab from './subcomponents/LocationsTab';
+import toaster from '../../../utils/toaster';
 
 const schema = {
   companyName: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: {
-      maximum: 64,
-    },
+      maximum: 64
+    }
   },
   country: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   email: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' },
     length: { maximum: 64 },
-    email: true,
+    email: true
   },
   address: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 64 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { maximum: 64 }
   },
   zipcode: {
-    presence: { allowEmpty: false, message: "is required" },
+    presence: { allowEmpty: false, message: 'is required' }
   },
   telephone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: { maximum: 10, minimum: 10 },
+    presence: { allowEmpty: false, message: 'is required' },
+    length: { minimum: 10 }
   },
   town: {
-    presence: { allowEmpty: false, message: "is required" },
-  },
+    presence: { allowEmpty: false, message: 'is required' }
+  }
 };
 
-const TabPanel = (props) => {
+const TabPanel = props => {
   const { children, value, index, ...other } = props;
 
   return (
@@ -51,8 +51,7 @@ const TabPanel = (props) => {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && (
         <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
@@ -65,13 +64,13 @@ const TabPanel = (props) => {
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired
 };
 
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`
   };
 }
 
@@ -79,8 +78,8 @@ const AddressBook = () => {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   const [countries, setCountries] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const user = localStorage.getItem("userData");
+  const [searchTerm, setSearchTerm] = useState('');
+  const user = localStorage.getItem('userData');
   const userData = JSON.parse(user);
   const { t } = useTranslation();
 
@@ -89,13 +88,13 @@ const AddressBook = () => {
   }, []);
 
   const fetchCountries = async () => {
-    await API("get", "/countries")
-      .then((res) => {
+    await API('get', '/countries')
+      .then(res => {
         setCountries(res?.data?.countries);
       })
-      .catch((err) => {
+      .catch(err => {
         // toast.error(t("Something went wrong!"));
-        toaster("failed", t("Something went wrong!"), "Address book")
+        toaster('failed', t('Something went wrong!'), 'Address book');
       });
   };
 
@@ -107,7 +106,7 @@ const AddressBook = () => {
     setOpen(true);
   };
 
-  const buttonTitle = value === 0 ? "Add buyer" : value === 1 ? "Add seller" : "Add location";
+  const buttonTitle = value === 0 ? 'Add buyer' : value === 1 ? 'Add seller' : 'Add location';
 
   return (
     <>
@@ -115,20 +114,20 @@ const AddressBook = () => {
         <div className="list_second_div">
           {/* LIST HEAD  */}
           <div className="List_heading_div4">
-            <h1 className="list_h1_address">{t("Address Book")}</h1>
+            <h1 className="list_h1_address">{t('Address Book')}</h1>
             <div className="searching5">
-              <SearchField placeholder={t("Search")} setSearch={setSearchTerm} />
-              <Button text={t("Add")} className="list_reqst_btn3" onClick={handleClickOpen} />
+              <SearchField placeholder={t('Search')} setSearch={setSearchTerm} />
+              <Button text={t('Add')} className="list_reqst_btn3" onClick={handleClickOpen} />
             </div>
           </div>
           {/* LIST TABLE   */}
           <div className="list_table">
-            <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: '100%' }}>
               <Box>
                 <Tabs value={value} onChange={handleChange}>
-                  <Tab className="tab_btn1" label={t("Buyers")} {...a11yProps(0)} />
-                  <Tab className="tab_btn2" label={t("Sellers")} {...a11yProps(1)} />
-                  <Tab className="tab_btn3" label={t("Inspection locations")} {...a11yProps(2)} />
+                  <Tab className="tab_btn1" label={t('Buyers')} {...a11yProps(0)} />
+                  <Tab className="tab_btn2" label={t('Sellers')} {...a11yProps(1)} />
+                  <Tab className="tab_btn3" label={t('Inspection locations')} {...a11yProps(2)} />
                 </Tabs>
               </Box>
               {/* BUYER TAB */}

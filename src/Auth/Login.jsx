@@ -170,7 +170,7 @@ const Login = () => {
           </div>
         </form>
       </div>
-      <div className="version">Version: 1.0.0</div>
+      <div className="version">Version: 1.0.2</div>
     </>
   );
 };

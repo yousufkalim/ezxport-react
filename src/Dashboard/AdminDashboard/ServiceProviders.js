@@ -32,7 +32,7 @@ const schema = {
   },
   phone_Number: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { minimum: 10, maximum: 10 }
+    length: { minimum: 10 }
   },
   sendingEmail: {
     presence: { allowEmpty: false, message: 'is required' },

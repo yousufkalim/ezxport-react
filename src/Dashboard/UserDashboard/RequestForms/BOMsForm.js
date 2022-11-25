@@ -553,7 +553,7 @@ const BOMsForm = props => {
           </div>
           <Button
             text="To Confirm"
-            className="to_confirm_btn"
+            className="btn to_confirm_btn"
             onClick={() => {
               setAllCodes(prev => {
                 prev[editModalData.index].monetary_value = editModalData?.item?.monetary_value;
@@ -608,12 +608,12 @@ const BOMsForm = props => {
           </div>
           <Button
             text={t('Continue my request on Ezxport')}
-            className="to_confirm_btn"
+            className="btn to_confirm_btn"
             onClick={props.handleStep1}
           />
           <Button
             text={t('Go back to my request')}
-            className="delete_bom_btn"
+            className="btn delete_bom_btn"
             onClick={handleCertificateRequire}
           />
         </div>
@@ -651,12 +651,12 @@ const BOMsForm = props => {
           </div>
           <Button
             text={t('Make another request')}
-            className="to_confirm_btn"
+            className="btn to_confirm_btn"
             onClick={() => history.push('/User/Dashboard/ListOfRequests')}
           />
           <Button
             text={t('Go back to my request')}
-            className="delete_bom_btn"
+            className="btn delete_bom_btn"
             onClick={handleCertificateNotRequire}
           />
         </div>

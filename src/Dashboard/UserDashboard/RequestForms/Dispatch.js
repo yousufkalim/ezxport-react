@@ -48,7 +48,7 @@ const inspectionSchema = {
   },
   telephone: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { maximum: 10, minimum: 10 }
+    length: { minimum: 10 }
   },
   contactLastName: {
     presence: { allowEmpty: false, message: 'is required' },
@@ -90,7 +90,7 @@ const sellerSchema = {
   },
   telephone: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { maximum: 10, minimum: 10 }
+    length: { minimum: 10 }
   }
 };
 
@@ -124,7 +124,7 @@ const buyerSchema = {
   },
   telephone: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { maximum: 10, minimum: 10 }
+    length: { minimum: 10 }
   }
 };
 
