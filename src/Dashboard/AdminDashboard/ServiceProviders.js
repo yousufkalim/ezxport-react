@@ -324,7 +324,7 @@ const ServiceProviders = () => {
                           {item.countries.map(country => {
                             return (
                               <p className="AP_plus_title" style={{ paddingLeft: '10px' }}>
-                                {country.name}
+                                {t(country.name)}
                               </p>
                             );
                           })}

@@ -1,71 +1,62 @@
-import React, { useEffect, useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import TitleDownArrow from "../../../../../assets/TitleDownArrow.svg";
-import API from "../../../../../api/index";
-import Spinner from "../../../../../components/Common/Spinner";
-import EditIcon from "../../../../../assets/EditIcon.svg";
-import BuyerModal from "./BuyerModal";
-import downArrow from "../../../../../assets/TitleDownArrow.svg";
-import arrow_up from "../../../../../assets/arrow_up.svg";
-import { getSortedData } from "../../../../../lib/getSortedData";
-import { createFilter } from "react-search-input";
-import toaster from "../../../../../utils/toaster";
+import React, { useEffect, useState } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import TitleDownArrow from '../../../../../assets/TitleDownArrow.svg';
+import API from '../../../../../api/index';
+import Spinner from '../../../../../components/Common/Spinner';
+import EditIcon from '../../../../../assets/EditIcon.svg';
+import BuyerModal from './BuyerModal';
+import downArrow from '../../../../../assets/TitleDownArrow.svg';
+import arrow_up from '../../../../../assets/arrow_up.svg';
+import { getSortedData } from '../../../../../lib/getSortedData';
+import { createFilter } from 'react-search-input';
+import toaster from '../../../../../utils/toaster';
 
 const title = [
   {
-    heading: "Company name",
+    heading: 'Company name',
     sortIcon: true,
-    key: "company_name",
-    imgSrc: TitleDownArrow,
+    key: 'company_name',
+    imgSrc: TitleDownArrow
   },
-  { heading: "Country" },
-  { heading: "E-mail address" },
-  { heading: "Telephone" },
-  { heading: "Address" },
-  { heading: "Actions" },
+  { heading: 'Country' },
+  { heading: 'E-mail address' },
+  { heading: 'Telephone' },
+  { heading: 'Address' },
+  { heading: 'Actions' }
 ];
 
-const KEYS_TO_FILTERS = ["company_name"];
+const KEYS_TO_FILTERS = ['company_name'];
 
-
-const BuyersTab = ({
-  t,
-  schema,
-  open,
-  setOpen,
-  userId,
-  countries,
-  searchTerm,
-}) => {
+const BuyersTab = ({ t, schema, open, setOpen, userId, countries, searchTerm }) => {
   const [buyers, setBuyers] = useState([]);
   const [buyer, setBuyer] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [activeField, setActiveField] = useState("");
-  const [sort, setSort] = useState({ key: "", ascend: true });
+  const [activeField, setActiveField] = useState('');
+  const [sort, setSort] = useState({ key: '', ascend: true });
 
   const [formState, setFormState] = useState({
     isValid: false,
     values: {
-      companyName: "",
-      country: "",
-      email: "",
-      telephone: "",
-      address: "",
-      zipcode: "",
-      town: "",
+      companyName: '',
+      country: '',
+      email: '',
+      telephone: '',
+      address: '',
+      zipcode: '',
+      town: ''
     },
     errors: {},
-    touched: {},
+    touched: {}
   });
 
-  const user = localStorage.getItem("userData");
+  const user = localStorage.getItem('userData');
   const userData = JSON.parse(user);
 
   useEffect(() => {
@@ -74,12 +65,12 @@ const BuyersTab = ({
 
   const fetchBuyers = () => {
     setLoading(true);
-    API("get", `/buyers/getByUser/${userData._id}`)
-      .then((res) => {
+    API('get', `/buyers/getByUser/${userData._id}`)
+      .then(res => {
         setBuyers(res.data.buyer);
         setLoading(false);
       })
-      .catch((err) => toaster("Failed", t("Something went wrong!")));
+      .catch(err => toaster('Failed', t('Something went wrong!')));
     setLoading(false);
   };
 
@@ -89,15 +80,7 @@ const BuyersTab = ({
     setOpen(true);
 
     if (item) {
-      const {
-        company_name,
-        email,
-        country,
-        city,
-        phone_number,
-        zipcode,
-        address,
-      } = item;
+      const { company_name, email, country, city, phone_number, zipcode, address } = item;
       const values = {
         companyName: company_name,
         email,
@@ -105,17 +88,14 @@ const BuyersTab = ({
         town: city,
         telephone: phone_number,
         zipcode: zipcode?.toString(),
-        address,
+        address
       };
 
       setFormState({ ...formState, values: { ...values }, isValid: true });
     }
   };
 
-
-  const searchedResults = buyers.filter(
-    createFilter(searchTerm, KEYS_TO_FILTERS)
-  );
+  const searchedResults = buyers.filter(createFilter(searchTerm, KEYS_TO_FILTERS));
 
   return (
     <>
@@ -124,29 +104,18 @@ const BuyersTab = ({
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                {title.map((item) => {
+                {title.map(item => {
                   return (
                     <TableCell
                       align="left"
                       className="country"
-                      style={{ backgrounColor: "#EAECF0" }}
-                    >
+                      style={{ backgrounColor: '#EAECF0' }}>
                       {t(item.heading)} &nbsp;
-                      {item.sortIcon &&
-                      !sort.ascend &&
-                      sort.key === item.key ? (
+                      {item.sortIcon && !sort.ascend && sort.key === item.key ? (
                         <img
                           className="sorting-icon"
                           onClick={() =>
-
-                            getSortedData(
-                              buyers,
-                              setBuyers,
-                              setSort,
-                              [],
-                              "company_name",
-                              true
-                            )
+                            getSortedData(buyers, setBuyers, setSort, [], 'company_name', true)
                           }
                           src={arrow_up}
                           alt=""
@@ -155,15 +124,7 @@ const BuyersTab = ({
                         item.sortIcon && (
                           <img
                             onClick={() =>
-
-                              getSortedData(
-                                buyers,
-                                setBuyers,
-                                setSort,
-                                [],
-                                "company_name",
-                                false
-                              )
+                              getSortedData(buyers, setBuyers, setSort, [], 'company_name', false)
                             }
                             src={downArrow}
                             alt=""
@@ -179,18 +140,17 @@ const BuyersTab = ({
               {loading ? (
                 <Spinner />
               ) : (
-                searchedResults?.map((buyer) => (
+                searchedResults?.map(buyer => (
                   <TableRow
                     key={buyer._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleOpenModal(false, buyer)}
-                  >
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleOpenModal(false, buyer)}>
                     <TableCell component="th" scope="row">
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {buyer?.country}
+                      {t(buyer?.country)}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -199,25 +159,17 @@ const BuyersTab = ({
                     <TableCell align="left" className="country2">
                       {buyer.phone_number}
                     </TableCell>
-                    <TableCell
-                      align="left"
-                      className="country2"
-                      style={{ cursor: "pointer" }}
-                    >
+                    <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                       <p className="country2">{buyer.address}</p>
                     </TableCell>
 
-                    <TableCell
-                      align="left"
-                      className="country2"
-                      style={{ cursor: "pointer" }}
-                    >
+                    <TableCell align="left" className="country2" style={{ cursor: 'pointer' }}>
                       <img
                         src={EditIcon}
                         alt=""
                         className="dltIcon"
-                        style={{ cursor: "pointer" }}
-                        onClick={(e) => {
+                        style={{ cursor: 'pointer' }}
+                        onClick={e => {
                           e.stopPropagation(true);
                           handleOpenModal(true, buyer);
                         }}

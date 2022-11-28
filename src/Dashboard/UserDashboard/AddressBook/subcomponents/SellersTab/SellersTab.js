@@ -57,7 +57,7 @@ const schema = {
   },
   telephone: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { minimum: 10 }
+    length: { maximum: 10, minimum: 10 }
   },
   address: {
     presence: { allowEmpty: false, message: 'is required' },
@@ -299,7 +299,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                       <p className="AP_plus_title">{buyer.company_name} </p>
                     </TableCell>
                     <TableCell align="left" className="country2">
-                      {buyer?.country}
+                      {t(buyer?.country)}
                       <br />
                     </TableCell>
                     <TableCell align="left" className="country2">
@@ -366,7 +366,7 @@ const SellersTab = ({ t, open, setOpen, userId, countries, searchTerm }) => {
                 {COUNTRIES?.map((item, index) => {
                   return (
                     <MenuItem value={item} key={index}>
-                      {item}
+                      {t(item)}
                     </MenuItem>
                   );
                 })}

@@ -28,7 +28,7 @@ const schema = {
   },
   telephone: {
     presence: { allowEmpty: false, message: 'is required' },
-    length: { minimum: 10 }
+    length: { maximum: 10, minimum: 10 }
   },
   address: {
     presence: { allowEmpty: false, message: 'is required' },
@@ -203,7 +203,7 @@ const BuyerModal = ({
               {COUNTRIES?.map((item, index) => {
                 return (
                   <MenuItem value={item} key={index}>
-                    {item}
+                    {t(item)}
                   </MenuItem>
                 );
               })}

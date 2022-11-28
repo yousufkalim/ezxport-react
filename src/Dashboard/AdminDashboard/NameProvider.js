@@ -50,6 +50,7 @@ const schema = {
   phone: {
     presence: { allowEmpty: false, message: 'is required' },
     length: {
+      maximum: 10,
       minimum: 10
     }
   }
@@ -419,7 +420,7 @@ const NameProvider = () => {
                                     border: '1px solid #E5E5E5;',
                                     padding: 2
                                   }}>
-                                  <p className="AP_plus_title">{item.name}</p>
+                                  <p className="AP_plus_title">{t(item?.name)}</p>
                                 </TableCell>
                               </TableRow>
                             );
