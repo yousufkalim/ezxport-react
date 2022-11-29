@@ -37,6 +37,8 @@ i18n
           'Full address is required': 'Full address is required',
           'Postal code is required': 'Postal code is required',
           'Town is required': 'Town is required',
+          'You can therefore send your goods without going through an organization.':
+            'You can therefore send your goods without going through an organization.',
           'Contact first name is required.': 'Contact first name is required.',
           'Contact first name is required': 'Contact first name is required',
           'Contact last Name  is required': 'Contact last Name  is required',
@@ -1199,6 +1201,8 @@ i18n
           'condition required': 'Condition requise',
           'amount required': 'Somme requise',
           'unit required': 'Unité requise',
+          'You can therefore send your goods without going through an organization.':
+            'Vous pouvez donc expédier vos marchandises sans passer par un organisme.',
           'mark required': 'Marque requise',
           'builder required': 'Constructeur requis',
           'country required': 'Pays requis',
@@ -1571,7 +1575,7 @@ i18n
           'SH Code name': 'Nom du Code HS',
           'Validated document': 'Documents validé',
           'Product Name': 'Nom du produit',
-          Description: 'Description',
+          Description: 'La description',
           Condition: 'Condition',
           'Unit of measure': 'Unité de mesure',
           Mark: 'Marque',
