@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import InputField from '../../../components/Common/InputField';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import { useTranslation } from 'react-i18next';
 import { validate } from 'validate.js';
 import { Store } from '../../../StoreContext';
-import moment from 'moment';
 import { COUNTRIES } from '../../../lib/data';
 import DatePicker from 'react-datepicker';
 import { addDays } from 'date-fns';
@@ -13,16 +12,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import frLocale from 'date-fns/locale/fr';
 import enLocale from 'date-fns/locale/en-US';
 import { ReactComponent as Calendar } from '../../../assets/calendarIcon.svg';
-
-const localeMap = {
-  en: enLocale,
-  fr: frLocale
-};
-
-const maskMap = {
-  fr: '__/__/____',
-  en: '__/__/____'
-};
 
 const inspectionSchema = {
   companyName: {
@@ -401,7 +390,7 @@ const Dispatch = props => {
                 {t('Select a Country')}
               </MenuItem>
               {COUNTRIES?.map(item => {
-                return <MenuItem value={item}>{item}</MenuItem>;
+                return <MenuItem value={item}>{t(item)}</MenuItem>;
               })}
             </Select>
           </div>
@@ -537,7 +526,7 @@ const Dispatch = props => {
                 {t('Select a Country')}
               </MenuItem>
               {COUNTRIES?.map(item => {
-                return <MenuItem value={item}>{item}</MenuItem>;
+                return <MenuItem value={item}>{t(item)}</MenuItem>;
               })}
             </Select>
           </div>
@@ -698,7 +687,7 @@ const Dispatch = props => {
                 {t('Select a Country')}
               </MenuItem>
               {COUNTRIES?.map(item => {
-                return <MenuItem value={item}>{item}</MenuItem>;
+                return <MenuItem value={item}>{t(item)}</MenuItem>;
               })}
             </Select>
           </div>
